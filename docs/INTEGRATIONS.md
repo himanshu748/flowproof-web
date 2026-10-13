@@ -9,8 +9,8 @@ This file distinguishes implemented local capability from hosted-provider and su
 | PostgreSQL | Projects, audit history and evidence persistence; lexical failure search | Local PostgreSQL is distinct from Tiger Data cloud. A configured connection is not proof of a working database until writes and reads are verified. |
 | Tiger Data | PostgreSQL-compatible storage adapter can target a supplied cloud connection | No Tiger Data cloud connection or hosted retrieval has been verified. Do not claim this sponsor integration from a local database. |
 | Failure vector retrieval | Optional local all-minilm:22m embeddings and real cosine retrieval combined with lexical search in PostgreSQL | Uses portable PostgreSQL arrays rather than requiring pgvector. Small-scale linear scan, not an indexed high-volume vector system. Requires actual persisted vectors and query execution; configuration alone is not evidence. |
-| GitHub Actions | Workflow for real tests, browser audits, approved plan execution and evidence artifact upload | The workflow source exists. A successful remote workflow URL and run SHA are still required to claim Actions execution. |
-| Render | Free-service deployment blueprint | No public Render deployment has been verified. Sleep limits and external durable PostgreSQL availability must be checked before claiming a reliable hosted service. |
+| GitHub Actions | Workflow for real tests, browser audits, approved plan execution and evidence artifact upload | [Run 38345840955](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955) passed 85 tests, build, actual healthy/broken Chromium audits and evidence upload at commit 8786b26. See DEPLOYMENT.md. |
+| Render | Free Docker web service and isolated sample demo | [Live demo](https://flowproof-demo.onrender.com) verified with actual healthy/broken audits and session isolation. Ephemeral sessions, no hosted database or model inference. See DEPLOYMENT.md. |
 | Tinker | Guarded training/evaluation commands, grouped candidate dataset, artifact-based model dashboard | No fine-tuning, baseline experiment, checkpoint or improvement recorded. All Qwen/Tinker metrics remain null. See MODEL_EVALUATION.md. |
 | Mastra | Not implemented | Do not claim agent orchestration. The application uses ordinary TypeScript service functions. |
 | Sentry | Not implemented | Do not claim tracing or provider observability. Local application logs are not a Sentry integration. |
@@ -21,6 +21,6 @@ This file distinguishes implemented local capability from hosted-provider and su
 | ElevenLabs | Not implemented | No spoken delivery report. |
 | .tech domain | Not configured | No domain registration or sponsor claim. |
 
-GitHub Copilot usage, customer invitations, DEV publishing, a public repository, public demo and submission receipts have not been established by this implementation. Those require their own real evidence. No invitations or external messages are sent as a side effect of local tests.
+GitHub Copilot usage, customer invitations, DEV publishing and submission receipts have not been established. The public repository, successful Actions run and Render sample demo are verified in DEPLOYMENT.md. Those require their own real evidence. No invitations or external messages are sent as a side effect of local tests.
 
 All default application paths run without paid API calls. Optional provider commands must respect the explicit zero-out-of-pocket constraint. Do not add a credit card, incur usage charges, or treat a suggested pricing model as an existing offer.

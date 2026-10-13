@@ -2,6 +2,8 @@
 
 Turn website requirements into approved browser checks and evidence-backed delivery reports.
 
+[Live demo](https://flowproof-demo.onrender.com) · [Passing browser audit](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955) · [Evidence and limitations](docs/DEPLOYMENT.md)
+
 FlowProof includes a local working product and an isolated public-demo mode. It includes a React delivery cockpit, safe typed acceptance checks, a real Playwright runner, screenshot and redacted text evidence, standalone HTML reports, PostgreSQL persistence, failure retrieval, and a GitHub Actions workflow. Integration readiness and measured model results are shown honestly in the app.
 
 ## Run locally, no paid account required
