@@ -1337,7 +1337,7 @@ function App() {
                           <div className="progress-track">
                             <span
                               style={{
-                                width: `${draft.length ? (approved / draft.length) * 100 : 0}%`,
+                                transform: `scaleX(${draft.length ? approved / draft.length : 0})`,
                               }}
                             />
                           </div>
@@ -1588,7 +1588,7 @@ function App() {
                                 <div className="progress-track">
                                   <span
                                     style={{
-                                      width: `${(audit.results.length / Math.max(audit.checks.length, 1)) * 100}%`,
+                                      transform: `scaleX(${audit.results.length / Math.max(audit.checks.length, 1)})`,
                                     }}
                                   />
                                 </div>

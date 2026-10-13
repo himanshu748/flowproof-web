@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-10-13T03:25:39.273Z",
         "reason": "Assistant decided: false positive from compact CSS on one source line. The 3px cobalt border belongs to the square report header with no border-radius; rounded report cards use only 1px neutral borders."
+      },
+      {
+        "rule": "overused-font",
+        "value": "space grotesk",
+        "files": [
+          "src/styles.css"
+        ],
+        "createdAt": "2026-10-13T04:30:08.542Z",
+        "reason": "Assistant decided: the existing FlowProof display typography pairs Space Grotesk with DM Sans, documented in docs/ASSETS.md. The user-selected custom-design/design.md explicitly lists Space Grotesk for technical utility interfaces; preserve the incumbent design."
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "src/styles.css"
+        ],
+        "createdAt": "2026-10-13T04:30:09.764Z",
+        "reason": "Assistant decided: this is the incumbent proof-path diagram background, not a new page scaffold. The user-selected custom-design/design.md explicitly permits a faint grid as subject-led depth; preserve the existing technical diagram illustration."
       }
     ]
   }
