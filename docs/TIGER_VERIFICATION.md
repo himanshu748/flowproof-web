@@ -41,12 +41,22 @@ The guarded probe is designed to use the application’s PostgreSQL store and Pl
 
 The public Render demo remains isolated and temporary. This probe does not connect visitor sessions to Tiger or change any deployment settings.
 
+## Strict custom-CA configuration
+
+The store and verification probe share `server/database.ts`. Remote PostgreSQL always verifies the certificate chain and exact hostname. URL SSL flags cannot override these settings; `NODE_TLS_REJECT_UNAUTHORIZED=0` is rejected. Explicit plaintext PostgreSQL is permitted only on loopback.
+
+Configure `DATABASE_CA_CERT_FILE` with one public PEM CA certificate, plus `DATABASE_CA_CERT_SHA256` with its provider-confirmed DER SHA-256 fingerprint. `DATABASE_CA_CERT` supports the same PEM inline for managed hosts. Missing or mismatching fingerprints, expired or non-CA certificates, and multiple certificates fail before connecting. The default hostname verifier remains enabled.
+
+The free service currently presents a chain signed by `O=Timescale Inc, CN=ca.timescale.com`. Its observed root fingerprint is `06:5A:75:0D:0D:64:F6:2D:AC:DC:97:9E:3B:83:D2:11:95:40:71:EA:59:B8:F3:40:7C:4E:87:CA:68:34:64:57`. **This peer observation is not an authenticated trust anchor and has not been configured as trusted.** The provider console reveals the public CA file path but denies exporting its contents. No permissions were changed.
+
+An approved support request asked for an authenticated CA copy or fingerprint. The initial reply confirms that publicly trusted certificates require a paid plan; clarification about authenticating the existing private CA is pending. The application connection and its persistence/retrieval probe remain blocked. Local tests verify client behavior only: correct-host TLS works with a confirmed fixture CA; wrong-host and untrusted-CA handshakes fail. They do not prove Tiger connectivity.
+
 ## Prerequisites
 
 - An independently confirmed free Tiger Data service with no automatic paid conversion and zero out-of-pocket exposure. Confirm the exact service, allowance and expiry in the provider console. This script does not provision services, inspect billing, or establish that an allowance is free.
 - The existing project dependencies and Playwright Chromium installed.
 - A running local Ollama instance containing `all-minilm:22m`. The probe calls only a loopback Ollama embedding endpoint; it does not use paid embeddings, generation or training APIs. It fails if the model is unavailable rather than substituting a fake vector.
-- A dedicated service connection using verified TLS. Certificate checks cannot be disabled by connection URL options. For an additional trusted provider CA, supply Node’s standard `NODE_EXTRA_CA_CERTS` mechanism; never disable certificate verification.
+- A dedicated service connection using verified TLS. For a private provider CA, configure `DATABASE_CA_CERT_FILE` and the provider-confirmed `DATABASE_CA_CERT_SHA256`. Do not derive that confirmation solely from a failed endpoint handshake. Never disable certificate or hostname verification.
 
 Save the private connection in an ignored, mode-600 file such as `work/tiger-connection.env`:
 

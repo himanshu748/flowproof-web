@@ -3,6 +3,7 @@ import path from "node:path";
 import pg from "pg";
 import type { Project, Audit } from "../shared/types";
 import { embed } from "./embeddings";
+import { databaseConfig } from "./database";
 
 interface State {
   projects: Project[];
@@ -13,19 +14,7 @@ const stateFile = path.join(dataRoot, "state.json");
 let state: State = { projects: [], audits: [] };
 let writeQueue: Promise<void> = Promise.resolve();
 const pool = process.env.DATABASE_URL
-  ? new pg.Pool({
-      connectionString: process.env.DATABASE_URL,
-      max: 3,
-      connectionTimeoutMillis: 8000,
-      ...(process.env.PGSSLROOTCERT
-        ? {}
-        : {
-            ssl:
-              process.env.DATABASE_SSL === "false"
-                ? false
-                : { rejectUnauthorized: true },
-          }),
-    })
+  ? new pg.Pool(databaseConfig(process.env.DATABASE_URL))
   : null;
 export const storageMode = pool ? "PostgreSQL" : "Local JSON storage";
 export async function initStore() {

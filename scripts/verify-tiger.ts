@@ -5,7 +5,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import pg from "pg";
+import type { TLSSocket } from "node:tls";
 import type { Audit, Project } from "../shared/types";
+import { databaseConfig } from "../server/database";
 
 // This is an integration probe, never a provider-provisioning or billing tool.
 // The operator must independently verify the allowance before providing this file.
@@ -146,8 +148,10 @@ const sha256 = (bytes: Buffer) =>
 const script = fileURLToPath(import.meta.url);
 const connect = (connectionString: string) =>
   new pg.Pool({
-    connectionString,
-    ssl: { rejectUnauthorized: true },
+    ...databaseConfig(connectionString, {
+      ...process.env,
+      DATABASE_SSL: "true",
+    }),
     max: 1,
     connectionTimeoutMillis: 10_000,
     statement_timeout: 30_000,
@@ -579,12 +583,37 @@ async function main() {
         [
           "scripts/verify-tiger.ts",
           "server/store.ts",
+          "server/database.ts",
           "server/embeddings.ts",
           "server/runner.ts",
           "server/sample.ts",
         ].map(async (file) => [file, sha256(await fs.readFile(file))]),
       ),
     );
+    const connection = await db.connect();
+    try {
+      const socket = (
+        connection as unknown as { connection: { stream: TLSSocket } }
+      ).connection.stream;
+      requireThat(
+        socket.authorized === true,
+        "The TLS peer was not authorized.",
+      );
+      const peer = socket.getPeerCertificate();
+      receipt.verifiedPeer = {
+        authorized: socket.authorized,
+        protocol: socket.getProtocol(),
+        fingerprintSha256: peer.fingerprint256,
+        subject: peer.subject,
+        issuer: peer.issuer,
+        validUntil: peer.valid_to,
+        customCaFingerprint: process.env.DATABASE_CA_CERT_SHA256 || null,
+        // This is configured provenance, not an automatic provider attestation.
+        customCaSource: process.env.DATABASE_CA_CERT_SOURCE || null,
+      };
+    } finally {
+      connection.release();
+    }
     const tls = await db.query(
       "SELECT ssl, version, cipher FROM pg_stat_ssl WHERE pid = pg_backend_pid()",
     );
