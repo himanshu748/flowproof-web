@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: flowproof
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    autoDeployTrigger: off
+    healthCheckPath: /health
+    envVars:
+      - key: FLOWPROOF_PUBLIC
+        value: "true"
+      - key: FLOWPROOF_DEMO
+        value: "true"
+      - key: FLOWPROOF_AI_ENABLED
+        value: "false"
+      - key: FLOWPROOF_GEMMA_ENABLED
+        value: "false"
+      - key: FLOWPROOF_EMBEDDINGS
+        value: "false"

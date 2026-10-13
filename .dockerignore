@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.env
+.env.*
+!.env.example
+data
+work
+outputs
+.DS_Store
+*.log
+__pycache__

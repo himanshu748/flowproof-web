@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "server/report.ts"
+        ],
+        "createdAt": "2026-10-13T03:25:39.273Z",
+        "reason": "Assistant decided: false positive from compact CSS on one source line. The 3px cobalt border belongs to the square report header with no border-radius; rounded report cards use only 1px neutral borders."
+      }
+    ]
+  }
+}

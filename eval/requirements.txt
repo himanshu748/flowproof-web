@@ -1,0 +1,3 @@
+# Optional remote model experiments only. The main application does not need these.
+tinker==0.30.4
+tinker-cookbook

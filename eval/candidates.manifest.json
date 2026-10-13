@@ -1,0 +1,13 @@
+{
+  "candidates": 360,
+  "validated": 0,
+  "splits": {
+    "train": 216,
+    "validation": 72,
+    "test": 72
+  },
+  "websiteGroups": 20,
+  "requirementFamilies": 54,
+  "splitPolicy": "Disjoint website_id and wording-family groups; six assertion kinds occur in each split. Synthetic candidates require human review.",
+  "sha256": "4fca89b28f6b5c92e2fc019c17cadf881a385f5d57660961c8ae51bb769ea796"
+}
