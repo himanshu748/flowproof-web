@@ -283,7 +283,11 @@ export async function runAudit(
   project: Project,
   audit: Audit,
   onResult: (result: CheckResult) => Promise<void> | void,
-  options: { evidenceRoot?: string } = {},
+  options: {
+    evidenceRoot?: string;
+    /** Internal, offline evaluation fixtures. Never populated from an API request. */
+    syntheticPages?: Readonly<Record<string, string>>;
+  } = {},
 ): Promise<CheckResult[]> {
   const checks = validateChecks(audit.checks);
   const currentChecks = validateChecks(project.checks);
@@ -308,6 +312,10 @@ export async function runAudit(
       "Confirm that you own or are authorized to audit this website.",
     );
   const sample = project.target === "sample";
+  if (options.syntheticPages && !sample)
+    throw new SafetyError(
+      "Offline evaluation fixtures are restricted to synthetic projects.",
+    );
   const target = sample ? SAMPLE_URL : await validateTarget(project.url);
   if (sample && project.url !== SAMPLE_URL)
     throw new SafetyError(
@@ -374,16 +382,20 @@ export async function runAudit(
                   "A third-party request was blocked by the same-origin audit policy.",
                 );
               if (sample) {
-                if (request.resourceType() === "document")
+                if (request.resourceType() === "document") {
+                  const fixturePages = options.syntheticPages;
+                  const fixtureFound =
+                    !fixturePages ||
+                    Object.hasOwn(fixturePages, requestUrl.pathname);
                   await route.fulfill({
-                    status: 200,
+                    status: fixtureFound ? 200 : 404,
                     contentType: "text/html",
-                    body: sampleHtml(
-                      project.sampleVariant,
-                      requestUrl.pathname,
-                    ),
+                    body: fixturePages
+                      ? (fixturePages[requestUrl.pathname] ??
+                        "Page unavailable")
+                      : sampleHtml(project.sampleVariant, requestUrl.pathname),
                   });
-                else await route.abort("blockedbyclient");
+                } else await route.abort("blockedbyclient");
               } else {
                 const response = await safeFetch(request.url(), {
                   method: request.method(),

@@ -1,0 +1,12 @@
+{
+  "provider": "tinker",
+  "checkedAt": "2026-10-13T05:35:54.084176+00:00",
+  "window": {
+    "startingOn": "2026-10-13",
+    "endingBefore": "2026-10-14"
+  },
+  "costDataThrough": null,
+  "matchingFlowProofEvents": [],
+  "matchingFlowProofReportedCostUsd": null,
+  "note": "Provider usage returned only earlier storage buckets without session attribution. No FlowProof training or inference billing events were available yet. Zero is not inferred. Token-based estimates are separate from a reconciled invoice."
+}

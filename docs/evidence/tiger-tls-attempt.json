@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "status": "not_verified",
+  "provider": "Tiger Data",
+  "serviceId": "if4e2s7m6i",
+  "serviceName": "flowproof-evidence",
+  "startedAt": "2026-10-13T05:11:28.701Z",
+  "finishedAt": "2026-10-13T05:11:31.291Z",
+  "scope": "Dedicated temporary schema, synthetic browser audits, local MiniLM embeddings; public visitor storage unchanged",
+  "freeProvisioning": {
+    "status": "verified",
+    "plan": "Shared Free",
+    "storageGiB": 1,
+    "displayedHourlyPriceUsd": 0,
+    "automaticPaidConversion": false,
+    "checkedAt": "2026-10-13T04:56:00.933266+00:00",
+    "confirmationValidUntil": "2026-10-14T04:56:00.933266+00:00"
+  },
+  "strictCertificateVerification": true,
+  "failedStage": "tls_preflight",
+  "failure": {
+    "status": "not_verified",
+    "error": "The operation failed. Raw database/browser diagnostics are omitted to avoid exposing connection details.",
+    "code": "SELF_SIGNED_CERT_IN_CHAIN"
+  },
+  "schemaCreated": false,
+  "browserAuditsExecutedByThisAttempt": false,
+  "cloudFailureRowsWritten": false,
+  "cloudRetrievalExecuted": false,
+  "publicDemoDatabaseEnabled": false,
+  "paidInferencePerformed": false,
+  "tlsBypassPerformed": false,
+  "paidUpgradePerformed": false,
+  "commit": "877bbaf07ad22fccd95ca8530816500fbce57198",
+  "worktreeDirty": true,
+  "sourceSha256": {
+    "scripts/verify-tiger.ts": "f814d0019cdf1be88cfd1aa481b9811d3ad4bcd9aec17f260d5023ed7f2f5561",
+    "server/store.ts": "45c5dfa153dfb39f13846fae50fce37de2d1f681bd101c7a8581e1e3496c7a5e",
+    "server/embeddings.ts": "ef116fa9be0e5617c934c651804df8e64ebacb98d26f4ae1ab793968c7f21435",
+    "server/runner.ts": "03c42ac9d7e91fb82a856d131aaa4a472b3045ac67c8588fe3680b4ea9a7d479",
+    "server/sample.ts": "2987d63b9408a705d3ba6684ba8fa5ffc61c6756659a744fb818c382485453f3"
+  },
+  "derivation": {
+    "source": "outputs/tiger-verification/receipt.json",
+    "sourceSha256": "c725610f509bcf0a6d122e28e01aa36f97fa04194562f5d96a98ec5f3f81aa4d",
+    "redactions": [
+      "Database hostname and project-scoped console URL omitted. No credentials were present in the source receipt."
+    ]
+  }
+}

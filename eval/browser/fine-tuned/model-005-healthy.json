@@ -1,0 +1,39 @@
+{
+  "id": "model-005-healthy",
+  "projectId": "evaluation-5",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-13T05:38:47.915Z",
+  "checks": [
+    {
+      "id": "model-5",
+      "requirement": "Verify there is no horizontal page scroll when the homepage viewport is 390px wide.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-5",
+      "requirement": "Verify there is no horizontal page scroll when the homepage viewport is 390px wide.",
+      "kind": "no_horizontal_overflow",
+      "status": "passed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 1158,
+      "evidence": {
+        "observed": "Document width is 390px; viewport width is 390px.",
+        "dom": "document.scrollWidth=390; window.innerWidth=390",
+        "screenshot": "/evidence/model-005-healthy/01-model-5.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-13T05:38:59.649Z"
+}

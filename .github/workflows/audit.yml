@@ -22,6 +22,8 @@ jobs:
       - run: npm ci --legacy-peer-deps
       - run: npx playwright install --with-deps chromium
       - run: npm run test
+      - name: Offline model provenance and budget safeguards
+        run: python3 -m unittest discover -s eval -p 'test_*.py'
       - run: npm run build
       - name: Real healthy and intentionally broken website audit
         run: npm run audit:sample

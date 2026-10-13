@@ -73,8 +73,23 @@ export interface Evaluation {
     abstentionRate: number | null;
     latencyMs: number | null;
     tokens: number | null;
+    browserCounts?: {
+      malformed: number;
+      blockedPairs: number;
+      unverifiedPairs: number;
+      inappropriateAbstentions: number;
+      brokenExecuted: number;
+      brokenFalsePasses: number;
+    };
   }[];
-  dataset: { candidates: number; validated: number; splitPolicy: string };
+  dataset: {
+    candidates: number;
+    validated: number;
+    agentReviewed?: number;
+    pilotExamples?: number;
+    benchmarkMode?: "human-reviewed" | "agent-reviewed-pilot" | null;
+    splitPolicy: string;
+  };
   notes: string[];
 }
 export interface Bootstrap {

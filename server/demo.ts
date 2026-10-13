@@ -14,6 +14,7 @@ import { validateChecks } from "./schema";
 import { runAudit } from "./runner";
 import { renderReport } from "./report";
 import { SAMPLE_URL } from "./sample";
+import { getEvaluation } from "./evaluation";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -81,12 +82,12 @@ function integrations(): IntegrationStatus[] {
       name: "Tiger Data",
       status: "not_configured",
       detail:
-        "This demo stores each visitor's projects in temporary memory. No database or vector retrieval is connected.",
+        "Keyword and vector retrieval over four saved failures were verified in Tiger's free SQL console. The direct application connection remains blocked by certificate verification. Demo sessions use temporary memory.",
     },
     {
       name: "Tinker",
-      status: "not_evaluated",
-      detail: "No training run or measured model improvement is claimed.",
+      status: "available",
+      detail: "Real baseline and LoRA results are recorded in Model lab. This small agent-reviewed pilot did not beat few-shot prompting. No live model calls run in the demo.",
     },
     {
       name: "GitHub Actions",
@@ -135,6 +136,11 @@ function project(
 /** Terminal router: tokenless public requests can never reach private APIs or files. */
 export function createDemoRouter(options: DemoOptions) {
   const router = express.Router();
+  // Immutable bundled receipts are safe to display without loading a provider.
+  const evaluation = getEvaluation();
+  evaluation.notes.unshift(
+    "These are recorded offline experiments. Public demo drafts use a deterministic parser; no model inference runs for visitors.",
+  );
   const sessions = new Map<string, Session>();
   const now = options.now ?? Date.now;
   const execute = options.execute ?? runAudit;
@@ -249,33 +255,7 @@ export function createDemoRouter(options: DemoOptions) {
         notice:
           "Synthetic sample only. Your isolated demo session expires after 30 minutes and may reset when the free service restarts. Download reports before leaving. Do not enter private client information.",
       },
-      evaluation: {
-        configurations: [
-          "Qwen3.5-4B · zero-shot",
-          "Qwen3.5-4B · few-shot",
-          "Tinker LoRA · Qwen3.5-4B",
-        ].map((name) => ({
-          name,
-          status: "Not evaluated",
-          structuredOutputRate: null,
-          interpretationAccuracy: null,
-          executableCorrectness: null,
-          falsePassRate: null,
-          abstentionRate: null,
-          latencyMs: null,
-          tokens: null,
-        })),
-        dataset: {
-          candidates: 0,
-          validated: 0,
-          splitPolicy:
-            "No training or evaluation dataset is loaded in the public demo.",
-        },
-        notes: [
-          "The public demo uses a deterministic parser, not a trained or fine-tuned model.",
-          "No model metrics or sponsor integrations are inferred from browser audit results.",
-        ],
-      },
+      evaluation,
     };
     res.json(body);
   });

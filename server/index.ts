@@ -148,14 +148,14 @@ const integrations = (): IntegrationStatus[] => [
     name: "Tiger Data",
     status: process.env.DATABASE_URL ? "available" : "not_configured",
     detail: process.env.DATABASE_URL
-      ? "PostgreSQL connected. Tiger Data hosting is unverified. Optional local MiniLM vectors with full-text failure retrieval."
-      : "Using local JSON storage. Configure DATABASE_URL for PostgreSQL persistence and full-text retrieval.",
+      ? "PostgreSQL configured; verify this connection separately. Free Tiger console retrieval was demonstrated, while its direct application connection remains blocked by certificate verification."
+      : "Using local JSON storage. Free Tiger console retrieval was demonstrated; its direct application connection remains blocked by certificate verification.",
   },
   {
     name: "Tinker",
-    status: "not_evaluated",
+    status: "available",
     detail:
-      "Guarded training and evaluation scripts included. No training run or model improvement is claimed.",
+      "Real baseline and LoRA results are recorded in Model lab. The agent-reviewed synthetic pilot did not beat few-shot prompting. Live Tinker generation is not configured.",
   },
   {
     name: "Local open model",

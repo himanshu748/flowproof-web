@@ -2,6 +2,9 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { generateChecks, generateLocalChecks } from "../server/generator";
 import { getEvaluation } from "../server/evaluation";
 import { summarizeAudit } from "../server/gemma";
+import { copyFileSync, mkdtempSync, rmSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
 
 const brief =
   'The homepage heading must say "Design that moves business forward."\nA contact link must say "Start a project".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show "Independent by design."\nThe site should feel welcoming and trustworthy.';
@@ -188,15 +191,27 @@ describe("proposal safety and honest provenance", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
   it("does not invent model evaluation values from synthetic candidates", () => {
-    const evaluation = getEvaluation();
-    expect(evaluation.dataset.candidates).toBe(360);
-    expect(evaluation.dataset.validated).toBe(0);
-    expect(
-      evaluation.configurations.every(
-        (config) =>
-          config.structuredOutputRate === null && config.falsePassRate === null,
-      ),
-    ).toBe(true);
+    const root = mkdtempSync(
+      path.join(os.tmpdir(), "flowproof-candidates-only-"),
+    );
+    try {
+      copyFileSync(
+        "eval/candidates.jsonl",
+        path.join(root, "candidates.jsonl"),
+      );
+      const evaluation = getEvaluation({ root });
+      expect(evaluation.dataset.candidates).toBe(360);
+      expect(evaluation.dataset.validated).toBe(0);
+      expect(
+        evaluation.configurations.every(
+          (config) =>
+            config.structuredOutputRate === null &&
+            config.falsePassRate === null,
+        ),
+      ).toBe(true);
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
   });
   it("leaves optional AI commentary off by default", async () => {
     vi.stubEnv("FLOWPROOF_GEMMA_ENABLED", "false");

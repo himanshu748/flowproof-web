@@ -1,0 +1,166 @@
+{
+  "status": "prepared_not_executed_in_cloud",
+  "startedAt": "2026-10-13T05:15:39.988Z",
+  "preparedAt": "2026-10-13T05:15:41.306Z",
+  "serviceId": "if4e2s7m6i",
+  "schema": "flowproof_console_5324093d89d24b5eb3407bf99c997a41",
+  "cloudExecution": null,
+  "applicationAdapterTls": "blocked_SELF_SIGNED_CERT_IN_CHAIN_no_verification_bypass",
+  "scope": "Four observed synthetic Playwright failures; locally generated MiniLM vectors; SQL pending authenticated provider console execution",
+  "sourceAudit": {
+    "path": "docs/evidence/tiger-console/source-audit.json",
+    "sha256": "07c53cfdc1fa38aa0ed15a38a5032892ab2212723b94cd2c121c5d9e63a2fe31",
+    "id": "sample-broken",
+    "completedAt": "2026-10-13T02:57:27.016Z",
+    "statuses": [
+      "failed",
+      "passed",
+      "failed",
+      "failed",
+      "failed",
+      "unverified"
+    ],
+    "originalPath": "work/sample-audit/broken.json"
+  },
+  "embeddingProvenance": {
+    "provider": "Local Ollama only",
+    "model": "all-minilm:22m",
+    "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+    "modelBytes": 45960996,
+    "dimensions": 384,
+    "normalized": true,
+    "paidInference": false
+  },
+  "rows": [
+    {
+      "id": "sample-broken:sample-heading",
+      "checkId": "sample-heading",
+      "kind": "heading",
+      "requirement": "The homepage must have the agreed headline.",
+      "observed": "No visible heading exactly matches the expected text.",
+      "vectorSha256": "a691215801ad05677878cde4d02c9aca897c4dc477235898e9e98be6c49995c3",
+      "inputSha256": "fa008c5502be43fb5546ee8432bc6900154abc4bb7c9cb998a533828323a3f14",
+      "contentMd5": "278e7b48d066385e774810f7369de4d4",
+      "latencyMs": 1019,
+      "screenshot": {
+        "path": "work/sample-audit/evidence/sample-broken/01-sample-heading.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861,
+        "bundled": false
+      }
+    },
+    {
+      "id": "sample-broken:sample-link",
+      "checkId": "sample-link",
+      "kind": "link",
+      "requirement": "The Start a project link should lead to /contact.",
+      "observed": "No visible link matches the expected destination or text.",
+      "vectorSha256": "a3587bebeea329b41f44428ff7dc59dd0a936d7ecc54a54b99be6c4a33dd3b21",
+      "inputSha256": "5e4f3890f43748d67ae446ac9780b7a503f62a0c36a3106e4374704326cd40fa",
+      "contentMd5": "7fa9e0170be9d2e28af9e49e9fe633ed",
+      "latencyMs": 34,
+      "screenshot": {
+        "path": "work/sample-audit/evidence/sample-broken/03-sample-link.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861,
+        "bundled": false
+      }
+    },
+    {
+      "id": "sample-broken:sample-alt",
+      "checkId": "sample-alt",
+      "kind": "image_alt",
+      "requirement": "All meaningful images need alternative text.",
+      "observed": "1 of 1 images lack the required alternative text.",
+      "vectorSha256": "935032b914e9a67b3852ecd534cd2f8d6c4fc6543919a2bdc108fe730513626f",
+      "inputSha256": "23828e987868f3d78edee3f88d0867f20adf3bae438b21fc66eb47b78fe2710d",
+      "contentMd5": "8975c31d882c00c577412356106f2b76",
+      "latencyMs": 21,
+      "screenshot": {
+        "path": "work/sample-audit/evidence/sample-broken/04-sample-alt.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861,
+        "bundled": false
+      }
+    },
+    {
+      "id": "sample-broken:sample-mobile",
+      "checkId": "sample-mobile",
+      "kind": "no_horizontal_overflow",
+      "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+      "observed": "Document width is 1824px; viewport width is 390px.",
+      "vectorSha256": "eec55559fc319f712f158e25debfd9eecef8a947ea5cc4d53afc925d7175181c",
+      "inputSha256": "b5c686331fd6a809649ee22dd956aa01dcfa9097ec057a30e5237671f0f5198f",
+      "contentMd5": "78ec17f40d9320758f8e82b1d8d5e829",
+      "latencyMs": 43,
+      "screenshot": {
+        "path": "work/sample-audit/evidence/sample-broken/05-sample-mobile.png",
+        "sha256": "e69b1d26198d6c829097328894098cc0e803468b61bffde1286cf7829a332719",
+        "bytes": 49582,
+        "bundled": false
+      }
+    }
+  ],
+  "semanticProbe": {
+    "query": "sideways panning on smartphones",
+    "inputSha256": "2f9fbcb3d3e24ed44bc3c8a4fd4bca64ed63e0b7257749883189727cb16d6c51",
+    "vectorSha256": "aecc1c56b795c79c5d4ebce26105132a94de260d2c21dd595b622614a885e4f8",
+    "expectedRanking": [
+      {
+        "id": "sample-broken:sample-mobile",
+        "checkId": "sample-mobile",
+        "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+        "similarity": 0.3381529157352527
+      },
+      {
+        "id": "sample-broken:sample-heading",
+        "checkId": "sample-heading",
+        "requirement": "The homepage must have the agreed headline.",
+        "similarity": 0.1631610081338008
+      },
+      {
+        "id": "sample-broken:sample-alt",
+        "checkId": "sample-alt",
+        "requirement": "All meaningful images need alternative text.",
+        "similarity": 0.026481503436005284
+      },
+      {
+        "id": "sample-broken:sample-link",
+        "checkId": "sample-link",
+        "requirement": "The Start a project link should lead to /contact.",
+        "similarity": -0.012893441966794613
+      }
+    ],
+    "relevantAtRankOne": true,
+    "limitation": "Single fixed paraphrase on four failures is an integration check, not a quality benchmark."
+  },
+  "sql": {
+    "write": {
+      "path": "docs/evidence/tiger-console/write.sql",
+      "sha256": "955fa45d1bf3b0dc94607fcaa557170ad833c160df237d3a18fba07cb5a292e8",
+      "bytes": 44317,
+      "originalPath": "work/tiger-console-write.sql"
+    },
+    "read": {
+      "path": "docs/evidence/tiger-console/read.sql",
+      "sha256": "aa5d43f7ff61b2e8044a28da6affb81a72b5ee4bae29f063732dadf0ecfad9f1",
+      "bytes": 2504,
+      "originalPath": "work/tiger-console-read.sql"
+    }
+  },
+  "secretsIncluded": false,
+  "screenshotsUploaded": false,
+  "publicVisitorDataIncluded": false,
+  "publication": {
+    "originalPreparationPath": "work/tiger-console-preparation.json",
+    "originalPreparationSha256": "1116e85ef2e33eca7a24b9f403028598453cf27d2afcd379a79015ba92850827",
+    "adaptedFields": "SQL and audit paths now point to bundled repository copies. Screenshot paths identify original local evidence and are not bundled. Original content and SQL hashes are unchanged.",
+    "publishedAt": "2026-10-13T05:37:01.114Z"
+  },
+  "cloudConsoleIdentity": {
+    "status": "verified",
+    "method": "Authenticated provider HTTPS SQL console",
+    "observedVersion": "PostgreSQL 18.6",
+    "retrievalExecuted": false
+  }
+}

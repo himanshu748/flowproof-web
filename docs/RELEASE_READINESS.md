@@ -2,34 +2,35 @@
 
 The local MVP and isolated public demo are implemented and tested. The hackathon definition of done is not yet complete.
 
-| Requirement | Current evidence |
-|---|---|
-| F01/F02 | Real project creation, synthetic sample, conservative brief parsing |
-| F03 | One actual local Gemma proposal passed through API, approval and Chromium execution. This is not the specified fine-tuned Qwen model. Larger invalid model responses fall back explicitly. |
-| F04 | Editing resets approval. Unapproved executable checks are rejected server-side. Manual checks remain unverified. |
-| F05/F06 | Real Chromium screenshots and captured text, healthy/broken fixtures, bounded request policy |
-| F07 | Standalone mobile-readable HTML with embedded screenshots, browser print-to-PDF |
-| F08 | Local PostgreSQL writes/reads and durable screenshot storage verified. Tiger Data cloud unverified. |
-| F09 | [Remote Actions run](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955) passed 85 tests, build, healthy/broken browser audits and evidence upload. |
-| F10 | 360 candidate examples, zero human validated, guarded scripts and null metric dashboard. No Tinker experiments or improvement. |
-| F11 | Real local MiniLM embeddings stored and searched by cosine + lexical ranking in PostgreSQL |
-| F12/F13/F14 | Mastra, Sentry and Temporal not implemented |
+| Requirement | Current evidence                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| F01/F02     | Real project creation, synthetic sample, conservative brief parsing                                                                                                                                                                                                                                                                                                               |
+| F03         | One actual local Gemma proposal passed through API, approval and Chromium execution. Tinker Qwen baseline and LoRA proposals were evaluated separately on synthetic fixtures; live Tinker proposal generation is not configured. Larger invalid local model responses fall back explicitly.                                                                                       |
+| F04         | Editing resets approval. Unapproved executable checks are rejected server-side. Manual checks remain unverified.                                                                                                                                                                                                                                                                  |
+| F05/F06     | Real Chromium screenshots and captured text, healthy/broken fixtures, bounded request policy                                                                                                                                                                                                                                                                                      |
+| F07         | Standalone mobile-readable HTML with embedded screenshots, browser print-to-PDF                                                                                                                                                                                                                                                                                                   |
+| F08         | Local PostgreSQL writes/reads and durable screenshots verified. The free Tiger service persisted four synthetic failure rows; independent HTTPS-console reads verified lexical/vector retrieval. The direct application adapter remains TLS-blocked, so end-to-end Tiger project/screenshot persistence is unverified. See [Tiger evidence](TIGER_VERIFICATION.md).               |
+| F09         | [Remote Actions run](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955) passed 85 tests, build, healthy/broken browser audits and evidence upload.                                                                                                                                                                                                            |
+| F10         | 360 untouched candidates plus a separate 96-example agent-reviewed pilot, zero human validated. Real baseline and LoRA runs completed on confirmed promotional credits. Few-shot prompting achieved 23/24 reference matches and 19/20 correct browser pairs; LoRA achieved 22/24 and 18/20. No improvement over the strongest baseline. See [measured results](MODEL_RESULTS.md). |
+| F11         | Real local MiniLM embeddings stored and searched by cosine + lexical ranking in local PostgreSQL and, separately, the free Tiger service through authenticated console SQL                                                                                                                                                                                                        |
+| F12/F13/F14 | Mastra, Sentry and Temporal not implemented                                                                                                                                                                                                                                                                                                                                       |
 
 ## Verified local scope
 
-- 85 tests pass, including real browser regression tests, network guard tests, source-scope abstention tests, report escaping and completion-after-evidence-storage tests.
+- The previously published release passed 85 tests, including real browser regression tests, network guard tests, source-scope abstention tests, report escaping and completion-after-evidence-storage tests. That historical count does not certify the subsequent model-evaluation changes; use their matching CI run.
 - Production frontend build passes.
 - The saved fixture plan detects four broken assertions. The UI brief checks the visible contact label rather than destination and correctly detects three broken assertions. Both healthy plans produce five passes and one unverified human judgment.
 - A local Gemma proposal starts unapproved, is explicitly approved in the synthetic test, and passes actual Chromium execution. It is a smoke test, not a model-quality evaluation.
 - Screenshots and vectors are present in the local database. Search returns actual historical failure rows.
+- The Tinker comparison retains all 24 heldout responses per configuration and separate real browser evidence. Its zero human-validation count, malformed outputs and inappropriate abstentions remain visible; completing fine-tuning does not establish model improvement.
 - API checks confirm approval denial, private-network denial and cross-origin write denial. A separate auth smoke verifies private API/evidence access, secure session-cookie properties and local Host restrictions.
 - UI interaction and responsive checks cover widths 360, 390, 768 and 1440 pixels. Screenshots and a local walkthrough are in the build outputs.
 
 ## Remaining release evidence
 
 1. An authorized real client website and representative customer requirements. All executed website targets here were synthetic.
-2. Tiger Data connection and verified hosted retrieval, using confirmed free allowance.
-3. Human review of the dataset, verified free Tinker allowance, actual experiments and reproducible checkpoint-linked results, or removing the Tinker category.
+2. End-to-end application persistence to Tiger over a verified trust path. Hosted failure-row persistence and retrieval are now proven through authenticated console SQL; application project/screenshot persistence and public-demo connectivity remain unverified. Do not bypass the direct TLS failure.
+3. Human review and a broader independent dataset. Tinker experiments ran on confirmed promotional credits, but this pilot did not improve over the strongest baseline. Do not claim that success criterion or generalization to clients.
 4. Public repository, remote Actions and Render sample demo are now verified; see [deployment evidence](DEPLOYMENT.md). A published demo video remains optional.
 5. A real potential-customer invitation and truthful feedback outcome. No messages were sent.
 6. Any desired P1 integrations with actual evidence.

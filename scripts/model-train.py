@@ -1,70 +1,98 @@
 #!/usr/bin/env python3
-"""Guarded Tinker LoRA experiment. Offline validation is the default."""
+"""Run a frozen, budget-reserved Tinker LoRA experiment; offline by default."""
 import argparse
 import datetime as dt
-import hashlib
 import json
 import sys
 import time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'eval'))
-from model_common import ROOT, MODEL, PROMPT, read_dataset, permit_tinker
+from model_common import (ROOT, MODEL, read_manifest, permit_tinker, load_tokenizer,
+    training_tokens, tokenizer_metadata, base_receipt, package_versions,
+    reserve_budget, record_budget, write_json, now)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--dataset', type=Path, default=ROOT / 'eval/candidates.jsonl')
-    parser.add_argument('--run', action='store_true', help='Perform provider work after all guards pass')
+    parser.add_argument('--manifest', type=Path, required=True)
+    parser.add_argument('--run', action='store_true')
     parser.add_argument('--credits-confirmed', action='store_true')
     parser.add_argument('--max-tokens', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=1)
-    parser.add_argument('--batch-size', type=int, default=8)
+    parser.add_argument('--budget-ledger', type=Path)
     parser.add_argument('--output', type=Path, default=ROOT / 'eval/training-run.json')
     args = parser.parse_args()
-    rows, digest = read_dataset(args.dataset)
-    training = [row for row in rows if row['split'] == 'train']
-    if not training or not 1 <= args.epochs <= 3 or not 1 <= args.batch_size <= 16:
-        parser.error('Need reviewed training rows, 1-3 epochs, batch size 1-16')
+    manifest, rows, manifest_sha = read_manifest(args.manifest)
+    settings = manifest['training']
+    training = [row for row in rows if row['id'] in manifest['trainIds']]
     if args.output.exists():
         parser.error('Refusing to overwrite an experiment receipt; choose another --output')
+    if args.run:
+        permit_tinker(args)
+        if not args.budget_ledger:
+            parser.error('--budget-ledger is required for provider work')
+    tokenizer = load_tokenizer()
+    encoded = [training_tokens(tokenizer, row) for row in training]
+    token_count = sum(len(item[0]) for item in encoded) * settings['epochs']
     if not args.run:
-        print(json.dumps({'status': 'validated_only', 'model': MODEL, 'trainingExamples': len(training), 'datasetSha256': digest, 'providerCalls': 0})); return
-    permit_tinker(args)
-    import tinker
-    from tinker_cookbook.renderers import TrainOnWhat, get_renderer
-    from tinker_cookbook.supervised.data import conversation_to_datum
-    service = tinker.ServiceClient()
-    supported = [item.model_name for item in service.get_server_capabilities().supported_models]
-    if MODEL not in supported:
-        raise ValueError('Requested base model unavailable; no substitute model will be used')
-    client = service.create_lora_training_client(base_model=MODEL, rank=16, seed=42)
-    renderer = get_renderer('qwen3_5_disable_thinking', client.get_tokenizer())
-    data = []
-    for row in training:
-        conversation = [{'role': 'system', 'content': PROMPT}, {'role': 'user', 'content': row['requirement']}, {'role': 'assistant', 'content': json.dumps(row['expected'])}]
-        datum = conversation_to_datum(conversation, renderer, max_length=2048, train_on_what=TrainOnWhat.LAST_ASSISTANT_MESSAGE)
-        data.append(datum)
-    token_count = sum(d.model_input.length for d in data) * args.epochs
+        print(json.dumps({'status': 'validated_only', 'model': MODEL, 'benchmarkMode': manifest['benchmarkMode'], 'trainingExamples': len(training), 'trainingTokensUpperBound': token_count, 'manifestSha256': manifest_sha, 'providerCalls': 0})); return
     if token_count > args.max_tokens:
-        raise ValueError(f'Training needs {token_count} tokens, above the explicit budget; no gradient steps performed')
-    started = time.time(); steps = []
-    for epoch in range(args.epochs):
-        for index in range(0, len(data), args.batch_size):
-            batch = data[index:index + args.batch_size]
-            before = time.perf_counter()
-            forward = client.forward_backward(batch, 'cross_entropy')
-            optimizer = client.optim_step(tinker.AdamParams(learning_rate=0.0002))
-            result = forward.result(); optimizer.result()
-            steps.append({'epoch': epoch, 'batch': index // args.batch_size, 'durationMs': (time.perf_counter() - before) * 1000, 'metrics': result.metrics})
-    sampler = client.save_weights_for_sampler('flowproof-v1').result()
-    state = client.save_state('flowproof-v1').result()
-    receipt = {'schemaVersion': 1, 'status': 'completed', 'model': MODEL, 'samplerPath': sampler.path, 'statePath': state.path, 'datasetSha256': digest, 'promptSha256': hashlib.sha256(PROMPT.encode()).hexdigest(), 'trainingExamples': len(training), 'trainingTokens': token_count, 'epochs': args.epochs, 'loraRank': 16, 'seed': 42, 'durationMs': (time.time() - started) * 1000, 'recordedAt': dt.datetime.now(dt.timezone.utc).isoformat(), 'steps': steps}
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(receipt, indent=2) + '\n')
+        raise ValueError(f'Training needs {token_count} tokens, above explicit budget; no provider work performed')
+    reservation = reserve_budget(args.budget_ledger, 'training', manifest['experimentId'], {'training': token_count})
+    receipt = base_receipt(manifest, args.manifest, manifest_sha) | {
+        'operation': 'training', 'budgetReservationId': reservation['id'], 'reservedCostUsd': reservation['reservedCostUsd'],
+        'settings': settings, 'trainingExamples': len(training), 'trainingTokensUpperBound': token_count,
+        'trainingTokens': 0, 'tokenUsageBasis': 'SDK input token IDs submitted per completed forward/backward operation; not provider billing usage.',
+        'tokenizer': tokenizer_metadata(tokenizer), 'packages': package_versions(),
+        'checkpointTtlSeconds': 86400, 'steps': [], 'limitations': ['Agent review is not human validation.'] if manifest['benchmarkMode'] == 'agent-reviewed-pilot' else [],
+    }
+    write_json(args.output, receipt)
+    started = time.perf_counter()
+    try:
+        import tinker
+        data = [tinker.Datum(model_input=tinker.ModelInput.from_ints(inputs), loss_fn_inputs={'target_tokens': targets, 'weights': weights}) for inputs, targets, weights in encoded]
+        service = tinker.ServiceClient()
+        supported = [item.model_name for item in service.get_server_capabilities().supported_models]
+        if MODEL not in supported:
+            raise ValueError('Requested model unavailable; no substitute will be used')
+        client = service.create_lora_training_client(base_model=MODEL, rank=settings['loraRank'], seed=settings['seed'])
+        if tokenizer_metadata(client.get_tokenizer()) != receipt['tokenizer']:
+            raise ValueError('Provider tokenizer differs from budgeted tokenizer')
+        for epoch in range(settings['epochs']):
+            for index in range(0, len(data), settings['batchSize']):
+                batch = data[index:index + settings['batchSize']]
+                step = {'epoch': epoch, 'batch': index // settings['batchSize'], 'status': 'submitting', 'inputTokens': sum(d.model_input.length for d in batch)}
+                receipt['steps'].append(step)
+                write_json(args.output, receipt)
+                before = time.perf_counter()
+                result = client.forward_backward(batch, 'cross_entropy').result()
+                receipt['trainingTokens'] += step['inputTokens']
+                step.update(status='gradient_completed', metrics=result.metrics)
+                write_json(args.output, receipt)
+                client.optim_step(tinker.AdamParams(learning_rate=settings['learningRate'])).result()
+                step.update(status='completed', durationMs=(time.perf_counter() - before) * 1000)
+                write_json(args.output, receipt)
+                record_budget(args.budget_ledger, reservation['id'], 'running', {'training': receipt['trainingTokens']})
+        name = manifest['experimentId']
+        receipt['samplerSaveRequestedAt'] = now()
+        write_json(args.output, receipt)
+        receipt['samplerPath'] = client.save_weights_for_sampler(name, ttl_seconds=86400).result().path
+        receipt['samplerSavedAt'] = now()
+        receipt['checkpointExpiresAt'] = (dt.datetime.fromisoformat(receipt['samplerSaveRequestedAt']) + dt.timedelta(seconds=86400)).isoformat()
+        write_json(args.output, receipt)
+        receipt['statePath'] = client.save_state(name, ttl_seconds=86400).result().path
+        receipt.update(status='completed', completedAt=now(), durationMs=(time.perf_counter() - started) * 1000)
+    except BaseException as error:
+        receipt.update(status='failed', failedAt=now(), errorType=type(error).__name__, durationMs=(time.perf_counter() - started) * 1000)
+        write_json(args.output, receipt)
+        record_budget(args.budget_ledger, reservation['id'], 'failed', {'training': receipt['trainingTokens']})
+        raise RuntimeError(f'Provider training stopped ({type(error).__name__}); partial receipt retained at {args.output}') from None
+    write_json(args.output, receipt)
+    record_budget(args.budget_ledger, reservation['id'], 'completed', {'training': receipt['trainingTokens']})
     print(f'Completed training. Experiment receipt: {args.output}')
+
 
 if __name__ == '__main__':
     try:
         main()
-    except (ValueError, AssertionError) as error:
+    except (ValueError, AssertionError, RuntimeError) as error:
         sys.exit(str(error))

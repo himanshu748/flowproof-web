@@ -1,0 +1,27 @@
+{
+  "provider": "tinker",
+  "checkedAt": "2026-10-13T05:35:54.084176+00:00",
+  "trainingRunId": "285fd5b3-6be6-57e9-b09a-42b7e4ac1291:train:0",
+  "checkpoints": [
+    {
+      "checkpoint_id": "sampler_weights/flowproof-pilot-v1",
+      "checkpoint_type": "sampler",
+      "time": "2026-10-13T05:27:55.095371Z",
+      "tinker_path": "tinker://285fd5b3-6be6-57e9-b09a-42b7e4ac1291:train:0/sampler_weights/flowproof-pilot-v1",
+      "size_bytes": 145936212,
+      "public": false,
+      "user_metadata": null,
+      "expires_at": "2026-10-14T05:27:55.095275Z"
+    },
+    {
+      "checkpoint_id": "weights/flowproof-pilot-v1",
+      "checkpoint_type": "training",
+      "time": "2026-10-13T05:28:02.183748Z",
+      "tinker_path": "tinker://285fd5b3-6be6-57e9-b09a-42b7e4ac1291:train:0/weights/flowproof-pilot-v1",
+      "size_bytes": 437565045,
+      "public": false,
+      "user_metadata": null,
+      "expires_at": "2026-10-14T05:28:02.183657Z"
+    }
+  ]
+}

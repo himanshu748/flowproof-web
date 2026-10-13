@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Create review candidates; never label generated examples as human validated."""
 import argparse
+import datetime as dt
 import hashlib
 import json
 from collections import Counter
@@ -49,26 +50,38 @@ def generate():
     return rows
 
 
-def validate(rows, reviewed=False):
+def validate(rows, reviewed=False, benchmark_mode='human-reviewed'):
+    import sys
+    sys.path.insert(0, str(ROOT / 'eval'))
+    from model_common import parse_plan
+    if benchmark_mode not in ('human-reviewed', 'agent-reviewed-pilot'):
+        raise ValueError('Unknown benchmark mode')
+    def require(condition, message):
+        if not condition:
+            raise ValueError(message)
     ids = set(); sites = {}; families = {}; reviews = 0
     for row in rows:
-        assert row['id'] not in ids, f"Duplicate id {row['id']}"
+        require(row['id'] not in ids, f"Duplicate id {row['id']}")
         ids.add(row['id'])
-        assert row['split'] in ('train', 'validation', 'test')
+        require(row['split'] in ('train', 'validation', 'test'), 'Invalid split')
         for field, seen in [('website_id', sites), ('requirement_family', families)]:
             key = row[field]
-            assert seen.get(key, row['split']) == row['split'], f'Leaking {field}: {key}'
+            require(seen.get(key, row['split']) == row['split'], f'Leaking {field}: {key}')
             seen[key] = row['split']
-        assert row['expected']['checks'], 'Expected checks cannot be empty'
-        for check in row['expected']['checks']:
-            assert check['requirement'] == row['requirement']
-            assert check['kind'] in KINDS and check['path'] == '/'
-            assert check['viewport'] in ('desktop', 'mobile')
+        parse_plan(json.dumps(row['expected']), row['requirement'])
         review = row.get('review', {})
-        approved = review.get('status') == 'approved' and bool(review.get('reviewer')) and bool(review.get('reviewed_at'))
-        reviews += bool(approved)
+        timestamp_valid = False
+        try:
+            timestamp_valid = dt.datetime.fromisoformat(review.get('reviewed_at', '').replace('Z', '+00:00')).tzinfo is not None
+        except (ValueError, AttributeError):
+            pass
+        actor = review.get('actorType')
+        approved = review.get('status') == 'approved' and bool((review.get('reviewer') or '').strip()) and timestamp_valid and actor in ('human', 'agent') and bool((review.get('rationale') or '').strip())
+        human_approved = approved and actor == 'human'
+        reviews += bool(human_approved)
         if reviewed:
-            assert approved, f"{row['id']} is not human reviewed; refuse model work"
+            expected_actor = 'human' if benchmark_mode == 'human-reviewed' else 'agent'
+            require(approved and actor == expected_actor, f"{row['id']} lacks explicit {expected_actor} review; refuse {benchmark_mode} model work")
     return {'candidates': len(rows), 'validated': reviews, 'splits': dict(Counter(row['split'] for row in rows)), 'websiteGroups': len(sites), 'requirementFamilies': len(families), 'splitPolicy': 'Disjoint website_id and wording-family groups; six assertion kinds occur in each split. Synthetic candidates require human review.'}
 
 
@@ -76,11 +89,22 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--validate', type=Path, help='Validate an existing JSONL file without regenerating')
     parser.add_argument('--require-reviewed', action='store_true')
+    parser.add_argument('--benchmark-mode', choices=['human-reviewed', 'agent-reviewed-pilot'], default='human-reviewed')
+    parser.add_argument('--freeze-manifest', type=Path, help='Freeze an existing reviewed --validate dataset and all holdout IDs')
+    parser.add_argument('--experiment-id', default='flowproof-pilot-v1')
+    parser.add_argument('--max-output-tokens', type=int, default=512)
     parser.add_argument('--output', type=Path, default=ROOT / 'eval/candidates.jsonl')
     args = parser.parse_args()
     if args.validate:
         rows = [json.loads(line) for line in args.validate.read_text().splitlines() if line.strip()]
-        print(json.dumps(validate(rows, args.require_reviewed), indent=2)); return
+        if args.freeze_manifest:
+            import sys
+            sys.path.insert(0, str(ROOT / 'eval'))
+            from model_common import create_manifest
+            print(json.dumps(create_manifest(args.validate, args.benchmark_mode, args.freeze_manifest, args.experiment_id, args.max_output_tokens), indent=2))
+        else:
+            print(json.dumps(validate(rows, args.require_reviewed, args.benchmark_mode), indent=2))
+        return
     if args.output.exists():
         parser.error('Output already exists. Choose another --output to preserve review work.')
     rows = generate(); summary = validate(rows)

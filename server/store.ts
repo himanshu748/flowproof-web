@@ -196,3 +196,9 @@ export async function searchFailures(query: string) {
   };
 }
 export { dataRoot };
+
+/** Finish pending persistence before a one-shot integration process exits. */
+export async function closeStore() {
+  await writeQueue;
+  await pool?.end();
+}

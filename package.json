@@ -7,7 +7,7 @@
     "dev": "concurrently -k \"node --env-file-if-exists=.env --import tsx --watch server/index.ts\" \"vite --host 127.0.0.1\"",
     "build": "tsc --noEmit && vite build",
     "start": "node --env-file-if-exists=.env --import tsx server/index.ts",
-    "test": "vitest run",
+    "test": "vitest run --no-file-parallelism",
     "audit:sample": "tsx scripts/audit-sample.ts",
     "audit:plan": "tsx scripts/audit-plan.ts",
     "verify": "npm run test && npm run build && npm run audit:sample"

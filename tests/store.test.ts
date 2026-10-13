@@ -1,10 +1,15 @@
 import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
 import type { Audit } from "../shared/types";
-const mocks = vi.hoisted(() => ({ query: vi.fn(), readFile: vi.fn() }));
+const mocks = vi.hoisted(() => ({
+  query: vi.fn(),
+  readFile: vi.fn(),
+  end: vi.fn(),
+}));
 vi.mock("pg", () => ({
   default: {
     Pool: class {
       query = mocks.query;
+      end = mocks.end;
     },
   },
 }));
@@ -21,6 +26,7 @@ beforeEach(() => {
   vi.stubEnv("DATABASE_URL", "postgresql://unit-test.invalid/test");
   vi.stubEnv("FLOWPROOF_EMBEDDINGS", "false");
   mocks.query.mockReset().mockResolvedValue({ rows: [] });
+  mocks.end.mockReset().mockResolvedValue(undefined);
   mocks.readFile.mockReset().mockResolvedValue(Buffer.from("png evidence"));
 });
 afterEach(() => vi.unstubAllEnvs());
@@ -49,6 +55,26 @@ const audit = (): Audit => ({
   ],
 });
 describe("durable completion boundary", () => {
+  it("closes the pool only after an outstanding state write settles", async () => {
+    const store = await import("../server/store");
+    await store.initStore();
+    let finish!: (value: { rows: unknown[] }) => void;
+    mocks.query.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          finish = resolve;
+        }),
+    );
+    const write = store.saveAudit({ ...audit(), status: "running" });
+    await Promise.resolve();
+    const close = store.closeStore();
+    await Promise.resolve();
+    expect(mocks.end).not.toHaveBeenCalled();
+    finish({ rows: [] });
+    await write;
+    await close;
+    expect(mocks.end).toHaveBeenCalledOnce();
+  });
   it("saves every referenced screenshot before publishing completed state", async () => {
     const store = await import("../server/store");
     await store.initStore();

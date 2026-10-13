@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-13T06:20:30.676Z",
+  "serviceId": "if4e2s7m6i",
+  "execution": "authenticated-provider-https-console",
+  "writeSqlExactMatch": true,
+  "readSqlExactMatch": true,
+  "proof": {
+    "model": "all-minilm:22m",
+    "schema": "flowproof_console_5324093d89d24b5eb3407bf99c997a41",
+    "provider": "Tiger Data",
+    "transport": "Authenticated provider HTTPS SQL console; direct application TLS adapter remains blocked",
+    "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+    "fingerprints": {
+      "rows_read": 4,
+      "row_content_hashes_match": true,
+      "maximum_squared_norm_error": 1.5543122344752192e-15,
+      "every_vector_has_384_dimensions": true
+    },
+    "lexicalQuery": "horizontal",
+    "semanticQuery": "sideways panning on smartphones",
+    "vectorResults": [
+      {
+        "id": "sample-broken:sample-mobile",
+        "check_id": "sample-mobile",
+        "observed": "Document width is 1824px; viewport width is 390px.",
+        "similarity": 0.3381529157352527,
+        "requirement": "The site must fit a mobile screen without horizontal scrolling."
+      },
+      {
+        "id": "sample-broken:sample-heading",
+        "check_id": "sample-heading",
+        "observed": "No visible heading exactly matches the expected text.",
+        "similarity": 0.1631610081338008,
+        "requirement": "The homepage must have the agreed headline."
+      },
+      {
+        "id": "sample-broken:sample-alt",
+        "check_id": "sample-alt",
+        "observed": "1 of 1 images lack the required alternative text.",
+        "similarity": 0.026481503436005284,
+        "requirement": "All meaningful images need alternative text."
+      },
+      {
+        "id": "sample-broken:sample-link",
+        "check_id": "sample-link",
+        "observed": "No visible link matches the expected destination or text.",
+        "similarity": -0.012893441966794613,
+        "requirement": "The Start a project link should lead to /contact."
+      }
+    ],
+    "lexicalResults": [
+      {
+        "id": "sample-broken:sample-mobile",
+        "check_id": "sample-mobile",
+        "observed": "Document width is 1824px; viewport width is 390px.",
+        "requirement": "The site must fit a mobile screen without horizontal scrolling."
+      }
+    ],
+    "sourceAuditSha256": "07c53cfdc1fa38aa0ed15a38a5032892ab2212723b94cd2c121c5d9e63a2fe31",
+    "semanticLexicalMatches": 0,
+    "sourceAuditSha256Matches": true
+  }
+}

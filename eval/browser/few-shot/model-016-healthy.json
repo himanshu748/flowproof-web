@@ -1,0 +1,39 @@
+{
+  "id": "model-016-healthy",
+  "projectId": "evaluation-16",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-13T05:28:38.857Z",
+  "checks": [
+    {
+      "id": "model-16",
+      "requirement": "The published homepage must give every content picture a nonempty alt attribute.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality needs human review",
+      "viewport": "desktop",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-16",
+      "requirement": "The published homepage must give every content picture a nonempty alt attribute.",
+      "kind": "image_alt",
+      "status": "passed",
+      "expected": "Nonempty alternative text on every content image; description quality needs human review",
+      "durationMs": 789,
+      "evidence": {
+        "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+        "dom": "Image 1: A blue rectangle used as the content illustration",
+        "screenshot": "/evidence/model-016-healthy/01-model-16.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-13T05:28:39.943Z"
+}

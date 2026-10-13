@@ -1,3 +1,4 @@
-# Optional remote model experiments only. The main application does not need these.
-tinker==0.30.4
-tinker-cookbook
+# Tokenizer and SDK only; no model weights, torch or cookbook required.
+tinker==0.32.0
+transformers==5.18.0
+tokenizers==0.23.2

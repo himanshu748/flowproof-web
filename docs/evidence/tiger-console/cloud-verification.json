@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "status": "verified_against_captured_cloud_output",
+  "verifiedAt": "2026-10-13T06:21:46.856Z",
+  "serviceId": "if4e2s7m6i",
+  "cloudObservedAt": "2026-10-13T06:20:30.676Z",
+  "transport": "authenticated-provider-https-console",
+  "scope": "Persisted synthetic failure rows and PostgreSQL lexical/cosine queries via authenticated provider HTTPS console. Offline verification makes no new database call.",
+  "sourceSha256": {
+    "cloudRead": "d55aada40cbb5ed67c516a960be995422672a14efa2813799c9146b0665019e9",
+    "preparation": "6a4ab0100e3d5d12ddd824e3b2717763b9e27a67dbba1b422ffba88b07131835",
+    "writeSql": "955fa45d1bf3b0dc94607fcaa557170ad833c160df237d3a18fba07cb5a292e8",
+    "readSql": "aa5d43f7ff61b2e8044a28da6affb81a72b5ee4bae29f063732dadf0ecfad9f1"
+  },
+  "checks": {
+    "serviceAndSchemaMatch": true,
+    "originalAuditHashMatches": true,
+    "rowsRead": 4,
+    "rowContentFingerprintsMatch": true,
+    "embeddingModelDigestMatches": true,
+    "vectorsParsedFromExecutedSql": 5,
+    "dimensions": 384,
+    "allVectorsNormalized": true,
+    "storedVectorAndQueryHashesMatch": true,
+    "lexicalHitCount": 1,
+    "semanticLexicalMatchCount": 0,
+    "cloudRankingMatchesIndependentCosine": true,
+    "maximumCosineDifference": 0,
+    "relevantFailureRank": 1
+  },
+  "independentRanking": [
+    {
+      "id": "sample-broken:sample-mobile",
+      "checkId": "sample-mobile",
+      "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+      "observed": "Document width is 1824px; viewport width is 390px.",
+      "similarity": 0.3381529157352527
+    },
+    {
+      "id": "sample-broken:sample-heading",
+      "checkId": "sample-heading",
+      "requirement": "The homepage must have the agreed headline.",
+      "observed": "No visible heading exactly matches the expected text.",
+      "similarity": 0.1631610081338008
+    },
+    {
+      "id": "sample-broken:sample-alt",
+      "checkId": "sample-alt",
+      "requirement": "All meaningful images need alternative text.",
+      "observed": "1 of 1 images lack the required alternative text.",
+      "similarity": 0.026481503436005284
+    },
+    {
+      "id": "sample-broken:sample-link",
+      "checkId": "sample-link",
+      "requirement": "The Start a project link should lead to /contact.",
+      "observed": "No visible link matches the expected destination or text.",
+      "similarity": -0.012893441966794613
+    }
+  ],
+  "limits": {
+    "applicationAdapterTls": "blocked_SELF_SIGNED_CERT_IN_CHAIN",
+    "publicDemoDatabaseEnabled": false,
+    "projectAndScreenshotPersistenceVerified": false,
+    "pgvectorAccelerationClaimed": false,
+    "retrievalQualityBenchmarkClaimed": false
+  }
+}

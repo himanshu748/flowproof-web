@@ -1,0 +1,1093 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-13T05:58:53.825817+00:00",
+  "manifestPath": "eval/pilot.manifest.json",
+  "manifestSha256": "62ca7d765967ecfc3aa075aed13a0d7342f8fc91031df4d2aac4b4aee1e6f3da",
+  "experimentId": "flowproof-pilot-v1",
+  "model": "Qwen/Qwen3.5-4B",
+  "benchmarkMode": "agent-reviewed-pilot",
+  "reviewProvenance": {
+    "humanValidated": 0,
+    "agentReviewed": 96,
+    "note": "Agent review is not human validation. Synthetic pilot results do not establish accuracy on client websites."
+  },
+  "heldoutCount": 24,
+  "heldoutWebsiteGroups": 4,
+  "configurations": {
+    "zero-shot": {
+      "structuredOutput": {
+        "numerator": 0,
+        "denominator": 24,
+        "rate": 0.0,
+        "wilson95": [
+          1.3877787807814457e-17,
+          0.13797620467498017
+        ]
+      },
+      "referenceAgreement": {
+        "numerator": 0,
+        "denominator": 24,
+        "rate": 0.0,
+        "wilson95": [
+          1.3877787807814457e-17,
+          0.13797620467498017
+        ]
+      },
+      "appropriateAbstention": {
+        "numerator": 0,
+        "denominator": 4,
+        "rate": 0.0,
+        "wilson95": [
+          0,
+          0.4898908364545973
+        ]
+      },
+      "inappropriateAbstentions": 0,
+      "meanLatencyMs": 2290.842484208497,
+      "medianLatencyMs": 2267.5340209998467,
+      "tokens": {
+        "input": 5097,
+        "output": 1759
+      },
+      "observedTokenCostEstimateUsd": "0.003449805",
+      "tokenCapCostUpperEstimateUsd": "0.01403145",
+      "perKind": {
+        "heading": {
+          "n": 4,
+          "validSchema": 0,
+          "referenceMatch": 0
+        },
+        "image_alt": {
+          "n": 4,
+          "validSchema": 0,
+          "referenceMatch": 0
+        },
+        "link": {
+          "n": 4,
+          "validSchema": 0,
+          "referenceMatch": 0
+        },
+        "manual": {
+          "n": 4,
+          "validSchema": 0,
+          "referenceMatch": 0
+        },
+        "no_horizontal_overflow": {
+          "n": 4,
+          "validSchema": 0,
+          "referenceMatch": 0
+        },
+        "text_visible": {
+          "n": 4,
+          "validSchema": 0,
+          "referenceMatch": 0
+        }
+      },
+      "outcomes": [
+        {
+          "id": "pilot-test-01-heading",
+          "referenceKind": "heading",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-link",
+          "referenceKind": "link",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-manual",
+          "referenceKind": "manual",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-heading",
+          "referenceKind": "heading",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-link",
+          "referenceKind": "link",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-manual",
+          "referenceKind": "manual",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-heading",
+          "referenceKind": "heading",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-link",
+          "referenceKind": "link",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-manual",
+          "referenceKind": "manual",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-heading",
+          "referenceKind": "heading",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-link",
+          "referenceKind": "link",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-manual",
+          "referenceKind": "manual",
+          "validSchema": false,
+          "referenceMatch": false,
+          "modelKind": null,
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        }
+      ],
+      "receiptSha256": "60710d78ace152245a4d6a52d908c1c3dbfaa06e7b193d68764ef240041d03a9",
+      "browser": {
+        "executableCorrectness": {
+          "numerator": 0,
+          "denominator": 20,
+          "rate": 0.0,
+          "wilson95": [
+            0,
+            0.16112515805281938
+          ]
+        },
+        "falsePass": {
+          "numerator": 0,
+          "denominator": 0,
+          "rate": null,
+          "wilson95": null
+        },
+        "completedPairs": 0,
+        "malformedExecutableOutputs": 20,
+        "inappropriateAbstentions": 0,
+        "blockedPairs": 0,
+        "unverifiedPairs": 0,
+        "pairedOutcomes": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "browserReceiptSha256": "dcdc8042d8f9e9579f57e85dc6997a60fc1e68f0b3086832f1d7954eb541b5a0"
+    },
+    "few-shot": {
+      "structuredOutput": {
+        "numerator": 24,
+        "denominator": 24,
+        "rate": 1.0,
+        "wilson95": [
+          0.8620237953250198,
+          1
+        ]
+      },
+      "referenceAgreement": {
+        "numerator": 23,
+        "denominator": 24,
+        "rate": 0.9583333333333334,
+        "wilson95": [
+          0.7975819352134406,
+          0.9926065438344942
+        ]
+      },
+      "appropriateAbstention": {
+        "numerator": 4,
+        "denominator": 4,
+        "rate": 1.0,
+        "wilson95": [
+          0.5101091635454027,
+          1
+        ]
+      },
+      "inappropriateAbstentions": 1,
+      "meanLatencyMs": 2293.6155676666963,
+      "medianLatencyMs": 2267.9239169992798,
+      "tokens": {
+        "input": 16737,
+        "output": 1410
+      },
+      "observedTokenCostEstimateUsd": "0.00694026",
+      "tokenCapCostUpperEstimateUsd": "0.01787265",
+      "perKind": {
+        "heading": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "image_alt": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "link": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "manual": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "no_horizontal_overflow": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 3
+        },
+        "text_visible": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        }
+      },
+      "outcomes": [
+        {
+          "id": "pilot-test-01-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "image_alt",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "image_alt",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": false,
+          "modelKind": "manual",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": true
+        },
+        {
+          "id": "pilot-test-02-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "image_alt",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "image_alt",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        }
+      ],
+      "receiptSha256": "370dbeabbaf4ef09e8135e814deb972f6c5aa8bbd1b602654b0eb391c67b2454",
+      "browser": {
+        "executableCorrectness": {
+          "numerator": 19,
+          "denominator": 20,
+          "rate": 0.95,
+          "wilson95": [
+            0.763868806553258,
+            0.9911185511992047
+          ]
+        },
+        "falsePass": {
+          "numerator": 0,
+          "denominator": 19,
+          "rate": 0.0,
+          "wilson95": [
+            0,
+            0.16817922405261626
+          ]
+        },
+        "completedPairs": 19,
+        "malformedExecutableOutputs": 0,
+        "inappropriateAbstentions": 1,
+        "blockedPairs": 0,
+        "unverifiedPairs": 0,
+        "pairedOutcomes": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "browserReceiptSha256": "84891abfb65247ec4c8bf66280bfb8a8f8e0b2787da19039ab88372671374e65"
+    },
+    "fine-tuned": {
+      "structuredOutput": {
+        "numerator": 24,
+        "denominator": 24,
+        "rate": 1.0,
+        "wilson95": [
+          0.8620237953250198,
+          1
+        ]
+      },
+      "referenceAgreement": {
+        "numerator": 22,
+        "denominator": 24,
+        "rate": 0.9166666666666666,
+        "wilson95": [
+          0.741511978067893,
+          0.9768411847029567
+        ]
+      },
+      "appropriateAbstention": {
+        "numerator": 4,
+        "denominator": 4,
+        "rate": 1.0,
+        "wilson95": [
+          0.5101091635454027,
+          1
+        ]
+      },
+      "inappropriateAbstentions": 2,
+      "meanLatencyMs": 5630.554333333218,
+      "medianLatencyMs": 5337.736687499273,
+      "tokens": {
+        "input": 5097,
+        "output": 1398
+      },
+      "observedTokenCostEstimateUsd": "0.00308700",
+      "tokenCapCostUpperEstimateUsd": "0.01403145",
+      "perKind": {
+        "heading": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "image_alt": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 2
+        },
+        "link": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "manual": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "no_horizontal_overflow": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        },
+        "text_visible": {
+          "n": 4,
+          "validSchema": 4,
+          "referenceMatch": 4
+        }
+      },
+      "outcomes": [
+        {
+          "id": "pilot-test-01-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": false,
+          "modelKind": "manual",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": true
+        },
+        {
+          "id": "pilot-test-01-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-01-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "image_alt",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-02-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "image_alt",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-03-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-heading",
+          "referenceKind": "heading",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "heading",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-link",
+          "referenceKind": "link",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "link",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-text_visible",
+          "referenceKind": "text_visible",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "text_visible",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-image_alt",
+          "referenceKind": "image_alt",
+          "validSchema": true,
+          "referenceMatch": false,
+          "modelKind": "manual",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": true
+        },
+        {
+          "id": "pilot-test-04-no_horizontal_overflow",
+          "referenceKind": "no_horizontal_overflow",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "no_horizontal_overflow",
+          "appropriateAbstention": false,
+          "inappropriateAbstention": false
+        },
+        {
+          "id": "pilot-test-04-manual",
+          "referenceKind": "manual",
+          "validSchema": true,
+          "referenceMatch": true,
+          "modelKind": "manual",
+          "appropriateAbstention": true,
+          "inappropriateAbstention": false
+        }
+      ],
+      "receiptSha256": "3243390b85f2590dc7e326c1d51a9546453e2b87f6a638fc7410103a21f4daf2",
+      "browser": {
+        "executableCorrectness": {
+          "numerator": 18,
+          "denominator": 20,
+          "rate": 0.9,
+          "wilson95": [
+            0.6989663547715128,
+            0.9721335187862319
+          ]
+        },
+        "falsePass": {
+          "numerator": 0,
+          "denominator": 18,
+          "rate": 0.0,
+          "wilson95": [
+            0,
+            0.17587922364665765
+          ]
+        },
+        "completedPairs": 18,
+        "malformedExecutableOutputs": 0,
+        "inappropriateAbstentions": 2,
+        "blockedPairs": 0,
+        "unverifiedPairs": 0,
+        "pairedOutcomes": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          false,
+          true
+        ]
+      },
+      "browserReceiptSha256": "c862e3237ca4afcdfee1215ba45c06c767eec852f89afe0daaab0d0122a10258"
+    }
+  },
+  "strongestBaseline": "few-shot",
+  "fineTunedVsStrongestBaseline": {
+    "referenceAgreement": {
+      "n": 24,
+      "candidateWins": 1,
+      "candidateLosses": 2,
+      "bothCorrect": 21,
+      "bothIncorrect": 0,
+      "difference": -0.041666666666666664,
+      "exactMcNemarPValue": 1.0,
+      "interpretation": "Descriptive paired comparison only. Templated examples are clustered within four synthetic websites; the independent-pair assumption is not established."
+    },
+    "browserCorrectness": {
+      "n": 20,
+      "candidateWins": 1,
+      "candidateLosses": 2,
+      "bothCorrect": 17,
+      "bothIncorrect": 0,
+      "difference": -0.05,
+      "exactMcNemarPValue": 1.0,
+      "interpretation": "Descriptive paired comparison only. Templated examples are clustered within four synthetic websites; the independent-pair assumption is not established."
+    }
+  },
+  "training": {
+    "examples": 60,
+    "tokens": 15910,
+    "durationMs": 83750.93070799994,
+    "checkpoint": "tinker://285fd5b3-6be6-57e9-b09a-42b7e4ac1291:train:0/sampler_weights/flowproof-pilot-v1",
+    "checkpointTtlSeconds": 86400,
+    "receiptSha256": "e9230b3b93dcfe33da79af02f7a4f20ba8b030ae03d4c0c3cd3dd04dd836e435"
+  },
+  "cost": {
+    "currency": "USD",
+    "usdPerMillionTokens": {
+      "training": "0.737",
+      "input": "0.33",
+      "output": "1.005"
+    },
+    "pricingSource": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+    "trainingObservedTokenEstimateUsd": "0.01172567",
+    "inferenceObservedTokenEstimateUsd": "0.013477065",
+    "totalObservedTokenEstimateUsd": "0.025202735",
+    "totalTokenCapUpperEstimateUsd": "0.05766122",
+    "checkpointStorage": {
+      "providerMetadataSha256": "a19375130241a02ca4db7b66e363a6187c264476f515756335823ffeb06fdb11",
+      "totalBytes": 583501257,
+      "usdPerGbMonth": "0.10",
+      "decimalBytesPerGb": 1000000000,
+      "estimate30DayMonthUsd": "0.00194500419",
+      "conservative28DayMonthEstimateUsd": "0.002083933060714285714285714286",
+      "checkpointExpirations": {
+        "sampler": "2026-10-14T05:27:55.095275Z",
+        "training": "2026-10-14T05:28:02.183657Z"
+      },
+      "note": "Estimated prorated storage from actual provider bytes and expiry times, using decimal GB and a 30-day month; 28-day variant is conservative for month duration. Provider rounding/invoicing remains unreconciled."
+    },
+    "providerBillingReconciled": false,
+    "totalObservedTokensPlusConservativeStorageEstimateUsd": "0.02728666806071428571428571429",
+    "note": "Token-count-based estimate only; not a provider invoice. Provider billing data had not covered the experiment when checked. No caching, billing-rounding or retry adjustment is inferred."
+  },
+  "limitations": [
+    "96 agent-reviewed synthetic examples; zero human validation.",
+    "24 templated heldout examples from four synthetic website groups are not independent customer observations.",
+    "Wilson intervals and exact McNemar p-values are descriptive under assumptions not established by this small clustered dataset.",
+    "No holdout-driven retraining or prompt change was performed for this frozen comparison.",
+    "Browser results measure synthetic mutation sensitivity; they do not establish correctness on real client websites."
+  ]
+}

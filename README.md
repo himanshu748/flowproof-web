@@ -6,6 +6,10 @@ Turn website requirements into approved browser checks and evidence-backed deliv
 
 FlowProof includes a local working product and an isolated public-demo mode. It includes a React delivery cockpit, safe typed acceptance checks, a real Playwright runner, screenshot and redacted text evidence, standalone HTML reports, PostgreSQL persistence, failure retrieval, and a GitHub Actions workflow. Integration readiness and measured model results are shown honestly in the app.
 
+Real Tinker baseline and LoRA runs are now recorded using confirmed promotional credits. On the same 24-example holdout, few-shot prompting achieved **23/24 reference matches and 19/20 correct healthy/broken browser pairs**; LoRA achieved **22/24 and 18/20**. Fine-tuning did not beat the strongest baseline. This 96-example synthetic pilot was agent-reviewed, with **zero human-validated examples**. See [measured results](docs/MODEL_RESULTS.md).
+
+A confirmed free Tiger Data service now stores four real synthetic audit failures. Separate authenticated HTTPS-console queries verified persistence, lexical search and cosine retrieval, with independently checked scores. **The direct application adapter remains blocked by certificate verification; the public demo has no database connection.** See [Tiger evidence and boundaries](docs/TIGER_VERIFICATION.md).
+
 ## Run locally, no paid account required
 
 ```sh
@@ -37,16 +41,16 @@ npm run audit:plan -- flowproof-plan.json
 
 Copy `.env.example` to `.env`. Keep it private. The app loads `.env` through Node's environment loader.
 
-- **PostgreSQL / Tiger Data:** set `DATABASE_URL`. TLS certificate verification is enabled; only trusted local PostgreSQL should set `DATABASE_SSL=false`. The app creates dedicated `flowproof_*` tables. It is a single-process MVP: run one replica. Audit evidence is persisted as database byte arrays after a completed run, so downloaded reports can survive an ephemeral host restart.
+- **PostgreSQL:** set `DATABASE_URL`. TLS certificate verification is enabled; only trusted local PostgreSQL should set `DATABASE_SSL=false`. The app creates dedicated `flowproof_*` tables. It is a single-process MVP: run one replica. Audit evidence is persisted as database byte arrays after a completed run, so downloaded reports can survive an ephemeral host restart. The current free Tiger service fails strict certificate verification; its direct adapter remains blocked. Do not disable verification or upgrade to bypass this limitation.
 - **Local open model:** run Ollama with a supported completion model, set `FLOWPROOF_AI_ENABLED=true`, `FLOWPROOF_OLLAMA_MODEL=gemma3:4b` (or your installed Qwen model). Every plan records its actual provider. Invalid responses fall back to an explicitly labeled conservative rule parser. There is no default remote AI billing path.
 - **Failure vectors:** with PostgreSQL and local `all-minilm:22m`, set `FLOWPROOF_EMBEDDINGS=true`. Failure descriptions are embedded locally and searched using actual cosine similarity plus lexical ranking in PostgreSQL. The portable array implementation uses a full scan appropriate to a small demo. It does not claim pgvector acceleration.
-- **Tinker:** see [model evaluation instructions](docs/MODEL_EVALUATION.md). Candidate data is not automatically human validated. Training requires explicit budget acknowledgement. Published metrics require measured artifacts.
+- **Tinker:** see [measured results](docs/MODEL_RESULTS.md) and [reproduction instructions](docs/MODEL_EVALUATION.md). Recorded baseline, training and paired-browser receipts are bundled. New provider work requires independently confirmed free credits and shared token/cost budgets. Live Tinker proposal generation is not configured.
 
 ## Hosting and operating boundaries
 
 `render.yaml` and `Dockerfile` define a **free** Render web service with Chromium and its Linux dependencies. No database, paid worker, persistent disk or model API is required. Deployment evidence is tracked in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-**Public demo:** `FLOWPROOF_PUBLIC=true` and `FLOWPROOF_DEMO=true` enable isolated visitor sessions. Only the synthetic sample can be audited. Draft generation uses a clearly labelled deterministic parser. Sessions expire after 30 minutes and disappear on service restart; download reports before leaving. The demo allows 20 simultaneous sessions, four audits per visitor, one running audit at a time and 24 audits per hour. Do not enter private client information. Local databases, models and operator data are never loaded in this mode.
+**Public demo:** `FLOWPROOF_PUBLIC=true` and `FLOWPROOF_DEMO=true` enable isolated visitor sessions. Only the synthetic sample can be audited. Draft generation uses a clearly labelled deterministic parser. Model lab displays recorded experiment receipts without calling Tinker. Sessions expire after 30 minutes and disappear on service restart; download reports before leaving. The demo allows 20 simultaneous sessions, four audits per visitor, one running audit at a time and 24 audits per hour. Do not enter private client information. Local databases, models and operator data are never loaded in this mode.
 
 **Private operator mode:** Public hosting without `FLOWPROOF_DEMO=true` requires an operator token of at least 32 characters. Enter it in app Settings. This mode has no multi-user account system. A configured database is required to retain projects and completed evidence across ephemeral-host restarts. Local Ollama is not reachable from a cloud service.
 

@@ -1761,11 +1761,17 @@ function App() {
                         <Beaker size={36} />
                       </div>
                       <div>
-                        <h2>The evidence comes first.</h2>
+                        <h2>
+                          {data.evaluation.dataset.benchmarkMode ===
+                          "agent-reviewed-pilot"
+                            ? "Agent-reviewed synthetic pilot"
+                            : "The evidence comes first."}
+                        </h2>
                         <p>
                           Compare zero-shot, few-shot, and fine-tuned models on
                           the same held-out requirements. Metrics appear only
-                          after a real evaluation is recorded.
+                          after a real evaluation is recorded. Agent-reviewed
+                          labels are not human validation.
                         </p>
                       </div>
                       <Status
@@ -1788,19 +1794,23 @@ function App() {
                       </div>
                       <div className="stat-card">
                         <div>
-                          <span>Validated examples</span>
+                          <span>Human-validated examples</span>
                           <strong>{data.evaluation.dataset.validated}</strong>
                         </div>
-                        <small>Manually reviewed before training</small>
+                        <small>
+                          Reviewed by a person, separately from agent review
+                        </small>
                       </div>
                       <div className="stat-card">
                         <div>
-                          <span>Model configurations</span>
+                          <span>Agent-reviewed pilot</span>
                           <strong>
-                            {data.evaluation.configurations.length}
+                            {data.evaluation.dataset.agentReviewed ?? 0}
                           </strong>
                         </div>
-                        <small>Baseline and fine-tuning comparisons</small>
+                        <small>
+                          Synthetic examples; real-client accuracy unverified
+                        </small>
                       </div>
                     </div>
                     <section className="panel">
@@ -1810,14 +1820,21 @@ function App() {
                           <p>{data.evaluation.dataset.splitPolicy}</p>
                         </div>
                       </div>
-                      <div className="table-scroll">
+                      <div
+                        className="table-scroll"
+                        role="region"
+                        aria-label="Model experiment comparison"
+                        tabIndex={0}
+                      >
                         <table className="model-table">
                           <thead>
                             <tr>
                               <th>CONFIGURATION</th>
                               <th>VALID OUTPUT</th>
-                              <th>INTERPRETATION</th>
+                              <th>REFERENCE AGREEMENT</th>
+                              <th>BROWSER CORRECT</th>
                               <th>FALSE PASS</th>
+                              <th>ABSTENTION</th>
                               <th>LATENCY</th>
                               <th>TOKENS</th>
                             </tr>
@@ -1833,14 +1850,25 @@ function App() {
                                 </td>
                                 <td>{metric(c.structuredOutputRate)}</td>
                                 <td>{metric(c.interpretationAccuracy)}</td>
-                                <td>{metric(c.falsePassRate)}</td>
+                                <td>{metric(c.executableCorrectness)}</td>
+                                <td>
+                                  {metric(c.falsePassRate)}
+                                  {c.browserCounts && (
+                                    <span className="model-status">
+                                      {c.browserCounts.brokenFalsePasses} /{" "}
+                                      {c.browserCounts.brokenExecuted} broken
+                                      checks
+                                    </span>
+                                  )}
+                                </td>
+                                <td>{metric(c.abstentionRate)}</td>
                                 <td>
                                   {c.latencyMs === null ? (
                                     <span className="not-evaluated">
                                       Not evaluated
                                     </span>
                                   ) : (
-                                    `${c.latencyMs} ms`
+                                    `${Math.round(c.latencyMs).toLocaleString()} ms`
                                   )}
                                 </td>
                                 <td>

@@ -1,0 +1,277 @@
+{
+  "schemaVersion": 1,
+  "status": "completed",
+  "recordedAt": "2026-10-13T05:15:40.648Z",
+  "source": "Real local Playwright Chromium execution on paired synthetic reference fixtures",
+  "provider": "tinker",
+  "model": "Qwen/Qwen3.5-4B",
+  "configuration": "zero-shot",
+  "benchmarkMode": "agent-reviewed-pilot",
+  "reviewProvenance": {
+    "humanValidated": 0,
+    "agentReviewed": 96,
+    "note": "Agent review is not human validation. Synthetic pilot results do not establish accuracy on client websites."
+  },
+  "experimentId": "flowproof-pilot-v1",
+  "manifestSha256": "62ca7d765967ecfc3aa075aed13a0d7342f8fc91031df4d2aac4b4aee1e6f3da",
+  "sourceReceipt": "eval/results/zero-shot.json",
+  "sourceReceiptSha256": "60710d78ace152245a4d6a52d908c1c3dbfaa06e7b193d68764ef240041d03a9",
+  "datasetSha256": "28178f3d01c833e539eb017b76553a49eea72d8174dc25df0a4f10818330c5e4",
+  "approval": {
+    "actorType": "agent",
+    "scope": "Validated finite checks on isolated synthetic fixtures only",
+    "mechanism": "--approve-synthetic-checks"
+  },
+  "limitations": [
+    "Synthetic mutation sensitivity is not evidence of correctness on real client websites.",
+    "Fixtures are generated from reference labels; no fixture is adapted to make model output pass.",
+    "Manual requirements have no healthy/broken browser oracle and are evaluated only for abstention.",
+    "Image-alt assertions measure attribute presence, not description quality.",
+    "Passing and failing outputs, malformed responses, abstentions and execution blocks retain separate counts."
+  ],
+  "observations": [
+    {
+      "id": "pilot-test-01-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "4fd894a90bbdd42595d8dd975b5f383829ab85732c095b31c3a6afd077ae7d80",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-01-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "fd5dc37163f6fa72485712a47b5bd5c905877a95c9b545751a9fa655b4238f9e",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-01-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "43c38bfe41089e852425dadf2e0f62e8f6e89bbe96596911d835df9910f46b24",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-01-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "1d66f5e4856f7d00aec3888c12e1adc16ff465026e3992b03c97b7c05ddb85d2",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-01-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "839e65cd64b77551132e0bad716739d9ddb3e1b16c64b1cc827a4513800675bf",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "Unexpected token '`', \"```json\n[\n\"... is not valid JSON"
+    },
+    {
+      "id": "pilot-test-01-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "4e02fe8e9bd8f0463ad956a285d9872bb4f2543c2ed054529507986bcc97664b",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-02-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "d58b77ce20a8da7bc6cc232ee68d47b84cf63542d4c8a263c6d6ebf8324e1e8e",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-02-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "281d3ea9cedf72102f18ea6f7b6f832be6ef1c3149a1ca18ba17195bdfcd13be",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "Unexpected token '`', \"```json\n[\n\"... is not valid JSON"
+    },
+    {
+      "id": "pilot-test-02-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "ae96d5bf90e63e9e8e48a3dee28244605b377a8e10f43207ef02f21f46789d2b",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-02-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "5e9ffa042c792534e18fbe96d1c42f7b8a0987c49b4a1ebd9ce709905b9ebe50",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-02-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "f480a4ffacf0251c97a70614aee42e1eb31755052826fa173f3ce6bc46eba01c",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-02-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "1117e52ac6bcd52deea23b6a03aaac1eed6c6cfcbc50d702dce514a3ed5ec66a",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-03-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "f862564b0625d3d8e9b1eec9db41bfb952c5013ba69af64f96ce9c86d6b4ea75",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-03-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "c8212f087faf9cbb26325f42d625e00a4708ca1b33a33e99744437c0361d1596",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-03-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "e257d48e2c05e67c05f3cac525d22efd311e3d1826a1da9aedbe1112272ed327",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-03-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "3a70c2e76ae071ad96cebea56ab65fcdcecdecde4be716ad1be06f4b9adf298a",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-03-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "953d1eba420f3b7644a7c5eebdc220bc754144ef8e1f2a83d4e99f22e96c7c46",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-03-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "e13ffe29db0f859107994994f9efd39f928de5aa8ba63770f352fb1506c0daf2",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-04-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "680fcc08440a83f97d4ee56bde57ade22eecf2002cdc7aa649167da10bfd194b",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-04-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "e2396ea90a51c3b7c81da89aa6df0e2301aaaaf3990f4f1c15e70a7663b7e522",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-04-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "6ec4054933c09e0c76706f49e0f73524a2d169d00afddd27282fe9bd011ebb53",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-04-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "09a4ad9a8c95592913d6b5b4948a61786fc53c8f5c5ef44ba82976dd1f1d6ed2",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-04-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "5ee1af2ce8a325741354d3c6cfddc160ffdc574baeb604223effda3171ff68a6",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "[\n  {\n    \"code\": \"invalid_type\",\n    \"expected\": \"object\",\n    \"received\": \"array\",\n    \"path\": [],\n    \"message\": \"Expected object, received array\"\n  }\n]"
+    },
+    {
+      "id": "pilot-test-04-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "1a9f31ad07891b0156209da7a5c93d4a9cc415c334a82a849a87252bb23287d0",
+      "validSchema": false,
+      "classification": "malformed",
+      "error": "Unexpected token '`', \"```json\n{\n\"... is not valid JSON"
+    }
+  ],
+  "metrics": {
+    "measuredOutputs": 24,
+    "referenceAutomatable": 20,
+    "referenceManual": 4,
+    "malformed": 24,
+    "modelAbstentions": 0,
+    "appropriateAbstentions": 0,
+    "inappropriateAbstentions": 0,
+    "unexpectedAutomation": 0,
+    "attemptedPairs": 0,
+    "completedPairs": 0,
+    "blockedPairs": 0,
+    "unverifiedPairs": 0,
+    "pairedCorrect": 0,
+    "brokenExecuted": 0,
+    "brokenFalsePasses": 0,
+    "executableCorrectness": 0,
+    "completedPairCorrectness": null,
+    "falsePassRate": null,
+    "appropriateAbstentionRate": 0,
+    "denominators": {
+      "executableCorrectness": "All reference-automatable heldout requirements, including malformed outputs, abstentions and blocked executions.",
+      "completedPairCorrectness": "Pairs where both the healthy and broken assertions returned passed or failed.",
+      "falsePassRate": "Broken assertions that returned passed or failed; blocked, unverified, malformed and abstained outputs are separately counted and excluded.",
+      "appropriateAbstentionRate": "All reference-manual heldout requirements, including malformed outputs."
+    }
+  }
+}

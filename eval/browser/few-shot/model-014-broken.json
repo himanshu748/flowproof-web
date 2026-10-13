@@ -1,0 +1,38 @@
+{
+  "id": "model-014-broken",
+  "projectId": "evaluation-14",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-13T05:28:35.675Z",
+  "checks": [
+    {
+      "id": "model-14",
+      "requirement": "Verify the homepage has a link with the exact label \"Talk to Test Studio 03\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Talk to Test Studio 03",
+      "viewport": "desktop",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-14",
+      "requirement": "Verify the homepage has a link with the exact label \"Talk to Test Studio 03\".",
+      "kind": "link",
+      "status": "failed",
+      "expected": "Talk to Test Studio 03",
+      "durationMs": 755,
+      "evidence": {
+        "observed": "No visible link matches the expected destination or text.",
+        "screenshot": "/evidence/model-014-broken/01-model-14.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-13T05:28:36.725Z"
+}

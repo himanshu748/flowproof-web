@@ -8,6 +8,7 @@ import type { AddressInfo } from "node:net";
 import type { Bootstrap, Project, Audit } from "../shared/types";
 import { createDemoRouter } from "../server/demo";
 import { runAudit } from "../server/runner";
+import { getEvaluation } from "../server/evaluation";
 
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => {
@@ -106,11 +107,12 @@ describe("isolated tokenless public demo", () => {
       a.bootstrap.integrations.find((item) => item.name === "Tiger Data")
         ?.status,
     ).toBe("not_configured");
-    expect(
-      a.bootstrap.evaluation.configurations.every(
-        (item) => item.falsePassRate === null,
-      ),
-    ).toBe(true);
+    expect(a.bootstrap.evaluation.configurations).toEqual(
+      getEvaluation().configurations,
+    );
+    expect(a.bootstrap.evaluation.notes.join(" ")).toContain(
+      "no model inference runs for visitors",
+    );
     expect(
       (await h.request(`/api/projects/${a.project.id}`, b.cookie)).status,
     ).toBe(404);

@@ -25,63 +25,90 @@ npm run audit:sample
 FLOWPROOF_AI_ENABLED=true FLOWPROOF_OLLAMA_MODEL=gemma3:4b FLOWPROOF_GEMMA_ENABLED=true node --import tsx eval/smoke-local.ts
 ```
 
-## Candidate dataset
+## Dataset and review provenance
 
-`eval/candidates.jsonl` contains 360 synthetic candidates: 216 training, 72 validation, 72 test. It covers six assertion kinds across 20 synthetic website groups. Website identities and wording-family identities are disjoint across splits. The same six assertion categories occur in each split. Wording templates within a family are highly related; this is a small synthetic benchmark, not evidence of generalization to real client briefs.
+`eval/candidates.jsonl` remains the original 360 synthetic candidates (216 training, 72 validation, 72 test). **Human-validated examples: zero.** No generated candidate has been relabelled as human-reviewed.
 
-**No candidate has been human reviewed. Validated examples: zero.** Generated reference answers are proposals, not ground truth. Do not claim manual validation or model improvement from this file.
+`eval/pilot.jsonl` is a separately authored, agent-reviewed pilot: 60 training, 12 validation, and 24 heldout examples across 16 disjoint synthetic website groups. Each row records `review.actorType: "agent"`, a reviewer, timestamp and assertion-specific rationale. The reviewer checked literal heading/link/text assertions, nonempty image-alt presence, a 390px overflow predicate and appropriate abstention on qualitative, state-changing and unsupported requirements. The 12 validation rows are reserved and unused; this pilot uses a single preselected training configuration with no holdout-driven tuning.
 
-Review workflow:
+This is a small templated synthetic experiment. Website IDs describe synthetic fixture groups, not independent customer websites. Repeated templates within the training split and related wording across assertion kinds limit generalization. Agent review is **not** human validation, and these references are not independently human-scored ground truth. Any pilot results must retain this qualification.
 
-1. A human reads each requirement and its proposed reference. Fix the definition if necessary. Reject examples that are ambiguous or cannot be completely represented by the supported assertion.
-2. Record `review.status: "approved"`, the reviewer's identity and an ISO timestamp only after that person actually reviewed that example. Remove rejected rows from the frozen experiment dataset.
-3. Keep website and wording-family groups in their original split. Avoid moving near duplicates across groups. Freeze the reviewed JSONL and retain its hash.
-4. Run the validation command below. Training and evaluation refuse any unreviewed row. Do not bulk-mark generated rows as reviewed to bypass this gate.
+The default `human-reviewed` experiment mode requires an explicit `review.actorType: "human"`, actual reviewer identity, an ISO timestamp with timezone, and review rationale on every row. The separately selected `agent-reviewed-pilot` mode requires agent provenance and cannot produce a human-validated count. Do not invent a reviewer or bulk-mark generated data as human-approved.
 
 ```sh
 python3 scripts/model-dataset.py --validate eval/candidates.jsonl
-python3 scripts/model-dataset.py --validate eval/reviewed.jsonl --require-reviewed
+python3 scripts/model-dataset.py --validate eval/pilot.jsonl --benchmark-mode agent-reviewed-pilot --require-reviewed
 ```
 
-The generator will not overwrite an existing candidate file. Use `--output` to create a fresh draft, preserving any reviews.
+## Frozen comparison manifest
 
-## Tinker experiment commands
+`eval/pilot.manifest.json` freezes the exact dataset SHA-256, ordered train/validation/heldout IDs, six training-only few-shot examples, system prompt hash, exact `Qwen/Qwen3.5-4B` model and renderer, generation cap and training settings. All three configurations must evaluate **the identical 24 heldout IDs in order**. Arbitrary per-run subset limits are unavailable.
 
-Scripts follow the official [Tinker supervised fine-tuning workflow](https://tinker-docs.thinkingmachines.ai/tutorials/basics/first-sft/), [SDK client API](https://tinker-docs.thinkingmachines.ai/tinker/sdk-cheatsheet/) and [Qwen renderer documentation](https://tinker-docs.thinkingmachines.ai/cookbook/api-reference/renderers/get_renderer/). The documented base model is `Qwen/Qwen3.5-4B`; scripts verify its availability or checkpoint identity and never silently substitute another model.
-
-The Python commands have been syntax checked and their offline refusal paths exercised. Remote SDK training and inference have not been executed for this project. An SDK/API compatibility adjustment may be necessary after installing the optional dependencies. No checkpoint or improvement is claimed.
-
-Install optional dependencies in an isolated environment with `pip install -r eval/requirements.txt`. Freeze the resolved package versions alongside any real experiment. Then run offline validation:
+A fresh human-reviewed experiment can be frozen with:
 
 ```sh
-python3 scripts/model-train.py --dataset eval/reviewed.jsonl
-python3 scripts/model-evaluate.py --dataset eval/reviewed.jsonl --configuration zero-shot
+python3 scripts/model-dataset.py --validate eval/reviewed.jsonl --require-reviewed \
+  --freeze-manifest eval/human.manifest.json --experiment-id flowproof-human-v1
 ```
 
-No provider work occurs without `--run`. For a real run, the operator must first establish that sufficient free credits cover all operations, including any provider-specific charges. The [provider pricing and billing terms](https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/) are authoritative; a token count in this code is not a financial guarantee.
+Neither frozen manifests nor receipts are overwritten by experiment commands. Any dataset, prompt, few-shot selection or sampling change requires a new manifest and a complete new comparison. Fine-tuned evaluation additionally requires the SHA-linked, completed training receipt and its exact sampler path. Do not optimize against this pilot's heldout failures and then reuse its numbers as an untouched test set.
 
-A provider run additionally requires `TINKER_API_KEY`, `FLOWPROOF_ALLOW_TINKER=1`, a positive `FLOWPROOF_FREE_TOKEN_ALLOWANCE`, `--credits-confirmed`, and `--max-tokens` within that allowance. Those controls are off by default. Credentials must remain in the environment and never be committed.
+## Runtime and zero-spend controls
+
+The experiment scripts use the Tinker SDK plus Hugging Face tokenizer assets. `eval/requirements.txt` pins the tested SDK/tokenizer versions. They do not load model weights, require PyTorch or depend on the cookbook. The tokenizer's original chat template is rendered with `enable_thinking=False`; the template and vocabulary hashes, package versions and EOS ID are saved with every run. SDK tokenizer identity must match before training or sampling.
+
+Cache only the public tokenizer assets before the offline preflight:
 
 ```sh
-# Only after free allowance and the reviewed dataset are confirmed:
-python3 scripts/model-train.py --dataset eval/reviewed.jsonl --run --credits-confirmed --max-tokens 100000
-python3 scripts/model-evaluate.py --dataset eval/reviewed.jsonl --configuration zero-shot --run --credits-confirmed --max-tokens 100000
-python3 scripts/model-evaluate.py --dataset eval/reviewed.jsonl --configuration few-shot --run --credits-confirmed --max-tokens 200000
-python3 scripts/model-evaluate.py --dataset eval/reviewed.jsonl --configuration fine-tuned --checkpoint 'tinker://ACTUAL_SAMPLER_PATH' --run --credits-confirmed --max-tokens 100000
+python3 -m pip install -r eval/requirements.txt
+python3 -c 'from transformers import AutoTokenizer; AutoTokenizer.from_pretrained("Qwen/Qwen3.5-4B", trust_remote_code=False)'
+python3 scripts/model-train.py --manifest eval/pilot.manifest.json
+python3 scripts/model-evaluate.py --manifest eval/pilot.manifest.json --configuration zero-shot
+python3 scripts/model-evaluate.py --manifest eval/pilot.manifest.json --configuration few-shot
 ```
 
-The numbers above are explicit maximum budgets, not estimates, measured usage, authorization, or a claim that any allowance exists. A run refuses work if its token upper bound exceeds the provided cap. Provider billing must be independently constrained to keep the ₹0 requirement.
+Offline commands use cached tokenizer assets, calculate actual input-token lengths and make no Tinker calls. The pilot preflight counted 15,910 training tokens; inference upper bounds are 17,385 zero-shot, 29,025 few-shot and 17,385 fine-tuned tokens, including the full 512-output-token cap on every example. These are bounded estimates for the frozen setup, **not** measured provider billing usage.
 
-Training uses LoRA rank 16, seed 42, one epoch by default, assistant-only loss and the no-thinking Qwen3.5 renderer. It saves real sampler and training-state paths in a local receipt. Few-shot examples come exclusively from reviewed training rows. All three comparisons use the same heldout test split and temperature zero.
+A real operation additionally requires `TINKER_API_KEY`, `FLOWPROOF_ALLOW_TINKER=1`, a positive `FLOWPROOF_FREE_TOKEN_ALLOWANCE`, `--credits-confirmed`, `--max-tokens` within that allowance, and a shared `--budget-ledger`. These explicit controls default off. A local guard is not a financial guarantee: sufficient free account credits and disabled paid overage must first be independently confirmed against the provider's account and [current pricing](https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/).
 
-## What the dashboard measures
+The private ledger records currency/model, an aggregate token cap and USD cap, confirmed training/input/output prices, optional operation overhead and the source, check time, expiry, remaining free USD and disabled-overage status of the allowance. Confirmation older than 24 hours or past its expiry is rejected. Every operation atomically reserves the whole upper bound plus a 25% USD margin **before creating a provider client**. Concurrent processes share a lock. Reservations are never refunded, including after failures or partial results, so retries cannot silently reuse spent allowance. Provider-side free-credit restrictions remain necessary for independently enforcing zero out-of-pocket cost.
 
-Completed `eval/results/*.json` receipts are accepted only when their version, model identity, dataset hash, human-review fields, group separation and unique heldout IDs validate. The server recomputes metrics from the original responses and reference rows; it does not trust saved aggregate percentages.
+Example commands, only after those account conditions and the ledger are confirmed:
 
-- Structured-output rate: valid supported JSON divided by all sampled examples.
-- Interpretation: exact agreement on kind, path, viewport and literal expected text, where applicable. This is a narrow reference-agreement metric, not a human judgement of meaning.
-- Abstention: manual responses on expected-manual examples divided by expected-manual examples. Check reference agreement too, since abstaining on everything must not be rewarded as success.
-- Latency: wall-clock request duration averaged over samples. Token usage: actual input and generated token IDs counted by the SDK.
-- Executable correctness and false-pass rate: **not evaluated** by these commands. They require running proposed checks against known healthy and broken pages. A valid schema is not proof of either metric.
+```sh
+python3 scripts/model-train.py --manifest eval/pilot.manifest.json \
+  --run --credits-confirmed --max-tokens 30000 \
+  --budget-ledger work/tinker-budget-ledger.json --output eval/results/training.json
+python3 scripts/model-evaluate.py --manifest eval/pilot.manifest.json --configuration zero-shot \
+  --run --credits-confirmed --max-tokens 30000 \
+  --budget-ledger work/tinker-budget-ledger.json --output eval/results/zero-shot.json
+python3 scripts/model-evaluate.py --manifest eval/pilot.manifest.json --configuration few-shot \
+  --run --credits-confirmed --max-tokens 30000 \
+  --budget-ledger work/tinker-budget-ledger.json --output eval/results/few-shot.json
+python3 scripts/model-evaluate.py --manifest eval/pilot.manifest.json --configuration fine-tuned \
+  --training-receipt eval/results/training.json --checkpoint 'tinker://ACTUAL_SAMPLER_PATH' \
+  --run --credits-confirmed --max-tokens 30000 \
+  --budget-ledger work/tinker-budget-ledger.json --output eval/results/fine-tuned.json
+```
 
-Without a real experiment, every model metric is `null`. The local parser and any one-off Gemma adapter smoke check are excluded from the Qwen/Tinker comparison. Before claiming improvement, run all three configurations on the identical reviewed holdout, complete browser execution evaluation, inspect failure cases, and report sample sizes and uncertainty. Remove the Tinker category if that evidence cannot be produced.
+Training uses rank 16, seed 42, one epoch, batch size 8, learning rate 0.0002 and assistant-only cross-entropy loss. Both real checkpoint types request a **24-hour TTL**. Expired checkpoints must not be described as currently reusable. Training state and raw inference responses are recorded incrementally, including pending operations, partial token counts and failed-run status. Failures do not become completed comparisons. Provider exception bodies and credentials are excluded from the receipts.
+
+## What measured evidence means
+
+Version 2 inference receipts record every original response, input/generated token count and wall-clock request duration. JSON output is neither extracted from prose nor repaired. Only a terminal protocol EOS token is removed before decoding. The original generated token IDs are retained. Schema checks reject unexpected fields, missing literal text, unsafe paths and unsupported assertions. Token-ID counts measure SDK work; they are not a provider billing receipt.
+
+- Structured-output rate: valid finite-schema outputs divided by all heldout responses.
+- Reference agreement: exact kind, path, viewport and literal expected text where applicable. This is a synthetic reference-agreement proxy, not human interpretation accuracy.
+- Appropriate abstention: manual responses among expected-manual examples. Also report inappropriate abstention on executable requirements.
+- Latency: mean wall-clock sampling request duration, including provider queueing.
+- Browser correctness and false-pass rates require separately SHA-linked paired fixture execution; they cannot be inferred from valid JSON or reference agreement.
+
+The browser evaluator derives healthy and deliberately broken pages from the frozen reference requirements, then executes the **actual model-proposed checks** through the production finite runner. Fixture ground-truth checks are evaluated independently. The model may not change fixtures, execute scripts, follow external links or approve a real customer audit. Raw response, reference, fixture and browser evidence hashes preserve traceability. A blocked/unavailable browser run cannot count as a pass. Metrics retain explicit denominators for valid, malformed, abstained, blocked and observed results.
+
+The dashboard accepts a coherent manifest cohort and matching review provenance, dataset hash and exact heldout IDs; a fine-tuned result must link its completed training artifact. Without completed, compatible evidence, the corresponding metrics remain `null` or pending. The deterministic parser and one-off local Gemma smoke checks remain outside this Qwen/Tinker comparison. No improvement is implied by training completion; report the strongest measured baseline even when fine-tuning ties or performs worse.
+
+Run the offline control tests with:
+
+```sh
+python3 -m unittest discover -s eval -p 'test_*.py' -v
+```
