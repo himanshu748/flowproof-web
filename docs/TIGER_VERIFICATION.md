@@ -37,7 +37,7 @@ For reproduction, use a new isolated schema or inspect the existing synthetic sc
 
 ## Direct-adapter probe
 
-The guarded probe is designed to use the application’s PostgreSQL store and Playwright runner. After strict TLS succeeds, it writes two synthetic audits to a unique temporary schema, restarts in a fresh process with an empty local evidence directory, recovers projects/audits/screenshots from the database, and exercises lexical and vector retrieval. It removes only the schema created for that run. No existing FlowProof state is reset. The observed attempt stopped before these phases.
+The guarded probe is designed to use the application’s PostgreSQL store and Playwright runner. After strict TLS succeeds, it writes two synthetic audits to a unique temporary schema, restarts in a fresh process with an empty local evidence directory, recovers projects/audits/screenshots from the database, and exercises lexical and vector retrieval. It removes only the schema created for that run. No existing Briefstamp state is reset. The observed attempt stopped before these phases.
 
 The public Render demo remains isolated and temporary. This probe does not connect visitor sessions to Tiger or change any deployment settings.
 

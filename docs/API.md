@@ -1,4 +1,4 @@
-# FlowProof local API contract
+# Briefstamp local API contract
 
 All JSON endpoints use /api. Errors return {error:string}. No authentication is required for the loopback-only local development server. Public mode must require an operator token for every API request.
 

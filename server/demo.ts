@@ -87,7 +87,8 @@ function integrations(): IntegrationStatus[] {
     {
       name: "Tinker",
       status: "available",
-      detail: "Real baseline and LoRA results are recorded in Model lab. This small agent-reviewed pilot did not beat few-shot prompting. No live model calls run in the demo.",
+      detail:
+        "Real baseline and LoRA results are recorded in Model lab. This small agent-reviewed pilot did not beat few-shot prompting. No live model calls run in the demo.",
     },
     {
       name: "GitHub Actions",
@@ -202,7 +203,7 @@ export function createDemoRouter(options: DemoOptions) {
       if (req.method !== "GET" || req.path !== "/api/bootstrap")
         return res.status(401).json({
           error:
-            "Your demo session expired. Reload FlowProof to start a new session.",
+            "Your demo session expired. Reload Briefstamp to start a new session.",
         });
       if (sessions.size >= 20)
         return res.status(429).json({

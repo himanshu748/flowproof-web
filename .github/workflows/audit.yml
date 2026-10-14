@@ -1,4 +1,4 @@
-name: FlowProof browser acceptance
+name: Briefstamp browser acceptance
 on:
   push:
     branches: [main]
@@ -29,7 +29,9 @@ jobs:
         run: npm run audit:sample
       - name: Run approved project checks when provided
         run: |
-          if [ -f flowproof-plan.json ]; then
+          if [ -f briefstamp-plan.json ]; then
+            npm run audit:plan -- briefstamp-plan.json
+          elif [ -f flowproof-plan.json ]; then
             npm run audit:plan -- flowproof-plan.json
           fi
       - uses: actions/upload-artifact@v4

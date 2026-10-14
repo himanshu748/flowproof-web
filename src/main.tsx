@@ -126,7 +126,7 @@ function Logo({ small = false }: { small?: boolean }) {
       </span>
       {!small && (
         <>
-          FlowProof<span className="brand-dot">.</span>
+          Briefstamp<span className="brand-dot">.</span>
         </>
       )}
     </span>
@@ -551,7 +551,7 @@ function App() {
               </span>
               <button
                 className="icon-button topbar-help"
-                aria-label="Read how FlowProof works"
+                aria-label="Read how Briefstamp works"
                 onClick={() => {
                   setIntroStep(0);
                   navigate("overview");
@@ -702,7 +702,7 @@ function App() {
                             <div
                               className="intro-steps"
                               role="tablist"
-                              aria-label="How FlowProof works"
+                              aria-label="How Briefstamp works"
                             >
                               {["Define", "Verify", "Deliver"].map(
                                 (name, i) => (
@@ -1435,7 +1435,7 @@ function App() {
                           onClick={() =>
                             download(
                               `/projects/${project.id}/plan`,
-                              "flowproof-plan.json",
+                              "briefstamp-plan.json",
                             )
                           }
                           disabled={!!busy}
@@ -1475,7 +1475,7 @@ function App() {
                           onClick={() =>
                             download(
                               `/audits/${audit.id}/report`,
-                              `flowproof-${audit.projectName.replace(/[^a-z0-9]/gi, "-").toLowerCase()}.html`,
+                              `briefstamp-${audit.projectName.replace(/[^a-z0-9]/gi, "-").toLowerCase()}.html`,
                             )
                           }
                         >

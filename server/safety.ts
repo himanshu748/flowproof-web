@@ -171,7 +171,7 @@ export async function safeFetch(
           agent: false,
           headers: {
             "user-agent":
-              "FlowProof/0.1 (authorized read-only acceptance audit)",
+              "Briefstamp/0.1 (authorized read-only acceptance audit)",
             accept: "*/*",
             "accept-encoding": "identity",
           },

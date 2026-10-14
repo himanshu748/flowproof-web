@@ -460,6 +460,6 @@ if (!demoMode && !allProjects().length) {
 const port = Number(process.env.PORT || 4310);
 app.listen(port, publicMode ? "0.0.0.0" : "127.0.0.1", () =>
   console.log(
-    `FlowProof listening on http://${publicMode ? "0.0.0.0" : "127.0.0.1"}:${port} (${demoMode ? "isolated public demo" : storageMode})`,
+    `Briefstamp listening on http://${publicMode ? "0.0.0.0" : "127.0.0.1"}:${port} (${demoMode ? "isolated public demo" : storageMode})`,
   ),
 );

@@ -1,10 +1,12 @@
-# FlowProof
+# Briefstamp
+
+Previously FlowProof. The existing repository, demo URL and storage identifiers are retained for compatibility.
 
 Turn website requirements into approved browser checks and evidence-backed delivery reports.
 
 [Live demo](https://flowproof-demo.onrender.com) · [Passing browser audit](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955) · [Evidence and limitations](docs/DEPLOYMENT.md)
 
-FlowProof includes a local working product and an isolated public-demo mode. It includes a React delivery cockpit, safe typed acceptance checks, a real Playwright runner, screenshot and redacted text evidence, standalone HTML reports, PostgreSQL persistence, failure retrieval, and a GitHub Actions workflow. Integration readiness and measured model results are shown honestly in the app.
+Briefstamp includes a local working product and an isolated public-demo mode. It includes a React delivery cockpit, safe typed acceptance checks, a real Playwright runner, screenshot and redacted text evidence, standalone HTML reports, PostgreSQL persistence, failure retrieval, and a GitHub Actions workflow. Integration readiness and measured model results are shown honestly in the app.
 
 Real Tinker baseline and LoRA runs are now recorded using confirmed promotional credits. On the same 24-example holdout, few-shot prompting achieved **23/24 reference matches and 19/20 correct healthy/broken browser pairs**; LoRA achieved **22/24 and 18/20**. Fine-tuning did not beat the strongest baseline. This 96-example synthetic pilot was agent-reviewed, with **zero human-validated examples**. See [measured results](docs/MODEL_RESULTS.md).
 
@@ -32,7 +34,7 @@ The welcoming/trustworthy requirement is intentionally unverified, because a det
 
 ```sh
 npm run verify
-npm run audit:plan -- flowproof-plan.json
+npm run audit:plan -- briefstamp-plan.json
 ```
 
 `audit:sample` executes both sample variants in Chromium and requires healthy checks to pass and known broken checks to fail. Unit tests exercise schema and network guards. A saved approved plan can run in GitHub Actions. CI stores screenshots and audit JSON as artifacts. Current remote execution evidence is tracked in [deployment evidence](docs/DEPLOYMENT.md).
