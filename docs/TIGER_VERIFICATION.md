@@ -49,7 +49,9 @@ Configure `DATABASE_CA_CERT_FILE` with one public PEM CA certificate, plus `DATA
 
 The free service currently presents a chain signed by `O=Timescale Inc, CN=ca.timescale.com`. Its observed root fingerprint is `06:5A:75:0D:0D:64:F6:2D:AC:DC:97:9E:3B:83:D2:11:95:40:71:EA:59:B8:F3:40:7C:4E:87:CA:68:34:64:57`. **This peer observation is not an authenticated trust anchor and has not been configured as trusted.** The provider console reveals the public CA file path but denies exporting its contents. No permissions were changed.
 
-An approved support request asked for an authenticated CA copy or fingerprint. The initial reply confirms that publicly trusted certificates require a paid plan; clarification about authenticating the existing private CA is pending. The application connection and its persistence/retrieval probe remain blocked. Local tests verify client behavior only: correct-host TLS works with a confirmed fixture CA; wrong-host and untrusted-CA handshakes fail. They do not prove Tiger connectivity.
+An approved support request asked for an authenticated CA copy or fingerprint. The initial reply confirms that publicly trusted certificates require a paid plan. On October 14, support recommended downloading the chain directly from the PostgreSQL endpoint and computing its fingerprint locally, but supplied neither an authenticated certificate nor an independently confirmed fingerprint. The replies passed Gmail's DKIM, SPF and DMARC checks. Authenticating a message about how to fetch a certificate does not authenticate the certificate returned by an untrusted endpoint.
+
+The application connection and its persistence/retrieval probe remain blocked. No peer certificate was added to the trust store and no paid conversion was made. Local tests verify client behavior only: correct-host TLS works with a confirmed fixture CA; wrong-host and untrusted-CA handshakes fail. They do not prove Tiger connectivity.
 
 ## Prerequisites
 
