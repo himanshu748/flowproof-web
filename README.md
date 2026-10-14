@@ -4,13 +4,13 @@ Previously FlowProof. The existing repository, demo URL and storage identifiers 
 
 Turn website requirements into approved browser checks and evidence-backed delivery reports.
 
-[Live demo](https://flowproof-demo.onrender.com) · [Passing browser audit](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955) · [Evidence and limitations](docs/DEPLOYMENT.md)
+[Live demo](https://flowproof-demo.onrender.com) · [Passing browser audit](https://github.com/himanshu748/flowproof-web/actions/runs/38564166138) · [Evidence and limitations](docs/DEPLOYMENT.md)
 
 Briefstamp includes a local working product and an isolated public-demo mode. It includes a React delivery cockpit, safe typed acceptance checks, a real Playwright runner, screenshot and redacted text evidence, standalone HTML reports, PostgreSQL persistence, failure retrieval, and a GitHub Actions workflow. Integration readiness and measured model results are shown honestly in the app.
 
 Real Tinker baseline and LoRA runs are now recorded using confirmed promotional credits. On the same 24-example holdout, few-shot prompting achieved **23/24 reference matches and 19/20 correct healthy/broken browser pairs**; LoRA achieved **22/24 and 18/20**. Fine-tuning did not beat the strongest baseline. This 96-example synthetic pilot was agent-reviewed, with **zero human-validated examples**. See [measured results](docs/MODEL_RESULTS.md).
 
-A confirmed free Tiger Data service now stores four real synthetic audit failures. Separate authenticated HTTPS-console queries verified persistence, lexical search and cosine retrieval, with independently checked scores. **The direct application adapter remains blocked by certificate verification; the public demo has no database connection.** See [Tiger evidence and boundaries](docs/TIGER_VERIFICATION.md).
+A real strict-TLS probe on a confirmed no-card Tiger trial verified the application store end to end: two projects, two audits, ten recovered screenshots, and lexical/vector retrieval over four failures. A fresh process recovered evidence from Tiger with an empty local directory, and an independent read confirmed temporary-schema cleanup. **The separate Shared Free service remains TLS-blocked, and the public demo has no database connection.** See [Tiger evidence and boundaries](docs/TIGER_VERIFICATION.md).
 
 ## Run locally, no paid account required
 

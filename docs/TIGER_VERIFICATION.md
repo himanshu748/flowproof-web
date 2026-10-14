@@ -1,18 +1,36 @@
 # Tiger Data integration verification
 
-**Status on October 13, 2026:** free provisioning and **hosted failure-row persistence, lexical search and cosine retrieval are verified through the authenticated provider HTTPS SQL console**. The application's direct database adapter remains blocked by certificate verification. Public-demo database persistence is not enabled.
+**Status on October 14, 2026:** an isolated **no-card trial probe verified the real application store, screenshot recovery, lexical search and cosine retrieval over strict TLS**. The separate Shared Free service previously verified four persisted failure rows through the authenticated HTTPS SQL console; its direct connection remains blocked by an unconfirmed CA. Public-demo database persistence is not enabled.
 
-| Boundary                   | Observed result                                                                                                                                                                                                                                                 |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Free service               | `flowproof-evidence`, service ID `if4e2s7m6i`; provider console showed Shared Free, 1 GiB, $0/hour. No paid upgrade was made.                                                                                                                                   |
-| Cloud SQL identity         | A real query through the authenticated provider HTTPS SQL console returned PostgreSQL 18.6 for the new service. This establishes console access only.                                                                                                           |
-| Direct application adapter | The strict-TLS attempt failed at `tls_preflight` with `SELF_SIGNED_CERT_IN_CHAIN`. No schema, audit, failure rows or retrieval query was executed by that attempt.                                                                                              |
-| Hosted failure retrieval   | **Verified through the authenticated HTTPS console.** The exact prepared write and independent read ran on the free service, returning four persisted failures and matching lexical/vector results. See [cloud output](evidence/tiger-console/cloud-read.json). |
-| Local SQL/embeddings       | Four real synthetic browser failures and local MiniLM embeddings passed an independent local PostgreSQL write/read test. This is local evidence only.                                                                                                           |
+| Boundary                 | Observed result                                                                                                                                                                                                                                                 |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Free service             | `flowproof-evidence`, service ID `if4e2s7m6i`; creation wizard showed Shared Free with 1 GiB; a later resource page showed 750 MiB, $0/hour. No paid upgrade was made.                                                                                          |
+| Cloud SQL identity       | A real query through the authenticated provider HTTPS SQL console returned PostgreSQL 18.6 for the new service. This establishes console access only.                                                                                                           |
+| Shared Free adapter      | The strict-TLS attempt failed at `tls_preflight` with `SELF_SIGNED_CERT_IN_CHAIN`. No schema, audit, failure rows or retrieval query was executed by that attempt.                                                                                              |
+| Hosted failure retrieval | **Verified through the authenticated HTTPS console.** The exact prepared write and independent read ran on the free service, returning four persisted failures and matching lexical/vector results. See [cloud output](evidence/tiger-console/cloud-read.json). |
+| Local SQL/embeddings     | Four real synthetic browser failures and local MiniLM embeddings passed an independent local PostgreSQL write/read test. This is local evidence only.                                                                                                           |
 
 The [sanitized TLS attempt](evidence/tiger-tls-attempt.json) preserves the failure code, timing, source-code hashes and the original receipt hash. The private original is `outputs/tiger-verification/receipt.json`; database hostname and project-scoped console URL are omitted from the public derivative. No credentials or personal account details are included.
 
 Tiger Data's [strict-SSL documentation](https://www.tigerdata.com/docs/use-timescale/latest/security/strict-ssl/) states that free services do not supply signed SSL certificates. Its [service-creation documentation](https://www.tigerdata.com/docs/get-started/quickstart/create-service) describes Shared as the free option. The failed certificate check was retained: no `rejectUnauthorized: false`, insecure SSL mode, paid conversion or fabricated success was used. A future direct-connection verification requires a provider-authenticated trust path; accepting an unauthenticated certificate from the failed endpoint would not establish its identity.
+
+## Verified application-store trial probe
+
+The user approved a single temporary Briefstamp schema on an existing Tiger trial. Immediately before execution, the authenticated provider billing page showed remaining included credit, no registered payment method, and zero billed spend. No infrastructure, credentials, payment method or plan changed. This is a time-limited trial, not a permanent free deployment.
+
+The run on October 14, 2026 used application commit `f1eee9baee58e951bc8eeaa959761cd58447346c`, with a clean working tree. It established TLS 1.3 using the default trusted certificate chain and exact-hostname verifier. The peer was authorized, with a Google Trust Services issuer; no custom CA or insecure SSL mode was used.
+
+The application's store and real Playwright runner wrote two synthetic projects and audits, ten screenshots (904,075 bytes total), and four failures with locally generated 384-dimensional MiniLM vectors. Healthy: five passed and one unverified. Broken: four failed, one passed and one unverified. The human-judgment requirement was never counted as passed.
+
+A separate process with an empty local evidence directory recovered both projects, both audits and all ten screenshots from PostgreSQL. Every screenshot hash matched. Lexical search for `horizontal` recovered the layout failure. The semantic query `sideways panning on smartphones` had zero lexical matches and ranked that failure first, with cosine `0.3381529157352527`; every score and ordering matched an independent calculation.
+
+The controller removed only its generated temporary schema. A further read-only, certificate-verified connection independently confirmed the schema was absent and the existing database remained available. No FieldIssue application rows or schemas were read or changed by the probe. The successful run does not resolve the private CA on the separate Shared Free service or connect public visitor sessions to a database.
+
+- [Sanitized execution and cleanup receipt](evidence/tiger-trial/receipt.json), including code hashes and the original private receipt hash.
+- [Exact synthetic projects and audit manifest](evidence/tiger-trial/manifest.json).
+- Ten original PNG screenshots are bundled at the paths in the receipt; their content hashes were verified again before publication.
+
+Service identity, database hostname, certificate hostname and the project-scoped billing URL are omitted from the public derivative. The original private receipt SHA-256 is `eed7c14bb366a1e683cce6e6046e329cb3fd7bd7f1ba7f2f89ede43d6b2a0bb5`.
 
 ## Verified console-only experiment
 
@@ -37,7 +55,7 @@ For reproduction, use a new isolated schema or inspect the existing synthetic sc
 
 ## Direct-adapter probe
 
-The guarded probe is designed to use the application’s PostgreSQL store and Playwright runner. After strict TLS succeeds, it writes two synthetic audits to a unique temporary schema, restarts in a fresh process with an empty local evidence directory, recovers projects/audits/screenshots from the database, and exercises lexical and vector retrieval. It removes only the schema created for that run. No existing Briefstamp state is reset. The observed attempt stopped before these phases.
+The guarded probe is designed to use the application’s PostgreSQL store and Playwright runner. After strict TLS succeeds, it writes two synthetic audits to a unique temporary schema, restarts in a fresh process with an empty local evidence directory, recovers projects/audits/screenshots from the database, and exercises lexical and vector retrieval. It removes only the schema created for that run. No existing Briefstamp state is reset. The earlier Shared Free attempt stopped before these phases; the separate no-card trial run above completed them.
 
 The public Render demo remains isolated and temporary. This probe does not connect visitor sessions to Tiger or change any deployment settings.
 

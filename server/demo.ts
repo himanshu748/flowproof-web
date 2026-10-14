@@ -82,7 +82,7 @@ function integrations(): IntegrationStatus[] {
       name: "Tiger Data",
       status: "not_configured",
       detail:
-        "Keyword and vector retrieval over four saved failures were verified in Tiger's free SQL console. The direct application connection remains blocked by certificate verification. Demo sessions use temporary memory.",
+        "An isolated no-card Tiger trial verified application persistence, screenshot recovery, and lexical/vector retrieval. Demo sessions use temporary memory. The separate Shared Free service remains blocked by certificate verification.",
     },
     {
       name: "Tinker",
@@ -405,14 +405,14 @@ export function createDemoRouter(options: DemoOptions) {
       .type("html")
       .setHeader(
         "Content-Disposition",
-        `attachment; filename="flowproof-report-${a.id.slice(0, 8)}.html"`,
+        `attachment; filename="briefstamp-report-${a.id.slice(0, 8)}.html"`,
       );
     res.send(await renderReport(a, (value) => readImage(s, value)));
   });
   router.get("/api/projects/:id/plan", (req, res) => {
     const p = session(res).projects.get(req.params.id);
     return p
-      ? res.attachment("flowproof-plan.json").json({ version: 1, project: p })
+      ? res.attachment("briefstamp-plan.json").json({ version: 1, project: p })
       : notFound(res);
   });
   router.get("/api/failures", (req, res) => {

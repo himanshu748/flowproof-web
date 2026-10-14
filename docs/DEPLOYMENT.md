@@ -2,6 +2,14 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
+## Verified rebrand snapshot, 14 October 2026
+
+Briefstamp was deployed at commit `e028105dc2838f9f1f2460206af2601eba29344a` using the existing free Docker service. Deployment `dep-db7nahmq1p3s73d3kil0` became live at 12:30:00 UTC. Health and the homepage returned HTTP 200, the browser displayed the Briefstamp name, and no error-level logs were returned after deployment. The separate documentation commit `f1eee9baee58e951bc8eeaa959761cd58447346c` passed [Actions run 38564166138](https://github.com/himanshu748/flowproof-web/actions/runs/38564166138), including 106 application tests, 17 provenance tests, the build and healthy/broken browser audits.
+
+The Tiger application-store probe subsequently verified a separate, no-card trial using an isolated temporary schema. Its evidence and cleanup are in [Tiger verification](TIGER_VERIFICATION.md). That operator-side experiment does not connect this public demo to Tiger. Current integration disclosures distinguish trial evidence, the Shared Free CA blocker and ephemeral visitor storage. Recorded Tinker results remain separate from live model inference.
+
+The original release below is a historical receipt. Later model and Tiger experiments retain their own source commits, evidence and limitations.
+
 ## Verified release — 13 October 2026
 
 - **Live demo:** [https://flowproof-demo.onrender.com](https://flowproof-demo.onrender.com)

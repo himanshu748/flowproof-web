@@ -148,8 +148,8 @@ const integrations = (): IntegrationStatus[] => [
     name: "Tiger Data",
     status: process.env.DATABASE_URL ? "available" : "not_configured",
     detail: process.env.DATABASE_URL
-      ? "PostgreSQL configured; verify this connection separately. Free Tiger console retrieval was demonstrated, while its direct application connection remains blocked by certificate verification."
-      : "Using local JSON storage. Free Tiger console retrieval was demonstrated; its direct application connection remains blocked by certificate verification.",
+      ? "PostgreSQL configured; verify this runtime's connection separately. An isolated no-card Tiger trial verified application persistence, screenshot recovery, and retrieval. The separate Shared Free service's CA remains unconfirmed."
+      : "Using local JSON storage. An isolated no-card Tiger trial verified application persistence, screenshot recovery, and retrieval. The separate Shared Free service's CA remains unconfirmed.",
   },
   {
     name: "Tinker",
@@ -384,14 +384,14 @@ app.get("/api/audits/:id/report", async (req, res) => {
     .type("html")
     .setHeader(
       "Content-Disposition",
-      `attachment; filename="flowproof-report-${a.id.slice(0, 8)}.html"`,
+      `attachment; filename="briefstamp-report-${a.id.slice(0, 8)}.html"`,
     );
   res.send(await renderReport(a));
 });
 app.get("/api/projects/:id/plan", (req, res) => {
   const p = getProject(req.params.id);
   if (!p) return res.status(404).json({ error: "Project not found." });
-  res.attachment("flowproof-plan.json").json({ version: 1, project: p });
+  res.attachment("briefstamp-plan.json").json({ version: 1, project: p });
 });
 app.get("/api/failures", async (req, res) =>
   res.json(await searchFailures(String(req.query.q || "").slice(0, 200))),

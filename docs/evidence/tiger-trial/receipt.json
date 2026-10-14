@@ -1,0 +1,323 @@
+{
+  "status": "verified",
+  "startedAt": "2026-10-14T14:19:14.877Z",
+  "provider": "Tiger Data",
+  "scope": "Dedicated temporary schema, synthetic browser audits, local MiniLM embeddings; public visitor storage unchanged",
+  "schema": "flowproof_verify_6eacb5898cee42e4abe657efd57d60dc",
+  "freeAllowance": {
+    "provider": "Tiger Data",
+    "checkedAt": "2026-10-14T14:18:31.651Z",
+    "expiresAt": "2026-10-15T14:18:31.651Z",
+    "basis": "trial-no-card",
+    "outOfPocketLimit": 0,
+    "automaticPaidConversion": false,
+    "confirmedBy": "Codex authenticated Tiger console check; human-approved isolated probe"
+  },
+  "strictCertificateVerification": true,
+  "providerProvisioningPerformed": false,
+  "paidInferencePerformed": false,
+  "publicDemoDatabaseEnabled": false,
+  "commit": "f1eee9baee58e951bc8eeaa959761cd58447346c",
+  "worktreeDirty": false,
+  "sourceSha256": {
+    "scripts/verify-tiger.ts": "f45fdb5a3564df1686fa37c5704e0c0ce40f07f70764947f1f636725b2d170fb",
+    "server/store.ts": "afcdac692b03e24cf09e01ee5db358a7609c1adde7c8f2bec248073db4f6bf5c",
+    "server/database.ts": "84477fd4fd86f2b715be1164a732b91894e9332523b6c52a5617e6850ee37486",
+    "server/embeddings.ts": "ef116fa9be0e5617c934c651804df8e64ebacb98d26f4ae1ab793968c7f21435",
+    "server/runner.ts": "03c42ac9d7e91fb82a856d131aaa4a472b3045ac67c8588fe3680b4ea9a7d479",
+    "server/sample.ts": "2987d63b9408a705d3ba6684ba8fa5ffc61c6756659a744fb818c382485453f3"
+  },
+  "verifiedPeer": {
+    "authorized": true,
+    "protocol": "TLSv1.3",
+    "fingerprintSha256": "12:6F:C8:DC:A5:CA:A7:02:CA:21:63:86:79:6B:76:BE:A7:0A:FD:5A:C8:90:8E:15:73:13:EA:64:2C:37:FB:E1",
+    "issuer": {
+      "C": "US",
+      "O": "Google Trust Services",
+      "CN": "WR1"
+    },
+    "validUntil": "Jan  6 14:20:15 2027 GMT",
+    "customCaFingerprint": null,
+    "customCaSource": null
+  },
+  "tls": {
+    "ssl": true,
+    "version": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384"
+  },
+  "write": {
+    "status": "passed",
+    "processId": 39680,
+    "database": "PostgreSQL",
+    "audits": [
+      {
+        "id": "7e87c832-91ad-4615-9d62-126b8b2ed0a2",
+        "results": [
+          {
+            "checkId": "sample-heading",
+            "status": "passed"
+          },
+          {
+            "checkId": "sample-text",
+            "status": "passed"
+          },
+          {
+            "checkId": "sample-link",
+            "status": "passed"
+          },
+          {
+            "checkId": "sample-alt",
+            "status": "passed"
+          },
+          {
+            "checkId": "sample-mobile",
+            "status": "passed"
+          },
+          {
+            "checkId": "sample-manual",
+            "status": "unverified"
+          }
+        ]
+      },
+      {
+        "id": "19fdd32e-5292-4565-81e7-66cb8e8c8c00",
+        "results": [
+          {
+            "checkId": "sample-heading",
+            "status": "failed"
+          },
+          {
+            "checkId": "sample-text",
+            "status": "passed"
+          },
+          {
+            "checkId": "sample-link",
+            "status": "failed"
+          },
+          {
+            "checkId": "sample-alt",
+            "status": "failed"
+          },
+          {
+            "checkId": "sample-mobile",
+            "status": "failed"
+          },
+          {
+            "checkId": "sample-manual",
+            "status": "unverified"
+          }
+        ]
+      }
+    ],
+    "screenshots": [
+      {
+        "path": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/01-sample-heading.png",
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+        "bytes": 106216
+      },
+      {
+        "path": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/02-sample-text.png",
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+        "bytes": 106216
+      },
+      {
+        "path": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/03-sample-link.png",
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+        "bytes": 106216
+      },
+      {
+        "path": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/04-sample-alt.png",
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+        "bytes": 106216
+      },
+      {
+        "path": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/05-sample-mobile.png",
+        "sha256": "fd0a30224532003317ad25cdad0d0910254ba79132781afd4634c431f3567a49",
+        "bytes": 50185
+      },
+      {
+        "path": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/01-sample-heading.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861
+      },
+      {
+        "path": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/02-sample-text.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861
+      },
+      {
+        "path": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/03-sample-link.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861
+      },
+      {
+        "path": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/04-sample-alt.png",
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247",
+        "bytes": 94861
+      },
+      {
+        "path": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/05-sample-mobile.png",
+        "sha256": "e69b1d26198d6c829097328894098cc0e803468b61bffde1286cf7829a332719",
+        "bytes": 49582
+      }
+    ]
+  },
+  "read": {
+    "status": "passed",
+    "processId": 39708,
+    "freshProcess": true,
+    "emptyLocalEvidenceDirectory": true,
+    "recoveredProjects": 2,
+    "recoveredAudits": 2,
+    "recoveredScreenshots": 10,
+    "screenshotHashesMatch": true,
+    "storedFailures": 4,
+    "storedVectors": 4,
+    "lexical": {
+      "query": "horizontal",
+      "mode": "PostgreSQL full-text retrieval",
+      "results": [
+        {
+          "auditId": "19fdd32e-5292-4565-81e7-66cb8e8c8c00",
+          "projectName": "Tiger verification — broken synthetic sample",
+          "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+          "observed": "Document width is 1824px; viewport width is 390px.",
+          "status": "failed",
+          "createdAt": "2026-10-14T14:19:34.299Z"
+        }
+      ]
+    },
+    "vector": {
+      "query": "sideways panning on smartphones",
+      "lexicalMatches": 0,
+      "mode": "PostgreSQL lexical + MiniLM vector retrieval",
+      "model": "all-minilm:22m",
+      "dimensions": 384,
+      "independentCosineCheck": true,
+      "relevantRequirement": "The site must fit a mobile screen without horizontal scrolling.",
+      "relevantRank": 1,
+      "relevantAtRankOne": true,
+      "results": [
+        {
+          "auditId": "19fdd32e-5292-4565-81e7-66cb8e8c8c00",
+          "projectName": "Tiger verification — broken synthetic sample",
+          "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+          "observed": "Document width is 1824px; viewport width is 390px.",
+          "status": "failed",
+          "createdAt": "2026-10-14T14:19:34.299Z",
+          "similarity": 0.3381529157352527
+        },
+        {
+          "auditId": "19fdd32e-5292-4565-81e7-66cb8e8c8c00",
+          "projectName": "Tiger verification — broken synthetic sample",
+          "requirement": "The homepage must have the agreed headline.",
+          "observed": "No visible heading exactly matches the expected text.",
+          "status": "failed",
+          "createdAt": "2026-10-14T14:19:34.299Z",
+          "similarity": 0.1631610081338008
+        },
+        {
+          "auditId": "19fdd32e-5292-4565-81e7-66cb8e8c8c00",
+          "projectName": "Tiger verification — broken synthetic sample",
+          "requirement": "All meaningful images need alternative text.",
+          "observed": "1 of 1 images lack the required alternative text.",
+          "status": "failed",
+          "createdAt": "2026-10-14T14:19:34.299Z",
+          "similarity": 0.026481503436005284
+        },
+        {
+          "auditId": "19fdd32e-5292-4565-81e7-66cb8e8c8c00",
+          "projectName": "Tiger verification — broken synthetic sample",
+          "requirement": "The Start a project link should lead to /contact.",
+          "observed": "No visible link matches the expected destination or text.",
+          "status": "failed",
+          "createdAt": "2026-10-14T14:19:34.299Z",
+          "similarity": -0.012893441966794613
+        }
+      ]
+    },
+    "limitation": "Two synthetic audits establish integration execution, not retrieval-quality benchmarks or model improvement."
+  },
+  "temporarySchemaRemoved": true,
+  "finishedAt": "2026-10-14T14:20:09.938Z",
+  "postCleanup": {
+    "temporary_schema_absent": true,
+    "checked_at": "2026-10-14T14:21:30.666Z",
+    "in_recovery": false,
+    "readOnly": true,
+    "tlsAuthorized": true,
+    "hostnameVerification": true,
+    "configurationChanged": false
+  },
+  "publication": {
+    "originalReceiptSha256": "eed7c14bb366a1e683cce6e6046e329cb3fd7bd7f1ba7f2f89ede43d6b2a0bb5",
+    "manifestSha256": "c34160e96ed483dec81da6ee0d599ce854474f5dfb97cf07e85d60500b11df3a",
+    "manifestPath": "docs/evidence/tiger-trial/manifest.json",
+    "omitted": [
+      "Service identity, database hostname, certificate hostname, project-scoped billing URL"
+    ],
+    "scope": "Temporary application-store probe on a no-card trial; public demo persistence remains disabled",
+    "screenshots": [
+      {
+        "observedPath": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/01-sample-heading.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/7e87c832-91ad-4615-9d62-126b8b2ed0a2/01-sample-heading.png",
+        "bytes": 106216,
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+      },
+      {
+        "observedPath": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/02-sample-text.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/7e87c832-91ad-4615-9d62-126b8b2ed0a2/02-sample-text.png",
+        "bytes": 106216,
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+      },
+      {
+        "observedPath": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/03-sample-link.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/7e87c832-91ad-4615-9d62-126b8b2ed0a2/03-sample-link.png",
+        "bytes": 106216,
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+      },
+      {
+        "observedPath": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/04-sample-alt.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/7e87c832-91ad-4615-9d62-126b8b2ed0a2/04-sample-alt.png",
+        "bytes": 106216,
+        "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+      },
+      {
+        "observedPath": "/evidence/7e87c832-91ad-4615-9d62-126b8b2ed0a2/05-sample-mobile.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/7e87c832-91ad-4615-9d62-126b8b2ed0a2/05-sample-mobile.png",
+        "bytes": 50185,
+        "sha256": "fd0a30224532003317ad25cdad0d0910254ba79132781afd4634c431f3567a49"
+      },
+      {
+        "observedPath": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/01-sample-heading.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/19fdd32e-5292-4565-81e7-66cb8e8c8c00/01-sample-heading.png",
+        "bytes": 94861,
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+      },
+      {
+        "observedPath": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/02-sample-text.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/19fdd32e-5292-4565-81e7-66cb8e8c8c00/02-sample-text.png",
+        "bytes": 94861,
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+      },
+      {
+        "observedPath": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/03-sample-link.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/19fdd32e-5292-4565-81e7-66cb8e8c8c00/03-sample-link.png",
+        "bytes": 94861,
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+      },
+      {
+        "observedPath": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/04-sample-alt.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/19fdd32e-5292-4565-81e7-66cb8e8c8c00/04-sample-alt.png",
+        "bytes": 94861,
+        "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+      },
+      {
+        "observedPath": "/evidence/19fdd32e-5292-4565-81e7-66cb8e8c8c00/05-sample-mobile.png",
+        "repositoryPath": "docs/evidence/tiger-trial/screenshots/19fdd32e-5292-4565-81e7-66cb8e8c8c00/05-sample-mobile.png",
+        "bytes": 49582,
+        "sha256": "e69b1d26198d6c829097328894098cc0e803468b61bffde1286cf7829a332719"
+      }
+    ]
+  }
+}
