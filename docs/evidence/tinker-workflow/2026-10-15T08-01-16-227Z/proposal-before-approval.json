@@ -1,0 +1,44 @@
+{
+  "generator": {
+    "provider": "Deterministic parser",
+    "model": null,
+    "reason": "Tinker was unavailable, unconfigured, outside its confirmed-free budget or returned an invalid plan. These drafts were created by rules; no Tinker success is claimed."
+  },
+  "checks": [
+    {
+      "id": "4f9946d0-fbef-45b9-8a30-7b3234db3cee",
+      "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "orchestration": {
+    "provider": "Mastra",
+    "workflowId": "briefstamp-proposal",
+    "runId": "84779ce3-153a-49aa-8b91-fd8118cfca34",
+    "steps": [
+      {
+        "step": "briefstamp.proposal.generate",
+        "status": "started"
+      },
+      {
+        "step": "briefstamp.proposal.generate",
+        "status": "completed",
+        "elapsedMs": 2089
+      },
+      {
+        "step": "briefstamp.proposal.validate",
+        "status": "started"
+      },
+      {
+        "step": "briefstamp.proposal.validate",
+        "status": "completed",
+        "elapsedMs": 0
+      }
+    ],
+    "persisted": false
+  }
+}

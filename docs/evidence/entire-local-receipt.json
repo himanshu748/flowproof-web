@@ -1,0 +1,45 @@
+{
+  "status": "verified_local",
+  "startedAt": "2026-10-15T07:34:04.765752+00:00",
+  "integration": "Entire",
+  "scope": "one local Codex session",
+  "toolVersion": "0.11.4",
+  "archiveSha256": "6636dd5bf1b2ff9a9c52d4ea1ad936799ada962142f0f5e5c3c8611f3acd347b",
+  "binarySha256": "74c008fe881a3c06600f78afdd978c18864e67a11b10f4d6bbfe21c3f9104f2f",
+  "sourceRevision": "80bd8675880078183d925954b8e6683317b10781",
+  "sourceSnapshotSha256": "ff77ed6aeb4bd82874e9de7f5978609e4bf679c77a3bbefbb1f00297df563373",
+  "sessionIdentityVerified": true,
+  "repositoryIdentityVerified": true,
+  "checkpointPublished": false,
+  "hostedVerified": false,
+  "modelCalls": 0,
+  "limits": [
+    "Imported afterward; not live capture.",
+    "Private checkpoint content is withheld; only anonymous execution metadata is published.",
+    "Import may read remote checkpoint ref names for deduplication.",
+    "No hosted Entire account, sharing, semantic search or model-generated summary was used."
+  ],
+  "dryRun": {
+    "sessions": 1,
+    "newTurns": 43,
+    "alreadyImported": 0
+  },
+  "import": {
+    "sessions": 1,
+    "newTurns": 43,
+    "alreadyImported": 0
+  },
+  "checkpointRead": {
+    "listedCount": 43,
+    "selectedSessionMatches": true,
+    "listSha256": "bc4fe5ac72cfd689b0f631967155b001915a931e3fabf2f28cf9dae048a744c1",
+    "metadataSha256": "eb03ed464f6c09996d3db574635e642b83aaaa40880bcc07e1dc76ea00fc62e4"
+  },
+  "headUnchanged": true,
+  "branchUnchanged": true,
+  "gitConfigurationUnchanged": true,
+  "gitHooksUnchanged": true,
+  "codexHooksUnchanged": true,
+  "completedAt": "2026-10-15T07:37:54.982195+00:00",
+  "verifierSha256": "ea19253cf42c9a13b8e8f6cf16dd967c0b04d0abe1f9afe5fc73ec7084b2308d"
+}

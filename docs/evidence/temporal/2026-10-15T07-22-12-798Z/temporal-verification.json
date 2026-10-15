@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "integration": "Temporal",
+  "status": "blocked",
+  "startedAt": "2026-10-15T07:22:12.798Z",
+  "source": "Real Temporal TypeScript SDK with a local CLI development server and persisted SQLite history",
+  "scope": "Approved synthetic fixture only; no Temporal Cloud or paid resources",
+  "sourceCommit": "80bd8675880078183d925954b8e6683317b10781",
+  "limitations": [
+    "Local development-server recovery is not a production availability guarantee.",
+    "The deliberately injected failure occurs before the browser starts. The proof demonstrates completed activity reuse after worker and server restart, not recovery from every possible mid-browser crash."
+  ],
+  "cliVersion": "temporal version 1.9.1 (Server 1.32.0, UI 2.54.1)",
+  "cliBinarySha256": "33c298d41f6eefebf01a28a3511f444480e939e21d3518cb0c12a4abad467c4b",
+  "sourceFiles": [
+    {
+      "file": "temporal/contracts.ts",
+      "sha256": "fe29452a59d56f14c64da12d6b3057fe24bc9f4f1479f822613b62940a5d0946"
+    },
+    {
+      "file": "temporal/config.ts",
+      "sha256": "82495b1985e874a1c852a61fd464c6eb1e0044e73daf82af69cc59995aeb7357"
+    },
+    {
+      "file": "temporal/validation.ts",
+      "sha256": "c1138f8645fe22ccc1acf6a7d028e04a4252087936f516a8df0e1c2cc4a8f422"
+    },
+    {
+      "file": "temporal/workflows.ts",
+      "sha256": "86499400e7652e22151472ef3a77b76ca4d35564776f1518c5866347fe0d2ad2"
+    },
+    {
+      "file": "temporal/activities.ts",
+      "sha256": "c7f44e8251c645e36433b0cee2b1f8f6fb394496ecea8deaf82abf9b2d702cc0"
+    },
+    {
+      "file": "temporal/client.ts",
+      "sha256": "aac1e4c68fde09f5a93072b361a07f9d6c607373cec2b71d4fa976f69013b8a6"
+    },
+    {
+      "file": "scripts/temporal-worker.ts",
+      "sha256": "645a28d7b12be686b1877266c55250a09348b6536573a70ec427a193f262155b"
+    },
+    {
+      "file": "scripts/verify-temporal.ts",
+      "sha256": "d814c513511e32a3e97e0aebf0df26b4650d0259419930f88d0bfed6ec5abd8a"
+    },
+    {
+      "file": "server/runner.ts",
+      "sha256": "03c42ac9d7e91fb82a856d131aaa4a472b3045ac67c8588fe3680b4ea9a7d479"
+    },
+    {
+      "file": "server/schema.ts",
+      "sha256": "7ff7194243a362bff4eb0f2f26fb477eccccc77bf00785a1b9b033151b9a249e"
+    },
+    {
+      "file": "server/sample.ts",
+      "sha256": "2987d63b9408a705d3ba6684ba8fa5ffc61c6756659a744fb818c382485453f3"
+    },
+    {
+      "file": "server/report.ts",
+      "sha256": "b9608374496d94b9e08c6c200868be249eb2478c23cb3173642a447db684a67f"
+    }
+  ],
+  "error": "Local Temporal readiness deadline exceeded (Error).",
+  "completedAt": "2026-10-15T07:23:49.911Z"
+}

@@ -1,0 +1,148 @@
+{
+  "experimentId": "flowproof-pilot-v1",
+  "benchmarkMode": "agent-reviewed-pilot",
+  "model": "Qwen/Qwen3.5-4B",
+  "renderer": "qwen3.5-hf-chat-template-disable-thinking",
+  "datasetPath": "eval/pilot.jsonl",
+  "datasetSha256": "28178f3d01c833e539eb017b76553a49eea72d8174dc25df0a4f10818330c5e4",
+  "promptSha256": "4686f9f9d03000034f15eef895f3049f35ded23ee8c1b418ee53036d981f68d5",
+  "reviewProvenance": {
+    "humanValidated": 0,
+    "agentReviewed": 96,
+    "note": "Agent review is not human validation. Synthetic pilot results do not establish accuracy on client websites."
+  },
+  "schemaVersion": 2,
+  "provider": "tinker",
+  "manifestPath": "eval/pilot.manifest.json",
+  "manifestSha256": "62ca7d765967ecfc3aa075aed13a0d7342f8fc91031df4d2aac4b4aee1e6f3da",
+  "status": "completed",
+  "recordedAt": "2026-10-15T07:54:45.294719+00:00",
+  "operation": "training",
+  "budgetReservationId": "3cff428d-e135-434f-bfdc-fa0802c1c6df",
+  "reservedCostUsd": "0.0771570875",
+  "settings": {
+    "epochs": 1,
+    "batchSize": 8,
+    "loraRank": 16,
+    "seed": 42,
+    "learningRate": 0.0002
+  },
+  "trainingExamples": 60,
+  "trainingTokensUpperBound": 15910,
+  "trainingTokens": 15910,
+  "tokenUsageBasis": "SDK input token IDs submitted per completed forward/backward operation; not provider billing usage.",
+  "tokenizer": {
+    "model": "Qwen/Qwen3.5-4B",
+    "class": "Qwen3_5Tokenizer",
+    "chatTemplateSha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+    "vocabularySha256": "365c2d8a0c0e72d4bcc5dbc6c2e9330a87dae7ffc77e9fcd9d65739f4d16bfff",
+    "enableThinking": false,
+    "eosTokenId": 248046
+  },
+  "packages": {
+    "tinker": "0.32.0",
+    "transformers": "5.18.0",
+    "tokenizers": "0.23.2"
+  },
+  "checkpointTtlSeconds": 86400,
+  "steps": [
+    {
+      "epoch": 0,
+      "batch": 0,
+      "status": "completed",
+      "inputTokens": 2123,
+      "metrics": {
+        "clock_cycle:unique": 1392423.0,
+        "loss:sum": 97.04650211334229
+      },
+      "durationMs": 9686.175291999461
+    },
+    {
+      "epoch": 0,
+      "batch": 1,
+      "status": "completed",
+      "inputTokens": 2127,
+      "metrics": {
+        "clock_cycle:unique": 1392427.0,
+        "loss:sum": 2.874443531036377
+      },
+      "durationMs": 6845.54341600051
+    },
+    {
+      "epoch": 0,
+      "batch": 2,
+      "status": "completed",
+      "inputTokens": 2107,
+      "metrics": {
+        "clock_cycle:unique": 1392430.0,
+        "loss:sum": 1.0209431499242783
+      },
+      "durationMs": 4571.7858750012965
+    },
+    {
+      "epoch": 0,
+      "batch": 3,
+      "status": "completed",
+      "inputTokens": 2127,
+      "metrics": {
+        "clock_cycle:unique": 1392433.0,
+        "loss:sum": 0.3392341881990433
+      },
+      "durationMs": 7458.578540999952
+    },
+    {
+      "epoch": 0,
+      "batch": 4,
+      "status": "completed",
+      "inputTokens": 2125,
+      "metrics": {
+        "clock_cycle:unique": 1392438.0,
+        "loss:sum": 0.149271534755826
+      },
+      "durationMs": 7228.230749999057
+    },
+    {
+      "epoch": 0,
+      "batch": 5,
+      "status": "completed",
+      "inputTokens": 2120,
+      "metrics": {
+        "clock_cycle:unique": 1392442.0,
+        "loss:sum": 0.0910552884452045
+      },
+      "durationMs": 6697.568207999211
+    },
+    {
+      "epoch": 0,
+      "batch": 6,
+      "status": "completed",
+      "inputTokens": 2126,
+      "metrics": {
+        "clock_cycle:unique": 1392445.0,
+        "loss:sum": 7.192268233979121
+      },
+      "durationMs": 4391.909458001464
+    },
+    {
+      "epoch": 0,
+      "batch": 7,
+      "status": "completed",
+      "inputTokens": 1055,
+      "metrics": {
+        "clock_cycle:unique": 1392449.0,
+        "loss:sum": 0.4816345168510452
+      },
+      "durationMs": 5982.116749999477
+    }
+  ],
+  "limitations": [
+    "Agent review is not human validation."
+  ],
+  "samplerSaveRequestedAt": "2026-10-15T07:55:53.075313+00:00",
+  "samplerPath": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+  "samplerSavedAt": "2026-10-15T07:55:56.007754+00:00",
+  "checkpointExpiresAt": "2026-10-16T07:55:53.075313+00:00",
+  "statePath": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/weights/flowproof-pilot-v1",
+  "completedAt": "2026-10-15T07:55:59.205287+00:00",
+  "durationMs": 73672.35433300084
+}

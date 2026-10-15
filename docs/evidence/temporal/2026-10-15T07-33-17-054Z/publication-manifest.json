@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "kind": "sanitized-public-derivative",
+  "sourceReceiptSha256": "d88ed5a42f9fcfe451f79af9b3fbaa34a747ea89883121c5820786770f5f49e9",
+  "note": "Original proof files remain locally intact. Only the two event histories are redacted for publication. Browser observations and screenshots are from the approved built-in synthetic sample. sourceCommit is the base checkout commit; sourceFiles SHA256 values identify the executed working-tree sources.",
+  "finalSourceHashesVerified": true,
+  "sdkPackages": {
+    "@temporalio/client": "1.24.0",
+    "@temporalio/worker": "1.24.0",
+    "@temporalio/workflow": "1.24.0",
+    "@temporalio/activity": "1.24.0",
+    "@temporalio/common": "1.24.0"
+  },
+  "excluded": [
+    "SQLite database and journals",
+    "CLI executable and archive",
+    "Raw worker/server logs and Temporal task tokens"
+  ],
+  "files": [
+    {
+      "file": "temporal-verification.json",
+      "originalSha256": "d88ed5a42f9fcfe451f79af9b3fbaa34a747ea89883121c5820786770f5f49e9",
+      "publishedSha256": "d88ed5a42f9fcfe451f79af9b3fbaa34a747ea89883121c5820786770f5f49e9",
+      "redactions": []
+    },
+    {
+      "file": "approved-input.json",
+      "originalSha256": "a8fa1a6e68a4898528eae2034b09789667aadf38b56104a023a26288b10b7e03",
+      "publishedSha256": "a8fa1a6e68a4898528eae2034b09789667aadf38b56104a023a26288b10b7e03",
+      "redactions": []
+    },
+    {
+      "file": "activity-attempts.jsonl",
+      "originalSha256": "1ef06210e27e2e72eb968abe5e4669b8847850199de2ff90663e240dfddb77af",
+      "publishedSha256": "1ef06210e27e2e72eb968abe5e4669b8847850199de2ff90663e240dfddb77af",
+      "redactions": []
+    },
+    {
+      "file": "history-before-restart.json",
+      "originalSha256": "f4ef485ec950b68d5935fe0e53ef07201216d320eb2ae08f83d9b93cfb5cb8fa",
+      "publishedSha256": "42a0ae985a7074762f70e4772fcdc8947c7f370f5bd1b331e3d2819b2acfa69c",
+      "redactions": [
+        "Absolute repository root replaced with [REPOSITORY] in stack traces.",
+        "Local hostname replaced with [LOCAL_HOST] in worker/client identities and sticky task queues. PIDs, event identities, timings, payloads, run IDs and statuses are unchanged."
+      ]
+    },
+    {
+      "file": "history-completed.json",
+      "originalSha256": "0f4f7ea8beee0bba44c0fa3b1e66a8ab1cb869aa7e807fbd6499e64110e582dd",
+      "publishedSha256": "c192e8628630d1f2e7b0cf93569802ca749c9d6de2d8dcaa2ff78702a9ebb7a7",
+      "redactions": [
+        "Absolute repository root replaced with [REPOSITORY] in stack traces.",
+        "Local hostname replaced with [LOCAL_HOST] in worker/client identities and sticky task queues. PIDs, event identities, timings, payloads, run IDs and statuses are unchanged."
+      ]
+    },
+    {
+      "file": "result.json",
+      "originalSha256": "4260703b6198025ccb04291aa664cd0bf1a8119b5b8dd155613b7643ad2f91bf",
+      "publishedSha256": "4260703b6198025ccb04291aa664cd0bf1a8119b5b8dd155613b7643ad2f91bf",
+      "redactions": []
+    },
+    {
+      "file": "receipts/da362af8-8c12-4dbc-861f-02e29a582407/report.html",
+      "originalSha256": "7b5bd22655bcab9fb535d5163868cd1c7fd1ecfc34178e6754b107291474c3d0",
+      "publishedSha256": "7b5bd22655bcab9fb535d5163868cd1c7fd1ecfc34178e6754b107291474c3d0",
+      "redactions": []
+    },
+    {
+      "file": "receipts/da362af8-8c12-4dbc-861f-02e29a582407/completed.json",
+      "originalSha256": "4260703b6198025ccb04291aa664cd0bf1a8119b5b8dd155613b7643ad2f91bf",
+      "publishedSha256": "4260703b6198025ccb04291aa664cd0bf1a8119b5b8dd155613b7643ad2f91bf",
+      "redactions": []
+    },
+    {
+      "file": "evidence/da362af8-8c12-4dbc-861f-02e29a582407/01-sample-heading.png",
+      "originalSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "publishedSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "redactions": []
+    },
+    {
+      "file": "evidence/da362af8-8c12-4dbc-861f-02e29a582407/02-sample-text.png",
+      "originalSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "publishedSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "redactions": []
+    },
+    {
+      "file": "evidence/da362af8-8c12-4dbc-861f-02e29a582407/03-sample-link.png",
+      "originalSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "publishedSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "redactions": []
+    },
+    {
+      "file": "evidence/da362af8-8c12-4dbc-861f-02e29a582407/04-sample-alt.png",
+      "originalSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "publishedSha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111",
+      "redactions": []
+    },
+    {
+      "file": "evidence/da362af8-8c12-4dbc-861f-02e29a582407/05-sample-mobile.png",
+      "originalSha256": "fd0a30224532003317ad25cdad0d0910254ba79132781afd4634c431f3567a49",
+      "publishedSha256": "fd0a30224532003317ad25cdad0d0910254ba79132781afd4634c431f3567a49",
+      "redactions": []
+    },
+    {
+      "file": "cli-download-verification.json",
+      "originalSha256": "f2f75a50d31d149fb27f60cdd2938b03101e9459dcaf7429b0015afea95c46b8",
+      "publishedSha256": "f2f75a50d31d149fb27f60cdd2938b03101e9459dcaf7429b0015afea95c46b8",
+      "redactions": []
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "provider": "Tinker",
+  "requestModel": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+  "choices": [
+    {
+      "finishReason": "length",
+      "content": ""
+    }
+  ],
+  "usage": {
+    "promptTokens": 203,
+    "completionTokens": 2048
+  },
+  "rawResponseSha256": "ef958c3e0d50b7b3e20d6c75b07a35b878a868f3ad84f4fc8b8c65f6781d67d3",
+  "omitted": "Response IDs, account/organization fields, system fingerprints and HTTP headers are not retained."
+}

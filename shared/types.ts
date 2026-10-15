@@ -61,6 +61,7 @@ export interface Audit {
   >;
   error?: string;
   summary?: string;
+  workflow?: { provider: "Temporal"; workflowId: string; runId: string };
 }
 export interface IntegrationStatus {
   name: string;

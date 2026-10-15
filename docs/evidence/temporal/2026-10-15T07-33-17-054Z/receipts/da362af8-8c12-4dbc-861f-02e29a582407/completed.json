@@ -1,0 +1,208 @@
+{
+  "audit": {
+    "id": "da362af8-8c12-4dbc-861f-02e29a582407",
+    "projectId": "temporal-synthetic-proof",
+    "projectName": "Temporal recovery sample",
+    "status": "completed",
+    "createdAt": "2026-10-15T07:33:22.736Z",
+    "checks": [
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-heading",
+        "requirement": "The homepage must have the agreed headline.",
+        "kind": "heading",
+        "expected": "Design that moves business forward."
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-text",
+        "requirement": "Show the studio positioning on the homepage.",
+        "kind": "text_visible",
+        "expected": "Independent by design."
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-link",
+        "requirement": "The Start a project link should lead to /contact.",
+        "kind": "link",
+        "expected": "/contact"
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-alt",
+        "requirement": "All meaningful images need alternative text.",
+        "kind": "image_alt",
+        "expected": "Descriptive alternative text on meaningful images"
+      },
+      {
+        "path": "/",
+        "viewport": "mobile",
+        "approved": true,
+        "id": "sample-mobile",
+        "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "expected": "No horizontal scrolling at 390px"
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-manual",
+        "requirement": "The design should feel trustworthy and professional.",
+        "kind": "manual",
+        "expected": "Client review of visual tone"
+      }
+    ],
+    "source": {
+      "brief": "The homepage must have the heading \"Design that moves business forward.\"\nThe page must show \"Independent by design.\"\nA \"Start a project\" link should lead to /contact.\nAll meaningful images need alternative text.\nThe website must not scroll horizontally on a mobile screen.\nThe design should feel trustworthy and professional.",
+      "generator": {
+        "provider": "Explicitly approved synthetic verification fixture",
+        "model": null
+      },
+      "target": "sample",
+      "url": "https://sample.flowproof.test/",
+      "sampleVariant": "healthy"
+    },
+    "results": [
+      {
+        "checkId": "sample-heading",
+        "requirement": "The homepage must have the agreed headline.",
+        "kind": "heading",
+        "status": "passed",
+        "expected": "Design that moves business forward.",
+        "durationMs": 1561,
+        "evidence": {
+          "observed": "The expected heading is visible.",
+          "dom": "Design that moves business forward.\nA little studio.\nA wider perspective.",
+          "screenshot": "/evidence/da362af8-8c12-4dbc-861f-02e29a582407/01-sample-heading.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "sample-text",
+        "requirement": "Show the studio positioning on the homepage.",
+        "kind": "text_visible",
+        "status": "passed",
+        "expected": "Independent by design.",
+        "durationMs": 997,
+        "evidence": {
+          "observed": "The expected text is visible on the page.",
+          "dom": "INDEPENDENT BY DESIGN.",
+          "screenshot": "/evidence/da362af8-8c12-4dbc-861f-02e29a582407/02-sample-text.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "sample-link",
+        "requirement": "The Start a project link should lead to /contact.",
+        "kind": "link",
+        "status": "passed",
+        "expected": "/contact",
+        "durationMs": 909,
+        "evidence": {
+          "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+          "dom": "Start a project ↗ → /contact",
+          "screenshot": "/evidence/da362af8-8c12-4dbc-861f-02e29a582407/03-sample-link.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "sample-alt",
+        "requirement": "All meaningful images need alternative text.",
+        "kind": "image_alt",
+        "status": "passed",
+        "expected": "Descriptive alternative text on meaningful images",
+        "durationMs": 994,
+        "evidence": {
+          "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+          "dom": "Image 1: Common Ground brand identity with a mountain symbol and warm paper typography",
+          "screenshot": "/evidence/da362af8-8c12-4dbc-861f-02e29a582407/04-sample-alt.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "sample-mobile",
+        "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "status": "passed",
+        "expected": "No horizontal scrolling at 390px",
+        "durationMs": 1060,
+        "evidence": {
+          "observed": "Document width is 390px; viewport width is 390px.",
+          "dom": "document.scrollWidth=390; window.innerWidth=390",
+          "screenshot": "/evidence/da362af8-8c12-4dbc-861f-02e29a582407/05-sample-mobile.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      {
+        "checkId": "sample-manual",
+        "requirement": "The design should feel trustworthy and professional.",
+        "kind": "manual",
+        "status": "unverified",
+        "expected": "Client review of visual tone",
+        "durationMs": 1,
+        "evidence": {
+          "observed": "This requirement needs a human decision. No automated assertion was executed.",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      }
+    ],
+    "completedAt": "2026-10-15T07:34:20.901Z"
+  },
+  "planSha256": "028ef03b6a3ed6129796fc3965843cad3502bd6aecc9e18fae37fc1a088bf26f",
+  "reportSha256": "7b5bd22655bcab9fb535d5163868cd1c7fd1ecfc34178e6754b107291474c3d0",
+  "screenshots": [
+    {
+      "filename": "01-sample-heading.png",
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "filename": "02-sample-text.png",
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "filename": "03-sample-link.png",
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "filename": "04-sample-alt.png",
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "filename": "05-sample-mobile.png",
+      "sha256": "fd0a30224532003317ad25cdad0d0910254ba79132781afd4634c431f3567a49"
+    }
+  ]
+}

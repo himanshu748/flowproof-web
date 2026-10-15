@@ -16,6 +16,8 @@ import { runAudit } from "./runner";
 import { renderReport } from "./report";
 import { SAMPLE_URL } from "./sample";
 import { getEvaluation } from "./evaluation";
+import { generateChecksWithOrchestration, runAuditWithOrchestration } from "./orchestration";
+import { optionalIntegrations } from "./optional-integrations";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -105,13 +107,14 @@ function integrations(): IntegrationStatus[] {
           ? "Running on Render. This public demo uses ephemeral visitor sessions."
           : "Render hosting is not detected in this runtime.",
     },
-    ...["Gemma", "Mastra", "Sentry", "Temporal", "Entire", "Backboard"].map(
+    ...["Gemma"].map(
       (name) => ({
         name,
         status: "not_configured" as const,
         detail: "Not active in the public demo. No integration claim.",
       }),
     ),
+    ...optionalIntegrations(true),
   ];
 }
 function project(
@@ -261,7 +264,7 @@ export function createDemoRouter(options: DemoOptions) {
     };
     res.json(body);
   });
-  router.post("/api/projects", (req, res) => {
+  router.post("/api/projects", async (req, res) => {
     const input = createSchema.parse(req.body);
     const s = session(res);
     if (s.projects.size >= 4)
@@ -269,6 +272,9 @@ export function createDemoRouter(options: DemoOptions) {
         error: "This demo session allows up to four sample projects.",
       });
     const p = project(input.name, input.brief, input.sampleVariant, now());
+    const generated = await generateChecksWithOrchestration(input.brief, { allowModel: false });
+    p.checks = generated.checks;
+    p.generator = generated.generator;
     s.projects.set(p.id, p);
     res.status(201).json(p);
   });
@@ -284,15 +290,15 @@ export function createDemoRouter(options: DemoOptions) {
     p.updatedAt = new Date(now()).toISOString();
     res.json(p);
   });
-  router.post("/api/projects/:id/generate", (req, res) => {
+  router.post("/api/projects/:id/generate", async (req, res) => {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
     const { brief } = z.object({ brief: briefSchema }).strict().parse(req.body);
-    const checks = validateChecks(generateLocalChecks(brief));
+    const generated = await generateChecksWithOrchestration(brief, { allowModel: false });
     Object.assign(p, {
       brief,
-      checks,
-      generator,
+      checks: generated.checks,
+      generator: generated.generator,
       updatedAt: new Date(now()).toISOString(),
     });
     res.json(p);
@@ -350,13 +356,13 @@ export function createDemoRouter(options: DemoOptions) {
     auditStarts.push(now());
     const task = Promise.resolve().then(async () => {
       try {
-        await execute(
+        await runAuditWithOrchestration(
           snapshot,
           a,
           (result) => {
             a.results.push(result);
           },
-          { evidenceRoot: options.evidenceRoot },
+          { evidenceRoot: options.evidenceRoot, execute, allowModelSummary: false },
         );
         a.status = "completed";
         const count = (status: string) =>

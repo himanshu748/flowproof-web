@@ -19,10 +19,10 @@ The regression sequence executed **healthy → intentionally broken → restored
 **Verified remote evidence, October 15:** [Actions run 38690709135](https://github.com/himanshu748/flowproof-web/actions/runs/38690709135) passed at commit `e7be707cd5b947784bc02971742994dfcfc33993`: 140 application tests across 11 files, 17 provenance tests, the production build and the three real Chromium audits. The actual logs and downloaded artifact confirm the outcomes below; a [persistent receipt](evidence/ci-regression-2026-10-15.json) retains comparisons and artifact hashes. This run proves the source revision and controlled browser outcomes. Public runtime deployment is verified separately from CI; [deployment records](DEPLOYMENT.md) retain dated snapshots.
 
 | Controlled website state | Passed | Failed | Unverified |
-|---|---:|---:|---:|
-| Healthy | 5 | 0 | 1 |
-| Intentionally broken | 1 | 4 | 1 |
-| Restored healthy | 5 | 0 | 1 |
+| ------------------------ | -----: | -----: | ---------: |
+| Healthy                  |      5 |      0 |          1 |
+| Intentionally broken     |      1 |      4 |          1 |
+| Restored healthy         |      5 |      0 |          1 |
 
 The saved fixture plan checks the contact destination. The public brief parser checks its visible label. Their broken results therefore differ: four failures in the fixture plan versus three in the public sample flow. Compare definitions as well as status counts.
 
@@ -36,6 +36,6 @@ The saved fixture plan checks the contact destination. The public brief parser c
 
 **Primary: Best Use of GitHub Copilot, through GitHub Actions.** The current official category expressly includes “automate your project with GitHub Actions.” This entry claims that route, not Copilot coding or review. Gemma is supported by the bounded local workflow above; Render is a supplementary hosting route. Tiger's isolated demonstration and Tinker's quality/cost tradeoff remain bounded secondary evidence. [Official categories](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 
-The full PRD is unfinished: live Tinker generation, lasting hosted Tiger storage, human dataset validation and P1 sponsor integrations remain open. The founder has volunteered to test; no completed founder feedback or independent customer validation has been recorded. [Full PRD assessment](PRD_STATUS.md) · [Integration ledger](INTEGRATIONS.md).
+The full PRD is unfinished: lasting hosted Tiger storage, human dataset validation and the remaining live-provider gates remain open. A one-heading Tinker operator workflow, local Mastra/Sentry, Temporal recovery, Entire provenance and a real free SerpApi search now have [separate receipts](INTEGRATIONS.md). The founder has volunteered to test; no completed founder feedback or independent customer validation has been recorded. [Full PRD assessment](PRD_STATUS.md) · [Integration ledger](INTEGRATIONS.md).
 
 The article remains a local draft, not a DEV submission. The author confirmed on October 15 that Briefstamp is their only Week 2 entry; the one-entry question is resolved. Before publishing: verify the final deployment/workflow, review the article, confirm eligibility and preserve all limitations. Only the first entry counts. Deadline: **October 18, 11:59 PM PDT / October 19, 12:29 PM IST**. [Official rules](https://dev.to/page/hacktoberfest-week2-2026-10-12-contest-rules).

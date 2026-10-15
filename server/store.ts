@@ -46,18 +46,23 @@ export async function initStore() {
       if ((e as NodeJS.ErrnoException).code !== "ENOENT") throw e;
     }
   }
-  for (const a of state.audits)
-    if (a.status === "running" || a.status === "queued") {
-      a.status = "error";
-      a.error =
-        "The server restarted before the audit finished. Run a new audit.";
-      a.completedAt = new Date().toISOString();
-    }
-  await persist();
+  await persist((candidate) => {
+    for (const a of candidate.audits)
+      if ((a.status === "running" || a.status === "queued") && !a.workflow) {
+        a.status = "error";
+        a.error =
+          "The server restarted before the audit finished. Run a new audit.";
+        a.completedAt = new Date().toISOString();
+      }
+  });
 }
-async function persist() {
-  const snapshot = JSON.stringify(state);
+async function persist(mutate: (candidate: State) => void | Promise<void>) {
   const next = writeQueue.then(async () => {
+    // Clone when this operation begins, after all preceding writes have settled.
+    // Failed candidates never become the base of a later queued mutation.
+    const candidate = structuredClone(state);
+    await mutate(candidate);
+    const snapshot = JSON.stringify(candidate);
     if (pool)
       await pool.query(
         "INSERT INTO flowproof_state(id,payload) VALUES(1,$1) ON CONFLICT(id) DO UPDATE SET payload=EXCLUDED.payload",
@@ -67,6 +72,7 @@ async function persist() {
       await fs.writeFile(stateFile + ".tmp", snapshot, { mode: 0o600 });
       await fs.rename(stateFile + ".tmp", stateFile);
     }
+    state = candidate;
   });
   writeQueue = next.catch(() => {});
   await next;
@@ -78,49 +84,53 @@ export const getProject = (id: string) =>
 export const getAudit = (id: string) =>
   structuredClone(state.audits.find((a) => a.id === id));
 export async function saveProject(p: Project) {
-  const i = state.projects.findIndex((x) => x.id === p.id);
-  if (i < 0) state.projects.unshift(structuredClone(p));
-  else state.projects[i] = structuredClone(p);
-  await persist();
+  const project = structuredClone(p);
+  await persist((candidate) => {
+    const i = candidate.projects.findIndex((x) => x.id === project.id);
+    if (i < 0) candidate.projects.unshift(project);
+    else candidate.projects[i] = project;
+  });
   return p;
 }
 export async function saveAudit(a: Audit) {
-  if (pool && a.status === "completed") {
-    for (const r of a.results.filter(
-      (r) => r.status === "failed" || r.status === "blocked",
-    )) {
-      const vector = await embed(`${r.requirement} ${r.evidence.observed}`);
-      await pool.query(
-        "INSERT INTO flowproof_failures(id,audit_id,project_name,requirement,observed,status,created_at,embedding) VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(id) DO UPDATE SET embedding=COALESCE(EXCLUDED.embedding,flowproof_failures.embedding)",
-        [
-          `${a.id}:${r.checkId}`,
-          a.id,
-          a.projectName,
-          r.requirement,
-          r.evidence.observed,
-          r.status,
-          a.createdAt,
-          vector,
-        ],
-      );
-    }
-    for (const r of a.results)
-      if (r.evidence.screenshot) {
-        const image = await readEvidence(r.evidence.screenshot);
-        if (!image || image.length >= 5_000_000)
-          throw new Error(
-            "A referenced screenshot could not be saved within the database evidence limit.",
-          );
+  const audit = structuredClone(a);
+  await persist(async (candidate) => {
+    if (pool && audit.status === "completed") {
+      for (const r of audit.results.filter(
+        (r) => r.status === "failed" || r.status === "blocked",
+      )) {
+        const vector = await embed(`${r.requirement} ${r.evidence.observed}`);
         await pool.query(
-          "INSERT INTO flowproof_evidence(path,content) VALUES($1,$2) ON CONFLICT(path) DO NOTHING",
-          [r.evidence.screenshot, image],
+          "INSERT INTO flowproof_failures(id,audit_id,project_name,requirement,observed,status,created_at,embedding) VALUES($1,$2,$3,$4,$5,$6,$7,$8) ON CONFLICT(id) DO UPDATE SET embedding=COALESCE(EXCLUDED.embedding,flowproof_failures.embedding)",
+          [
+            `${audit.id}:${r.checkId}`,
+            audit.id,
+            audit.projectName,
+            r.requirement,
+            r.evidence.observed,
+            r.status,
+            audit.createdAt,
+            vector,
+          ],
         );
       }
-  }
-  const i = state.audits.findIndex((x) => x.id === a.id);
-  if (i < 0) state.audits.unshift(structuredClone(a));
-  else state.audits[i] = structuredClone(a);
-  await persist();
+      for (const r of audit.results)
+        if (r.evidence.screenshot) {
+          const image = await readEvidence(r.evidence.screenshot);
+          if (!image || image.length >= 5_000_000)
+            throw new Error(
+              "A referenced screenshot could not be saved within the database evidence limit.",
+            );
+          await pool.query(
+            "INSERT INTO flowproof_evidence(path,content) VALUES($1,$2) ON CONFLICT(path) DO NOTHING",
+            [r.evidence.screenshot, image],
+          );
+        }
+    }
+    const i = candidate.audits.findIndex((x) => x.id === audit.id);
+    if (i < 0) candidate.audits.unshift(audit);
+    else candidate.audits[i] = audit;
+  });
   return a;
 }
 export async function readEvidence(

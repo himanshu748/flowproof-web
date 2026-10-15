@@ -1,0 +1,15 @@
+{
+  "provider": "Tinker",
+  "checkedAt": "2026-10-15T07:20:17.344Z",
+  "basis": "Authenticated console output retained during this current development session; account identity and private console text withheld",
+  "grant": "Tinker x MLH",
+  "remainingGrantUsd": "9.22",
+  "grantExpiresAt": "2027-10-08",
+  "autoReloadEnabled": false,
+  "autoReloadObservedAt": "2026-10-15T07:19:23.059Z",
+  "billingChanges": false,
+  "constraint": "No card addition, top-up, purchase or paid infrastructure. Existing shared reservations retained; bounded proof uses promotional credit. This is not a reconciled provider invoice.",
+  "trainingReceiptSha256": "c0679c3216355ebdae3fb47fc50979463005ffe76e865615f0e0706baf6dbdff",
+  "freshTrainingTokenCount": 15910,
+  "modelQualityBenchmarkModified": false
+}

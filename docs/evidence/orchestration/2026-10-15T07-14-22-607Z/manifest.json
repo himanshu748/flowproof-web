@@ -1,0 +1,14 @@
+{
+  "files": [
+    {
+      "file": "receipt.json",
+      "bytes": 13456,
+      "sha256": "d933cd14cbec636f1534a1d7aca7981855c1d69322278c2ca5ab3e7254bec8ab"
+    },
+    {
+      "file": "sentry-envelopes.json",
+      "bytes": 8864,
+      "sha256": "ff2fd7dff4cc1251346ef15c53cc19950550d5529f25e6df2c5f2768d785be95"
+    }
+  ]
+}

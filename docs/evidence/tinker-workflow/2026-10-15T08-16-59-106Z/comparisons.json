@@ -1,0 +1,48 @@
+{
+  "regression": {
+    "comparable": true,
+    "reason": null,
+    "rows": [
+      {
+        "checkId": "faecdecb-666f-44ba-bb12-4bd2e03603cf",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "previousStatus": "passed",
+        "currentStatus": "failed",
+        "change": "regressed"
+      }
+    ],
+    "counts": {
+      "regressed": 1,
+      "recovered": 0,
+      "still_failing": 0,
+      "unchanged": 0,
+      "unknown": 0,
+      "changed": 0,
+      "added": 0,
+      "removed": 0
+    }
+  },
+  "recovery": {
+    "comparable": true,
+    "reason": null,
+    "rows": [
+      {
+        "checkId": "faecdecb-666f-44ba-bb12-4bd2e03603cf",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "previousStatus": "failed",
+        "currentStatus": "passed",
+        "change": "recovered"
+      }
+    ],
+    "counts": {
+      "regressed": 0,
+      "recovered": 1,
+      "still_failing": 0,
+      "unchanged": 0,
+      "unknown": 0,
+      "changed": 0,
+      "added": 0,
+      "removed": 0
+    }
+  }
+}

@@ -10,9 +10,20 @@
     "test": "vitest run --no-file-parallelism",
     "audit:sample": "tsx scripts/audit-sample.ts",
     "audit:plan": "tsx scripts/audit-plan.ts",
-    "verify": "npm run test && npm run build && npm run audit:sample"
+    "verify": "npm run test && npm run build && npm run audit:sample",
+    "verify:orchestration": "tsx scripts/verify-orchestration.ts",
+    "verify:temporal": "tsx scripts/verify-temporal.ts",
+    "temporal:worker": "tsx scripts/temporal-worker.ts",
+    "verify:optional": "tsx scripts/verify-optional-providers.ts"
   },
   "dependencies": {
+    "@mastra/core": "1.77.0",
+    "@sentry/node": "11.7.0",
+    "@temporalio/activity": "1.24.0",
+    "@temporalio/client": "1.24.0",
+    "@temporalio/common": "1.24.0",
+    "@temporalio/worker": "1.24.0",
+    "@temporalio/workflow": "1.24.0",
     "express": "^5.1.0",
     "ipaddr.js": "^2.2.0",
     "lucide-react": "^0.468.0",

@@ -1,0 +1,91 @@
+{
+  "algorithm": "sha256",
+  "publicationScope": "Synthetic application artifacts only; no allowance file, environment file, key, account metadata or training data.",
+  "files": [
+    {
+      "file": "brief.txt",
+      "bytes": 73,
+      "sha256": "7a5f360340a8fc429c0819fe72b49255ec3992ffe60aa086a2a79e59c83f8342"
+    },
+    {
+      "file": "broken-audit.json",
+      "bytes": 2213,
+      "sha256": "9168d794308ab0b74ae419ba6cd0a559f36d9c65059fc914d2daf56de5c68348"
+    },
+    {
+      "file": "broken-report.html",
+      "bytes": 132465,
+      "sha256": "382fc7f1ec20f146154bcc25b32725d64d8e43f3f06741a1e8ca473d097f646c"
+    },
+    {
+      "file": "comparisons.json",
+      "bytes": 1113,
+      "sha256": "ef371a7be1df7ae76ddbbef3850da00d487313f4801917e00eb7d288d79522a3"
+    },
+    {
+      "file": "evidence/45a29d6d-791b-4972-a8c3-a34f3c5612f6/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/63edcf18-a390-49ce-aec2-d4b0e0bd1edb/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/a63192f8-cd8d-4b60-80d9-f7a9941de554/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+      "bytes": 94861,
+      "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+    },
+    {
+      "file": "generation-request.json",
+      "bytes": 1339,
+      "sha256": "5d5b203128a4ef68541916f92fb4fd35b7c84fa80e0a0e904355033612dd0ee8"
+    },
+    {
+      "file": "generation-response.json",
+      "bytes": 731,
+      "sha256": "7c9d94172d026da869145eca78f7bddb6699967968145986294de7224c4c16ce"
+    },
+    {
+      "file": "harness-approved-plan.json",
+      "bytes": 1380,
+      "sha256": "7cccb2cfef830f79f915ca671e279e3276fc42d5e320cc5e78507b556eea19b0"
+    },
+    {
+      "file": "healthy-audit.json",
+      "bytes": 2193,
+      "sha256": "d4f52167899997b1995195cebecd281b722df67cca738592f50002fa78b5daa2"
+    },
+    {
+      "file": "healthy-report.html",
+      "bytes": 147585,
+      "sha256": "05c7e5aafa6462b787b43a6f6e4d6165aa155d6667da066e7318708a51896410"
+    },
+    {
+      "file": "proposal-before-approval.json",
+      "bytes": 1304,
+      "sha256": "692085a80a8cd9a787193a03fb5fae76be88f29881f07f006b8a0d9e39f71e25"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 11136,
+      "sha256": "cd7c1d19addb6d871796e5a4cf5a3924871a1f6e2ab3cb4c68a3446e97ae64f6"
+    },
+    {
+      "file": "restored-audit.json",
+      "bytes": 2193,
+      "sha256": "7cc8dcc06cfe0b0d06ed41ccc63a06f9c614477ae60fdc30220d6e9cb4100093"
+    },
+    {
+      "file": "restored-report.html",
+      "bytes": 147585,
+      "sha256": "036f72f9e375312374ae7b84e0b145c9c29efaaeb6f4f43e52a61e0d90d70244"
+    },
+    {
+      "file": "source-binding.json",
+      "bytes": 435,
+      "sha256": "0f7b766947c0b5792bb36a613b0736c1e1ba0a7035c759b59043d3bff4009bcf"
+    }
+  ]
+}

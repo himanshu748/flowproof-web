@@ -1,0 +1,31 @@
+{
+  "algorithm": "sha256",
+  "publicationScope": "Synthetic application artifacts only; no allowance file, environment file, key, account metadata or training data.",
+  "files": [
+    {
+      "file": "brief.txt",
+      "bytes": 73,
+      "sha256": "7a5f360340a8fc429c0819fe72b49255ec3992ffe60aa086a2a79e59c83f8342"
+    },
+    {
+      "file": "generation-request.json",
+      "bytes": 1343,
+      "sha256": "9d3c530add791551d1c9cd4352ea91186821082028e2b6d01674230958fbfc49"
+    },
+    {
+      "file": "generation-response.json",
+      "bytes": 498,
+      "sha256": "9e4711eaaabb7ae2bd624311044d473484f72fa00b29917db623fda74f7de64f"
+    },
+    {
+      "file": "proposal-before-approval.json",
+      "bytes": 1221,
+      "sha256": "bcd6f5ce666e4145660a51391062ef004f1bf1bec0f632a6f39693ca3e7cc7b8"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 5844,
+      "sha256": "66e53b98c66e37a02d5e9bdea888a3f54060d0b48e24edde3f27a1fc2455c20e"
+    }
+  ]
+}

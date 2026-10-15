@@ -1,0 +1,8 @@
+{
+  "rawRequirement": "The homepage must show the heading \"Design that moves business forward.\".",
+  "originalRequirement": "The homepage must show the heading \"Design that moves business forward.\"",
+  "rule": "Exact source text, or one added final period outside the closing quotation mark; restore the original source verbatim.",
+  "assertionFieldsUnchanged": true,
+  "qualityRepair": false,
+  "frozenBenchmarkModified": false
+}

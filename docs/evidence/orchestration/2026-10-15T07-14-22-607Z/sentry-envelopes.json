@@ -1,0 +1,291 @@
+[
+  [
+    {
+      "sent_at": "2026-10-15T07:14:23.839Z",
+      "event_id": "24dbc809435546e0adafa4387bad36b9"
+    },
+    [
+      [
+        {
+          "type": "transaction"
+        },
+        {
+          "event_id": "24dbc809435546e0adafa4387bad36b9",
+          "timestamp": 1792048463.8342624,
+          "platform": "node",
+          "environment": "briefstamp",
+          "tags": {
+            "operation": "briefstamp.proposal"
+          },
+          "contexts": {
+            "trace": {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "92dd2cfcc5aedc81",
+              "op": "briefstamp.proposal",
+              "status": "ok"
+            }
+          },
+          "type": "transaction",
+          "transaction": "briefstamp.proposal",
+          "start_timestamp": 1792048463.8282535,
+          "spans": [
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "a5c14b6a2b3c90b4",
+              "parent_span_id": "92dd2cfcc5aedc81",
+              "op": "briefstamp.proposal.generate",
+              "status": "ok",
+              "description": "briefstamp.proposal.generate",
+              "start_timestamp": 1792048463.8315563,
+              "timestamp": 1792048463.832988,
+              "data": {}
+            },
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "afb91e3f75434a4e",
+              "parent_span_id": "92dd2cfcc5aedc81",
+              "op": "briefstamp.proposal.validate",
+              "status": "ok",
+              "description": "briefstamp.proposal.validate",
+              "start_timestamp": 1792048463.8338435,
+              "timestamp": 1792048463.834009,
+              "data": {
+                "briefstamp.checkCount": 4
+              }
+            }
+          ]
+        }
+      ]
+    ]
+  ],
+  [
+    {
+      "sent_at": "2026-10-15T07:14:25.901Z",
+      "event_id": "d37fbcee791945478964b689f2f07642"
+    },
+    [
+      [
+        {
+          "type": "transaction"
+        },
+        {
+          "event_id": "d37fbcee791945478964b689f2f07642",
+          "timestamp": 1792048465.9000404,
+          "platform": "node",
+          "environment": "briefstamp",
+          "tags": {
+            "operation": "briefstamp.audit"
+          },
+          "contexts": {
+            "trace": {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "a39ba5d5c6475045",
+              "op": "briefstamp.audit",
+              "status": "ok"
+            }
+          },
+          "type": "transaction",
+          "transaction": "briefstamp.audit",
+          "start_timestamp": 1792048463.839728,
+          "spans": [
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "9b3c54356c3ad3a0",
+              "parent_span_id": "a39ba5d5c6475045",
+              "op": "briefstamp.audit.approval",
+              "status": "ok",
+              "description": "briefstamp.audit.approval",
+              "start_timestamp": 1792048463.8402214,
+              "timestamp": 1792048463.8403738,
+              "data": {
+                "briefstamp.checkCount": 4,
+                "briefstamp.target": "sample"
+              }
+            },
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "84026b0e21c9186c",
+              "parent_span_id": "a39ba5d5c6475045",
+              "op": "briefstamp.audit.browser",
+              "status": "ok",
+              "description": "briefstamp.audit.browser",
+              "start_timestamp": 1792048463.8407798,
+              "timestamp": 1792048465.8989358,
+              "data": {
+                "briefstamp.checkCount": 4,
+                "briefstamp.target": "sample"
+              }
+            },
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "a00b18d9d3f75e40",
+              "parent_span_id": "a39ba5d5c6475045",
+              "op": "briefstamp.audit.summary",
+              "status": "ok",
+              "description": "briefstamp.audit.summary",
+              "start_timestamp": 1792048465.8998122,
+              "timestamp": 1792048465.8999186,
+              "data": {
+                "briefstamp.checkCount": 4
+              }
+            }
+          ]
+        }
+      ]
+    ]
+  ],
+  [
+    {
+      "sent_at": "2026-10-15T07:14:27.819Z",
+      "event_id": "18229950827346da9105606aef9ef07f"
+    },
+    [
+      [
+        {
+          "type": "event"
+        },
+        {
+          "event_id": "18229950827346da9105606aef9ef07f",
+          "timestamp": 1792048467.819,
+          "platform": "node",
+          "environment": "briefstamp",
+          "tags": {
+            "operation": "briefstamp.audit"
+          },
+          "contexts": {
+            "trace": {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "b34287dbe4051311",
+              "op": "briefstamp.audit",
+              "status": "unknown_error"
+            }
+          },
+          "level": "error",
+          "message": "Briefstamp operation failed; private details omitted.",
+          "exception": {
+            "values": [
+              {
+                "type": "BriefstampOperationError",
+                "value": "Operation failed; private details omitted."
+              }
+            ]
+          },
+          "fingerprint": [
+            "briefstamp-operation",
+            "briefstamp.audit"
+          ]
+        }
+      ]
+    ]
+  ],
+  [
+    {
+      "sent_at": "2026-10-15T07:14:27.820Z",
+      "event_id": "5c36d1fd8416496080bd1ad8205a26eb"
+    },
+    [
+      [
+        {
+          "type": "transaction"
+        },
+        {
+          "event_id": "5c36d1fd8416496080bd1ad8205a26eb",
+          "timestamp": 1792048467.817367,
+          "platform": "node",
+          "environment": "briefstamp",
+          "tags": {
+            "operation": "briefstamp.audit"
+          },
+          "contexts": {
+            "trace": {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "a281a7b33c9216f1",
+              "op": "briefstamp.audit",
+              "status": "ok"
+            }
+          },
+          "type": "transaction",
+          "transaction": "briefstamp.audit",
+          "start_timestamp": 1792048465.903389,
+          "spans": [
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "a8ff169a163aa711",
+              "parent_span_id": "a281a7b33c9216f1",
+              "op": "briefstamp.audit.approval",
+              "status": "ok",
+              "description": "briefstamp.audit.approval",
+              "start_timestamp": 1792048465.9042702,
+              "timestamp": 1792048465.9043767,
+              "data": {
+                "briefstamp.checkCount": 4,
+                "briefstamp.target": "sample"
+              }
+            },
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "8b18604c5dd38a86",
+              "parent_span_id": "a281a7b33c9216f1",
+              "op": "briefstamp.audit.browser",
+              "status": "ok",
+              "description": "briefstamp.audit.browser",
+              "start_timestamp": 1792048465.9047415,
+              "timestamp": 1792048467.8165324,
+              "data": {
+                "briefstamp.checkCount": 4,
+                "briefstamp.target": "sample"
+              }
+            },
+            {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "a381d3c377bf6e1a",
+              "parent_span_id": "a281a7b33c9216f1",
+              "op": "briefstamp.audit.summary",
+              "status": "ok",
+              "description": "briefstamp.audit.summary",
+              "start_timestamp": 1792048467.8171923,
+              "timestamp": 1792048467.8172474,
+              "data": {
+                "briefstamp.checkCount": 4
+              }
+            }
+          ]
+        }
+      ]
+    ]
+  ],
+  [
+    {
+      "sent_at": "2026-10-15T07:14:27.820Z",
+      "event_id": "7b00e23ec23d4f33a0296703edaa45cd"
+    },
+    [
+      [
+        {
+          "type": "transaction"
+        },
+        {
+          "event_id": "7b00e23ec23d4f33a0296703edaa45cd",
+          "timestamp": 1792048467.8197892,
+          "platform": "node",
+          "environment": "briefstamp",
+          "tags": {
+            "operation": "briefstamp.audit"
+          },
+          "contexts": {
+            "trace": {
+              "trace_id": "0b4c690d697242cebf9e8e0975b96999",
+              "span_id": "b34287dbe4051311",
+              "op": "briefstamp.audit",
+              "status": "ok"
+            }
+          },
+          "type": "transaction",
+          "transaction": "briefstamp.audit",
+          "start_timestamp": 1792048467.8177738,
+          "spans": []
+        }
+      ]
+    ]
+  ]
+]

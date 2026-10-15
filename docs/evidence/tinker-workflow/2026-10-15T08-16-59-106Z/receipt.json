@@ -1,0 +1,320 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-15T08-16-59-106Z",
+  "startedAt": "2026-10-15T08:16:59.106Z",
+  "status": "verified",
+  "phase": "completed",
+  "scope": "One synthetic application smoke through the real Tinker adapter, Mastra workflows and Chromium; not a new model-quality evaluation",
+  "maxProviderCalls": 1,
+  "humanApproval": false,
+  "humanValidation": false,
+  "frozenBenchmarkModified": false,
+  "funding": "The native persistent guard must reserve a fresh credential-bound confirmed-free allowance before the single request; this smoke does not itself measure provider billing.",
+  "approval": {
+    "actor": "Explicitly opted-in synthetic verification harness",
+    "humanApproval": false,
+    "scope": "Only this generated heading assertion against the built-in Forma sample",
+    "semanticEdits": false
+  },
+  "limitations": [
+    "One preselected supported brief and one generation attempt; failures are retained without retrying or selecting a better response.",
+    "Harness approval is not human review or customer acceptance.",
+    "The original baseline/fine-tuning benchmark remains unchanged; this fresh checkpoint is an application smoke only.",
+    "This proves local application modules with a remote provider request, not live Tinker inference on the public Render demo."
+  ],
+  "checkpoint": {
+    "model": "Qwen/Qwen3.5-4B",
+    "samplerPath": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+    "checkpointTtlSeconds": 86400,
+    "samplerSavedAt": "2026-10-15T07:55:56.007Z",
+    "expiresAt": "2026-10-16T07:55:53.075Z",
+    "trainingReceiptSha256": "c0679c3216355ebdae3fb47fc50979463005ffe76e865615f0e0706baf6dbdff"
+  },
+  "source": {
+    "baseGitCommit": "80bd8675880078183d925954b8e6683317b10781",
+    "note": "Per-file hashes identify the executed working-tree source; the base commit may predate uncommitted changes.",
+    "files": [
+      {
+        "file": "scripts/verify-tinker-workflow.ts",
+        "sha256": "a47a437812e45b333eb2ca7ff96d63693d11826454f86310a890e45d68fa48a0"
+      },
+      {
+        "file": "server/providers/tinker.ts",
+        "sha256": "288fb5f3f08cd6dc998c17dc56f857fb928d7d2e237ae883b59321f351874d3a"
+      },
+      {
+        "file": "server/providers/free-resource-policy.ts",
+        "sha256": "c7260409e96fc6bd92d119255c6a66af095fc46157f46d85ca314bcaa9907204"
+      },
+      {
+        "file": "server/generator.ts",
+        "sha256": "27954e6c6fea334b6d0df696376d5c7b37087a958783dbe3ba993c24b882aec6"
+      },
+      {
+        "file": "server/orchestration.ts",
+        "sha256": "b18b6c7f2473d938ff512721a642368ef627da31d9a467f1c128a2eae79e4e8b"
+      },
+      {
+        "file": "server/observability.ts",
+        "sha256": "ff960dcec35907cf92c16a9afa03204061e3dbc0453ba7eb7089a2898a52e896"
+      },
+      {
+        "file": "server/runner.ts",
+        "sha256": "03c42ac9d7e91fb82a856d131aaa4a472b3045ac67c8588fe3680b4ea9a7d479"
+      },
+      {
+        "file": "server/report.ts",
+        "sha256": "b9608374496d94b9e08c6c200868be249eb2478c23cb3173642a447db684a67f"
+      },
+      {
+        "file": "server/sample.ts",
+        "sha256": "2987d63b9408a705d3ba6684ba8fa5ffc61c6756659a744fb818c382485453f3"
+      },
+      {
+        "file": "server/schema.ts",
+        "sha256": "7ff7194243a362bff4eb0f2f26fb477eccccc77bf00785a1b9b033151b9a249e"
+      },
+      {
+        "file": "server/safety.ts",
+        "sha256": "2f900b484c7beea6e72252dd753ad7fe610ca33de351cb950b0cf9bc0d8e77e3"
+      },
+      {
+        "file": "shared/types.ts",
+        "sha256": "8883c41c9494da8b2c41551d4a5423e3609a8f7b2b5cb62ca495034da15eb73f"
+      },
+      {
+        "file": "shared/compare-audits.ts",
+        "sha256": "dfc60931ace3af8357f0a70b5010c3a8eb0554a37f737340e199d6bc9e72511b"
+      },
+      {
+        "file": "shared/redact.ts",
+        "sha256": "55959e25af1b247a75a3466ab4f0ef68296aa37c2b2bb65a0d7dd94cc3742ce7"
+      },
+      {
+        "file": "package-lock.json",
+        "sha256": "6875dd4d0dc09bbb2b375af0df0c4a547efe451161702c9a6e09108297abc3e9"
+      }
+    ]
+  },
+  "requestContract": {
+    "endpoint": "completions",
+    "renderer": "Operator-rendered Qwen3.5 Hugging Face no-thinking chat template",
+    "promptSha256": "70e759a21a52d79c842d5ddd3318aedfc4a0b2025fd5f9e2f419d65925bec742",
+    "originalRequirementBound": true,
+    "serverChatRendererUsed": false
+  },
+  "generator": {
+    "provider": "Tinker (operator checkpoint)",
+    "model": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+    "reason": "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark."
+  },
+  "proposalOrchestration": {
+    "provider": "Mastra",
+    "workflowId": "briefstamp-proposal",
+    "runId": "4533b7c9-78be-4bd3-9ac9-31b3d6276664",
+    "steps": [
+      {
+        "step": "briefstamp.proposal.generate",
+        "status": "started"
+      },
+      {
+        "step": "briefstamp.proposal.generate",
+        "status": "completed",
+        "elapsedMs": 7188
+      },
+      {
+        "step": "briefstamp.proposal.validate",
+        "status": "started"
+      },
+      {
+        "step": "briefstamp.proposal.validate",
+        "status": "completed",
+        "elapsedMs": 0
+      }
+    ],
+    "persisted": false
+  },
+  "sourceCopyNormalizedCount": 1,
+  "sourceBinding": {
+    "rawRequirement": "The homepage must show the heading \"Design that moves business forward.\".",
+    "originalRequirement": "The homepage must show the heading \"Design that moves business forward.\"",
+    "rule": "Exact source text, or one added final period outside the closing quotation mark; restore the original source verbatim.",
+    "assertionFieldsUnchanged": true,
+    "qualityRepair": false,
+    "frozenBenchmarkModified": false
+  },
+  "unapprovedExecution": {
+    "rejected": true,
+    "runnerCalls": 0
+  },
+  "assertionSemanticsSha256": "126bf4c1453a48b1acc3efb1ca8da0a96163d0e37bf6d93a69e29188ac94c917",
+  "providerCalls": 1,
+  "modelSummaryCalls": 0,
+  "calls": [
+    {
+      "purpose": "generate-checks",
+      "startedAt": "2026-10-15T08:17:00.333Z",
+      "endpoint": "https://tinker.thinkingmachines.dev/services/tinker-prod/oai/api/v1/completions",
+      "requestModel": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+      "promptTokens": 205,
+      "completionTokens": 50,
+      "usageSource": "Provider response usage; null means not reported.",
+      "httpStatus": 200,
+      "responseSha256": "8761efd82d1647251f6145783685539c76a47e253d8e968f363f84e76af71129",
+      "elapsedMs": 7184
+    }
+  ],
+  "outcomes": [
+    {
+      "stage": "healthy",
+      "auditId": "63edcf18-a390-49ce-aec2-d4b0e0bd1edb",
+      "statuses": [
+        "passed"
+      ],
+      "orchestration": {
+        "provider": "Mastra",
+        "workflowId": "briefstamp-audit",
+        "runId": "c4554d27-66f1-46fc-b0fa-a8efe78b0fd6",
+        "steps": [
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "completed",
+            "elapsedMs": 0
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "completed",
+            "elapsedMs": 1147
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "completed",
+            "elapsedMs": 0
+          }
+        ],
+        "persisted": false
+      },
+      "report": "healthy-report.html",
+      "reportSha256": "05c7e5aafa6462b787b43a6f6e4d6165aa155d6667da066e7318708a51896410",
+      "screenshots": [
+        {
+          "path": "evidence/63edcf18-a390-49ce-aec2-d4b0e0bd1edb/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        }
+      ]
+    },
+    {
+      "stage": "broken",
+      "auditId": "a63192f8-cd8d-4b60-80d9-f7a9941de554",
+      "statuses": [
+        "failed"
+      ],
+      "orchestration": {
+        "provider": "Mastra",
+        "workflowId": "briefstamp-audit",
+        "runId": "322edaaf-5d60-4f8d-bb24-c3acc1716181",
+        "steps": [
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "completed",
+            "elapsedMs": 0
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "completed",
+            "elapsedMs": 695
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "completed",
+            "elapsedMs": 0
+          }
+        ],
+        "persisted": false
+      },
+      "report": "broken-report.html",
+      "reportSha256": "382fc7f1ec20f146154bcc25b32725d64d8e43f3f06741a1e8ca473d097f646c",
+      "screenshots": [
+        {
+          "path": "evidence/a63192f8-cd8d-4b60-80d9-f7a9941de554/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        }
+      ]
+    },
+    {
+      "stage": "restored",
+      "auditId": "45a29d6d-791b-4972-a8c3-a34f3c5612f6",
+      "statuses": [
+        "passed"
+      ],
+      "orchestration": {
+        "provider": "Mastra",
+        "workflowId": "briefstamp-audit",
+        "runId": "0dde8359-d3ed-4867-a45b-89a3ca406641",
+        "steps": [
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "completed",
+            "elapsedMs": 0
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "completed",
+            "elapsedMs": 684
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "completed",
+            "elapsedMs": 0
+          }
+        ],
+        "persisted": false
+      },
+      "report": "restored-report.html",
+      "reportSha256": "036f72f9e375312374ae7b84e0b145c9c29efaaeb6f4f43e52a61e0d90d70244",
+      "screenshots": [
+        {
+          "path": "evidence/45a29d6d-791b-4972-a8c3-a34f3c5612f6/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        }
+      ]
+    }
+  ],
+  "completedAt": "2026-10-15T08:17:10.089Z"
+}

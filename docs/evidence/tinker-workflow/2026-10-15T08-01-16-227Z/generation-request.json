@@ -1,0 +1,18 @@
+{
+  "model": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+  "messages": [
+    {
+      "role": "system",
+      "content": "Convert the numbered website requirements into JSON with exactly a checks array, one check per requirement in original order. Each check has exactly requirement (copy the complete input requirement), kind, path, expected, viewport. Allowed kinds: heading, text_visible, link, image_alt, no_horizontal_overflow, manual. Use site-relative path / unless explicitly specified, never a URL. viewport is desktop or mobile (390px). Text and heading checks require the exact literal requested text. Link checks its visible label only. image_alt checks nonempty alt presence, not quality. no_horizontal_overflow checks document width. Use manual for subjective claims, unknown expected text, negative assertions, payment, forms, authentication, destructive actions, timing, counts, styling, unsupported widths or any unsupported behavior. Do not return scripts, selectors, approval flags or commentary. Return JSON only."
+    },
+    {
+      "role": "user",
+      "content": "{\"requirements\":[\"The homepage must show the heading \\\"Design that moves business forward.\\\"\"]}"
+    }
+  ],
+  "max_tokens": 2048,
+  "temperature": 0,
+  "stream": false,
+  "reasoning_effort": "none",
+  "separate_reasoning": true
+}

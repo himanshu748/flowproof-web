@@ -4,11 +4,23 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { z } from "zod";
 import type { Project, Audit, IntegrationStatus } from "../shared/types";
-import { generateChecks } from "./generator";
+import {
+  generateChecksWithOrchestration,
+  runAuditWithOrchestration,
+} from "./orchestration";
+import {
+  initObservability,
+  observabilityStatus,
+  captureOperationalError,
+  traceOperation,
+} from "./observability";
+import { rememberAudit, recallProjectMemory } from "./providers/backboard";
+import { checkSearchVisibility } from "./providers/serpapi";
+import { createSpokenSampleReport } from "./providers/elevenlabs";
+import { ProviderError } from "./providers/free-resource-policy";
 import { getEvaluation } from "./evaluation";
 import { validateChecks } from "./schema";
 import { validateTarget, redact } from "./safety";
-import { runAudit } from "./runner";
 import {
   allProjects,
   allAudits,
@@ -23,9 +35,14 @@ import {
   readEvidence,
 } from "./store";
 import { renderReport } from "./report";
-import { summarizeAudit } from "./gemma";
 import { createDemoRouter } from "./demo";
 import { snapshotSource } from "../shared/compare-audits";
+import { startApprovedAudit, readTemporalAudit } from "../temporal/client";
+import { optionalIntegrations } from "./optional-integrations";
+import {
+  dispatchDurableAudit,
+  refreshDurableAudit as refreshSavedTemporalAudit,
+} from "./temporal-audit";
 
 const publicMode = process.env.FLOWPROOF_PUBLIC === "true";
 const demoMode = publicMode && process.env.FLOWPROOF_DEMO === "true";
@@ -41,6 +58,7 @@ const equal = (a: string, b: string) =>
     createHash("sha256").update(b).digest(),
   );
 const app = express();
+if (!demoMode) initObservability();
 app.disable("x-powered-by");
 app.use((req, res, next) => {
   if (!publicMode) {
@@ -156,7 +174,7 @@ const integrations = (): IntegrationStatus[] => [
     name: "Tinker",
     status: "available",
     detail:
-      "Real baseline and LoRA results are recorded in Model lab. The agent-reviewed synthetic pilot did not beat few-shot prompting. Live Tinker generation is not configured.",
+      "Recorded baseline/LoRA results remain separate from the operator checkpoint adapter. Live generation requires a current sampler checkpoint, credentials and a fresh confirmed-free allowance. The public sample makes no Tinker calls.",
   },
   {
     name: "Local open model",
@@ -190,21 +208,34 @@ const integrations = (): IntegrationStatus[] => [
     detail:
       "Optional local repair suggestions grounded in observed results. Suggestions never change assertion outcomes.",
   },
-  ...["Mastra", "Sentry", "Temporal", "Entire", "Backboard"].map((name) => ({
-    name,
-    status: "not_configured" as const,
-    detail: "Not integrated in this build. No sponsor claim.",
-  })),
+  ...optionalIntegrations(false),
 ];
-app.get("/api/bootstrap", (_req, res) =>
+async function refreshDurableAudit(audit: Audit): Promise<Audit> {
+  if (process.env.FLOWPROOF_TEMPORAL_ENABLED !== "true") return audit;
+  return refreshSavedTemporalAudit(audit, {
+    save: saveAudit,
+    read: readTemporalAudit,
+  });
+}
+app.get("/api/bootstrap", async (_req, res) => {
+  // A stopped worker/server must not hide the saved cockpit. Each bounded
+  // refresh returns its stored audit plus a safe diagnostic on an outage.
+  const audits = allAudits();
+  const refreshed = await Promise.all(
+    audits
+      .filter((a) => a.workflow && ["running", "queued"].includes(a.status))
+      .slice(0, 4)
+      .map(refreshDurableAudit),
+  );
+  const byId = new Map(refreshed.map((a) => [a.id, a]));
   res.json({
     projects: allProjects(),
-    audits: allAudits(),
+    audits: audits.map((a) => byId.get(a.id) ?? a),
     integrations: integrations(),
     evaluation: getEvaluation(),
     storage: storageMode,
-  }),
-);
+  });
+});
 const CreateProject = z
   .object({
     name: z.string().trim().min(2).max(80),
@@ -237,7 +268,9 @@ app.post("/api/projects", async (req, res) => {
     input.target === "sample"
       ? "https://sample.flowproof.test/"
       : await validateTarget(input.url || "");
-  const generated = await generateChecks(input.brief);
+  const generated = await generateChecksWithOrchestration(input.brief, {
+    allowModel: true,
+  });
   const now = new Date().toISOString();
   const project: Project = {
     ...input,
@@ -270,7 +303,9 @@ app.post("/api/projects/:id/generate", async (req, res) => {
     .object({ brief: z.string().trim().min(10).max(12000) })
     .parse(req.body);
   safeBrief(brief);
-  const generated = await generateChecks(brief);
+  const generated = await generateChecksWithOrchestration(brief, {
+    allowModel: true,
+  });
   Object.assign(p, generated, { brief, updatedAt: new Date().toISOString() });
   await saveProject(p);
   res.json(p);
@@ -332,24 +367,42 @@ app.post("/api/projects/:id/audits", async (req, res) => {
     running = false;
     throw e;
   }
+  if (process.env.FLOWPROOF_TEMPORAL_ENABLED === "true") {
+    try {
+      const scheduled = await dispatchDurableAudit(snapshot, a, {
+        save: saveAudit,
+        start: startApprovedAudit,
+        read: readTemporalAudit,
+      });
+      return res.status(202).json(scheduled);
+    } catch {
+      a.status = "error";
+      a.error =
+        "The scheduling intent could not be retained before dispatch. No completed audit is claimed.";
+      a.completedAt = new Date().toISOString();
+      await saveAudit(a);
+      return res.status(503).json({ error: a.error, audit: a });
+    } finally {
+      running = false;
+    }
+  }
   res.status(202).json(a);
   void (async () => {
     try {
-      await runAudit(
+      const outcome = await runAuditWithOrchestration(
         snapshot,
         a,
         async (result) => {
           a.results.push(result);
           await saveAudit(a);
         },
-        { evidenceRoot: path.join(dataRoot, "evidence") },
+        {
+          evidenceRoot: path.join(dataRoot, "evidence"),
+          allowModelSummary: true,
+        },
       );
       a.status = "completed";
-      const count = (s: string) =>
-        a.results.filter((r) => r.status === s).length;
-      a.summary = `${count("passed")} passed, ${count("failed")} failed, ${count("blocked")} blocked, ${count("unverified")} unverified. Results reflect approved checks and observed browser evidence.`;
-      const commentary = await summarizeAudit(a);
-      if (commentary) a.summary = commentary;
+      a.summary = outcome.summary;
     } catch (e) {
       a.status = "error";
       a.error = redact(
@@ -371,10 +424,10 @@ app.post("/api/projects/:id/audits", async (req, res) => {
     }
   })();
 });
-app.get("/api/audits/:id", (req, res) => {
+app.get("/api/audits/:id", async (req, res) => {
   const a = getAudit(req.params.id);
   if (!a) return res.status(404).json({ error: "Audit not found." });
-  res.json(a);
+  res.json(await refreshDurableAudit(a));
 });
 app.get("/api/audits/:id/report", async (req, res) => {
   const a = getAudit(req.params.id);
@@ -389,7 +442,59 @@ app.get("/api/audits/:id/report", async (req, res) => {
       "Content-Disposition",
       `attachment; filename="briefstamp-report-${a.id.slice(0, 8)}.html"`,
     );
-  res.send(await renderReport(a));
+  res.send(
+    await traceOperation(
+      "briefstamp.report",
+      { checkCount: a.checks.length },
+      () => renderReport(a),
+    ),
+  );
+});
+// Operator-only actions. Public visitor requests terminate in the isolated demo
+// router before these routes, and no optional provider is invoked automatically.
+app.post("/api/audits/:id/memory", async (req, res) => {
+  const audit = getAudit(req.params.id);
+  if (!audit) return res.status(404).json({ error: "Audit not found." });
+  res.json(await rememberAudit(audit));
+});
+app.post("/api/projects/:id/memory/search", async (req, res) => {
+  const project = getProject(req.params.id);
+  if (!project) return res.status(404).json({ error: "Project not found." });
+  const { kind } = z
+    .object({
+      kind: z.enum([
+        "heading",
+        "link",
+        "text_visible",
+        "image_alt",
+        "no_horizontal_overflow",
+        "manual",
+      ]),
+    })
+    .strict()
+    .parse(req.body);
+  res.json(await recallProjectMemory(project.id, kind));
+});
+app.post("/api/projects/:id/search-visibility", async (req, res) => {
+  const project = getProject(req.params.id);
+  if (!project) return res.status(404).json({ error: "Project not found." });
+  res.json(await checkSearchVisibility(project));
+});
+app.post("/api/audits/:id/speech", async (req, res) => {
+  const audit = getAudit(req.params.id);
+  if (!audit) return res.status(404).json({ error: "Audit not found." });
+  const spoken = await createSpokenSampleReport(audit);
+  res
+    .type(spoken.mimeType)
+    .setHeader(
+      "Content-Disposition",
+      'attachment; filename="briefstamp-synthetic-report.mp3"',
+    );
+  res.setHeader(
+    "X-Briefstamp-Audio-Scope",
+    "Noncommercial synthetic demonstration; ElevenLabs attribution required",
+  );
+  res.send(spoken.audio);
 });
 app.get("/api/projects/:id/plan", (req, res) => {
   const p = getProject(req.params.id);
@@ -430,12 +535,15 @@ app.use(
     res: express.Response,
     _next: express.NextFunction,
   ) => {
+    if (err instanceof ProviderError)
+      return res.status(409).json({ error: err.message, code: err.code });
     if (err instanceof z.ZodError)
       return res.status(400).json({
         error: err.issues
           .map((i) => `${i.path.join(".")}: ${i.message}`)
           .join("; "),
       });
+    captureOperationalError("briefstamp.audit");
     const message = err instanceof Error ? err.message : "Request failed.";
     res.status(400).json({ error: redact(message).slice(0, 500) });
   },
@@ -445,7 +553,9 @@ if (!demoMode && !allProjects().length) {
   const now = new Date().toISOString();
   const brief =
     'The homepage heading must say "Design that moves business forward."\nA contact link must say "Start a project".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show "Independent by design."\nThe site should feel welcoming and trustworthy.';
-  const generated = await generateChecks(brief);
+  const generated = await generateChecksWithOrchestration(brief, {
+    allowModel: true,
+  });
   await saveProject({
     id: randomUUID(),
     name: "Forma Studio",

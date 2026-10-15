@@ -1,0 +1,44 @@
+{
+  "generator": {
+    "provider": "Tinker (operator checkpoint)",
+    "model": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+    "reason": "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark."
+  },
+  "checks": [
+    {
+      "id": "faecdecb-666f-44ba-bb12-4bd2e03603cf",
+      "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "orchestration": {
+    "provider": "Mastra",
+    "workflowId": "briefstamp-proposal",
+    "runId": "4533b7c9-78be-4bd3-9ac9-31b3d6276664",
+    "steps": [
+      {
+        "step": "briefstamp.proposal.generate",
+        "status": "started"
+      },
+      {
+        "step": "briefstamp.proposal.generate",
+        "status": "completed",
+        "elapsedMs": 7188
+      },
+      {
+        "step": "briefstamp.proposal.validate",
+        "status": "started"
+      },
+      {
+        "step": "briefstamp.proposal.validate",
+        "status": "completed",
+        "elapsedMs": 0
+      }
+    ],
+    "persisted": false
+  }
+}

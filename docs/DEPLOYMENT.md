@@ -2,6 +2,12 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
+## Integration revision evidence, October15
+
+The [current Actions workflow](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) is the source for revision-specific CI state. New local SDK and provider receipts are linked in [the integration ledger](INTEGRATIONS.md): Mastra approval/browser coordination, Sentry local transport, Temporal retry/restart recovery, scoped Entire import and a real SerpApi search. These receipts do not imply hosted Sentry, a hosted Temporal worker or permanent Tiger storage. Public visitors never invoke optional paid-capable provider APIs.
+
+The deployment records below are historical snapshots, not an assertion that their hashes equal the latest repository revision. The existing service remains manually deployed; verify its exact commit separately before claiming a new release live.
+
 ## Verified source update, 15 October 2026
 
 [Actions run 38690709135](https://github.com/himanshu748/flowproof-web/actions/runs/38690709135) verified source commit `e7be707cd5b947784bc02971742994dfcfc33993`: 140 application tests, 17 provenance tests, a production build and real healthy → broken → restored browser runs. Four regressions and four recoveries were observed. Three portable reports, fifteen screenshots and comparison JSON were downloaded and checked. [Retained receipt and artifact hashes](evidence/ci-regression-2026-10-15.json).

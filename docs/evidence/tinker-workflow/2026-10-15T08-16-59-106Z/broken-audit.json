@@ -1,0 +1,51 @@
+{
+  "id": "a63192f8-cd8d-4b60-80d9-f7a9941de554",
+  "projectId": "63aad5b2-8477-4a05-bfb7-a419614857fa",
+  "projectName": "Forma Studio · Tinker application smoke",
+  "status": "completed",
+  "createdAt": "2026-10-15T08:17:08.701Z",
+  "checks": [
+    {
+      "id": "faecdecb-666f-44ba-bb12-4bd2e03603cf",
+      "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": true
+    }
+  ],
+  "source": {
+    "brief": "The homepage must show the heading \"Design that moves business forward.\"",
+    "generator": {
+      "provider": "Tinker (operator checkpoint)",
+      "model": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+      "reason": "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark."
+    },
+    "target": "sample",
+    "url": "https://sample.flowproof.test/",
+    "sampleVariant": "broken"
+  },
+  "results": [
+    {
+      "checkId": "faecdecb-666f-44ba-bb12-4bd2e03603cf",
+      "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+      "kind": "heading",
+      "status": "failed",
+      "expected": "Design that moves business forward.",
+      "durationMs": 608,
+      "evidence": {
+        "screenshot": "/evidence/a63192f8-cd8d-4b60-80d9-f7a9941de554/01-faecdecb-666f-44ba-bb12-4bd2e03603cf.png",
+        "dom": "Something beautiful is coming soon.\nA little studio.\nA wider perspective.",
+        "observed": "No visible heading exactly matches the expected text.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "summary": "Observed results: 0 passed, 1 failed, 0 blocked, 0 unverified. Only executed assertions are verified; manual requirements still need human review.\nSynthetic test-harness approval only; no human review, client acceptance or quality-benchmark claim.",
+  "completedAt": "2026-10-15T08:17:09.399Z"
+}

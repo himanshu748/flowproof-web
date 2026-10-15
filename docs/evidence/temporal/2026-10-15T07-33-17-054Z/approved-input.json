@@ -1,0 +1,147 @@
+{
+  "project": {
+    "id": "temporal-synthetic-proof",
+    "name": "Temporal recovery sample",
+    "target": "sample",
+    "url": "https://sample.flowproof.test/",
+    "sampleVariant": "healthy",
+    "authorized": true,
+    "brief": "The homepage must have the heading \"Design that moves business forward.\"\nThe page must show \"Independent by design.\"\nA \"Start a project\" link should lead to /contact.\nAll meaningful images need alternative text.\nThe website must not scroll horizontally on a mobile screen.\nThe design should feel trustworthy and professional.",
+    "checks": [
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-heading",
+        "requirement": "The homepage must have the agreed headline.",
+        "kind": "heading",
+        "expected": "Design that moves business forward."
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-text",
+        "requirement": "Show the studio positioning on the homepage.",
+        "kind": "text_visible",
+        "expected": "Independent by design."
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-link",
+        "requirement": "The Start a project link should lead to /contact.",
+        "kind": "link",
+        "expected": "/contact"
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-alt",
+        "requirement": "All meaningful images need alternative text.",
+        "kind": "image_alt",
+        "expected": "Descriptive alternative text on meaningful images"
+      },
+      {
+        "path": "/",
+        "viewport": "mobile",
+        "approved": true,
+        "id": "sample-mobile",
+        "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "expected": "No horizontal scrolling at 390px"
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-manual",
+        "requirement": "The design should feel trustworthy and professional.",
+        "kind": "manual",
+        "expected": "Client review of visual tone"
+      }
+    ],
+    "createdAt": "2026-10-15T07:33:22.736Z",
+    "updatedAt": "2026-10-15T07:33:22.736Z",
+    "generator": {
+      "provider": "Explicitly approved synthetic verification fixture",
+      "model": null
+    }
+  },
+  "audit": {
+    "id": "da362af8-8c12-4dbc-861f-02e29a582407",
+    "projectId": "temporal-synthetic-proof",
+    "projectName": "Temporal recovery sample",
+    "status": "queued",
+    "createdAt": "2026-10-15T07:33:22.736Z",
+    "checks": [
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-heading",
+        "requirement": "The homepage must have the agreed headline.",
+        "kind": "heading",
+        "expected": "Design that moves business forward."
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-text",
+        "requirement": "Show the studio positioning on the homepage.",
+        "kind": "text_visible",
+        "expected": "Independent by design."
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-link",
+        "requirement": "The Start a project link should lead to /contact.",
+        "kind": "link",
+        "expected": "/contact"
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-alt",
+        "requirement": "All meaningful images need alternative text.",
+        "kind": "image_alt",
+        "expected": "Descriptive alternative text on meaningful images"
+      },
+      {
+        "path": "/",
+        "viewport": "mobile",
+        "approved": true,
+        "id": "sample-mobile",
+        "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "expected": "No horizontal scrolling at 390px"
+      },
+      {
+        "path": "/",
+        "viewport": "desktop",
+        "approved": true,
+        "id": "sample-manual",
+        "requirement": "The design should feel trustworthy and professional.",
+        "kind": "manual",
+        "expected": "Client review of visual tone"
+      }
+    ],
+    "source": {
+      "brief": "The homepage must have the heading \"Design that moves business forward.\"\nThe page must show \"Independent by design.\"\nA \"Start a project\" link should lead to /contact.\nAll meaningful images need alternative text.\nThe website must not scroll horizontally on a mobile screen.\nThe design should feel trustworthy and professional.",
+      "generator": {
+        "provider": "Explicitly approved synthetic verification fixture",
+        "model": null
+      },
+      "target": "sample",
+      "url": "https://sample.flowproof.test/",
+      "sampleVariant": "healthy"
+    },
+    "results": []
+  }
+}

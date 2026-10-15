@@ -1,0 +1,22 @@
+{
+  "startedAt": "2026-10-15T07:38:38.984Z",
+  "provider": "SerpApi",
+  "scope": "One real local adapter call against our authorized public demo, not hosted provider configuration",
+  "accountProof": {
+    "plan": "Free",
+    "remainingSearchesBefore": 218,
+    "maxRequests": 1,
+    "noPaidChanges": true
+  },
+  "status": "verified",
+  "observation": {
+    "provider": "SerpApi",
+    "domain": "flowproof-demo.onrender.com",
+    "query": "site:flowproof-demo.onrender.com",
+    "observedAt": "2026-10-15T07:38:49.820Z",
+    "results": [],
+    "status": "observed",
+    "limitation": "A bounded search snapshot, not proof that every page is indexed or a ranking guarantee. No result URL was visited."
+  },
+  "completedAt": "2026-10-15T07:38:49.820Z"
+}

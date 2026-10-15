@@ -1,0 +1,375 @@
+{
+  "startedAt": "2026-10-15T07:14:22.607Z",
+  "runId": "2026-10-15T07-14-22-607Z",
+  "status": "passed",
+  "scope": "Real local Mastra workflows and Sentry SDK local transport; synthetic browser targets",
+  "modelCalls": 0,
+  "remoteProviderCalls": 0,
+  "hostedSentryIngestionVerified": false,
+  "humanApproval": false,
+  "approvalActor": "Explicitly opted-in synthetic verification harness",
+  "observability": {
+    "mode": "local_capture",
+    "hostedVerified": false,
+    "maxEnvelopes": 20
+  },
+  "dependencies": {
+    "@mastra/core": "1.77.0",
+    "@sentry/node": "11.7.0"
+  },
+  "proposal": {
+    "generator": {
+      "provider": "Deterministic parser",
+      "model": null,
+      "reason": "Local rules create draft checks at no API cost. Model calls are disabled for this workflow."
+    },
+    "checks": [
+      {
+        "id": "877bcfb7-aec7-4470-9734-1eef83812a19",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": false
+      },
+      {
+        "id": "6092ae96-1099-483d-a333-000ddca47365",
+        "requirement": "The page must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Independent by design.",
+        "viewport": "desktop",
+        "approved": false
+      },
+      {
+        "id": "05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88",
+        "requirement": "A link labeled \"Start a project\" must be visible.",
+        "kind": "link",
+        "path": "/",
+        "expected": "Start a project",
+        "viewport": "desktop",
+        "approved": false
+      },
+      {
+        "id": "421ecf65-2017-432d-a2e3-746a02817b3e",
+        "requirement": "The design should feel trustworthy.",
+        "kind": "manual",
+        "path": "/",
+        "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+        "viewport": "desktop",
+        "approved": false
+      }
+    ],
+    "orchestration": {
+      "provider": "Mastra",
+      "workflowId": "briefstamp-proposal",
+      "runId": "d42f5385-f8aa-410b-bcdb-c235e484ea94",
+      "steps": [
+        {
+          "step": "briefstamp.proposal.generate",
+          "status": "started"
+        },
+        {
+          "step": "briefstamp.proposal.generate",
+          "status": "completed",
+          "elapsedMs": 2
+        },
+        {
+          "step": "briefstamp.proposal.validate",
+          "status": "started"
+        },
+        {
+          "step": "briefstamp.proposal.validate",
+          "status": "completed",
+          "elapsedMs": 0
+        }
+      ],
+      "persisted": false
+    }
+  },
+  "unapprovedRejected": true,
+  "audits": [
+    {
+      "variant": "healthy",
+      "statuses": [
+        "passed",
+        "passed",
+        "passed",
+        "unverified"
+      ],
+      "summary": "Observed results: 3 passed, 0 failed, 0 blocked, 1 unverified. Only executed assertions are verified; manual requirements still need human review.",
+      "orchestration": {
+        "provider": "Mastra",
+        "workflowId": "briefstamp-audit",
+        "runId": "5347957e-aa28-42c2-8ed0-662c9cce8533",
+        "steps": [
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "completed",
+            "elapsedMs": 0
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "completed",
+            "elapsedMs": 2058
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "completed",
+            "elapsedMs": 0
+          }
+        ],
+        "persisted": false
+      },
+      "results": [
+        {
+          "checkId": "877bcfb7-aec7-4470-9734-1eef83812a19",
+          "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+          "kind": "heading",
+          "status": "passed",
+          "expected": "Design that moves business forward.",
+          "durationMs": 625,
+          "evidence": {
+            "screenshot": "/evidence/8477cfd8-5594-40c0-b65a-3f111930f473/01-877bcfb7-aec7-4470-9734-1eef83812a19.png",
+            "dom": "Design that moves business forward.\nA little studio.\nA wider perspective.",
+            "observed": "The expected heading is visible.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "6092ae96-1099-483d-a333-000ddca47365",
+          "requirement": "The page must show \"Independent by design.\"",
+          "kind": "text_visible",
+          "status": "passed",
+          "expected": "Independent by design.",
+          "durationMs": 619,
+          "evidence": {
+            "screenshot": "/evidence/8477cfd8-5594-40c0-b65a-3f111930f473/02-6092ae96-1099-483d-a333-000ddca47365.png",
+            "dom": "INDEPENDENT BY DESIGN.",
+            "observed": "The expected text is visible on the page.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88",
+          "requirement": "A link labeled \"Start a project\" must be visible.",
+          "kind": "link",
+          "status": "passed",
+          "expected": "Start a project",
+          "durationMs": 641,
+          "evidence": {
+            "screenshot": "/evidence/8477cfd8-5594-40c0-b65a-3f111930f473/03-05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88.png",
+            "dom": "Start a project ↗ → /contact",
+            "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "421ecf65-2017-432d-a2e3-746a02817b3e",
+          "requirement": "The design should feel trustworthy.",
+          "kind": "manual",
+          "status": "unverified",
+          "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+          "durationMs": 0,
+          "evidence": {
+            "observed": "This requirement needs a human decision. No automated assertion was executed.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "evidencePath": "/evidence/8477cfd8-5594-40c0-b65a-3f111930f473/01-877bcfb7-aec7-4470-9734-1eef83812a19.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        },
+        {
+          "evidencePath": "/evidence/8477cfd8-5594-40c0-b65a-3f111930f473/02-6092ae96-1099-483d-a333-000ddca47365.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        },
+        {
+          "evidencePath": "/evidence/8477cfd8-5594-40c0-b65a-3f111930f473/03-05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        }
+      ]
+    },
+    {
+      "variant": "broken",
+      "statuses": [
+        "failed",
+        "passed",
+        "passed",
+        "unverified"
+      ],
+      "summary": "Observed results: 2 passed, 1 failed, 0 blocked, 1 unverified. Only executed assertions are verified; manual requirements still need human review.",
+      "orchestration": {
+        "provider": "Mastra",
+        "workflowId": "briefstamp-audit",
+        "runId": "f92ccaf7-2df6-44e2-a00d-359df327c883",
+        "steps": [
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.approval",
+            "status": "completed",
+            "elapsedMs": 0
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.browser",
+            "status": "completed",
+            "elapsedMs": 1912
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "started"
+          },
+          {
+            "step": "briefstamp.audit.summary",
+            "status": "completed",
+            "elapsedMs": 0
+          }
+        ],
+        "persisted": false
+      },
+      "results": [
+        {
+          "checkId": "877bcfb7-aec7-4470-9734-1eef83812a19",
+          "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+          "kind": "heading",
+          "status": "failed",
+          "expected": "Design that moves business forward.",
+          "durationMs": 606,
+          "evidence": {
+            "screenshot": "/evidence/a89e3d38-b35c-4d30-a66d-6c691840282c/01-877bcfb7-aec7-4470-9734-1eef83812a19.png",
+            "dom": "Something beautiful is coming soon.\nA little studio.\nA wider perspective.",
+            "observed": "No visible heading exactly matches the expected text.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "6092ae96-1099-483d-a333-000ddca47365",
+          "requirement": "The page must show \"Independent by design.\"",
+          "kind": "text_visible",
+          "status": "passed",
+          "expected": "Independent by design.",
+          "durationMs": 606,
+          "evidence": {
+            "screenshot": "/evidence/a89e3d38-b35c-4d30-a66d-6c691840282c/02-6092ae96-1099-483d-a333-000ddca47365.png",
+            "dom": "INDEPENDENT BY DESIGN.",
+            "observed": "The expected text is visible on the page.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88",
+          "requirement": "A link labeled \"Start a project\" must be visible.",
+          "kind": "link",
+          "status": "passed",
+          "expected": "Start a project",
+          "durationMs": 592,
+          "evidence": {
+            "screenshot": "/evidence/a89e3d38-b35c-4d30-a66d-6c691840282c/03-05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88.png",
+            "dom": "Start a project ↗ → /unavailable",
+            "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "421ecf65-2017-432d-a2e3-746a02817b3e",
+          "requirement": "The design should feel trustworthy.",
+          "kind": "manual",
+          "status": "unverified",
+          "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+          "durationMs": 0,
+          "evidence": {
+            "observed": "This requirement needs a human decision. No automated assertion was executed.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        }
+      ],
+      "screenshots": [
+        {
+          "evidencePath": "/evidence/a89e3d38-b35c-4d30-a66d-6c691840282c/01-877bcfb7-aec7-4470-9734-1eef83812a19.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        },
+        {
+          "evidencePath": "/evidence/a89e3d38-b35c-4d30-a66d-6c691840282c/02-6092ae96-1099-483d-a333-000ddca47365.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        },
+        {
+          "evidencePath": "/evidence/a89e3d38-b35c-4d30-a66d-6c691840282c/03-05cf92b6-c27c-468e-b1aa-f2f9bb4d4a88.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        }
+      ]
+    }
+  ],
+  "sentry": {
+    "envelopesCaptured": 5,
+    "transport": "custom local in-memory sink",
+    "privateBriefAndTargetAbsent": true,
+    "hostedIngestionVerified": false
+  },
+  "completedAt": "2026-10-15T07:14:27.822Z",
+  "limitations": [
+    "Synthetic targets only; harness approval is not human or customer validation.",
+    "Deterministic proposal generation in this orchestration proof; separate Gemma/Tinker experiments establish model evidence.",
+    "No Mastra cloud storage, durable recovery or Sentry hosted ingestion is claimed.",
+    "Screenshots are local run artifacts; their bytes and hashes are recorded here."
+  ]
+}

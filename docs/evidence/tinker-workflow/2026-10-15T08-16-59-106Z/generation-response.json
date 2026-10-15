@@ -1,0 +1,16 @@
+{
+  "provider": "Tinker",
+  "requestModel": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+  "choices": [
+    {
+      "finishReason": "stop",
+      "text": "{\"checks\": [{\"requirement\": \"The homepage must show the heading \\\"Design that moves business forward.\\\".\", \"kind\": \"heading\", \"path\": \"/\", \"expected\": \"Design that moves business forward.\", \"viewport\": \"desktop\"}]}"
+    }
+  ],
+  "usage": {
+    "promptTokens": 205,
+    "completionTokens": 50
+  },
+  "rawResponseSha256": "8761efd82d1647251f6145783685539c76a47e253d8e968f363f84e76af71129",
+  "omitted": "Response IDs, account/organization fields, system fingerprints and HTTP headers are not retained."
+}

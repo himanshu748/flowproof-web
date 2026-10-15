@@ -1,0 +1,35 @@
+{
+  "approval": {
+    "actor": "Explicitly opted-in synthetic verification harness",
+    "humanApproval": false,
+    "scope": "Only this generated heading assertion against the built-in Forma sample",
+    "semanticEdits": false
+  },
+  "project": {
+    "id": "63aad5b2-8477-4a05-bfb7-a419614857fa",
+    "name": "Forma Studio · Tinker application smoke",
+    "target": "sample",
+    "sampleVariant": "healthy",
+    "url": "https://sample.flowproof.test/",
+    "authorized": true,
+    "brief": "The homepage must show the heading \"Design that moves business forward.\"",
+    "checks": [
+      {
+        "id": "faecdecb-666f-44ba-bb12-4bd2e03603cf",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": true
+      }
+    ],
+    "createdAt": "2026-10-15T08:17:07.520Z",
+    "updatedAt": "2026-10-15T08:17:07.520Z",
+    "generator": {
+      "provider": "Tinker (operator checkpoint)",
+      "model": "tinker://9e31df8b-8529-5493-a974-f256eeb053d4:train:0/sampler_weights/flowproof-pilot-v1",
+      "reason": "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark."
+    }
+  }
+}

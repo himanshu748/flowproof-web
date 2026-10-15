@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { isSafePath, validateChecks } from "./schema.js";
 import type { Check, CheckKind, Project } from "../shared/types.js";
+import { generateTinkerProposal } from "./providers/tinker.js";
 
 // The model proposes this finite data language. It never returns browser code.
 const proposalSchema = z
@@ -315,6 +316,21 @@ export async function generateChecks(
   brief: string,
 ): Promise<{ checks: Check[]; generator: Project["generator"] }> {
   const originals = requirementsFrom(brief);
+  if (process.env.BRIEFSTAMP_TINKER_ENABLED === "true") {
+    try {
+      const proposed = await generateTinkerProposal(originals);
+      const checks = validateChecks(proposed.checks.map((check, index) => {
+        const requirement = originals[index];
+        const scope = requirementScope(requirement);
+        if (proposed.redacted[index] || requiresManualReview(requirement) || scope.unsupported)
+          return { ...localCheck(requirement), kind: "manual" as const };
+        return { ...check, requirement, path: scope.path, viewport: scope.viewport, id: randomUUID(), approved: false };
+      }));
+      return { checks, generator: { provider: "Tinker (operator checkpoint)", model: proposed.model, reason: "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark." } };
+    } catch {
+      return { checks: originals.map(localCheck), generator: { provider: "Deterministic parser", model: null, reason: "Tinker was unavailable, unconfigured, outside its confirmed-free budget or returned an invalid plan. These drafts were created by rules; no Tinker success is claimed." } };
+    }
+  }
   if (process.env.FLOWPROOF_AI_ENABLED === "true") {
     try {
       const { checks, model } = await localModelChecks(brief, originals);
