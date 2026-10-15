@@ -1,0 +1,54 @@
+1
+00:00:00,000 --> 00:00:06,000
+Client handoffs need evidence.
+Briefstamp turns requirements into approved checks and a report clients can read.
+
+2
+00:00:06,000 --> 00:00:12,000
+Start with six requirements.
+This hosted walkthrough uses a synthetic website and clearly labelled template checks.
+
+3
+00:00:12,000 --> 00:00:17,000
+Approval comes before execution.
+Review the plan, approve the checks, then run the browser audit.
+
+4
+00:00:17,000 --> 00:00:23,000
+A real browser. Observed outcomes.
+5 passed · 0 failed · 1 unverified. A subjective requirement still needs human judgment.
+
+5
+00:00:23,000 --> 00:00:29,000
+Change the sample. Keep the assertions.
+Selecting the broken condition resets approvals. Review and approve again before running.
+
+6
+00:00:29,000 --> 00:00:37,000
+The broken website fails three checks.
+2 passed · 3 failed · 1 unverified. Missing evidence never becomes a pass.
+
+7
+00:00:37,000 --> 00:00:44,000
+See what the browser actually found.
+The failed heading stays linked to its requirement and captured screenshot.
+
+8
+00:00:44,000 --> 00:00:50,000
+Restore the sample. Approve again.
+Same assertions. The operator restores the synthetic condition; this is not automatic repair.
+
+9
+00:00:50,000 --> 00:00:56,000
+Three recoveries, checked by Chromium.
+5 passed · 0 failed · 1 unverified. The subjective requirement remains unresolved.
+
+10
+00:00:56,000 --> 00:01:02,000
+Compare the same checks across runs.
+3 recovered · 2 still passing · 1 unknown. Changed or manual checks cannot prove a fix.
+
+11
+00:01:02,000 --> 00:01:08,000
+Send the site. Show the proof.
+Download a portable delivery report with observed results and screenshot evidence.

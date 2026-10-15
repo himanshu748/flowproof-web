@@ -24,7 +24,7 @@ Changing the synthetic condition resets approvals. The operator restores the sam
 - Capture UI: Codex in-app browser, operated through CUA.
 - Deployed source commit: `816d869ed7851b471b0ff83b103903ef2f069eae`.
 - Capture date: October 15, 2026.
-- Original captures: twelve unmodified PNGs, each 1920 × 1205, retained in [`source/`](./source/).
+- Original captures: twelve unmodified images with `.png` filenames (JPEG encoded), each 1920 × 1205, retained in [`source/`](./source/).
 - Capture receipt: [`journey.json`](./journey.json). It records one observed **64.089-second first-report download on a warm server**, including screenshot and tool overhead. This is not an SLA, and it is not the duration of the later broken/restored sequence. The video's 68-second editorial timing is independent of that observation.
 - Audit suffixes: healthy `a7a550dc`, broken `44307989`, restored `16ce0944`.
 
@@ -32,7 +32,7 @@ The filename `04-running.png` predates inspection: its pixels already show a com
 
 ## Editing and verification
 
-Original source PNGs are copied byte for byte. The edit adds fades, calm zooms and pointer choreography that points at actual controls. The pointer movement is authored, not a recorded mouse trace. UI text, values and screenshot evidence have not been replaced. The browser image is resampled to 1920 × 1206 for even-pixel H.264 encoding, then letterboxed into a 1920 × 1440 canvas with a 72-pixel disclosure header and a 162-pixel caption footer.
+Original source images are copied byte for byte. The edit adds fades, calm zooms and pointer choreography that points at actual controls. The pointer movement is authored, not a recorded mouse trace. UI text, values and screenshot evidence have not been replaced. The browser image is resampled to 1920 × 1206 for even-pixel H.264 encoding, then letterboxed into a 1920 × 1440 canvas with a 72-pixel disclosure header and a 162-pixel caption footer.
 
 The MP4 uses H.264, 60 frames per second, no audio, and `faststart`. Exact duration, frame count and file size are recorded in [`ffprobe.json`](./ffprobe.json). The poster is extracted from the encoded video at 39 seconds. SHA-256 hashes for sources, video, poster, pointer, receipt and edit configuration are recorded in [`manifest.json`](./manifest.json).
 

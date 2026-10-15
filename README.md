@@ -6,9 +6,13 @@ Formerly FlowProof; existing repository and demo URLs are retained.
 
 [![Browser audit](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml/badge.svg)](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-![Briefstamp compares an intentionally broken sample with its restored version](docs/evidence/acceptance-comparison.jpg)
+![Edited hosted sample walkthrough: approve checks, observe failures, restore the sample](docs/demo/briefstamp-preview.gif)
+
+*Recorded template workflow; actual browser results. [Comparison screenshot](docs/evidence/acceptance-comparison.jpg).*
 
 [Try the live demo](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Three-minute judge guide](docs/JUDGE_GUIDE.md)
+
+YouTube upload: `YOUTUBE_URL` (pending author upload; MP4 above is the backup).
 
 ## The problem
 

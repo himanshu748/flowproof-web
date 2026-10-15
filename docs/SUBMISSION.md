@@ -8,6 +8,8 @@ Freelancers deliver websites, then spend more time proving that the agreed work 
 
 [Try the demo](https://flowproof-demo.onrender.com/#demo) · [Judge guide](JUDGE_GUIDE.md) · [Source](https://github.com/himanshu748/flowproof-web). [68-second video](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4).
 
+YouTube: `YOUTUBE_URL` (author upload pending; MP4 backup above).
+
 The live, owner-authorized Briefstamp homepage passed five checks with one subjective requirement unverified. Changing only the heading expectation produced a real failure. Both audits were saved and read back through Tiger over verified TLS. This live-site run used explicitly labelled deterministic checks.
 
 Separately, the same approved CI fixture plan recorded five passes, then four failures after controlled breakage, then five passes after restoration. Its manual judgment stayed unverified. Verification passed 452 application tests, 19 Python tests and a production build.

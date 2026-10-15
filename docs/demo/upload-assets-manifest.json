@@ -1,0 +1,140 @@
+{
+  "product": "Briefstamp",
+  "status": "Prepared locally. No YouTube upload performed.",
+  "youtube_url_placeholder": "{{YOUTUBE_URL}}",
+  "capture_ui": "Codex in-app browser through CUA",
+  "hosted_service": "https://flowproof-demo.onrender.com/",
+  "capture_source_commit": "816d869ed7851b471b0ff83b103903ef2f069eae",
+  "inputs": [
+    {
+      "path": "docs/demo/briefstamp-demo.mp4",
+      "sha256": "5bde3eab9d26d55da468172f375df7034d4f44ce2f0cd75ee6f4bc553cdc8e16",
+      "bytes": 15761948
+    },
+    {
+      "path": "docs/demo/captions.json",
+      "sha256": "8a7bacc874893f8e0d1f45170cd9d42e9aa7a420dd7daa01df6b8c0d4a129fd6",
+      "bytes": 2431
+    },
+    {
+      "path": "docs/demo/briefstamp-demo.vtt",
+      "sha256": "bd5d8bd58bd85db75bfe1c2229beb7339003c6e72363488a7ba032a129a9f4e1",
+      "bytes": 1654
+    },
+    {
+      "path": "docs/demo/source/03-approved.png",
+      "sha256": "e0d01b898a0acb6f7c9620e8fcf2e32c8cc72b8d15aa6bc2e8088d131fdaf50b",
+      "bytes": 131147
+    },
+    {
+      "path": "docs/demo/source/07-broken.png",
+      "sha256": "25deffb5bd6aeacc1d9e5f8060f80d985c1b6bdd2dd512fbe72e18dd5014e602",
+      "bytes": 111740
+    },
+    {
+      "path": "docs/demo/source/10-restored.png",
+      "sha256": "5612a68c8e86783f3f22b801f1189eb3610875f6c67c632e336a32cba3cc8146",
+      "bytes": 111627
+    }
+  ],
+  "assets": [
+    {
+      "path": "docs/demo/YOUTUBE.md",
+      "sha256": "9b8053c70343eb43bb4f4b3558ed4aadfa69af227258c2b2f9fe7416cf6f2a36",
+      "bytes": 3177
+    },
+    {
+      "path": "docs/demo/briefstamp-demo.srt",
+      "sha256": "e422e20b6d10a6689c2a2851f8a50987de9e3208513d0ce67d1e2db8b55d661e",
+      "bytes": 1670
+    },
+    {
+      "path": "docs/demo/thumbnail.png",
+      "sha256": "8e0a8935c9453130819c53022798508622f58c48b25f10d6c6efbf87cc6b8d88",
+      "bytes": 75599
+    },
+    {
+      "path": "docs/demo/thumbnail.svg",
+      "sha256": "963376f9b34e350d184e9d3a06a4ebb0e05575dd8a69a62182ec7d47787dd424",
+      "bytes": 380746
+    },
+    {
+      "path": "docs/demo/briefstamp-preview.gif",
+      "sha256": "db09866f06acb7a7ec0626773a885d314d72836723433a75cab25a6a026caaa5",
+      "bytes": 279635
+    }
+  ],
+  "thumbnail": {
+    "width": 1280,
+    "height": 720,
+    "editable": "thumbnail.svg contains editable text, embedded brand fonts and the original embedded source screenshots, clipped to their result metrics. PNG uses the same geometry and fonts via Pillow.",
+    "source_crop": [
+      1468,
+      404,
+      1768,
+      480
+    ],
+    "source_encoding": "The original capture filenames end in .png, but their byte encoding is JPEG. SVG uses the detected image/jpeg MIME without re-encoding their bytes."
+  },
+  "gif": {
+    "width": 800,
+    "height": 450,
+    "frames": 9,
+    "duration_ms": 10000,
+    "loop": 0
+  },
+  "gif_ffprobe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "gif",
+        "width": 800,
+        "height": 450,
+        "r_frame_rate": "10/1",
+        "nb_frames": "9"
+      }
+    ],
+    "format": {
+      "duration": "10.000000",
+      "size": "279635"
+    }
+  },
+  "captions": {
+    "cue_count": 11,
+    "last_end_seconds": 68,
+    "verification": "Every SRT cue text and timing equals the existing VTT after numbering and punctuation-format conversion."
+  },
+  "observed_results": {
+    "broken": {
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "restored": {
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1
+    }
+  },
+  "provenance": "Real hosted screenshots; synthetic sample; unchanged template assertions; manual restoration and fresh approval; no model call. Preview timing and fades are editorial, not latency evidence.",
+  "fonts": [
+    {
+      "path": "public/assets/fonts/space-grotesk-latin.woff2",
+      "sha256": "0640890476fc1198ab4de571fb658de443c4d85b66466ec09534a8737ab1ce9d",
+      "bytes": 22288
+    },
+    {
+      "path": "public/assets/fonts/dm-sans-latin.woff2",
+      "sha256": "9fea608a947e67020c33cad9a6fe3d60c54119dfb8cff87768a8117a15ed7543",
+      "bytes": 36932
+    }
+  ],
+  "reproduction_script": {
+    "path": "scripts/render-youtube-assets.py",
+    "sha256": "9c437d59f1c87735f6837662cfed33586779586f486b13d82a9bdeca4134be7b",
+    "bytes": 12492
+  }
+}
