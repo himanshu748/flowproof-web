@@ -1,19 +1,40 @@
 import express from "express";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { mkdtemp, readFile, rm, mkdir, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
-import type { Bootstrap, Project, Audit } from "../shared/types";
+import type { Bootstrap, Project, Audit, CheckResult } from "../shared/types";
 import { createDemoRouter } from "../server/demo";
 import { runAudit } from "../server/runner";
 import { getEvaluation } from "../server/evaluation";
 import { compareAudits } from "../shared/compare-audits";
 
+// These throw at import time, rather than replacing SDK behavior with a fake.
+// Every route below must work when the operator orchestration is unavailable.
+const operatorLoads = vi.hoisted(() => ({ attempts: [] as string[] }));
+vi.mock("../server/orchestration", () => {
+  operatorLoads.attempts.push("orchestration");
+  throw new Error("Public demo must not load operator orchestration");
+});
+vi.mock("@mastra/core/mastra", () => {
+  operatorLoads.attempts.push("mastra");
+  throw new Error("Public demo must not load Mastra");
+});
+vi.mock("@mastra/core/workflows", () => {
+  operatorLoads.attempts.push("workflows");
+  throw new Error("Public demo must not load Mastra workflows");
+});
+vi.mock("@mastra/core/tools", () => {
+  operatorLoads.attempts.push("tools");
+  throw new Error("Public demo must not load Mastra tools");
+});
+
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => {
   for (const cleanup of cleanups.splice(0)) await cleanup();
+  expect(operatorLoads.attempts).toEqual([]);
 });
 
 async function harness(
@@ -94,6 +115,50 @@ async function harness(
 }
 
 describe("isolated tokenless public demo", () => {
+  it("creates and regenerates unapproved deterministic drafts without operator SDKs", async () => {
+    const h = await harness();
+    const visitor = await h.visitor();
+    const created = await h.request("/api/projects", visitor.cookie, {
+      name: "Local sample",
+      target: "sample",
+      authorized: true,
+      brief: 'The homepage heading must say "First draft".',
+    });
+    expect(created.status).toBe(201);
+    const project = (await created.json()) as Project;
+    expect(project.generator).toMatchObject({
+      provider: "Deterministic parser",
+      model: null,
+    });
+    expect(project.checks).toMatchObject([
+      { expected: "First draft", approved: false },
+    ]);
+    await h.approve(project, visitor.cookie);
+    const regenerated = await h.request(
+      `/api/projects/${project.id}/generate`,
+      visitor.cookie,
+      {
+        brief: 'The homepage heading must say "Revised draft".',
+      },
+    );
+    expect(regenerated.status).toBe(200);
+    const revised = (await regenerated.json()) as Project;
+    expect(revised.generator).toEqual(project.generator);
+    expect(revised.checks).toMatchObject([
+      { expected: "Revised draft", approved: false },
+    ]);
+    expect(
+      (
+        await h.request(
+          `/api/projects/${project.id}/audits`,
+          visitor.cookie,
+          {},
+        )
+      ).status,
+    ).toBe(409);
+    expect(operatorLoads.attempts).toEqual([]);
+  });
+
   it("isolates visitor projects and terminates unknown API/evidence routes", async () => {
     const h = await harness({ secureCookie: true });
     const a = await h.visitor(),
@@ -318,6 +383,61 @@ describe("isolated tokenless public demo", () => {
     ).toBe("untouched");
     expect((await h.request("/api/bootstrap")).status).toBe(200);
   });
+
+  it.each([
+    "missing",
+    "duplicate",
+    "mismatched",
+    "manual-pass",
+    "malformed",
+  ] as const)(
+    "does not complete an audit with %s runner evidence",
+    async (failure) => {
+      const execute: typeof runAudit = async (_project, audit, onResult) => {
+        let results: CheckResult[] = audit.checks.map((check) => ({
+          checkId: check.id,
+          requirement: check.requirement,
+          kind: check.kind,
+          expected: check.expected,
+          status: check.kind === "manual" ? "unverified" : "passed",
+          durationMs: 1,
+          evidence: {
+            observed: "Injected validation fixture",
+            url: "https://sample.flowproof.test/",
+            viewport: { width: 1365, height: 900 },
+          },
+        }));
+        if (failure === "missing") results = results.slice(0, 1);
+        if (failure === "duplicate") results[1] = structuredClone(results[0]);
+        if (failure === "mismatched")
+          results[0].expected = "Different assertion";
+        if (failure === "manual-pass")
+          results.find((result) => result.kind === "manual")!.status = "passed";
+        if (failure === "malformed") results[0].durationMs = -1;
+        for (const result of results) await onResult(result);
+        return results;
+      };
+      const h = await harness({ execute });
+      const visitor = await h.visitor();
+      await h.approve(visitor.project, visitor.cookie);
+      const start = await h.request(
+        `/api/projects/${visitor.project.id}/audits`,
+        visitor.cookie,
+        {},
+      );
+      expect(start.status).toBe(202);
+      const audit = await h.completed((await start.json()).id, visitor.cookie);
+      expect(audit.status).toBe("error");
+      expect(audit.summary).toBeUndefined();
+      expect(audit.results).toHaveLength(
+        failure === "missing" || failure === "duplicate"
+          ? 1
+          : failure === "manual-pass"
+            ? 5
+            : 0,
+      );
+    },
+  );
 
   it("caps concurrent work, four runs per visitor and the global hourly browser budget", async () => {
     let release!: () => void;

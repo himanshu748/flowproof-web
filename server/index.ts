@@ -4,16 +4,7 @@ import path from "node:path";
 import fs from "node:fs/promises";
 import { z } from "zod";
 import type { Project, Audit, IntegrationStatus } from "../shared/types";
-import {
-  generateChecksWithOrchestration,
-  runAuditWithOrchestration,
-} from "./orchestration";
-import {
-  initObservability,
-  observabilityStatus,
-  captureOperationalError,
-  traceOperation,
-} from "./observability";
+import type { Operation, SafeTelemetryAttributes } from "./observability";
 import { rememberAudit, recallProjectMemory } from "./providers/backboard";
 import { checkSearchVisibility } from "./providers/serpapi";
 import { createSpokenSampleReport } from "./providers/elevenlabs";
@@ -37,7 +28,6 @@ import {
 import { renderReport } from "./report";
 import { createDemoRouter } from "./demo";
 import { snapshotSource } from "../shared/compare-audits";
-import { startApprovedAudit, readTemporalAudit } from "../temporal/client";
 import { optionalIntegrations } from "./optional-integrations";
 import {
   dispatchDurableAudit,
@@ -46,6 +36,29 @@ import {
 
 const publicMode = process.env.FLOWPROOF_PUBLIC === "true";
 const demoMode = publicMode && process.env.FLOWPROOF_DEMO === "true";
+// Private SDK graphs must not consume the free public demo's browser budget.
+const observability = demoMode ? undefined : await import("./observability");
+const generateChecksWithOrchestration: typeof import("./orchestration").generateChecksWithOrchestration =
+  async (...args) =>
+    (await import("./orchestration")).generateChecksWithOrchestration(...args);
+const runAuditWithOrchestration: typeof import("./orchestration").runAuditWithOrchestration =
+  async (...args) =>
+    (await import("./orchestration")).runAuditWithOrchestration(...args);
+const startApprovedAudit: typeof import("../temporal/client").startApprovedAudit =
+  async (...args) =>
+    (await import("../temporal/client")).startApprovedAudit(...args);
+const readTemporalAudit: typeof import("../temporal/client").readTemporalAudit =
+  async (...args) =>
+    (await import("../temporal/client")).readTemporalAudit(...args);
+function traceOperation<T>(
+  name: Operation,
+  data: SafeTelemetryAttributes,
+  task: () => Promise<T>,
+): Promise<T> {
+  return observability
+    ? observability.traceOperation(name, data, task)
+    : task();
+}
 const token = process.env.FLOWPROOF_TOKEN || "";
 if (publicMode && !demoMode && token.length < 32)
   throw new Error(
@@ -58,7 +71,7 @@ const equal = (a: string, b: string) =>
     createHash("sha256").update(b).digest(),
   );
 const app = express();
-if (!demoMode) initObservability();
+observability?.initObservability();
 app.disable("x-powered-by");
 app.use((req, res, next) => {
   if (!publicMode) {
@@ -208,7 +221,7 @@ const integrations = (): IntegrationStatus[] => [
     detail:
       "Optional local repair suggestions grounded in observed results. Suggestions never change assertion outcomes.",
   },
-  ...optionalIntegrations(false),
+  ...optionalIntegrations(false, observability?.observabilityStatus()),
 ];
 async function refreshDurableAudit(audit: Audit): Promise<Audit> {
   if (process.env.FLOWPROOF_TEMPORAL_ENABLED !== "true") return audit;
@@ -543,7 +556,7 @@ app.use(
           .map((i) => `${i.path.join(".")}: ${i.message}`)
           .join("; "),
       });
-    captureOperationalError("briefstamp.audit");
+    observability?.captureOperationalError("briefstamp.audit");
     const message = err instanceof Error ? err.message : "Request failed.";
     res.status(400).json({ error: redact(message).slice(0, 500) });
   },

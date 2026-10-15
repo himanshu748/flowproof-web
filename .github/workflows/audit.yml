@@ -25,6 +25,8 @@ jobs:
       - name: Offline model provenance and budget safeguards
         run: python3 -m unittest discover -s eval -p 'test_*.py'
       - run: npm run build
+      - name: Real public demo within the free runtime memory limit
+        run: node scripts/verify-public-runtime.mjs
       - name: Real healthy, broken and recovered website audits
         run: npm run audit:sample
       - name: Run approved project checks when provided
@@ -41,4 +43,5 @@ jobs:
           path: |
             work/sample-audit/
             work/ci-audit/
+            work/public-runtime/
           retention-days: 7

@@ -25,6 +25,6 @@ Synthetic target uses browser route fulfillment and never requires a local netwo
 
 These actions are disabled by default and require fresh account-bound free-resource proof and durable request reservations. They return a safe provider error rather than silently retrying. No public visitor can call them. See [provider contracts and account gates](OPTIONAL_PROVIDERS.md).
 
-Proposal and ordinary audit routes use real Mastra SDK workflows. Optional Sentry traces pass a final privacy allowlist; hosted sending stays disabled without fresh free-account confirmation.
+Private operator proposal and ordinary audit routes use real Mastra SDK workflows. The public sample uses the deterministic parser and direct bounded Playwright runner to fit the free hosting memory limit. Optional Sentry traces pass a final privacy allowlist; hosted sending stays disabled without fresh free-account confirmation.
 
 With local Temporal explicitly enabled, an audit stores its deterministic workflow identity before dispatch. An empty workflow runId means scheduling is not yet confirmed. Polling reconciles accepted runs and validates the original approved snapshot. A stopped service returns the saved pending audit with a diagnostic, and never converts unavailable or unexecuted work into a pass. Completion is published only after evidence/state persistence succeeds. See [Temporal setup and proof](TEMPORAL.md).

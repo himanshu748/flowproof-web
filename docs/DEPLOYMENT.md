@@ -4,9 +4,15 @@ Repository: https://github.com/himanshu748/flowproof-web (public).
 
 ## Integration revision evidence, October15
 
-The [current Actions workflow](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) is the source for revision-specific CI state. New local SDK and provider receipts are linked in [the integration ledger](INTEGRATIONS.md): Mastra approval/browser coordination, Sentry local transport, Temporal retry/restart recovery, scoped Entire import and a real SerpApi search. These receipts do not imply hosted Sentry, a hosted Temporal worker or permanent Tiger storage. Public visitors never invoke optional paid-capable provider APIs.
+The [current Actions workflow](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) is the source for revision-specific CI state. New local SDK and provider receipts are linked in [the integration ledger](INTEGRATIONS.md): Mastra approval/browser coordination, Sentry local transport, Temporal retry/restart recovery, scoped Entire import and a real SerpApi search. These receipts do not imply hosted Sentry, a hosted Temporal worker or permanent Tiger storage. Public visitors never invoke optional paid-capable provider APIs. Mastra remains a verified local/private operator integration; public audits use the direct bounded runner to fit the free instance memory limit.
 
 The deployment records below are historical snapshots, not an assertion that their hashes equal the latest repository revision. The existing service remains manually deployed; verify its exact commit separately before claiming a new release live.
+
+## Failed hosted integration attempt, 15 October 2026
+
+Commit `2a85515d80a1f4af9ad39c3c25a61809fefde8a2` passed [Actions run 38705005005](https://github.com/himanshu748/flowproof-web/actions/runs/38705005005): 203 application tests, 17 provenance tests, production build and real healthy/broken/restored browser audits. Render marked deploy `dep-db88rcgn74is73e87dsg` live at 08:27:19 UTC, but the first hosted audit exhausted the JavaScript heap at approximately 256 MB and returned HTTP 502. The service restarted. This deployment is a failed runtime verification, not successful hosted Mastra evidence. The correction keeps real SDK workflows in private operator mode and runs public sample checks directly without loading Mastra.
+
+The [public-runtime regression verifier](../scripts/verify-public-runtime.mjs) starts the actual HTTP server in a fresh process with a 256 MB heap and rejects imports from Mastra, Sentry and Temporal. It verifies proposal creation/regeneration, approval rejection, real healthy/broken Chromium audits, ten PNGs and two portable reports. The local run passed on October 15 at 08:39 UTC with zero private SDK import attempts. CI runs this check and retains its receipts alongside the ordinary browser audit artifacts. This controlled heap check does not substitute for verification on Render.
 
 ## Verified source update, 15 October 2026
 

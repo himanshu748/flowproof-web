@@ -1,8 +1,11 @@
 import type { IntegrationStatus } from "../shared/types.js";
-import { observabilityStatus } from "./observability.js";
+import type { ObservabilityStatus } from "./observability.js";
 
 /** Configuration is distinct from a verified provider request. Never expose keys. */
-export function optionalIntegrations(publicDemo: boolean): IntegrationStatus[] {
+export function optionalIntegrations(
+  publicDemo: boolean,
+  observability?: ObservabilityStatus,
+): IntegrationStatus[] {
   const enabled = (key: string) => !publicDemo && process.env[key] === "true";
   const provider = (
     name: string,
@@ -16,14 +19,15 @@ export function optionalIntegrations(publicDemo: boolean): IntegrationStatus[] {
   return [
     {
       name: "Mastra",
-      status: "active",
-      detail:
-        "Real SDK workflows coordinate approved browser execution and evidence-grounded summaries. Model configuration and durable workflow storage are separate.",
+      status: publicDemo ? "available" : "active",
+      detail: publicDemo
+        ? "Real SDK workflows were verified locally. The free public demo uses the direct bounded browser runner to fit its memory limit; Mastra is not loaded for visitor audits."
+        : "Real SDK workflows coordinate approved browser execution and evidence-grounded summaries. Model configuration and durable workflow storage are separate.",
     },
     {
       name: "Sentry",
       status:
-        !publicDemo && observabilityStatus().mode !== "disabled"
+        !publicDemo && observability && observability.mode !== "disabled"
           ? "available"
           : "not_configured",
       detail:

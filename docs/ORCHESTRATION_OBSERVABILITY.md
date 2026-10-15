@@ -46,7 +46,7 @@ const completed = await runAuditWithOrchestration(
 );
 ```
 
-Private application routes can opt into the configured generation adapter using `allowModel: true` and grounded Gemma commentary using `allowModelSummary: true`; adapter-specific free-resource gates still apply. The public demo disables both. Generator identity comes from the actual generator result, not the workflow framework.
+Private application routes can opt into the configured generation adapter using `allowModel: true` and grounded Gemma commentary using `allowModelSummary: true`; adapter-specific free-resource gates still apply. The public demo uses the deterministic parser and direct bounded Playwright runner without loading Mastra. An attempted hosted SDK audit exhausted the free instance's 256 MB JavaScript heap; local SDK proofs do not establish hosted orchestration. Generator identity comes from the actual generator result, not the workflow framework.
 
 The proposal workflow executes `requirement-proposal` followed by `validate-unapproved-proposal`. The audit workflow executes `require-approval`, `execute-approved-browser-checks`, then `summarize-observed-evidence`. Tools expose typed finite schemas; they do not accept or execute model-generated scripts. Every executable assertion must match the current approved plan. Results must contain exactly one matching record per assertion; manual requirements must stay unverified. Expected-value comparison uses the runner's redaction function. Optional commentary receives copied results and cannot mutate the original evidence.
 

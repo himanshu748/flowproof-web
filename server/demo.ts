@@ -1,5 +1,6 @@
 import express from "express";
 import { snapshotSource } from "../shared/compare-audits";
+import { redact } from "../shared/redact";
 import { randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -9,14 +10,14 @@ import type {
   Bootstrap,
   Project,
   IntegrationStatus,
+  CheckResult,
 } from "../shared/types";
 import { generateLocalChecks } from "./generator";
-import { validateChecks } from "./schema";
+import { CheckSchema, validateChecks } from "./schema";
 import { runAudit } from "./runner";
 import { renderReport } from "./report";
 import { SAMPLE_URL } from "./sample";
 import { getEvaluation } from "./evaluation";
-import { generateChecksWithOrchestration, runAuditWithOrchestration } from "./orchestration";
 import { optionalIntegrations } from "./optional-integrations";
 
 const COOKIE = "flowproof_demo";
@@ -51,6 +52,37 @@ const createSchema = z
     brief: briefSchema,
   })
   .strict();
+
+// Keep the public sample execution boundary independent of the operator SDK.
+// Validate evidence before publishing it or marking an audit complete.
+const resultSchema = z.object({
+  checkId: z.string(),
+  requirement: z.string(),
+  kind: CheckSchema.innerType().shape.kind,
+  status: z.enum(["passed", "failed", "blocked", "unverified"]),
+  expected: z.string(),
+  durationMs: z.number().finite().nonnegative(),
+  evidence: z.object({
+    screenshot: z.string().optional(),
+    dom: z.string().optional(),
+    observed: z.string(),
+    url: z.string(),
+    viewport: z.object({ width: z.number(), height: z.number() }),
+  }),
+});
+function validateResult(value: unknown, checks: Audit["checks"]): CheckResult {
+  const result = resultSchema.parse(value);
+  const check = checks.find((item) => item.id === result.checkId);
+  if (
+    !check ||
+    result.kind !== check.kind ||
+    result.expected !== redact(check.expected) ||
+    result.requirement !== redact(check.requirement) ||
+    (check.kind === "manual" && result.status !== "unverified")
+  )
+    throw new Error("The runner returned mismatched assertion evidence.");
+  return result;
+}
 
 interface Session {
   expires: number;
@@ -107,13 +139,11 @@ function integrations(): IntegrationStatus[] {
           ? "Running on Render. This public demo uses ephemeral visitor sessions."
           : "Render hosting is not detected in this runtime.",
     },
-    ...["Gemma"].map(
-      (name) => ({
-        name,
-        status: "not_configured" as const,
-        detail: "Not active in the public demo. No integration claim.",
-      }),
-    ),
+    ...["Gemma"].map((name) => ({
+      name,
+      status: "not_configured" as const,
+      detail: "Not active in the public demo. No integration claim.",
+    })),
     ...optionalIntegrations(true),
   ];
 }
@@ -264,7 +294,7 @@ export function createDemoRouter(options: DemoOptions) {
     };
     res.json(body);
   });
-  router.post("/api/projects", async (req, res) => {
+  router.post("/api/projects", (req, res) => {
     const input = createSchema.parse(req.body);
     const s = session(res);
     if (s.projects.size >= 4)
@@ -272,9 +302,6 @@ export function createDemoRouter(options: DemoOptions) {
         error: "This demo session allows up to four sample projects.",
       });
     const p = project(input.name, input.brief, input.sampleVariant, now());
-    const generated = await generateChecksWithOrchestration(input.brief, { allowModel: false });
-    p.checks = generated.checks;
-    p.generator = generated.generator;
     s.projects.set(p.id, p);
     res.status(201).json(p);
   });
@@ -290,15 +317,14 @@ export function createDemoRouter(options: DemoOptions) {
     p.updatedAt = new Date(now()).toISOString();
     res.json(p);
   });
-  router.post("/api/projects/:id/generate", async (req, res) => {
+  router.post("/api/projects/:id/generate", (req, res) => {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
     const { brief } = z.object({ brief: briefSchema }).strict().parse(req.body);
-    const generated = await generateChecksWithOrchestration(brief, { allowModel: false });
     Object.assign(p, {
       brief,
-      checks: generated.checks,
-      generator: generated.generator,
+      checks: validateChecks(generateLocalChecks(brief)),
+      generator,
       updatedAt: new Date(now()).toISOString(),
     });
     res.json(p);
@@ -356,14 +382,31 @@ export function createDemoRouter(options: DemoOptions) {
     auditStarts.push(now());
     const task = Promise.resolve().then(async () => {
       try {
-        await runAuditWithOrchestration(
+        const results = await execute(
           snapshot,
           a,
           (result) => {
-            a.results.push(result);
+            const checked = validateResult(result, checks);
+            if (a.results.some((item) => item.checkId === checked.checkId))
+              throw new Error(
+                "The runner returned duplicate assertion evidence.",
+              );
+            a.results.push(checked);
           },
-          { evidenceRoot: options.evidenceRoot, execute, allowModelSummary: false },
+          { evidenceRoot: options.evidenceRoot },
         );
+        const validated = z
+          .array(resultSchema)
+          .max(24)
+          .parse(results)
+          .map((result) => validateResult(result, checks));
+        if (
+          validated.length !== checks.length ||
+          new Set(validated.map((result) => result.checkId)).size !==
+            checks.length ||
+          JSON.stringify(validated) !== JSON.stringify(a.results)
+        )
+          throw new Error("The runner returned incomplete assertion evidence.");
         a.status = "completed";
         const count = (status: string) =>
           a.results.filter((result) => result.status === status).length;
