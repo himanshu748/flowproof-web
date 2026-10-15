@@ -10,8 +10,8 @@ import {
   HOSTED_WEBSITE_BRIEF,
 } from "../shared/hosted-target.js";
 
-// One free Gemma request, then two read-only audits of the explicitly authorized
-// production homepage. No arbitrary URL, provider retry, token, purchase or upload.
+// One Gemma generation (at most three native attempts), then two read-only audits
+// of the explicitly authorized production homepage. No arbitrary URL or purchase.
 const mode = process.argv.slice(2).join(" ");
 if (!["--run", "--run-deterministic"].includes(mode)) {
   console.log(
@@ -37,6 +37,11 @@ async function verify(useGemma: boolean) {
     status: "running",
     origin,
     modelRequests: 0,
+    provider: useGemma ? "Google Gemini API" : null,
+    model: useGemma ? "gemma-4-26b-a4b-it" : null,
+    modelAttempts: [] as unknown[],
+    reportedUsage: null as Project["generator"]["usage"] | null,
+    sentry: null as Project["generator"]["orchestration"] | null,
     generationMode: useGemma ? "live-gemma" : "explicit-deterministic-no-ai",
     scope:
       "Agent verification of the real owner-authorized Briefstamp homepage, not a client website or customer validation. The negative control changes only its approved expectation, never the deployed website.",
@@ -121,6 +126,11 @@ async function verify(useGemma: boolean) {
       await reader.cancel().catch(() => {});
     }
     const bytes = Buffer.concat(chunks);
+    if (route.endsWith("/generate-gemma") && response.status !== 200) {
+      const failed = JSON.parse(bytes.toString("utf8"));
+      await artifact("gemma-failure.json", failed);
+      receipt.modelAttempts = failed.failure?.attempts ?? [];
+    }
     assert.equal(
       response.status,
       options.expected ?? 200,
@@ -262,6 +272,13 @@ async function verify(useGemma: boolean) {
       ).value;
       assert.equal(generated.generator.provider, "Google Gemma (live API)");
       assert.equal(generated.generator.model, "gemma-4-26b-a4b-it");
+      receipt.modelAttempts = generated.generator.attempts ?? [];
+      receipt.reportedUsage = generated.generator.usage ?? null;
+      receipt.sentry = generated.generator.orchestration ?? null;
+      assert(
+        receipt.modelAttempts.length > 0,
+        "Native provider attempt receipt missing",
+      );
     } else {
       assert.equal(generated.generator.provider, "Deterministic parser");
       assert.equal(generated.generator.model, null);

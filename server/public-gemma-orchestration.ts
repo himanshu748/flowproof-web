@@ -2,7 +2,12 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
 import { isSafePath } from "./schema.js";
-import { GOOGLE_GEMMA_MODEL } from "./providers/gemma-google.js";
+import {
+  GOOGLE_GEMMA_MODEL,
+  GemmaAttemptSchema,
+  GoogleGemmaFailureSchema,
+  GoogleGemmaError,
+} from "./providers/gemma-google.js";
 
 export const PUBLIC_GEMMA_WORKFLOW_ID = "briefstamp-public-gemma";
 export const PUBLIC_GEMMA_STEPS = [
@@ -63,6 +68,7 @@ export const PublicGemmaProposalSchema = z
       )
       .nullable(),
     latencyMs: z.number().finite().nonnegative().max(45_000),
+    attempts: z.array(GemmaAttemptSchema).min(1).max(3).optional(),
     transportNormalization: z
       .object({
         emptyThoughtPartIgnored: z.boolean(),
@@ -202,15 +208,38 @@ export async function runPublicGemmaWorkflow(
     child.once("close", (code, signal) => {
       clearTimeout(deadline);
       if (killTimer) clearTimeout(killTimer);
-      if (failure || code !== 0 || signal) {
+      if (failure || signal) {
         reject(new Error(failure ?? "The isolated Gemma workflow failed."));
         return;
       }
       try {
+        const raw: unknown = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+        if (code === 1) {
+          const failed = z
+            .object({ ok: z.literal(false), failure: GoogleGemmaFailureSchema })
+            .strict()
+            .safeParse(raw);
+          if (failed.success) {
+            reject(
+              new GoogleGemmaError(
+                failed.data.failure.code,
+                "The isolated Gemma provider request failed.",
+                failed.data.failure.attempts,
+              ),
+            );
+            return;
+          }
+          reject(new Error("The isolated Gemma workflow failed."));
+          return;
+        }
+        if (code !== 0) {
+          reject(new Error("The isolated Gemma workflow failed."));
+          return;
+        }
         const envelope = z
           .object({ ok: z.literal(true), result: workflowResultSchema })
           .strict()
-          .parse(JSON.parse(Buffer.concat(chunks).toString("utf8")));
+          .parse(raw);
         validateIndexedGemmaProposal(
           (({ orchestration: _receipt, ...proposal }) => proposal)(
             envelope.result,

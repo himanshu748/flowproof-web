@@ -89,6 +89,45 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("disabled-by-default scoped hosted Tiger adapter", () => {
+  it("round-trips bounded Gemma usage and retry receipts without accepting raw diagnostics", async () => {
+    const value = fixture();
+    value.source!.generator = {
+      provider: "Google Gemma (live API)",
+      model: "gemma-4-26b-a4b-it",
+      usage: { promptTokens: 335, completionTokens: 300, totalTokens: 635 },
+      attempts: [
+        {
+          index: 1,
+          status: 500,
+          durationMs: 12,
+          requestBytes: 1928,
+          retryDelayMs: 1000,
+          usage: null,
+          providerStatus: "INTERNAL",
+        },
+        {
+          index: 2,
+          status: 200,
+          durationMs: 400,
+          requestBytes: 1928,
+          retryDelayMs: 0,
+          usage: { promptTokens: 335, completionTokens: 300, totalTokens: 635 },
+          providerStatus: null,
+        },
+      ],
+    };
+    const store = createHostedTigerStore({ env, now: () => NOW });
+    pgMock.query.mockResolvedValueOnce({ rows: [{ audit_id: auditId }] });
+    await store.persistAudit(session, value);
+    expect(JSON.parse(pgMock.query.mock.calls[0][1][3])).toEqual(value);
+    pgMock.query.mockResolvedValueOnce({ rows: [{ payload: value }] });
+    expect(await store.getAudit(session, auditId)).toEqual(value);
+    const invalid = structuredClone(value);
+    Object.assign(invalid.source!.generator.attempts![0], {
+      privateMessage: "not allowed",
+    });
+    await expect(store.persistAudit(session, invalid)).rejects.toThrow();
+  });
   it("round-trips only the preauthorized live landing, with its source and evidence bound together", async () => {
     const live = fixture();
     live.source = {

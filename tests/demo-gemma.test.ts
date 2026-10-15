@@ -10,6 +10,7 @@ import { createDemoRouter } from "../server/demo";
 import type { runAudit } from "../server/runner";
 import {
   GOOGLE_GEMMA_MODEL,
+  GoogleGemmaError,
   type generateGoogleGemmaProposal,
   type GoogleGemmaProposalResult,
 } from "../server/providers/gemma-google";
@@ -208,6 +209,36 @@ async function harness(
 }
 
 describe("public Gemma generation boundary", () => {
+  it("returns safe failed provider attempts and keeps the plan unchanged", async () => {
+    const attempts = [
+      {
+        index: 1,
+        status: 500,
+        durationMs: 12,
+        requestBytes: 1928,
+        retryDelayMs: 0 as const,
+        usage: null,
+        providerStatus: "INTERNAL" as const,
+      },
+    ];
+    const h = await harness({
+      generateGemma: async () => {
+        throw new GoogleGemmaError(
+          "provider_rejected",
+          "PRIVATE PROVIDER BODY",
+          attempts,
+        );
+      },
+    });
+    const a = await h.visitor();
+    const before = await h.current(a);
+    const response = await h.generateFor(a);
+    expect(response.status).toBe(503);
+    const body = await response.json();
+    expect(body.failure).toEqual({ code: "provider_rejected", attempts });
+    expect(JSON.stringify(body)).not.toContain("PRIVATE PROVIDER BODY");
+    expect(await h.current(a)).toEqual(before);
+  });
   it("requires explicit strict consent, same-origin writes, and session ownership before I/O", async () => {
     const h = await harness();
     const a = await h.visitor(),
@@ -400,7 +431,7 @@ describe("public Gemma generation boundary", () => {
     expect((await h.generateFor(b)).status).toBe(503);
   });
 
-  it("caps twelve attempted generations per hour across visitors and reopens after the window", async () => {
+  it("reserves three physical attempts per generation within twelve calls per hour", async () => {
     let time = 1_800_000_000_000;
     const h = await harness({
       now: () => time,
@@ -408,7 +439,7 @@ describe("public Gemma generation boundary", () => {
         throw new Error("fixture failure");
       },
     });
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 2; i++) {
       const a = await h.visitor();
       expect((await h.generateFor(a)).status).toBe(503);
       expect((await h.generateFor(a)).status).toBe(503);
@@ -416,11 +447,11 @@ describe("public Gemma generation boundary", () => {
     }
     const blocked = await h.visitor();
     expect((await h.generateFor(blocked)).status).toBe(429);
-    expect(h.generate).toHaveBeenCalledTimes(12);
+    expect(h.generate).toHaveBeenCalledTimes(4);
     time += 60 * 60_000;
     const fresh = await h.visitor();
     expect((await h.generateFor(fresh)).status).toBe(503);
-    expect(h.generate).toHaveBeenCalledTimes(13);
+    expect(h.generate).toHaveBeenCalledTimes(5);
   });
 
   it("fails closed on pricing failure without inference and preserves the approved plan", async () => {

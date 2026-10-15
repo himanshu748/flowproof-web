@@ -1,5 +1,9 @@
 import pg from "pg";
 import { z } from "zod";
+import {
+  GemmaAttemptSchema,
+  GemmaUsageSchema,
+} from "./providers/gemma-google.js";
 import type { Audit } from "../shared/types.js";
 import { redact } from "../shared/redact.js";
 import { databaseConfig } from "./database.js";
@@ -36,6 +40,8 @@ const generatorSchema = z
     provider: z.string().max(120),
     model: z.string().max(120).nullable(),
     reason: z.string().max(3000).optional(),
+    usage: GemmaUsageSchema.nullable().optional(),
+    attempts: z.array(GemmaAttemptSchema).min(1).max(3).optional(),
     orchestration: z
       .object({
         provider: z.literal("Mastra"),

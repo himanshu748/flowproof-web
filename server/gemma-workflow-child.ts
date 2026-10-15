@@ -3,6 +3,8 @@ import { pathToFileURL } from "node:url";
 import { HOSTED_WEBSITE_BRIEF } from "../shared/hosted-target.js";
 import {
   generateGoogleGemmaProposal,
+  GoogleGemmaError,
+  serializeGoogleGemmaFailure,
   type GoogleGemmaProposalResult,
 } from "./providers/gemma-google.js";
 import {
@@ -72,6 +74,7 @@ export async function executeGemmaWorkflow(
   let traceId: string | undefined;
   let flushed = false;
   let result: PublicGemmaWorkflowResult;
+  let providerFailure: ReturnType<typeof serializeGoogleGemmaFailure> = null;
   try {
     result = await traced("briefstamp.proposal", async () => {
       traceId = observability?.currentTraceContext()?.traceId;
@@ -89,7 +92,16 @@ export async function executeGemmaWorkflow(
         outputSchema: PublicGemmaProposalSchema,
         execute: async ({ requirements }) =>
           traced("briefstamp.proposal.generate", async () => {
-            const output = await generate(requirements);
+            let output: GoogleGemmaProposalResult;
+            try {
+              output = await generate(requirements);
+            } catch (error) {
+              providerFailure = serializeGoogleGemmaFailure(error);
+              // SDK errors must not acquire raw provider diagnostics.
+              if (providerFailure)
+                throw new Error("Gemma provider request failed.");
+              throw error;
+            }
             steps.push(PUBLIC_GEMMA_STEPS[0]);
             return output;
           }),
@@ -119,14 +131,32 @@ export async function executeGemmaWorkflow(
         .then(validate)
         .commit();
       const run = await workflow.createRun();
-      const outcome = await run.start({ inputData: input });
+      let outcome: Awaited<ReturnType<typeof run.start>>;
+      try {
+        outcome = await run.start({ inputData: input });
+      } catch (error) {
+        if (providerFailure)
+          throw new GoogleGemmaError(
+            providerFailure.code,
+            "Gemma provider request failed.",
+            providerFailure.attempts,
+          );
+        throw error;
+      }
       if (
         outcome.status !== "success" ||
         JSON.stringify(steps) !== JSON.stringify(PUBLIC_GEMMA_STEPS)
-      )
+      ) {
+        if (providerFailure)
+          throw new GoogleGemmaError(
+            providerFailure.code,
+            "Gemma provider request failed.",
+            providerFailure.attempts,
+          );
         throw new Error(
           "The isolated Gemma workflow did not complete both steps.",
         );
+      }
       return {
         ...validateIndexedGemmaProposal(
           outcome.result,
@@ -185,12 +215,17 @@ const isMain =
   process.argv[1] !== undefined &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
 if (isMain)
-  main().catch(() => {
+  main().catch((error) => {
+    const failure = serializeGoogleGemmaFailure(error);
     process.stdout.write(
-      JSON.stringify({
-        ok: false,
-        error: "The isolated Gemma workflow failed.",
-      }),
+      JSON.stringify(
+        failure
+          ? { ok: false, failure }
+          : {
+              ok: false,
+              error: "The isolated Gemma workflow failed.",
+            },
+      ),
       () => process.exit(1),
     );
   });

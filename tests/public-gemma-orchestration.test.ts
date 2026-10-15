@@ -81,6 +81,84 @@ afterEach(() => {
 });
 
 describe("isolated public Mastra workflow process", () => {
+  it("preserves only allowlisted native failures after child close", async () => {
+    const failure = {
+      code: "provider_rejected",
+      attempts: [
+        {
+          index: 1,
+          status: 503,
+          durationMs: 8,
+          requestBytes: 1928,
+          retryDelayMs: 0,
+          usage: null,
+          providerStatus: "UNAVAILABLE",
+        },
+      ],
+    };
+    const pending = runPublicGemmaWorkflow(requirements);
+    const rejected = vi.fn();
+    void pending.catch(rejected);
+    child.stdout.emit(
+      "data",
+      Buffer.from(JSON.stringify({ ok: false, failure })),
+    );
+    await Promise.resolve();
+    expect(rejected).not.toHaveBeenCalled();
+    child.emit("close", 1, null);
+    await expect(pending).rejects.toMatchObject(failure);
+    for (const invalid of [
+      { ...failure, privateMessage: "hidden" },
+      { ...failure, attempts: Array(4).fill(failure.attempts[0]) },
+    ]) {
+      const next = runPublicGemmaWorkflow(requirements);
+      child.stdout.emit(
+        "data",
+        Buffer.from(JSON.stringify({ ok: false, failure: invalid })),
+      );
+      child.emit("close", 1, null);
+      await expect(next).rejects.not.toHaveProperty("attempts");
+    }
+  });
+
+  it("carries a native failure through the actual SDK without retaining its body", async () => {
+    buildWorker();
+    const moduleUrl = pathToFileURL(
+      resolve("dist-worker/gemma-workflow-child.js"),
+    ).href;
+    const source = `
+      let calls = 0;
+      globalThis.fetch = async () => { calls++; return Response.json({error:{status:'UNAVAILABLE',message:'PRIVATE-ERROR-BODY'}},{status:503}); };
+      const { executeGemmaWorkflow } = await import(${JSON.stringify(moduleUrl)});
+      try { await executeGemmaWorkflow(${JSON.stringify(requirements)}); process.exitCode = 2; }
+      catch (error) { process.stdout.write(JSON.stringify({code:error.code,attempts:error.attempts,calls}), () => process.exit(0)); }
+    `;
+    const { stdout, stderr } = await promisify(execFile)(
+      process.execPath,
+      ["--max-old-space-size=192", "--input-type=module", "--eval", source],
+      {
+        env: publicGemmaChildEnvironment({
+          PATH: process.env.PATH,
+          BRIEFSTAMP_PUBLIC_GEMMA_ENABLED: "true",
+          BRIEFSTAMP_GEMMA_CONFIRMED_FREE: "true",
+          BRIEFSTAMP_GEMMA_FREE_UNTIL: new Date(
+            Date.now() + 60_000,
+          ).toISOString(),
+          GOOGLE_GEMMA_API_KEY: ["synthetic", "provider", "fixture"].join("-"),
+        }),
+        timeout: 30_000,
+        maxBuffer: 64 * 1024,
+      },
+    );
+    const actual = JSON.parse(stdout);
+    expect(actual.code).toBe("provider_rejected");
+    expect(actual.calls).toBe(3);
+    expect(actual.attempts.map((x: { status: number }) => x.status)).toEqual([
+      503, 503, 503,
+    ]);
+    expect(stdout + stderr).not.toContain("PRIVATE-ERROR-BODY");
+  }, 45_000);
+
   it("uses the fixed plain-JS worker, bounded heap and safe environment, and waits for close", async () => {
     vi.stubEnv("NODE_OPTIONS", "--import /untrusted/loader.js");
     vi.stubEnv("GOOGLE_GEMMA_API_KEY", "synthetic-key");

@@ -28,6 +28,8 @@ import { optionalIntegrations } from "./optional-integrations";
 import {
   generateGoogleGemmaProposal,
   googleGemmaConfiguration,
+  GOOGLE_GEMMA_MAX_ATTEMPTS,
+  serializeGoogleGemmaFailure,
 } from "./providers/gemma-google";
 import { verifyGemmaFreePricing } from "./providers/gemma-free-pricing";
 import { runPublicGemmaWorkflow } from "./public-gemma-orchestration";
@@ -548,13 +550,20 @@ export function createDemoRouter(options: DemoOptions) {
       });
     while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
       gemmaStarts.shift();
-    if (s.gemmaAttempts >= 2 || gemmaStarts.length >= 12 || modelBusy || active)
+    if (
+      s.gemmaAttempts >= 2 ||
+      gemmaStarts.length + GOOGLE_GEMMA_MAX_ATTEMPTS > 12 ||
+      modelBusy ||
+      active
+    )
       return res.status(429).json({
         error:
           "The shared free model limit is reached. Keep your current plan and try later.",
       });
     s.gemmaAttempts++;
-    gemmaStarts.push(now());
+    // Reserve every possible physical provider call before any I/O. Unused and
+    // failed reservations are not refunded; retries cannot expand the hourly cap.
+    for (let i = 0; i < GOOGLE_GEMMA_MAX_ATTEMPTS; i++) gemmaStarts.push(now());
     modelBusy = true;
     const snapshot = structuredClone(p);
     try {
@@ -578,6 +587,8 @@ export function createDemoRouter(options: DemoOptions) {
         generator: {
           provider: "Google Gemma (live API)",
           model: proposed.model,
+          usage: proposed.usage,
+          ...(proposed.attempts ? { attempts: proposed.attempts } : {}),
           ...(proposed.orchestration
             ? { orchestration: proposed.orchestration }
             : {}),
@@ -586,10 +597,18 @@ export function createDemoRouter(options: DemoOptions) {
         updatedAt: new Date(now()).toISOString(),
       });
       return res.json(p);
-    } catch {
+    } catch (error) {
+      const failure = serializeGoogleGemmaFailure(error);
       return res.status(503).json({
         error:
           "Gemma or its free-pricing check was unavailable, or the proposal failed validation. The current plan is unchanged. No AI success is claimed.",
+        ...(failure
+          ? {
+              provider: "Google Gemini API",
+              model: "gemma-4-26b-a4b-it",
+              failure,
+            }
+          : {}),
       });
     } finally {
       modelBusy = false;

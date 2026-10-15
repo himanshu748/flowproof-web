@@ -3,6 +3,12 @@ import {
   generateGoogleGemmaProposal,
   googleGemmaConfiguration,
   GOOGLE_GEMMA_MODEL,
+  GOOGLE_GEMMA_MAX_ATTEMPTS,
+  GOOGLE_GEMMA_RETRY_STATUSES,
+  GemmaAttemptSchema,
+  GoogleGemmaFailureSchema,
+  GoogleGemmaError,
+  serializeGoogleGemmaFailure,
 } from "../server/providers/gemma-google";
 
 const now = () => Date.parse("2026-10-15T10:00:00.000Z");
@@ -121,6 +127,17 @@ describe("fixed confirmed-free public Google Gemma adapter", () => {
       model: GOOGLE_GEMMA_MODEL,
       usage: { promptTokens: 140, completionTokens: 45, totalTokens: 185 },
       latencyMs: expect.any(Number),
+      attempts: [
+        {
+          index: 1,
+          status: 200,
+          durationMs: expect.any(Number),
+          requestBytes: Buffer.byteLength(String(init?.body), "utf8"),
+          retryDelayMs: 0,
+          usage: { promptTokens: 140, completionTokens: 45, totalTokens: 185 },
+          providerStatus: null,
+        },
+      ],
       transportNormalization: {
         emptyThoughtPartIgnored: false,
         wholeJsonFenceRemoved: false,
@@ -179,7 +196,7 @@ describe("fixed confirmed-free public Google Gemma adapter", () => {
       const fetcher = vi.fn<typeof fetch>();
       await expect(
         generateGoogleGemmaProposal(input, { env: enabled, fetcher, now }),
-      ).rejects.toMatchObject({ name: "ProviderError" });
+      ).rejects.toMatchObject({ name: "GoogleGemmaError" });
       expect(fetcher).not.toHaveBeenCalled();
     },
   );
@@ -528,10 +545,350 @@ describe("fixed confirmed-free public Google Gemma adapter", () => {
         fetcher,
         now,
       }).catch((value) => value);
-      expect(error).toMatchObject({ name: "ProviderError" });
+      expect(error).toMatchObject({ name: "GoogleGemmaError" });
       expect(String(error)).not.toContain("private failure");
       expect(String(error)).not.toContain(enabled.GOOGLE_GEMMA_API_KEY);
       expect(fetcher).toHaveBeenCalledTimes(1);
+    }
+  });
+});
+
+describe("bounded Google Gemma transient retries and safe receipts", () => {
+  const transient = (status: number, providerStatus: string = "INTERNAL") =>
+    Response.json(
+      {
+        error: {
+          code: status,
+          status: providerStatus,
+          message: `private ${enabled.GOOGLE_GEMMA_API_KEY}`,
+          details: [{ secret: "client-private" }],
+        },
+        responseId: "private-response-id",
+        usageMetadata: {
+          promptTokenCount: 100,
+          candidatesTokenCount: 2,
+          totalTokenCount: 102,
+        },
+      },
+      { status },
+    );
+
+  it.each(GOOGLE_GEMMA_RETRY_STATUSES)(
+    "retries explicit HTTP %i once with identical request and records actual success",
+    async (status) => {
+      let milliseconds = 0;
+      const wait = vi.fn(async (delay: number) => {
+        milliseconds += delay;
+      });
+      const fetcher = vi
+        .fn<typeof fetch>()
+        .mockImplementationOnce(async () => {
+          milliseconds += 30;
+          return transient(status);
+        })
+        .mockImplementationOnce(async () => {
+          milliseconds += 50;
+          return response();
+        });
+      const result = await generateGoogleGemmaProposal(requirements, {
+        env: enabled,
+        now,
+        fetcher,
+        wait,
+        monotonicNow: () => milliseconds,
+      });
+      expect(fetcher).toHaveBeenCalledTimes(2);
+      expect(wait).toHaveBeenCalledExactlyOnceWith(1000);
+      expect(fetcher.mock.calls[0][0]).toBe(fetcher.mock.calls[1][0]);
+      expect(fetcher.mock.calls[0][1]?.body).toBe(
+        fetcher.mock.calls[1][1]?.body,
+      );
+      expect(fetcher.mock.calls[0][1]?.signal).toBe(
+        fetcher.mock.calls[1][1]?.signal,
+      );
+      expect(result.attempts).toEqual([
+        {
+          index: 1,
+          status,
+          durationMs: 30,
+          requestBytes: expect.any(Number),
+          retryDelayMs: 1000,
+          usage: null,
+          providerStatus: "INTERNAL",
+        },
+        {
+          index: 2,
+          status: 200,
+          durationMs: 50,
+          requestBytes: expect.any(Number),
+          retryDelayMs: 0,
+          usage: result.usage,
+          providerStatus: null,
+        },
+      ]);
+      expect(result.latencyMs).toBe(1080);
+      expect(
+        result.attempts?.every(
+          (attempt) => GemmaAttemptSchema.safeParse(attempt).success,
+        ),
+      ).toBe(true);
+      expect(JSON.stringify(result)).not.toMatch(
+        /private-response|client-private|synthetic-google/,
+      );
+    },
+  );
+
+  it("exhausts exactly three attempts with 1s/2s backoff and unknown failed usage", async () => {
+    const wait = vi.fn(async (_delay: number) => {});
+    const fetcher = vi
+      .fn<typeof fetch>()
+      .mockImplementation(async () => transient(503, "UNAVAILABLE"));
+    const error = await generateGoogleGemmaProposal(requirements, {
+      env: enabled,
+      now,
+      fetcher,
+      wait,
+    }).catch((error: unknown) => error);
+    expect(error).toBeInstanceOf(GoogleGemmaError);
+    expect(fetcher).toHaveBeenCalledTimes(GOOGLE_GEMMA_MAX_ATTEMPTS);
+    expect(wait.mock.calls.map(([delay]) => delay)).toEqual([1000, 2000]);
+    const failure = serializeGoogleGemmaFailure(error);
+    expect(failure).toMatchObject({
+      code: "provider_rejected",
+      attempts: [
+        {
+          index: 1,
+          status: 503,
+          retryDelayMs: 1000,
+          usage: null,
+          providerStatus: "UNAVAILABLE",
+        },
+        {
+          index: 2,
+          status: 503,
+          retryDelayMs: 2000,
+          usage: null,
+          providerStatus: "UNAVAILABLE",
+        },
+        {
+          index: 3,
+          status: 503,
+          retryDelayMs: 0,
+          usage: null,
+          providerStatus: "UNAVAILABLE",
+        },
+      ],
+    });
+    expect(GoogleGemmaFailureSchema.safeParse(failure).success).toBe(true);
+    expect(JSON.stringify(failure)).not.toMatch(
+      /private|secret|responseId|message|details/,
+    );
+  });
+
+  it.each([400, 401, 403, 408, 429, 501, 505])(
+    "does not retry HTTP %i or retain an unknown provider status",
+    async (status) => {
+      const fetcher = vi
+        .fn<typeof fetch>()
+        .mockResolvedValue(transient(status, "PRIVATE_ACCOUNT_IDENTIFIER"));
+      const wait = vi.fn(async () => {});
+      const error = await generateGoogleGemmaProposal(requirements, {
+        env: enabled,
+        now,
+        fetcher,
+        wait,
+      }).catch((error: unknown) => error);
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(wait).not.toHaveBeenCalled();
+      expect(serializeGoogleGemmaFailure(error)).toMatchObject({
+        code: "provider_rejected",
+        attempts: [
+          { status, providerStatus: null, usage: null, retryDelayMs: 0 },
+        ],
+      });
+      expect(String(error)).not.toContain("PRIVATE_ACCOUNT");
+    },
+  );
+
+  it("retains a known 200 usage receipt for an invalid plan without retry", async () => {
+    const fetcher = vi
+      .fn<typeof fetch>()
+      .mockResolvedValue(
+        response(completion([{ ...check, script: "private-code" }])),
+      );
+    const wait = vi.fn(async () => {});
+    const error = await generateGoogleGemmaProposal(requirements, {
+      env: enabled,
+      now,
+      fetcher,
+      wait,
+    }).catch((error: unknown) => error);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(wait).not.toHaveBeenCalled();
+    expect(serializeGoogleGemmaFailure(error)).toMatchObject({
+      code: "invalid_plan",
+      attempts: [
+        {
+          status: 200,
+          usage: { promptTokens: 140, completionTokens: 45, totalTokens: 185 },
+        },
+      ],
+    });
+    expect(String(error)).not.toContain("private-code");
+  });
+
+  it("does not retry malformed HTTP200 output and preserves unknown usage", async () => {
+    const fetcher = vi
+      .fn<typeof fetch>()
+      .mockResolvedValue(new Response("not JSON"));
+    const wait = vi.fn(async () => {});
+    const error = await generateGoogleGemmaProposal(requirements, {
+      env: enabled,
+      now,
+      fetcher,
+      wait,
+    }).catch((error: unknown) => error);
+    expect(serializeGoogleGemmaFailure(error)).toMatchObject({
+      code: "invalid_response",
+      attempts: [{ status: 200, usage: null }],
+    });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(wait).not.toHaveBeenCalled();
+  });
+
+  it("does not retry fetch or error-body network failures", async () => {
+    for (const fetcher of [
+      vi
+        .fn<typeof fetch>()
+        .mockRejectedValue(new Error("private network diagnostic")),
+      vi.fn<typeof fetch>().mockResolvedValue(
+        new Response(
+          new ReadableStream({
+            start(controller) {
+              controller.error(new Error("private stream diagnostic"));
+            },
+          }),
+          { status: 503 },
+        ),
+      ),
+    ]) {
+      const wait = vi.fn(async () => {});
+      const error = await generateGoogleGemmaProposal(requirements, {
+        env: enabled,
+        now,
+        fetcher,
+        wait,
+      }).catch((error: unknown) => error);
+      expect(serializeGoogleGemmaFailure(error)?.code).toBe("request_failed");
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(wait).not.toHaveBeenCalled();
+      expect(String(error)).not.toContain("private");
+    }
+  });
+
+  it("bounds untrusted error JSON and strips unknown keys from safe serialization", async () => {
+    const fetcher = vi
+      .fn<typeof fetch>()
+      .mockResolvedValue(new Response("x".repeat(65_537), { status: 401 }));
+    const error = await generateGoogleGemmaProposal(requirements, {
+      env: enabled,
+      now,
+      fetcher,
+    }).catch((error: unknown) => error);
+    expect(serializeGoogleGemmaFailure(error)).toMatchObject({
+      code: "provider_rejected",
+      attempts: [{ status: 401, usage: null, providerStatus: null }],
+    });
+    expect(serializeGoogleGemmaFailure(new Error("private"))).toBeNull();
+    expect(
+      GoogleGemmaFailureSchema.safeParse({ code: "arbitrary", attempts: [] })
+        .success,
+    ).toBe(false);
+    expect(
+      GoogleGemmaFailureSchema.safeParse({
+        code: "request_failed",
+        attempts: [],
+        secret: "no",
+      }).success,
+    ).toBe(false);
+  });
+
+  it("does not schedule a retry whose backoff exhausts the shared deadline", async () => {
+    let milliseconds = 0;
+    const fetcher = vi.fn<typeof fetch>().mockImplementation(async () => {
+      milliseconds = 29_100;
+      return transient(500);
+    });
+    const wait = vi.fn(async () => {});
+    const error = await generateGoogleGemmaProposal(requirements, {
+      env: enabled,
+      now,
+      fetcher,
+      wait,
+      monotonicNow: () => milliseconds,
+    }).catch((error: unknown) => error);
+    expect(serializeGoogleGemmaFailure(error)).toMatchObject({
+      code: "request_timeout",
+      attempts: [{ status: 500, retryDelayMs: 0, usage: null }],
+    });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(wait).not.toHaveBeenCalled();
+  });
+
+  it("aborts a hung request at the one total deadline without retry", async () => {
+    vi.useFakeTimers();
+    try {
+      const fetcher = vi
+        .fn<typeof fetch>()
+        .mockImplementation(async () => new Promise<Response>(() => {}));
+      const wait = vi.fn(async () => {});
+      const pending = generateGoogleGemmaProposal(requirements, {
+        env: enabled,
+        now,
+        fetcher,
+        wait,
+      }).catch((error: unknown) => error);
+      await vi.advanceTimersByTimeAsync(30_000);
+      const error = await pending;
+      expect(serializeGoogleGemmaFailure(error)).toMatchObject({
+        code: "request_timeout",
+        attempts: [{ status: null, usage: null, retryDelayMs: 0 }],
+      });
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(wait).not.toHaveBeenCalled();
+      expect(fetcher.mock.calls[0][1]?.signal?.aborted).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("shares the deadline across a retry and a hung second response body", async () => {
+    vi.useFakeTimers();
+    try {
+      const fetcher = vi
+        .fn<typeof fetch>()
+        .mockResolvedValueOnce(transient(500))
+        .mockResolvedValueOnce(
+          new Response(new ReadableStream({ start() {} }), { status: 200 }),
+        );
+      const pending = generateGoogleGemmaProposal(requirements, {
+        env: enabled,
+        now,
+        fetcher,
+      }).catch((error: unknown) => error);
+      await vi.advanceTimersByTimeAsync(1000);
+      expect(fetcher).toHaveBeenCalledTimes(2);
+      await vi.advanceTimersByTimeAsync(29_000);
+      expect(serializeGoogleGemmaFailure(await pending)).toMatchObject({
+        code: "request_timeout",
+        attempts: [
+          { status: 500, retryDelayMs: 1000 },
+          { status: 200, usage: null, retryDelayMs: 0 },
+        ],
+      });
+      expect(fetcher).toHaveBeenCalledTimes(2);
+    } finally {
+      vi.useRealTimers();
     }
   });
 });

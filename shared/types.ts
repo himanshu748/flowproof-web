@@ -31,6 +31,24 @@ export interface Project {
     provider: string;
     model: string | null;
     reason?: string;
+    usage?: {
+      promptTokens: number;
+      completionTokens: number;
+      totalTokens: number;
+    } | null;
+    attempts?: Array<{
+      index: number;
+      status: number | null;
+      durationMs: number;
+      requestBytes: number;
+      retryDelayMs: number;
+      usage: {
+        promptTokens: number;
+        completionTokens: number;
+        totalTokens: number;
+      } | null;
+      providerStatus: string | null;
+    }>;
     orchestration?: {
       provider: "Mastra";
       workflowId: string;
