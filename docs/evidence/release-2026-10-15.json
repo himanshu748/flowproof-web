@@ -1,0 +1,148 @@
+{
+  "recordedAt": "2026-10-15T08:49:33.626934Z",
+  "sourceCommit": "94727b283fdb19e78eba0964a8002d0a6199b8ca",
+  "repository": "https://github.com/himanshu748/flowproof-web",
+  "ci": {
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38707381753",
+    "conclusion": "success",
+    "applicationTests": 209,
+    "provenanceTests": 17,
+    "heapLimitMiB": 256,
+    "privateSdkImports": 0,
+    "artifactPngsVerified": 25,
+    "artifactHtmlReportsVerified": 5,
+    "fixtureComparison": {
+      "regressed": 4,
+      "recovered": 4
+    }
+  },
+  "deployment": {
+    "service": "flowproof-demo",
+    "plan": "free",
+    "deployId": "dep-db894hjncjis73f3gi40",
+    "finishedAt": "2026-10-15T08:45:47.931903Z",
+    "status": "live",
+    "sourceCommit": "94727b283fdb19e78eba0964a8002d0a6199b8ca"
+  },
+  "hosted": {
+    "origin": "https://flowproof-demo.onrender.com",
+    "startedAt": "2026-10-15T08:46:06.205Z",
+    "checks": [
+      "secure isolated visitor cookies",
+      "cross-visitor and mixed-case project isolation",
+      "unapproved audit rejected",
+      "external targets rejected",
+      "cross-origin write rejected",
+      "cross-visitor evidence and report isolation",
+      "real healthy and broken Chromium results",
+      "portable reports with screenshots",
+      "hosted direct runner with local-only Mastra disclosure",
+      "public provider actions remain inaccessible"
+    ],
+    "results": {
+      "healthy": {
+        "status": "completed",
+        "counts": {
+          "passed": 5,
+          "failed": 0,
+          "blocked": 0,
+          "unverified": 1
+        },
+        "embeddedScreenshotsPerReport": 5
+      },
+      "broken": {
+        "status": "completed",
+        "counts": {
+          "passed": 2,
+          "failed": 3,
+          "blocked": 0,
+          "unverified": 1
+        },
+        "embeddedScreenshotsPerReport": 5
+      },
+      "restored": {
+        "status": "completed",
+        "counts": {
+          "passed": 5,
+          "failed": 0,
+          "blocked": 0,
+          "unverified": 1
+        },
+        "embeddedScreenshotsPerReport": 5
+      }
+    },
+    "comparison": {
+      "regressed": 3,
+      "recovered": 3
+    },
+    "approvalActor": "Automated synthetic verification harness; not human or customer approval",
+    "manualAlwaysUnverified": true,
+    "artifacts": {
+      "RENDER_VERIFICATION.json": {
+        "bytes": 10474,
+        "sha256": "c3420cf385249c7e55b28ea4a56659b5ef2a1451bfb03674e8fe9a050f04a61e"
+      },
+      "render-broken-audit.json": {
+        "bytes": 7153,
+        "sha256": "fe665a7fc35ed88e1b26a97cec947fce4c057e687fd91bae0d4d0f5f61c29cdf"
+      },
+      "render-broken-evidence.png": {
+        "bytes": 88756,
+        "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+      },
+      "render-broken-report.html": {
+        "bytes": 540345,
+        "sha256": "c53e3a8a5a8f4f02ae23581ee43ba8b1c07245523b08daded5d59469fe474d72"
+      },
+      "render-healthy-audit.json": {
+        "bytes": 7203,
+        "sha256": "955eff944c8e6a7b49126267fdf7d75cfe5db499d618f4309c03718272af444c"
+      },
+      "render-healthy-evidence.png": {
+        "bytes": 89923,
+        "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+      },
+      "render-healthy-report.html": {
+        "bytes": 546911,
+        "sha256": "1797e39c5fcf8990d65e6688e07c9cdee04abfa317e99e70afbe0c9fc4cd15dc"
+      },
+      "render-restored-audit.json": {
+        "bytes": 7203,
+        "sha256": "f251ec855e90eb73604fff823b25b27fd2b50e0d1925c8089088dfd9798301e1"
+      },
+      "render-restored-evidence.png": {
+        "bytes": 89923,
+        "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+      },
+      "render-restored-report.html": {
+        "bytes": 546911,
+        "sha256": "aab05baac37a7a1ccf1307db7bef22f601d2f761ef23656d7f1dc378aca583a5"
+      }
+    },
+    "postAuditLogCheck": {
+      "checkedAt": "2026-10-15T08:49:33.626934Z",
+      "start": "2026-10-15T08:45:00Z",
+      "records": 15,
+      "fatalMemoryMessages": 0,
+      "listeningMessages": [
+        "2026-10-15T08:45:44.970192353Z"
+      ]
+    }
+  },
+  "priorAttempt": {
+    "sourceCommit": "2a85515d80a1f4af9ad39c3c25a61809fefde8a2",
+    "deployId": "dep-db88rcgn74is73e87dsg",
+    "verification": "failed: first public SDK audit exhausted256MB heap and returned502; corrected public path loads no private SDKs"
+  },
+  "integrationScope": {
+    "public": "Deterministic proposals, approved real Playwright audits, ephemeral sessions, portable reports",
+    "mastra": "Verified local/private operator SDK only",
+    "sentry": "Verified local SDK transport; hosted ingestion unverified",
+    "tinker": "Real recorded baseline/LoRA plus narrow operator workflow; no public inference; fine-tune did not beat few-shot",
+    "temporal": "Verified local retry/restart only",
+    "tiger": "Temporary isolated no-card trial verified and removed; Shared Free CA and permanent hosted store unresolved"
+  },
+  "remaining": "../ALL_INTEGRATION_GATES.md",
+  "paidResourcesAdded": false,
+  "devPublication": "Draft only; not submitted"
+}

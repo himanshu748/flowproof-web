@@ -8,6 +8,14 @@ The [current Actions workflow](https://github.com/himanshu748/flowproof-web/acti
 
 The deployment records below are historical snapshots, not an assertion that their hashes equal the latest repository revision. The existing service remains manually deployed; verify its exact commit separately before claiming a new release live.
 
+## Verified integration repair, 15 October 2026
+
+Source commit `94727b283fdb19e78eba0964a8002d0a6199b8ca` passed [Actions run 38707381753](https://github.com/himanshu748/flowproof-web/actions/runs/38707381753): **209 application tests, 17 provenance tests**, production build, the fresh-process 256 MB public-runtime check and three ordinary browser audits. Downloaded artifacts were independently checked: 25 PNGs, five portable reports, zero private SDK imports and four fixture regressions/recoveries.
+
+The existing Render service was confirmed **Free**, with no plan or resource changes. Deploy `dep-db894hjncjis73f3gi40` became live at **08:45:47 UTC** with that exact source commit. Subsequent hosted verification observed healthy **5 passed / 1 unverified**, broken **2 passed / 3 failed / 1 unverified**, then restored **5 passed / 1 unverified**. The same manual assertion stayed unverified; unchanged checks recorded three regressions and three recoveries. All three reports contained five actual screenshots. Approval rejection, cross-origin rejection, external-target rejection, visitor/evidence/report isolation and inaccessible private provider routes were checked. The live landing and integration disclosures rendered correctly. Recent logs contained no memory abort after the repair.
+
+[Release receipt and artifact hashes](evidence/release-2026-10-15.json). The article is still a draft. Lasting Tiger storage, hosted provider entitlements and human/customer validation remain open; this release does not complete the full PRD.
+
 ## Failed hosted integration attempt, 15 October 2026
 
 Commit `2a85515d80a1f4af9ad39c3c25a61809fefde8a2` passed [Actions run 38705005005](https://github.com/himanshu748/flowproof-web/actions/runs/38705005005): 203 application tests, 17 provenance tests, production build and real healthy/broken/restored browser audits. Render marked deploy `dep-db88rcgn74is73e87dsg` live at 08:27:19 UTC, but the first hosted audit exhausted the JavaScript heap at approximately 256 MB and returned HTTP 502. The service restarted. This deployment is a failed runtime verification, not successful hosted Mastra evidence. The correction keeps real SDK workflows in private operator mode and runs public sample checks directly without loading Mastra.

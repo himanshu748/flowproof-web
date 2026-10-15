@@ -2,7 +2,7 @@
 
 **Reviewed October 15, 2026. Verdict: a working, demonstrated MVP; the full PRD and hackathon definition of done are not complete. All planned integrations are not done.**
 
-This assessment uses the user-supplied [PRD](PRD.md), checked-in code and retained execution evidence. The source revision `e7be707cd5b947784bc02971742994dfcfc33993` passed [Actions run 38690709135](https://github.com/himanshu748/flowproof-web/actions/runs/38690709135): 140 application tests, 17 provenance tests, the build and three real browser audits. Its [retained CI receipt](evidence/ci-regression-2026-10-15.json) records four regressions and four recoveries. The [public demo](https://flowproof-demo.onrender.com/) uses the existing free Render service; deployment receipts are recorded separately in [deployment evidence](DEPLOYMENT.md).
+This assessment uses the user-supplied [PRD](PRD.md), checked-in code and retained execution evidence. Source revision `94727b283fdb19e78eba0964a8002d0a6199b8ca` passed [Actions run 38707381753](https://github.com/himanshu748/flowproof-web/actions/runs/38707381753): 209 application tests, 17 provenance tests, build, a 256 MB public-runtime check and real browser audits. Its [release receipt](evidence/release-2026-10-15.json) separately records four fixture regressions/recoveries in CI and three in the hosted public flow. The [public demo](https://flowproof-demo.onrender.com/) was verified on the existing free Render service; [deployment evidence](DEPLOYMENT.md) records the exact source and runtime scope.
 
 “Implemented” means the capability exists in the indicated mode. “Demonstrated” means an actual run has evidence, within its stated scope. Neither label implies production readiness or real customer validation.
 
