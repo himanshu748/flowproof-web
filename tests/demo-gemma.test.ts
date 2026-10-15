@@ -316,6 +316,32 @@ describe("public Gemma generation boundary", () => {
     });
   });
 
+  it("binds image and viewport descriptions to the predicates the runner actually executes", async () => {
+    const generated = proposal();
+    // Observed from a real hosted UI response: the kind was image_alt but its
+    // display label incorrectly suggested a human review. It is not executable code.
+    generated.checks[2].expected = "Requires a human review";
+    generated.checks[3].expected = "Page fits the viewport";
+    const h = await harness({ generateGemma: async () => generated });
+    const visitor = await h.visitor();
+    const response = await h.generateFor(visitor);
+    expect(response.status).toBe(200);
+    const project: Project = await response.json();
+    expect(project.checks[2]).toMatchObject({
+      kind: "image_alt",
+      expected:
+        "Nonempty alternative text on every content image; description quality is outside this check",
+      approved: false,
+    });
+    expect(project.checks[3]).toMatchObject({
+      kind: "no_horizontal_overflow",
+      expected: "No horizontal scrolling",
+      approved: false,
+    });
+    expect(project.checks[5].kind).toBe("manual");
+    expect(project.checks[0].expected).toBe(generated.checks[0].expected);
+  });
+
   it("keeps newer same-timestamp edits when a generation response arrives late", async () => {
     const gate = deferred<GoogleGemmaProposalResult>();
     const h = await harness({

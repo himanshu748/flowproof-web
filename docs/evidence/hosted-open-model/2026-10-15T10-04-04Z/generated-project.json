@@ -1,0 +1,82 @@
+{
+  "id": "69b5759c-fbea-4ff8-aceb-964527e89d8e",
+  "name": "Forma Studio",
+  "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+  "target": "sample",
+  "url": "https://sample.flowproof.test/",
+  "sampleVariant": "healthy",
+  "authorized": true,
+  "checks": [
+    {
+      "id": "3be91b77-a821-4aae-9af0-203375b1ad20",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "832f43a4-a8e9-471c-a22b-bdb29a1d8ae4",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "128fda9d-8d16-47d7-bcbc-7ed759581248",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "5b09e340-e716-4a52-bd30-afb64679063f",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "",
+      "viewport": "mobile",
+      "approved": false
+    },
+    {
+      "id": "22404a00-0a75-4d13-bba3-99238ae111c4",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "9aa7ca9f-2089-42a5-ad71-9f69e4f7b96b",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Google Gemma (live API)",
+    "model": "gemma-4-26b-a4b-it",
+    "orchestration": {
+      "provider": "Mastra",
+      "workflowId": "briefstamp-public-gemma",
+      "runId": "711b8c7e-6deb-409a-9652-de1159732708",
+      "steps": [
+        "generate-google-gemma",
+        "validate-indexed-proposal"
+      ],
+      "maxRssMiB": 149.18
+    },
+    "reason": "Fresh Gemma proposal for the fixed synthetic brief, validated by the server. 7893 ms. 335 input / 300 output tokens. Generated and validated in a real isolated Mastra workflow. Review and approve every executable check."
+  },
+  "createdAt": "2026-10-15T10:04:07.417Z",
+  "updatedAt": "2026-10-15T10:04:27.934Z"
+}

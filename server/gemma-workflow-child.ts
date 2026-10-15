@@ -14,74 +14,144 @@ import {
   type PublicGemmaWorkflowResult,
 } from "./public-gemma-orchestration.js";
 
-/** The optional callback is trusted code for offline tests, never stdin/env data. */
+/** Callbacks are trusted test code, never selected by stdin or environment. */
 export async function executeGemmaWorkflow(
   requirements: string[],
   generate: (
     requirements: string[],
   ) => Promise<GoogleGemmaProposalResult> = generateGoogleGemmaProposal,
+  options: {
+    captureEnvelope?: (envelope: unknown) => Promise<void> | void;
+  } = {},
 ): Promise<PublicGemmaWorkflowResult> {
   const input = PublicGemmaInputSchema.parse({ requirements });
+  // Disabled mode never resolves the Sentry SDK, even inside this child.
+  const confirmedAt = Date.parse(
+    process.env.FLOWPROOF_SENTRY_FREE_CONFIRMED_AT ?? "",
+  );
+  const age = Date.now() - confirmedAt;
+  const hostedTelemetry =
+    process.env.FLOWPROOF_SENTRY_ENABLED === "true" &&
+    process.env.FLOWPROOF_SENTRY_FREE_CONFIRMED === "true" &&
+    Boolean(process.env.SENTRY_DSN) &&
+    Number.isFinite(age) &&
+    age >= 0 &&
+    age <= 24 * 60 * 60 * 1000;
+  const observability =
+    options.captureEnvelope || hostedTelemetry
+      ? await import("./observability.js")
+      : undefined;
+  const telemetryStatus = observability?.initObservability({
+    captureEnvelope: options.captureEnvelope,
+    maxEnvelopes: 3,
+  });
+  const traced = <T>(
+    name:
+      | "briefstamp.proposal"
+      | "briefstamp.proposal.generate"
+      | "briefstamp.proposal.validate",
+    task: () => Promise<T>,
+  ): Promise<T> =>
+    observability
+      ? observability.traceOperation(
+          name,
+          { target: "sample", checkCount: input.requirements.length },
+          task,
+        )
+      : task();
+
   // Opt out before either SDK module is imported; no registry, store or exporter.
   process.env.MASTRA_TELEMETRY_DISABLED = "1";
-  const [{ createWorkflow, createStep }, { createTool }] = await Promise.all([
-    import("@mastra/core/workflows"),
-    import("@mastra/core/tools"),
-  ]);
-  const steps: string[] = [];
-  const tool = createTool({
-    id: PUBLIC_GEMMA_STEPS[0],
-    description:
-      "Generate a bounded unapproved proposal using the fixed Google Gemma model.",
-    inputSchema: PublicGemmaInputSchema,
-    outputSchema: PublicGemmaProposalSchema,
-    execute: async ({ requirements }) => {
-      const output = await generate(requirements);
-      steps.push(PUBLIC_GEMMA_STEPS[0]);
-      return output;
-    },
-  });
-  const validate = createStep({
-    id: PUBLIC_GEMMA_STEPS[1],
-    retries: 0,
-    inputSchema: PublicGemmaProposalSchema,
-    outputSchema: PublicGemmaProposalSchema,
-    execute: async ({ inputData }) => {
-      const output = validateIndexedGemmaProposal(
-        inputData,
-        input.requirements.length,
-      );
-      steps.push(PUBLIC_GEMMA_STEPS[1]);
-      return output;
-    },
-  });
-  const workflow = createWorkflow({
-    id: PUBLIC_GEMMA_WORKFLOW_ID,
-    retryConfig: { attempts: 0, delay: 0 },
-    inputSchema: PublicGemmaInputSchema,
-    outputSchema: PublicGemmaProposalSchema,
-  })
-    .then(createStep(tool, { retries: 0 }))
-    .then(validate)
-    .commit();
-  const run = await workflow.createRun();
-  const outcome = await run.start({ inputData: input });
-  if (
-    outcome.status !== "success" ||
-    JSON.stringify(steps) !== JSON.stringify(PUBLIC_GEMMA_STEPS)
-  )
-    throw new Error("The isolated Gemma workflow did not complete both steps.");
-  return {
-    ...validateIndexedGemmaProposal(outcome.result, input.requirements.length),
-    orchestration: {
-      provider: "Mastra",
-      workflowId: PUBLIC_GEMMA_WORKFLOW_ID,
-      runId: run.runId,
-      steps: [...PUBLIC_GEMMA_STEPS],
-      // Node/libuv normalizes maxRSS to KiB, including on macOS.
-      maxRssMiB: Math.ceil((process.resourceUsage().maxRSS / 1024) * 100) / 100,
-    },
-  };
+  let traceId: string | undefined;
+  let flushed = false;
+  let result: PublicGemmaWorkflowResult;
+  try {
+    result = await traced("briefstamp.proposal", async () => {
+      traceId = observability?.currentTraceContext()?.traceId;
+      const [{ createWorkflow, createStep }, { createTool }] =
+        await Promise.all([
+          import("@mastra/core/workflows"),
+          import("@mastra/core/tools"),
+        ]);
+      const steps: string[] = [];
+      const tool = createTool({
+        id: PUBLIC_GEMMA_STEPS[0],
+        description:
+          "Generate a bounded unapproved proposal using the fixed Google Gemma model.",
+        inputSchema: PublicGemmaInputSchema,
+        outputSchema: PublicGemmaProposalSchema,
+        execute: async ({ requirements }) =>
+          traced("briefstamp.proposal.generate", async () => {
+            const output = await generate(requirements);
+            steps.push(PUBLIC_GEMMA_STEPS[0]);
+            return output;
+          }),
+      });
+      const validate = createStep({
+        id: PUBLIC_GEMMA_STEPS[1],
+        retries: 0,
+        inputSchema: PublicGemmaProposalSchema,
+        outputSchema: PublicGemmaProposalSchema,
+        execute: async ({ inputData }) =>
+          traced("briefstamp.proposal.validate", async () => {
+            const output = validateIndexedGemmaProposal(
+              inputData,
+              input.requirements.length,
+            );
+            steps.push(PUBLIC_GEMMA_STEPS[1]);
+            return output;
+          }),
+      });
+      const workflow = createWorkflow({
+        id: PUBLIC_GEMMA_WORKFLOW_ID,
+        retryConfig: { attempts: 0, delay: 0 },
+        inputSchema: PublicGemmaInputSchema,
+        outputSchema: PublicGemmaProposalSchema,
+      })
+        .then(createStep(tool, { retries: 0 }))
+        .then(validate)
+        .commit();
+      const run = await workflow.createRun();
+      const outcome = await run.start({ inputData: input });
+      if (
+        outcome.status !== "success" ||
+        JSON.stringify(steps) !== JSON.stringify(PUBLIC_GEMMA_STEPS)
+      )
+        throw new Error(
+          "The isolated Gemma workflow did not complete both steps.",
+        );
+      return {
+        ...validateIndexedGemmaProposal(
+          outcome.result,
+          input.requirements.length,
+        ),
+        orchestration: {
+          provider: "Mastra",
+          workflowId: PUBLIC_GEMMA_WORKFLOW_ID,
+          runId: run.runId,
+          steps: [...PUBLIC_GEMMA_STEPS],
+          // Node/libuv normalizes maxRSS to KiB, including on macOS.
+          maxRssMiB:
+            Math.ceil((process.resourceUsage().maxRSS / 1024) * 100) / 100,
+        },
+      };
+    });
+  } finally {
+    // The root span has ended before flushing, including on failed generation.
+    if (observability) flushed = await observability.flushObservability();
+  }
+  if (traceId && telemetryStatus && telemetryStatus.mode !== "disabled") {
+    result.orchestration.telemetry = {
+      provider: "Sentry",
+      mode: telemetryStatus.mode,
+      traceId,
+      flushed,
+      ingestionVerified: false,
+    };
+    result.orchestration.maxRssMiB =
+      Math.ceil((process.resourceUsage().maxRSS / 1024) * 100) / 100;
+  }
+  return result;
 }
 
 async function main() {

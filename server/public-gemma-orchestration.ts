@@ -83,6 +83,19 @@ const workflowResultSchema = PublicGemmaProposalSchema.extend({
         z.literal(PUBLIC_GEMMA_STEPS[1]),
       ]),
       maxRssMiB: z.number().finite().positive().max(2048),
+      telemetry: z
+        .object({
+          provider: z.literal("Sentry"),
+          mode: z.enum(["hosted_configured", "local_capture"]),
+          traceId: z
+            .string()
+            .regex(/^[a-f0-9]{32}$/)
+            .refine((value) => !/^0+$/.test(value)),
+          flushed: z.boolean(),
+          ingestionVerified: z.literal(false),
+        })
+        .strict()
+        .optional(),
     })
     .strict(),
 }).strict();
@@ -101,7 +114,7 @@ export function validateIndexedGemmaProposal(
   return parsed;
 }
 
-/** No inherited loader, proxy, TLS override, telemetry or unrelated credentials. */
+/** No inherited loader, proxy, TLS override or unrelated credentials. */
 export function publicGemmaChildEnvironment(
   env: NodeJS.ProcessEnv = process.env,
 ): NodeJS.ProcessEnv {
@@ -121,6 +134,10 @@ export function publicGemmaChildEnvironment(
     "BRIEFSTAMP_GEMMA_CONFIRMED_FREE",
     "BRIEFSTAMP_GEMMA_FREE_UNTIL",
     "GOOGLE_GEMMA_API_KEY",
+    "SENTRY_DSN",
+    "FLOWPROOF_SENTRY_ENABLED",
+    "FLOWPROOF_SENTRY_FREE_CONFIRMED",
+    "FLOWPROOF_SENTRY_FREE_CONFIRMED_AT",
   ])
     if (env[name] !== undefined) result[name] = env[name];
   result.NODE_ENV = "production";

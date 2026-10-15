@@ -1,7 +1,7 @@
 import express from "express";
 import { snapshotSource } from "../shared/compare-audits";
 import { redact } from "../shared/redact";
-import { randomBytes, randomUUID } from "node:crypto";
+import { createHash, randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
@@ -32,6 +32,7 @@ import {
   recallHostedMemory,
   hostBackboardEnabled,
 } from "./hosted-backboard";
+import { createHostedTigerStore, hostedTigerEnabled } from "./hosted-tiger";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -98,12 +99,21 @@ function validateResult(value: unknown, checks: Audit["checks"]): CheckResult {
 }
 
 interface Session {
+  hash: string;
   expires: number;
   projects: Map<string, Project>;
   audits: Map<string, Audit>;
   windowStart: number;
   requests: number;
   gemmaAttempts: number;
+  persistence: Map<
+    string,
+    {
+      status: "saving" | "saved" | "unverified";
+      expiresAt?: string;
+      detail?: string;
+    }
+  >;
 }
 interface DemoOptions {
   /** Must be dedicated to public demo evidence, never the private evidence root. */
@@ -111,18 +121,22 @@ interface DemoOptions {
   secureCookie: boolean;
   now?: () => number;
   execute?: typeof runAudit;
-  generateGemma?: (
-    requirements: string[],
-  ) => Promise<
+  generateGemma?: (requirements: string[]) => Promise<
     Awaited<ReturnType<typeof generateGoogleGemmaProposal>> & {
       orchestration?: Project["generator"]["orchestration"];
     }
   >;
   gemmaAvailable?: () => boolean;
   verifyGemmaFree?: () => Promise<unknown>;
+  tigerAvailable?: () => boolean;
+  /** Trusted dependency injection only; never accepted from an HTTP request. */
+  tigerStore?: ReturnType<typeof createHostedTigerStore>;
 }
 
-function integrations(gemmaAvailable: boolean): IntegrationStatus[] {
+function integrations(
+  gemmaAvailable: boolean,
+  tigerAvailable = false,
+): IntegrationStatus[] {
   return [
     {
       name: "Playwright",
@@ -138,9 +152,10 @@ function integrations(gemmaAvailable: boolean): IntegrationStatus[] {
     },
     {
       name: "Tiger Data",
-      status: "not_configured",
-      detail:
-        "An isolated no-card Tiger trial verified application persistence, screenshot recovery, and lexical/vector retrieval. Demo sessions use temporary memory. The separate Shared Free service remains blocked by certificate verification.",
+      status: tigerAvailable ? "available" : "not_configured",
+      detail: tigerAvailable
+        ? "Configured for session-scoped synthetic audit briefs, approved plans and results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Each save/read is verified separately. Hosted retrieval is lexical only."
+        : "An isolated no-card Tiger trial verified application persistence, screenshot recovery, and lexical/vector retrieval. Demo sessions use temporary memory. The separate Shared Free service remains blocked by certificate verification.",
     },
     {
       name: "Tinker",
@@ -208,6 +223,45 @@ export function createDemoRouter(options: DemoOptions) {
     options.gemmaAvailable ?? (() => googleGemmaConfiguration().enabled);
   const generateGemma = options.generateGemma ?? runPublicGemmaWorkflow;
   const verifyGemmaFree = options.verifyGemmaFree ?? verifyGemmaFreePricing;
+  const tigerAvailable =
+    options.tigerAvailable ?? (() => hostedTigerEnabled(process.env, now()));
+  let tigerStore = options.tigerStore;
+  let ownsTigerStore = false;
+  const tiger = () => {
+    if (!tigerStore) {
+      tigerStore = createHostedTigerStore({ now });
+      ownsTigerStore = true;
+    }
+    return tigerStore;
+  };
+  const pendingPersistence = new Set<Promise<void>>();
+  function persistCompletedAudit(s: Session, audit: Audit) {
+    if (audit.status !== "completed" || s.expires <= now() || !tigerAvailable())
+      return;
+    s.persistence.set(audit.id, { status: "saving" });
+    const task = Promise.resolve().then(async () => {
+      try {
+        const saved = await tiger().persistAudit(
+          s.hash,
+          structuredClone(audit),
+        );
+        if (!saved.inserted)
+          throw new Error("The audit insert was not confirmed.");
+        s.persistence.set(audit.id, {
+          status: "saved",
+          expiresAt: saved.expiresAt,
+        });
+      } catch {
+        s.persistence.set(audit.id, {
+          status: "unverified",
+          detail:
+            "Database persistence was not confirmed. Observed browser results are unchanged.",
+        });
+      }
+    });
+    pendingPersistence.add(task);
+    void task.finally(() => pendingPersistence.delete(task));
+  }
   const gemmaStarts: number[] = [];
   let gemmaBusy = false;
   const auditStarts: number[] = [];
@@ -278,12 +332,14 @@ export function createDemoRouter(options: DemoOptions) {
       const key = randomBytes(32).toString("hex");
       const sample = project("Forma Studio", DEMO_BRIEF, "healthy", now());
       session = {
+        hash: createHash("sha256").update(key).digest("hex"),
         expires: now() + TTL,
         projects: new Map([[sample.id, sample]]),
         audits: new Map(),
         windowStart: now(),
         requests: 0,
         gemmaAttempts: 0,
+        persistence: new Map(),
       };
       sessions.set(key, session);
       res.cookie(COOKIE, key, {
@@ -314,8 +370,10 @@ export function createDemoRouter(options: DemoOptions) {
     const body: Bootstrap = {
       projects: [...s.projects.values()],
       audits: [...s.audits.values()].reverse(),
-      integrations: integrations(gemmaAvailable()),
-      storage: "Ephemeral visitor session",
+      integrations: integrations(gemmaAvailable(), tigerAvailable()),
+      storage: tigerAvailable()
+        ? "Ephemeral visitor session; Tiger configured for completed synthetic briefs, approved plans and results for up to 30 minutes. Screenshot references only."
+        : "Ephemeral visitor session",
       demo: {
         enabled: true,
         expiresMinutes: 30,
@@ -418,7 +476,7 @@ export function createDemoRouter(options: DemoOptions) {
           ...(proposed.orchestration
             ? { orchestration: proposed.orchestration }
             : {}),
-          reason: `Fresh Gemma proposal for the fixed synthetic brief, validated by the server. ${proposed.latencyMs} ms. ${proposed.usage ? `${proposed.usage.promptTokens} input / ${proposed.usage.completionTokens} output tokens.` : "Provider token usage was not reported."} ${proposed.orchestration ? "Generated and validated in a real isolated Mastra workflow. " : ""}${proposed.transportNormalization?.wholeJsonFenceRemoved ? "A whole JSON code fence was removed before strict schema validation. " : ""}Review and approve every executable check.`,
+          reason: `Fresh Gemma proposal for the fixed synthetic brief, validated by the server. ${proposed.latencyMs} ms. ${proposed.usage ? `${proposed.usage.promptTokens} input / ${proposed.usage.completionTokens} output tokens.` : "Provider token usage was not reported."} ${proposed.orchestration ? "Generated and validated in a real isolated Mastra workflow. " : ""}${proposed.transportNormalization?.wholeJsonFenceRemoved ? "A whole JSON code fence was removed before strict schema validation. " : ""}Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check.`,
         },
         updatedAt: new Date(now()).toISOString(),
       });
@@ -521,15 +579,80 @@ export function createDemoRouter(options: DemoOptions) {
       } finally {
         a.completedAt = new Date(now()).toISOString();
         active = undefined;
+        persistCompletedAudit(s, a);
         await cleanup().catch(() => {});
       }
     });
     active = { session: s, task };
     res.status(202).json(a);
   });
-  router.get("/api/audits/:id", (req, res) => {
-    const a = session(res).audits.get(req.params.id);
-    return a ? res.json(a) : notFound(res);
+  router.get("/api/audits/:id/persistence", (req, res) => {
+    const s = session(res);
+    if (!s.audits.has(req.params.id)) return notFound(res);
+    return res.json(
+      tigerAvailable()
+        ? (s.persistence.get(req.params.id) ?? {
+            status: "unverified",
+            detail: "No completed audit save has been confirmed.",
+          })
+        : {
+            status: "not_configured",
+            detail:
+              "Hosted Tiger persistence is disabled or its confirmed trial window expired.",
+          },
+    );
+  });
+  router.get("/api/audits/:id", async (req, res) => {
+    const s = session(res);
+    const a = s.audits.get(req.params.id);
+    if (!a) return notFound(res);
+    if (
+      a.status === "completed" &&
+      tigerAvailable() &&
+      s.persistence.get(a.id)?.status === "saved"
+    ) {
+      try {
+        const stored = await tiger().getAudit(s.hash, a.id);
+        if (s.expires <= now())
+          return res.status(401).json({
+            error:
+              "Your demo session expired. Reload Briefstamp to start a new session.",
+          });
+        if (
+          !stored ||
+          stored.id !== a.id ||
+          stored.projectId !== a.projectId ||
+          stored.status !== "completed" ||
+          stored.source?.target !== "sample" ||
+          stored.source.sampleVariant !== a.source?.sampleVariant ||
+          stored.results.length !== a.results.length ||
+          !stored.results.every((result) =>
+            a.results.some(
+              (original) =>
+                original.checkId === result.checkId &&
+                original.kind === result.kind &&
+                original.status === result.status &&
+                redact(original.expected) === result.expected &&
+                redact(original.requirement) === result.requirement,
+            ),
+          )
+        )
+          throw new Error("The saved audit could not be verified.");
+        return res.set("X-Briefstamp-Storage", "tiger").json(stored);
+      } catch {
+        s.persistence.set(a.id, {
+          status: "unverified",
+          detail:
+            "The saved audit could not be read and verified. The visitor's observed browser results remain available.",
+        });
+      }
+    }
+    if (s.expires <= now())
+      return res.status(401).json({
+        error:
+          "Your demo session expired. Reload Briefstamp to start a new session.",
+      });
+    return res.set("X-Briefstamp-Storage", "memory").json(a);
   });
   router.get("/api/operator/status", (req, res) => {
     if (!authorizeHostedBackboard(req.headers)) return notFound(res);
@@ -544,20 +667,16 @@ export function createDemoRouter(options: DemoOptions) {
     const audit = session(res).audits.get(req.params.id);
     if (!audit) return notFound(res);
     if (audit.status !== "completed")
-      return res
-        .status(409)
-        .json({
-          error: "Only a completed audit can be saved to project memory.",
-        });
+      return res.status(409).json({
+        error: "Only a completed audit can be saved to project memory.",
+      });
     try {
       return res.json(await rememberHostedAudit(audit));
     } catch {
-      return res
-        .status(503)
-        .json({
-          error:
-            "Backboard memory is unavailable or its approved credit limit is reached. Audit evidence is unchanged.",
-        });
+      return res.status(503).json({
+        error:
+          "Backboard memory is unavailable or its approved credit limit is reached. Audit evidence is unchanged.",
+      });
     }
   });
   router.post("/api/projects/:id/memory/search", async (req, res) => {
@@ -580,12 +699,10 @@ export function createDemoRouter(options: DemoOptions) {
     try {
       return res.json(await recallHostedMemory(project.id, kind));
     } catch {
-      return res
-        .status(503)
-        .json({
-          error:
-            "Backboard retrieval is unavailable or its approved credit limit is reached. Saved memory is not a new audit result.",
-        });
+      return res.status(503).json({
+        error:
+          "Backboard retrieval is unavailable or its approved credit limit is reached. Saved memory is not a new audit result.",
+      });
     }
   });
   async function readImage(s: Session, value: string): Promise<Buffer | null> {
@@ -626,7 +743,46 @@ export function createDemoRouter(options: DemoOptions) {
       ? res.attachment("briefstamp-plan.json").json({ version: 1, project: p })
       : notFound(res);
   });
-  router.get("/api/failures", (req, res) => {
+  router.get("/api/failures", async (req, res) => {
+    // The existing unscoped UI search remains the visitor's memory-only filter.
+    // An explicit owned project selects the separately verified Tiger query.
+    if (req.query.projectId !== undefined) {
+      const s = session(res);
+      const projectId = z.string().uuid().parse(req.query.projectId);
+      const p = s.projects.get(projectId);
+      if (!p) return notFound(res);
+      const query = z.string().trim().min(1).max(200).parse(req.query.q);
+      if (!tigerAvailable())
+        return res.status(503).json({
+          error: "Hosted Tiger lexical retrieval is not configured.",
+          mode: "unavailable",
+        });
+      try {
+        const rows = await tiger().searchFailures(s.hash, { projectId, query });
+        if (s.expires <= now())
+          return res.status(401).json({
+            error:
+              "Your demo session expired. Reload Briefstamp to start a new session.",
+          });
+        if (rows.length > 20 || rows.some((row) => row.projectId !== p.id))
+          throw new Error("The retrieved project scope is invalid.");
+        return res.json({
+          results: rows.map((row) => ({ ...row, projectName: p.name })),
+          mode: "tiger-lexical",
+        });
+      } catch {
+        if (s.expires <= now())
+          return res.status(401).json({
+            error:
+              "Your demo session expired. Reload Briefstamp to start a new session.",
+          });
+        return res.status(503).json({
+          error:
+            "Tiger retrieval could not be verified. This is not an empty successful search.",
+          mode: "unavailable",
+        });
+      }
+    }
     const terms = String(req.query.q || "")
       .slice(0, 200)
       .toLowerCase()
@@ -682,6 +838,11 @@ export function createDemoRouter(options: DemoOptions) {
     async dispose() {
       clearInterval(timer);
       await active?.task;
+      await Promise.allSettled([...pendingPersistence]);
+      if (ownsTigerStore) {
+        ownsTigerStore = false;
+        await tigerStore?.close();
+      }
     },
   };
 }

@@ -1,0 +1,911 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-15T10:04:04.700Z",
+  "origin": "https://flowproof-demo.onrender.com",
+  "status": "verified",
+  "scope": "Real hosted synthetic application smoke; not a model quality evaluation or human approval.",
+  "approval": {
+    "actorType": "agent",
+    "purpose": "Explicit verifier approval of the fixed synthetic test harness only",
+    "humanApproval": false
+  },
+  "modelRequests": 1,
+  "modelRequestScope": "Reserved application generation attempts; backend inference is only verified after a validated live-provider result.",
+  "memoryOperations": 2,
+  "settingsOrPaymentChanges": 0,
+  "backboardRequested": true,
+  "calls": [
+    {
+      "operation": "backboard-read-balance",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:04.703Z",
+      "httpStatus": 200
+    },
+    {
+      "operation": "bootstrap-visitor",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:06.891Z",
+      "httpStatus": 200,
+      "responseBytes": 8928,
+      "responseSha256": "04c79093c009aa7554581d0d15bdad9227eef8869ba363d59eeab78377771ab5"
+    },
+    {
+      "operation": "one-live-gemma-generation",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:04:07.455Z",
+      "httpStatus": 200,
+      "responseBytes": 2503,
+      "responseSha256": "6fcee5d9d743dd85cab529cd271b146f3f17f0d497aeb96932bee268f7f6b9f4"
+    },
+    {
+      "operation": "reject-unapproved-ai-plan",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:04:27.943Z",
+      "httpStatus": 409,
+      "responseBytes": 79,
+      "responseSha256": "799500761cbeb83bf87a024bf0ea7da72672559e34db3f88fbb1fe20a242eb56"
+    },
+    {
+      "operation": "synthetic-harness-approval-healthy",
+      "method": "PUT",
+      "startedAt": "2026-10-15T10:04:28.085Z",
+      "httpStatus": 200,
+      "responseBytes": 2498,
+      "responseSha256": "49a3eb2ab4b3ba00d425286c597081e07609d2a3fb547737802fb9890ce9967f"
+    },
+    {
+      "operation": "start-healthy-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:04:28.273Z",
+      "httpStatus": 202,
+      "responseBytes": 2542,
+      "responseSha256": "70c47d341ee5932d5b8946ff81affdc48d13a7b194b666dfedaca52fc3b611a7"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:29.419Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "70c47d341ee5932d5b8946ff81affdc48d13a7b194b666dfedaca52fc3b611a7"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:30.621Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "70c47d341ee5932d5b8946ff81affdc48d13a7b194b666dfedaca52fc3b611a7"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:31.819Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "70c47d341ee5932d5b8946ff81affdc48d13a7b194b666dfedaca52fc3b611a7"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:33.023Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "70c47d341ee5932d5b8946ff81affdc48d13a7b194b666dfedaca52fc3b611a7"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:34.233Z",
+      "httpStatus": 200,
+      "responseBytes": 3107,
+      "responseSha256": "f7fd28d73d6bfa4d6fe8a420c4c7b1de22b1ed3e6b795c36fc8ea34006452ae5"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:35.415Z",
+      "httpStatus": 200,
+      "responseBytes": 3107,
+      "responseSha256": "f7fd28d73d6bfa4d6fe8a420c4c7b1de22b1ed3e6b795c36fc8ea34006452ae5"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:36.567Z",
+      "httpStatus": 200,
+      "responseBytes": 3638,
+      "responseSha256": "07d58022421590c273fa643b3161e6b6bfe4bb1dd47135dec116225b7acf454b"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:37.915Z",
+      "httpStatus": 200,
+      "responseBytes": 3638,
+      "responseSha256": "07d58022421590c273fa643b3161e6b6bfe4bb1dd47135dec116225b7acf454b"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:39.092Z",
+      "httpStatus": 200,
+      "responseBytes": 4208,
+      "responseSha256": "1310d93a70dea89e3a29cb037a69e429902ac2fd490d61539989136a376ae4da"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:40.252Z",
+      "httpStatus": 200,
+      "responseBytes": 4208,
+      "responseSha256": "1310d93a70dea89e3a29cb037a69e429902ac2fd490d61539989136a376ae4da"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:41.393Z",
+      "httpStatus": 200,
+      "responseBytes": 4208,
+      "responseSha256": "1310d93a70dea89e3a29cb037a69e429902ac2fd490d61539989136a376ae4da"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:42.630Z",
+      "httpStatus": 200,
+      "responseBytes": 4746,
+      "responseSha256": "ea7e169b752e9e1a428d8b414f11c30654ed48178544faf5fe9dd898df0b3e08"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:43.766Z",
+      "httpStatus": 200,
+      "responseBytes": 4746,
+      "responseSha256": "ea7e169b752e9e1a428d8b414f11c30654ed48178544faf5fe9dd898df0b3e08"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:44.919Z",
+      "httpStatus": 200,
+      "responseBytes": 5971,
+      "responseSha256": "9058b356d249c3e1b818b0b09dd4144d24cb95d550c34cb4d4b814f14a44b385"
+    },
+    {
+      "operation": "screenshot-healthy-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:45.084Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:45.311Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:45.618Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:45.858Z",
+      "httpStatus": 200,
+      "responseBytes": 43135,
+      "responseSha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "operation": "screenshot-healthy-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:46.036Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "report-healthy",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:46.271Z",
+      "httpStatus": 200,
+      "responseBytes": 547041,
+      "responseSha256": "c425ae3b467f1b9047de76b093064407ce1978ad7f640758ba26ade3c0147ed0"
+    },
+    {
+      "operation": "select-broken-variant",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:04:46.609Z",
+      "httpStatus": 200,
+      "responseBytes": 2502,
+      "responseSha256": "02c1cb2bb67c76d2f5852fbf79aa2a21eb0333d4102fc34311bef6f515b02eec"
+    },
+    {
+      "operation": "synthetic-harness-approval-broken",
+      "method": "PUT",
+      "startedAt": "2026-10-15T10:04:46.764Z",
+      "httpStatus": 200,
+      "responseBytes": 2497,
+      "responseSha256": "430f6f8f677e28e5c37cb791914c6ffb0207ec516edd6d4cea6f827abd0192a4"
+    },
+    {
+      "operation": "start-broken-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:04:46.924Z",
+      "httpStatus": 202,
+      "responseBytes": 2541,
+      "responseSha256": "6cd0dc46402a4de6809927b660c41e721d7e038cf311276c5c30cb44ee471edb"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:48.084Z",
+      "httpStatus": 200,
+      "responseBytes": 2541,
+      "responseSha256": "6cd0dc46402a4de6809927b660c41e721d7e038cf311276c5c30cb44ee471edb"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:49.312Z",
+      "httpStatus": 200,
+      "responseBytes": 2541,
+      "responseSha256": "6cd0dc46402a4de6809927b660c41e721d7e038cf311276c5c30cb44ee471edb"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:50.513Z",
+      "httpStatus": 200,
+      "responseBytes": 2541,
+      "responseSha256": "6cd0dc46402a4de6809927b660c41e721d7e038cf311276c5c30cb44ee471edb"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:51.649Z",
+      "httpStatus": 200,
+      "responseBytes": 3127,
+      "responseSha256": "8002c559c9078dff590965d9856a645ebfdc12252cddea73da579b6728e5f943"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:52.813Z",
+      "httpStatus": 200,
+      "responseBytes": 3127,
+      "responseSha256": "8002c559c9078dff590965d9856a645ebfdc12252cddea73da579b6728e5f943"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:54.021Z",
+      "httpStatus": 200,
+      "responseBytes": 3662,
+      "responseSha256": "0d22ca632a86a4f5324a881735438408bd01d389e372b732d8efd5bcf41c778c"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:55.229Z",
+      "httpStatus": 200,
+      "responseBytes": 3662,
+      "responseSha256": "0d22ca632a86a4f5324a881735438408bd01d389e372b732d8efd5bcf41c778c"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:56.414Z",
+      "httpStatus": 200,
+      "responseBytes": 4156,
+      "responseSha256": "3a6dc586c2ba55d9f8e22567f439218c07203305da7e1a27265af80030f1d0ed"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:57.569Z",
+      "httpStatus": 200,
+      "responseBytes": 4156,
+      "responseSha256": "3a6dc586c2ba55d9f8e22567f439218c07203305da7e1a27265af80030f1d0ed"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:58.727Z",
+      "httpStatus": 200,
+      "responseBytes": 4696,
+      "responseSha256": "874754c1e97556d0daaad47d18b77474b2407c8f2be6e3efdba4a10915dc9bc6"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:04:59.880Z",
+      "httpStatus": 200,
+      "responseBytes": 4696,
+      "responseSha256": "874754c1e97556d0daaad47d18b77474b2407c8f2be6e3efdba4a10915dc9bc6"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:01.113Z",
+      "httpStatus": 200,
+      "responseBytes": 5640,
+      "responseSha256": "4925e684a600921e2586e177ed91365320ccd020292c29dfecadb1b80eefd232"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:02.253Z",
+      "httpStatus": 200,
+      "responseBytes": 5921,
+      "responseSha256": "91141df739a5e7f46a9daa27b3a787a4f2cc28ead5948775b0714b30822149a7"
+    },
+    {
+      "operation": "screenshot-broken-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:02.388Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:02.552Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:02.713Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:03.062Z",
+      "httpStatus": 200,
+      "responseBytes": 42917,
+      "responseSha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "operation": "screenshot-broken-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:03.212Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "report-broken",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:03.379Z",
+      "httpStatus": 200,
+      "responseBytes": 540476,
+      "responseSha256": "548641e364200aefce6ea3e32c81ef7467c3ac19a811a50f77dcef2faaabba18"
+    },
+    {
+      "operation": "select-restored-variant",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:03.651Z",
+      "httpStatus": 200,
+      "responseBytes": 2503,
+      "responseSha256": "e3be04d6242d030d944e2b732499a8fb5e9832247fb52d15f8910d851d8d0e75"
+    },
+    {
+      "operation": "synthetic-harness-approval-restored",
+      "method": "PUT",
+      "startedAt": "2026-10-15T10:05:03.796Z",
+      "httpStatus": 200,
+      "responseBytes": 2498,
+      "responseSha256": "38f89836f1a4dd1a92e060b430859602e4c6821c1ce834fdc14e1747706c1a58"
+    },
+    {
+      "operation": "start-restored-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:03.932Z",
+      "httpStatus": 202,
+      "responseBytes": 2542,
+      "responseSha256": "1df69948828b84cacb606d5c3555c3aefb4fd5ba2bf8b81c66ab23b32f116989"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:05.090Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "1df69948828b84cacb606d5c3555c3aefb4fd5ba2bf8b81c66ab23b32f116989"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:06.318Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "1df69948828b84cacb606d5c3555c3aefb4fd5ba2bf8b81c66ab23b32f116989"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:07.522Z",
+      "httpStatus": 200,
+      "responseBytes": 2542,
+      "responseSha256": "1df69948828b84cacb606d5c3555c3aefb4fd5ba2bf8b81c66ab23b32f116989"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:08.711Z",
+      "httpStatus": 200,
+      "responseBytes": 3107,
+      "responseSha256": "8b7d8092dce5b5f4fc179fc4f10bae479271eea6ff430dc82849d34928dc9c1c"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:09.923Z",
+      "httpStatus": 200,
+      "responseBytes": 3107,
+      "responseSha256": "8b7d8092dce5b5f4fc179fc4f10bae479271eea6ff430dc82849d34928dc9c1c"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:11.077Z",
+      "httpStatus": 200,
+      "responseBytes": 3638,
+      "responseSha256": "c4c01b58bca71afa125b1512fe93c4a0c7fcda3424ea51ebb9335c392002f625"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:12.229Z",
+      "httpStatus": 200,
+      "responseBytes": 3638,
+      "responseSha256": "c4c01b58bca71afa125b1512fe93c4a0c7fcda3424ea51ebb9335c392002f625"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:13.430Z",
+      "httpStatus": 200,
+      "responseBytes": 4208,
+      "responseSha256": "310f8b620e886bd0d1a2545bd448e6b8363f6521104d2709d9d461d14e803cd6"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:14.612Z",
+      "httpStatus": 200,
+      "responseBytes": 4208,
+      "responseSha256": "310f8b620e886bd0d1a2545bd448e6b8363f6521104d2709d9d461d14e803cd6"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:15.831Z",
+      "httpStatus": 200,
+      "responseBytes": 4208,
+      "responseSha256": "310f8b620e886bd0d1a2545bd448e6b8363f6521104d2709d9d461d14e803cd6"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:17.024Z",
+      "httpStatus": 200,
+      "responseBytes": 4746,
+      "responseSha256": "766c843a7a75e380621258aa3b1a42d68d6ef3ea0de9dcbfc151c75f5d3854c8"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:18.219Z",
+      "httpStatus": 200,
+      "responseBytes": 4746,
+      "responseSha256": "766c843a7a75e380621258aa3b1a42d68d6ef3ea0de9dcbfc151c75f5d3854c8"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:19.433Z",
+      "httpStatus": 200,
+      "responseBytes": 5971,
+      "responseSha256": "ea181f645027edd8caef6116568734f354a102f3abef6e3f32fc749500a1eaf5"
+    },
+    {
+      "operation": "screenshot-restored-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:19.567Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:19.761Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:19.942Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:20.109Z",
+      "httpStatus": 200,
+      "responseBytes": 43135,
+      "responseSha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "operation": "screenshot-restored-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:20.254Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "report-restored",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:20.434Z",
+      "httpStatus": 200,
+      "responseBytes": 547049,
+      "responseSha256": "b96e8723828a49a767476460354d2b91a533353458c043b56fedf03b98a99db9"
+    },
+    {
+      "operation": "bootstrap-visitor",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:20.675Z",
+      "httpStatus": 200,
+      "responseBytes": 8928,
+      "responseSha256": "2a81b2abf056ca9068a52282f0387b1191f0c87b34b3181ca046e1b8bc700810"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:20.811Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:20.952Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:21.107Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "anonymous-memory-denied",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:21.280Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-operator-memory-denied",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:21.445Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-operator-search-denied",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:21.598Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "one-backboard-memory-write",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:21.739Z",
+      "httpStatus": 200,
+      "responseBytes": 236,
+      "responseSha256": "54ba98393b1fe3f50fae0224a72d58483b996774ecc02890e98b7dd55508c793"
+    },
+    {
+      "operation": "one-backboard-memory-search",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:05:27.134Z",
+      "httpStatus": 200,
+      "responseBytes": 624,
+      "responseSha256": "c0cedf82d596d852f570a0bbddd46873b9a38e144bca7166479930d52d6c282c"
+    },
+    {
+      "operation": "backboard-read-balance",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:05:28.364Z",
+      "httpStatus": 200
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "initial-project.json",
+      "bytes": 2721,
+      "sha256": "c43aa19de142369ba39819260516e7099a7d1ac1d133454356741634e3590f9a"
+    },
+    {
+      "path": "generated-project.json",
+      "bytes": 3045,
+      "sha256": "8c55c27f918ae85b187e53257f7bc2eba1f22335c13eb769d47a8a505556ebda"
+    },
+    {
+      "path": "healthy-audit.json",
+      "bytes": 7489,
+      "sha256": "8791dc8cb2acf720f25b177086bb28b5ca23f13104cf7b0356d57a0eec897188"
+    },
+    {
+      "path": "healthy-heading.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-link.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-image_alt.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-no_horizontal_overflow.png",
+      "bytes": 43135,
+      "sha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "path": "healthy-text_visible.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-report.html",
+      "bytes": 547041,
+      "sha256": "c425ae3b467f1b9047de76b093064407ce1978ad7f640758ba26ade3c0147ed0"
+    },
+    {
+      "path": "broken-audit.json",
+      "bytes": 7439,
+      "sha256": "6df984abb2b26af69493f2e7307608beaf56f384d3fa5ac5145df7d61b3ee217"
+    },
+    {
+      "path": "broken-heading.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-link.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-image_alt.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-no_horizontal_overflow.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "path": "broken-text_visible.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-report.html",
+      "bytes": 540476,
+      "sha256": "548641e364200aefce6ea3e32c81ef7467c3ac19a811a50f77dcef2faaabba18"
+    },
+    {
+      "path": "restored-audit.json",
+      "bytes": 7489,
+      "sha256": "a7cfe651763720842ced3a90af9adf2900d74048f5cc1ad8090c12d839317b5b"
+    },
+    {
+      "path": "restored-heading.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-link.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-image_alt.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-no_horizontal_overflow.png",
+      "bytes": 43135,
+      "sha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "path": "restored-text_visible.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-report.html",
+      "bytes": 547049,
+      "sha256": "b96e8723828a49a767476460354d2b91a533353458c043b56fedf03b98a99db9"
+    },
+    {
+      "path": "backboard-write.json",
+      "bytes": 258,
+      "sha256": "3463a4ffdca9b702b0473ca03e37da869d03418132b0fc1863729243a6e6a787"
+    },
+    {
+      "path": "backboard-search.json",
+      "bytes": 958,
+      "sha256": "53542b324d51a5a8e568d54f282494f22191eeb9079942601d1f46ffd14554dc"
+    }
+  ],
+  "backboardBalanceBefore": {
+    "checkedAt": "2026-10-15T10:04:06.889Z",
+    "totalUsd": 9.988257,
+    "freeUsd": 4.99,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false
+  },
+  "backboardResourceScope": "Explicitly approved existing credits, including paid credit. No new out-of-pocket spend, top-up or settings changes; not claimed to be free credit only.",
+  "generator": {
+    "provider": "Google Gemma (live API)",
+    "model": "gemma-4-26b-a4b-it",
+    "orchestration": {
+      "provider": "Mastra",
+      "workflowId": "briefstamp-public-gemma",
+      "runId": "711b8c7e-6deb-409a-9652-de1159732708",
+      "steps": [
+        "generate-google-gemma",
+        "validate-indexed-proposal"
+      ],
+      "maxRssMiB": 149.18
+    },
+    "reason": "Fresh Gemma proposal for the fixed synthetic brief, validated by the server. 7893 ms. 335 input / 300 output tokens. Generated and validated in a real isolated Mastra workflow. Review and approve every executable check."
+  },
+  "unapprovedAuditRejected": true,
+  "auditOutcomes": {
+    "healthy": {
+      "id": "8dd7d440-6965-4948-828e-0f419200fb11",
+      "status": "completed",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      }
+    },
+    "broken": {
+      "id": "7f0a2df9-558c-41bf-b65c-ec08dfb01dbd",
+      "status": "completed",
+      "counts": {
+        "passed": 2,
+        "failed": 3,
+        "blocked": 0,
+        "unverified": 1
+      }
+    },
+    "restored": {
+      "id": "efbfc3e3-6bc1-4582-98dc-aa2db39819aa",
+      "status": "completed",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      }
+    }
+  },
+  "crossVisitorIsolation": "Project, audit and report each returned HTTP 404 to a different visitor.",
+  "backboard": {
+    "status": "stored_and_retrieved",
+    "matchingProjectHash": "3a55d952fee81266cb08ce0de7c4f315ef9ef6594f597d2df870efcb0ee5f3ef",
+    "matchingAuditHash": "ac77c5a9cbd8c13b05bbbf727707bd5908b193fd0e0a7cf4ae333c28fd7398e2",
+    "matchingFacts": [
+      {
+        "kind": "heading",
+        "status": "failed"
+      },
+      {
+        "kind": "link",
+        "status": "passed"
+      },
+      {
+        "kind": "image_alt",
+        "status": "failed"
+      },
+      {
+        "kind": "no_horizontal_overflow",
+        "status": "failed"
+      },
+      {
+        "kind": "text_visible",
+        "status": "passed"
+      },
+      {
+        "kind": "manual",
+        "status": "unverified"
+      }
+    ],
+    "inferenceCalls": 0,
+    "scope": "Historical saved observations, not new browser evidence."
+  },
+  "backboardBalanceAfter": {
+    "checkedAt": "2026-10-15T10:05:30.490Z",
+    "totalUsd": 9.978257,
+    "freeUsd": 4.98,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false
+  },
+  "backboardBalanceChange": {
+    "totalUsd": 0.010000000000001563,
+    "freeUsd": 0.009999999999999787,
+    "paidUsd": 0,
+    "subscriptionUsd": 0
+  },
+  "backboardBalanceScope": "Immediate account-wide observed difference; not final billing or exclusive attribution. No free-first spending rule is inferred.",
+  "completedAt": "2026-10-15T10:05:30.490Z",
+  "release": {
+    "sourceCommit": "25efaeefa582ebff29033e4d73e7fe53ece73119",
+    "ciUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38716831942",
+    "renderDeployId": "dep-db8a8jss728c738ocqdg",
+    "renderLiveAt": "2026-10-15T10:03:31.662801Z",
+    "renderPlan": "free",
+    "sourceVerifierSha256": "eabfa5de00411693a1afcd4f8e7e7030d6552d1ec328900f3c0c10c2d695e002"
+  },
+  "publication": {
+    "files": [
+      "receipt.json",
+      "generated-project.json",
+      "healthy-audit.json",
+      "broken-audit.json",
+      "restored-audit.json",
+      "backboard-write.json",
+      "backboard-search.json"
+    ],
+    "note": "Synthetic audit JSON and anonymous memory records only; cookies, keys and provider diagnostics excluded. HTML/PNG originals retained privately with hashes in artifacts."
+  }
+}

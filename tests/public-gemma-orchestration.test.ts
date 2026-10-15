@@ -49,6 +49,23 @@ function fakeChild() {
     kill: vi.fn(() => true),
   });
 }
+let compiled = false;
+function buildWorker() {
+  if (compiled) return;
+  execFileSync(
+    process.execPath,
+    [
+      resolve("node_modules/vite/bin/vite.js"),
+      "build",
+      "--ssr",
+      "server/gemma-workflow-child.ts",
+      "--outDir",
+      "dist-worker",
+    ],
+    { timeout: 30_000, maxBuffer: 64 * 1024 },
+  );
+  compiled = true;
+}
 let child: ReturnType<typeof fakeChild>;
 beforeEach(() => {
   child = fakeChild();
@@ -94,7 +111,7 @@ describe("isolated public Mastra workflow process", () => {
     await expect(pending).resolves.toEqual(result);
   });
 
-  it("allowlists only OS necessities and the four Google configuration values", () => {
+  it("allowlists only OS necessities and the exact Google and optional Sentry configuration", () => {
     const input = {
       PATH: "/usr/bin",
       HOME: "/synthetic",
@@ -110,7 +127,12 @@ describe("isolated public Mastra workflow process", () => {
       HTTPS_PROXY: "https://bad",
       HTTP_PROXY: "https://bad",
       ALL_PROXY: "https://bad",
-      SENTRY_DSN: "secret",
+      SENTRY_DSN: "https://synthetic@o0.ingest.sentry.io/1",
+      FLOWPROOF_SENTRY_ENABLED: "true",
+      FLOWPROOF_SENTRY_FREE_CONFIRMED: "true",
+      FLOWPROOF_SENTRY_FREE_CONFIRMED_AT: "2026-10-15T00:00:00Z",
+      SENTRY_AUTH_TOKEN: "secret",
+      SENTRY_CAPTURE_FIXTURE: "forbidden",
       TINKER_API_KEY: "secret",
       DATABASE_URL: "secret",
       BACKBOARD_API_KEY: "secret",
@@ -129,6 +151,10 @@ describe("isolated public Mastra workflow process", () => {
         "BRIEFSTAMP_GEMMA_CONFIRMED_FREE",
         "BRIEFSTAMP_GEMMA_FREE_UNTIL",
         "GOOGLE_GEMMA_API_KEY",
+        "SENTRY_DSN",
+        "FLOWPROOF_SENTRY_ENABLED",
+        "FLOWPROOF_SENTRY_FREE_CONFIRMED",
+        "FLOWPROOF_SENTRY_FREE_CONFIRMED_AT",
         "NODE_ENV",
         "MASTRA_TELEMETRY_DISABLED",
       ].sort(),
@@ -194,6 +220,56 @@ describe("isolated public Mastra workflow process", () => {
     },
   );
 
+  it("accepts only a minimal actual telemetry receipt and never promotes flush to ingestion proof", async () => {
+    const telemetry = {
+      provider: "Sentry",
+      mode: "hosted_configured",
+      traceId: "a".repeat(32),
+      flushed: true,
+      ingestionVerified: false,
+    };
+    for (const mode of ["hosted_configured", "local_capture"]) {
+      const actual = {
+        ...result,
+        orchestration: {
+          ...result.orchestration,
+          telemetry: { ...telemetry, mode },
+        },
+      };
+      const pending = runPublicGemmaWorkflow(requirements);
+      child.stdout.emit(
+        "data",
+        Buffer.from(JSON.stringify({ ok: true, result: actual })),
+      );
+      child.emit("close", 0, null);
+      await expect(pending).resolves.toEqual(actual);
+    }
+    for (const invalid of [
+      { ...telemetry, traceId: "0".repeat(32) },
+      { ...telemetry, traceId: "not-a-trace" },
+      { ...telemetry, ingestionVerified: true },
+      { ...telemetry, mode: "verified" },
+      { ...telemetry, flushed: "true" },
+      { ...telemetry, dsn: "private" },
+    ]) {
+      const pending = runPublicGemmaWorkflow(requirements);
+      child.stdout.emit(
+        "data",
+        Buffer.from(
+          JSON.stringify({
+            ok: true,
+            result: {
+              ...result,
+              orchestration: { ...result.orchestration, telemetry: invalid },
+            },
+          }),
+        ),
+      );
+      child.emit("close", 0, null);
+      await expect(pending).rejects.toThrow("invalid result");
+    }
+  });
+
   it("rejects multiple JSON values and unrecognized envelope fields", async () => {
     for (const text of [
       JSON.stringify({ ok: true, result }) + "\n{}",
@@ -257,22 +333,13 @@ describe("isolated public Mastra workflow process", () => {
   });
 
   it("runs the real two-step SDK workflow from fresh compiled JS under 300 MiB with a trusted fixture callback", async () => {
-    execFileSync(
-      process.execPath,
-      [
-        resolve("node_modules/vite/bin/vite.js"),
-        "build",
-        "--ssr",
-        "server/gemma-workflow-child.ts",
-        "--outDir",
-        "dist-worker",
-      ],
-      { timeout: 30_000, maxBuffer: 64 * 1024 },
-    );
+    buildWorker();
     const moduleUrl = pathToFileURL(
       resolve("dist-worker/gemma-workflow-child.js"),
     ).href;
-    const source = `import { executeGemmaWorkflow } from ${JSON.stringify(moduleUrl)};
+    const source = `import { register } from 'node:module';
+      register('data:text/javascript,' + encodeURIComponent("export async function resolve(s,c,n) { if (s.startsWith('@sentry/')) throw new Error('Disabled worker loaded Sentry'); return n(s,c); }"));
+      const { executeGemmaWorkflow } = await import(${JSON.stringify(moduleUrl)});
       let calls = 0;
       const requirements = ${JSON.stringify(requirements)};
       const result = await executeGemmaWorkflow(requirements, async (input) => {
@@ -280,6 +347,19 @@ describe("isolated public Mastra workflow process", () => {
         calls++;
         return ${JSON.stringify(proposal)};
       });
+      const gateRejections = [];
+      for (const config of [
+        { FLOWPROOF_SENTRY_ENABLED: 'false', FLOWPROOF_SENTRY_FREE_CONFIRMED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED_AT: new Date().toISOString(), SENTRY_DSN: 'https://synthetic@o0.ingest.sentry.io/1' },
+        { FLOWPROOF_SENTRY_ENABLED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED: 'false', FLOWPROOF_SENTRY_FREE_CONFIRMED_AT: new Date().toISOString(), SENTRY_DSN: 'https://synthetic@o0.ingest.sentry.io/1' },
+        { FLOWPROOF_SENTRY_ENABLED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED_AT: new Date(Date.now() - 25 * 60 * 60 * 1000).toISOString(), SENTRY_DSN: 'https://synthetic@o0.ingest.sentry.io/1' },
+        { FLOWPROOF_SENTRY_ENABLED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED_AT: new Date(Date.now() + 60 * 60 * 1000).toISOString(), SENTRY_DSN: 'https://synthetic@o0.ingest.sentry.io/1' },
+        { FLOWPROOF_SENTRY_ENABLED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED: 'true', FLOWPROOF_SENTRY_FREE_CONFIRMED_AT: new Date().toISOString(), SENTRY_DSN: '' },
+      ]) {
+        Object.assign(process.env, config);
+        const denied = await executeGemmaWorkflow(requirements, async () => (${JSON.stringify(proposal)}));
+        gateRejections.push(denied.orchestration.telemetry === undefined);
+      }
+      for (const name of ['FLOWPROOF_SENTRY_ENABLED', 'FLOWPROOF_SENTRY_FREE_CONFIRMED', 'FLOWPROOF_SENTRY_FREE_CONFIRMED_AT', 'SENTRY_DSN']) delete process.env[name];
       let failingCalls = 0;
       let failureRejected = false;
       try {
@@ -292,7 +372,7 @@ describe("isolated public Mastra workflow process", () => {
       try {
         await executeGemmaWorkflow(requirements, async () => ({ ...${JSON.stringify(proposal)}, checks: [{ ...${JSON.stringify(proposal.checks[0])}, requirementIndex: 1 }] }));
       } catch { invalidRejected = true; }
-      process.stdout.write(JSON.stringify({ result, calls, failingCalls, failureRejected, invalidRejected, heap: process.execArgv, telemetry: process.env.MASTRA_TELEMETRY_DISABLED }), () => process.exit(0));`;
+      process.stdout.write(JSON.stringify({ result, calls, gateRejections, failingCalls, failureRejected, invalidRejected, heap: process.execArgv, telemetry: process.env.MASTRA_TELEMETRY_DISABLED }), () => process.exit(0));`;
     const { stdout, stderr } = await promisify(execFile)(
       process.execPath,
       ["--max-old-space-size=192", "--input-type=module", "--eval", source],
@@ -308,6 +388,7 @@ describe("isolated public Mastra workflow process", () => {
     expect(Buffer.byteLength(stderr)).toBeLessThan(8 * 1024);
     const actual = JSON.parse(stdout);
     expect(actual.calls).toBe(1);
+    expect(actual.gateRejections).toEqual([true, true, true, true, true]);
     expect(actual.failingCalls).toBe(1);
     expect(actual.failureRejected).toBe(true);
     expect(actual.invalidRejected).toBe(true);
@@ -315,6 +396,7 @@ describe("isolated public Mastra workflow process", () => {
     expect(actual.heap).toContain("--max-old-space-size=192");
     expect(actual.heap.join(" ")).not.toContain("tsx");
     expect(actual.result.checks).toEqual(proposal.checks);
+    expect(actual.result.orchestration).not.toHaveProperty("telemetry");
     expect(actual.result.orchestration).toMatchObject({
       provider: "Mastra",
       workflowId: PUBLIC_GEMMA_WORKFLOW_ID,
@@ -325,6 +407,93 @@ describe("isolated public Mastra workflow process", () => {
     expect(actual.result.orchestration.maxRssMiB).toBeLessThan(300);
     console.info(
       `Compiled Mastra fixture worker peak RSS: ${actual.result.orchestration.maxRssMiB} MiB`,
+    );
+  }, 45_000);
+  it("captures three real allowlisted SDK spans in the compiled child without network or private text", async () => {
+    buildWorker();
+    const moduleUrl = pathToFileURL(
+      resolve("dist-worker/gemma-workflow-child.js"),
+    ).href;
+    const source = `
+      globalThis.fetch = async () => { throw new Error('Network is forbidden in local telemetry proof'); };
+      const { executeGemmaWorkflow } = await import(${JSON.stringify(moduleUrl)});
+      const envelopes = [];
+      let calls = 0;
+      const result = await executeGemmaWorkflow(['PRIVATE-CLIENT-REQUIREMENT'], async () => {
+        calls++;
+        return ${JSON.stringify(proposal)};
+      }, { captureEnvelope: (envelope) => { envelopes.push(envelope); } });
+      process.stdout.write(JSON.stringify({ result, calls, envelopes }), () => process.exit(0));`;
+    const { stdout, stderr } = await promisify(execFile)(
+      process.execPath,
+      ["--max-old-space-size=192", "--input-type=module", "--eval", source],
+      {
+        env: publicGemmaChildEnvironment({
+          PATH: process.env.PATH,
+          GOOGLE_GEMMA_API_KEY: ["PRIVATE", "PROVIDER", "KEY"].join("-"),
+        }),
+        timeout: 30_000,
+        maxBuffer: 64 * 1024,
+      },
+    );
+    expect(stderr).toBe("");
+    const actual = JSON.parse(stdout);
+    expect(actual.calls).toBe(1);
+    expect(actual.result.checks).toEqual(proposal.checks);
+    expect(actual.result.orchestration.telemetry).toMatchObject({
+      provider: "Sentry",
+      mode: "local_capture",
+      flushed: true,
+      ingestionVerified: false,
+    });
+    expect(actual.envelopes).toHaveLength(1);
+    const [header, items] = actual.envelopes[0];
+    expect(Object.keys(header).sort()).toEqual(["event_id", "sent_at"]);
+    expect(items).toHaveLength(1);
+    expect(items[0][0]).toEqual({ type: "transaction" });
+    const event = items[0][1];
+    expect(event.transaction).toBe("briefstamp.proposal");
+    expect(event.contexts.trace.trace_id).toBe(
+      actual.result.orchestration.telemetry.traceId,
+    );
+    expect(event.spans.map((span: { op: string }) => span.op).sort()).toEqual([
+      "briefstamp.proposal.generate",
+      "briefstamp.proposal.validate",
+    ]);
+    for (const span of event.spans) {
+      expect(span.trace_id).toBe(event.contexts.trace.trace_id);
+      expect(span.parent_span_id).toBe(event.contexts.trace.span_id);
+      expect(Object.keys(span).sort()).toEqual([
+        "data",
+        "description",
+        "op",
+        "parent_span_id",
+        "span_id",
+        "start_timestamp",
+        "status",
+        "timestamp",
+        "trace_id",
+      ]);
+      expect(span.data).toEqual({
+        "briefstamp.checkCount": 1,
+        "briefstamp.target": "sample",
+      });
+    }
+    const telemetry = JSON.stringify(actual.envelopes);
+    for (const forbidden of [
+      "PRIVATE-CLIENT",
+      "PRIVATE-PROVIDER",
+      "Welcome",
+      "requirements",
+      "GOOGLE_GEMMA_API_KEY",
+      "gemma-4",
+      "localhost",
+      "http",
+    ])
+      expect(telemetry).not.toContain(forbidden);
+    expect(actual.result.orchestration.maxRssMiB).toBeLessThan(300);
+    console.info(
+      `Compiled Mastra + local Sentry worker peak RSS: ${actual.result.orchestration.maxRssMiB} MiB`,
     );
   }, 45_000);
 });

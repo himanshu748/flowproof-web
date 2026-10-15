@@ -193,6 +193,16 @@ export function validateModelProposal(brief: string, value: unknown): Check[] {
       }
       return {
         ...check,
+        // These runners inspect fixed predicates, not the model's prose.
+        // Bind the displayed expectation to the predicate that actually runs.
+        ...(check.kind === "image_alt"
+          ? {
+              expected:
+                "Nonempty alternative text on every content image; description quality is outside this check",
+            }
+          : check.kind === "no_horizontal_overflow"
+            ? { expected: "No horizontal scrolling" }
+            : {}),
         path: scope.path,
         viewport: scope.viewport,
         requirement,

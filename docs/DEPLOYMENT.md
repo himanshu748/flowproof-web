@@ -2,21 +2,29 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
-## Current candidate: hosted verification pending
+## Verified hosted open-model release, 15 October 2026
 
-The last independently verified runtime below is `94727b283fdb19e78eba0964a8002d0a6199b8ca`. The new source candidate adds opt-in native Gemma proposals for the fixed synthetic brief, an isolated compiled Mastra proposal worker, and operator-protected Backboard memory. The user approved transferring the required keys/operator token to the existing Render service. Configuration is now applied, and that service was rechecked as Free. Deployment and hosted execution of the candidate remain pending; configuration alone is not a successful run.
+Source **`25efaeefa582ebff29033e4d73e7fe53ece73119`** passed [Actions run 38716831942](https://github.com/himanshu748/flowproof-web/actions/runs/38716831942): **320 application tests, 19 Python tests**, production build, the bounded public-runtime browser check and real fixture audits. The compiled Mastra workflow CI check recorded **174.54 MiB** maximum resident memory.
 
-| Candidate capability | Actual evidence before deployment | Hosted gate |
+The existing Render service was confirmed **Free**, without plan or resource changes. Deploy `dep-db8a8jss728c738ocqdg` became live at **2026-10-15T10:03:31.662801Z** with that source revision. The [actual hosted receipt](evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json) records execution from 10:04:04 to 10:05:30 UTC; the public evidence includes the proposal, three audits and anonymous Backboard memory records.
+
+| Hosted capability | Actual observed result | Scope and remaining limit |
 |---|---|---|
-| Native Gemma 4 | [One real provider request through the public router locally](PUBLIC_GEMMA.md): 335 input / 300 output tokens, then actual healthy/broken/restored Chromium and three reports. Earlier failed attempts remain public. | Run the deployed generation action with consent; verify actual generator/model, approval rejection, real audits and report downloads on that exact source. |
-| Isolated Mastra | Actual local SDK fixture passed within approximately 169.93 MiB. Earlier local tools/browser evidence is retained. | Confirm the worker orchestrates the real provider response on Render within its runtime budget. A fixture response is not live-model evidence. |
-| Backboard memory | [Real cloud write and retrieval](BACKBOARD_VERIFICATION.md) preserved all six audit statuses; immediate free-credit deduction was $0.01, paid balance unchanged. | Deploy the protected routes and a fresh, separate two-operation/$0.03 existing-credit allowance; prove anonymous rejection, session ownership and actual hosted write/retrieval with before/after balances. |
+| Native Gemma and Mastra | One real `gemma-4-26b-a4b-it` request, 335 input / 300 output tokens, 7.893 s; two real Mastra workflow steps, child maximum RSS 149.18 MiB. | Consent and fixed synthetic brief only; no general quality benchmark or human approval. [Details](PUBLIC_GEMMA.md). |
+| Approval and browser evidence | Unapproved audit returned 409. After verifier approval: healthy 5 passed / 1 unverified → broken 2 passed / 3 failed / 1 unverified → restored 5 passed / 1 unverified. | Three controlled regressions/recoveries; 15 PNGs and three embedded reports downloaded, privately retained with public hashes. Project/audit/report isolation returned 404 across visitors. |
+| Protected Backboard memory | One actual hosted write and one search recovered all six audit statuses. Immediate free balance 4.99→4.98 USD; paid balance unchanged. | Operator token and session ownership required; anonymous access denied. This proof exhausted its two-operation allowance. [Credit and expiry details](BACKBOARD_VERIFICATION.md). |
 
-Initial visitor drafts remain labelled rules. The candidate's model route checks free-only pricing and accepts no private visitor brief. Backboard requires an operator token; anonymous visitors cannot spend its credits. Its local allowance file is exclusive-created and never resets counters during initialization, but free-host disk replacement is not durable cross-deployment storage. Do not reuse an exhausted proof or infer a new allowance from a restart.
+Opening `#demo` shows Review and the Gemma action without automatically calling a model. Initial drafts remain labelled rules. The model route checks free-only pricing at least hourly and rejects private/edited briefs; current confirmation expires October 20. Backboard used explicitly approved existing credits with no card, auto-reload, top-up or setting change. Its exclusive-created ledger preserves spent counters on the same disk, but free-host disk replacement is not a durable cross-deployment budget or permission to regain an exhausted allowance.
 
-The [Actions workflow](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) supplies revision-specific CI state. Provider/local receipts in [the integration ledger](INTEGRATIONS.md) do not establish hosted Sentry ingestion, a hosted Temporal worker or lasting Tiger storage. FieldIssue health and readiness returned HTTP 200 at 09:35 UTC on October 15; configured keys establish availability/configuration only, not new billing or provider execution proof.
+These hosted receipts do not establish hosted Tiger, Tinker, Sentry, Temporal, SerpApi, ElevenLabs, Entire or .tech operation. Later Tiger/Sentry preparation is recorded below and must not be treated as part of the verified `25efaeef` runtime. See [remaining gates](ALL_INTEGRATION_GATES.md).
 
-The deployment records below are historical snapshots, not an assertion that their hashes equal the latest repository revision. The existing service remains manually deployed; verify its exact commit separately before claiming a new release live.
+### Later Tiger and Sentry preparation: not deployed evidence
+
+At 10:17 UTC on October 15, the user-approved isolated Tiger trial-hosting attempt stopped **before DDL** when the privilege preflight found inherited PUBLIC metadata grants. No role, schema or Render database credential was created; no FieldIssue data/configuration or billing setting changed. Subsequent strict-TLS checks inspected metadata only and still recorded zero created roles/schemas. This is a failed provisioning preflight, not hosted persistence. Authenticated connection inspection of the separate dedicated service did not establish CA trust; certificate and hostname verification were not weakened.
+
+A separate Briefstamp Sentry project was created and configured after confirming a Sponsored Team entitlement with paid overage disabled. The optional child-only SDK implementation has actual local-capture privacy/trace tests. It still needs a release and a bounded trace verified in Sentry. Neither project configuration nor `flushed: true` establishes hosted ingestion. Private operator receipts are retained separately; account identifiers, credentials, connection hostnames and billing balances are omitted here.
+
+The records below are historical snapshots. Later source edits, including an image-check description correction, must not be inferred to be deployed from this receipt.
 
 ## Verified integration repair, 15 October 2026
 
@@ -67,10 +75,10 @@ A source-only documentation update may follow this audited application commit. T
 ## Historical free-resource preflight
 
 - Render Hobby workspace, no card on file, checked 13 October 2026.
-- The web service uses `plan: free`; no paid database, persistent worker or disk is authorized. The current candidate's native Gemma and protected existing-credit Backboard paths have separate evidence and limits above.
+- The web service uses `plan: free`; no paid database, persistent worker or disk is authorized. The current release's native Gemma and protected existing-credit Backboard paths have separate evidence and limits above.
 - Free allowance at preflight: 70.3/750 instance hours, 23/500 pipeline minutes, 348 MB/5 GB bandwidth, 23/25 services. Allowances are shared with other projects and change with usage.
 - Standard public GitHub Actions runner; no larger runner or paid add-on.
-- These allowances were observed on October 13, not refreshed by the candidate preparation. Public demo state and screenshots are temporary. The historical release did not establish hosted Tiger, Tinker, Gemma inference, Mastra, Sentry or Temporal; candidate claims await their own receipts.
+- These allowances were observed on October 13, historical, not current balances. Public demo state and screenshots are temporary. The historical release did not establish hosted Tiger, Tinker, Gemma inference, Mastra, Sentry or Temporal; the newer hosted Gemma/Mastra/Backboard receipts are recorded above.
 
 ## Reproduce
 

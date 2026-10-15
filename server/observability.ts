@@ -160,6 +160,13 @@ export function observabilityStatus(): ObservabilityStatus {
   return { ...current };
 }
 
+/** Only the active SDK trace identifier may cross the worker boundary. */
+export function currentTraceContext(): { traceId: string } | undefined {
+  if (current.mode === "disabled") return undefined;
+  const traceId = id(Sentry.getActiveSpan()?.spanContext().traceId, 32);
+  return traceId && !/^0+$/.test(traceId) ? { traceId } : undefined;
+}
+
 /** Local capture is actual SDK transport evidence, never hosted ingestion proof. */
 export function initObservability(
   options: {

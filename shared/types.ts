@@ -37,6 +37,13 @@ export interface Project {
       runId: string;
       steps: string[];
       maxRssMiB: number;
+      telemetry?: {
+        provider: "Sentry";
+        mode: "hosted_configured" | "local_capture";
+        traceId: string;
+        flushed: boolean;
+        ingestionVerified: false;
+      };
     };
   };
 }

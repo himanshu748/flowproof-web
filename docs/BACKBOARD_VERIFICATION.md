@@ -2,9 +2,28 @@
 
 **Verified October 15, 2026:** the actual Briefstamp Backboard adapter stored an anonymous summary of a completed synthetic audit, then retrieved the same audit with its failed heading and all six observed statuses intact. [Sanitized live receipt](evidence/backboard/2026-10-15T09-28-55-074Z/receipt.json).
 
-This was an operator-run cloud integration test. It does not establish public-demo deployment, client-data suitability, lifetime free eligibility or general retrieval quality. The saved memory is historical context, not a new audit or new proof that a website passes.
+That earlier run was an operator-run cloud integration test. Its receipt alone does not establish deployment, client-data suitability, lifetime free eligibility or general retrieval quality. The saved memory is historical context, not a new audit or new proof that a website passes.
 
-## What executed
+## Actual protected hosted proof
+
+On October 15 at 10:04–10:05 UTC, Render release `25efaeefa582ebff29033e4d73e7fe53ece73119` called the same adapter through its protected HTTP routes. One write stored the completed synthetic broken audit; one search retrieved **all six matching facts: three failed, two passed and one unverified**. No inference was requested and no new assistant was created: it reused the dedicated Briefstamp proof assistant. [Hosted receipt](evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json) · [write result](evidence/hosted-open-model/2026-10-15T10-04-04Z/backboard-write.json) · [retrieved memory](evidence/hosted-open-model/2026-10-15T10-04-04Z/backboard-search.json).
+
+| Hosted proof credit bucket | Before | Immediately after | Observed deduction |
+|---|---:|---:|---:|
+| Free | $4.990000 | $4.980000 | $0.010000 |
+| Paid | $4.998257 | $4.998257 | $0 |
+| Subscription | $0 | $0 | $0 |
+| Total | $9.988257 | $9.978257 | $0.010000 |
+
+This immediate account-wide difference is separate from the earlier local proof's $0.01 deduction. It is not a final invoice, exclusive attribution or evidence of a general free-first spending rule. The user authorized existing credits, including the mixed paid bucket; the guard did not pretend the account was free-only. Auto-reload remained disabled, no payment method was configured, and no payment or account setting changed.
+
+The hosted helper requires a constant-time-checked operator token of at least 32 characters and the caller's own visitor session/project/audit. Anonymous and cross-visitor access returned 404. **This is verified operator-only hosted memory, not an anonymous public memory service.**
+
+The separate hosted allowance permitted at most one write and one search within a $0.03 existing-credit cap; both calls were reserved before I/O and **the two-operation allowance is now exhausted**. Its key-bound account proof was checked at October 15 09:29:06 UTC and expires October 16 09:29:06 UTC, within 24 hours. Initialization exclusive-creates the exact proof's ledger and never overwrites spent counters. Restarts on the same disk preserve reservations, but a Free Render disk replacement is ephemeral: this is not a durable cross-deployment budget. A restart or replacement must not be used to regain the spent allowance. Further use requires a fresh separately approved allowance, not resetting this proof.
+
+[Hosted helper](../server/hosted-backboard.ts) and its focused tests cover authentication, proof validation and restart counter preservation. [Release CI](https://github.com/himanshu748/flowproof-web/actions/runs/38716831942) passed 320 application tests and 19 Python tests; contract tests are distinguished from the actual hosted receipt above.
+
+## Earlier local operator proof: what executed
 
 1. Read the existing account balance and verified auto-reload was disabled and no payment method was configured.
 2. Reserved $0.01 locally before creating one new, dedicated Briefstamp synthetic-proof assistant. Its tools list was empty; no language-model generation was requested.

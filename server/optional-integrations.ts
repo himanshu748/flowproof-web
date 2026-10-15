@@ -2,6 +2,7 @@ import type { IntegrationStatus } from "../shared/types.js";
 import type { ObservabilityStatus } from "./observability.js";
 import { hostBackboardEnabled } from "./hosted-backboard.js";
 import { googleGemmaConfiguration } from "./providers/gemma-google.js";
+import { hostedSentryAvailable } from "./sentry-configuration.js";
 
 /** Configuration is distinct from a verified provider request. Never expose keys. */
 export function optionalIntegrations(
@@ -31,11 +32,12 @@ export function optionalIntegrations(
     {
       name: "Sentry",
       status:
-        !publicDemo && observability && observability.mode !== "disabled"
+        (publicDemo && hostedSentryAvailable()) ||
+        (!publicDemo && observability && observability.mode !== "disabled")
           ? "available"
           : "not_configured",
       detail:
-        "SDK tracing is implemented with an allowlisted transport that excludes client text and secrets. Hosted ingestion requires a confirmed free account; local envelope capture is separate evidence.",
+        "Optional SDK tracing runs inside the isolated Gemma workflow with an allowlisted transport that excludes client text and secrets. A trace ID and SDK flush are separate from dashboard ingestion; configuration requires fresh confirmed-free account evidence.",
     },
     {
       name: "Temporal",
