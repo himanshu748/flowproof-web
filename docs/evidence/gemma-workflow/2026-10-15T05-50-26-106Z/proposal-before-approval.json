@@ -1,0 +1,63 @@
+{
+  "checks": [
+    {
+      "id": "0be423c2-3078-46af-bf28-cdcd776ce193",
+      "requirement": "The homepage must have the heading \"Design that moves business forward.\"",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "486d3c13-9c61-48cd-8008-2b05d4c99470",
+      "requirement": "The page must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "a9316572-1e0c-45ea-a297-aeeb09d07553",
+      "requirement": "A \"Start a project\" link should lead to /contact.",
+      "kind": "manual",
+      "path": "/contact",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "df3baf42-0f01-4506-bbf1-0ecc9d1f2723",
+      "requirement": "All meaningful images need alternative text.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "dcdd3dcb-e82e-42d7-a082-3b69240213fb",
+      "requirement": "The website must not scroll horizontally on a mobile screen.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "mobile",
+      "approved": false
+    },
+    {
+      "id": "be77e3f1-127c-4efb-866c-75b289c7dde8",
+      "requirement": "The design should feel trustworthy and professional.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Deterministic parser",
+    "model": null,
+    "reason": "Local AI was unavailable or returned an invalid plan. These are rule-based draft checks, not AI-generated checks."
+  }
+}

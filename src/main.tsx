@@ -59,6 +59,7 @@ import type {
 } from "../shared/types";
 import "./styles.css";
 import Landing from "./Landing";
+import { AuditComparison } from "./AuditComparison";
 
 type View =
   | "overview"
@@ -1263,7 +1264,7 @@ function App({
                                 </summary>
                                 <div className="check-fields">
                                   <label className="wide">
-                                    Original requirement
+                                    Approved requirement wording
                                     <textarea
                                       value={c.requirement}
                                       onChange={(e) =>
@@ -1633,6 +1634,7 @@ function App({
                                 <p>{audit.summary}</p>
                               </div>
                             )}
+                            <AuditComparison audit={audit} audits={allAudits} />
                             <div className="result-toolbar">
                               <div
                                 className="filter-tabs"

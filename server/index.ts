@@ -25,6 +25,7 @@ import {
 import { renderReport } from "./report";
 import { summarizeAudit } from "./gemma";
 import { createDemoRouter } from "./demo";
+import { snapshotSource } from "../shared/compare-audits";
 
 const publicMode = process.env.FLOWPROOF_PUBLIC === "true";
 const demoMode = publicMode && process.env.FLOWPROOF_DEMO === "true";
@@ -314,6 +315,7 @@ app.post("/api/projects/:id/audits", async (req, res) => {
       .status(409)
       .json({ error: "Another audit is running. Wait for it to finish." });
   running = true;
+  const snapshot = structuredClone(p);
   const a: Audit = {
     id: randomUUID(),
     projectId: p.id,
@@ -322,6 +324,7 @@ app.post("/api/projects/:id/audits", async (req, res) => {
     createdAt: new Date().toISOString(),
     results: [],
     checks: structuredClone(p.checks),
+    source: snapshotSource(snapshot),
   };
   try {
     await saveAudit(a);
@@ -333,7 +336,7 @@ app.post("/api/projects/:id/audits", async (req, res) => {
   void (async () => {
     try {
       await runAudit(
-        p,
+        snapshot,
         a,
         async (result) => {
           a.results.push(result);

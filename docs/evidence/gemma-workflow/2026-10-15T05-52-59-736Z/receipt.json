@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "runId": "2026-10-15T05-52-59-736Z",
+  "startedAt": "2026-10-15T05:52:59.736Z",
+  "status": "failed",
+  "scope": "Synthetic local application-module workflow, not hosted AI or a customer audit",
+  "network": "Only fixed loopback Ollama endpoint; browser uses built-in synthetic pages",
+  "modelCallsLimit": 2,
+  "approval": {
+    "actor": "Explicitly opted-in test harness",
+    "humanApproval": false,
+    "scope": "Only the generated assertions against the built-in synthetic Forma sample",
+    "edits": "Only approved flags are changed; proposed assertion semantics are preserved"
+  },
+  "noRemoteModelCalls": true,
+  "noPaidResources": true,
+  "providerCharge": 0,
+  "humanValidation": false,
+  "interpretationBenchmark": false,
+  "source": {
+    "baseGitCommit": "feb80e40d69fa9fca23b6dd090ef7a6a9f39d5e7",
+    "workingTreeDirty": true,
+    "note": "Per-file hashes identify the executed source even while the working tree is uncommitted",
+    "files": [
+      {
+        "file": "scripts/verify-gemma-workflow.ts",
+        "sha256": "3d533670ecd0c97301bfdb6babc8cef7bdb0b1063a882135bdbe80ba41f421f5"
+      },
+      {
+        "file": "server/generator.ts",
+        "sha256": "7d5b4c6cbad344285461914d319fb1b3b44c78ad82ff5adbc1f43afbdc1198e6"
+      },
+      {
+        "file": "server/gemma.ts",
+        "sha256": "924ec33bb1c924afd33ebf0e2db935e98adc4eeeb3704e39eac341ae48e7df59"
+      },
+      {
+        "file": "server/runner.ts",
+        "sha256": "03c42ac9d7e91fb82a856d131aaa4a472b3045ac67c8588fe3680b4ea9a7d479"
+      },
+      {
+        "file": "server/sample.ts",
+        "sha256": "2987d63b9408a705d3ba6684ba8fa5ffc61c6756659a744fb818c382485453f3"
+      },
+      {
+        "file": "server/report.ts",
+        "sha256": "b9608374496d94b9e08c6c200868be249eb2478c23cb3173642a447db684a67f"
+      },
+      {
+        "file": "server/schema.ts",
+        "sha256": "7ff7194243a362bff4eb0f2f26fb477eccccc77bf00785a1b9b033151b9a249e"
+      },
+      {
+        "file": "server/safety.ts",
+        "sha256": "281ff6244188bc12fb83bf34bd0237847dbbd72282cff744de7d6cc1d58a63c1"
+      },
+      {
+        "file": "shared/types.ts",
+        "sha256": "4900e7777e89525b3d15a583a478806908847d8765988dfe9cadcdf667271e2c"
+      },
+      {
+        "file": "shared/compare-audits.ts",
+        "sha256": "dd08d0c80cabe24f362063db1e5dba0062ecad8f75ba668c1ba124d585033507"
+      },
+      {
+        "file": "package-lock.json",
+        "sha256": "8fdd377bd70a16ced594e1533d1bfcdc61e4757d88b68f8b2ff563c18629ff67"
+      }
+    ]
+  },
+  "model": {
+    "name": "gemma3:4b",
+    "model": "gemma3:4b",
+    "modified_at": "2026-10-02T10:08:45.6132664+05:30",
+    "size": 3338801804,
+    "digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "gemma3",
+      "families": [
+        "gemma3"
+      ],
+      "parameter_size": "4.3B",
+      "quantization_level": "Q4_K_M"
+    },
+    "capabilities": [
+      "completion"
+    ],
+    "ollamaVersion": "0.31.1"
+  },
+  "generationElapsedMs": 60174,
+  "error": "Fallback is not model evidence\n+ actual - expected\n\n+ 'Deterministic parser'\n- 'Ollama (local)'\n",
+  "completedAt": "2026-10-15T05:54:02.256Z",
+  "modelCalls": [
+    {
+      "purpose": "generation",
+      "startedAt": "2026-10-15T05:53:02.063Z",
+      "elapsedMs": 60134,
+      "status": "No complete model response",
+      "error": "TimeoutError: The operation was aborted due to timeout",
+      "promptTokens": null,
+      "completionTokens": null,
+      "tokenSource": "No complete Ollama response; usage cannot be measured"
+    }
+  ],
+  "actualModelCalls": 1
+}

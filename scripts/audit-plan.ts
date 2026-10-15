@@ -5,6 +5,7 @@ import { z } from "zod";
 import { validateChecks } from "../server/schema";
 import { runAudit } from "../server/runner";
 import type { Project, Audit } from "../shared/types";
+import { snapshotSource } from "../shared/compare-audits";
 
 const inputPath = process.argv[2];
 if (!inputPath)
@@ -45,6 +46,7 @@ const audit: Audit = {
   status: "running",
   createdAt: new Date().toISOString(),
   checks: project.checks,
+  source: snapshotSource(project),
   results: [],
 };
 const output = path.resolve("work/ci-audit");

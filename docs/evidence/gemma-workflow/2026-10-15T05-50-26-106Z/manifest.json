@@ -1,0 +1,20 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "file": "brief.txt",
+      "bytes": 326,
+      "sha256": "5dd4fdb9b7cd68a996aebf985961dec4ac4c381d8276fd7cc84926c25988861c"
+    },
+    {
+      "file": "proposal-before-approval.json",
+      "bytes": 2270,
+      "sha256": "17a0584d709efe6c1561cd294a10d593c178fdfe9a75c3b185837ba5ac2498ec"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 3297,
+      "sha256": "7c366da0ddf2800dbcab99f2f956f2e41759c9787f92bd4a3f24caf5127e7651"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "file": "receipt.json",
+      "bytes": 2652,
+      "sha256": "a29345e8c97040f6665f24644e4f42106dbc9df41dfe80aa18ef92391aa97abd"
+    }
+  ]
+}

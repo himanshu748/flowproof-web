@@ -1,0 +1,53 @@
+{
+  "approval": {
+    "actor": "Explicitly opted-in test harness",
+    "humanApproval": false,
+    "scope": "Only the generated assertions against the built-in synthetic Forma sample",
+    "edits": "Only approved flags are changed; proposed assertion semantics are preserved"
+  },
+  "project": {
+    "id": "ab9c6b85-0f92-4546-83ae-73e86d0b78e5",
+    "name": "Forma Studio · local Gemma workflow",
+    "url": "https://sample.flowproof.test/",
+    "target": "sample",
+    "sampleVariant": "healthy",
+    "authorized": true,
+    "brief": "The homepage must show the heading \"Design that moves business forward.\"\nThe page must show \"Independent by design.\"\nA link labeled \"Start a project\" must be visible.",
+    "checks": [
+      {
+        "id": "4bfd83bb-65c5-4c76-8998-83ca00d650c2",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "ed1da97a-8f3c-434d-8882-889b1facb578",
+        "requirement": "The page must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Independent by design.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "c8c415b4-fcc1-45ee-949d-9edd5bd3993e",
+        "requirement": "A link labeled \"Start a project\" must be visible.",
+        "kind": "link",
+        "path": "/",
+        "expected": "Start a project",
+        "viewport": "desktop",
+        "approved": true
+      }
+    ],
+    "createdAt": "2026-10-15T05:56:15.887Z",
+    "updatedAt": "2026-10-15T05:56:15.887Z",
+    "generator": {
+      "provider": "Ollama (local)",
+      "model": "gemma3:4b",
+      "reason": "AI proposals validated against a finite schema. Review and approve every assertion before running."
+    }
+  }
+}

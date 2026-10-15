@@ -461,10 +461,19 @@ export default function Landing({ onOpenDemo, onOpenModel }: LandingProps) {
                     <h3>AI that shows its work.</h3>
                   </div>
                   <p>
-                    A real Tinker baseline and LoRA comparison is saved.
-                    Fine-tuning did not beat few-shot prompting. The public demo
-                    makes no live model calls.
+                    Local Gemma proposed three checks that caught a real sample
+                    failure and its recovery. The full brief timed out. Saved
+                    Tinker results also show the limits: fine-tuning did not beat
+                    few-shot prompting. This demo makes no live model calls.
                   </p>
+                  <a
+                    className="lp-text-link"
+                    href="https://github.com/himanshu748/flowproof-web/blob/main/docs/GEMMA_WORKFLOW.md"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Inspect the Gemma run <ArrowUpRight size={17} />
+                  </a>
                   <button
                     type="button"
                     className="lp-text-link"

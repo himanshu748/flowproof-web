@@ -1,0 +1,25 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "file": "brief.txt",
+      "bytes": 326,
+      "sha256": "5dd4fdb9b7cd68a996aebf985961dec4ac4c381d8276fd7cc84926c25988861c"
+    },
+    {
+      "file": "generation-request.json",
+      "bytes": 3083,
+      "sha256": "ec12b28072128a904862ac2f0ad3327c2b277978453fb1da4b112d4cb7b3caec"
+    },
+    {
+      "file": "proposal-before-approval.json",
+      "bytes": 2270,
+      "sha256": "6ac41fbdf99e680a76f2434deb1730051fd769b375f84c29ba0fe56c244ebb43"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 3672,
+      "sha256": "ba74866a03f65cc38235bf785a6b3b30d2a380b41f9b69cb4f20b4074b1dca9a"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import express from "express";
+import { snapshotSource } from "../shared/compare-audits";
 import { randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -340,6 +341,7 @@ export function createDemoRouter(options: DemoOptions) {
       status: "running",
       createdAt: new Date(now()).toISOString(),
       checks: structuredClone(checks),
+      source: snapshotSource(p),
       results: [],
     };
     // Snapshot before asynchronous execution so edits cannot change an approved run.

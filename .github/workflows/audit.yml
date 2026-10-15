@@ -25,7 +25,7 @@ jobs:
       - name: Offline model provenance and budget safeguards
         run: python3 -m unittest discover -s eval -p 'test_*.py'
       - run: npm run build
-      - name: Real healthy and intentionally broken website audit
+      - name: Real healthy, broken and recovered website audits
         run: npm run audit:sample
       - name: Run approved project checks when provided
         run: |

@@ -54,6 +54,11 @@ export interface Audit {
   completedAt?: string;
   results: CheckResult[];
   checks: Check[];
+  /** Source context captured when this audit starts, absent on older records. */
+  source?: Pick<
+    Project,
+    "brief" | "generator" | "target" | "url" | "sampleVariant"
+  >;
   error?: string;
   summary?: string;
 }

@@ -1,0 +1,77 @@
+{
+  "model": "gemma3:4b",
+  "stream": false,
+  "format": {
+    "type": "object",
+    "properties": {
+      "checks": {
+        "type": "array",
+        "minItems": 6,
+        "maxItems": 6,
+        "items": {
+          "type": "object",
+          "properties": {
+            "requirementIndex": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 23
+            },
+            "kind": {
+              "enum": [
+                "text_visible",
+                "heading",
+                "link",
+                "image_alt",
+                "no_horizontal_overflow",
+                "manual"
+              ]
+            },
+            "path": {
+              "enum": [
+                "/",
+                "/contact"
+              ]
+            },
+            "expected": {
+              "type": "string"
+            },
+            "viewport": {
+              "enum": [
+                "desktop",
+                "mobile"
+              ]
+            }
+          },
+          "required": [
+            "requirementIndex",
+            "kind",
+            "path",
+            "expected",
+            "viewport"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "checks"
+    ],
+    "additionalProperties": false
+  },
+  "think": false,
+  "options": {
+    "temperature": 0,
+    "num_predict": 2048,
+    "num_ctx": 8192
+  },
+  "messages": [
+    {
+      "role": "system",
+      "content": "Convert client website requirements into a JSON object with a checks array. Each check has exactly requirementIndex (zero-based integer from the supplied requirements list), kind, path, expected, viewport. Allowed kind: text_visible, heading, link, image_alt, no_horizontal_overflow, manual. path is a relative path starting /, never a URL. viewport must be exactly the string \"desktop\" or \"mobile\"; mobile means 390px. The text kinds assert exact visible text; expected must be the literal text specified by the client. link checks the visible label of a link, not destination behavior. image_alt checks presence and nonempty alternative text on content images; subjective quality needs manual. no_horizontal_overflow checks scroll width. Use manual for payments, forms, destructive actions, subjective claims, forbidden/negative assertions, missing expected text, unsupported viewport sizes, timing, counts, color, layout or any requirement not fully captured by these predicates. No selectors, scripts, tools, JavaScript or approval flags. Return exactly one proposal per requirementIndex in original order; never omit a requirement. Return JSON only."
+    },
+    {
+      "role": "user",
+      "content": "{\"requirements\":[\"The homepage must have the heading \\\"Design that moves business forward.\\\"\",\"The page must show \\\"Independent by design.\\\"\",\"A \\\"Start a project\\\" link should lead to /contact.\",\"All meaningful images need alternative text.\",\"The website must not scroll horizontally on a mobile screen.\",\"The design should feel trustworthy and professional.\"]}"
+    }
+  ]
+}

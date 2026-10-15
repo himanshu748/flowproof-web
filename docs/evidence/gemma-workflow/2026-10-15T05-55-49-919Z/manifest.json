@@ -1,0 +1,125 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "file": "brief.txt",
+      "bytes": 167,
+      "sha256": "87336afe8155e453a6cc34d377bafca487c7e12c0457afbc9c74d8cbb48b7f97"
+    },
+    {
+      "file": "broken-audit.json",
+      "bytes": 4214,
+      "sha256": "2f398c341ba0792566b407f141e06ba181deab410f6ff5f54dfef09c9870249d"
+    },
+    {
+      "file": "broken-report.html",
+      "bytes": 387099,
+      "sha256": "848ddad1cb55d0072ff0167e0fe4af841418f345f0a9c2d8d4acdd7a90f86cd4"
+    },
+    {
+      "file": "comparisons.json",
+      "bytes": 2124,
+      "sha256": "facab750f524e32dac1c40bf85f3d1dbac7f50ae552394cc3e40c334478ce8b2"
+    },
+    {
+      "file": "evidence/60759e29-44ba-4424-8304-9ece1a189b4f/01-4bfd83bb-65c5-4c76-8998-83ca00d650c2.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/60759e29-44ba-4424-8304-9ece1a189b4f/02-ed1da97a-8f3c-434d-8882-889b1facb578.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/60759e29-44ba-4424-8304-9ece1a189b4f/03-c8c415b4-fcc1-45ee-949d-9edd5bd3993e.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/a1dfe40d-a65b-4cdc-a096-12552093530b/01-4bfd83bb-65c5-4c76-8998-83ca00d650c2.png",
+      "bytes": 94861,
+      "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+    },
+    {
+      "file": "evidence/a1dfe40d-a65b-4cdc-a096-12552093530b/02-ed1da97a-8f3c-434d-8882-889b1facb578.png",
+      "bytes": 94861,
+      "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+    },
+    {
+      "file": "evidence/a1dfe40d-a65b-4cdc-a096-12552093530b/03-c8c415b4-fcc1-45ee-949d-9edd5bd3993e.png",
+      "bytes": 94861,
+      "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+    },
+    {
+      "file": "evidence/d1edea13-5e7b-438a-bb0b-672261353af3/01-4bfd83bb-65c5-4c76-8998-83ca00d650c2.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/d1edea13-5e7b-438a-bb0b-672261353af3/02-ed1da97a-8f3c-434d-8882-889b1facb578.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "evidence/d1edea13-5e7b-438a-bb0b-672261353af3/03-c8c415b4-fcc1-45ee-949d-9edd5bd3993e.png",
+      "bytes": 106216,
+      "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+    },
+    {
+      "file": "explanation-raw-response.json",
+      "bytes": 545,
+      "sha256": "7bc7c2f2a93686714a813ef43ecb79cd0f554ac83db98fd9b2c6b97da4427e38"
+    },
+    {
+      "file": "explanation-request.json",
+      "bytes": 1744,
+      "sha256": "2524a8ae5a0b00a78626f15b2d87bc1df68fb677d40940fbe783576d4a186613"
+    },
+    {
+      "file": "generation-raw-response.json",
+      "bytes": 883,
+      "sha256": "deea73f6ddab0ebbaa631a6913af01dde698a4a80c895120242dcc6d600c4af1"
+    },
+    {
+      "file": "generation-request.json",
+      "bytes": 2884,
+      "sha256": "e74a30f6dd57a0836f404eb46d3c80c2c93f33618f530ea68a5ccc3caccff226"
+    },
+    {
+      "file": "harness-approved-plan.json",
+      "bytes": 1960,
+      "sha256": "136e294663ca0c420003fa242325a62ddf3af2e8daffca43ffb5c7201e0ef69a"
+    },
+    {
+      "file": "healthy-audit.json",
+      "bytes": 3915,
+      "sha256": "401f2eeebff7e285e51b61b1214d027e18ae789ea5aa55ad42ec9d6ed3bfdf1f"
+    },
+    {
+      "file": "healthy-report.html",
+      "bytes": 432222,
+      "sha256": "48a0b4498ae86a50e13d0a8516eae1996d7e7a32bf6051282ef1e68a7481c24d"
+    },
+    {
+      "file": "proposal-before-approval.json",
+      "bytes": 1089,
+      "sha256": "c81573030f706c95c769ae31e49d4afeb123d7b72acaeb4f0e294afc9bbb71f2"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 7577,
+      "sha256": "5227b6014d750f651aa82c0b82dba00e481171b832d2cc8e03ab6e9ca24d0f27"
+    },
+    {
+      "file": "recovered-audit.json",
+      "bytes": 3915,
+      "sha256": "b9b7200a3a4174e40a7659bbc0bf3b2e7a205a5bc69cfebfb06bd7603dfb3332"
+    },
+    {
+      "file": "recovered-report.html",
+      "bytes": 432224,
+      "sha256": "461805a4068df85d9e66c0dc1b4f50b3653e9be7587c5708a296a5989661b706"
+    }
+  ]
+}

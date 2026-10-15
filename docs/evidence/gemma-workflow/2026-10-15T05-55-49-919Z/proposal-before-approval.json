@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "id": "4bfd83bb-65c5-4c76-8998-83ca00d650c2",
+      "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "ed1da97a-8f3c-434d-8882-889b1facb578",
+      "requirement": "The page must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "c8c415b4-fcc1-45ee-949d-9edd5bd3993e",
+      "requirement": "A link labeled \"Start a project\" must be visible.",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Ollama (local)",
+    "model": "gemma3:4b",
+    "reason": "AI proposals validated against a finite schema. Review and approve every assertion before running."
+  }
+}

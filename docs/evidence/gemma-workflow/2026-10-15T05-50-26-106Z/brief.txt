@@ -1,0 +1,6 @@
+The homepage must have the heading "Design that moves business forward."
+The page must show "Independent by design."
+A "Start a project" link should lead to /contact.
+All meaningful images need alternative text.
+The website must not scroll horizontally on a mobile screen.
+The design should feel trustworthy and professional.

@@ -9,6 +9,7 @@ import type { Bootstrap, Project, Audit } from "../shared/types";
 import { createDemoRouter } from "../server/demo";
 import { runAudit } from "../server/runner";
 import { getEvaluation } from "../server/evaluation";
+import { compareAudits } from "../shared/compare-audits";
 
 const cleanups: (() => Promise<void>)[] = [];
 afterEach(async () => {
@@ -263,6 +264,23 @@ describe("isolated tokenless public demo", () => {
     ).json();
     const broken = await h.completed(brokenStart.id, a.cookie);
     expect(broken.results.filter((r) => r.status === "failed")).toHaveLength(3);
+    expect(healthy.source).toMatchObject({
+      brief: a.project.brief,
+      sampleVariant: "healthy",
+      generator: a.project.generator,
+    });
+    expect(broken.source?.sampleVariant).toBe("broken");
+    expect(compareAudits(broken, healthy).counts).toMatchObject({
+      regressed: 3,
+      unchanged: 2,
+      unknown: 1,
+    });
+    await h.request(`/api/projects/${a.project.id}/generate`, a.cookie, {
+      brief: 'The page must show "A later client revision".',
+    });
+    const savedHealthy = await h.completed(healthy.id, a.cookie);
+    expect(savedHealthy.source).toEqual(healthy.source);
+    expect(savedHealthy.checks).toEqual(healthy.checks);
     const failures = await (await h.request("/api/failures", a.cookie)).json();
     expect(failures.results).toHaveLength(3);
     expect(

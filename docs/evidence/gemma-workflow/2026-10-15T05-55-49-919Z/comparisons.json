@@ -1,0 +1,76 @@
+{
+  "regressions": {
+    "comparable": true,
+    "reason": null,
+    "rows": [
+      {
+        "checkId": "4bfd83bb-65c5-4c76-8998-83ca00d650c2",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "previousStatus": "passed",
+        "currentStatus": "failed",
+        "change": "regressed"
+      },
+      {
+        "checkId": "ed1da97a-8f3c-434d-8882-889b1facb578",
+        "requirement": "The page must show \"Independent by design.\"",
+        "previousStatus": "passed",
+        "currentStatus": "passed",
+        "change": "unchanged"
+      },
+      {
+        "checkId": "c8c415b4-fcc1-45ee-949d-9edd5bd3993e",
+        "requirement": "A link labeled \"Start a project\" must be visible.",
+        "previousStatus": "passed",
+        "currentStatus": "passed",
+        "change": "unchanged"
+      }
+    ],
+    "counts": {
+      "regressed": 1,
+      "recovered": 0,
+      "still_failing": 0,
+      "unchanged": 2,
+      "unknown": 0,
+      "changed": 0,
+      "added": 0,
+      "removed": 0
+    }
+  },
+  "recoveries": {
+    "comparable": true,
+    "reason": null,
+    "rows": [
+      {
+        "checkId": "4bfd83bb-65c5-4c76-8998-83ca00d650c2",
+        "requirement": "The homepage must show the heading \"Design that moves business forward.\"",
+        "previousStatus": "failed",
+        "currentStatus": "passed",
+        "change": "recovered"
+      },
+      {
+        "checkId": "ed1da97a-8f3c-434d-8882-889b1facb578",
+        "requirement": "The page must show \"Independent by design.\"",
+        "previousStatus": "passed",
+        "currentStatus": "passed",
+        "change": "unchanged"
+      },
+      {
+        "checkId": "c8c415b4-fcc1-45ee-949d-9edd5bd3993e",
+        "requirement": "A link labeled \"Start a project\" must be visible.",
+        "previousStatus": "passed",
+        "currentStatus": "passed",
+        "change": "unchanged"
+      }
+    ],
+    "counts": {
+      "regressed": 0,
+      "recovered": 1,
+      "still_failing": 0,
+      "unchanged": 2,
+      "unknown": 0,
+      "changed": 0,
+      "added": 0,
+      "removed": 0
+    }
+  }
+}
