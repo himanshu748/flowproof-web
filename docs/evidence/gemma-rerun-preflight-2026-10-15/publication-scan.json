@@ -1,0 +1,106 @@
+{
+  "scope": "Known-pattern scan of complete staged text blobs; no history scan. Twelve binary screenshot files were omitted by the scanner.",
+  "findings": 0,
+  "binaryOmissions": 12,
+  "binaryReview": "All omitted files are verified PNG/JPEG captures from the fixed public homepage or its Briefstamp public-demo workspace; not credential/account-console captures. Image dimensions/formats checked; no claim of arbitrary binary-secret detection.",
+  "images": [
+    {
+      "path": "in-app-browser-result.jpg",
+      "format": "JPEG",
+      "width": 512,
+      "height": 827,
+      "exifTagCount": 0,
+      "sha256": "b57e10f0ce0b4620d48ca7fda58ea297c039ee19c27b1df86810710200bc73c9"
+    },
+    {
+      "path": "in-app-gemma-proposal.jpg",
+      "format": "JPEG",
+      "width": 512,
+      "height": 2724,
+      "exifTagCount": 0,
+      "sha256": "838088e838cd22a951d1600bc5aade8cbcd73167961920c1b5a8d8deae9ed240"
+    },
+    {
+      "path": "live-1-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-2-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-3-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-4-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-5-screenshot.png",
+      "format": "PNG",
+      "width": 390,
+      "height": 844,
+      "exifTagCount": 0,
+      "sha256": "135752bf5430f49e655955be15e9d649c8c9a503b5a65a301a43c04377b41c3d"
+    },
+    {
+      "path": "negative-control-1-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-2-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-3-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-4-screenshot.png",
+      "format": "PNG",
+      "width": 1365,
+      "height": 900,
+      "exifTagCount": 0,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-5-screenshot.png",
+      "format": "PNG",
+      "width": 390,
+      "height": 844,
+      "exifTagCount": 0,
+      "sha256": "135752bf5430f49e655955be15e9d649c8c9a503b5a65a301a43c04377b41c3d"
+    }
+  ],
+  "scannerExitCode": 2,
+  "scannerVerdict": "Incomplete for binary screenshots; zero known-pattern findings in staged text. Image format/provenance review is separate, not arbitrary binary-secret detection."
+}

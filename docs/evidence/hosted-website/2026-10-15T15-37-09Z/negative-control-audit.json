@@ -1,0 +1,221 @@
+{
+  "id": "5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+  "projectId": "2accbbf8-9ec4-4512-af2e-7380e4045314",
+  "projectName": "Briefstamp live website",
+  "status": "completed",
+  "createdAt": "2026-10-15T15:38:21.520Z",
+  "completedAt": "2026-10-15T15:38:43.616Z",
+  "checks": [
+    {
+      "id": "28098245-c778-45fa-94d7-3350e5b18b27",
+      "requirement": "Negative control: the homepage heading must say \"Briefstamp negative control: this heading is intentionally absent\".",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Briefstamp negative control: this heading is intentionally absent",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "37b5acbf-e4c8-4499-bd45-2e2efd96a3b9",
+      "requirement": "The homepage must show \"Website delivery, with receipts\".",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Website delivery, with receipts",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "db677b7c-05ab-42ce-9193-2d0b69248105",
+      "requirement": "A link must say \"See the proof\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "See the proof",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "ba702db1-2720-4b73-a88e-eea39f7da4ec",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "9cb5e666-5e02-4fba-b638-32f762f12ad4",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    },
+    {
+      "id": "4e0e5e96-15c9-4c40-b78f-fec715b1430e",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "summary": "4 passed, 1 failed, 0 blocked, 1 unverified. Real Chromium observations of the owner-authorized live website. Checks proposed by Google Gemma (live API) (gemma-4-26b-a4b-it) and reviewed by the visitor. Models do not assign test outcomes.",
+  "source": {
+    "target": "website",
+    "url": "https://flowproof-demo.onrender.com/",
+    "sampleVariant": "healthy",
+    "brief": "The homepage heading must say \"Send the site. Show the proof.\"\nThe homepage must show \"Website delivery, with receipts\".\nA link must say \"See the proof\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe site should feel welcoming and trustworthy.",
+    "generator": {
+      "provider": "Google Gemma (live API)",
+      "model": "gemma-4-26b-a4b-it",
+      "reason": "Fresh Gemma proposal for the owner-authorized live homepage brief, validated by the server. 7488 ms. 389 input / 296 output tokens. Generated and validated in a real isolated Mastra workflow. Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check.",
+      "usage": {
+        "promptTokens": 389,
+        "completionTokens": 296,
+        "totalTokens": 685
+      },
+      "attempts": [
+        {
+          "index": 1,
+          "status": 200,
+          "durationMs": 7406,
+          "requestBytes": 2153,
+          "retryDelayMs": 0,
+          "usage": {
+            "promptTokens": 389,
+            "completionTokens": 296,
+            "totalTokens": 685
+          },
+          "providerStatus": null
+        }
+      ],
+      "orchestration": {
+        "provider": "Mastra",
+        "workflowId": "briefstamp-public-gemma",
+        "runId": "4d4d5fbc-4e12-4d5e-822f-c0446176d510",
+        "steps": [
+          "generate-google-gemma",
+          "validate-indexed-proposal"
+        ],
+        "maxRssMiB": 179.56,
+        "telemetry": {
+          "provider": "Sentry",
+          "mode": "hosted_configured",
+          "traceId": "70ef2a9b80da4b60bd4bc104ed1ec823",
+          "flushed": true,
+          "ingestionVerified": false
+        }
+      }
+    }
+  },
+  "results": [
+    {
+      "checkId": "28098245-c778-45fa-94d7-3350e5b18b27",
+      "requirement": "Negative control: the homepage heading must say \"Briefstamp negative control: this heading is intentionally absent\".",
+      "expected": "Briefstamp negative control: this heading is intentionally absent",
+      "kind": "heading",
+      "status": "failed",
+      "durationMs": 4999,
+      "evidence": {
+        "observed": "No visible heading exactly matches the expected text.",
+        "dom": "Send the site.\nShow the proof.\nClose the loop.\nNot another tab.\nMake the brief testable.\nLet the browser verify it.\nDeliver the whole story.\nThe difference\nis in the evidence.\nHonest software.\nIncluding the small print.\nReal checks. Real reports.\nAI that shows its work.\nPersistence, tested honestly.\nGood questions.\nClear answers.\nGood work deserves\na better handoff.",
+        "url": "https://flowproof-demo.onrender.com/",
+        "screenshot": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/01-28098245-c778-45fa-94d7-3350e5b18b27.png",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "37b5acbf-e4c8-4499-bd45-2e2efd96a3b9",
+      "requirement": "The homepage must show \"Website delivery, with receipts\".",
+      "expected": "Website delivery, with receipts",
+      "kind": "text_visible",
+      "status": "passed",
+      "durationMs": 4400,
+      "evidence": {
+        "observed": "The expected text is visible on the page.",
+        "dom": "WEBSITE DELIVERY, WITH RECEIPTS",
+        "url": "https://flowproof-demo.onrender.com/",
+        "screenshot": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/02-37b5acbf-e4c8-4499-bd45-2e2efd96a3b9.png",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "db677b7c-05ab-42ce-9193-2d0b69248105",
+      "requirement": "A link must say \"See the proof\".",
+      "expected": "See the proof",
+      "kind": "link",
+      "status": "passed",
+      "durationMs": 4006,
+      "evidence": {
+        "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+        "dom": "See the proof → #the-proof",
+        "url": "https://flowproof-demo.onrender.com/",
+        "screenshot": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/03-db677b7c-05ab-42ce-9193-2d0b69248105.png",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "ba702db1-2720-4b73-a88e-eea39f7da4ec",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "kind": "image_alt",
+      "status": "passed",
+      "durationMs": 4097,
+      "evidence": {
+        "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+        "dom": "Image 1: Concept illustration of a website delivery report with its evidence attached.",
+        "url": "https://flowproof-demo.onrender.com/",
+        "screenshot": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/04-ba702db1-2720-4b73-a88e-eea39f7da4ec.png",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "9cb5e666-5e02-4fba-b638-32f762f12ad4",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "expected": "No horizontal scrolling",
+      "kind": "no_horizontal_overflow",
+      "status": "passed",
+      "durationMs": 3597,
+      "evidence": {
+        "observed": "Document width is 390px; viewport width is 390px.",
+        "dom": "document.scrollWidth=390; window.innerWidth=390",
+        "url": "https://flowproof-demo.onrender.com/",
+        "screenshot": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/05-9cb5e666-5e02-4fba-b638-32f762f12ad4.png",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    },
+    {
+      "checkId": "4e0e5e96-15c9-4c40-b78f-fec715b1430e",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "kind": "manual",
+      "status": "unverified",
+      "durationMs": 0,
+      "evidence": {
+        "observed": "This requirement needs a human decision. No automated assertion was executed.",
+        "url": "https://flowproof-demo.onrender.com/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ]
+}

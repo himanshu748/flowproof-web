@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-10-15T15:44:14.210696+00:00",
+  "scope": "One retry only for the three public GitHub URLs that timed out in the final documentation check. Original timeouts retained.",
+  "initialCheck": {
+    "files": 32,
+    "localLinks": 298,
+    "missing": [],
+    "remoteLinks": 67,
+    "failures": [
+      {
+        "url": "https://github.com/entireio/cli/releases/tag/v0.11.4",
+        "status": null,
+        "error": "TimeoutError",
+        "references": [
+          "docs/ENTIRE.md"
+        ]
+      },
+      {
+        "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38564166138",
+        "status": null,
+        "error": "TimeoutError",
+        "references": [
+          "docs/DEPLOYMENT.md"
+        ]
+      },
+      {
+        "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38580708979",
+        "status": null,
+        "error": "TimeoutError",
+        "references": [
+          "docs/DEPLOYMENT.md"
+        ]
+      }
+    ]
+  },
+  "retries": [
+    {
+      "url": "https://github.com/entireio/cli/releases/tag/v0.11.4",
+      "initialStatus": null,
+      "initialError": "TimeoutError",
+      "status": 200,
+      "finalUrl": "https://github.com/entireio/cli/releases/tag/v0.11.4"
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38564166138",
+      "initialStatus": null,
+      "initialError": "TimeoutError",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38564166138"
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38580708979",
+      "initialStatus": null,
+      "initialError": "TimeoutError",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38580708979"
+    }
+  ]
+}

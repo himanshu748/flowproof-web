@@ -1,0 +1,463 @@
+{
+  "startedAt": "2026-10-15T15:37:09.525Z",
+  "completedAt": "2026-10-15T15:39:02.136Z",
+  "status": "verified",
+  "origin": "https://flowproof-demo.onrender.com",
+  "modelRequests": 1,
+  "provider": "Google Gemini API",
+  "model": "gemma-4-26b-a4b-it",
+  "modelAttempts": [
+    {
+      "index": 1,
+      "status": 200,
+      "durationMs": 7406,
+      "requestBytes": 2153,
+      "retryDelayMs": 0,
+      "usage": {
+        "promptTokens": 389,
+        "completionTokens": 296,
+        "totalTokens": 685
+      },
+      "providerStatus": null
+    }
+  ],
+  "reportedUsage": {
+    "promptTokens": 389,
+    "completionTokens": 296,
+    "totalTokens": 685
+  },
+  "sentry": {
+    "provider": "Mastra",
+    "workflowId": "briefstamp-public-gemma",
+    "runId": "4d4d5fbc-4e12-4d5e-822f-c0446176d510",
+    "steps": [
+      "generate-google-gemma",
+      "validate-indexed-proposal"
+    ],
+    "maxRssMiB": 179.56,
+    "telemetry": {
+      "provider": "Sentry",
+      "mode": "hosted_configured",
+      "traceId": "70ef2a9b80da4b60bd4bc104ed1ec823",
+      "flushed": true,
+      "ingestionVerified": false
+    }
+  },
+  "generationMode": "live-gemma",
+  "scope": "Agent verification of the real owner-authorized Briefstamp homepage, not a client website or customer validation. The negative control changes only its approved expectation, never the deployed website.",
+  "approval": {
+    "actor": "agent verification harness",
+    "humanApproval": false
+  },
+  "billingChanges": 0,
+  "otherWebsiteTargets": 0,
+  "calls": [
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/target-presets",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/generate-gemma",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/audits",
+      "method": "POST",
+      "status": 409
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/79fb32ba-8af2-45e9-8adf-4059749ae746/01-28098245-c778-45fa-94d7-3350e5b18b27.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/79fb32ba-8af2-45e9-8adf-4059749ae746/02-37b5acbf-e4c8-4499-bd45-2e2efd96a3b9.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/79fb32ba-8af2-45e9-8adf-4059749ae746/03-db677b7c-05ab-42ce-9193-2d0b69248105.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/79fb32ba-8af2-45e9-8adf-4059749ae746/04-ba702db1-2720-4b73-a88e-eea39f7da4ec.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/79fb32ba-8af2-45e9-8adf-4059749ae746/05-9cb5e666-5e02-4fba-b638-32f762f12ad4.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746/report",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/79fb32ba-8af2-45e9-8adf-4059749ae746/report",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/01-28098245-c778-45fa-94d7-3350e5b18b27.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/02-37b5acbf-e4c8-4499-bd45-2e2efd96a3b9.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/03-db677b7c-05ab-42ce-9193-2d0b69248105.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/04-ba702db1-2720-4b73-a88e-eea39f7da4ec.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/5b0966c0-6a2a-4389-8f10-b78a0a721a68/05-9cb5e666-5e02-4fba-b638-32f762f12ad4.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68/report",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/5b0966c0-6a2a-4389-8f10-b78a0a721a68/report",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/failures?q=heading&projectId=2accbbf8-9ec4-4512-af2e-7380e4045314",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/failures?q=heading&projectId=2accbbf8-9ec4-4512-af2e-7380e4045314",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/projects/2accbbf8-9ec4-4512-af2e-7380e4045314/checks",
+      "method": "PUT",
+      "status": 200
+    }
+  ],
+  "audits": [
+    {
+      "id": "79fb32ba-8af2-45e9-8adf-4059749ae746",
+      "variant": "live",
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1,
+      "tigerRead": "verified",
+      "jsonRoundTripEqual": true,
+      "screenshots": 5
+    },
+    {
+      "id": "5b0966c0-6a2a-4389-8f10-b78a0a721a68",
+      "variant": "negative-control",
+      "passed": 4,
+      "failed": 1,
+      "blocked": 0,
+      "unverified": 1,
+      "tigerRead": "verified",
+      "jsonRoundTripEqual": true,
+      "screenshots": 5
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "gemma-project.json",
+      "bytes": 3911,
+      "sha256": "3042a0d63136e04e6e04932afe3b5b99f85bab2435dec2dac8933ef6cdd3942d"
+    },
+    {
+      "path": "live-audit.json",
+      "bytes": 8884,
+      "sha256": "239d8cf942b91a32abe581918307584fbfcc24b2f1b4f3e5d5bc21667960151b"
+    },
+    {
+      "path": "live-1-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-2-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-3-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-4-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-5-screenshot.png",
+      "bytes": 150306,
+      "sha256": "135752bf5430f49e655955be15e9d649c8c9a503b5a65a301a43c04377b41c3d"
+    },
+    {
+      "path": "live-report.html",
+      "bytes": 2249863,
+      "sha256": "b8eefc89f033ec070242b569f73d14b9d5c77432fd3df777e6251164ebcdbd1c"
+    },
+    {
+      "path": "negative-control-audit.json",
+      "bytes": 9083,
+      "sha256": "cb05e0a3f2ec33e7762bb9807ef02d62683bb6bbd6c8dc629044ffb0f153540d"
+    },
+    {
+      "path": "negative-control-1-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-2-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-3-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-4-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-5-screenshot.png",
+      "bytes": 150306,
+      "sha256": "135752bf5430f49e655955be15e9d649c8c9a503b5a65a301a43c04377b41c3d"
+    },
+    {
+      "path": "negative-control-report.html",
+      "bytes": 2250027,
+      "sha256": "da7f326505e10ff7be45fc88d44da6460a79a2514936644becfae8d995c255ff"
+    },
+    {
+      "path": "tiger-lexical.json",
+      "bytes": 571,
+      "sha256": "a1e372bdc42508860bd06177e060df218cc9c7fc92bd610418a300e23cbd941f"
+    }
+  ],
+  "error": ""
+}

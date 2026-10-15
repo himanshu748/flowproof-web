@@ -10,11 +10,11 @@ Freelancers deliver websites, then spend more time proving that the agreed work 
 
 YouTube: `YOUTUBE_URL` (author upload pending; MP4 backup above).
 
-The live, owner-authorized Briefstamp homepage passed five checks with one subjective requirement unverified. Changing only the heading expectation produced a real failure. Both audits were saved and read back through Tiger over verified TLS. This live-site run used explicitly labelled deterministic checks.
+The live, owner-authorized Briefstamp homepage passed five checks with one subjective requirement unverified. Changing only the heading expectation produced a real failure. Both audits were saved and read back through Tiger over verified TLS. This new live-site run used a real Google-hosted Gemma proposal through Mastra, followed by explicit verifier approval. [Receipt](evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json).
 
-Separately, the same approved CI fixture plan recorded five passes, then four failures after controlled breakage, then five passes after restoration. Its manual judgment stayed unverified. Verification passed 452 application tests, 19 Python tests and a production build.
+Separately, the same approved CI fixture plan recorded five passes, then four failures after controlled breakage, then five passes after restoration. Its manual judgment stayed unverified. Verification passed 476 application tests, 19 Python tests and a production build.
 
-Gemma/Mastra generation, a Sentry dashboard trace, protected Tinker inference, Backboard memory and Temporal CI recovery have dated receipts. Frozen Tinker evaluation used 69.55% fewer input tokens with LoRA, but reference agreement fell from 23/24 to 22/24. New live-site Gemma attempts failed upstream; earlier success is not presented as current availability.
+Gemma/Mastra generation, a Sentry dashboard trace, protected Tinker inference, Backboard memory and Temporal CI recovery have dated receipts. Frozen Tinker evaluation used 69.55% fewer input tokens with LoRA, but reference agreement fell from 23/24 to 22/24. Historical provider and validation failures remain documented. The new Sentry trace ID is retained; its dashboard ingestion is unverified.
 
 Public targets are limited, page scripts are disabled, and credit-funded services have explicit expiry and budget boundaries. No customer feedback, human dataset validation or all-sponsor completion is claimed.
 

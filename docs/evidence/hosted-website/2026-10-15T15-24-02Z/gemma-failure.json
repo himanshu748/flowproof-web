@@ -1,0 +1,23 @@
+{
+  "error": "Gemma or its free-pricing check was unavailable, or the proposal failed validation. The current plan is unchanged. No AI success is claimed.",
+  "provider": "Google Gemini API",
+  "model": "gemma-4-26b-a4b-it",
+  "failure": {
+    "code": "invalid_plan",
+    "attempts": [
+      {
+        "index": 1,
+        "status": 200,
+        "durationMs": 7601,
+        "requestBytes": 1928,
+        "retryDelayMs": 0,
+        "usage": {
+          "promptTokens": 338,
+          "completionTokens": 306,
+          "totalTokens": 644
+        },
+        "providerStatus": null
+      }
+    ]
+  }
+}

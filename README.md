@@ -37,9 +37,9 @@ flowchart LR
 | CI fixture: broken | **1 passed / 4 failed / 1 unverified** | [Same approved plan](docs/evidence/ci-regression-2026-10-15.json) |
 | CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
 | Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
-| Verification | **452 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/presentation-release-2026-10-15/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38748213339) |
+| Verification | **476 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/gemma-rerun-preflight-2026-10-15/contract-ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38760611627) |
 
-The live homepage separately passed five checks; a deliberately wrong heading expectation failed. Both audits round-tripped through Tiger. [Live-site receipt](docs/evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json).
+Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 unverified**; its wrong-heading control recorded **4 / 1 / 1**. Both audits round-tripped through Tiger. [Real model-to-browser receipt](docs/evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json).
 
 ## Integrations with receipts
 
@@ -47,7 +47,7 @@ The live homepage separately passed five checks; a deliberately wrong heading ex
 - **Mastra:** two actual workflow steps generated and validated that proposal. [Proof](docs/PUBLIC_GEMMA.md).
 - **Tinker:** real baseline/LoRA evaluation and one protected hosted proposal. [Proof](docs/HOSTED_TINKER.md).
 - **Tiger Data:** strict-TLS audit persistence, matching reads and scoped lexical retrieval. [Proof](docs/TIGER_VERIFICATION.md).
-- **Sentry:** the hosted proposal’s three spans were independently found in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
+- **Sentry:** an earlier proposal’s three spans were independently found in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** one protected hosted write/search recovered all six audit facts. [Proof](docs/BACKBOARD_VERIFICATION.md).
 - **Temporal:** a hosted CI restart retained the same workflow/run and one browser execution. [Proof](docs/TEMPORAL.md).
 
@@ -64,9 +64,9 @@ Open http://127.0.0.1:5173. The default sample needs no paid account. [Configura
 ## Limitations
 
 - Public targets are the owned homepage and sample; scripts are disabled. The public sample’s plan yields three failures, versus four in the CI fixture.
-- Current live-site proof used labelled templates after Gemma failed upstream HTTP 500. Earlier AI success is separately dated.
+- The video uses labelled templates. Earlier provider and validation failures remain in the [Gemma diagnosis](docs/GEMMA_LIVE_SITE.md); a dated success is no uptime guarantee.
 - Tinker used fewer tokens with lower reference agreement; the dataset has no human-validated examples.
-- Credit-funded services expire. Tiger stores image references only; operator budgets and visitor sessions are bounded.
+- Credit-funded services expire. Tiger stores image references only; budgets and sessions are bounded. New Sentry trace ingestion is unverified.
 - No customer acceptance or all-sponsor completion is claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
 
 ## AI disclosure

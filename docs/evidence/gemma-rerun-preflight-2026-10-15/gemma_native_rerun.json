@@ -1,0 +1,28 @@
+{
+  "startedAt": "2026-10-15T15:00:20.292Z",
+  "scope": "Native diagnostic using only the fixed public homepage brief; no browser audit, no paid resource or private input.",
+  "maxAttempts": 3,
+  "provider": "Google Gemini API",
+  "model": "gemma-4-26b-a4b-it",
+  "pricing": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-15T15:00:24.400Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+  },
+  "status": "failed",
+  "failure": {
+    "code": "request_timeout",
+    "attempts": [
+      {
+        "index": 1,
+        "status": null,
+        "durationMs": 30003,
+        "requestBytes": 1928,
+        "retryDelayMs": 0,
+        "usage": null,
+        "providerStatus": null
+      }
+    ]
+  },
+  "completedAt": "2026-10-15T15:00:54.406Z"
+}

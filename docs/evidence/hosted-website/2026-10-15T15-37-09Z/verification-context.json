@@ -1,0 +1,18 @@
+{
+  "sourceCommit": "2e3c3397ea5a594ecb329f7b52ef373fe1049161",
+  "deployment": "dep-db8f3bdg1s2s73a2jgog",
+  "deployedAt": "2026-10-15T15:32:37.055204Z",
+  "ci": "https://github.com/himanshu748/flowproof-web/actions/runs/38760611627",
+  "scope": "Receipt is an agent verifier run on the real owner-authorized public homepage; changing the expectation does not change or break the website.",
+  "sentryTraceId": "70ef2a9b80da4b60bd4bc104ed1ec823",
+  "sentryFlushed": true,
+  "sentryDashboardIngestionVerified": false,
+  "billingChanges": 0,
+  "providerAttemptCount": 1,
+  "knownUsage": {
+    "promptTokens": 389,
+    "completionTokens": 296,
+    "totalTokens": 685
+  },
+  "artifactScope": "Only fixed public homepage text and browser evidence; no cookie, key, provider thoughts or private client data."
+}

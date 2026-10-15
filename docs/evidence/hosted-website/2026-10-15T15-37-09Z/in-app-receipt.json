@@ -1,0 +1,36 @@
+{
+  "observedAt": "2026-10-15T15:36:51.734Z",
+  "sourceCommit": "2e3c3397ea5a594ecb329f7b52ef373fe1049161",
+  "scope": "Separate real in-app browser CUA flow; agent approval, not customer or human validation. No response was simulated.",
+  "provider": "Google Gemini API",
+  "model": "gemma-4-26b-a4b-it",
+  "reportedInputTokens": 389,
+  "reportedOutputTokens": 296,
+  "auditSuffix": "7b0a12ea",
+  "results": {
+    "passed": 5,
+    "failed": 0,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "tiger": "UI explicitly confirmed audit saved; exact JSON round-trip is separately verified by receipt.json",
+  "reportDownloaded": true,
+  "humanApproval": false,
+  "artifacts": [
+    {
+      "path": "in-app-gemma-proposal.jpg",
+      "bytes": 158902,
+      "sha256": "838088e838cd22a951d1600bc5aade8cbcd73167961920c1b5a8d8deae9ed240"
+    },
+    {
+      "path": "in-app-browser-result.jpg",
+      "bytes": 49834,
+      "sha256": "b57e10f0ce0b4620d48ca7fda58ea297c039ee19c27b1df86810710200bc73c9"
+    },
+    {
+      "path": "in-app-downloaded-report.html",
+      "bytes": 2249864,
+      "sha256": "22d29ccc3bbcf280dde9b070f582d10f314401e421155ee39e7ebb33e0eaff50"
+    }
+  ]
+}

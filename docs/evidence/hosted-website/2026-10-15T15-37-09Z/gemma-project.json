@@ -1,0 +1,109 @@
+{
+  "id": "2accbbf8-9ec4-4512-af2e-7380e4045314",
+  "name": "Briefstamp live website",
+  "brief": "The homepage heading must say \"Send the site. Show the proof.\"\nThe homepage must show \"Website delivery, with receipts\".\nA link must say \"See the proof\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe site should feel welcoming and trustworthy.",
+  "target": "website",
+  "url": "https://flowproof-demo.onrender.com/",
+  "sampleVariant": "healthy",
+  "authorized": true,
+  "checks": [
+    {
+      "id": "28098245-c778-45fa-94d7-3350e5b18b27",
+      "requirement": "The homepage heading must say \"Send the site. Show the proof.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Send the site. Show the proof.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "37b5acbf-e4c8-4499-bd45-2e2efd96a3b9",
+      "requirement": "The homepage must show \"Website delivery, with receipts\".",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Website delivery, with receipts",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "db677b7c-05ab-42ce-9193-2d0b69248105",
+      "requirement": "A link must say \"See the proof\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "See the proof",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "ba702db1-2720-4b73-a88e-eea39f7da4ec",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "9cb5e666-5e02-4fba-b638-32f762f12ad4",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": false
+    },
+    {
+      "id": "4e0e5e96-15c9-4c40-b78f-fec715b1430e",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Google Gemma (live API)",
+    "model": "gemma-4-26b-a4b-it",
+    "usage": {
+      "promptTokens": 389,
+      "completionTokens": 296,
+      "totalTokens": 685
+    },
+    "attempts": [
+      {
+        "index": 1,
+        "status": 200,
+        "durationMs": 7406,
+        "requestBytes": 2153,
+        "retryDelayMs": 0,
+        "usage": {
+          "promptTokens": 389,
+          "completionTokens": 296,
+          "totalTokens": 685
+        },
+        "providerStatus": null
+      }
+    ],
+    "orchestration": {
+      "provider": "Mastra",
+      "workflowId": "briefstamp-public-gemma",
+      "runId": "4d4d5fbc-4e12-4d5e-822f-c0446176d510",
+      "steps": [
+        "generate-google-gemma",
+        "validate-indexed-proposal"
+      ],
+      "maxRssMiB": 179.56,
+      "telemetry": {
+        "provider": "Sentry",
+        "mode": "hosted_configured",
+        "traceId": "70ef2a9b80da4b60bd4bc104ed1ec823",
+        "flushed": true,
+        "ingestionVerified": false
+      }
+    },
+    "reason": "Fresh Gemma proposal for the owner-authorized live homepage brief, validated by the server. 7488 ms. 389 input / 296 output tokens. Generated and validated in a real isolated Mastra workflow. Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check."
+  },
+  "createdAt": "2026-10-15T15:37:13.432Z",
+  "updatedAt": "2026-10-15T15:37:41.441Z"
+}

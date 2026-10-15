@@ -1,0 +1,14 @@
+{
+  "commit": {
+    "createdAt": "2026-10-15T15:03:12Z",
+    "id": "6a11d8d8fdc582a686bbd7d4479367f2a87cd4f6",
+    "message": "Retry transient Gemma failures within bounded call budgets"
+  },
+  "createdAt": "2026-10-15T15:06:05.035203Z",
+  "finishedAt": "2026-10-15T15:07:41.159261Z",
+  "id": "dep-db8enn6q1p3s73aiu1ag",
+  "startedAt": "2026-10-15T15:06:05.000912Z",
+  "status": "live",
+  "trigger": "api",
+  "updatedAt": "2026-10-15T15:07:41.159545Z"
+}

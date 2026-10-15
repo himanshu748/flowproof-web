@@ -1,0 +1,81 @@
+{
+  "sourceCommit": "6a11d8d8fdc582a686bbd7d4479367f2a87cd4f6",
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38756917896",
+  "jobs": [
+    {
+      "id": 116497657454,
+      "status": "completed",
+      "conclusion": "success",
+      "completedAt": "2026-10-15T15:05:34Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm ci --legacy-peer-deps",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npx playwright install --with-deps chromium",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm run test",
+          "conclusion": "success"
+        },
+        {
+          "name": "Offline model provenance and budget safeguards",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run npm run build",
+          "conclusion": "success"
+        },
+        {
+          "name": "Real public demo within the free runtime memory limit",
+          "conclusion": "success"
+        },
+        {
+          "name": "Real healthy, broken and recovered website audits",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run approved project checks when provided",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "localVerification": {
+    "applicationTests": 475,
+    "pythonTests": 19,
+    "build": "passed",
+    "realRuntime": "healthy 5/0/1; broken 2/3/1",
+    "note": "Counts from the local CI-matching commands on this exact application source; CI independently completed all matching steps."
+  }
+}

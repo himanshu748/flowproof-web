@@ -1,0 +1,57 @@
+{
+  "startedAt": "2026-10-15T15:26:12.248Z",
+  "scope": "Native diagnostic using only the fixed public homepage brief; no browser audit, no paid resource or private input.",
+  "maxAttempts": 3,
+  "provider": "Google Gemini API",
+  "model": "gemma-4-26b-a4b-it",
+  "pricing": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-15T15:26:15.170Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+  },
+  "finalResponses": [
+    {
+      "httpStatus": 200,
+      "candidates": [
+        {
+          "finishReason": "STOP",
+          "finalText": [
+            "{\n  \"checks\": [\n    {\n      \"requirementIndex\": 0,\n      \"kind\": \"heading\",\n      \"path\": \"/\",\n      \"expected\": \"Send the site. Show the proof.\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 1,\n      \"kind\": \"text_visible\",\n      \"path\": \"/\",\n      \"expected\": \"Website delivery, with receipts\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 2,\n      \"kind\": \"link\",\n      \"path\": \"/\",\n      \"expected\": \"See the proof\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 3,\n      \"kind\": \"image_alt\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 4,\n      \"kind\": \"no_horizontal_overflow\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"390px\"\n    },\n    {\n      \"requirementIndex\": 5,\n      \"kind\": \"manual\",\n      \"path\": \"/\",\n      \"expected\": \"The site feels welcoming and trustworthy\",\n      \"viewport\": \"desktop\"\n    }\n  ]\n}"
+          ]
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 338,
+        "candidatesTokenCount": 306,
+        "totalTokenCount": 644,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 338
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    }
+  ],
+  "status": "failed",
+  "failure": {
+    "code": "invalid_plan",
+    "attempts": [
+      {
+        "index": 1,
+        "status": 200,
+        "durationMs": 8602,
+        "requestBytes": 1928,
+        "retryDelayMs": 0,
+        "usage": {
+          "promptTokens": 338,
+          "completionTokens": 306,
+          "totalTokens": 644
+        },
+        "providerStatus": null
+      }
+    ]
+  },
+  "completedAt": "2026-10-15T15:26:23.777Z"
+}

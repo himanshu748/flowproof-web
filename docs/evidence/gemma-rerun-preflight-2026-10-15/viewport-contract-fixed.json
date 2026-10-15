@@ -1,0 +1,121 @@
+{
+  "startedAt": "2026-10-15T15:27:54.267Z",
+  "scope": "Native diagnostic using only the fixed public homepage brief; no browser audit, no paid resource or private input.",
+  "maxAttempts": 3,
+  "provider": "Google Gemini API",
+  "model": "gemma-4-26b-a4b-it",
+  "sourceFiles": [
+    {
+      "path": "server/providers/gemma-google.ts",
+      "sha256": "27aae6fc4b4fa7bcb618d755a761622a628e0b3d7182d266d14fbc803f2ce5ca"
+    },
+    {
+      "path": "shared/hosted-target.ts",
+      "sha256": "233bd18ae6d1435ef4aa1e1329bd2f70cbac4bf4762c9dc72a415e8923e91a6c"
+    }
+  ],
+  "pricing": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-15T15:27:56.548Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+  },
+  "finalResponses": [
+    {
+      "httpStatus": 200,
+      "candidates": [
+        {
+          "finishReason": "STOP",
+          "finalText": [
+            "{\n  \"checks\": [\n    {\n      \"requirementIndex\": 0,\n      \"kind\": \"heading\",\n      \"path\": \"/\",\n      \"expected\": \"Send the site. Show the proof.\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 1,\n      \"kind\": \"text_visible\",\n      \"path\": \"/\",\n      \"expected\": \"Website delivery, with receipts\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 2,\n      \"kind\": \"link\",\n      \"path\": \"/\",\n      \"expected\": \"See the proof\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 3,\n      \"kind\": \"image_alt\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 4,\n      \"kind\": \"no_horizontal_overflow\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"mobile\"\n    },\n    {\n      \"requirementIndex\": 5,\n      \"kind\": \"manual\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"desktop\"\n    }\n  ]\n}"
+          ]
+        }
+      ],
+      "usageMetadata": {
+        "promptTokenCount": 389,
+        "candidatesTokenCount": 296,
+        "totalTokenCount": 685,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 389
+          }
+        ],
+        "serviceTier": "standard"
+      }
+    }
+  ],
+  "proposal": {
+    "checks": [
+      {
+        "requirementIndex": 0,
+        "kind": "heading",
+        "path": "/",
+        "expected": "Send the site. Show the proof.",
+        "viewport": "desktop"
+      },
+      {
+        "requirementIndex": 1,
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Website delivery, with receipts",
+        "viewport": "desktop"
+      },
+      {
+        "requirementIndex": 2,
+        "kind": "link",
+        "path": "/",
+        "expected": "See the proof",
+        "viewport": "desktop"
+      },
+      {
+        "requirementIndex": 3,
+        "kind": "image_alt",
+        "path": "/",
+        "expected": "",
+        "viewport": "desktop"
+      },
+      {
+        "requirementIndex": 4,
+        "kind": "no_horizontal_overflow",
+        "path": "/",
+        "expected": "",
+        "viewport": "mobile"
+      },
+      {
+        "requirementIndex": 5,
+        "kind": "manual",
+        "path": "/",
+        "expected": "",
+        "viewport": "desktop"
+      }
+    ],
+    "model": "gemma-4-26b-a4b-it",
+    "usage": {
+      "promptTokens": 389,
+      "completionTokens": 296,
+      "totalTokens": 685
+    },
+    "latencyMs": 8706,
+    "attempts": [
+      {
+        "index": 1,
+        "status": 200,
+        "durationMs": 8706,
+        "requestBytes": 2153,
+        "retryDelayMs": 0,
+        "usage": {
+          "promptTokens": 389,
+          "completionTokens": 296,
+          "totalTokens": 685
+        },
+        "providerStatus": null
+      }
+    ],
+    "transportNormalization": {
+      "emptyThoughtPartIgnored": true,
+      "wholeJsonFenceRemoved": false
+    }
+  },
+  "status": "validated-proposal",
+  "completedAt": "2026-10-15T15:28:05.255Z"
+}

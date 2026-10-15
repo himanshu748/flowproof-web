@@ -1,10 +1,12 @@
-# Gemma proposals in the public sample workflow
+# Gemma proposals in the public website workflow
+
+**Latest: the real owned homepage completed the Gemma → approval → Chromium → Tiger flow on source `2e3c3397`.** Its [new receipt](evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json) records 389 input / 296 output tokens, 5/0/1 results and a 4/1/1 wrong-heading control. [Diagnosis, exact attempts and in-app proof](GEMMA_LIVE_SITE.md). Historical evidence below remains dated; the new Sentry trace's dashboard ingestion is unverified.
 
 **Verified on the free Render service on October 15, 2026:** source `e43dbe7430368292ff9b225f4bf5e3236c2d03c0` generated a real Gemma proposal through a two-step Mastra workflow, rejected an unapproved audit, and executed healthy, broken and restored pages in Chromium. [Hosted receipt](evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json) · [Deployment and CI](DEPLOYMENT.md).
 
 The product flow is: **the open model proposes, the developer reviews and approves, the deterministic browser records what happened.** Gemma cannot provide browser scripts or mark assertions passed. The model lab's frozen Tinker evaluation and the later [protected hosted Tinker workflow](HOSTED_TINKER.md) are separate experiments.
 
-## Latest live-homepage incident, October 15
+## Earlier live-homepage incident, October 15
 
 Release `816d869e` exposes a second fixed brief for the owner-authorized homepage. Its actual network audit is [verified with deterministic checks](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json), with zero model calls. Hosted generation attempts returned [HTTP 503](evidence/hosted-website/2026-10-15-gemma-incident/hosted-attempt-503.json); a bounded native diagnostic at 12:15 UTC confirmed [Google HTTP 500 before parsing](evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json). No new live-site AI success is claimed. The UI retained its explicitly labelled draft; this is not a hidden AI fallback. The successful 10:55 synthetic evidence below remains dated historical proof. [Judge guide](JUDGE_GUIDE.md).
 
@@ -30,7 +32,7 @@ Opening `#demo` enters the Review screen and exposes the Gemma action without ma
 
 [Google's published pricing](https://ai.google.dev/gemini-api/docs/pricing?hl=en) lists Gemma 4 input/output as free and its paid tier as unavailable. The application verifies that pricing section before generation, caching a successful check for at most one hour. Its explicit free-use configuration expires on **October 20, 2026** and requires a fresh operator check before extension. Missing, expired or changed pricing fails closed before a model request.
 
-Free-tier inputs may be used to improve Google's products. The server accepts **only its original fixed synthetic brief or the fixed owner-authorized homepage brief**; edited visitor or private client text is rejected. The key stays server-side. Limits are two attempts per visitor, twelve per hour per process, one generation at a time and no simultaneous audit. Attempts are reserved before I/O; there is no automatic retry or silent success fallback. These quotas reset on process restart and are not durable distributed billing controls.
+Free-tier inputs may be used to improve Google's products. The server accepts **only its original fixed synthetic brief or the fixed owner-authorized homepage brief**; edited visitor or private client text is rejected. The key stays server-side. Limits are two generation requests per visitor, one generation at a time and no simultaneous audit. The retry release reserves three physical calls per generation against the twelve-call hourly ceiling before I/O, so at most four generations can start per process per hour. Only explicit HTTP 500/502/503/504 responses can retry, at most three attempts within one 30-second deadline; failed and unused reservations are not refunded. There is no silent success fallback. [Attempt receipts and diagnosis](GEMMA_LIVE_SITE.md). These quotas reset on process restart and are not durable distributed billing controls.
 
 The adapter bounds sizes, output tokens and duration and permits six finite assertion kinds. Invalid schemas and unsupported quoted-text interpretations are rejected. The model chooses the assertion kinds and quoted literals; source paths, viewport and non-text descriptions are bound by the server to the actual finite predicate. Transport normalization may remove empty thinking markers or a complete JSON fence. Fixed image/viewport descriptions were verified in this deployed release; model-chosen kinds and quoted literals remain visible. The separate frozen Tinker benchmark is unchanged.
 

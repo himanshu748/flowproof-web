@@ -2,13 +2,21 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
-## Presentation release, October 15, 14:18 UTC
+## Gemma live-homepage release, October 15, 15:32 UTC
+
+Source **`2e3c3397ea5a594ecb329f7b52ef373fe1049161`** passed [CI 38760611627](https://github.com/himanshu748/flowproof-web/actions/runs/38760611627): **476 application tests, 19 Python tests**, build and actual browser audits. [Exact CI receipt](evidence/gemma-rerun-preflight-2026-10-15/contract-ci.json).
+
+The same existing **Free Render** service deployed it as `dep-db8f3bdg1s2s73a2jgog`, live at **15:32:37.055204 UTC**. Hosting, billing, TLS, authentication and service configuration were not changed. [Deployment](evidence/gemma-rerun-preflight-2026-10-15/contract-deployment.json) · [Free-plan/model preflight](evidence/gemma-rerun-preflight-2026-10-15/contract-preflight.json).
+
+The [new live-site receipt](evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json) records real Google-hosted Gemma generation (**389 input / 296 output tokens**), unapproved execution rejected, verifier approval, **5/0/1** original results, a **4/1/1** wrong-heading control and exact Tiger read/search verification. The [separate in-app flow](evidence/hosted-website/2026-10-15T15-37-09Z/in-app-receipt.json) also generated, approved, executed and downloaded the actual HTML report. The new Sentry trace ID is recorded but dashboard ingestion is unverified. [Diagnosis and earlier failures](GEMMA_LIVE_SITE.md).
+
+## Earlier presentation release, October 15, 14:18 UTC
 
 Source **`5d707e3686ad9439a2af2eb9bf332a21e1e6d088`** passed [CI 38748213339](https://github.com/himanshu748/flowproof-web/actions/runs/38748213339): **452 application tests, 19 Python tests**, build and actual browser audits. The CI fixture again observed healthy **5/0/1**, broken **1/4/1**, restored **5/0/1**. [Extracted CI receipt](evidence/presentation-release-2026-10-15/ci.json).
 
 The same existing **Free** Render service deployed it as `dep-db8e0bks728c7393jt60`, live at **14:18:07.919636 UTC**. No service configuration, credential, plan or billing settings changed. [Deployment and fresh Free-plan check](evidence/presentation-release-2026-10-15/deployment.json).
 
-[Post-deploy live-homepage verification](evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json) made zero model calls: **5 passed / 0 failed / 1 unverified**, then an intentionally wrong heading expectation produced **4 passed / 1 failed / 1 unverified**. Both audits round-tripped through Tiger with matching JSON, lexical search recovered the failed heading, and a distinct visitor received 404 for protected history/report reads. [Current portable report](evidence/hosted-website/2026-10-15T14-20-50Z/live-report.html).
+[Post-deploy live-homepage verification](evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json) made zero model calls: **5 passed / 0 failed / 1 unverified**, then an intentionally wrong heading expectation produced **4 passed / 1 failed / 1 unverified**. Both audits round-tripped through Tiger with matching JSON, lexical search recovered the failed heading, and a distinct visitor received 404 for protected history/report reads. [14:20 portable report](evidence/hosted-website/2026-10-15T14-20-50Z/live-report.html).
 
 Browser QA confirmed the deployed new-project form creates an unapproved synthetic project. [UI receipt](evidence/presentation-release-2026-10-15/hosted-ui.json). Startup/retry, isolated-clock expiry recovery, mobile layout and keyboard checks are recorded in [local UI QA](evidence/judge-qa-2026-10-15/receipt.json). The [68-second video](demo/README.md) retains its own earlier deployed source and actual capture provenance. Historical integration runs below retain their original commits and outcomes.
 

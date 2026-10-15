@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-15T15:00:18.664775+00:00",
+  "service": "srv-db6r2egm7kps73b19hag",
+  "plan": "free",
+  "repo": "https://github.com/himanshu748/flowproof-web",
+  "configuration": {
+    "BRIEFSTAMP_PUBLIC_GEMMA_ENABLED": "true",
+    "BRIEFSTAMP_GEMMA_CONFIRMED_FREE": "true",
+    "BRIEFSTAMP_GEMMA_FREE_UNTIL": "2026-10-20T00:00:00Z",
+    "FLOWPROOF_SENTRY_FREE_CONFIRMED_AT": "2026-10-15T10:33:21.023Z"
+  },
+  "keyPresent": true,
+  "inferenceCalls": 0,
+  "modelMetadata": {
+    "name": "models/gemma-4-26b-a4b-it",
+    "inputTokenLimit": 262144,
+    "outputTokenLimit": 32768,
+    "supportedGenerationMethods": [
+      "generateContent",
+      "countTokens"
+    ]
+  },
+  "modelMetadataHttpStatus": 200
+}
