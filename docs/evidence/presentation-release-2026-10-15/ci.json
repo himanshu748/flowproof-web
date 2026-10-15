@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-10-15T14:18:16.060089+00:00",
+  "source": "5d707e3686ad9439a2af2eb9bf332a21e1e6d088",
+  "run": "https://github.com/himanshu748/flowproof-web/actions/runs/38748213339",
+  "job": "https://github.com/himanshu748/flowproof-web/actions/runs/38748213339/job/116467364823",
+  "conclusion": "success",
+  "completedAt": "2026-10-15T14:07:12Z",
+  "applicationTests": 452,
+  "testFiles": 29,
+  "pythonTests": 19,
+  "productionBuild": "passed",
+  "publicRuntimeBrowserCheck": "passed",
+  "fixtureRuns": {
+    "healthy": {
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "broken": {
+      "passed": 1,
+      "failed": 4,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "recovered": {
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1
+    }
+  },
+  "excerptSha256": "e01cac6fc5f149d42dd50749ea02d108d20a968d80520d6698dc2aa3d9fd4f8a",
+  "verification": "GitHub run/job API reported success for this exact source. Counts and outcomes were independently extracted and asserted from its actual downloaded log.",
+  "publicationChecks": {
+    "stagedKnownPatternScanFindings": 0,
+    "omittedMediaFiles": 22,
+    "mediaScope": "Authored pointer, source browser captures of public/example-only UI, their poster and encoded video; no credential/dashboard capture.",
+    "publicHistoryReceipt": "../judge-qa-2026-10-15/receipt.json",
+    "allRefsTextHistoryReceipt": "../secret-history-2026-10-15.json",
+    "coverageLimit": "No absolute guarantee about unknown, binary or unreachable secrets."
+  },
+  "releaseDocumentation": "A later documentation-only commit publishes these observed receipts; the deployed runtime and this successful CI remain bound to the source above."
+}

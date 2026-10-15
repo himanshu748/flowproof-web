@@ -50,7 +50,9 @@ if (process.argv.includes("--network")) {
       const [url, references] = queue.shift();
       try {
         const response = await fetch(url, {redirect:"follow", signal:AbortSignal.timeout(20_000), headers:{"user-agent":"Briefstamp-document-link-check/1.0"}});
-        await response.body?.cancel();
+        // Cancellation is cleanup after the HTTP status is observed. A peer
+        // closing its stream must not erase an already received 200 response.
+        await response.body?.cancel().catch(() => {});
         receipt.remote.push({url, status:response.status, finalUrl:response.url, references:[...new Set(references)]});
       } catch(error) { receipt.remote.push({url,status:null,error:error.name,references:[...new Set(references)]}); }
     }

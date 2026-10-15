@@ -1,0 +1,72 @@
+{
+  "id": "0a705c35-0e29-4199-b155-c57dfe6a4493",
+  "name": "Briefstamp live website",
+  "brief": "The homepage heading must say \"Send the site. Show the proof.\"\nThe homepage must show \"Website delivery, with receipts\".\nA link must say \"See the proof\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe site should feel welcoming and trustworthy.",
+  "target": "website",
+  "url": "https://flowproof-demo.onrender.com/",
+  "sampleVariant": "healthy",
+  "authorized": true,
+  "checks": [
+    {
+      "id": "c61de5c1-d246-40d5-9099-377850349283",
+      "requirement": "The homepage heading must say \"Send the site. Show the proof.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Send the site. Show the proof.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "c7798760-0a81-415b-91ba-fdade6b58ba4",
+      "requirement": "The homepage must show \"Website delivery, with receipts\".",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Website delivery, with receipts",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "d09668be-18b7-4d64-9b96-c9fa4baaaf9c",
+      "requirement": "A link must say \"See the proof\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "See the proof",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "072a9ef0-643f-47f8-a1a8-19e30556cf4d",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "e691a803-4abe-4861-b8c5-5fca3c8d0691",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": false
+    },
+    {
+      "id": "1d47b4d7-b9e5-4758-bfc5-dd99ff02d9fb",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Deterministic parser",
+    "model": null,
+    "reason": "Public demo proposals use local rules. No AI service or fine-tuned model is used."
+  },
+  "createdAt": "2026-10-15T14:20:52.859Z",
+  "updatedAt": "2026-10-15T14:20:52.859Z"
+}

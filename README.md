@@ -33,9 +33,9 @@ flowchart LR
 | CI fixture: broken | **1 passed / 4 failed / 1 unverified** | [Same approved plan](docs/evidence/ci-regression-2026-10-15.json) |
 | CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
 | Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
-| Verification | **452 application tests, 19 Python tests, build** | [QA receipt](docs/evidence/judge-qa-2026-10-15/receipt.json) · [CI](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) |
+| Verification | **452 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/presentation-release-2026-10-15/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38748213339) |
 
-The live homepage separately passed five checks; a deliberately wrong heading expectation failed. Both audits round-tripped through Tiger. [Live-site receipt](docs/evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json).
+The live homepage separately passed five checks; a deliberately wrong heading expectation failed. Both audits round-tripped through Tiger. [Live-site receipt](docs/evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json).
 
 ## Integrations with receipts
 

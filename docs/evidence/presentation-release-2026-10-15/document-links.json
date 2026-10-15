@@ -1,0 +1,2017 @@
+{
+  "checkedAt": "2026-10-15T14:25:23.713Z",
+  "scope": "Markdown links and bare/autolinked public URLs outside code fences in README.md and all docs Markdown. Inline-code examples are excluded from bare URL discovery. Relative links checked on disk; remote GET responses cancel after headers. Local development URLs are recorded without requesting them. HTTP 200 does not establish authenticated dashboard access or artifact truth.",
+  "files": 30,
+  "local": [
+    {
+      "file": "README.md",
+      "target": "docs/evidence/acceptance-comparison.jpg",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/presentation-release-2026-10-15/ci.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/serpapi/2026-10-15T07-38-38-984Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "ENTIRE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "../server/providers/free-resource-policy.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "../server/hosted-backboard.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "ENTIRE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/API.md",
+      "target": "OPTIONAL_PROVIDERS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/API.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ASSETS.md",
+      "target": "../public/assets/fonts/provenance.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ASSETS.md",
+      "target": "LANDING_ASSET.md",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/backboard/2026-10-15T09-28-55-074Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/backboard-write.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/backboard-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../server/hosted-backboard.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../server/providers/backboard.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../server/providers/free-resource-policy.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../scripts/verify-backboard-credits.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BRAND.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/presentation-release-2026-10-15/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/presentation-release-2026-10-15/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/presentation-release-2026-10-15/hosted-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/judge-qa-2026-10-15/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "demo/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-audit.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/hosted-attempt-503.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "hosted-tiger-live-target.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "ALL_INTEGRATION_GATES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/release-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "../scripts/verify-public-runtime.mjs",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-release.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ENTIRE.md",
+      "target": "evidence/entire-local-receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ENTIRE.md",
+      "target": "../scripts/verify-entire.sh",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-48-32-488Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-50-26-106Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-50-26-106Z/proposal-before-approval.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-52-59-736Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/generation-raw-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/proposal-before-approval.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/comparisons.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/healthy-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/broken-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/recovered-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/explanation-raw-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "../.github/workflows/audit.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "../scripts/audit-sample.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "hosted-tiger-schema.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/sampler-renewal.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "TINKER_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "ENTIRE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/serpapi/2026-10-15T07-38-38-984Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "demo/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "demo/journey.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "HACKATHON_ENTRY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/judge-qa-2026-10-15/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/few-shot.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/fine-tuned.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/experiment-summary.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "evidence/tinker-checkpoints.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/pilot.manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/pilot.jsonl",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/training.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/zero-shot.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/few-shot.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/fine-tuned.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/experiment-summary.json",
+      "exists": true
+    },
+    {
+      "file": "docs/OPTIONAL_PROVIDERS.md",
+      "target": "evidence/serpapi/2026-10-15T07-38-38-984Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/orchestration/2026-10-15T07-19-41-052Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/orchestration/2026-10-15T07-19-41-052Z/sentry-envelopes.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/orchestration/2026-10-15T07-19-41-052Z/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD.md",
+      "target": "PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PRD.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "RELEASE_READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/generator.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/runner.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/store.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/report.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../.github/workflows/audit.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HACKATHON_ENTRY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/schema.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/safety.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/database.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/hosted-attempt-503.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/generated-project.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/healthy-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/broken-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/restored-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/providers/gemma-google.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/providers/gemma-free-pricing.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/demo.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/generator.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/provider-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/unapproved-proposal.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/earlier-failures.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "TINKER_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "ALL_INTEGRATION_GATES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-trace.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "../server/gemma-workflow-child.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "../server/observability.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "ORCHESTRATION_OBSERVABILITY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "HACKATHON_ENTRY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-33-17-054Z/temporal-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-33-17-054Z/publication-manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-33-17-054Z/receipts/da362af8-8c12-4dbc-861f-02e29a582407/report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-22-12-798Z/temporal-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "../.github/workflows/temporal-proof.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T11-28Z/temporal-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T11-28Z/ci-manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_CA_RESEARCH.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/presentation-release-2026-10-15/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/tiger-lexical.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/provision.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "hosted-tiger-schema.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/independent-read.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/fieldissue-isolation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "hosted-tiger-live-target.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/live-target-migration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/cloud-read.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-tls-attempt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-trial/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-trial/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/write.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/read.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/preparation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/cloud-read.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/cloud-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-16-59-106Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-16-59-106Z/comparisons.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-16-59-106Z/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-01-16-227Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-04-17-444Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-08-38-000Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-15-50-199Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "OPTIONAL_PROVIDERS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./briefstamp-demo.mp4",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./briefstamp-demo-poster.png",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./briefstamp-demo.vtt",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./source/",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./journey.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./ffprobe.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./motion-config.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./captions.json",
+      "exists": true
+    }
+  ],
+  "developmentLinks": [
+    {
+      "file": "README.md",
+      "target": "http://127.0.0.1:5173",
+      "reason": "Local development example; no network request made"
+    }
+  ],
+  "remote": [
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+      "status": 200,
+      "finalUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+      "references": [
+        "docs/PUBLIC_GEMMA.md"
+      ]
+    },
+    {
+      "url": "https://api.github.com/repos/entireio/cli/releases/tags/v0.11.4",
+      "status": 200,
+      "finalUrl": "https://api.github.com/repos/entireio/cli/releases/tags/v0.11.4",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md"
+      ]
+    },
+    {
+      "url": "https://api.github.com/repos/temporalio/cli/releases/tags/v1.9.1",
+      "status": 200,
+      "finalUrl": "https://api.github.com/repos/temporalio/cli/releases/tags/v1.9.1",
+      "references": [
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://backboard.io/pricing",
+      "status": 200,
+      "finalUrl": "https://backboard.io/pricing",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/BACKBOARD_VERIFICATION.md",
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://dev.to/challenges/hacktoberfest-week2-2026-10-12",
+      "status": 200,
+      "finalUrl": "https://dev.to/challenges/hacktoberfest-week2-2026-10-12",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/HACKATHON_ENTRY.md",
+        "docs/INTEGRATIONS.md",
+        "docs/MODEL_RESULTS.md"
+      ]
+    },
+    {
+      "url": "https://dev.to/page/hacktoberfest-week2-2026-10-12-contest-rules",
+      "status": 200,
+      "finalUrl": "https://dev.to/page/hacktoberfest-week2-2026-10-12-contest-rules",
+      "references": [
+        "docs/HACKATHON_ENTRY.md"
+      ]
+    },
+    {
+      "url": "https://docs.backboard.io/api-reference/assistants/create",
+      "status": 200,
+      "finalUrl": "https://docs.backboard.io/api-reference/assistants/create",
+      "references": [
+        "docs/BACKBOARD_VERIFICATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.backboard.io/api-reference/memories/add",
+      "status": 200,
+      "finalUrl": "https://docs.backboard.io/api-reference/memories/add",
+      "references": [
+        "docs/BACKBOARD_VERIFICATION.md",
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.backboard.io/api-reference/memories/search",
+      "status": 200,
+      "finalUrl": "https://docs.backboard.io/api-reference/memories/search",
+      "references": [
+        "docs/BACKBOARD_VERIFICATION.md",
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://docs.backboard.io/concepts/billing",
+      "status": 200,
+      "finalUrl": "https://docs.backboard.io/concepts/billing",
+      "references": [
+        "docs/BACKBOARD_VERIFICATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.backboard.io/dashboard",
+      "status": 200,
+      "finalUrl": "https://docs.backboard.io/dashboard",
+      "references": [
+        "docs/BACKBOARD_VERIFICATION.md"
+      ]
+    },
+    {
+      "url": "https://docs.entire.io/agents/codex",
+      "status": 200,
+      "finalUrl": "https://docs.entire.io/agents/codex",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md"
+      ]
+    },
+    {
+      "url": "https://docs.entire.io/security",
+      "status": 200,
+      "finalUrl": "https://docs.entire.io/security",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/ENTIRE.md"
+      ]
+    },
+    {
+      "url": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
+      "status": 200,
+      "finalUrl": "https://docs.github.com/en/billing/concepts/product-billing/github-actions",
+      "references": [
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://docs.temporal.io/cli/setup-cli",
+      "status": 200,
+      "finalUrl": "https://docs.temporal.io/cli/setup-cli",
+      "references": [
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://elevenlabs.io/docs/api-reference/text-to-speech/convert",
+      "status": 200,
+      "finalUrl": "https://elevenlabs.io/docs/api-reference/text-to-speech/convert",
+      "references": [
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://elevenlabs.io/pricing",
+      "status": 200,
+      "finalUrl": "https://elevenlabs.io/pricing",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://flowproof-demo.onrender.com/",
+      "status": 200,
+      "finalUrl": "https://flowproof-demo.onrender.com/",
+      "references": [
+        "README.md",
+        "docs/DEPLOYMENT.md",
+        "docs/JUDGE_GUIDE.md",
+        "docs/SUBMISSION.md",
+        "docs/demo/README.md"
+      ]
+    },
+    {
+      "url": "https://github.com/entireio/cli",
+      "status": 200,
+      "finalUrl": "https://github.com/entireio/cli",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md"
+      ]
+    },
+    {
+      "url": "https://github.com/entireio/cli/blob/v0.11.4/cmd/entire/cli/agentimport/codex.go",
+      "status": 200,
+      "finalUrl": "https://github.com/entireio/cli/blob/v0.11.4/cmd/entire/cli/agentimport/codex.go",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/ENTIRE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/entireio/cli/blob/v0.11.4/cmd/entire/cli/import_cmd.go",
+      "status": 200,
+      "finalUrl": "https://github.com/entireio/cli/blob/v0.11.4/cmd/entire/cli/import_cmd.go",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/ENTIRE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/entireio/cli/releases/download/v0.11.4/checksums.txt",
+      "status": 200,
+      "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1126841840/72cddc25-c004-48e2-9bb7-ff51a2b4f5a3?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-10-15T15%3A11%3A44Z&rscd=attachment%3B+filename%3Dchecksums.txt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-10-15T14%3A11%3A38Z&ske=2026-10-15T15%3A11%3A44Z&sks=b&skv=2018-11-09&sig=j1%2BSCDlnQX3DyOjlErJkCrgJZoe6pVzrhRifjqW%2F8ns%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5MjA3NDYzMiwibmJmIjoxNzkyMDc0MzMyLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.a3K9jopQjqUqzgicXOuQSamVdKZi6bS2pcwSdGjDOi4&response-content-disposition=attachment%3B%20filename%3Dchecksums.txt&response-content-type=application%2Foctet-stream",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/ENTIRE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/entireio/cli/releases/download/v0.11.4/entire_darwin_arm64.tar.gz",
+      "status": 200,
+      "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/1126841840/03dd1309-10d2-4bc8-bfff-c4dcfb5153f8?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-10-15T15%3A06%3A01Z&rscd=attachment%3B+filename%3Dentire_darwin_arm64.tar.gz&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-10-15T14%3A06%3A01Z&ske=2026-10-15T15%3A06%3A01Z&sks=b&skv=2018-11-09&sig=jua%2FWwhq8kxA%2B7spJ61wICghJYZVAQTyzmy29Hn8D9E%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5MjA3NjEzMywibmJmIjoxNzkyMDc0MzMzLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.wZ0NJoHiE8jXB5QhwyJ-BGBZ0IF3uCYpPteftAyi7uU&response-content-disposition=attachment%3B%20filename%3Dentire_darwin_arm64.tar.gz&response-content-type=application%2Foctet-stream",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/ENTIRE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/entireio/cli/releases/tag/v0.11.4",
+      "status": 200,
+      "finalUrl": "https://github.com/entireio/cli/releases/tag/v0.11.4",
+      "references": [
+        "docs/ENTIRE.md"
+      ]
+    },
+    {
+      "url": "https://github.com/getsentry/sentry-javascript/blob/develop/packages/core/src/types/options.ts",
+      "status": 200,
+      "finalUrl": "https://github.com/getsentry/sentry-javascript/blob/develop/packages/core/src/types/options.ts",
+      "references": [
+        "docs/ORCHESTRATION_OBSERVABILITY.md"
+      ]
+    },
+    {
+      "url": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/node",
+      "status": 200,
+      "finalUrl": "https://github.com/getsentry/sentry-javascript/tree/develop/packages/node",
+      "references": [
+        "docs/ORCHESTRATION_OBSERVABILITY.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web",
+      "references": [
+        "docs/DEPLOYMENT.md",
+        "docs/SUBMISSION.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38345840955",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38345840955",
+      "references": [
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38564166138",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38564166138",
+      "references": [
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38580708979",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38580708979",
+      "references": [
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38690709135",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38690709135",
+      "references": [
+        "docs/DEPLOYMENT.md",
+        "docs/RELEASE_READINESS.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38705005005",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38705005005",
+      "references": [
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38707381753",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38707381753",
+      "references": [
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38716831942",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38716831942",
+      "references": [
+        "docs/BACKBOARD_VERIFICATION.md",
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38722793847",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38722793847",
+      "references": [
+        "docs/DEPLOYMENT.md",
+        "docs/SENTRY_HOSTED.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38727532102",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38727532102",
+      "references": [
+        "docs/DEPLOYMENT.md",
+        "docs/HOSTED_TINKER.md",
+        "docs/TIGER_VERIFICATION.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38727552047",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38727552047",
+      "references": [
+        "docs/DEPLOYMENT.md",
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38731823339",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38731823339",
+      "references": [
+        "docs/DEPLOYMENT.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38748213339",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38748213339",
+      "references": [
+        "README.md",
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/DEPLOYMENT.md",
+        "docs/HACKATHON_ENTRY.md",
+        "docs/INTEGRATIONS.md",
+        "docs/PRD_STATUS.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml",
+      "references": [
+        "README.md",
+        "docs/HACKATHON_ENTRY.md"
+      ]
+    },
+    {
+      "url": "https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml/badge.svg",
+      "status": 200,
+      "finalUrl": "https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml/badge.svg",
+      "references": [
+        "README.md"
+      ]
+    },
+    {
+      "url": "https://github.com/mastra-ai/mastra/pull/16990",
+      "status": 200,
+      "finalUrl": "https://github.com/mastra-ai/mastra/pull/16990",
+      "references": [
+        "docs/ORCHESTRATION_OBSERVABILITY.md"
+      ]
+    },
+    {
+      "url": "https://github.com/temporalio/cli/releases/download/v1.9.1/checksums.txt",
+      "status": 200,
+      "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/559700601/25ea620e-46fa-48e8-b0e1-e6efc1978ecf?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-10-15T15%3A02%3A43Z&rscd=attachment%3B+filename%3Dchecksums.txt&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-10-15T14%3A02%3A05Z&ske=2026-10-15T15%3A02%3A43Z&sks=b&skv=2018-11-09&sig=rTLroqLgNOUN7g%2F9ubBM89W5DIhJqtzGpkl01VTwsTQ%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5MjA3NDY1MiwibmJmIjoxNzkyMDc0MzUyLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.r1xbd7Mw_8_IBEGxRKnp7MzCyyX8CkLavDHZhnM48Xg&response-content-disposition=attachment%3B%20filename%3Dchecksums.txt&response-content-type=application%2Foctet-stream",
+      "references": [
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://github.com/temporalio/cli/releases/download/v1.9.1/temporal_cli_1.9.1_linux_amd64.tar.gz",
+      "status": 200,
+      "finalUrl": "https://release-assets.githubusercontent.com/github-production-release-asset/559700601/ae434382-1307-437e-880b-e75792ec3f93?sp=r&sv=2018-11-09&sr=b&spr=https&se=2026-10-15T15%3A03%3A09Z&rscd=attachment%3B+filename%3Dtemporal_cli_1.9.1_linux_amd64.tar.gz&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2026-10-15T14%3A02%3A29Z&ske=2026-10-15T15%3A03%3A09Z&sks=b&skv=2018-11-09&sig=R7oUL9jyBZyxjdFd4voZtUPjQ0CfTzNzeKVPXzaetqU%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc5MjA3NjE1MiwibmJmIjoxNzkyMDc0MzUyLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.qVjMFTVruHcPAyvgWavRzivMsF8RPuO4MvwYKiGV4KE&response-content-disposition=attachment%3B%20filename%3Dtemporal_cli_1.9.1_linux_amd64.tar.gz&response-content-type=application%2Foctet-stream",
+      "references": [
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://github.com/temporalio/cli/releases/tag/v1.9.1",
+      "status": 200,
+      "finalUrl": "https://github.com/temporalio/cli/releases/tag/v1.9.1",
+      "references": [
+        "docs/TEMPORAL.md"
+      ]
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/api/client.go",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/api/client.go",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ]
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/cmd/db_uri.go",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/cmd/db_uri.go",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ],
+      "attempts": [
+        {
+          "status": 504,
+          "checkedAt": "2026-10-15T14:25:23.713Z"
+        },
+        {
+          "status": 200,
+          "checkedAt": "2026-10-15T14:27:51.812Z"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/common/connection.go",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/common/connection.go",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ]
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/openapi.yaml",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/openapi.yaml",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ]
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/tree/92fb1da08eee1e40b4a653446c37e0cc1fe12c42",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/tree/92fb1da08eee1e40b4a653446c37e0cc1fe12c42",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ]
+    },
+    {
+      "url": "https://hacktoberfest.com/my/promos",
+      "status": 200,
+      "finalUrl": "https://hacktoberfest.com/my/promos",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md"
+      ]
+    },
+    {
+      "url": "https://img.shields.io/badge/License-MIT-blue.svg",
+      "status": 200,
+      "finalUrl": "https://img.shields.io/badge/License-MIT-blue.svg",
+      "references": [
+        "README.md"
+      ]
+    },
+    {
+      "url": "https://mastra.ai/docs/workflows/agents-and-tools",
+      "status": 200,
+      "finalUrl": "https://mastra.ai/docs/workflows/agents-and-tools",
+      "references": [
+        "docs/ORCHESTRATION_OBSERVABILITY.md"
+      ]
+    },
+    {
+      "url": "https://mastra.ai/docs/workflows/overview",
+      "status": 200,
+      "finalUrl": "https://mastra.ai/docs/workflows/overview",
+      "references": [
+        "docs/ORCHESTRATION_OBSERVABILITY.md"
+      ]
+    },
+    {
+      "url": "https://mastra.ai/reference/tools/create-tool",
+      "status": 200,
+      "finalUrl": "https://mastra.ai/reference/tools/create-tool",
+      "references": [
+        "docs/ORCHESTRATION_OBSERVABILITY.md"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4",
+      "status": 200,
+      "finalUrl": "https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4",
+      "references": [
+        "README.md",
+        "docs/JUDGE_GUIDE.md",
+        "docs/SUBMISSION.md"
+      ]
+    },
+    {
+      "url": "https://serpapi.com/pricing",
+      "status": 200,
+      "finalUrl": "https://serpapi.com/pricing",
+      "references": [
+        "docs/ALL_INTEGRATION_GATES.md",
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://serpapi.com/search-api",
+      "status": 200,
+      "finalUrl": "https://serpapi.com/search-api",
+      "references": [
+        "docs/OPTIONAL_PROVIDERS.md"
+      ]
+    },
+    {
+      "url": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "status": 200,
+      "finalUrl": "https://tinker-docs.thinkingmachines.ai/tinker/models/models_and_pricing/",
+      "references": [
+        "docs/MODEL_EVALUATION.md",
+        "docs/MODEL_RESULTS.md"
+      ]
+    },
+    {
+      "url": "https://www.flowproof.dev/",
+      "status": 200,
+      "finalUrl": "https://www.flowproof.dev/",
+      "references": [
+        "docs/BRAND.md"
+      ]
+    },
+    {
+      "url": "https://www.tigerdata.com/docs/deploy/tiger-cloud/tiger-cloud-aws/security/strict-ssl/",
+      "status": 200,
+      "finalUrl": "https://www.tigerdata.com/docs/deploy/tiger-cloud/tiger-cloud-aws/security/strict-ssl",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ]
+    },
+    {
+      "url": "https://www.tigerdata.com/docs/deploy/tiger-cloud/tiger-cloud-aws/security/strict-ssl/index.md",
+      "status": 200,
+      "finalUrl": "https://www.tigerdata.com/docs/deploy/tiger-cloud/tiger-cloud-aws/security/strict-ssl/index.md",
+      "references": [
+        "docs/TIGER_CA_RESEARCH.md"
+      ]
+    },
+    {
+      "url": "https://www.tigerdata.com/docs/get-started/quickstart/create-service",
+      "status": 200,
+      "finalUrl": "https://www.tigerdata.com/docs/get-started/quickstart/create-service",
+      "references": [
+        "docs/TIGER_VERIFICATION.md"
+      ]
+    },
+    {
+      "url": "https://www.tigerdata.com/docs/use-timescale/latest/security/strict-ssl/",
+      "status": 200,
+      "finalUrl": "https://www.tigerdata.com/docs/deploy/tiger-cloud/tiger-cloud-aws/security/strict-ssl",
+      "references": [
+        "docs/TIGER_VERIFICATION.md"
+      ]
+    }
+  ],
+  "completedAt": "2026-10-15T14:27:51.813Z",
+  "runtimeSource": "5d707e3686ad9439a2af2eb9bf332a21e1e6d088",
+  "markdownSha256": {
+    "README.md": "5ef9171158a21332d3112991bdf89ce0774a76411b22478b52365e6928912243",
+    "docs/ALL_INTEGRATION_GATES.md": "ea9530e69379f17ef5df207e8395d83a4b13b995c86996b65a1078e46a116845",
+    "docs/API.md": "0588e8d3ce1477ea860a1562521133720af5a8f95acf9b465601aea5e4f8b4c5",
+    "docs/ASSETS.md": "ab76a90674916058b07b1ec177d5f92a600a316f8a2586bbf294d800349c673d",
+    "docs/BACKBOARD_VERIFICATION.md": "68f578e9597a900b40e509717c0dd68e42fd4cfd6e835a4c4068354cb8fb44f2",
+    "docs/BRAND.md": "90c0917898f16d00654cdec1e61d2efac8fd8b5e0197b8482653728940f96269",
+    "docs/DEPLOYMENT.md": "24ef15a1f174096400075c8e4514d7abe5c73fd3e619f45c3d63c8e8bf8448ec",
+    "docs/ENTIRE.md": "a8c8f5a7176b61efccee01f8976fc5864afd9c2949c86935d37ee216ed25cb34",
+    "docs/GEMMA_WORKFLOW.md": "7981e38ba2888da20ab10d6d503dc6dd3c333b44774d7b526af0dfa584a54300",
+    "docs/HACKATHON_ENTRY.md": "acbdc5412600262484463b569578879041d468d9eaeef9010b2768f764d01e8f",
+    "docs/HOSTED_TINKER.md": "49c3d9e7c1c8a737666db2f8fbce4a4b242cc31515557735b733684d767ddcf5",
+    "docs/INTEGRATIONS.md": "9f03c5773fa5eb11c8385e68305a3ac75f5668b5d60b5ee3414de25bc03c9f04",
+    "docs/JUDGE_GUIDE.md": "624fb23b3cee9641b55580b7588370a9c818fd43a9ebfaf732f90f707e1fa2b7",
+    "docs/LANDING_ASSET.md": "7bef6db73663b04cbb47f0730d6522fc8d9352029ebe0fa11301af461275ded9",
+    "docs/MODEL_BROWSER_EVALUATION.md": "fbaf0b9aa7635c00acff9d556306f04c9b44c4db591a8c6fe38af6a1f50fe579",
+    "docs/MODEL_EVALUATION.md": "27a9305aa3fad9e16e8f3c5729d9b4676dfa9194dacb75a203ed9e4f22487809",
+    "docs/MODEL_RESULTS.md": "026eeab1873201cdbbe208480298d6ac35997fd0bc025cd3666fe6fee82bf741",
+    "docs/OPTIONAL_PROVIDERS.md": "3465e4d2608bb2608a9035c57ab2c4060b416a26a23eac0a6205311f800a09bb",
+    "docs/ORCHESTRATION_OBSERVABILITY.md": "4ec8eafce02f5f3fd4a1e94020bf3a673bc55f1d404449972daf84ed163bcf2d",
+    "docs/PRD.md": "d3083cd244b1831b13ce7ba5c8a7c24511bdaf6c0eaa64358fb721b9e4d460dc",
+    "docs/PRD_STATUS.md": "0db0f0860c18464d39a8e380cfa09323c6dd6fd6c56f74e0db2e10cdda695d58",
+    "docs/PUBLIC_GEMMA.md": "7ed60f5ccbe7fa4b3aa79079ad035f455df9b7b0496c6acb09c9248c832f912f",
+    "docs/RELEASE_READINESS.md": "ec60576bc384beffce1349c4967d5591de44e697bcf00790f060d03bb09895d7",
+    "docs/SENTRY_HOSTED.md": "aff4e0535bc27509b0e8898b3846242d33e7f6441554d2fccdb69dfa55ca526b",
+    "docs/SUBMISSION.md": "a7f71e6126adc739280f2e3b048e4ccbb54d2683849f5b316d3f6c911761f806",
+    "docs/TEMPORAL.md": "38c478daad6380e5fc9c3357380f20b059ba4310c005e7100fdafd6b7f0f89a3",
+    "docs/TIGER_CA_RESEARCH.md": "b0567a76406cee97cbded8670ce692a5adcc1719b34d0699bdeadf5081de88b0",
+    "docs/TIGER_VERIFICATION.md": "4163edf4b6441bc1f2cce2f87e991fd0b65b8363d25e759660c64625fb4b7164",
+    "docs/TINKER_WORKFLOW.md": "d6b2c6026844d63720f8f299948041728f599be9425933867a001435828de71c",
+    "docs/demo/README.md": "44f62d6d1329a1f3234f4a1755dc39d665bcff310acbea185f794b92503edf93"
+  },
+  "summary": {
+    "markdownFiles": 30,
+    "publicURLsReturning200": 64,
+    "relativeTargetsPresent": 281,
+    "recheckedTransientFailures": 1
+  }
+}

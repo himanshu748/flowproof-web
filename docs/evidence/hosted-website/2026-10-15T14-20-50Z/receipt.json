@@ -1,0 +1,473 @@
+{
+  "startedAt": "2026-10-15T14:20:50.785Z",
+  "completedAt": "2026-10-15T14:22:15.093Z",
+  "status": "verified",
+  "origin": "https://flowproof-demo.onrender.com",
+  "modelRequests": 0,
+  "generationMode": "explicit-deterministic-no-ai",
+  "scope": "Agent verification of the real owner-authorized Briefstamp homepage, not a client website or customer validation. The negative control changes only its approved expectation, never the deployed website.",
+  "approval": {
+    "actor": "agent verification harness",
+    "humanApproval": false
+  },
+  "billingChanges": 0,
+  "otherWebsiteTargets": 0,
+  "calls": [
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/target-presets",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/projects/0a705c35-0e29-4199-b155-c57dfe6a4493/audits",
+      "method": "POST",
+      "status": 409
+    },
+    {
+      "route": "/api/projects/0a705c35-0e29-4199-b155-c57dfe6a4493/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/0a705c35-0e29-4199-b155-c57dfe6a4493/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/4bd8544c-e184-4a1f-ba99-54b35bc3e602/01-c61de5c1-d246-40d5-9099-377850349283.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/4bd8544c-e184-4a1f-ba99-54b35bc3e602/02-c7798760-0a81-415b-91ba-fdade6b58ba4.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/4bd8544c-e184-4a1f-ba99-54b35bc3e602/03-d09668be-18b7-4d64-9b96-c9fa4baaaf9c.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/4bd8544c-e184-4a1f-ba99-54b35bc3e602/04-072a9ef0-643f-47f8-a1a8-19e30556cf4d.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/4bd8544c-e184-4a1f-ba99-54b35bc3e602/05-e691a803-4abe-4861-b8c5-5fca3c8d0691.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602/report",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/4bd8544c-e184-4a1f-ba99-54b35bc3e602/report",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/projects/0a705c35-0e29-4199-b155-c57dfe6a4493/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/0a705c35-0e29-4199-b155-c57dfe6a4493/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/a99de0de-654b-411c-9a7b-2663a549e785/01-c61de5c1-d246-40d5-9099-377850349283.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/a99de0de-654b-411c-9a7b-2663a549e785/02-c7798760-0a81-415b-91ba-fdade6b58ba4.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/a99de0de-654b-411c-9a7b-2663a549e785/03-d09668be-18b7-4d64-9b96-c9fa4baaaf9c.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/a99de0de-654b-411c-9a7b-2663a549e785/04-072a9ef0-643f-47f8-a1a8-19e30556cf4d.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/evidence/a99de0de-654b-411c-9a7b-2663a549e785/05-e691a803-4abe-4861-b8c5-5fca3c8d0691.png",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785/report",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/a99de0de-654b-411c-9a7b-2663a549e785/report",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/failures?q=heading&projectId=0a705c35-0e29-4199-b155-c57dfe6a4493",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/failures?q=heading&projectId=0a705c35-0e29-4199-b155-c57dfe6a4493",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "route": "/api/projects/0a705c35-0e29-4199-b155-c57dfe6a4493/checks",
+      "method": "PUT",
+      "status": 200
+    }
+  ],
+  "audits": [
+    {
+      "id": "4bd8544c-e184-4a1f-ba99-54b35bc3e602",
+      "variant": "live",
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1,
+      "tigerRead": "verified",
+      "jsonRoundTripEqual": true,
+      "screenshots": 5
+    },
+    {
+      "id": "a99de0de-654b-411c-9a7b-2663a549e785",
+      "variant": "negative-control",
+      "passed": 4,
+      "failed": 1,
+      "blocked": 0,
+      "unverified": 1,
+      "tigerRead": "verified",
+      "jsonRoundTripEqual": true,
+      "screenshots": 5
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "deterministic-project.json",
+      "bytes": 2731,
+      "sha256": "ebeb067e31150979c463f39ae208899de3080cc045b549098f73b11bb65d15f9"
+    },
+    {
+      "path": "live-audit.json",
+      "bytes": 7575,
+      "sha256": "4edc12e2f9ee3fee5ea99eb3bfaf9ec6f3f694837a68208d151ad4566e75b80e"
+    },
+    {
+      "path": "live-1-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-2-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-3-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-4-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "live-5-screenshot.png",
+      "bytes": 150306,
+      "sha256": "135752bf5430f49e655955be15e9d649c8c9a503b5a65a301a43c04377b41c3d"
+    },
+    {
+      "path": "live-report.html",
+      "bytes": 2249553,
+      "sha256": "5704e6067b4f39d5094805b52ddeced2aab99edc4a27c74b3f9d0c05025c4fd6"
+    },
+    {
+      "path": "negative-control-audit.json",
+      "bytes": 7774,
+      "sha256": "f3fa1a2f621ca757d826b81506842b0a92999627ce18e6281c60f8e4b9d5b621"
+    },
+    {
+      "path": "negative-control-1-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-2-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-3-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-4-screenshot.png",
+      "bytes": 382310,
+      "sha256": "98beb96ae6abef2218138a56bd66a2bfd8b467c2ed11d264e242de85f231a87b"
+    },
+    {
+      "path": "negative-control-5-screenshot.png",
+      "bytes": 150306,
+      "sha256": "135752bf5430f49e655955be15e9d649c8c9a503b5a65a301a43c04377b41c3d"
+    },
+    {
+      "path": "negative-control-report.html",
+      "bytes": 2249717,
+      "sha256": "f095f4c555fb00206e8b3d51e4684a3c92c3e4269715de49b81423917d0f4ea1"
+    },
+    {
+      "path": "tiger-lexical.json",
+      "bytes": 571,
+      "sha256": "06d64f0cc02a96f468e3747e0f24e92c79520a29b7b7c8b289174f95d1c79562"
+    }
+  ],
+  "error": "",
+  "release": {
+    "checkedAt": "2026-10-15T14:18:07.919889Z",
+    "service": "srv-db6r2egm7kps73b19hag",
+    "deployment": "dep-db8e0bks728c7393jt60",
+    "status": "live",
+    "source": "5d707e3686ad9439a2af2eb9bf332a21e1e6d088",
+    "liveAt": "2026-10-15T14:18:07.919636Z",
+    "preflight": {
+      "checkedAt": "2026-10-15T14:14:38.148482+00:00",
+      "service": "srv-db6r2egm7kps73b19hag",
+      "plan": "free",
+      "suspended": "not_suspended",
+      "repo": "https://github.com/himanshu748/flowproof-web",
+      "branch": "main",
+      "billingChanges": 0
+    },
+    "ci": "https://github.com/himanshu748/flowproof-web/actions/runs/38748213339",
+    "billingChanges": 0,
+    "hostingConfigurationChanged": false
+  },
+  "verifier": {
+    "path": "scripts/verify-hosted-website.ts",
+    "sha256": "10fe7c5fd40fc453b0c2e863bfc7d384ec65100f48221f2b2649b1d42856785e",
+    "mode": "--run-deterministic"
+  },
+  "publication": {
+    "scope": "JSON receipts and the positive portable report are retained here. All ten original PNGs and the negative-control portable report remain private with their hashes in this receipt. The positive report embeds its five actual PNGs.",
+    "cookiesPublished": false
+  }
+}

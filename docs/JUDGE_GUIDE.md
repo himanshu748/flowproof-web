@@ -11,13 +11,13 @@ Approve a brief, watch the browser check it, and download the evidence.
 3. Choose **Approve all checks**, then **Save & run audit**. Inspect the observed text and browser screenshots. The subjective welcoming/trustworthy requirement stays **unverified**.
 4. Choose **Export delivery report** to keep the portable HTML, with its requirements, observations and embedded screenshots.
 
-The [retained live-site receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json) records **5 passed / 0 failed / 1 unverified** on release `816d869e`. [Open the actual downloaded report](evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html).
+The [retained live-site receipt](evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json) records **5 passed / 0 failed / 1 unverified** on release `5d707e36`. [Open the actual downloaded report](evidence/hosted-website/2026-10-15T14-20-50Z/live-report.html).
 
 ## Prove a failure
 
 Open the heading's **Edit check** and set **Expected result** to `Briefstamp negative control: this heading is intentionally absent`. Editing clears approval. Review, approve and run again. The retained control recorded **4 passed / 1 failed / 1 unverified**, with actual page headings in its evidence.
 
-This changes the assertion, not the website. The comparison must not count it as a website regression or recovery. Both retained audits round-tripped through Tiger with matching JSON; keyword retrieval recovered the failed heading, and another visitor was denied access. [Receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json).
+This changes the assertion, not the website. The comparison must not count it as a website regression or recovery. Both retained audits round-tripped through Tiger with matching JSON; keyword retrieval recovered the failed heading, and another visitor was denied access. [Receipt](evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json).
 
 ## Or compare broken and restored pages
 

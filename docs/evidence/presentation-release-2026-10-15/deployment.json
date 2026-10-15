@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-15T14:18:07.919889Z",
+  "service": "srv-db6r2egm7kps73b19hag",
+  "deployment": "dep-db8e0bks728c7393jt60",
+  "status": "live",
+  "source": "5d707e3686ad9439a2af2eb9bf332a21e1e6d088",
+  "liveAt": "2026-10-15T14:18:07.919636Z",
+  "preflight": {
+    "checkedAt": "2026-10-15T14:14:38.148482+00:00",
+    "service": "srv-db6r2egm7kps73b19hag",
+    "plan": "free",
+    "suspended": "not_suspended",
+    "repo": "https://github.com/himanshu748/flowproof-web",
+    "branch": "main",
+    "billingChanges": 0
+  },
+  "ci": "https://github.com/himanshu748/flowproof-web/actions/runs/38748213339",
+  "billingChanges": 0,
+  "hostingConfigurationChanged": false
+}

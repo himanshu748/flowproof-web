@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-15T14:24:50.980735+00:00",
+  "source": "5d707e3686ad9439a2af2eb9bf332a21e1e6d088",
+  "method": "Actual CUA browser actions on the deployed public app",
+  "createdProject": "Judge handoff example",
+  "brief": "The homepage heading must say \"Design that moves business forward.\"",
+  "checks": 1,
+  "approved": 0,
+  "runButton": "disabled",
+  "modelRequests": 0,
+  "screenshot": "hosted-created-project.png",
+  "sha256": "9c36b6c743e98165bb86046a3953ea0fbe7adb06e29e8776429e1f7e5fac1bfc",
+  "scope": "Verifies the repaired new-project form. No audit or model call was made for this one-check project."
+}

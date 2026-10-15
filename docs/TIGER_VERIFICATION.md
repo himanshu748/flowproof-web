@@ -1,5 +1,8 @@
 # Tiger Data integration verification
 
+The [14:20 post-deploy homepage proof](evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json) reverified the current presentation release `5d707e36`: five passes, a deliberate heading-expectation failure, matching Tiger JSON reads, scoped lexical retrieval and cross-visitor denial. It used templates and zero model calls. [Deployment receipt](evidence/presentation-release-2026-10-15/deployment.json).
+
+
 **Hosted persistence and lexical retrieval verified on October 15, 2026.** The public Render application saved three synthetic audits to a separately approved dedicated Tiger trial service and read every audit back through the actual database path. [Hosted receipt](evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json) · [Deployment](DEPLOYMENT.md).
 
 ## Actual homepage persistence, 12:19 UTC
