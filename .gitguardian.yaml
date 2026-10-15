@@ -1,0 +1,8 @@
+version: 2
+exit_zero: false
+secret:
+  show_secrets: false
+  # Synthetic redaction/XSS fixtures only. Real credentials are prohibited here.
+  # This local ggshield scope does not dismiss historical dashboard incidents.
+  ignored_paths:
+    - tests/report.test.ts

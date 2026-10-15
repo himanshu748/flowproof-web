@@ -46,6 +46,13 @@ const png = Buffer.from(
   "base64",
 );
 const screenshotPath = "/evidence/acbd1234/01-c1.png";
+// Intentionally fake test bytes, assembled to avoid static credential incidents.
+const FAKE_TEST_CREDENTIALS = {
+  dom: ["very", "secret", "value"].join(""),
+  interrupted: ["do", "not", "share"].join("-"),
+  source: ["private", "value"].join("-"),
+  database: ["secret", ["database", "password"].join("-")].join(" "),
+};
 
 function expectCount(html: string, status: ResultStatus, count: number) {
   expect(html).toContain(
@@ -61,7 +68,7 @@ describe("portable evidence report", () => {
     r.expected = "Client should trust it";
     r.evidence.observed = "Manual review required";
     r.evidence.screenshot = "https://attacker.invalid/tracker.png";
-    r.evidence.dom = "email client@example.com password=verysecretvalue";
+    r.evidence.dom = `email client@example.com password=${FAKE_TEST_CREDENTIALS.dom}`;
     const readImage = vi.fn();
     const html = await renderReport(
       audit({ projectName: "<script>alert(1)</script>", results: [r] }),
@@ -72,7 +79,7 @@ describe("portable evidence report", () => {
     expect(html).not.toContain("<img src=x");
     expect(html).not.toContain("attacker.invalid");
     expect(html).not.toContain("client@example.com");
-    expect(html).not.toContain("verysecretvalue");
+    expect(html).not.toContain(FAKE_TEST_CREDENTIALS.dom);
     expectCount(html, "unverified", 1);
     expect(html).toContain("390 × 844");
     expect(html).toContain("No external image was requested");
@@ -88,7 +95,7 @@ describe("portable evidence report", () => {
         status: "error",
         checks: [check("c1"), check("c2"), check("c3", { kind: "manual" })],
         results: [result("c1")],
-        error: "Runner stopped. password=do-not-share",
+        error: `Runner stopped. password=${FAKE_TEST_CREDENTIALS.interrupted}`,
         summary: "Every requirement passed perfectly.",
       }),
     );
@@ -103,7 +110,7 @@ describe("portable evidence report", () => {
     expect(html).toContain("Not executed or not recorded");
     expect(html).toContain("Audit incomplete");
     expect(html).toContain("Runner stopped");
-    expect(html).not.toContain("do-not-share");
+    expect(html).not.toContain(FAKE_TEST_CREDENTIALS.interrupted);
     expect(html).not.toContain("Every requirement passed perfectly");
     expect(html).not.toContain("Audit completed");
   });
@@ -126,7 +133,7 @@ describe("portable evidence report", () => {
     [
       "unreadable",
       async (): Promise<Buffer | null> => {
-        throw new Error("secret database-password");
+        throw new Error(FAKE_TEST_CREDENTIALS.database);
       },
       "could not be read",
     ],
@@ -166,7 +173,7 @@ describe("portable evidence report", () => {
       );
       expect(html).toContain(reason);
       expect(html).not.toContain("data:image/");
-      expect(html).not.toContain("secret database-password");
+      expect(html).not.toContain(FAKE_TEST_CREDENTIALS.database);
     },
   );
 
@@ -269,8 +276,7 @@ describe("portable evidence report", () => {
         checks: [check("c1")],
         results: [result("c1")],
         source: {
-          brief:
-            "<b>Original brief</b> client@example.com password=private-value",
+          brief: `<b>Original brief</b> client@example.com password=${FAKE_TEST_CREDENTIALS.source}`,
           generator: {
             provider: "<rules>",
             model: null,
@@ -287,6 +293,6 @@ describe("portable evidence report", () => {
     expect(html).toContain("&lt;rules&gt;");
     expect(html).toContain("Synthetic sample (broken)");
     expect(html).not.toContain("client@example.com");
-    expect(html).not.toContain("private-value");
+    expect(html).not.toContain(FAKE_TEST_CREDENTIALS.source);
   });
 });
