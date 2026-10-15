@@ -1,0 +1,32 @@
+{
+  "checkedAt": "2026-10-15T16:43:04.043Z",
+  "scope": "One retry of only the initial four failed public documentation URLs. HTTP status does not prove authenticated dashboard access or video playback.",
+  "initialReceipt": "document-links-initial.json",
+  "retried": [
+    {
+      "url": "https://flowproof-demo.onrender.com/",
+      "status": 200,
+      "finalUrl": "https://flowproof-demo.onrender.com/",
+      "priorStatus": null,
+      "priorError": "TimeoutError"
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/cmd/db_uri.go",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/cmd/db_uri.go",
+      "priorStatus": 503
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/common/connection.go",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/internal/common/connection.go",
+      "priorStatus": 503
+    },
+    {
+      "url": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/openapi.yaml",
+      "status": 200,
+      "finalUrl": "https://github.com/timescale/tiger-cli/blob/92fb1da08eee1e40b4a653446c37e0cc1fe12c42/openapi.yaml",
+      "priorStatus": 503
+    }
+  ]
+}

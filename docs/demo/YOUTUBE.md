@@ -1,10 +1,12 @@
 # Briefstamp YouTube package
 
-Status: assets prepared locally. The video has not been uploaded to YouTube.
+Status: uploaded as **unlisted** on the Himanshu Jha channel on October 15, 2026. Processing and copyright checks completed with “No issues found.” English subtitles are published. [Upload receipt](youtube-upload.json).
 
-`YOUTUBE_URL={{YOUTUBE_URL}}`
+[YouTube video](https://youtu.be/xve020VJl0s) · [MP4 backup](briefstamp-demo.mp4)
 
-Replace the placeholder with the actual watch URL after upload. Do not publish it as a working link before then.
+The video keeps its original 68-second template-workflow disclosure. The editable SVG remains a source asset; the PNG is the uploaded YouTube thumbnail.
+
+[Unlisted video details](youtube-details.jpg) · [Completed processing/checks](youtube-upload-confirmation.jpg) · [Published English captions](youtube-captions-published.jpg). Actual playback and English caption selection were verified in the in-app browser. Studio still requires a separate one-time channel verification for clickable external description links; no account verification was initiated.
 
 ## Title
 

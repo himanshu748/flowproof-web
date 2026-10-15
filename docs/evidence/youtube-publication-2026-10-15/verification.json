@@ -1,0 +1,14 @@
+{
+  "scope": "Publication docs and local media; no app/runtime change or provider calls. GitHub Actions validates the published commit separately.",
+  "assetHashChecks": 14,
+  "uploadProofHashes": "All verified against local files",
+  "submissionWords": 269,
+  "localLinks": 327,
+  "localMissing": 0,
+  "publicUrls": 68,
+  "initial200": 64,
+  "retry200": 4,
+  "retryBoundary": "Only four initial failures were retried once. HTTP status does not establish authenticated trace ingestion or video playback; each has separate in-app evidence.",
+  "renderHostingChanged": false,
+  "newModelCalls": 0
+}

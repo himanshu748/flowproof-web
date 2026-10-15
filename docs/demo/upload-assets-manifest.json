@@ -1,7 +1,6 @@
 {
   "product": "Briefstamp",
-  "status": "Prepared locally. No YouTube upload performed.",
-  "youtube_url_placeholder": "{{YOUTUBE_URL}}",
+  "status": "Local asset inventory. Publication status is recorded separately, not inferred by this offline renderer.",
   "capture_ui": "Codex in-app browser through CUA",
   "hosted_service": "https://flowproof-demo.onrender.com/",
   "capture_source_commit": "816d869ed7851b471b0ff83b103903ef2f069eae",
@@ -40,8 +39,8 @@
   "assets": [
     {
       "path": "docs/demo/YOUTUBE.md",
-      "sha256": "9b8053c70343eb43bb4f4b3558ed4aadfa69af227258c2b2f9fe7416cf6f2a36",
-      "bytes": 3177
+      "bytes": 3822,
+      "sha256": "586f872e32a448c23bc94a646afff11517f7e3010f17ae828039ca3cbafda6c9"
     },
     {
       "path": "docs/demo/briefstamp-demo.srt",
@@ -134,7 +133,8 @@
   ],
   "reproduction_script": {
     "path": "scripts/render-youtube-assets.py",
-    "sha256": "9c437d59f1c87735f6837662cfed33586779586f486b13d82a9bdeca4134be7b",
-    "bytes": 12492
-  }
+    "bytes": 12610,
+    "sha256": "cfc90f79da6dac8cbae16faf507be0fe70ce1ee61ec80c199f58e51f8d4aa488"
+  },
+  "publication_receipt": "youtube-upload.json"
 }

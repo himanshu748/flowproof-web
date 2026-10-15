@@ -1,6 +1,6 @@
 # Briefstamp — hosted demo walkthrough
 
-[Watch the captioned demo](./briefstamp-demo.mp4) · [Poster](./briefstamp-demo-poster.png) · [WebVTT captions](./briefstamp-demo.vtt) · [Provenance manifest](./manifest.json)
+[Watch the captioned demo on YouTube](https://youtu.be/xve020VJl0s) · [MP4 backup](./briefstamp-demo.mp4) · [Poster](./briefstamp-demo-poster.png) · [WebVTT captions](./briefstamp-demo.vtt) · [Provenance manifest](./manifest.json)
 
 This is a **68-second edited walkthrough of actual hosted UI captures**, with readable captions and an authored pointer. It is not continuous screen recording or wall-clock performance proof. The disclosure remains visible for the entire video:
 

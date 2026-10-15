@@ -181,8 +181,9 @@ def manifest() -> None:
         return {"path": str(path.relative_to(ROOT)), "sha256": digest(path), "bytes": path.stat().st_size}
     probe = json.loads(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "stream=codec_name,width,height,r_frame_rate,nb_frames:format=duration,size", "-of", "json", str(gif_path)]))
     result = {
-        "product": "Briefstamp", "status": "Prepared locally. No YouTube upload performed.",
-        "youtube_url_placeholder": "{{YOUTUBE_URL}}", "capture_ui": "Codex in-app browser through CUA",
+        "product": "Briefstamp", "status": "Local asset inventory. Publication status is recorded separately, not inferred by this offline renderer.",
+        "publication_receipt": "youtube-upload.json" if (OUT / "youtube-upload.json").exists() else None,
+        "capture_ui": "Codex in-app browser through CUA",
         "hosted_service": "https://flowproof-demo.onrender.com/", "capture_source_commit": "816d869ed7851b471b0ff83b103903ef2f069eae",
         "inputs": [record(OUT / "briefstamp-demo.mp4"), record(OUT / "captions.json"), record(OUT / "briefstamp-demo.vtt"), *[record(SOURCE / n) for n in ("03-approved.png", "07-broken.png", "10-restored.png")]],
         "assets": [record(OUT / name) for name in ("YOUTUBE.md", "briefstamp-demo.srt", "thumbnail.png", "thumbnail.svg", "briefstamp-preview.gif")],

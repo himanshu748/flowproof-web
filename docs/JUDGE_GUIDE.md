@@ -2,7 +2,7 @@
 
 Approve a brief, watch the browser check it, and download the evidence.
 
-[Open Briefstamp](https://flowproof-demo.onrender.com/#demo) · [Watch the 68-second video](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance](demo/README.md)
+[Open Briefstamp](https://flowproof-demo.onrender.com/#demo) · [Watch the 68-second video](https://youtu.be/xve020VJl0s) · [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance](demo/README.md)
 
 ## Audit the actual homepage
 

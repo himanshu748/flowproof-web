@@ -1,0 +1,85 @@
+{
+  "product": "Briefstamp",
+  "status": "published_unlisted",
+  "watchUrl": "https://www.youtube.com/watch?v=xve020VJl0s",
+  "shortUrl": "https://youtu.be/xve020VJl0s",
+  "videoId": "xve020VJl0s",
+  "title": "Briefstamp: From Client Brief to Verified Website Evidence",
+  "channel": {
+    "name": "Himanshu Jha",
+    "id": "UCMe9HOY01O4CSSaM3JIE4Hg",
+    "handle": "@HimanshuJha-h6n"
+  },
+  "verifiedAt": "2026-10-15T16:44:14.136Z",
+  "verifiedAtLocal": "2026-10-15T22:14:14.136+05:30",
+  "timezone": "Asia/Kolkata",
+  "verification": "Codex in-app browser CUA: upload-complete processing dialog, exact video detail page with Unlisted visibility, published English subtitle row, then actual watch-page playback and checked English caption menu with rendered cue text. Not inferred from the reserved upload URL.",
+  "visibility": "Unlisted",
+  "processing": {
+    "standardDefinition": "complete",
+    "highDefinition": "complete",
+    "copyrightCheck": "No issues found",
+    "checkBoundary": "Observed at upload; YouTube warns these results can change later."
+  },
+  "playback": {
+    "verified": true,
+    "sourceDurationSeconds": 68,
+    "observedTranscodedDurationSeconds": 68.021,
+    "observedPlaying": {
+      "currentTimeSeconds": 0.10298,
+      "paused": false,
+      "readyState": 4
+    }
+  },
+  "subtitles": {
+    "language": "English",
+    "source": {
+      "path": "docs/demo/briefstamp-demo.srt",
+      "bytes": 1670,
+      "sha256": "e422e20b6d10a6689c2a2851f8a50987de9e3208513d0ce67d1e2db8b55d661e"
+    },
+    "cueCount": 11,
+    "studioStatus": "Published Oct 15, 2026",
+    "playerStatus": "English menu option checked; uploaded caption text visibly rendered",
+    "automaticCaptions": "Separate automatic-caption track was still processing. The published track is the uploaded SRT."
+  },
+  "thumbnail": {
+    "status": "Uploaded thumbnail confirmed in Studio",
+    "path": "docs/demo/thumbnail.png",
+    "bytes": 75599,
+    "sha256": "8e0a8935c9453130819c53022798508622f58c48b25f10d6c6efbf87cc6b8d88"
+  },
+  "video": {
+    "path": "docs/demo/briefstamp-demo.mp4",
+    "bytes": 15761948,
+    "sha256": "5bde3eab9d26d55da468172f375df7034d4f44ce2f0cd75ee6f4bc553cdc8e16"
+  },
+  "captureSourceCommit": "816d869ed7851b471b0ff83b103903ef2f069eae",
+  "contentBoundary": "Edited actual hosted UI captures of the synthetic sample with template checks and no model call; manual restoration and fresh approval. Not continuous elapsed-time proof. Separate newer receipts document Gemma integration.",
+  "descriptionExternalLinks": "Studio says external links require a separate one-time channel verification to become clickable. URLs remain in the description; no account verification was initiated.",
+  "proof": [
+    {
+      "path": "docs/demo/youtube-upload-confirmation.jpg",
+      "bytes": 17689,
+      "sha256": "e3f272a81da247439854b9ab1fa2e591a6ec5ffbccc0e1fbff0ef2cdc322c014"
+    },
+    {
+      "path": "docs/demo/youtube-captions-published.jpg",
+      "bytes": 44221,
+      "sha256": "0e6ea0b53dbd811775fdcd464907e9d81514387cf4e4707761707403c964bef2"
+    },
+    {
+      "path": "docs/demo/youtube-watch.jpg",
+      "bytes": 62516,
+      "sha256": "80b5aba2b00c44c20e313cb1d7086ad61da3d905e730768341156e481937d3e8"
+    },
+    {
+      "path": "docs/demo/youtube-details.jpg",
+      "bytes": 119297,
+      "sha256": "68fc4c23919845ff7247c51d394de712097206a6834c3355daa941496874c8b3"
+    }
+  ],
+  "newModelCalls": 0,
+  "billingChanges": 0,
+  "hostingChanges": 0
+}

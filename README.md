@@ -10,9 +10,9 @@ Formerly FlowProof; existing repository and demo URLs are retained.
 
 *Recorded template workflow; actual browser results. [Comparison screenshot](docs/evidence/acceptance-comparison.jpg).*
 
-[Try the live demo](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Three-minute judge guide](docs/JUDGE_GUIDE.md)
+[Try the live demo](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://youtu.be/xve020VJl0s) · [Three-minute judge guide](docs/JUDGE_GUIDE.md)
 
-YouTube upload: `YOUTUBE_URL` (pending author upload; MP4 above is the backup).
+[MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance and captions](docs/demo/README.md).
 
 ## The problem
 
