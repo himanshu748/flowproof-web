@@ -2,7 +2,13 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
-## Verified public snapshot, 15 October 2026
+## Verified source update, 15 October 2026
+
+[Actions run 38690709135](https://github.com/himanshu748/flowproof-web/actions/runs/38690709135) verified source commit `e7be707cd5b947784bc02971742994dfcfc33993`: 140 application tests, 17 provenance tests, a production build and real healthy → broken → restored browser runs. Four regressions and four recoveries were observed. Three portable reports, fifteen screenshots and comparison JSON were downloaded and checked. [Retained receipt and artifact hashes](evidence/ci-regression-2026-10-15.json).
+
+This is source/CI evidence; it does not by itself certify which revision is currently serving the public URL. Render remains an existing free service with manual deployments. The records below are explicitly historical runtime snapshots.
+
+## Historical public snapshot, 15 October 2026
 
 The public repository's main branch, passing CI and live Render deployment were rechecked at 03:50 UTC on October 15, 2026. All three match commit `5d5586109d59286aba7627aa30bc455bd45dbf71`. [Actions run 38580708979](https://github.com/himanshu748/flowproof-web/actions/runs/38580708979) passed 106 application tests, 17 provenance tests, the production build, real healthy/broken browser audits and artifact upload.
 
@@ -44,4 +50,4 @@ npx playwright install --with-deps chromium
 npm run verify
 ```
 
-The workflow runs both healthy and intentionally broken synthetic pages and retains screenshots and JSON as seven-day artifacts. Public CI artifacts must contain synthetic evidence only unless a client has expressly approved publication. Never commit a private client brief, `.env`, database content, screenshots, or credentials.
+The workflow runs healthy, intentionally broken and restored synthetic pages and retains portable reports, comparisons, screenshots and JSON as seven-day artifacts. Public CI artifacts must contain synthetic evidence only unless a client has expressly approved publication. Never commit a private client brief, `.env`, database content, screenshots, or credentials.

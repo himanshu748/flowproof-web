@@ -14,9 +14,15 @@ The public draft generator is explicitly deterministic. The model dashboard cont
 
 [GitHub Actions workflow](../.github/workflows/audit.yml) · [Public runs](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) · [Audit script](../scripts/audit-sample.ts)
 
-The current regression script executes **healthy → intentionally broken → restored healthy** with the same approved fixture plan. It writes per-run JSON, standalone HTML reports, screenshots, `comparison.json` and a readable summary into the `flowproof-evidence` artifact. Its expected outcome is four regressions followed by four recoveries, with one subjective check still unknown. The fixture is restored by the test harness; this is not autonomous code repair.
+The regression sequence executed **healthy → intentionally broken → restored healthy** with the same approved fixture plan. The downloaded `flowproof-evidence` artifact contains 15 PNG screenshots, three standalone HTML reports, per-run JSON, `comparison.json` and a readable summary. It recorded **four regressions followed by four recoveries**, with the subjective check still unknown. The fixture was restored by the test harness; this is not autonomous code repair.
 
-**Verification boundary, October 15:** the new three-stage sequence passed locally, alongside 140 application tests and 17 provenance tests. Its new remote success is not yet claimed here. The preceding [published run](https://github.com/himanshu748/flowproof-web/actions/runs/38685613384) passed 106 application tests, 17 provenance tests and real healthy/broken audits. Use a new run's actual status and artifacts before citing the three-stage result as passed.
+**Verified remote evidence, October 15:** [Actions run 38690709135](https://github.com/himanshu748/flowproof-web/actions/runs/38690709135) passed at commit `e7be707cd5b947784bc02971742994dfcfc33993`: 140 application tests across 11 files, 17 provenance tests, the production build and the three real Chromium audits. The actual logs and downloaded artifact confirm the outcomes below; a [persistent receipt](evidence/ci-regression-2026-10-15.json) retains comparisons and artifact hashes. This run proves the source revision and controlled browser outcomes. Public runtime deployment is verified separately from CI; [deployment records](DEPLOYMENT.md) retain dated snapshots.
+
+| Controlled website state | Passed | Failed | Unverified |
+|---|---:|---:|---:|
+| Healthy | 5 | 0 | 1 |
+| Intentionally broken | 1 | 4 | 1 |
+| Restored healthy | 5 | 0 | 1 |
 
 The saved fixture plan checks the contact destination. The public brief parser checks its visible label. Their broken results therefore differ: four failures in the fixture plan versus three in the public sample flow. Compare definitions as well as status counts.
 
@@ -32,4 +38,4 @@ The saved fixture plan checks the contact destination. The public brief parser c
 
 The full PRD is unfinished: live Tinker generation, lasting hosted Tiger storage, human dataset validation and P1 sponsor integrations remain open. The founder has volunteered to test; no completed founder feedback or independent customer validation has been recorded. [Full PRD assessment](PRD_STATUS.md) · [Integration ledger](INTEGRATIONS.md).
 
-The article remains a local draft, not a DEV submission. Before publishing: verify the latest deployment/workflow, review the final article, check for an existing Week 2 entry, confirm eligibility, and preserve all limitations. Only the first entry counts. Deadline: **October 18, 11:59 PM PDT / October 19, 12:29 PM IST**. [Official rules](https://dev.to/page/hacktoberfest-week2-2026-10-12-contest-rules).
+The article remains a local draft, not a DEV submission. The author confirmed on October 15 that Briefstamp is their only Week 2 entry; the one-entry question is resolved. Before publishing: verify the final deployment/workflow, review the article, confirm eligibility and preserve all limitations. Only the first entry counts. Deadline: **October 18, 11:59 PM PDT / October 19, 12:29 PM IST**. [Official rules](https://dev.to/page/hacktoberfest-week2-2026-10-12-contest-rules).

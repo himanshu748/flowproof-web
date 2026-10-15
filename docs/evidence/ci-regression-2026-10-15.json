@@ -1,0 +1,299 @@
+{
+  "verifiedAt": "2026-10-15",
+  "sourceCommit": "e7be707cd5b947784bc02971742994dfcfc33993",
+  "workflowRun": "https://github.com/himanshu748/flowproof-web/actions/runs/38690709135",
+  "conclusion": "success",
+  "applicationTests": 140,
+  "provenanceTests": 17,
+  "productionBuild": "passed",
+  "artifact": {
+    "id": 11951829142,
+    "name": "flowproof-evidence",
+    "sizeBytes": 2418621,
+    "sha256": "174c837f2a579dcba98db9981c28ca3ec565f626ee6ff190224327a60538dd69",
+    "expiresAt": "2026-10-22T06:10:27Z"
+  },
+  "audits": [
+    {
+      "condition": "healthy",
+      "auditId": "ff8d8349-1753-4488-84fb-e10cb58bce85",
+      "status": "completed",
+      "createdAt": "2026-10-15T06:10:17.666Z",
+      "completedAt": "2026-10-15T06:10:21.011Z",
+      "counts": {
+        "passed": 5,
+        "unverified": 1
+      }
+    },
+    {
+      "condition": "broken",
+      "auditId": "1241095a-cc1d-4a2f-ae21-79e7409916df",
+      "status": "completed",
+      "createdAt": "2026-10-15T06:10:21.031Z",
+      "completedAt": "2026-10-15T06:10:24.310Z",
+      "counts": {
+        "failed": 4,
+        "passed": 1,
+        "unverified": 1
+      }
+    },
+    {
+      "condition": "recovered",
+      "auditId": "acd5d780-c672-4104-a7b3-4876969d040d",
+      "status": "completed",
+      "createdAt": "2026-10-15T06:10:24.314Z",
+      "completedAt": "2026-10-15T06:10:27.575Z",
+      "counts": {
+        "passed": 5,
+        "unverified": 1
+      }
+    }
+  ],
+  "comparisons": {
+    "regression": {
+      "comparable": true,
+      "reason": null,
+      "rows": [
+        {
+          "checkId": "sample-heading",
+          "requirement": "The homepage must have the agreed headline.",
+          "previousStatus": "passed",
+          "currentStatus": "failed",
+          "change": "regressed"
+        },
+        {
+          "checkId": "sample-text",
+          "requirement": "Show the studio positioning on the homepage.",
+          "previousStatus": "passed",
+          "currentStatus": "passed",
+          "change": "unchanged"
+        },
+        {
+          "checkId": "sample-link",
+          "requirement": "The Start a project link should lead to /contact.",
+          "previousStatus": "passed",
+          "currentStatus": "failed",
+          "change": "regressed"
+        },
+        {
+          "checkId": "sample-alt",
+          "requirement": "All meaningful images need alternative text.",
+          "previousStatus": "passed",
+          "currentStatus": "failed",
+          "change": "regressed"
+        },
+        {
+          "checkId": "sample-mobile",
+          "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+          "previousStatus": "passed",
+          "currentStatus": "failed",
+          "change": "regressed"
+        },
+        {
+          "checkId": "sample-manual",
+          "requirement": "The design should feel trustworthy and professional.",
+          "previousStatus": "unverified",
+          "currentStatus": "unverified",
+          "change": "unknown"
+        }
+      ],
+      "counts": {
+        "regressed": 4,
+        "recovered": 0,
+        "still_failing": 0,
+        "unchanged": 1,
+        "unknown": 1,
+        "changed": 0,
+        "added": 0,
+        "removed": 0
+      }
+    },
+    "recovery": {
+      "comparable": true,
+      "reason": null,
+      "rows": [
+        {
+          "checkId": "sample-heading",
+          "requirement": "The homepage must have the agreed headline.",
+          "previousStatus": "failed",
+          "currentStatus": "passed",
+          "change": "recovered"
+        },
+        {
+          "checkId": "sample-text",
+          "requirement": "Show the studio positioning on the homepage.",
+          "previousStatus": "passed",
+          "currentStatus": "passed",
+          "change": "unchanged"
+        },
+        {
+          "checkId": "sample-link",
+          "requirement": "The Start a project link should lead to /contact.",
+          "previousStatus": "failed",
+          "currentStatus": "passed",
+          "change": "recovered"
+        },
+        {
+          "checkId": "sample-alt",
+          "requirement": "All meaningful images need alternative text.",
+          "previousStatus": "failed",
+          "currentStatus": "passed",
+          "change": "recovered"
+        },
+        {
+          "checkId": "sample-mobile",
+          "requirement": "The site must fit a mobile screen without horizontal scrolling.",
+          "previousStatus": "failed",
+          "currentStatus": "passed",
+          "change": "recovered"
+        },
+        {
+          "checkId": "sample-manual",
+          "requirement": "The design should feel trustworthy and professional.",
+          "previousStatus": "unverified",
+          "currentStatus": "unverified",
+          "change": "unknown"
+        }
+      ],
+      "counts": {
+        "regressed": 0,
+        "recovered": 4,
+        "still_failing": 0,
+        "unchanged": 1,
+        "unknown": 1,
+        "changed": 0,
+        "added": 0,
+        "removed": 0
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "broken.html",
+      "sha256": "472d238e9216ef11b16b329ba88451386c62d38da07bdcafca48d8ba6e5a8d0c",
+      "bytes": 560144
+    },
+    {
+      "path": "broken.json",
+      "sha256": "37dc2c555ee3361c54d021f0098d10ded465078a4f7f249d78662e22267e4256",
+      "bytes": 6177
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "9cce8894bd5b44cf7696e0aa68fff2b33407d3d4c8a69b363b802a7525561be1",
+      "bytes": 3318
+    },
+    {
+      "path": "evidence/1241095a-cc1d-4a2f-ae21-79e7409916df/01-sample-heading.png",
+      "sha256": "7f4513f2494da84bec9639fa27b9392edd01af3a748b2f4ca65c569bba5ba10b",
+      "bytes": 92222
+    },
+    {
+      "path": "evidence/1241095a-cc1d-4a2f-ae21-79e7409916df/02-sample-text.png",
+      "sha256": "7f4513f2494da84bec9639fa27b9392edd01af3a748b2f4ca65c569bba5ba10b",
+      "bytes": 92222
+    },
+    {
+      "path": "evidence/1241095a-cc1d-4a2f-ae21-79e7409916df/03-sample-link.png",
+      "sha256": "7f4513f2494da84bec9639fa27b9392edd01af3a748b2f4ca65c569bba5ba10b",
+      "bytes": 92222
+    },
+    {
+      "path": "evidence/1241095a-cc1d-4a2f-ae21-79e7409916df/04-sample-alt.png",
+      "sha256": "7f4513f2494da84bec9639fa27b9392edd01af3a748b2f4ca65c569bba5ba10b",
+      "bytes": 92222
+    },
+    {
+      "path": "evidence/1241095a-cc1d-4a2f-ae21-79e7409916df/05-sample-mobile.png",
+      "sha256": "25adfb341e0f6950f3e0c1d5ae047c9b9793a751ed01da5a8fe68fdfa6d2a675",
+      "bytes": 44423
+    },
+    {
+      "path": "evidence/acd5d780-c672-4104-a7b3-4876969d040d/01-sample-heading.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/acd5d780-c672-4104-a7b3-4876969d040d/02-sample-text.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/acd5d780-c672-4104-a7b3-4876969d040d/03-sample-link.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/acd5d780-c672-4104-a7b3-4876969d040d/04-sample-alt.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/acd5d780-c672-4104-a7b3-4876969d040d/05-sample-mobile.png",
+      "sha256": "dbc817c29c5b1b5e5d0c6162a1acc28f83fa017b1e34ecf50a89ed48d9733e14",
+      "bytes": 44635
+    },
+    {
+      "path": "evidence/ff8d8349-1753-4488-84fb-e10cb58bce85/01-sample-heading.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/ff8d8349-1753-4488-84fb-e10cb58bce85/02-sample-text.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/ff8d8349-1753-4488-84fb-e10cb58bce85/03-sample-link.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/ff8d8349-1753-4488-84fb-e10cb58bce85/04-sample-alt.png",
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2",
+      "bytes": 93476
+    },
+    {
+      "path": "evidence/ff8d8349-1753-4488-84fb-e10cb58bce85/05-sample-mobile.png",
+      "sha256": "dbc817c29c5b1b5e5d0c6162a1acc28f83fa017b1e34ecf50a89ed48d9733e14",
+      "bytes": 44635
+    },
+    {
+      "path": "healthy.html",
+      "sha256": "cbd80f346fbcc4fbd6ca9b9fa031dcb01cf45c97c7099cf9939ffeed9859ad21",
+      "bytes": 567126
+    },
+    {
+      "path": "healthy.json",
+      "sha256": "bfbc2bfa71e3d4291e9b30ada5f89eecbe6c438ef6368f975baaa49fbb75adf9",
+      "bytes": 6184
+    },
+    {
+      "path": "recovered.html",
+      "sha256": "5dd2219ab8c59f0e7bd65b1a3e785f2bd275886b1d83189e9adfc7041fa92421",
+      "bytes": 567134
+    },
+    {
+      "path": "recovered.json",
+      "sha256": "9c4f100f9b9a4e7937a4defa59d87af3cb8b6e13f77094759049b26f767d0673",
+      "bytes": 6184
+    },
+    {
+      "path": "summary.json",
+      "sha256": "0bbf3d3d3667b135a8a6a241f903778e5ba70c5410f0306b329e72c0a79dc724",
+      "bytes": 20906
+    },
+    {
+      "path": "summary.md",
+      "sha256": "72d5427f9a7ab6c0983feed511e12dde6ba0121665a1e35d5106abe56e290142",
+      "bytes": 759
+    }
+  ],
+  "limitations": [
+    "Synthetic fixtures, not a client website",
+    "No model inference in CI",
+    "Approval and fixture restoration performed by an explicit test harness",
+    "Different approved assertions explain the public demo three-failure result",
+    "Downloaded artifacts retained locally; remote artifact expiry is explicit"
+  ]
+}
