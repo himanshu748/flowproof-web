@@ -165,6 +165,44 @@ export function generateLocalChecks(brief: string): Check[] {
   return requirementsFrom(brief).map(localCheck);
 }
 
+/** Bind inert model data to the original source. Models never supply approval. */
+export function validateModelProposal(brief: string, value: unknown): Check[] {
+  const originals = requirementsFrom(brief);
+  const proposed = proposalSchema.parse(value).checks;
+  if (
+    proposed.length !== originals.length ||
+    proposed.some((check, index) => check.requirementIndex !== index)
+  )
+    throw new Error(
+      "The model omitted, duplicated or reordered a requirement.",
+    );
+  return validateChecks(
+    proposed.map(({ requirementIndex, ...check }) => {
+      const requirement = originals[requirementIndex];
+      const scope = requirementScope(requirement);
+      if (requiresManualReview(requirement) || scope.unsupported)
+        return { ...localCheck(requirement), kind: "manual" as const };
+      if (["heading", "link", "text_visible"].includes(check.kind)) {
+        const literals = [...requirement.matchAll(/["“]([^"”]+)["”]/g)].map(
+          (match) => match[1],
+        );
+        if (literals.length !== 1 || check.expected !== literals[0])
+          throw new Error(
+            "The model changed the literal text in the requirement.",
+          );
+      }
+      return {
+        ...check,
+        path: scope.path,
+        viewport: scope.viewport,
+        requirement,
+        id: randomUUID(),
+        approved: false,
+      };
+    }),
+  );
+}
+
 async function localModelChecks(
   brief: string,
   originals: string[],
@@ -319,16 +357,45 @@ export async function generateChecks(
   if (process.env.BRIEFSTAMP_TINKER_ENABLED === "true") {
     try {
       const proposed = await generateTinkerProposal(originals);
-      const checks = validateChecks(proposed.checks.map((check, index) => {
-        const requirement = originals[index];
-        const scope = requirementScope(requirement);
-        if (proposed.redacted[index] || requiresManualReview(requirement) || scope.unsupported)
-          return { ...localCheck(requirement), kind: "manual" as const };
-        return { ...check, requirement, path: scope.path, viewport: scope.viewport, id: randomUUID(), approved: false };
-      }));
-      return { checks, generator: { provider: "Tinker (operator checkpoint)", model: proposed.model, reason: "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark." } };
+      const checks = validateChecks(
+        proposed.checks.map((check, index) => {
+          const requirement = originals[index];
+          const scope = requirementScope(requirement);
+          if (
+            proposed.redacted[index] ||
+            requiresManualReview(requirement) ||
+            scope.unsupported
+          )
+            return { ...localCheck(requirement), kind: "manual" as const };
+          return {
+            ...check,
+            requirement,
+            path: scope.path,
+            viewport: scope.viewport,
+            id: randomUUID(),
+            approved: false,
+          };
+        }),
+      );
+      return {
+        checks,
+        generator: {
+          provider: "Tinker (operator checkpoint)",
+          model: proposed.model,
+          reason:
+            "Tinker checkpoint proposals validated against the safe assertion schema. Review and approve every check. This is separate from the recorded model benchmark.",
+        },
+      };
     } catch {
-      return { checks: originals.map(localCheck), generator: { provider: "Deterministic parser", model: null, reason: "Tinker was unavailable, unconfigured, outside its confirmed-free budget or returned an invalid plan. These drafts were created by rules; no Tinker success is claimed." } };
+      return {
+        checks: originals.map(localCheck),
+        generator: {
+          provider: "Deterministic parser",
+          model: null,
+          reason:
+            "Tinker was unavailable, unconfigured, outside its confirmed-free budget or returned an invalid plan. These drafts were created by rules; no Tinker success is claimed.",
+        },
+      };
     }
   }
   if (process.env.FLOWPROOF_AI_ENABLED === "true") {

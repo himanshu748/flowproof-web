@@ -2,9 +2,19 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
-## Integration revision evidence, October15
+## Current candidate: hosted verification pending
 
-The [current Actions workflow](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) is the source for revision-specific CI state. New local SDK and provider receipts are linked in [the integration ledger](INTEGRATIONS.md): Mastra approval/browser coordination, Sentry local transport, Temporal retry/restart recovery, scoped Entire import and a real SerpApi search. These receipts do not imply hosted Sentry, a hosted Temporal worker or permanent Tiger storage. Public visitors never invoke optional paid-capable provider APIs. Mastra remains a verified local/private operator integration; public audits use the direct bounded runner to fit the free instance memory limit.
+The last independently verified runtime below is `94727b283fdb19e78eba0964a8002d0a6199b8ca`. The new source candidate adds opt-in native Gemma proposals for the fixed synthetic brief, an isolated compiled Mastra proposal worker, and operator-protected Backboard memory. The user approved transferring the required keys/operator token to the existing Render service. Configuration is now applied, and that service was rechecked as Free. Deployment and hosted execution of the candidate remain pending; configuration alone is not a successful run.
+
+| Candidate capability | Actual evidence before deployment | Hosted gate |
+|---|---|---|
+| Native Gemma 4 | [One real provider request through the public router locally](PUBLIC_GEMMA.md): 335 input / 300 output tokens, then actual healthy/broken/restored Chromium and three reports. Earlier failed attempts remain public. | Run the deployed generation action with consent; verify actual generator/model, approval rejection, real audits and report downloads on that exact source. |
+| Isolated Mastra | Actual local SDK fixture passed within approximately 169.93 MiB. Earlier local tools/browser evidence is retained. | Confirm the worker orchestrates the real provider response on Render within its runtime budget. A fixture response is not live-model evidence. |
+| Backboard memory | [Real cloud write and retrieval](BACKBOARD_VERIFICATION.md) preserved all six audit statuses; immediate free-credit deduction was $0.01, paid balance unchanged. | Deploy the protected routes and a fresh, separate two-operation/$0.03 existing-credit allowance; prove anonymous rejection, session ownership and actual hosted write/retrieval with before/after balances. |
+
+Initial visitor drafts remain labelled rules. The candidate's model route checks free-only pricing and accepts no private visitor brief. Backboard requires an operator token; anonymous visitors cannot spend its credits. Its local allowance file is exclusive-created and never resets counters during initialization, but free-host disk replacement is not durable cross-deployment storage. Do not reuse an exhausted proof or infer a new allowance from a restart.
+
+The [Actions workflow](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) supplies revision-specific CI state. Provider/local receipts in [the integration ledger](INTEGRATIONS.md) do not establish hosted Sentry ingestion, a hosted Temporal worker or lasting Tiger storage. FieldIssue health and readiness returned HTTP 200 at 09:35 UTC on October 15; configured keys establish availability/configuration only, not new billing or provider execution proof.
 
 The deployment records below are historical snapshots, not an assertion that their hashes equal the latest repository revision. The existing service remains manually deployed; verify its exact commit separately before claiming a new release live.
 
@@ -54,13 +64,13 @@ The CI fixture checks a contact destination and detects four broken assertions. 
 
 A source-only documentation update may follow this audited application commit. The Render deployment is intentionally pinned through manual deploys; the deployed revision is recorded here rather than inferred from the latest repository head.
 
-## Free resources
+## Historical free-resource preflight
 
 - Render Hobby workspace, no card on file, checked 13 October 2026.
-- New web service must use `plan: free`; no database, worker, disk, or model provider.
+- The web service uses `plan: free`; no paid database, persistent worker or disk is authorized. The current candidate's native Gemma and protected existing-credit Backboard paths have separate evidence and limits above.
 - Free allowance at preflight: 70.3/750 instance hours, 23/500 pipeline minutes, 348 MB/5 GB bandwidth, 23/25 services. Allowances are shared with other projects and change with usage.
 - Standard public GitHub Actions runner; no larger runner or paid add-on.
-- Public demo state and screenshots are temporary. No Tiger Data, Tinker, Gemma inference, Mastra, Sentry or Temporal connection is claimed by this deployment.
+- These allowances were observed on October 13, not refreshed by the candidate preparation. Public demo state and screenshots are temporary. The historical release did not establish hosted Tiger, Tinker, Gemma inference, Mastra, Sentry or Temporal; candidate claims await their own receipts.
 
 ## Reproduce
 

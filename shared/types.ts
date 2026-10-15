@@ -27,7 +27,18 @@ export interface Project {
   checks: Check[];
   createdAt: string;
   updatedAt: string;
-  generator: { provider: string; model: string | null; reason?: string };
+  generator: {
+    provider: string;
+    model: string | null;
+    reason?: string;
+    orchestration?: {
+      provider: "Mastra";
+      workflowId: string;
+      runId: string;
+      steps: string[];
+      maxRssMiB: number;
+    };
+  };
 }
 export interface Evidence {
   screenshot?: string;
@@ -99,7 +110,17 @@ export interface Evaluation {
   notes: string[];
 }
 export interface Bootstrap {
-  demo?: { enabled: boolean; expiresMinutes: number; notice: string };
+  demo?: {
+    enabled: boolean;
+    expiresMinutes: number;
+    notice: string;
+    gemma?: {
+      available: boolean;
+      model: string;
+      sampleBrief: string;
+      description: string;
+    };
+  };
   projects: Project[];
   audits: Audit[];
   integrations: IntegrationStatus[];

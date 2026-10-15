@@ -1,0 +1,58 @@
+{
+  "startedAt": "2026-10-15T09:42:19.342Z",
+  "scope": "Actual public-router HTTP path, real Google Gemma, real Chromium, fixed synthetic brief only",
+  "approvalActor": "Automated synthetic test harness, not human approval",
+  "providerCalls": 1,
+  "audits": [
+    {
+      "variant": "healthy",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      },
+      "reportSha256": "80d85d91ac487e56259ae39d499eed35efb879f948dd174e59f2ca47962f5e3f"
+    },
+    {
+      "variant": "broken",
+      "counts": {
+        "passed": 2,
+        "failed": 3,
+        "blocked": 0,
+        "unverified": 1
+      },
+      "reportSha256": "7eabe5c0fa2d8aff22315cc40eb92a59af621bfc56fcbafb42e26c04ffcb2a0e"
+    },
+    {
+      "variant": "restored",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      },
+      "reportSha256": "ee51351f20cae9546165cf3060969f5dc0aade3ba673abdc089a2d6e1c08883b"
+    }
+  ],
+  "pricing": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-15T09:42:20.470Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+  },
+  "providerHttp": 200,
+  "status": "passed",
+  "generator": {
+    "provider": "Google Gemma (live API)",
+    "model": "gemma-4-26b-a4b-it",
+    "reason": "Fresh Gemma proposal for the fixed synthetic brief, validated by the server. 7937 ms. 335 input / 300 output tokens. Review and approve every executable check."
+  },
+  "completedAt": "2026-10-15T09:42:44.616Z",
+  "publication": {
+    "originalProviderResponseSha256": "334290c691befa9d6ea06cec3d8dc73b832f4caeee4a4cea5ed5856b9ea1fd9d",
+    "removedFields": [
+      "responseId"
+    ],
+    "note": "Only synthetic plan and usage metadata published. Original raw response retained privately."
+  }
+}

@@ -302,6 +302,105 @@ describe("Tinker shared reservation contract", () => {
   });
 });
 
+describe("Backboard explicitly approved existing-credit boundary", () => {
+  const creditProof = {
+    freeOnly: false,
+    paidOverageDisabled: undefined,
+    confirmedFreeUnits: undefined,
+    existingCreditOnly: true,
+    existingCreditsApproved: true,
+    autoReloadEnabled: false,
+    paymentMethodConfigured: false,
+    confirmedExistingCreditsUsd: 9.99,
+    maxCreditSpendUsd: 0.03,
+    // The separate synthetic assistant setup has already reserved one cent.
+    usedCreditSpendUsd: 0.01,
+    unit: "requests",
+    operations: ["memory-write", "memory-search"],
+    usedOperations: [],
+    maxUnits: 2,
+    maxCalls: 2,
+  };
+
+  it("reserves credit before I/O and permits only one write and one search", async () => {
+    let options: ProviderOptions;
+    const transport = vi.fn<typeof fetch>(async (url) => {
+      const persisted = JSON.parse(
+        await readFile(
+          options.env!.BRIEFSTAMP_PROVIDER_ALLOWANCE_FILE!,
+          "utf8",
+        ),
+      ).providers.backboard;
+      expect(persisted.freeOnly).toBe(false);
+      expect(persisted.usedCreditSpendUsd).toBe(
+        String(url).endsWith("/search") ? 0.03 : 0.02,
+      );
+      return String(url).endsWith("/search")
+        ? Response.json({ memories: [], total_count: 0 })
+        : new Response(null, { status: 201 });
+    });
+    options = await setup("backboard", transport, creditProof);
+    options.env!.BRIEFSTAMP_BACKBOARD_EXISTING_CREDITS_APPROVED = "true";
+    await rememberAudit(audit, options);
+    await expect(rememberAudit(audit, options)).rejects.toMatchObject({
+      code: "budget_exhausted",
+    });
+    await recallProjectMemory(audit.projectId, "heading", options);
+    await expect(
+      recallProjectMemory(audit.projectId, "heading", options),
+    ).rejects.toMatchObject({ code: "budget_exhausted" });
+    expect(transport).toHaveBeenCalledTimes(2);
+  });
+
+  it.each([
+    {},
+    { autoReloadEnabled: true },
+    { paymentMethodConfigured: true },
+    { maxCreditSpendUsd: 0.04 },
+    { confirmedExistingCreditsUsd: 0.02 },
+    { checkedAt: "2026-10-13T07:00:00Z" },
+    { credentialSha256: "0".repeat(64) },
+  ])(
+    "sends nothing with missing approval or unsafe credit proof %j",
+    async (change) => {
+      const transport = vi.fn();
+      const options = await setup("backboard", transport, {
+        ...creditProof,
+        ...change,
+      });
+      if (Object.keys(change).length)
+        options.env!.BRIEFSTAMP_BACKBOARD_EXISTING_CREDITS_APPROVED = "true";
+      await expect(rememberAudit(audit, options)).rejects.toThrow();
+      expect(transport).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each(["serpapi", "elevenlabs", "tinker"] as const)(
+    "does not enable existing credits for %s",
+    async (provider) => {
+      const transport = vi.fn();
+      const options = await setup(provider, transport, creditProof);
+      options.env!.BRIEFSTAMP_BACKBOARD_EXISTING_CREDITS_APPROVED = "true";
+      const operation =
+        provider === "serpapi"
+          ? "search-visibility"
+          : provider === "elevenlabs"
+            ? "sample-speech"
+            : "generate-checks";
+      const unit =
+        provider === "serpapi"
+          ? "requests"
+          : provider === "elevenlabs"
+            ? "characters"
+            : "tokens";
+      await expect(
+        reserveProviderUse(provider, key, operation, 1, unit, options),
+      ).rejects.toMatchObject({ code: "free_confirmation_required" });
+      expect(transport).not.toHaveBeenCalled();
+    },
+  );
+});
+
 describe("Backboard anonymous project memory contract", () => {
   it("writes only structured anonymous outcomes and retrieves only the same project", async () => {
     let memory = "";

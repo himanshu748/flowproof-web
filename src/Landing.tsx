@@ -238,7 +238,8 @@ export default function Landing({ onOpenDemo, onOpenModel }: LandingProps) {
                   </a>
                 </motion.div>
                 <motion.p className="lp-hero-note" {...entrance(0.32)}>
-                  No sign-up. A real audit on a safe sample website.
+                  Generate with Gemma. Review the checks. Run a real browser
+                  audit.
                 </motion.p>
               </div>
 
@@ -456,23 +457,23 @@ export default function Landing({ onOpenDemo, onOpenModel }: LandingProps) {
                 <article>
                   <div>
                     <span className="lp-capability-state lp-state-research">
-                      Measured pilot
+                      Open model, reviewed by you
                     </span>
                     <h3>AI that shows its work.</h3>
                   </div>
                   <p>
-                    Local Gemma proposed three checks that caught a real sample
-                    failure and its recovery. The full brief timed out. Saved
-                    Tinker results also show the limits: fine-tuning did not beat
-                    few-shot prompting. This demo makes no live model calls.
+                    Open the sample and choose Generate with Gemma to request a
+                    fresh plan from Google's open-weight model. You review its
+                    checks before the browser runs. Saved Tinker experiments
+                    separately measure a token-cost and accuracy tradeoff.
                   </p>
                   <a
                     className="lp-text-link"
-                    href="https://github.com/himanshu748/flowproof-web/blob/main/docs/GEMMA_WORKFLOW.md"
+                    href="https://github.com/himanshu748/flowproof-web/blob/main/docs/PUBLIC_GEMMA.md"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Inspect the Gemma run <ArrowUpRight size={17} />
+                    How live Gemma works <ArrowUpRight size={17} />
                   </a>
                   <button
                     type="button"

@@ -1,0 +1,149 @@
+{
+  "provider": "Backboard",
+  "startedAt": "2026-10-15T09:28:55.074Z",
+  "status": "verified",
+  "scope": "Operator-run synthetic project memory through the actual app adapter; not a public deployment or client-data test",
+  "funding": "Explicitly authorized existing credits, not a claim that mixed credits are a free grant",
+  "maxCreditSpendUsd": 0.03,
+  "modelInferenceCalls": 0,
+  "settingsOrPaymentChanges": 0,
+  "sourceAuditPath": "outputs/integration-release-hosted-2026-10-15/render-broken-audit.json",
+  "calls": [
+    {
+      "operation": "read-balance",
+      "method": "GET",
+      "httpStatus": 200
+    },
+    {
+      "operation": "create-dedicated-assistant",
+      "method": "POST",
+      "httpStatus": 200,
+      "reservedCreditUsd": 0.01
+    },
+    {
+      "operation": "memory-write",
+      "method": "POST",
+      "httpStatus": 201,
+      "elapsedMs": 1690,
+      "reservedCreditUsd": 0.01
+    },
+    {
+      "operation": "memory-search",
+      "method": "POST",
+      "httpStatus": 200,
+      "elapsedMs": 2572,
+      "reservedCreditUsd": 0.01
+    },
+    {
+      "operation": "read-balance",
+      "method": "GET",
+      "httpStatus": 200
+    }
+  ],
+  "sourceAuditSha256": "fe665a7fc35ed88e1b26a97cec947fce4c057e687fd91bae0d4d0f5f61c29cdf",
+  "sourceFacts": [
+    {
+      "kind": "heading",
+      "status": "failed"
+    },
+    {
+      "kind": "link",
+      "status": "passed"
+    },
+    {
+      "kind": "image_alt",
+      "status": "failed"
+    },
+    {
+      "kind": "no_horizontal_overflow",
+      "status": "failed"
+    },
+    {
+      "kind": "text_visible",
+      "status": "passed"
+    },
+    {
+      "kind": "manual",
+      "status": "unverified"
+    }
+  ],
+  "balanceBefore": {
+    "checkedAt": "2026-10-15T09:28:57.243Z",
+    "totalUsd": 9.998257,
+    "freeUsd": 5,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false
+  },
+  "dedicatedAssistantCreated": true,
+  "assistantIdentifierPublic": false,
+  "memoryWriteAccepted": true,
+  "matchingMemoryCount": 1,
+  "retrievedFailedHeading": true,
+  "retrieved": [
+    {
+      "format": "briefstamp-audit-v1",
+      "observedAt": "2026-10-15T08:46:42.666Z",
+      "facts": [
+        {
+          "kind": "heading",
+          "status": "failed"
+        },
+        {
+          "kind": "link",
+          "status": "passed"
+        },
+        {
+          "kind": "image_alt",
+          "status": "failed"
+        },
+        {
+          "kind": "no_horizontal_overflow",
+          "status": "failed"
+        },
+        {
+          "kind": "text_visible",
+          "status": "passed"
+        },
+        {
+          "kind": "manual",
+          "status": "unverified"
+        }
+      ],
+      "score": 0.33291924
+    }
+  ],
+  "balanceAfter": {
+    "checkedAt": "2026-10-15T09:29:06.794Z",
+    "totalUsd": 9.988257,
+    "freeUsd": 4.99,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false
+  },
+  "observedCreditDeductionsUsd": {
+    "totalUsd": 0.01,
+    "freeUsd": 0.01,
+    "paidUsd": 0,
+    "subscriptionUsd": 0
+  },
+  "balanceScope": "Immediate account-wide difference, not a guarantee of final billing or exclusive attribution; no free-first rule inferred.",
+  "reservation": {
+    "usedCalls": 2,
+    "usedUnits": 2,
+    "usedCreditSpendUsd": 0.03,
+    "maxCreditSpendUsd": 0.03,
+    "usedOperations": [
+      "memory-write",
+      "memory-search"
+    ]
+  },
+  "sourceHashes": {
+    "server/providers/backboard.ts": "05922e3619cb04c4801e7001e748b4799a8de62afe7433af4da607afcef1fac7",
+    "server/providers/free-resource-policy.ts": "4207120308503c40b66d0a98156b7bd47881e6604089d43b63da7c3542e3cc23",
+    "scripts/verify-backboard-credits.ts": "8653b417470feb316d8458611cc723d8b37836d9501076e7be1f01dda532e211"
+  },
+  "completedAt": "2026-10-15T09:29:06.796Z"
+}

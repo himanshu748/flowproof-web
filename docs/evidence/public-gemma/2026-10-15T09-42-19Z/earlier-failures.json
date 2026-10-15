@@ -1,0 +1,38 @@
+[
+  {
+    "startedAt": "2026-10-15T09:25:04.031Z",
+    "completedAt": "2026-10-15T09:25:04.684Z",
+    "status": "failed",
+    "providerCalls": 0,
+    "providerHttp": null,
+    "error": "fetch failed",
+    "scope": "Actual public-router HTTP path, real Google Gemma, real Chromium, fixed synthetic brief only"
+  },
+  {
+    "startedAt": "2026-10-15T09:26:17.829Z",
+    "completedAt": "2026-10-15T09:26:49.496Z",
+    "status": "failed",
+    "providerCalls": 1,
+    "providerHttp": null,
+    "error": "{\"error\":\"Gemma or its free-pricing check was unavailable, or the proposal failed validation. The current plan is unchanged. No AI success is claimed.\"}\n\n503 !== 200\n",
+    "scope": "Actual public-router HTTP path, real Google Gemma, real Chromium, fixed synthetic brief only"
+  },
+  {
+    "startedAt": "2026-10-15T09:30:11.244Z",
+    "completedAt": "2026-10-15T09:30:20.328Z",
+    "status": "failed",
+    "providerCalls": 1,
+    "providerHttp": 200,
+    "error": "{\"error\":\"Gemma or its free-pricing check was unavailable, or the proposal failed validation. The current plan is unchanged. No AI success is claimed.\"}\n\n503 !== 200\n",
+    "scope": "Actual public-router HTTP path, real Google Gemma, real Chromium, fixed synthetic brief only"
+  },
+  {
+    "startedAt": "2026-10-15T09:39:19.775Z",
+    "completedAt": "2026-10-15T09:39:20.599Z",
+    "status": "failed",
+    "providerCalls": 0,
+    "providerHttp": null,
+    "error": "fetch failed",
+    "scope": "Actual public-router HTTP path, real Google Gemma, real Chromium, fixed synthetic brief only"
+  }
+]

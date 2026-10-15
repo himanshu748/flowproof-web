@@ -3,6 +3,7 @@ import copy
 import importlib.util
 import json
 import unittest
+from decimal import Decimal
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('summary_script', ROOT / 'scripts/summarize-model-experiment.py')
@@ -52,6 +53,42 @@ class StatisticsTests(unittest.TestCase):
 
     def test_cost_is_decimal_and_not_billing_claim(self):
         self.assertEqual(summary.dollars({'training': 1_000_000, 'input': 1_000_000, 'output': 1_000_000}), '2.072')
+
+    def test_recorded_cost_comparison_separates_inference_from_setup(self):
+        recorded = json.loads((ROOT / 'eval/experiment-summary.json').read_text())
+        summary.validate_recorded_cost_sources(recorded, ROOT / 'eval/results', ROOT / 'docs/evidence/tinker-checkpoints.json')
+        result = summary.inference_cost_comparison(recorded)
+        self.assertEqual(result['inputTokensSaved'], 11640)
+        self.assertEqual((result['baselineTotalTokens'], result['candidateTotalTokens']), (18147, 6495))
+        self.assertEqual(Decimal(result['baselineInferenceEstimateUsd']), Decimal('0.00694026'))
+        self.assertEqual(Decimal(result['candidateInferenceEstimateUsd']), Decimal('0.00308700'))
+        self.assertEqual(Decimal(result['inferenceEstimateSavedUsd']), Decimal('0.00385326'))
+        self.assertEqual(Decimal(result['perRequestEstimateSavedUsd']), Decimal('0.0001605525'))
+        self.assertEqual(round(Decimal(result['inputTokenReductionPercent']), 2), Decimal('69.55'))
+        self.assertEqual(round(Decimal(result['totalTokenReductionPercent']), 2), Decimal('64.21'))
+        self.assertEqual(round(Decimal(result['inferenceEstimateReductionPercent']), 2), Decimal('55.52'))
+        self.assertEqual(result['trainingOnlyBreakEvenRequests'], 74)
+        self.assertEqual(result['trainingAndCheckpointBreakEvenRequests'], 87)
+        self.assertGreater(Decimal(result['candidateCohortIncludingTrainingAndCheckpointEstimateUsd']), Decimal(result['baselineInferenceEstimateUsd']))
+        self.assertFalse(result['providerBillingReconciled'])
+        self.assertTrue(result['breakEvenIsExtrapolation'])
+
+    def test_cost_comparison_rejects_changed_counts_and_has_no_break_even_without_savings(self):
+        recorded = json.loads((ROOT / 'eval/experiment-summary.json').read_text())
+        changed = copy.deepcopy(recorded)
+        changed['configurations']['few-shot']['tokens']['input'] += 1
+        with self.assertRaisesRegex(ValueError, 'disagree'):
+            summary.inference_cost_comparison(changed)
+        with self.assertRaisesRegex(ValueError, 'token totals disagree'):
+            summary.validate_recorded_cost_sources(changed, ROOT / 'eval/results', ROOT / 'docs/evidence/tinker-checkpoints.json')
+        changed['configurations']['few-shot'] = copy.deepcopy(recorded['configurations']['fine-tuned'])
+        result = summary.inference_cost_comparison(changed)
+        self.assertIsNone(result['trainingOnlyBreakEvenRequests'])
+        self.assertIsNone(result['trainingAndCheckpointBreakEvenRequests'])
+        changed = copy.deepcopy(recorded)
+        changed['configurations']['fine-tuned']['receiptSha256'] = '0' * 64
+        with self.assertRaisesRegex(ValueError, 'receipt changed'):
+            summary.validate_recorded_cost_sources(changed, ROOT / 'eval/results', ROOT / 'docs/evidence/tinker-checkpoints.json')
 
 
 if __name__ == '__main__':

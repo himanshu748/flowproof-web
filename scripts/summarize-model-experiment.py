@@ -54,6 +54,89 @@ def dollars(counts):
     return str(sum(Decimal(value) * RATES[key] / Decimal(1_000_000) for key, value in counts.items()))
 
 
+def inference_cost_comparison(summary):
+    """Price recorded tokens, keeping marginal inference separate from setup costs."""
+    baseline_name = summary['strongestBaseline']
+    baseline = summary['configurations'][baseline_name]
+    candidate = summary['configurations']['fine-tuned']
+    count = summary['heldoutCount']
+    if not isinstance(count, int) or count <= 0:
+        raise ValueError('Cost comparison needs a nonempty heldout cohort')
+    cost = summary['cost']
+    if cost['currency'] != 'USD':
+        raise ValueError('Recorded prices must use USD')
+    rates = {key: Decimal(cost['usdPerMillionTokens'][key]) for key in ('input', 'output', 'training')}
+    if any(not rate.is_finite() or rate < 0 for rate in rates.values()):
+        raise ValueError('Invalid recorded price')
+
+    def priced_tokens(configuration):
+        tokens = configuration['tokens']
+        if any(type(tokens[key]) is not int or tokens[key] < 0 for key in ('input', 'output')):
+            raise ValueError('Invalid recorded tokens')
+        estimate = sum(Decimal(tokens[key]) * rates[key] / 1_000_000 for key in ('input', 'output'))
+        if estimate != Decimal(configuration['observedTokenCostEstimateUsd']):
+            raise ValueError('Recorded inference estimate disagrees with tokens and rates')
+        return estimate
+
+    baseline_cost, candidate_cost = priced_tokens(baseline), priced_tokens(candidate)
+    training_cost = Decimal(summary['training']['tokens']) * rates['training'] / 1_000_000
+    if training_cost != Decimal(cost['trainingObservedTokenEstimateUsd']):
+        raise ValueError('Recorded training estimate disagrees with tokens and rates')
+    storage = cost.get('checkpointStorage')
+    storage_cost = Decimal(storage['conservative28DayMonthEstimateUsd']) if storage else None
+    if storage_cost is not None and (not storage_cost.is_finite() or storage_cost < 0):
+        raise ValueError('Invalid recorded checkpoint storage estimate')
+
+    def reduction(before, after):
+        return str((Decimal(before) - Decimal(after)) / Decimal(before) * 100) if before else None
+
+    savings = baseline_cost - candidate_cost
+    per_request = savings / count
+    return {
+        'baseline': baseline_name, 'requestsPerConfiguration': count,
+        'inputTokensSaved': baseline['tokens']['input'] - candidate['tokens']['input'],
+        'inputTokenReductionPercent': reduction(baseline['tokens']['input'], candidate['tokens']['input']),
+        'baselineTotalTokens': sum(baseline['tokens'].values()),
+        'candidateTotalTokens': sum(candidate['tokens'].values()),
+        'totalTokenReductionPercent': reduction(sum(baseline['tokens'].values()), sum(candidate['tokens'].values())),
+        'baselineInferenceEstimateUsd': str(baseline_cost),
+        'candidateInferenceEstimateUsd': str(candidate_cost),
+        'inferenceEstimateReductionPercent': reduction(baseline_cost, candidate_cost),
+        'inferenceEstimateSavedUsd': str(savings), 'perRequestEstimateSavedUsd': str(per_request),
+        'trainingEstimateUsd': str(training_cost),
+        'conservativeCheckpointEstimateUsd': str(storage_cost) if storage_cost is not None else None,
+        'trainingOnlyBreakEvenRequests': math.ceil(training_cost / per_request) if per_request > 0 else None,
+        'trainingAndCheckpointBreakEvenRequests': math.ceil((training_cost + storage_cost) / per_request) if per_request > 0 and storage_cost is not None else None,
+        'candidateCohortIncludingTrainingAndCheckpointEstimateUsd': str(candidate_cost + training_cost + storage_cost) if storage_cost is not None else None,
+        'providerBillingReconciled': False,
+        'breakEvenIsExtrapolation': True,
+    }
+
+
+def validate_recorded_cost_sources(summary, results_folder, checkpoint_evidence):
+    """Bind a new cost narrative to frozen receipts without rescoring quality."""
+    if sha256_file(ROOT / summary['manifestPath']) != summary['manifestSha256']:
+        raise ValueError('Recorded summary manifest changed')
+    for name in CONFIGURATIONS:
+        source = results_folder / f'{name}.json'
+        if sha256_file(source) != summary['configurations'][name]['receiptSha256']:
+            raise ValueError(f'Recorded {name} receipt changed')
+        run = json.loads(source.read_text())
+        if len(run['measurements']) != summary['heldoutCount']:
+            raise ValueError('Recorded cohort count changed')
+        actual = {key: sum(row[f'{key}Tokens'] for row in run['measurements']) for key in ('input', 'output')}
+        if actual != summary['configurations'][name]['tokens']:
+            raise ValueError('Recorded summary token totals disagree with raw receipts')
+    training_path = results_folder / 'training.json'
+    if sha256_file(training_path) != summary['training']['receiptSha256']:
+        raise ValueError('Recorded training receipt changed')
+    if json.loads(training_path.read_text())['trainingTokens'] != summary['training']['tokens']:
+        raise ValueError('Recorded training token count changed')
+    storage = summary['cost'].get('checkpointStorage')
+    if storage and sha256_file(checkpoint_evidence) != storage['providerMetadataSha256']:
+        raise ValueError('Recorded checkpoint metadata changed')
+
+
 def validate_run(run, configuration, manifest, manifest_sha):
     if run.get('schemaVersion') != 2 or run.get('operation') != 'evaluation' or run.get('status') != 'completed':
         raise ValueError(f'{configuration} has no completed v2 evaluation receipt')
@@ -235,7 +318,7 @@ def markdown(summary):
     configs = summary['configurations']; comparison = summary['fineTunedVsStrongestBaseline']['referenceAgreement']
     best = summary['strongestBaseline']
     lines = ['# Measured Tinker synthetic pilot', '',
-             f"The strongest measured baseline was **{best}**. Fine-tuning changed reference agreement by **{comparison['difference'] * 100:+.2f} percentage points** on the same {summary['heldoutCount']} heldout examples: {comparison['candidateWins']} corrections and {comparison['candidateLosses']} regressions. The exact paired McNemar p-value is {comparison['exactMcNemarPValue']:.4g}. This small synthetic pilot does not establish a general improvement over the strongest baseline.", '',
+             f"The strongest measured quality baseline was **{best}**. Fine-tuning changed reference agreement by **{comparison['difference'] * 100:+.2f} percentage points** on the same {summary['heldoutCount']} heldout examples: {comparison['candidateWins']} correction and {comparison['candidateLosses']} regressions. The exact paired McNemar p-value is {comparison['exactMcNemarPValue']:.4g}. This small synthetic pilot does not establish a general quality improvement over the strongest baseline. Its measured token reduction and inference-price tradeoff are reported separately below.", '',
              '**Provenance:** 96 agent-reviewed synthetic examples (60 train, 12 reserved validation, 24 heldout); **zero human-validated examples**. The four heldout website groups and related wording are not independent real-client sites.', '',
              '| Measured property | Zero-shot | Few-shot | Fine-tuned |', '|---|---:|---:|---:|']
     for label, getter in [('Valid structured output', lambda x: percent(x['structuredOutput'])), ('Reference agreement', lambda x: percent(x['referenceAgreement'])), ('Appropriate abstention', lambda x: percent(x['appropriateAbstention'])), ('Healthy-pass + broken-fail pairs / all executable references', lambda x: percent(x['browser']['executableCorrectness'])), ('False passes / executed broken assertions', lambda x: percent(x['browser']['falsePass'])), ('Mean request latency', lambda x: f"{x['meanLatencyMs']/1000:.2f}s"), ('Median request latency', lambda x: f"{x['medianLatencyMs']/1000:.2f}s"), ('Input / output tokens', lambda x: f"{x['tokens']['input']:,} / {x['tokens']['output']:,}"), ('Malformed outputs', lambda x: str(x['structuredOutput']['denominator'] - x['structuredOutput']['numerator'])), ('Inappropriate abstentions', lambda x: str(x['inappropriateAbstentions'])), ('Blocked / unverified browser pairs', lambda x: f"{x['browser']['blockedPairs']} / {x['browser']['unverifiedPairs']}")]:
@@ -263,15 +346,34 @@ def markdown(summary):
     train, cost = summary['training'], summary['cost']
     lines += ['', '## Training, compute and cost evidence', '',
               f"Real Tinker LoRA training used {train['examples']} examples, {train['tokens']:,} input tokens and {train['durationMs']/1000:.1f}s. Rank 16, one epoch, batch size 8, seed 42 and learning rate 0.0002 were frozen before evaluation. The sampler and state requested a 24-hour checkpoint TTL; saved artifacts are historical proof, not a guarantee that the remote checkpoint is still available.", '',
-              f"At the [recorded provider rates]({cost['pricingSource']}) of $0.737/M training, $0.33/M input and $1.005/M output tokens, the observed-token estimate is **${Decimal(cost['totalObservedTokenEstimateUsd']):.6f}**. The frozen token-cap upper estimate is **${Decimal(cost['totalTokenCapUpperEstimateUsd']):.6f}**, before the ledger's 25% reservation margin and checkpoint overhead. These figures are estimates, not a reconciled bill. Provider billing data had not yet covered the experiment when checked.", '',
+              f"At the [recorded provider rates]({cost['pricingSource']}) of $0.737/M training, $0.33/M uncached input and $1.005/M output tokens, the whole three-configuration experiment's observed-token estimate is **${Decimal(cost['totalObservedTokenEstimateUsd']):.6f}**. The frozen token-cap upper estimate is **${Decimal(cost['totalTokenCapUpperEstimateUsd']):.6f}**, before the ledger's 25% reservation margin and checkpoint overhead. These figures are estimates, not a reconciled bill. Provider billing data had not yet covered the experiment when checked.", '',
               'The private budget ledger and account proof govern free-credit eligibility and paid-overage settings. This report does not infer those account facts from token counts. No provider API is called by the summary command.', '',
-              '## Reproduce the report', '', '```sh', 'python3 scripts/summarize-model-experiment.py --manifest eval/pilot.manifest.json', '```', '',
+              '## Reproduce the report', '', 'Render this cost analysis from the recorded summary and verify its raw token/receipt hashes, without rescoring quality or modifying frozen artifacts:', '', '```sh', 'python3 scripts/summarize-model-experiment.py --recorded-summary eval/experiment-summary.json', '```', '',
+              'The original full offline recomputation remains available with `--manifest eval/pilot.manifest.json`; that mode rewrites the derived summary. Neither mode calls a model or provider API.', '',
               'Raw artifacts: [manifest](../eval/pilot.manifest.json), [dataset](../eval/pilot.jsonl), [training receipt](../eval/results/training.json), [zero-shot](../eval/results/zero-shot.json), [few-shot](../eval/results/few-shot.json), [fine-tuned](../eval/results/fine-tuned.json), [machine-readable summary](../eval/experiment-summary.json). Paired browser receipts and evidence are under `eval/browser/`.', '',
               f"Manifest SHA-256: `{summary['manifestSha256']}`. The summary verifies exact cohort order, dataset/prompt hashes, tokenizer identity, checkpoint training linkage and browser-to-model response hashes before publishing metrics.", '']
     storage = cost['checkpointStorage']
     if storage:
         marker = lines.index('The private budget ledger and account proof govern free-credit eligibility and paid-overage settings. This report does not infer those account facts from token counts. No provider API is called by the summary command.')
         lines[marker:marker] = [f"[Actual provider checkpoint metadata](evidence/tinker-checkpoints.json) reports **{storage['totalBytes']:,} bytes** across the sampler and training state, each expiring after one day. At $0.10/GB-month this is approximately **${Decimal(storage['estimate30DayMonthUsd']):.6f}** using a 30-day month; the conservative 28-day-month variant is **${Decimal(storage['conservative28DayMonthEstimateUsd']):.6f}**. Observed tokens plus that conservative storage estimate total **${Decimal(cost['totalObservedTokensPlusConservativeStorageEstimateUsd']):.6f}**. Provider rounding and billing reconciliation remain unverified.", '']
+    tradeoff = inference_cost_comparison(summary)
+    baseline, candidate = configs[best], configs['fine-tuned']
+    cost_lines = ['## Few-shot versus LoRA: measured tokens and estimated inference cost', '',
+                  f"Across the same **{summary['heldoutCount']} requests per configuration**, input tokens fell from **{baseline['tokens']['input']:,} to {candidate['tokens']['input']:,}**: `{tradeoff['inputTokensSaved']:,} / {baseline['tokens']['input']:,} × 100` = **{Decimal(tradeoff['inputTokenReductionPercent']):.2f}% fewer input tokens**. This is the approximately 70% reduction; it refers to input tokens, not the complete token bill.", '',
+                  '| Scope | Few-shot | LoRA | Reduction |', '|---|---:|---:|---:|',
+                  f"| Input tokens | {baseline['tokens']['input']:,} | {candidate['tokens']['input']:,} | {Decimal(tradeoff['inputTokenReductionPercent']):.2f}% |",
+                  f"| Output tokens | {baseline['tokens']['output']:,} | {candidate['tokens']['output']:,} | {baseline['tokens']['output'] - candidate['tokens']['output']:,} tokens |",
+                  f"| Total tokens | {tradeoff['baselineTotalTokens']:,} | {tradeoff['candidateTotalTokens']:,} | {Decimal(tradeoff['totalTokenReductionPercent']):.2f}% |",
+                  f"| Inference-only estimate, all {summary['heldoutCount']} requests | ${Decimal(tradeoff['baselineInferenceEstimateUsd']):.8f} | ${Decimal(tradeoff['candidateInferenceEstimateUsd']):.8f} | {Decimal(tradeoff['inferenceEstimateReductionPercent']):.2f}% |", '',
+                  f"The calculation is `(input tokens × $0.33 + output tokens × $1.005) / 1,000,000`. It gives **${Decimal(tradeoff['inferenceEstimateSavedUsd']):.8f} less estimated inference cost** over this cohort, or **${Decimal(tradeoff['perRequestEstimateSavedUsd']):.10f} per request** at the cohort mean. Input counts come from submitted tokenizer IDs and output counts from returned token IDs in [few-shot](../eval/results/few-shot.json) and [LoRA](../eval/results/fine-tuned.json) `measurements`. Prices come from the frozen [summary](../eval/experiment-summary.json) `cost.usdPerMillionTokens`. These are uncached token-price estimates, not billed savings; cached rates, provider rounding and retries are not inferred.", '',
+                  f"The tradeoff is visible alongside the reduction: reference agreement was **{baseline['referenceAgreement']['numerator']}/{summary['heldoutCount']} → {candidate['referenceAgreement']['numerator']}/{summary['heldoutCount']}**, mean latency **{baseline['meanLatencyMs']/1000:.2f}s → {candidate['meanLatencyMs']/1000:.2f}s**, and executable browser-pair correctness **{baseline['browser']['executableCorrectness']['numerator']}/{baseline['browser']['executableCorrectness']['denominator']} → {candidate['browser']['executableCorrectness']['numerator']}/{candidate['browser']['executableCorrectness']['denominator']}**. No equal-quality or latency improvement is claimed.", '',
+                  f"Training adds **${Decimal(tradeoff['trainingEstimateUsd']):.8f}** (`{train['tokens']:,} × ${cost['usdPerMillionTokens']['training']} / 1,000,000`). At the observed mean inference difference, training alone would amortize after **{tradeoff['trainingOnlyBreakEvenRequests']} comparable requests** (`ceil(training estimate / per-request difference)`).", '']
+    if storage:
+        cost_lines += [f"Including **${Decimal(tradeoff['conservativeCheckpointEstimateUsd']):.12f}** for the two recorded checkpoints' one-day storage gives **{tradeoff['trainingAndCheckpointBreakEvenRequests']} comparable requests**. For the {summary['heldoutCount']} requests actually measured, LoRA inference + training + this storage estimate is **${Decimal(tradeoff['candidateCohortIncludingTrainingAndCheckpointEstimateUsd']):.8f}**, versus **${Decimal(tradeoff['baselineInferenceEstimateUsd']):.8f}** for few-shot inference alone; no net cost reduction was demonstrated at this volume.", '']
+    cost_lines += ['The break-even counts are projections, not executed workloads. They assume unchanged average token lengths and uncached prices, no retries or extra review/repair cost, and completion within the recorded one-day checkpoint lifetime. Longer retention or retraining changes the calculation. Benchmark-development costs are separate from this marginal deployment comparison. The recorded October 13 checkpoints expired on October 14; the later operator smoke is a separate experiment.', '',
+                   'The [official Week 2 Tinker category](https://dev.to/challenges/hacktoberfest-week2-2026-10-12) permits a task-specific fine-tune to demonstrate improvement in performance, latency **or cost**. This measured-token and inference-price comparison supports a narrowly scoped cost argument, with the quality and setup-cost tradeoffs disclosed. It does not establish judge acceptance or a win.', '']
+    marker = lines.index('## Training, compute and cost evidence')
+    lines[marker:marker] = cost_lines
     return '\n'.join(lines)
 
 
@@ -283,12 +385,17 @@ def main():
     parser.add_argument('--output', type=Path, default=ROOT / 'eval/experiment-summary.json')
     parser.add_argument('--markdown', type=Path, default=ROOT / 'docs/MODEL_RESULTS.md')
     parser.add_argument('--checkpoint-evidence', type=Path, default=ROOT / 'docs/evidence/tinker-checkpoints.json')
+    parser.add_argument('--recorded-summary', type=Path, help='Render from frozen quality metrics; validate raw cost sources without rewriting the summary')
     args = parser.parse_args()
-    summary = summarize(args.manifest.resolve(), args.results.resolve(), args.browser_results.resolve(), args.checkpoint_evidence.resolve())
-    write_json(args.output, summary)
+    if args.recorded_summary:
+        summary = json.loads(args.recorded_summary.read_text())
+        validate_recorded_cost_sources(summary, args.results.resolve(), args.checkpoint_evidence.resolve())
+    else:
+        summary = summarize(args.manifest.resolve(), args.results.resolve(), args.browser_results.resolve(), args.checkpoint_evidence.resolve())
+        write_json(args.output, summary)
     args.markdown.parent.mkdir(parents=True, exist_ok=True)
     args.markdown.write_text(markdown(summary))
-    print(json.dumps({'summary': str(args.output), 'report': str(args.markdown), 'strongestBaseline': summary['strongestBaseline'], 'pairedReferenceComparison': summary['fineTunedVsStrongestBaseline']['referenceAgreement']}))
+    print(json.dumps({'summary': str(args.recorded_summary or args.output), 'summaryRewritten': not bool(args.recorded_summary), 'report': str(args.markdown), 'strongestBaseline': summary['strongestBaseline'], 'pairedReferenceComparison': summary['fineTunedVsStrongestBaseline']['referenceAgreement']}))
 
 
 if __name__ == '__main__':

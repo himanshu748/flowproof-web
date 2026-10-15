@@ -177,7 +177,7 @@ describe("isolated tokenless public demo", () => {
       getEvaluation().configurations,
     );
     expect(a.bootstrap.evaluation.notes.join(" ")).toContain(
-      "no model inference runs for visitors",
+      "recorded offline experiments, separate from the opt-in live Gemma",
     );
     expect(
       (await h.request(`/api/projects/${a.project.id}`, b.cookie)).status,

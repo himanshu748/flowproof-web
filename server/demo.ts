@@ -4,6 +4,7 @@ import { redact } from "../shared/redact";
 import { randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { isDeepStrictEqual } from "node:util";
 import { z } from "zod";
 import type {
   Audit,
@@ -12,13 +13,25 @@ import type {
   IntegrationStatus,
   CheckResult,
 } from "../shared/types";
-import { generateLocalChecks } from "./generator";
+import { generateLocalChecks, validateModelProposal } from "./generator";
 import { CheckSchema, validateChecks } from "./schema";
 import { runAudit } from "./runner";
 import { renderReport } from "./report";
 import { SAMPLE_URL } from "./sample";
 import { getEvaluation } from "./evaluation";
 import { optionalIntegrations } from "./optional-integrations";
+import {
+  generateGoogleGemmaProposal,
+  googleGemmaConfiguration,
+} from "./providers/gemma-google";
+import { verifyGemmaFreePricing } from "./providers/gemma-free-pricing";
+import { runPublicGemmaWorkflow } from "./public-gemma-orchestration";
+import {
+  authorizeHostedBackboard,
+  rememberHostedAudit,
+  recallHostedMemory,
+  hostBackboardEnabled,
+} from "./hosted-backboard";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -90,6 +103,7 @@ interface Session {
   audits: Map<string, Audit>;
   windowStart: number;
   requests: number;
+  gemmaAttempts: number;
 }
 interface DemoOptions {
   /** Must be dedicated to public demo evidence, never the private evidence root. */
@@ -97,9 +111,18 @@ interface DemoOptions {
   secureCookie: boolean;
   now?: () => number;
   execute?: typeof runAudit;
+  generateGemma?: (
+    requirements: string[],
+  ) => Promise<
+    Awaited<ReturnType<typeof generateGoogleGemmaProposal>> & {
+      orchestration?: Project["generator"]["orchestration"];
+    }
+  >;
+  gemmaAvailable?: () => boolean;
+  verifyGemmaFree?: () => Promise<unknown>;
 }
 
-function integrations(): IntegrationStatus[] {
+function integrations(gemmaAvailable: boolean): IntegrationStatus[] {
   return [
     {
       name: "Playwright",
@@ -111,7 +134,7 @@ function integrations(): IntegrationStatus[] {
       name: "Local open model",
       status: "not_configured",
       detail:
-        "The free public demo uses deterministic draft generation. No AI inference is performed.",
+        "Initial drafts use deterministic rules. A separate opt-in Google-hosted Gemma action is available when configured; no local model runs on Render.",
     },
     {
       name: "Tiger Data",
@@ -123,7 +146,7 @@ function integrations(): IntegrationStatus[] {
       name: "Tinker",
       status: "available",
       detail:
-        "Real baseline and LoRA results are recorded in Model lab. This small agent-reviewed pilot did not beat few-shot prompting. No live model calls run in the demo.",
+        "Real baseline and LoRA results are recorded in Model lab. LoRA used fewer tokens and had a lower inference-price estimate, with lower reference agreement and higher latency than few-shot prompting. Tinker experiments are separate from live Gemma generation.",
     },
     {
       name: "GitHub Actions",
@@ -139,11 +162,13 @@ function integrations(): IntegrationStatus[] {
           ? "Running on Render. This public demo uses ephemeral visitor sessions."
           : "Render hosting is not detected in this runtime.",
     },
-    ...["Gemma"].map((name) => ({
-      name,
-      status: "not_configured" as const,
-      detail: "Not active in the public demo. No integration claim.",
-    })),
+    {
+      name: "Gemma",
+      status: gemmaAvailable ? "available" : "not_configured",
+      detail: gemmaAvailable
+        ? "Opt-in Gemma 4 generates unapproved checks for the fixed synthetic sample through Google's free-only API. Current pricing is rechecked before calls. Browser execution still requires approval. No private visitor brief is sent."
+        : "Public Gemma generation is disabled or its free-use confirmation expired. Deterministic drafts remain labelled as rules.",
+    },
     ...optionalIntegrations(true),
   ];
 }
@@ -174,11 +199,17 @@ export function createDemoRouter(options: DemoOptions) {
   // Immutable bundled receipts are safe to display without loading a provider.
   const evaluation = getEvaluation();
   evaluation.notes.unshift(
-    "These are recorded offline experiments. Public demo drafts use a deterministic parser; no model inference runs for visitors.",
+    "These Tinker metrics are recorded offline experiments, separate from the opt-in live Gemma sample-generation route. Initial public drafts use deterministic rules.",
   );
   const sessions = new Map<string, Session>();
   const now = options.now ?? Date.now;
   const execute = options.execute ?? runAudit;
+  const gemmaAvailable =
+    options.gemmaAvailable ?? (() => googleGemmaConfiguration().enabled);
+  const generateGemma = options.generateGemma ?? runPublicGemmaWorkflow;
+  const verifyGemmaFree = options.verifyGemmaFree ?? verifyGemmaFreePricing;
+  const gemmaStarts: number[] = [];
+  let gemmaBusy = false;
   const auditStarts: number[] = [];
   let active: { session: Session; task: Promise<void> } | undefined;
 
@@ -252,6 +283,7 @@ export function createDemoRouter(options: DemoOptions) {
         audits: new Map(),
         windowStart: now(),
         requests: 0,
+        gemmaAttempts: 0,
       };
       sessions.set(key, session);
       res.cookie(COOKIE, key, {
@@ -282,13 +314,20 @@ export function createDemoRouter(options: DemoOptions) {
     const body: Bootstrap = {
       projects: [...s.projects.values()],
       audits: [...s.audits.values()].reverse(),
-      integrations: integrations(),
+      integrations: integrations(gemmaAvailable()),
       storage: "Ephemeral visitor session",
       demo: {
         enabled: true,
         expiresMinutes: 30,
         notice:
           "Synthetic sample only. Your isolated demo session expires after 30 minutes and may reset when the free service restarts. Download reports before leaving. Do not enter private client information.",
+        gemma: {
+          available: gemmaAvailable(),
+          model: "gemma-4-26b-a4b-it",
+          sampleBrief: DEMO_BRIEF,
+          description:
+            "Generate checks for the fixed synthetic sample with Google-hosted Gemma. Free-tier inputs may be used to improve Google's products. No client information is sent.",
+        },
       },
       evaluation,
     };
@@ -329,6 +368,70 @@ export function createDemoRouter(options: DemoOptions) {
     });
     res.json(p);
   });
+  router.post("/api/projects/:id/generate-gemma", async (req, res) => {
+    const s = session(res);
+    const p = s.projects.get(req.params.id);
+    if (!p) return notFound(res);
+    z.object({ modelConsent: z.literal(true) })
+      .strict()
+      .parse(req.body);
+    if (!gemmaAvailable())
+      return res.status(503).json({
+        error: "Live Gemma is unavailable. The current plan has not changed.",
+      });
+    if (p.target !== "sample" || p.brief !== DEMO_BRIEF)
+      return res.status(400).json({
+        error:
+          "Live Gemma accepts only the original synthetic sample brief. Visitor or client text is not sent.",
+      });
+    while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
+      gemmaStarts.shift();
+    if (s.gemmaAttempts >= 2 || gemmaStarts.length >= 12 || gemmaBusy || active)
+      return res.status(429).json({
+        error:
+          "The shared free model limit is reached. Keep your current plan and try later.",
+      });
+    s.gemmaAttempts++;
+    gemmaStarts.push(now());
+    gemmaBusy = true;
+    const snapshot = structuredClone(p);
+    try {
+      await verifyGemmaFree();
+      const proposed = await generateGemma(DEMO_BRIEF.split("\n"));
+      if (s.expires <= now())
+        return res.status(401).json({
+          error: "The demo session expired. No generated plan was saved.",
+        });
+      if (!isDeepStrictEqual(p, snapshot))
+        return res.status(409).json({
+          error:
+            "This project changed during generation. The newer plan was kept; review it before trying again.",
+        });
+      const checks = validateModelProposal(DEMO_BRIEF, {
+        checks: proposed.checks,
+      });
+      Object.assign(p, {
+        checks,
+        generator: {
+          provider: "Google Gemma (live API)",
+          model: proposed.model,
+          ...(proposed.orchestration
+            ? { orchestration: proposed.orchestration }
+            : {}),
+          reason: `Fresh Gemma proposal for the fixed synthetic brief, validated by the server. ${proposed.latencyMs} ms. ${proposed.usage ? `${proposed.usage.promptTokens} input / ${proposed.usage.completionTokens} output tokens.` : "Provider token usage was not reported."} ${proposed.orchestration ? "Generated and validated in a real isolated Mastra workflow. " : ""}${proposed.transportNormalization?.wholeJsonFenceRemoved ? "A whole JSON code fence was removed before strict schema validation. " : ""}Review and approve every executable check.`,
+        },
+        updatedAt: new Date(now()).toISOString(),
+      });
+      return res.json(p);
+    } catch {
+      return res.status(503).json({
+        error:
+          "Gemma or its free-pricing check was unavailable, or the proposal failed validation. The current plan is unchanged. No AI success is claimed.",
+      });
+    } finally {
+      gemmaBusy = false;
+    }
+  });
   router.post("/api/projects/:id/variant", (req, res) => {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
@@ -351,7 +454,7 @@ export function createDemoRouter(options: DemoOptions) {
         error:
           "Review and approve every executable check before running the audit.",
       });
-    if (active)
+    if (active || gemmaBusy)
       return res.status(409).json({
         error: "Another visitor's audit is running. Please try again shortly.",
       });
@@ -410,7 +513,7 @@ export function createDemoRouter(options: DemoOptions) {
         a.status = "completed";
         const count = (status: string) =>
           a.results.filter((result) => result.status === status).length;
-        a.summary = `${count("passed")} passed, ${count("failed")} failed, ${count("blocked")} blocked, ${count("unverified")} unverified. Real Chromium observations of the synthetic sample; deterministic draft checks reviewed by the visitor. No AI model was used.`;
+        a.summary = `${count("passed")} passed, ${count("failed")} failed, ${count("blocked")} blocked, ${count("unverified")} unverified. Real Chromium observations of the synthetic sample; ${snapshot.generator.model ? `checks proposed by ${snapshot.generator.provider} (${snapshot.generator.model}) and reviewed by the visitor. Models do not assign test outcomes.` : "deterministic draft checks reviewed by the visitor. No AI model was used."}`;
       } catch {
         a.status = "error";
         a.error =
@@ -427,6 +530,63 @@ export function createDemoRouter(options: DemoOptions) {
   router.get("/api/audits/:id", (req, res) => {
     const a = session(res).audits.get(req.params.id);
     return a ? res.json(a) : notFound(res);
+  });
+  router.get("/api/operator/status", (req, res) => {
+    if (!authorizeHostedBackboard(req.headers)) return notFound(res);
+    return res.json({
+      backboard: hostBackboardEnabled(),
+      scope: "Bounded hosted operator memory. Visitor access remains isolated.",
+    });
+  });
+  router.post("/api/audits/:id/memory", async (req, res) => {
+    if (!authorizeHostedBackboard(req.headers)) return notFound(res);
+    z.object({}).strict().parse(req.body);
+    const audit = session(res).audits.get(req.params.id);
+    if (!audit) return notFound(res);
+    if (audit.status !== "completed")
+      return res
+        .status(409)
+        .json({
+          error: "Only a completed audit can be saved to project memory.",
+        });
+    try {
+      return res.json(await rememberHostedAudit(audit));
+    } catch {
+      return res
+        .status(503)
+        .json({
+          error:
+            "Backboard memory is unavailable or its approved credit limit is reached. Audit evidence is unchanged.",
+        });
+    }
+  });
+  router.post("/api/projects/:id/memory/search", async (req, res) => {
+    if (!authorizeHostedBackboard(req.headers)) return notFound(res);
+    const project = session(res).projects.get(req.params.id);
+    if (!project) return notFound(res);
+    const { kind } = z
+      .object({
+        kind: z.enum([
+          "heading",
+          "link",
+          "text_visible",
+          "image_alt",
+          "no_horizontal_overflow",
+          "manual",
+        ]),
+      })
+      .strict()
+      .parse(req.body);
+    try {
+      return res.json(await recallHostedMemory(project.id, kind));
+    } catch {
+      return res
+        .status(503)
+        .json({
+          error:
+            "Backboard retrieval is unavailable or its approved credit limit is reached. Saved memory is not a new audit result.",
+        });
+    }
   });
   async function readImage(s: Session, value: string): Promise<Buffer | null> {
     const match = /^\/evidence\/([a-f0-9-]{36})\/([a-zA-Z0-9_-]+\.png)$/.exec(

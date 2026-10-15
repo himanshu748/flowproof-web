@@ -1,0 +1,33 @@
+{
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "",
+            "thought": true
+          },
+          {
+            "text": "{\n  \"checks\": [\n    {\n      \"requirementIndex\": 0,\n      \"kind\": \"heading\",\n      \"path\": \"/\",\n      \"expected\": \"Design that moves business forward.\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 1,\n      \"kind\": \"link\",\n      \"path\": \"/\",\n      \"expected\": \"Start a project\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 2,\n      \"kind\": \"image_alt\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 3,\n      \"kind\": \"no_horizontal_overflow\",\n      \"path\": \"/\",\n      \"expected\": \"\",\n      \"viewport\": \"mobile\"\n    },\n    {\n      \"requirementIndex\": 4,\n      \"kind\": \"text_visible\",\n      \"path\": \"/\",\n      \"expected\": \"Independent by design.\",\n      \"viewport\": \"desktop\"\n    },\n    {\n      \"requirementIndex\": 5,\n      \"kind\": \"manual\",\n      \"path\": \"/\",\n      \"expected\": \"The site should feel welcoming and trustworthy.\",\n      \"viewport\": \"desktop\"\n    }\n  ]\n}"
+          }
+        ],
+        "role": "model"
+      },
+      "finishReason": "STOP",
+      "index": 0
+    }
+  ],
+  "usageMetadata": {
+    "promptTokenCount": 335,
+    "candidatesTokenCount": 300,
+    "totalTokenCount": 635,
+    "promptTokensDetails": [
+      {
+        "modality": "TEXT",
+        "tokenCount": 335
+      }
+    ],
+    "serviceTier": "standard"
+  },
+  "modelVersion": "gemma-4-26b-a4b-it"
+}

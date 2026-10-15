@@ -244,6 +244,7 @@ function App({
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState("");
+  const [gemmaConsent, setGemmaConsent] = useState(false);
   const [filter, setFilter] = useState("all");
   const [selectedCheck, setSelectedCheck] = useState("");
   const [introStep, setIntroStep] = useState(0);
@@ -262,6 +263,14 @@ function App({
   const [operatorToken, setOperatorToken] = useState(
     sessionStorage.getItem(tokenKey) || "",
   );
+  const [projectMemory, setProjectMemory] = useState<{
+    projectId: string;
+    memories: {
+      audit: string;
+      observedAt: string;
+      facts: { kind: CheckKind; status: string }[];
+    }[];
+  } | null>(null);
   const reducedMotion = useReducedMotion();
   const demo = data?.demo;
   const project =
@@ -339,6 +348,7 @@ function App({
     }
   };
   const chooseProject = (p: Project, next: View = "review") => {
+    if (busy) return;
     setProjectId(p.id);
     setAuditId("");
     navigate(next);
@@ -398,6 +408,7 @@ function App({
       setNotice("Your download is ready.");
     });
   const editCheck = (id: string, update: Partial<TestCheck>) => {
+    if (busy) return;
     setDraft((current) =>
       current.map((c) =>
         c.id === id
@@ -1128,6 +1139,94 @@ function App({
                             <span className="tag">SOURCE OF TRUTH</span>
                           </div>
                           <p className="brief-text">{project.brief}</p>
+                          {demo?.gemma && (
+                            <div className="live-gemma-panel">
+                              <div className="live-gemma-heading">
+                                <Sparkles size={19} />
+                                <div>
+                                  <h3>Let Gemma draft the checks.</h3>
+                                  <p>A real open model, then your approval.</p>
+                                </div>
+                                <span className="tag">LIVE AI</span>
+                              </div>
+                              <p>
+                                Gemma 4 can turn the original sample brief into
+                                a fresh plan. Every generated check starts
+                                unapproved. Your current plan will be replaced.
+                              </p>
+                              {project.brief === demo.gemma.sampleBrief ? (
+                                <>
+                                  <label className="live-gemma-consent">
+                                    <input
+                                      type="checkbox"
+                                      checked={gemmaConsent}
+                                      onChange={(event) =>
+                                        setGemmaConsent(event.target.checked)
+                                      }
+                                      disabled={!!busy || !demo.gemma.available}
+                                    />
+                                    <span>
+                                      Use Google-hosted Gemma for this synthetic
+                                      brief. Google may use free-tier inputs to
+                                      improve its products. No client text is
+                                      sent.
+                                    </span>
+                                  </label>
+                                  <button
+                                    type="button"
+                                    className="button primary"
+                                    disabled={
+                                      !!busy ||
+                                      dirty ||
+                                      !gemmaConsent ||
+                                      !demo.gemma.available
+                                    }
+                                    onClick={() =>
+                                      perform("gemma", async () => {
+                                        updateProject(
+                                          await api<Project>(
+                                            `/projects/${project.id}/generate-gemma`,
+                                            "POST",
+                                            { modelConsent: true },
+                                          ),
+                                        );
+                                        setGemmaConsent(false);
+                                        setNotice(
+                                          "Gemma generated a fresh plan. Review and approve its checks before running.",
+                                        );
+                                      })
+                                    }
+                                  >
+                                    {busy === "gemma" ? (
+                                      <LoaderCircle
+                                        size={16}
+                                        className="spin"
+                                      />
+                                    ) : (
+                                      <Sparkles size={16} />
+                                    )}
+                                    {busy === "gemma"
+                                      ? "Gemma is drafting checks…"
+                                      : "Generate with Gemma"}
+                                  </button>
+                                  <p className="field-help" aria-live="polite">
+                                    {!demo.gemma.available
+                                      ? "Live Gemma is currently unavailable. Your labelled rule-based draft remains usable."
+                                      : dirty
+                                        ? "Save your edited plan before replacing it."
+                                        : "Free sample requests are limited. Generation does not run an audit."}
+                                  </p>
+                                </>
+                              ) : (
+                                <p className="field-help">
+                                  Live AI accepts only the original sample
+                                  brief. Open a fresh demo session to try it.
+                                  Your edited brief stays with the rule-based
+                                  parser.
+                                </p>
+                              )}
+                            </div>
+                          )}
                           <details className="brief-editor">
                             <summary>
                               Edit brief and regenerate checks{" "}
@@ -1186,7 +1285,7 @@ function App({
                             </h2>
                             <button
                               className="text-button"
-                              disabled={approved === draft.length}
+                              disabled={!!busy || approved === draft.length}
                               onClick={() => {
                                 setDraft((current) =>
                                   current.map((c) => ({
@@ -1215,6 +1314,7 @@ function App({
                                   <input
                                     type="checkbox"
                                     checked={c.approved}
+                                    disabled={!!busy}
                                     onChange={(e) =>
                                       editCheck(c.id, {
                                         approved: e.target.checked,
@@ -1635,6 +1735,115 @@ function App({
                               </div>
                             )}
                             <AuditComparison audit={audit} audits={allAudits} />
+                            {audit.status === "completed" &&
+                              data.integrations.some(
+                                (integration) =>
+                                  integration.name === "Backboard" &&
+                                  integration.status === "available",
+                              ) && (
+                                <section className="panel hosted-memory-panel">
+                                  <div>
+                                    <div className="eyebrow">
+                                      PROJECT MEMORY · BACKBOARD
+                                    </div>
+                                    <h3>Remember what the browser found.</h3>
+                                    <p>
+                                      Save anonymous check types and outcomes,
+                                      then retrieve them for this project.
+                                      Memory never changes an audit result.
+                                      These actions require the operator token
+                                      in Connections and a fresh, bounded credit
+                                      allowance.
+                                    </p>
+                                  </div>
+                                  <div className="button-row">
+                                    <button
+                                      className="button secondary"
+                                      disabled={
+                                        !!busy ||
+                                        !sessionStorage.getItem(tokenKey)
+                                      }
+                                      onClick={() =>
+                                        perform("memory-save", async () => {
+                                          await api(
+                                            `/audits/${audit.id}/memory`,
+                                            "POST",
+                                            {},
+                                          );
+                                          setNotice(
+                                            "Backboard accepted the audit facts. Retrieve them to verify persistence.",
+                                          );
+                                        })
+                                      }
+                                    >
+                                      Save audit facts
+                                    </button>
+                                    <button
+                                      className="button secondary"
+                                      disabled={
+                                        !!busy ||
+                                        !sessionStorage.getItem(tokenKey)
+                                      }
+                                      onClick={() =>
+                                        perform("memory-recall", async () => {
+                                          const result = await api<{
+                                            memories: {
+                                              audit: string;
+                                              observedAt: string;
+                                              facts: {
+                                                kind: CheckKind;
+                                                status: string;
+                                              }[];
+                                            }[];
+                                          }>(
+                                            `/projects/${audit.projectId}/memory/search`,
+                                            "POST",
+                                            { kind: "heading" },
+                                          );
+                                          setProjectMemory({
+                                            projectId: audit.projectId,
+                                            memories: result.memories,
+                                          });
+                                          setNotice(
+                                            result.memories.length
+                                              ? "Saved project outcomes retrieved from Backboard."
+                                              : "No matching project memory was returned. No persistence success is claimed.",
+                                          );
+                                        })
+                                      }
+                                    >
+                                      Retrieve heading history
+                                    </button>
+                                  </div>
+                                  {projectMemory?.projectId ===
+                                    audit.projectId && (
+                                    <div
+                                      className="memory-records"
+                                      aria-live="polite"
+                                    >
+                                      {projectMemory.memories.length === 0 ? (
+                                        <p>No matching saved outcomes.</p>
+                                      ) : (
+                                        projectMemory.memories.map((memory) => (
+                                          <article key={memory.audit}>
+                                            <strong>
+                                              Saved {date(memory.observedAt)}
+                                            </strong>
+                                            <p>
+                                              {memory.facts
+                                                .map(
+                                                  (fact) =>
+                                                    `${fact.kind.replaceAll("_", " ")}: ${fact.status}`,
+                                                )
+                                                .join(" · ")}
+                                            </p>
+                                          </article>
+                                        ))
+                                      )}
+                                    </div>
+                                  )}
+                                </section>
+                              )}
                             <div className="result-toolbar">
                               <div
                                 className="filter-tabs"
@@ -2112,14 +2321,20 @@ function App({
                         </article>
                       ))}
                     </div>
-                    {!demo?.enabled && (
+                    {(!demo?.enabled ||
+                      data.integrations.some(
+                        (integration) =>
+                          integration.name === "Backboard" &&
+                          integration.status === "available",
+                      )) && (
                       <section className="panel token-panel">
                         <div>
                           <h2>Hosted workspace access</h2>
                           <p>
-                            An operator token is required by hosted private
-                            workspaces. It is kept only in this browser session
-                            and sent with API requests.
+                            An operator token enables protected project-memory
+                            actions using approved existing credits. It is kept
+                            only in this browser session and sent with API
+                            requests.
                           </p>
                         </div>
                         <form
@@ -2132,6 +2347,8 @@ function App({
                                 operatorToken.trim(),
                               );
                               try {
+                                if (demo?.enabled)
+                                  await api("/operator/status");
                                 await refresh();
                                 setNotice(
                                   "Workspace access saved for this session.",
@@ -2627,7 +2844,13 @@ function Application() {
         <div hidden={!workspace}>
           <App
             active={workspace}
-            initialView={route === "#model" ? "model" : "overview"}
+            initialView={
+              route === "#model"
+                ? "model"
+                : route === "#demo"
+                  ? "review"
+                  : "overview"
+            }
             openModel={route === "#model"}
           />
         </div>

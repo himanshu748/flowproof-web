@@ -365,7 +365,7 @@ export async function resolve(specifier, context, nextResolve) {
   const mastra = bootstrap.integrations.find((item) => item.name === "Mastra");
   assert.equal(mastra?.status, "available");
   assert.match(mastra.detail, /local/i);
-  assert.match(mastra.detail, /not loaded|private|operator/i);
+  assert.match(mastra.detail, /model orchestration is disabled/i);
   for (const name of [
     "Local open model",
     "Gemma",

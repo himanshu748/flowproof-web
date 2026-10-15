@@ -30,14 +30,12 @@ export class ProviderError extends Error {
     this.name = "ProviderError";
   }
 }
-const allowance = z
+const allowanceBase = z
   .object({
     credentialSha256: z.string().regex(/^[a-f0-9]{64}$/),
     checkedAt: z.string().datetime({ offset: true }),
     expiresAt: z.string().datetime({ offset: true }),
     evidence: z.string().min(8).max(500),
-    freeOnly: z.literal(true),
-    paidOverageDisabled: z.literal(true),
     unit: z.enum(["requests", "characters", "tokens"]),
     operations: z
       .array(
@@ -51,19 +49,43 @@ const allowance = z
       )
       .min(1)
       .max(5),
-    confirmedFreeUnits: z.number().int().nonnegative().max(1_000_000),
     maxUnits: z.number().int().positive().max(1_000_000),
     usedUnits: z.number().int().nonnegative(),
     maxCalls: z.number().int().min(1).max(20),
     usedCalls: z.number().int().nonnegative(),
   })
   .strict();
+const allowance = allowanceBase.extend({
+  freeOnly: z.literal(true),
+  paidOverageDisabled: z.literal(true),
+  confirmedFreeUnits: z.number().int().nonnegative().max(1_000_000),
+});
+// A separate, explicitly approved existing-credit path. Never describes a mixed
+// balance as free and cannot be used by another provider or for model inference.
+const backboardCreditAllowance = allowanceBase.extend({
+  freeOnly: z.literal(false),
+  existingCreditOnly: z.literal(true),
+  existingCreditsApproved: z.literal(true),
+  autoReloadEnabled: z.literal(false),
+  paymentMethodConfigured: z.literal(false),
+  confirmedExistingCreditsUsd: z.number().finite().positive(),
+  maxCreditSpendUsd: z.number().finite().positive().max(0.03),
+  usedCreditSpendUsd: z.number().finite().nonnegative().max(0.03),
+  unit: z.literal("requests"),
+  operations: z
+    .array(z.enum(["memory-write", "memory-search"]))
+    .min(1)
+    .max(2),
+  usedOperations: z.array(z.enum(["memory-write", "memory-search"])).max(2),
+  maxUnits: z.number().int().min(1).max(2),
+  maxCalls: z.number().int().min(1).max(2),
+});
 const ledger = z
   .object({
     version: z.literal(1),
     providers: z
       .object({
-        backboard: allowance.optional(),
+        backboard: z.union([allowance, backboardCreditAllowance]).optional(),
         serpapi: allowance.optional(),
         elevenlabs: allowance.optional(),
         tinker: allowance.optional(),
@@ -138,7 +160,7 @@ export async function reserveProviderUse(
   if (!filename || !path.isAbsolute(filename))
     throw new ProviderError(
       "free_confirmation_required",
-      "A fresh confirmed-free allowance file is required.",
+      "A fresh verified provider allowance file is required.",
     );
   const lockname = `${filename}.lock`;
   let lock;
@@ -158,7 +180,7 @@ export async function reserveProviderUse(
     } catch {
       throw new ProviderError(
         "free_confirmation_required",
-        "The confirmed-free allowance is missing or invalid.",
+        "The verified provider allowance is missing or invalid.",
       );
     }
     const proof = data.providers[provider];
@@ -168,8 +190,8 @@ export async function reserveProviderUse(
       proof.credentialSha256 !==
         createHash("sha256").update(key).digest("hex") ||
       proof.unit !== unit ||
-      !proof.operations.includes(
-        operation as (typeof proof.operations)[number],
+      !proof.operations.some(
+        (allowedOperation) => allowedOperation === operation,
       ) ||
       now < Date.parse(proof.checkedAt) ||
       now - Date.parse(proof.checkedAt) > 86_400_000 ||
@@ -178,21 +200,48 @@ export async function reserveProviderUse(
     )
       throw new ProviderError(
         "free_confirmation_required",
-        "Confirm this account's free allowance and disabled overage within the last 24 hours.",
+        "Confirm this account's authorized allowance and disabled overage within the last 24 hours.",
+      );
+    const existingCredits = "existingCreditOnly" in proof;
+    if (
+      existingCredits &&
+      (provider !== "backboard" ||
+        (options.env ?? process.env)
+          .BRIEFSTAMP_BACKBOARD_EXISTING_CREDITS_APPROVED !== "true" ||
+        proof.confirmedExistingCreditsUsd < proof.maxCreditSpendUsd)
+    )
+      throw new ProviderError(
+        "existing_credit_confirmation_required",
+        "Backboard existing credits require explicit approval and sufficient verified balance.",
       );
     if (
       !Number.isSafeInteger(units) ||
       units < 1 ||
       proof.usedCalls + 1 > proof.maxCalls ||
       proof.usedUnits + units >
-        Math.min(proof.maxUnits, proof.confirmedFreeUnits)
+        Math.min(
+          proof.maxUnits,
+          existingCredits ? 2 : proof.confirmedFreeUnits,
+        ) ||
+      (existingCredits &&
+        (units !== 1 ||
+          proof.usedOperations.includes(
+            operation as "memory-write" | "memory-search",
+          ) ||
+          Math.ceil(proof.usedCreditSpendUsd * 100) + 1 >
+            Math.floor(proof.maxCreditSpendUsd * 100)))
     )
       throw new ProviderError(
         "budget_exhausted",
-        "The confirmed-free request budget is exhausted.",
+        "The authorized request budget is exhausted.",
       );
     proof.usedCalls += 1;
     proof.usedUnits += units;
+    if (existingCredits) {
+      proof.usedCreditSpendUsd =
+        (Math.ceil(proof.usedCreditSpendUsd * 100) + 1) / 100;
+      proof.usedOperations.push(operation as "memory-write" | "memory-search");
+    }
     const temp = `${filename}.${randomUUID()}.tmp`;
     try {
       await writeFile(temp, `${JSON.stringify(data, null, 2)}\n`, {
