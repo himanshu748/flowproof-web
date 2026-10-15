@@ -135,21 +135,24 @@ async function api<T>(
 ): Promise<T> {
   return sessionRequests.run(
     async () => {
-      const controller = path === "/bootstrap" ? new AbortController() : null;
-      if (controller) pendingBootstrapController = controller;
-      const timeout = controller
-        ? setTimeout(() => controller.abort(), 65_000)
-        : undefined;
+      const controller = new AbortController();
+      if (path === "/bootstrap") pendingBootstrapController = controller;
+      // A lost response must release the UI without replaying a model call or
+      // approval. The server's isolated model deadline remains 45 seconds.
+      const timeout = setTimeout(
+        () => controller.abort(),
+        path === "/bootstrap" ? 65_000 : 55_000,
+      );
       try {
         const response = await fetchChecked(`/api${path}`, {
           method,
           headers: headers(),
-          ...(controller ? { signal: controller.signal } : {}),
+          signal: controller.signal,
           ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
         });
         return await response.json();
       } finally {
-        if (timeout) clearTimeout(timeout);
+        clearTimeout(timeout);
         if (pendingBootstrapController === controller)
           pendingBootstrapController = null;
       }
@@ -626,9 +629,11 @@ function App({
       )
         return;
       setError(
-        e instanceof Error
-          ? e.message
-          : "Something went wrong. Please try again.",
+        e instanceof Error && e.name === "AbortError"
+          ? "The server did not confirm this request. Refresh the workspace to check its saved state before trying again."
+          : e instanceof Error
+            ? e.message
+            : "Something went wrong. Please try again.",
       );
     } finally {
       if (operationGate.finish(operationId)) setBusy("");

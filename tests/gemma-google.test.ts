@@ -78,6 +78,29 @@ const observedNativeResponse = {
 };
 
 describe("fixed confirmed-free public Google Gemma adapter", () => {
+  it("rejects the observed 390px viewport instead of silently repairing model output", async () => {
+    const fetcher = vi
+      .fn<typeof fetch>()
+      .mockResolvedValue(
+        response(completion([{ ...check, viewport: "390px" }])),
+      );
+    await expect(
+      generateGoogleGemmaProposal(requirements, { env: enabled, fetcher, now }),
+    ).rejects.toMatchObject({
+      code: "invalid_plan",
+      attempts: [
+        {
+          status: 200,
+          usage: { promptTokens: 140, completionTokens: 45, totalTokens: 185 },
+        },
+      ],
+    });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    const body = JSON.parse(String(fetcher.mock.calls[0][1]?.body));
+    expect(body.systemInstruction.parts[0].text).toContain(
+      'For a 390px requirement use "viewport":"mobile"',
+    );
+  });
   it("makes one bounded fixed-model native request and returns only safe proposal/usage metadata", async () => {
     const fetcher = vi.fn<typeof fetch>().mockResolvedValue(response());
     const output = await generateGoogleGemmaProposal(requirements, {
