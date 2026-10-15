@@ -14,7 +14,7 @@ The live, owner-authorized Briefstamp homepage passed five checks with one subje
 
 Separately, the same approved CI fixture plan recorded five passes, then four failures after controlled breakage, then five passes after restoration. Its manual judgment stayed unverified. Verification passed 476 application tests, 19 Python tests and a production build.
 
-Gemma/Mastra generation, a Sentry dashboard trace, protected Tinker inference, Backboard memory and Temporal CI recovery have dated receipts. Frozen Tinker evaluation used 69.55% fewer input tokens with LoRA, but reference agreement fell from 23/24 to 22/24. Historical provider and validation failures remain documented. The new Sentry trace ID is retained; its dashboard ingestion is unverified.
+Gemma/Mastra generation, the new proposal’s three dashboard-verified Sentry spans, protected Tinker inference, Backboard memory and Temporal CI recovery have dated receipts. Frozen Tinker evaluation used 69.55% fewer input tokens with LoRA, but reference agreement fell from 23/24 to 22/24. Historical provider and validation failures remain documented. Sentry proof covers proposal generation.
 
 Public targets are limited, page scripts are disabled, and credit-funded services have explicit expiry and budget boundaries. No customer feedback, human dataset validation or all-sponsor completion is claimed.
 

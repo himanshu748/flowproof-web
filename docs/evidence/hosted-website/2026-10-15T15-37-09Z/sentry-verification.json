@@ -1,0 +1,38 @@
+{
+  "verifiedAt": "2026-10-15T16:32:00.635Z",
+  "verifiedAtLocal": "2026-10-15T22:02:00.635+05:30",
+  "timezone": "Asia/Kolkata",
+  "status": "dashboard_ingestion_verified",
+  "provider": "Sentry",
+  "project": "briefstamp",
+  "projectId": "4512259776380928",
+  "traceId": "70ef2a9b80da4b60bd4bc104ed1ec823",
+  "sourceCommit": "2e3c3397ea5a594ecb329f7b52ef373fe1049161",
+  "observedSpans": [
+    {
+      "operation": "briefstamp.proposal",
+      "spanId": "8be703f0b162f17f",
+      "durationSeconds": 21.39,
+      "status": "ok"
+    },
+    {
+      "operation": "briefstamp.proposal.generate",
+      "spanId": "ae18a7535a9ea34b",
+      "durationSeconds": 7.49
+    },
+    {
+      "operation": "briefstamp.proposal.validate",
+      "spanId": "a34cf7f43b3c0e1b",
+      "durationMs": 1.62
+    }
+  ],
+  "observedSpanCount": 3,
+  "source": "Authenticated Briefstamp-only Sentry trace explorer and exact-trace waterfall, operated through Codex in-app browser CUA; root status observed in span attributes. Not inferred from SDK flush.",
+  "screenshot": "sentry-trace.jpg",
+  "screenshotBytes": 60892,
+  "screenshotSha256": "8bb3d94263457f41ef84273b8df925f8c2b300279076810aa9004c5d3cba6b5f",
+  "originalApplicationReceiptUnchanged": true,
+  "scope": "One proposal-generation workflow. No browser-audit tracing or error-event ingestion conclusion. Existing application receipt ingestionVerified:false describes what the worker could establish at execution; this later receipt independently verifies dashboard ingestion.",
+  "billingChanges": 0,
+  "newModelCalls": 0
+}

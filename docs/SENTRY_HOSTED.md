@@ -1,22 +1,24 @@
-# Sentry: verified hosted proposal trace
+# Sentry: verified hosted proposal traces
 
-**One real hosted proposal trace was verified in Sentry’s authenticated dashboard on October 15, 2026.** This is separate from the earlier SDK local-transport tests. [Dashboard verification receipt](evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-verification.json) · [Actual application run](evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json).
+**The live-homepage proposal trace was independently verified in Sentry’s authenticated dashboard at 16:32 UTC (22:02 IST) on October 15, 2026.** The later [dashboard verification receipt](evidence/hosted-website/2026-10-15T15-37-09Z/sentry-verification.json) establishes ingestion for the exact trace emitted by the [15:37 application run](evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json), from source `2e3c3397ea5a594ecb329f7b52ef373fe1049161`.
 
-The run used source `e43dbe7430368292ff9b225f4bf5e3236c2d03c0`, [successful CI](https://github.com/himanshu748/flowproof-web/actions/runs/38722793847), and the existing Free Render deployment `dep-db8b0ebncjis73f93b3g`, live at 10:53:13 UTC. Native Gemma generated the fixed synthetic proposal; the verifier later approved its checks and completed healthy/broken/restored Chromium audits. The trace concerns proposal generation, not those browser audits.
+## Latest independently observed trace
 
-## What was independently observed
+Trace `70ef2a9b80da4b60bd4bc104ed1ec823` appeared in the separate Briefstamp project with three spans:
 
-Trace `4ca80cb2a546425ea0f191022b862ed1` appeared in the separate Briefstamp project with:
+| Operation | Observed duration | Status |
+| --- | ---: | --- |
+| `briefstamp.proposal` | 21.39 seconds | `ok` |
+| `briefstamp.proposal.generate` | 7.49 seconds | Not separately recorded in the sidecar |
+| `briefstamp.proposal.validate` | 1.62 milliseconds | Not separately recorded in the sidecar |
 
-- `briefstamp.proposal`: root status `ok`, 22.09 seconds.
-- `briefstamp.proposal.generate`: 7.59 seconds.
-- `briefstamp.proposal.validate`: 0.43 milliseconds.
+![Authenticated Sentry dashboard showing the exact live-homepage proposal trace and its two child spans](evidence/hosted-website/2026-10-15T15-37-09Z/sentry-trace.jpg)
 
-The application recorded 335 input / 300 output tokens and 7.502 seconds for its native Gemma provider/validation call, not the entire hosted workflow. These measurements cover different operations; they are one-run observations, not a latency benchmark. Maximum resident memory of the isolated Mastra/Sentry worker was 175.07 MiB.
+The original runtime and audit receipts retain `ingestionVerified: false`: the worker could establish a flush, but could not inspect the dashboard. The later sidecar supplies independent ingestion proof without rewriting those records. This verification made no new model calls or billing/configuration changes. It covers proposal generation only, not browser-audit tracing or error-event ingestion. Span durations are observations from one run, not a latency benchmark.
 
-![The actual Sentry trace containing the proposal and its two child spans](evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-trace.jpg)
+## Earlier synthetic proposal proof
 
-The worker’s own result deliberately retains `ingestionVerified: false`: it can know that it flushed, but it cannot confirm what appeared in the provider dashboard. The separately retained dashboard receipt establishes ingestion for this exact trace. The original application receipt is not rewritten to claim that knowledge.
+The separate [10:55 application run](evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json), from source `e43dbe7430368292ff9b225f4bf5e3236c2d03c0`, has its own [dashboard receipt](evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-verification.json) and [screenshot](evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-trace.jpg). Trace `4ca80cb2a546425ea0f191022b862ed1` showed a 22.09-second root with status `ok`, a 7.59-second generation child and a 0.43-millisecond validation child. The native Gemma provider/validation call took 7.502 seconds, used 335 input / 300 output tokens, and the isolated worker reached 175.07 MiB maximum RSS. Its later browser audits are separate from this proposal trace.
 
 ## Privacy and resource boundary
 
@@ -27,5 +29,3 @@ The final transport allowlist retains fixed operation names, trace/span identifi
 A sponsored entitlement with paid overage disabled was verified before configuration. No billing or FieldIssue settings changed. This does not establish browser-audit tracing, error-event ingestion, indefinite entitlement or all-provider observability. Further hosted use still requires a fresh confirmation and the same bounded configuration.
 
 Sources: [child workflow](../server/gemma-workflow-child.ts), [privacy transport](../server/observability.ts), [earlier local SDK proof](ORCHESTRATION_OBSERVABILITY.md), [deployment ledger](DEPLOYMENT.md).
-
-The later `2a8eae95` release has a separate [Tinker/Tiger hosted receipt](HOSTED_TINKER.md). It made no Gemma call and does not establish a second Sentry trace; this page retains the exact earlier observed trace.

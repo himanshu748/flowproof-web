@@ -47,7 +47,7 @@ Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 u
 - **Mastra:** two actual workflow steps generated and validated that proposal. [Proof](docs/PUBLIC_GEMMA.md).
 - **Tinker:** real baseline/LoRA evaluation and one protected hosted proposal. [Proof](docs/HOSTED_TINKER.md).
 - **Tiger Data:** strict-TLS audit persistence, matching reads and scoped lexical retrieval. [Proof](docs/TIGER_VERIFICATION.md).
-- **Sentry:** an earlier proposal’s three spans were independently found in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
+- **Sentry:** the new live Gemma proposal’s three spans were independently verified in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** one protected hosted write/search recovered all six audit facts. [Proof](docs/BACKBOARD_VERIFICATION.md).
 - **Temporal:** a hosted CI restart retained the same workflow/run and one browser execution. [Proof](docs/TEMPORAL.md).
 
@@ -66,7 +66,7 @@ Open http://127.0.0.1:5173. The default sample needs no paid account. [Configura
 - Public targets are the owned homepage and sample; scripts are disabled. The public sample’s plan yields three failures, versus four in the CI fixture.
 - The video uses labelled templates. Earlier provider and validation failures remain in the [Gemma diagnosis](docs/GEMMA_LIVE_SITE.md); a dated success is no uptime guarantee.
 - Tinker used fewer tokens with lower reference agreement; the dataset has no human-validated examples.
-- Credit-funded services expire. Tiger stores image references only; budgets and sessions are bounded. New Sentry trace ingestion is unverified.
+- Credit-funded services expire. Tiger stores image references only; budgets and sessions are bounded. Sentry verification covers proposal generation, not browser-audit traces or error events.
 - No customer acceptance or all-sponsor completion is claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
 
 ## AI disclosure
