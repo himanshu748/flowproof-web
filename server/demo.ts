@@ -362,6 +362,7 @@ export function createDemoRouter(options: DemoOptions) {
       // Only bootstrap creates sessions; guessing URLs never consumes visitor slots.
       if (req.method !== "GET" || req.path !== "/api/bootstrap")
         return res.status(401).json({
+          code: "SESSION_EXPIRED",
           error:
             "Your demo session expired. Reload Briefstamp to start a new session.",
         });
@@ -561,6 +562,7 @@ export function createDemoRouter(options: DemoOptions) {
       const proposed = await generateGemma(selectedBrief.split("\n"));
       if (s.expires <= now())
         return res.status(401).json({
+          code: "SESSION_EXPIRED",
           error: "The demo session expired. No generated plan was saved.",
         });
       if (!isDeepStrictEqual(p, snapshot))
@@ -624,6 +626,7 @@ export function createDemoRouter(options: DemoOptions) {
       const proposed = await generateTinker(DEMO_BRIEF.split("\n"));
       if (s.expires <= now())
         return res.status(401).json({
+          code: "SESSION_EXPIRED",
           error: "The demo session expired. No generated plan was saved.",
         });
       if (!isDeepStrictEqual(p, snapshot))
@@ -669,6 +672,7 @@ export function createDemoRouter(options: DemoOptions) {
     } catch {
       if (s.expires <= now())
         return res.status(401).json({
+          code: "SESSION_EXPIRED",
           error: "The demo session expired. No generated plan was saved.",
         });
       return res.status(503).json({
@@ -825,6 +829,7 @@ export function createDemoRouter(options: DemoOptions) {
         const stored = await tiger().getAudit(s.hash, a.id);
         if (s.expires <= now())
           return res.status(401).json({
+            code: "SESSION_EXPIRED",
             error:
               "Your demo session expired. Reload Briefstamp to start a new session.",
           });
@@ -864,6 +869,7 @@ export function createDemoRouter(options: DemoOptions) {
     }
     if (s.expires <= now())
       return res.status(401).json({
+        code: "SESSION_EXPIRED",
         error:
           "Your demo session expired. Reload Briefstamp to start a new session.",
       });
@@ -982,6 +988,7 @@ export function createDemoRouter(options: DemoOptions) {
         const rows = await tiger().searchFailures(s.hash, { projectId, query });
         if (s.expires <= now())
           return res.status(401).json({
+            code: "SESSION_EXPIRED",
             error:
               "Your demo session expired. Reload Briefstamp to start a new session.",
           });
@@ -994,6 +1001,7 @@ export function createDemoRouter(options: DemoOptions) {
       } catch {
         if (s.expires <= now())
           return res.status(401).json({
+            code: "SESSION_EXPIRED",
             error:
               "Your demo session expired. Reload Briefstamp to start a new session.",
           });

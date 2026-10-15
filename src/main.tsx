@@ -65,6 +65,12 @@ import {
 import "./styles.css";
 import Landing from "./Landing";
 import { AuditComparison } from "./AuditComparison";
+import {
+  ApiRequestError,
+  createOperationGate,
+  createSessionRecovery,
+  SessionChangedError,
+} from "./session-recovery";
 
 type View =
   | "overview"
@@ -94,6 +100,12 @@ const titles: Record<View, string> = {
   history: "Failure library",
 };
 const tokenKey = "flowproof.operator-token";
+let recoverDemoSession: (() => Promise<void>) | null = null;
+let pendingBootstrapController: AbortController | null = null;
+const sessionRequests = createSessionRecovery(async () => {
+  if (!recoverDemoSession) throw new Error("The workspace is not connected.");
+  await recoverDemoSession();
+});
 function headers() {
   const token = sessionStorage.getItem(tokenKey);
   return {
@@ -101,23 +113,67 @@ function headers() {
     ...(token ? { "X-FlowProof-Token": token } : {}),
   };
 }
+async function fetchChecked(
+  path: string,
+  options: RequestInit,
+): Promise<Response> {
+  const response = await fetch(path, options);
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new ApiRequestError(
+      error.error || `Request failed (${response.status}). Please try again.`,
+      response.status,
+      typeof error.code === "string" ? error.code : undefined,
+    );
+  }
+  return response;
+}
 async function api<T>(
   path: string,
   method = "GET",
   data?: unknown,
 ): Promise<T> {
-  const response = await fetch(`/api${path}`, {
-    method,
-    headers: headers(),
-    ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
+  return sessionRequests.run(
+    async () => {
+      const controller = path === "/bootstrap" ? new AbortController() : null;
+      if (controller) pendingBootstrapController = controller;
+      const timeout = controller
+        ? setTimeout(() => controller.abort(), 65_000)
+        : undefined;
+      try {
+        const response = await fetchChecked(`/api${path}`, {
+          method,
+          headers: headers(),
+          ...(controller ? { signal: controller.signal } : {}),
+          ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
+        });
+        return await response.json();
+      } finally {
+        if (timeout) clearTimeout(timeout);
+        if (pendingBootstrapController === controller)
+          pendingBootstrapController = null;
+      }
+    },
+    { bootstrap: path === "/bootstrap" && method === "GET" },
+  );
+}
+function fetchFile(path: string): Promise<Blob> {
+  return sessionRequests.run(async () => {
+    const response = await fetchChecked(path, { headers: headers() });
+    return response.blob();
   });
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(
-      error.error || `Request failed (${response.status}). Please try again.`,
-    );
-  }
-  return response.json();
+}
+function connectionMessage(error: unknown): string {
+  if (error instanceof ApiRequestError && error.status === 429)
+    return error.message;
+  if (
+    error instanceof ApiRequestError &&
+    (error.status === 401 || error.status === 403)
+  )
+    return "This workspace needs an operator token. Open the private connection options below to connect.";
+  if (error instanceof Error && error.name === "AbortError")
+    return "The server took longer than a minute to respond. Try connecting again.";
+  return "The workspace is temporarily unreachable. The free server may still be waking up. Wait a moment, then try again.";
 }
 function date(value: string) {
   return new Date(value).toLocaleDateString(undefined, {
@@ -252,11 +308,7 @@ function EvidenceImage({ path, alt }: { path: string; alt: string }) {
     let active = true;
     setUrl("");
     setError(false);
-    fetch(path, { headers: headers() })
-      .then((r) => {
-        if (!r.ok) throw new Error("Image unavailable");
-        return r.blob();
-      })
+    fetchFile(path)
       .then((blob) => {
         objectUrl = URL.createObjectURL(blob);
         if (active) setUrl(objectUrl);
@@ -300,6 +352,15 @@ function App({
   active?: boolean;
 }) {
   const [data, setData] = useState<Bootstrap | null>(null);
+  const dataRef = useRef<Bootstrap | null>(null);
+  dataRef.current = data;
+  const bootstrapInFlight = useRef<Promise<Bootstrap> | null>(null);
+  const [connectionState, setConnectionState] = useState<
+    "loading" | "recovering" | "ready" | "error"
+  >("loading");
+  const [connectionError, setConnectionError] = useState("");
+  const [connectionSlow, setConnectionSlow] = useState(false);
+  const [sessionNotice, setSessionNotice] = useState("");
   const [view, setView] = useState<View>(initialView);
   useEffect(() => {
     if (openModel) setView("model");
@@ -313,6 +374,7 @@ function App({
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState("");
+  const [operationGate] = useState(createOperationGate);
   const [gemmaConsent, setGemmaConsent] = useState(false);
   const [tinkerConsent, setTinkerConsent] = useState(false);
   const [cloudSave, setCloudSave] = useState<{
@@ -397,14 +459,105 @@ function App({
       if (timer) clearTimeout(timer);
     };
   }, [demo?.enabled, audit?.id, audit?.status]);
-  const refresh = async () => {
-    const next = await api<Bootstrap>("/bootstrap");
-    setData(next);
-    return next;
+  const clearVisitorState = () => {
+    operationGate.invalidate();
+    dataRef.current = null;
+    setData(null);
+    setProjectId("");
+    setAuditId("");
+    setDraft([]);
+    setDirty(false);
+    setCreateOpen(false);
+    setMobileOpen(false);
+    setGemmaConsent(false);
+    setTinkerConsent(false);
+    setCloudSave(null);
+    setFailures(null);
+    setProjectMemory(null);
+    setSearch("");
+    setFilter("all");
+    setSelectedCheck("");
+    setBusy("");
+    setError("");
+    setNotice("");
+    setView("review");
+  };
+  const refresh = (): Promise<Bootstrap> => {
+    if (bootstrapInFlight.current) return bootstrapInFlight.current;
+    const request = api<Bootstrap>("/bootstrap").then((next) => {
+      const previous = dataRef.current;
+      if (
+        previous?.demo?.enabled &&
+        next.demo?.enabled &&
+        !previous.projects.some((item) =>
+          next.projects.some((fresh) => fresh.id === item.id),
+        )
+      ) {
+        sessionRequests.invalidate();
+        clearVisitorState();
+        setSessionNotice(
+          "Your previous demo session ended. This fresh workspace starts with unapproved checks. Earlier reports and unsaved edits are no longer available here.",
+        );
+      }
+      dataRef.current = next;
+      setData(next);
+      setConnectionState("ready");
+      return next;
+    });
+    bootstrapInFlight.current = request;
+    void request
+      .finally(() => {
+        if (bootstrapInFlight.current === request)
+          bootstrapInFlight.current = null;
+      })
+      .catch(() => {});
+    return request;
+  };
+  const openWorkspace = async () => {
+    setConnectionState("loading");
+    setConnectionError("");
+    setError("");
+    try {
+      await refresh();
+    } catch (error) {
+      if (error instanceof SessionChangedError) return;
+      setConnectionError(connectionMessage(error));
+      setConnectionState("error");
+    }
   };
   useEffect(() => {
-    refresh().catch((e) => setError(e.message));
+    const recover = async () => {
+      pendingBootstrapController?.abort();
+      bootstrapInFlight.current = null;
+      clearVisitorState();
+      setConnectionError("");
+      setConnectionState("recovering");
+      setSessionNotice(
+        "Your previous demo session ended. Earlier reports and unsaved edits are no longer available here. No audit, approval or model request was repeated.",
+      );
+      try {
+        await refresh();
+        setSessionNotice(
+          "A fresh demo session is ready with unapproved checks. Earlier reports and unsaved edits are no longer available here. No audit, approval or model request was repeated.",
+        );
+      } catch (error) {
+        setConnectionError(connectionMessage(error));
+        setConnectionState("error");
+        throw error;
+      }
+    };
+    recoverDemoSession = recover;
+    void openWorkspace();
+    return () => {
+      if (recoverDemoSession === recover) recoverDemoSession = null;
+    };
   }, []);
+  useEffect(() => {
+    setConnectionSlow(false);
+    if (connectionState !== "loading") return;
+    const timer = setTimeout(() => setConnectionSlow(true), 3000);
+    return () => clearTimeout(timer);
+  }, [connectionState]);
   useEffect(() => {
     if (project) {
       setDraft(structuredClone(project.checks));
@@ -426,9 +579,11 @@ function App({
         (a) => a.status === "running" || a.status === "queued",
       ) || [];
     if (!active.length) return;
+    let cancelled = false;
     const timer = setInterval(() => {
       Promise.all(active.map((a) => api<Audit>(`/audits/${a.id}`)))
-        .then((updates) =>
+        .then((updates) => {
+          if (cancelled) return;
           setData((current) =>
             current
               ? {
@@ -438,11 +593,17 @@ function App({
                   ),
                 }
               : current,
-          ),
-        )
-        .catch((e) => setError(e.message));
+          );
+        })
+        .catch((e) => {
+          if (!cancelled && !(e instanceof SessionChangedError))
+            setError(e.message);
+        });
     }, 1200);
-    return () => clearInterval(timer);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
   }, [data?.audits]);
   const navigate = (next: View) => {
     setView(next);
@@ -452,19 +613,25 @@ function App({
     window.scrollTo({ top: 0, behavior: "instant" });
   };
   const perform = async (label: string, work: () => Promise<void>) => {
-    if (busy) return;
+    const operationId = operationGate.start();
+    if (operationId === null) return;
     setBusy(label);
     setError("");
     try {
       await work();
     } catch (e) {
+      if (
+        e instanceof SessionChangedError ||
+        !operationGate.isCurrent(operationId)
+      )
+        return;
       setError(
         e instanceof Error
           ? e.message
           : "Something went wrong. Please try again.",
       );
     } finally {
-      setBusy("");
+      if (operationGate.finish(operationId)) setBusy("");
     }
   };
   const chooseProject = (p: Project, next: View = "review") => {
@@ -539,12 +706,7 @@ function App({
     });
   const download = (path: string, filename: string) =>
     perform("download", async () => {
-      const response = await fetch(`/api${path}`, { headers: headers() });
-      if (!response.ok) {
-        const body = await response.json().catch(() => ({}));
-        throw new Error(body.error || "Download failed. Try again.");
-      }
-      const url = URL.createObjectURL(await response.blob());
+      const url = URL.createObjectURL(await fetchFile(`/api${path}`));
       const a = document.createElement("a");
       a.href = url;
       a.download = filename;
@@ -731,7 +893,11 @@ function App({
             <div className="topbar-right">
               <span className="local-badge">
                 <span />
-                {demo?.enabled ? "Public demo" : "Local workspace"}
+                {demo?.enabled
+                  ? "Public demo"
+                  : data
+                    ? "Local workspace"
+                    : "Connecting"}
               </span>
               <button
                 className="icon-button topbar-help"
@@ -765,8 +931,21 @@ function App({
                     <p>
                       <strong>Public demo.</strong>{" "}
                       {demo.notice ||
-                        `Synthetic websites only. This temporary workspace resets after ${demo.expiresMinutes} minutes or when the free service restarts. Do not enter client information.`}
+                        `Choose the synthetic sample or Briefstamp's fixed live homepage. This temporary workspace resets after ${demo.expiresMinutes} minutes or when the free service restarts. Do not enter client information.`}
                     </p>
+                  </aside>
+                )}
+                {data && sessionNotice && (
+                  <aside className="session-recovery-notice" role="status">
+                    <Info size={18} aria-hidden="true" />
+                    <p>{sessionNotice}</p>
+                    <button
+                      className="icon-button"
+                      aria-label="Dismiss session information"
+                      onClick={() => setSessionNotice("")}
+                    >
+                      <X size={16} />
+                    </button>
                   </aside>
                 )}
                 {error && (
@@ -783,46 +962,113 @@ function App({
                   </div>
                 )}
                 {!data && (
-                  <>
-                    {!error ? (
-                      <div className="loading-state">
-                        <LoaderCircle className="spin" size={26} />
-                        <p>Opening your workspace…</p>
-                      </div>
-                    ) : (
-                      <section className="panel connection-panel">
-                        <h1>Connect your workspace</h1>
-                        <p>
-                          If this is a hosted workspace, enter its operator
-                          token to continue.
-                        </p>
-                        <label>
-                          Operator token
-                          <input
-                            type="password"
-                            value={operatorToken}
-                            onChange={(e) => setOperatorToken(e.target.value)}
-                            autoComplete="off"
-                          />
-                        </label>
+                  <section
+                    className="workspace-connection"
+                    aria-labelledby="workspace-connection-title"
+                  >
+                    <span
+                      className="workspace-connection-mark"
+                      aria-hidden="true"
+                    >
+                      {connectionState === "error" ? (
+                        <Globe2 size={30} strokeWidth={1.5} />
+                      ) : (
+                        <FileCheck2 size={30} strokeWidth={1.5} />
+                      )}
+                    </span>
+                    <span className="section-kicker">
+                      YOUR NEXT HANDOFF STARTS HERE
+                    </span>
+                    <h1 id="workspace-connection-title">
+                      {connectionState === "error"
+                        ? "We couldn't open the workspace."
+                        : connectionState === "recovering"
+                          ? "Starting a fresh demo session."
+                          : connectionSlow
+                            ? "Waking up the free server."
+                            : "Opening your workspace."}
+                    </h1>
+                    <p className="workspace-connection-description">
+                      {connectionState === "error"
+                        ? connectionError
+                        : connectionState === "recovering"
+                          ? "Your temporary session ended. We're opening a clean workspace with unapproved checks. No previous request will be repeated."
+                          : "The free demo may need a moment to wake between visits. Your workspace will open as soon as the server responds."}
+                    </p>
+                    {connectionState !== "error" && (
+                      <p
+                        className="workspace-connection-progress"
+                        role="status"
+                      >
+                        <LoaderCircle
+                          className="spin"
+                          size={17}
+                          aria-hidden="true"
+                        />
+                        <span>
+                          {connectionState === "recovering"
+                            ? "Creating your fresh session…"
+                            : "Waiting for the workspace…"}
+                        </span>
+                      </p>
+                    )}
+                    <div className="workspace-connection-actions">
+                      {connectionState === "error" && (
                         <button
                           className="button primary"
+                          type="button"
                           disabled={!!busy}
-                          onClick={() =>
-                            perform("connect", async () => {
+                          onClick={() => void openWorkspace()}
+                        >
+                          <Activity size={17} />
+                          Try connecting again
+                        </button>
+                      )}
+                      <a className="button secondary" href="#">
+                        Explore the landing page
+                        <ArrowUpRight size={16} />
+                      </a>
+                    </div>
+                    {connectionState === "error" && (
+                      <details className="workspace-private-connection">
+                        <summary>
+                          Connecting a private workspace?
+                          <ChevronDown size={15} aria-hidden="true" />
+                        </summary>
+                        <p>The public demo does not need an operator token.</p>
+                        <form
+                          onSubmit={(event) => {
+                            event.preventDefault();
+                            void perform("connect", async () => {
                               sessionStorage.setItem(
                                 tokenKey,
                                 operatorToken.trim(),
                               );
-                              await refresh();
-                            })
-                          }
+                              await openWorkspace();
+                            });
+                          }}
                         >
-                          Connect and retry
-                        </button>
-                      </section>
+                          <label>
+                            Operator token
+                            <input
+                              type="password"
+                              value={operatorToken}
+                              onChange={(event) =>
+                                setOperatorToken(event.target.value)
+                              }
+                              autoComplete="off"
+                            />
+                          </label>
+                          <button
+                            className="button secondary"
+                            disabled={!!busy}
+                          >
+                            Connect with token
+                          </button>
+                        </form>
+                      </details>
                     )}
-                  </>
+                  </section>
                 )}
                 {data && (view === "overview" || view === "projects") && (
                   <>

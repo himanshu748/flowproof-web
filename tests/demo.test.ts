@@ -372,16 +372,28 @@ describe("isolated tokenless public demo", () => {
       expect((await h.request("/api/bootstrap")).status).toBe(200);
     expect((await h.request("/api/bootstrap")).status).toBe(429);
     time += 31 * 60_000;
-    expect(
-      (await h.request(`/api/projects/${a.project.id}`, a.cookie)).status,
-    ).toBe(401);
+    const expired = await h.request(`/api/projects/${a.project.id}`, a.cookie);
+    expect(expired.status).toBe(401);
+    expect(await expired.json()).toMatchObject({ code: "SESSION_EXPIRED" });
     await expect(
       readFile(path.join(h.root, start.id, "proof.png")),
     ).rejects.toThrow();
     expect(
       await readFile(path.join(h.root, "keep-private-file.txt"), "utf8"),
     ).toBe("untouched");
-    expect((await h.request("/api/bootstrap")).status).toBe(200);
+    const restarted = await h.request("/api/bootstrap", a.cookie);
+    expect(restarted.status).toBe(200);
+    const fresh = (await restarted.json()) as Bootstrap;
+    const freshCookie = restarted.headers.get("set-cookie")!.split(";")[0];
+    expect(freshCookie).not.toBe(a.cookie);
+    expect(fresh.audits).toHaveLength(0);
+    expect(
+      fresh.projects.every((p) => p.checks.every((c) => !c.approved)),
+    ).toBe(true);
+    expect(fresh.projects.some((p) => p.id === a.project.id)).toBe(false);
+    expect(
+      (await h.request(`/api/projects/${a.project.id}`, freshCookie)).status,
+    ).toBe(404);
   });
 
   it.each([

@@ -4560,6 +4560,156 @@ label textarea {
   background: #f6f7fa;
   color: #46536b;
 }
+.workspace-connection {
+  width: min(100%, 640px);
+  margin: clamp(24px, 6vh, 70px) auto;
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid #dfe5ef;
+  border-radius: 12px;
+  background: #fff;
+  text-align: center;
+}
+.workspace-connection-mark {
+  display: grid;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 24px;
+  place-items: center;
+  border-radius: 13px;
+  background: #eef1ff;
+  color: #2947d3;
+}
+.workspace-connection .section-kicker {
+  color: #596984;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+}
+.workspace-connection h1 {
+  margin: 12px 0 16px;
+  font-size: clamp(25px, 4vw, 32px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+  text-wrap: balance;
+}
+.workspace-connection-description {
+  max-width: 47ch;
+  margin: 0 auto;
+  color: #566379;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.workspace-connection-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 23px 0;
+  color: #405789;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.workspace-connection-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+.workspace-connection-actions .button,
+.workspace-private-connection .button {
+  min-height: 44px;
+  text-decoration: none;
+}
+.workspace-private-connection {
+  margin-top: 30px;
+  padding-top: 12px;
+  border-top: 1px solid #e7ebf2;
+  text-align: left;
+}
+.workspace-private-connection summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  gap: 12px;
+  color: #43516b;
+  font-size: 12px;
+  cursor: pointer;
+  list-style: none;
+}
+.workspace-private-connection summary::-webkit-details-marker {
+  display: none;
+}
+.workspace-private-connection summary > svg {
+  transition: transform 150ms var(--ease);
+}
+.workspace-private-connection[open] summary > svg {
+  transform: rotate(180deg);
+}
+.workspace-private-connection p {
+  margin: 5px 0 16px;
+  color: #59667d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.workspace-private-connection form {
+  display: grid;
+  gap: 14px;
+}
+.session-recovery-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 15px 17px;
+  margin-bottom: 20px;
+  border: 1px solid #dce4f5;
+  border-radius: 8px;
+  background: #f2f5fc;
+  color: #465a7d;
+}
+.session-recovery-notice > svg {
+  margin-top: 3px;
+}
+.session-recovery-notice p {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.session-recovery-notice .icon-button {
+  flex-shrink: 0;
+  width: 40px;
+  min-height: 40px;
+  margin: -5px -7px -5px 0;
+}
+@media (max-width: 520px) {
+  .workspace-connection {
+    padding: 26px 19px;
+    margin: 24px auto;
+  }
+  .workspace-connection-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .workspace-connection-actions .button {
+    width: 100%;
+    white-space: normal;
+  }
+  .session-recovery-notice {
+    gap: 9px;
+    padding: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workspace-connection .spin {
+    animation: none;
+  }
+  .workspace-private-connection summary > svg {
+    transition: none;
+  }
+}
 @media (max-width: 1050px) {
   .live-site-preset {
     display: grid;
