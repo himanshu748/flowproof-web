@@ -127,6 +127,12 @@ export interface Bootstrap {
       sampleBrief: string;
       description: string;
     };
+    tinker?: {
+      available: boolean;
+      model: string;
+      sampleBrief: string;
+      description: string;
+    };
   };
   projects: Project[];
   audits: Audit[];

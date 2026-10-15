@@ -1,4 +1,4 @@
-# Local Temporal audit recovery
+# Temporal audit recovery: local and manual CI proof
 
 Temporal is an optional operator service. It is disabled by default and unavailable in the public synthetic demo. The integration accepts only a loopback Temporal address and creates no cloud resources or billable services.
 
@@ -53,6 +53,22 @@ The output directory must be new. The command starts its own loopback server on 
 A successful receipt has `status: "verified"`. A failed or unavailable run records `status: "blocked"` with its actual error; source code and unit tests alone are not proof of durable execution. The verification command stops the processes it started. The workflow's demonstration signal wait is bounded to ten minutes.
 
 `FLOWPROOF_TEMPORAL_PROOF_WORKFLOW_ID` and `FLOWPROOF_TEMPORAL_ATTEMPT_LOG` are trusted worker-side demonstration controls. The operator API does not accept them from user requests. Failure injection rejects external website targets.
+
+## Manual GitHub Actions proof
+
+The [Temporal recovery workflow](../.github/workflows/temporal-proof.yml) is **implemented but not yet executed remotely**. It runs only through `workflow_dispatch` on the public repository, with `contents: read`, a standard `ubuntu-latest` runner and a twelve-minute deadline. It installs locked npm dependencies and Chromium, then invokes the unchanged verifier with `--cli` and the fresh `work/temporal-ci` output directory. No application build, scheduled run, provider key, Temporal Cloud account or paid worker is required. The job fails unless the resulting receipt says `verified` and names its exact source commit.
+
+The Linux amd64 CLI is pinned to official **v1.9.1**:
+
+- [Release metadata](https://api.github.com/repos/temporalio/cli/releases/tags/v1.9.1) and the [official checksums file](https://github.com/temporalio/cli/releases/download/v1.9.1/checksums.txt) both report archive SHA-256 `09a0326a51db84d02735e53542b9ebd8c4758daf47482a9ab0abce15844e60d5`.
+- [Archive](https://github.com/temporalio/cli/releases/download/v1.9.1/temporal_cli_1.9.1_linux_amd64.tar.gz): 45,298,806 bytes. The job verifies the pinned digest before extracting the executable. Only release metadata and the 836-byte checksums file were downloaded during preparation; the binary was not downloaded locally.
+- The [release notes](https://github.com/temporalio/cli/releases/tag/v1.9.1) identify bundled development-server version 1.32.0. [Official CLI guidance](https://docs.temporal.io/cli/setup-cli) documents development-server SQLite persistence.
+
+The workflow adds `ci-manifest.json` separately from the verifier's receipt. It records the source commit, Actions run URL, run attempt, pinned archive digest and actual evidence-file hashes. Repository paths and the ephemeral runner hostname are redacted in the logged receipt. A single `BRIEFSTAMP_TEMPORAL_RECEIPT_B64=` line carries the receipt and manifest as base64 JSON, capped at 32 KiB before encoding; the manifest also appears as readable JSON in the logs and the job summary describes the observed restart. A blocked or missing receipt remains a failure.
+
+There is **no artifact upload or cache** in this workflow. PNGs, portable HTML, event histories and the attempt log remain ephemeral runner files; their hashes do not mean those bytes are durably hosted. SQLite, environment files and raw worker/server logs are never included in the receipt packet. A maintainer can download the job logs, review the bounded receipt/manifest and publish sanitized execution evidence afterward. Do not claim that step has happened before a real run and review.
+
+This would demonstrate **development-server recovery on hosted CI**, not Temporal Cloud, an always-on worker or recovery on the public Render service. [GitHub documents free standard runner use for public repositories](https://docs.github.com/en/billing/concepts/product-billing/github-actions); this workflow uses no larger runner or paid artifact storage. The existing local evidence above remains valid independently of a future CI run.
 
 ## Limits and evidence handling
 

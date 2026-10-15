@@ -2,6 +2,20 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
+## Latest verified hosted proposal tracing, 15 October 2026
+
+Source **`e43dbe7430368292ff9b225f4bf5e3236c2d03c0`** passed [Actions run 38722793847](https://github.com/himanshu748/flowproof-web/actions/runs/38722793847). The existing **Free** Render service deployed `dep-db8b0ebncjis73f93b3g` at **10:53:13.436562 UTC**. The [10:55 hosted receipt](evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json) verifies one native Gemma request through two Mastra steps, unapproved-execution rejection, then healthy **5 passed / 1 unverified** → broken **2 passed / 3 failed / 1 unverified** → restored **5 passed / 1 unverified**. Approval was by the synthetic verifier, not a person.
+
+The request used **335 input / 300 output tokens**. Its **7.502-second provider/validation call is not the whole workflow duration**: Sentry observed a **22.09-second root**, including startup, a 7.59-second generation child and 0.43-millisecond validation child. Worker maximum RSS was **175.07 MiB**. The exact three-span trace was independently verified in the authenticated dashboard. [Sentry receipt and screenshot](SENTRY_HOSTED.md). The earlier Backboard proof below remains separate; this newer run made no memory calls.
+
+### New configuration awaiting its next-release proof
+
+- **Tiger:** after the earlier FieldIssue isolation preflight stopped, the user approved a separate dedicated service. System-CA/hostname TLS was verified at 11:10 UTC; a restricted role/schema was provisioned at 11:12. Independent writer and reader processes recovered three saved synthetic audits; lexical search found the horizontal-overflow failure and cross-session access was denied. Screenshot references, not image bytes, were stored. Render configuration was applied at 11:15, but the actual hosted request path remains unverified. This is a **credit-covered metered trial**, not permanent Free storage; the gate/login expires October 20. No FieldIssue rows/settings changed. The original Shared Free service’s CA remains unresolved; no TLS checks were weakened.
+- **Tinker:** the existing October 15 application-smoke sampler, newer than the frozen October 14 benchmark checkpoint, was renewed and read back with expiry **October 19, 23:59:30 UTC**. Estimated retention $0.00221 is within the approved $0.01 promotional-credit cap; it is not billed usage. No training, new checkpoint or inference occurred in the renewal. Protected Render configuration reserves at most two proposal requests / 50,000 tokens under fresh confirmation expiring **October 16, 10:49 UTC**. The route and UI exist; hosted inference awaits the next release. No anonymous access.
+- **Temporal:** the manual public-runner workflow is implemented but has not run. It emits bounded receipt/manifest logs without artifact storage; see [scope](TEMPORAL.md). This is not an always-on worker or Temporal Cloud.
+
+The next candidate’s 423 local application tests and production build passed; remote CI and deployment remain separate pending gates. No new hosted Tiger or Tinker result is claimed here. Private provider configuration and operator receipts remain private. The DEV article remains a draft.
+
 ## Verified hosted open-model release, 15 October 2026
 
 Source **`25efaeefa582ebff29033e4d73e7fe53ece73119`** passed [Actions run 38716831942](https://github.com/himanshu748/flowproof-web/actions/runs/38716831942): **320 application tests, 19 Python tests**, production build, the bounded public-runtime browser check and real fixture audits. The compiled Mastra workflow CI check recorded **174.54 MiB** maximum resident memory.
@@ -16,13 +30,13 @@ The existing Render service was confirmed **Free**, without plan or resource cha
 
 Opening `#demo` shows Review and the Gemma action without automatically calling a model. Initial drafts remain labelled rules. The model route checks free-only pricing at least hourly and rejects private/edited briefs; current confirmation expires October 20. Backboard used explicitly approved existing credits with no card, auto-reload, top-up or setting change. Its exclusive-created ledger preserves spent counters on the same disk, but free-host disk replacement is not a durable cross-deployment budget or permission to regain an exhausted allowance.
 
-These hosted receipts do not establish hosted Tiger, Tinker, Sentry, Temporal, SerpApi, ElevenLabs, Entire or .tech operation. Later Tiger/Sentry preparation is recorded below and must not be treated as part of the verified `25efaeef` runtime. See [remaining gates](ALL_INTEGRATION_GATES.md).
+This historical 25efaeef receipt did not establish Sentry ingestion; the newer e43dbe74 evidence above does. It does not establish hosted Tiger, Tinker, Temporal, SerpApi, ElevenLabs, Entire or .tech operation. See [remaining gates](ALL_INTEGRATION_GATES.md).
 
-### Later Tiger and Sentry preparation: not deployed evidence
+### Historical preparation after 25efaeef
 
 At 10:17 UTC on October 15, the user-approved isolated Tiger trial-hosting attempt stopped **before DDL** when the privilege preflight found inherited PUBLIC metadata grants. No role, schema or Render database credential was created; no FieldIssue data/configuration or billing setting changed. Subsequent strict-TLS checks inspected metadata only and still recorded zero created roles/schemas. This is a failed provisioning preflight, not hosted persistence. Authenticated connection inspection of the separate dedicated service did not establish CA trust; certificate and hostname verification were not weakened.
 
-A separate Briefstamp Sentry project was created and configured after confirming a Sponsored Team entitlement with paid overage disabled. The optional child-only SDK implementation has actual local-capture privacy/trace tests. It still needs a release and a bounded trace verified in Sentry. Neither project configuration nor `flushed: true` establishes hosted ingestion. Private operator receipts are retained separately; account identifiers, credentials, connection hostnames and billing balances are omitted here.
+A separate Briefstamp Sentry project was created and configured after confirming a Sponsored Team entitlement with paid overage disabled. The optional child-only SDK implementation has actual local-capture privacy/trace tests. At that point it still needed release and dashboard verification; the later e43dbe74 proof above resolves that gate for one exact proposal trace. Configuration or `flushed: true` alone remains insufficient. Private operator receipts are retained separately; account identifiers, credentials, connection hostnames and billing balances are omitted here.
 
 The records below are historical snapshots. Later source edits, including an image-check description correction, must not be inferred to be deployed from this receipt.
 

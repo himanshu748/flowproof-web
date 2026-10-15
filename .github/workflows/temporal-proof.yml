@@ -1,0 +1,144 @@
+name: Briefstamp Temporal recovery proof
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recovery:
+    # Standard public-repository runner only; no Temporal Cloud or paid worker.
+    if: github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      FLOWPROOF_AI_ENABLED: "false"
+      FLOWPROOF_GEMMA_ENABLED: "false"
+      BRIEFSTAMP_PUBLIC_GEMMA_ENABLED: "false"
+      BRIEFSTAMP_TINKER_ENABLED: "false"
+      FLOWPROOF_SENTRY_ENABLED: "false"
+      MASTRA_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci --legacy-peer-deps
+      - run: npx playwright install --with-deps chromium
+      - name: Install official checksum-pinned Temporal CLI 1.9.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          cli_dir="$RUNNER_TEMP/briefstamp-temporal-cli"
+          archive="$RUNNER_TEMP/temporal_cli_1.9.1_linux_amd64.tar.gz"
+          mkdir -p "$cli_dir"
+          curl --fail --location --silent --show-error --proto '=https' --proto-redir '=https' --tlsv1.2 \
+            --max-time 120 --retry 0 \
+            'https://github.com/temporalio/cli/releases/download/v1.9.1/temporal_cli_1.9.1_linux_amd64.tar.gz' \
+            --output "$archive"
+          printf '%s  %s\n' '09a0326a51db84d02735e53542b9ebd8c4758daf47482a9ab0abce15844e60d5' "$archive" | sha256sum --check --strict
+          tar -xzf "$archive" -C "$cli_dir" temporal
+          "$cli_dir/temporal" --version
+      - name: Execute actual retry and server/worker restart proof
+        id: proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p work
+          node --import tsx scripts/verify-temporal.ts \
+            --cli "$RUNNER_TEMP/briefstamp-temporal-cli/temporal" \
+            --output work/temporal-ci
+      - name: Emit bounded synthetic receipt and execution manifest
+        if: always() && steps.proof.outcome != 'skipped'
+        env:
+          PROOF_STEP_OUTCOME: ${{ steps.proof.outcome }}
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import { readFile, writeFile, appendFile, lstat, mkdir } from 'node:fs/promises';
+          import { createHash } from 'node:crypto';
+          import { hostname } from 'node:os';
+          import path from 'node:path';
+          const directory = path.resolve('work/temporal-ci');
+          const digest = (value) => createHash('sha256').update(value).digest('hex');
+          const sanitize = (text) => text.replaceAll(process.cwd(), '<repository>').replaceAll(hostname(), '<ci-host>');
+          let original;
+          let receipt;
+          try {
+            original = await readFile(path.join(directory, 'temporal-verification.json'));
+            receipt = JSON.parse(sanitize(original.toString('utf8')));
+          } catch {
+            receipt = { status: 'missing', scope: 'The verifier did not produce a readable receipt.' };
+          }
+          const manifest = {
+            version: 1,
+            sourceCommit: process.env.GITHUB_SHA,
+            actionsRunUrl: `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            runAttempt: Number(process.env.GITHUB_RUN_ATTEMPT),
+            recordedAt: new Date().toISOString(),
+            proofStepOutcome: process.env.PROOF_STEP_OUTCOME,
+            receiptStatus: receipt.status,
+            cliRelease: 'v1.9.1',
+            cliArchiveSha256: '09a0326a51db84d02735e53542b9ebd8c4758daf47482a9ab0abce15844e60d5',
+            originalReceiptSha256: original ? digest(original) : null,
+            redactions: ['repository absolute path', 'ephemeral runner hostname'],
+            scope: 'Hosted CI development-server recovery; no Temporal Cloud or always-on production worker.',
+            evidenceRetention: 'Receipt and manifest are in job logs. Histories, attempts, HTML and PNG bytes remain ephemeral runner files; only their hashes are retained here.',
+            artifactUploads: 0,
+            files: [],
+          };
+          const candidates = [
+            'history-before-restart.json',
+            'history-completed.json',
+            'activity-attempts.jsonl',
+          ];
+          if (receipt.status === 'verified') {
+            if (receipt.sourceCommit !== process.env.GITHUB_SHA) throw new Error('Receipt source revision mismatch.');
+            const report = receipt.artifacts?.report;
+            if (!/^receipts\/[a-f0-9-]{36}\/report\.html$/.test(report)) throw new Error('Unexpected report path.');
+            candidates.push(report);
+            if (!Array.isArray(receipt.artifacts?.screenshots) || receipt.artifacts.screenshots.length !== 5) throw new Error('Expected five screenshot records.');
+            for (const image of receipt.artifacts.screenshots) {
+              if (!/^evidence\/[a-f0-9-]{36}\/[a-zA-Z0-9_-]+\.png$/.test(image.path)) throw new Error('Unexpected screenshot path.');
+              candidates.push(image.path);
+            }
+          }
+          for (const relative of candidates) {
+            let info;
+            try { info = await lstat(path.join(directory, relative)); }
+            catch (error) { if (receipt.status !== 'verified' && error.code === 'ENOENT') continue; throw error; }
+            if (!info.isFile() || info.size > 4 * 1024 * 1024) throw new Error('Unexpected synthetic evidence file.');
+            const bytes = await readFile(path.join(directory, relative));
+            manifest.files.push({ path: relative, bytes: bytes.length, sha256: digest(bytes) });
+          }
+          const packet = JSON.stringify({ receipt, manifest });
+          if (Buffer.byteLength(packet) > 32 * 1024) throw new Error('Receipt packet exceeds the log limit.');
+          await mkdir(directory, { recursive: true });
+          await writeFile(path.join(directory, 'ci-manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+          console.log('BRIEFSTAMP_TEMPORAL_MANIFEST=' + JSON.stringify(manifest));
+          console.log('BRIEFSTAMP_TEMPORAL_RECEIPT_B64=' + Buffer.from(packet).toString('base64'));
+          const summary = {
+            status: receipt.status,
+            sourceCommit: manifest.sourceCommit,
+            actionsRunUrl: manifest.actionsRunUrl,
+            cliVersion: receipt.cliVersion ?? null,
+            beforeRestart: receipt.beforeRestart ?? null,
+            afterRestart: receipt.afterRestart ?? null,
+            retainedEvidence: manifest.evidenceRetention,
+            scope: manifest.scope,
+          };
+          await appendFile(process.env.GITHUB_STEP_SUMMARY, '## Temporal recovery proof\n\n```json\n' + JSON.stringify(summary, null, 2) + '\n```\n');
+          JS
+      - name: Require an actually verified receipt
+        if: always() && steps.proof.outcome != 'skipped'
+        run: |
+          node --input-type=module <<'JS'
+          import { readFile } from 'node:fs/promises';
+          import assert from 'node:assert/strict';
+          const receipt = JSON.parse(await readFile('work/temporal-ci/temporal-verification.json', 'utf8'));
+          assert.equal(receipt.status, 'verified', 'Temporal recovery was not verified.');
+          assert.equal(receipt.sourceCommit, process.env.GITHUB_SHA);
+          JS

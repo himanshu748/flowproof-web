@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { setTimeout as pause } from "node:timers/promises";
+import { isDeepStrictEqual } from "node:util";
 import { z } from "zod";
 import type {
   Audit,
@@ -17,7 +18,8 @@ class VerificationFailure extends Error {
 }
 
 const ORIGIN = "https://flowproof-demo.onrender.com";
-const MODEL = "gemma-4-26b-a4b-it";
+const GEMMA_MODEL = "gemma-4-26b-a4b-it";
+const TINKER_MODEL = "Qwen/Qwen3.5-4B";
 const STEPS = ["generate-google-gemma", "validate-indexed-proposal"];
 const MAX_DURATION_MS = 8 * 60_000;
 const KINDS: CheckKind[] = [
@@ -30,19 +32,32 @@ const KINDS: CheckKind[] = [
 ];
 const args = process.argv.slice(2);
 const runGemma = args.includes("--run-public-gemma");
+const runTinker = args.includes("--run-tinker");
 const runBackboard = args.includes("--run-backboard");
+const verifyTiger = args.includes("--verify-tiger");
+const MODEL = runTinker ? TINKER_MODEL : GEMMA_MODEL;
+const GENERATOR = runTinker
+  ? "Tinker (live trained checkpoint)"
+  : "Google Gemma (live API)";
 const validArgs =
   args.length === new Set(args).size &&
-  args.every((arg) => ["--run-public-gemma", "--run-backboard"].includes(arg));
+  args.every((arg) =>
+    [
+      "--run-public-gemma",
+      "--run-tinker",
+      "--run-backboard",
+      "--verify-tiger",
+    ].includes(arg),
+  );
 
-if (!runGemma || !validArgs) {
+if (runGemma === runTinker || !validArgs) {
   console.log(
     JSON.stringify({
       status: "not_run",
       modelRequests: 0,
       memoryOperations: 0,
       instructions:
-        "Use --run-public-gemma for one real hosted model request and three synthetic browser audits. Optionally add --run-backboard only with explicitly approved existing-credit access, BRIEFSTAMP_HOSTED_OPERATOR_TOKEN and BACKBOARD_API_KEY. No retries, funding or account changes are performed.",
+        "Choose exactly one of --run-public-gemma or --run-tinker for one real hosted model request and three synthetic browser audits. Tinker requires BRIEFSTAMP_HOSTED_OPERATOR_TOKEN. Optionally add --verify-tiger for saved-audit reads and scoped lexical retrieval, or --run-backboard only with explicitly approved existing-credit access, BRIEFSTAMP_HOSTED_OPERATOR_TOKEN and BACKBOARD_API_KEY. No model retries, funding or account changes are performed.",
     }),
   );
   if (args.length) process.exitCode = 1;
@@ -66,6 +81,14 @@ async function verify() {
   if (backboardKey) secrets.push(backboardKey);
   const calls: Array<Record<string, unknown>> = [];
   const artifacts: Array<{ path: string; bytes: number; sha256: string }> = [];
+  const tigerStorage = {
+    requested: verifyTiger,
+    status: verifyTiger ? "not_verified" : "not_requested",
+    auditReads: [] as Array<Record<string, unknown>>,
+    lexicalRetrieval: null as Record<string, unknown> | null,
+    scope:
+      "Tiger stores synthetic audit JSON and screenshot references. Downloaded screenshot bytes are separate HTTP evidence, not proof of binary image storage in the database.",
+  };
   const receipt: Record<string, unknown> = {
     version: 1,
     startedAt,
@@ -80,11 +103,13 @@ async function verify() {
       humanApproval: false,
     },
     modelRequests: 0,
+    modelProvider: runTinker ? "Tinker" : "Google Gemma",
     modelRequestScope:
       "Reserved application generation attempts; backend inference is only verified after a validated live-provider result.",
     memoryOperations: 0,
     settingsOrPaymentChanges: 0,
     backboardRequested: runBackboard,
+    tigerStorage,
     calls,
     artifacts,
   };
@@ -179,11 +204,20 @@ async function verify() {
   ) {
     require(/^\/(?:api|evidence)\//.test(route), "unexpected_hosted_route");
     const url = new URL(route, ORIGIN);
-    require(url.origin === ORIGIN &&
-      !url.search &&
-      !url.hash, "unexpected_hosted_origin");
     const method =
       options.method ?? (options.body === undefined ? "GET" : "POST");
+    const queryKeys = [...url.searchParams.keys()];
+    const scopedFailureQuery =
+      method === "GET" &&
+      url.pathname === "/api/failures" &&
+      queryKeys.length === 2 &&
+      new Set(queryKeys).size === 2 &&
+      queryKeys.every((key) => key === "q" || key === "projectId") &&
+      url.searchParams.get("q") === "horizontal" &&
+      z.string().uuid().safeParse(url.searchParams.get("projectId")).success;
+    require(url.origin === ORIGIN &&
+      (!url.search || scopedFailureQuery) &&
+      !url.hash, "unexpected_hosted_origin");
     require(["GET", "POST", "PUT"].includes(method), "unexpected_method");
     require(Date.now() < deadline, "process_deadline");
     const call: Record<string, unknown> = {
@@ -221,6 +255,9 @@ async function verify() {
       throw new VerificationFailure("hosted_transport_failed");
     }
     call.httpStatus = response.status;
+    const storageHeader = response.headers.get("X-Briefstamp-Storage");
+    if (storageHeader === "tiger" || storageHeader === "memory")
+      call.storage = storageHeader;
     const bytes = await boundedBody(
       response,
       options.maximum ?? 2 * 1024 * 1024,
@@ -255,8 +292,23 @@ async function verify() {
   }
   const validGenerator = (project: Pick<Project, "generator">) => {
     const generator = project.generator;
-    require(generator?.provider === "Google Gemma (live API)" &&
-      generator.model === MODEL, "live_gemma_provenance_missing");
+    require(generator?.provider === GENERATOR &&
+      generator.model === MODEL, runTinker
+      ? "live_tinker_provenance_missing"
+      : "live_gemma_provenance_missing");
+    if (runTinker) {
+      const usage = generator.reason?.match(
+        /\b(\d+) input \/ (\d+) output tokens\./,
+      );
+      require(usage &&
+        Number.isSafeInteger(Number(usage[1])) &&
+        Number.isSafeInteger(Number(usage[2])) &&
+        Number(usage[1]) + Number(usage[2]) > 0, "actual_tinker_usage_missing");
+      require(!JSON.stringify(generator).includes(
+        "tinker://",
+      ), "private_tinker_checkpoint_exposed");
+      return;
+    }
     const run = generator.orchestration;
     require(run?.provider === "Mastra" &&
       run.workflowId === "briefstamp-public-gemma" &&
@@ -325,6 +377,10 @@ async function verify() {
   }
   try {
     await persist();
+    if (runTinker)
+      require(operatorToken &&
+        operatorToken.length >= 32 &&
+        !/[\s\x00-\x1f]/.test(operatorToken), "hosted_operator_token_missing");
     if (runBackboard) {
       require(operatorToken &&
         operatorToken.length >= 32 &&
@@ -358,11 +414,14 @@ async function verify() {
     receipt.modelRequests = 1;
     await persist();
     const generated = await request(
-      `/api/projects/${visitor.project.id}/generate-gemma`,
+      `/api/projects/${visitor.project.id}/${runTinker ? "generate-tinker" : "generate-gemma"}`,
       {
         cookie: visitor.cookie,
+        ...(runTinker ? { token: operatorToken } : {}),
         body: { modelConsent: true },
-        label: "one-live-gemma-generation",
+        label: runTinker
+          ? "one-live-tinker-generation"
+          : "one-live-gemma-generation",
       },
     );
     let project = generated.json() as Project;
@@ -447,6 +506,51 @@ async function verify() {
       validGenerator(audit.source);
       require(JSON.stringify(audit.checks) === JSON.stringify(project.checks) &&
         audit.results.length === 6, "audit_plan_snapshot_mismatch");
+      if (verifyTiger) {
+        let persistence: { status?: string; expiresAt?: string } = {};
+        let polls = 0;
+        for (; polls < 10; ) {
+          polls++;
+          persistence = (
+            await request(`/api/audits/${audit.id}/persistence`, {
+              cookie: visitor.cookie,
+              label: `poll-${label}-tiger-persistence`,
+            })
+          ).json() as typeof persistence;
+          if (persistence.status === "saved") break;
+          if (polls < 10)
+            await pause(1000, undefined, { signal: controller.signal });
+        }
+        await save(`${label}-tiger-persistence.json`, {
+          polls,
+          ...persistence,
+        });
+        require(persistence.status === "saved" &&
+          typeof persistence.expiresAt === "string" &&
+          Date.parse(persistence.expiresAt) >
+            Date.now(), "tiger_persistence_not_confirmed");
+        const stored = await request(`/api/audits/${audit.id}`, {
+          cookie: visitor.cookie,
+          label: `read-${label}-audit-from-tiger`,
+        });
+        const storedAudit = stored.json();
+        const storage = stored.response.headers.get("X-Briefstamp-Storage");
+        await save(`${label}-tiger-read.json`, { storage, audit: storedAudit });
+        require(storage === "tiger" &&
+          isDeepStrictEqual(
+            storedAudit,
+            audit,
+          ), "tiger_audit_read_did_not_match_observed_audit");
+        tigerStorage.auditReads.push({
+          label,
+          auditId: audit.id,
+          persistence: "saved",
+          storage: "tiger",
+          semanticMatch: true,
+          artifact: `${label}-tiger-read.json`,
+        });
+        await persist();
+      }
       const expected: Record<CheckKind, ResultStatus> = {
         heading: variant === "broken" ? "failed" : "passed",
         link: "passed",
@@ -490,9 +594,9 @@ async function verify() {
       });
       const html = report.bytes.toString("utf8");
       await save(`${label}-report.html`, html);
-      require(html.includes("Google Gemma (live API)") &&
+      require(html.includes(GENERATOR) &&
         html.includes(MODEL) &&
-        html.includes("Mastra") &&
+        (runTinker || html.includes("Mastra")) &&
         !html.includes(
           "No AI model was used.",
         ), "report_generator_provenance_missing");
@@ -531,6 +635,59 @@ async function verify() {
       });
     receipt.crossVisitorIsolation =
       "Project, audit and report each returned HTTP 404 to a different visitor.";
+    if (verifyTiger) {
+      const queryRoute = `/api/failures?q=horizontal&projectId=${project.id}`;
+      const retrieved = (
+        await request(queryRoute, {
+          cookie: visitor.cookie,
+          label: "tiger-scoped-horizontal-failure-search",
+        })
+      ).json() as { mode?: string; results?: Array<Record<string, unknown>> };
+      await save("tiger-failure-search.json", retrieved);
+      const mobile = broken.results.find(
+        (result) => result.kind === "no_horizontal_overflow",
+      );
+      const mobileCheck = broken.checks.find(
+        (check) => check.kind === "no_horizontal_overflow",
+      );
+      require(mobile?.status === "failed" &&
+        mobileCheck?.viewport === "mobile" &&
+        retrieved.mode === "tiger-lexical" &&
+        Array.isArray(retrieved.results) &&
+        retrieved.results.length <= 20 &&
+        retrieved.results.some(
+          (row) =>
+            row.auditId === broken.id &&
+            row.projectId === project.id &&
+            row.kind === "no_horizontal_overflow" &&
+            row.status === "failed" &&
+            row.requirement === mobile.requirement &&
+            row.observed === mobile.evidence.observed &&
+            row.retrieval === "lexical",
+        ), "tiger_saved_mobile_failure_not_retrieved");
+      await request(queryRoute, {
+        cookie: other.cookie,
+        expected: 404,
+        label: "cross-visitor-tiger-search-denied",
+      });
+      await request(`/api/audits/${broken.id}/persistence`, {
+        cookie: other.cookie,
+        expected: 404,
+        label: "cross-visitor-tiger-persistence-denied",
+      });
+      tigerStorage.lexicalRetrieval = {
+        mode: "tiger-lexical",
+        matchingAuditId: broken.id,
+        matchingProjectId: project.id,
+        kind: "no_horizontal_overflow",
+        status: "failed",
+        crossVisitorSearch: 404,
+        crossVisitorPersistence: 404,
+        artifact: "tiger-failure-search.json",
+      };
+      tigerStorage.status = "verified_saved_reads_and_lexical_retrieval";
+      await persist();
+    }
     if (runBackboard) {
       require(memoryState &&
         before &&

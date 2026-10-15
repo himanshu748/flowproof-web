@@ -245,6 +245,12 @@ function App({
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState("");
   const [gemmaConsent, setGemmaConsent] = useState(false);
+  const [tinkerConsent, setTinkerConsent] = useState(false);
+  const [cloudSave, setCloudSave] = useState<{
+    auditId: string;
+    status: "saving" | "saved" | "unverified" | "not_configured";
+    detail?: string;
+  } | null>(null);
   const [filter, setFilter] = useState("all");
   const [selectedCheck, setSelectedCheck] = useState("");
   const [introStep, setIntroStep] = useState(0);
@@ -281,6 +287,39 @@ function App({
     data?.audits[0];
   const allAudits = data?.audits || [];
   const completed = allAudits.filter((a) => a.status === "completed");
+  const tigerHistory = Boolean(
+    demo?.enabled &&
+      data?.integrations.some(
+        (item) => item.name === "Tiger Data" && item.status === "available",
+      ),
+  );
+  useEffect(() => {
+    setCloudSave(null);
+    if (!demo?.enabled || audit?.status !== "completed") return;
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let attempts = 0;
+    const id = audit.id;
+    const read = async () => {
+      try {
+        const saved = await api<{
+          status: "saving" | "saved" | "unverified" | "not_configured";
+          detail?: string;
+        }>(`/audits/${id}/persistence`);
+        if (cancelled) return;
+        setCloudSave({ ...saved, auditId: id });
+        if (saved.status === "saving" && ++attempts < 8)
+          timer = setTimeout(read, 1500);
+      } catch {
+        if (!cancelled) setCloudSave({ auditId: id, status: "unverified" });
+      }
+    };
+    void read();
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [demo?.enabled, audit?.id, audit?.status]);
   const refresh = async () => {
     const next = await api<Bootstrap>("/bootstrap");
     setData(next);
@@ -1227,6 +1266,78 @@ function App({
                               )}
                             </div>
                           )}
+                          {demo?.tinker && (
+                            <details className="brief-editor">
+                              <summary>
+                                Try the trained Tinker sampler
+                                <ChevronDown size={14} />
+                              </summary>
+                              <p>
+                                Qwen3.5-4B fine-tuned for Briefstamp. This
+                                protected smoke test uses a newer checkpoint
+                                than the frozen benchmark. It replaces your plan
+                                with unapproved checks and uses approved sponsor
+                                credits.
+                              </p>
+                              <label className="live-gemma-consent">
+                                <input
+                                  type="checkbox"
+                                  checked={tinkerConsent}
+                                  onChange={(event) =>
+                                    setTinkerConsent(event.target.checked)
+                                  }
+                                  disabled={!!busy || !demo.tinker.available}
+                                />
+                                <span>
+                                  Send the original synthetic sample brief to
+                                  Tinker. No client text is sent.
+                                </span>
+                              </label>
+                              <button
+                                type="button"
+                                className="button secondary"
+                                disabled={
+                                  !!busy ||
+                                  dirty ||
+                                  !tinkerConsent ||
+                                  !demo.tinker.available ||
+                                  project.brief !== demo.tinker.sampleBrief ||
+                                  !sessionStorage.getItem(tokenKey)
+                                }
+                                onClick={() =>
+                                  perform("tinker", async () => {
+                                    updateProject(
+                                      await api<Project>(
+                                        `/projects/${project.id}/generate-tinker`,
+                                        "POST",
+                                        { modelConsent: true },
+                                      ),
+                                    );
+                                    setTinkerConsent(false);
+                                    setNotice(
+                                      "Tinker generated a fresh plan. Review and approve its checks before running.",
+                                    );
+                                  })
+                                }
+                              >
+                                {busy === "tinker" ? (
+                                  <LoaderCircle size={16} className="spin" />
+                                ) : (
+                                  <Beaker size={16} />
+                                )}
+                                {busy === "tinker"
+                                  ? "Tinker is drafting checks…"
+                                  : "Generate with Tinker"}
+                              </button>
+                              <p className="field-help">
+                                {!demo.tinker.available
+                                  ? "The hosted sampler is unavailable or its credit confirmation expired."
+                                  : !sessionStorage.getItem(tokenKey)
+                                    ? "Save and verify your operator token in Connections first."
+                                    : "A two-request experiment allowance applies. No automatic retries."}
+                              </p>
+                            </details>
+                          )}
                           <details className="brief-editor">
                             <summary>
                               Edit brief and regenerate checks{" "}
@@ -1735,6 +1846,25 @@ function App({
                               </div>
                             )}
                             <AuditComparison audit={audit} audits={allAudits} />
+                            {cloudSave?.auditId === audit.id &&
+                              cloudSave.status !== "not_configured" && (
+                                <div className="report-note" role="status">
+                                  {cloudSave.status === "saved" ? (
+                                    <CheckCircle2 size={17} />
+                                  ) : cloudSave.status === "saving" ? (
+                                    <LoaderCircle size={17} className="spin" />
+                                  ) : (
+                                    <Info size={17} />
+                                  )}
+                                  <p>
+                                    {cloudSave.status === "saved"
+                                      ? "Tiger Data confirmed this audit was saved. Search its failed observations in the Failure library. Results are session scoped for up to 30 minutes; screenshot files remain temporary."
+                                      : cloudSave.status === "saving"
+                                        ? "Saving the completed audit to Tiger Data."
+                                        : "Tiger persistence is unverified. Your observed browser results are unchanged."}
+                                  </p>
+                                </div>
+                              )}
                             {audit.status === "completed" &&
                               data.integrations.some(
                                 (integration) =>
@@ -2187,7 +2317,7 @@ function App({
                           perform("search", async () =>
                             setFailures(
                               await api(
-                                `/failures?q=${encodeURIComponent(search)}`,
+                                `/failures?q=${encodeURIComponent(search)}${tigerHistory && project ? `&projectId=${encodeURIComponent(project.id)}` : ""}`,
                               ),
                             ),
                           );
@@ -2199,11 +2329,23 @@ function App({
                           placeholder="Search a requirement, page, or observed failure…"
                           value={search}
                           onChange={(e) => setSearch(e.target.value)}
+                          maxLength={tigerHistory ? 200 : undefined}
+                          required={tigerHistory}
                         />
-                        <button className="button primary" disabled={!!busy}>
+                        <button
+                          className="button primary"
+                          disabled={!!busy || (tigerHistory && !search.trim())}
+                        >
                           {busy === "search" ? "Searching…" : "Search failures"}
                         </button>
                       </form>
+                      {tigerHistory && project && (
+                        <p className="field-help">
+                          Tiger Data searches saved failures for {project.name}{" "}
+                          in this session. This is lexical retrieval; no vector
+                          ranking is claimed for this hosted search.
+                        </p>
+                      )}
                     </section>
                     {failures && (
                       <div className="search-summary">
@@ -2324,14 +2466,14 @@ function App({
                     {(!demo?.enabled ||
                       data.integrations.some(
                         (integration) =>
-                          integration.name === "Backboard" &&
+                          ["Backboard", "Tinker"].includes(integration.name) &&
                           integration.status === "available",
                       )) && (
                       <section className="panel token-panel">
                         <div>
                           <h2>Hosted workspace access</h2>
                           <p>
-                            An operator token enables protected project-memory
+                            An operator token enables protected model and memory
                             actions using approved existing credits. It is kept
                             only in this browser session and sent with API
                             requests.

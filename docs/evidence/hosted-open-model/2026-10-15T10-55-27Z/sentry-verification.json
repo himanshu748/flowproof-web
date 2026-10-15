@@ -1,0 +1,29 @@
+{
+  "verifiedAt": "2026-10-15T11:01:53.871Z",
+  "status": "dashboard_ingestion_verified",
+  "provider": "Sentry",
+  "project": "briefstamp",
+  "traceId": "4ca80cb2a546425ea0f191022b862ed1",
+  "observedSpans": [
+    "briefstamp.proposal",
+    "briefstamp.proposal.generate",
+    "briefstamp.proposal.validate"
+  ],
+  "rootDurationSeconds": 22.09,
+  "generationDurationSeconds": 7.59,
+  "validationDurationMs": 0.43,
+  "observedRootStatus": "ok",
+  "source": "Authenticated project-scoped Sentry trace waterfall; not inferred from SDK flush",
+  "hostedWorkerMaxRssMiB": 175.07,
+  "sourceCommit": "e43dbe7430368292ff9b225f4bf5e3236c2d03c0",
+  "screenshot": "sentry-trace.jpg",
+  "screenshotSha256": "e76fc3c7607242f69582ee33400b7d2ef80102aaeb1da31df5c4248838f8d9df",
+  "privacy": "Application transport sends allowlisted operations and trace/span identifiers only; no client brief, model output, cookie, credentials or screenshots. Sentry can derive hosting-server metadata from its own ingestion request.",
+  "funding": {
+    "accountPlan": "Sponsored Team",
+    "payAsYouGoLimitUsd": 0,
+    "renderPlan": "free",
+    "billingChanges": 0
+  },
+  "scope": "One successful hosted proposal workflow. No browser-audit tracing or error ingestion claim."
+}

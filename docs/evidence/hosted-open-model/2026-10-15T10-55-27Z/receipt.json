@@ -1,0 +1,777 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-15T10:55:27.886Z",
+  "origin": "https://flowproof-demo.onrender.com",
+  "status": "verified",
+  "scope": "Real hosted synthetic application smoke; not a model quality evaluation or human approval.",
+  "approval": {
+    "actorType": "agent",
+    "purpose": "Explicit verifier approval of the fixed synthetic test harness only",
+    "humanApproval": false
+  },
+  "modelRequests": 1,
+  "modelRequestScope": "Reserved application generation attempts; backend inference is only verified after a validated live-provider result.",
+  "memoryOperations": 0,
+  "settingsOrPaymentChanges": 0,
+  "backboardRequested": false,
+  "calls": [
+    {
+      "operation": "bootstrap-visitor",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:55:27.889Z",
+      "httpStatus": 200,
+      "responseBytes": 8986,
+      "responseSha256": "0721fb8da139d6b455a308ce20e293d6b4d30304d1148b8cc07b028e181bd707"
+    },
+    {
+      "operation": "one-live-gemma-generation",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:55:28.384Z",
+      "httpStatus": 200,
+      "responseBytes": 2849,
+      "responseSha256": "45396303808b869df7ddf21ee9f2b0f7f97c62e8f00c2ec0d458684adddb74a7"
+    },
+    {
+      "operation": "reject-unapproved-ai-plan",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:55:58.279Z",
+      "httpStatus": 409,
+      "responseBytes": 79,
+      "responseSha256": "799500761cbeb83bf87a024bf0ea7da72672559e34db3f88fbb1fe20a242eb56"
+    },
+    {
+      "operation": "synthetic-harness-approval-healthy",
+      "method": "PUT",
+      "startedAt": "2026-10-15T10:55:58.430Z",
+      "httpStatus": 200,
+      "responseBytes": 2844,
+      "responseSha256": "1e1a58b1fddeebb95d26625bc79b053b34c6a5775c5759f83b2092d521be0baf"
+    },
+    {
+      "operation": "start-healthy-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:55:58.594Z",
+      "httpStatus": 202,
+      "responseBytes": 2888,
+      "responseSha256": "3323dcaf9933eb14cce3cbff34a5d687da727e9f7417c5b71b1d984df3dde2bc"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:55:59.751Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "3323dcaf9933eb14cce3cbff34a5d687da727e9f7417c5b71b1d984df3dde2bc"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:00.957Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "3323dcaf9933eb14cce3cbff34a5d687da727e9f7417c5b71b1d984df3dde2bc"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:02.159Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "3323dcaf9933eb14cce3cbff34a5d687da727e9f7417c5b71b1d984df3dde2bc"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:03.313Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "3323dcaf9933eb14cce3cbff34a5d687da727e9f7417c5b71b1d984df3dde2bc"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:04.561Z",
+      "httpStatus": 200,
+      "responseBytes": 3453,
+      "responseSha256": "3033d8908672ffd2d3768873ba8e2c3fdae8c0576d69e7c02bc4656b10a0644b"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:05.757Z",
+      "httpStatus": 200,
+      "responseBytes": 3453,
+      "responseSha256": "3033d8908672ffd2d3768873ba8e2c3fdae8c0576d69e7c02bc4656b10a0644b"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:06.907Z",
+      "httpStatus": 200,
+      "responseBytes": 3984,
+      "responseSha256": "d926815832d694ae3236abc2716f39615779a73caf3d6901a6febb40a673bf67"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:08.069Z",
+      "httpStatus": 200,
+      "responseBytes": 3984,
+      "responseSha256": "d926815832d694ae3236abc2716f39615779a73caf3d6901a6febb40a673bf67"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:09.261Z",
+      "httpStatus": 200,
+      "responseBytes": 4645,
+      "responseSha256": "ef56023753af900f7904635d9a52c8a1e6c35cff0e6856bcef5828912eeda3c9"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:10.428Z",
+      "httpStatus": 200,
+      "responseBytes": 4645,
+      "responseSha256": "ef56023753af900f7904635d9a52c8a1e6c35cff0e6856bcef5828912eeda3c9"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:11.649Z",
+      "httpStatus": 200,
+      "responseBytes": 5206,
+      "responseSha256": "d4e7e69d71fb2653f172d3d489bff3a4ea23c0e9fd0706aabe407289aa29840f"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:12.854Z",
+      "httpStatus": 200,
+      "responseBytes": 5206,
+      "responseSha256": "d4e7e69d71fb2653f172d3d489bff3a4ea23c0e9fd0706aabe407289aa29840f"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:14.057Z",
+      "httpStatus": 200,
+      "responseBytes": 6150,
+      "responseSha256": "7e78116201c82dc76caa7a999d8703043b022632a13d4332abf7e3f92be4834f"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:15.255Z",
+      "httpStatus": 200,
+      "responseBytes": 6431,
+      "responseSha256": "83ceab3de5af37991890399daca9e69e7475d94f2c6bffc7a1920be9ad006e86"
+    },
+    {
+      "operation": "screenshot-healthy-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:15.388Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:15.704Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:15.957Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:16.188Z",
+      "httpStatus": 200,
+      "responseBytes": 43135,
+      "responseSha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "operation": "screenshot-healthy-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:16.370Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "report-healthy",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:16.599Z",
+      "httpStatus": 200,
+      "responseBytes": 547208,
+      "responseSha256": "61c4538da8e47607e41b22f456df82136728482d61c7389e0abfba3b19cb23fa"
+    },
+    {
+      "operation": "select-broken-variant",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:56:17.079Z",
+      "httpStatus": 200,
+      "responseBytes": 2848,
+      "responseSha256": "61bcb95e6bedffc1c7b319ed033fa5bc611bccc5fbaadca8b52aac51f427514d"
+    },
+    {
+      "operation": "synthetic-harness-approval-broken",
+      "method": "PUT",
+      "startedAt": "2026-10-15T10:56:17.224Z",
+      "httpStatus": 200,
+      "responseBytes": 2843,
+      "responseSha256": "eeed11ac9ebb5765c90b8e8edd6e75ca23cbb90652ad3222da2eb8031e6a4971"
+    },
+    {
+      "operation": "start-broken-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:56:17.356Z",
+      "httpStatus": 202,
+      "responseBytes": 2887,
+      "responseSha256": "54a75fbde4c576851860d232636d9f3d63c507267dc7dfd64a2e2d40871b044e"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:18.512Z",
+      "httpStatus": 200,
+      "responseBytes": 2887,
+      "responseSha256": "54a75fbde4c576851860d232636d9f3d63c507267dc7dfd64a2e2d40871b044e"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:19.754Z",
+      "httpStatus": 200,
+      "responseBytes": 2887,
+      "responseSha256": "54a75fbde4c576851860d232636d9f3d63c507267dc7dfd64a2e2d40871b044e"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:20.882Z",
+      "httpStatus": 200,
+      "responseBytes": 3473,
+      "responseSha256": "bfaf58a5cf177629206e9d78f284fa697f248a07d279902013a37606bb183cd4"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:22.052Z",
+      "httpStatus": 200,
+      "responseBytes": 3473,
+      "responseSha256": "bfaf58a5cf177629206e9d78f284fa697f248a07d279902013a37606bb183cd4"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:23.183Z",
+      "httpStatus": 200,
+      "responseBytes": 3473,
+      "responseSha256": "bfaf58a5cf177629206e9d78f284fa697f248a07d279902013a37606bb183cd4"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:24.452Z",
+      "httpStatus": 200,
+      "responseBytes": 4008,
+      "responseSha256": "a4295dc509e7fcf240e185ebca9bd4ca86841c12973286945db9b7c0ce40ba03"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:25.654Z",
+      "httpStatus": 200,
+      "responseBytes": 4593,
+      "responseSha256": "44ba84f2390bc168f4442b4bc95dec47530328af7703d768e22fcaafaabf7be5"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:26.853Z",
+      "httpStatus": 200,
+      "responseBytes": 4593,
+      "responseSha256": "44ba84f2390bc168f4442b4bc95dec47530328af7703d768e22fcaafaabf7be5"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:27.985Z",
+      "httpStatus": 200,
+      "responseBytes": 5156,
+      "responseSha256": "ed3380c91a46452ab726f700fa64c333833efd3e7effe596e7da640a11d28e77"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:29.153Z",
+      "httpStatus": 200,
+      "responseBytes": 5156,
+      "responseSha256": "ed3380c91a46452ab726f700fa64c333833efd3e7effe596e7da640a11d28e77"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:30.353Z",
+      "httpStatus": 200,
+      "responseBytes": 5156,
+      "responseSha256": "ed3380c91a46452ab726f700fa64c333833efd3e7effe596e7da640a11d28e77"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:31.519Z",
+      "httpStatus": 200,
+      "responseBytes": 6381,
+      "responseSha256": "2dcc2f433ca8fed85a43b501ba7d44815458ad35a44b7d78b6838a6407bd7201"
+    },
+    {
+      "operation": "screenshot-broken-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:31.660Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:31.825Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:32.102Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:32.250Z",
+      "httpStatus": 200,
+      "responseBytes": 42917,
+      "responseSha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "operation": "screenshot-broken-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:32.395Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "report-broken",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:32.614Z",
+      "httpStatus": 200,
+      "responseBytes": 540642,
+      "responseSha256": "d6117dd98ae472eeabb8abb372581caa8da12ee0cac84c4a2b7d4565b344619f"
+    },
+    {
+      "operation": "select-restored-variant",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:56:32.866Z",
+      "httpStatus": 200,
+      "responseBytes": 2849,
+      "responseSha256": "64afc88f061f9113841e659c36dd8f5271921b8b760268b6493e80bc72ba0c01"
+    },
+    {
+      "operation": "synthetic-harness-approval-restored",
+      "method": "PUT",
+      "startedAt": "2026-10-15T10:56:32.991Z",
+      "httpStatus": 200,
+      "responseBytes": 2844,
+      "responseSha256": "5c9952e3da6944a6cd5c9490addc4926e08a6b0b626eb594cafb8c2cd7bdb282"
+    },
+    {
+      "operation": "start-restored-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T10:56:33.160Z",
+      "httpStatus": 202,
+      "responseBytes": 2888,
+      "responseSha256": "ef18eac4fa739c41d4b841c43ade3adfb6b723daa84eb871eb298ae673c9ffe7"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:34.331Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "ef18eac4fa739c41d4b841c43ade3adfb6b723daa84eb871eb298ae673c9ffe7"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:35.663Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "ef18eac4fa739c41d4b841c43ade3adfb6b723daa84eb871eb298ae673c9ffe7"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:36.852Z",
+      "httpStatus": 200,
+      "responseBytes": 2888,
+      "responseSha256": "ef18eac4fa739c41d4b841c43ade3adfb6b723daa84eb871eb298ae673c9ffe7"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:38.051Z",
+      "httpStatus": 200,
+      "responseBytes": 3453,
+      "responseSha256": "bfb22dee5902b585c7311390936ea98b2919a17a3db56dee73e5339a226a537c"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:39.192Z",
+      "httpStatus": 200,
+      "responseBytes": 3453,
+      "responseSha256": "bfb22dee5902b585c7311390936ea98b2919a17a3db56dee73e5339a226a537c"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:40.347Z",
+      "httpStatus": 200,
+      "responseBytes": 3984,
+      "responseSha256": "80c931088148bbc4feb41f2281242c043326c06c30318d1f22fe6c89757d166f"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:41.498Z",
+      "httpStatus": 200,
+      "responseBytes": 3984,
+      "responseSha256": "80c931088148bbc4feb41f2281242c043326c06c30318d1f22fe6c89757d166f"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:42.754Z",
+      "httpStatus": 200,
+      "responseBytes": 4645,
+      "responseSha256": "0540d158f512673540e34ce02e15e4fc0535203b51ecf5aaff6f3990b985f587"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:43.951Z",
+      "httpStatus": 200,
+      "responseBytes": 4645,
+      "responseSha256": "0540d158f512673540e34ce02e15e4fc0535203b51ecf5aaff6f3990b985f587"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:45.124Z",
+      "httpStatus": 200,
+      "responseBytes": 5206,
+      "responseSha256": "b3719827126d77ad08fcb2f1f40ec473333593bf722cbdfae1dcf551669cfddb"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:46.353Z",
+      "httpStatus": 200,
+      "responseBytes": 5206,
+      "responseSha256": "b3719827126d77ad08fcb2f1f40ec473333593bf722cbdfae1dcf551669cfddb"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:47.554Z",
+      "httpStatus": 200,
+      "responseBytes": 6150,
+      "responseSha256": "fee18fc2ecea900906df2eeadfc4f1e418366f0c8c1937ad4ca91bfd227d8933"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:48.709Z",
+      "httpStatus": 200,
+      "responseBytes": 6431,
+      "responseSha256": "1a4ac9341c38be5d12f752bf18738eecb6fb67b6a1c8ff4bf31f6977f2d8f0cb"
+    },
+    {
+      "operation": "screenshot-restored-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:48.869Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:49.168Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:49.332Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:49.490Z",
+      "httpStatus": 200,
+      "responseBytes": 43135,
+      "responseSha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "operation": "screenshot-restored-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:49.636Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "report-restored",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:49.782Z",
+      "httpStatus": 200,
+      "responseBytes": 547212,
+      "responseSha256": "38038a2593bc2e17f78b700750792829eb375dc54b96ecbfaebed3d871c33feb"
+    },
+    {
+      "operation": "bootstrap-visitor",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:50.002Z",
+      "httpStatus": 200,
+      "responseBytes": 8986,
+      "responseSha256": "7e9ae1b8acfd452c4aeb8b14feb667b5a49a7278fb7782d7d09119ce956be05d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:50.152Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:50.306Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T10:56:50.473Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "initial-project.json",
+      "bytes": 2721,
+      "sha256": "7638ff44040b19f4d75903b8bfdce97ba5d6987ed272992532b8bd937e21617e"
+    },
+    {
+      "path": "generated-project.json",
+      "bytes": 3456,
+      "sha256": "02a6aa41d4787bb3f310e05fae2799719f9cb44d1639c7f7a54248619af55ea0"
+    },
+    {
+      "path": "healthy-audit.json",
+      "bytes": 8028,
+      "sha256": "b18e9a5a68ecfb485e0f059ffbd9f621775702a345b6c3259dc071dd98a24a57"
+    },
+    {
+      "path": "healthy-heading.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-link.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-image_alt.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-no_horizontal_overflow.png",
+      "bytes": 43135,
+      "sha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "path": "healthy-text_visible.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-report.html",
+      "bytes": 547208,
+      "sha256": "61c4538da8e47607e41b22f456df82136728482d61c7389e0abfba3b19cb23fa"
+    },
+    {
+      "path": "broken-audit.json",
+      "bytes": 7978,
+      "sha256": "b77559e07d34cc0545221a9ef4a830af139dbf269968f3d0400fd262c4da0d8d"
+    },
+    {
+      "path": "broken-heading.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-link.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-image_alt.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-no_horizontal_overflow.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "path": "broken-text_visible.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-report.html",
+      "bytes": 540642,
+      "sha256": "d6117dd98ae472eeabb8abb372581caa8da12ee0cac84c4a2b7d4565b344619f"
+    },
+    {
+      "path": "restored-audit.json",
+      "bytes": 8028,
+      "sha256": "41371f9259b1141da57b1787eeebf84d4d43634c1dee860afae5e1c65a2ba260"
+    },
+    {
+      "path": "restored-heading.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-link.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-image_alt.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-no_horizontal_overflow.png",
+      "bytes": 43135,
+      "sha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "path": "restored-text_visible.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-report.html",
+      "bytes": 547212,
+      "sha256": "38038a2593bc2e17f78b700750792829eb375dc54b96ecbfaebed3d871c33feb"
+    }
+  ],
+  "generator": {
+    "provider": "Google Gemma (live API)",
+    "model": "gemma-4-26b-a4b-it",
+    "orchestration": {
+      "provider": "Mastra",
+      "workflowId": "briefstamp-public-gemma",
+      "runId": "30d13340-818e-4d73-bb5b-57b53dd2a0dc",
+      "steps": [
+        "generate-google-gemma",
+        "validate-indexed-proposal"
+      ],
+      "maxRssMiB": 175.07,
+      "telemetry": {
+        "provider": "Sentry",
+        "mode": "hosted_configured",
+        "traceId": "4ca80cb2a546425ea0f191022b862ed1",
+        "flushed": true,
+        "ingestionVerified": false
+      }
+    },
+    "reason": "Fresh Gemma proposal for the fixed synthetic brief, validated by the server. 7502 ms. 335 input / 300 output tokens. Generated and validated in a real isolated Mastra workflow. Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check."
+  },
+  "unapprovedAuditRejected": true,
+  "auditOutcomes": {
+    "healthy": {
+      "id": "a0eda812-dac4-4671-b47c-99eddc12645d",
+      "status": "completed",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      }
+    },
+    "broken": {
+      "id": "b9ccb13a-7682-4a59-96b2-2d4603ce30ad",
+      "status": "completed",
+      "counts": {
+        "passed": 2,
+        "failed": 3,
+        "blocked": 0,
+        "unverified": 1
+      }
+    },
+    "restored": {
+      "id": "7809cfe8-2c22-4560-8282-fb6f33381df3",
+      "status": "completed",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      }
+    }
+  },
+  "crossVisitorIsolation": "Project, audit and report each returned HTTP 404 to a different visitor.",
+  "completedAt": "2026-10-15T10:56:50.617Z",
+  "release": {
+    "sourceCommit": "e43dbe7430368292ff9b225f4bf5e3236c2d03c0",
+    "ciUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38722793847",
+    "renderDeployId": "dep-db8b0ebncjis73f93b3g",
+    "renderLiveAt": "2026-10-15T10:53:13.436562Z",
+    "renderPlan": "free",
+    "sourceVerifierSha256": "eabfa5de00411693a1afcd4f8e7e7030d6552d1ec328900f3c0c10c2d695e002"
+  }
+}

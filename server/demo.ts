@@ -33,6 +33,11 @@ import {
   hostBackboardEnabled,
 } from "./hosted-backboard";
 import { createHostedTigerStore, hostedTigerEnabled } from "./hosted-tiger";
+import {
+  authorizeHostedTinker,
+  generateHostedTinkerProposal,
+  hostTinkerEnabled,
+} from "./hosted-tinker";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -128,6 +133,8 @@ interface DemoOptions {
   >;
   gemmaAvailable?: () => boolean;
   verifyGemmaFree?: () => Promise<unknown>;
+  generateTinker?: typeof generateHostedTinkerProposal;
+  tinkerAvailable?: () => boolean;
   tigerAvailable?: () => boolean;
   /** Trusted dependency injection only; never accepted from an HTTP request. */
   tigerStore?: ReturnType<typeof createHostedTigerStore>;
@@ -136,6 +143,7 @@ interface DemoOptions {
 function integrations(
   gemmaAvailable: boolean,
   tigerAvailable = false,
+  tinkerAvailable = false,
 ): IntegrationStatus[] {
   return [
     {
@@ -159,9 +167,10 @@ function integrations(
     },
     {
       name: "Tinker",
-      status: "available",
-      detail:
-        "Real baseline and LoRA results are recorded in Model lab. LoRA used fewer tokens and had a lower inference-price estimate, with lower reference agreement and higher latency than few-shot prompting. Tinker experiments are separate from live Gemma generation.",
+      status: tinkerAvailable ? "available" : "not_configured",
+      detail: tinkerAvailable
+        ? "Protected live generation uses a trained Tinker checkpoint for the fixed synthetic sample, with a fresh free-only proof and at most two reserved calls. Operator authentication and check approval are required. Recorded Model lab experiments remain separate."
+        : "Hosted Tinker generation is disabled or its free-use proof expired. Real baseline and LoRA comparisons remain available in Model lab; those recorded experiments do not imply a live provider connection.",
     },
     {
       name: "GitHub Actions",
@@ -223,6 +232,9 @@ export function createDemoRouter(options: DemoOptions) {
     options.gemmaAvailable ?? (() => googleGemmaConfiguration().enabled);
   const generateGemma = options.generateGemma ?? runPublicGemmaWorkflow;
   const verifyGemmaFree = options.verifyGemmaFree ?? verifyGemmaFreePricing;
+  const tinkerAvailable =
+    options.tinkerAvailable ?? (() => hostTinkerEnabled(process.env, now()));
+  const generateTinker = options.generateTinker ?? generateHostedTinkerProposal;
   const tigerAvailable =
     options.tigerAvailable ?? (() => hostedTigerEnabled(process.env, now()));
   let tigerStore = options.tigerStore;
@@ -263,7 +275,8 @@ export function createDemoRouter(options: DemoOptions) {
     void task.finally(() => pendingPersistence.delete(task));
   }
   const gemmaStarts: number[] = [];
-  let gemmaBusy = false;
+  // Both hosted model paths share this lock with Chromium on the free host.
+  let modelBusy = false;
   const auditStarts: number[] = [];
   let active: { session: Session; task: Promise<void> } | undefined;
 
@@ -293,6 +306,13 @@ export function createDemoRouter(options: DemoOptions) {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "no-referrer");
     res.setHeader("X-Frame-Options", "DENY");
+    // A tokenless caller cannot use session or project existence as an oracle.
+    if (
+      req.method === "POST" &&
+      /^\/api\/projects\/[^/]+\/generate-tinker\/?$/i.test(req.path) &&
+      !authorizeHostedTinker(req.headers, process.env, now())
+    )
+      return res.status(404).json({ error: "Not found in this demo session." });
     const origin = req.headers.origin;
     if (!["GET", "HEAD", "OPTIONS"].includes(req.method) && origin) {
       let host: string;
@@ -370,7 +390,11 @@ export function createDemoRouter(options: DemoOptions) {
     const body: Bootstrap = {
       projects: [...s.projects.values()],
       audits: [...s.audits.values()].reverse(),
-      integrations: integrations(gemmaAvailable(), tigerAvailable()),
+      integrations: integrations(
+        gemmaAvailable(),
+        tigerAvailable(),
+        tinkerAvailable(),
+      ),
       storage: tigerAvailable()
         ? "Ephemeral visitor session; Tiger configured for completed synthetic briefs, approved plans and results for up to 30 minutes. Screenshot references only."
         : "Ephemeral visitor session",
@@ -385,6 +409,13 @@ export function createDemoRouter(options: DemoOptions) {
           sampleBrief: DEMO_BRIEF,
           description:
             "Generate checks for the fixed synthetic sample with Google-hosted Gemma. Free-tier inputs may be used to improve Google's products. No client information is sent.",
+        },
+        tinker: {
+          available: tinkerAvailable(),
+          model: "Qwen/Qwen3.5-4B",
+          sampleBrief: DEMO_BRIEF,
+          description:
+            "Protected trained sampler generation for the fixed synthetic sample. An operator token and fresh free-only allowance are required. Proposals remain unapproved; recorded benchmark metrics are separate.",
         },
       },
       evaluation,
@@ -444,14 +475,14 @@ export function createDemoRouter(options: DemoOptions) {
       });
     while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
       gemmaStarts.shift();
-    if (s.gemmaAttempts >= 2 || gemmaStarts.length >= 12 || gemmaBusy || active)
+    if (s.gemmaAttempts >= 2 || gemmaStarts.length >= 12 || modelBusy || active)
       return res.status(429).json({
         error:
           "The shared free model limit is reached. Keep your current plan and try later.",
       });
     s.gemmaAttempts++;
     gemmaStarts.push(now());
-    gemmaBusy = true;
+    modelBusy = true;
     const snapshot = structuredClone(p);
     try {
       await verifyGemmaFree();
@@ -487,7 +518,93 @@ export function createDemoRouter(options: DemoOptions) {
           "Gemma or its free-pricing check was unavailable, or the proposal failed validation. The current plan is unchanged. No AI success is claimed.",
       });
     } finally {
-      gemmaBusy = false;
+      modelBusy = false;
+    }
+  });
+  router.post("/api/projects/:id/generate-tinker", async (req, res) => {
+    if (!authorizeHostedTinker(req.headers, process.env, now()))
+      return notFound(res);
+    const s = session(res);
+    const p = s.projects.get(req.params.id);
+    if (!p) return notFound(res);
+    z.object({ modelConsent: z.literal(true) })
+      .strict()
+      .parse(req.body);
+    if (!tinkerAvailable())
+      return res.status(503).json({
+        error:
+          "Hosted Tinker is unavailable. The current plan has not changed.",
+      });
+    if (p.target !== "sample" || !p.authorized || p.brief !== DEMO_BRIEF)
+      return res.status(400).json({
+        error:
+          "Hosted Tinker accepts only the original synthetic sample brief. Visitor or client text is not sent.",
+      });
+    if (modelBusy || active)
+      return res.status(429).json({
+        error:
+          "Another model generation or browser audit is running. The current plan has not changed.",
+      });
+    modelBusy = true;
+    const snapshot = structuredClone(p);
+    try {
+      // The native helper reserves the exact proof's allowance before its one request.
+      const proposed = await generateTinker(DEMO_BRIEF.split("\n"));
+      if (s.expires <= now())
+        return res.status(401).json({
+          error: "The demo session expired. No generated plan was saved.",
+        });
+      if (!isDeepStrictEqual(p, snapshot))
+        return res.status(409).json({
+          error:
+            "This project changed during generation. The newer plan was kept; review it before trying again.",
+        });
+      const returned = validateChecks(proposed.checks);
+      const requirements = DEMO_BRIEF.split("\n");
+      if (
+        returned.length !== requirements.length ||
+        returned.some(
+          (check, index) =>
+            check.requirement !== requirements[index] ||
+            check.approved ||
+            check.selector !== undefined,
+        )
+      )
+        throw new Error(
+          "The returned Tinker plan is not an unapproved source-bound proposal.",
+        );
+      const checks = validateModelProposal(DEMO_BRIEF, {
+        checks: returned.map(
+          ({ kind, path, expected, viewport }, requirementIndex) => ({
+            kind,
+            path,
+            expected,
+            viewport,
+            requirementIndex,
+          }),
+        ),
+      });
+      Object.assign(p, {
+        checks,
+        generator: {
+          provider: "Tinker (live trained checkpoint)",
+          model: "Qwen/Qwen3.5-4B",
+          reason: `Fresh trained Tinker sampler proposal for the fixed synthetic brief, validated by the server. ${proposed.usage ? `${proposed.usage.prompt_tokens} input / ${proposed.usage.completion_tokens} output tokens.` : "Provider token usage was not reported."} ${proposed.reservedTokens} tokens conservatively reserved before the request; this is a budget bound, not actual usage. Review and approve every executable check. This live action does not change the recorded benchmark.`,
+        },
+        updatedAt: new Date(now()).toISOString(),
+      });
+      return res.json(p);
+    } catch {
+      if (s.expires <= now())
+        return res.status(401).json({
+          error: "The demo session expired. No generated plan was saved.",
+        });
+      return res.status(503).json({
+        error:
+          "Tinker, its confirmed-free allowance or proposal validation was unavailable. The current plan is unchanged. No AI success is claimed.",
+      });
+    } finally {
+      modelBusy = false;
     }
   });
   router.post("/api/projects/:id/variant", (req, res) => {
@@ -512,7 +629,7 @@ export function createDemoRouter(options: DemoOptions) {
         error:
           "Review and approve every executable check before running the audit.",
       });
-    if (active || gemmaBusy)
+    if (active || modelBusy)
       return res.status(409).json({
         error: "Another visitor's audit is running. Please try again shortly.",
       });
@@ -655,10 +772,16 @@ export function createDemoRouter(options: DemoOptions) {
     return res.set("X-Briefstamp-Storage", "memory").json(a);
   });
   router.get("/api/operator/status", (req, res) => {
-    if (!authorizeHostedBackboard(req.headers)) return notFound(res);
+    if (
+      !authorizeHostedBackboard(req.headers) &&
+      !authorizeHostedTinker(req.headers, process.env, now())
+    )
+      return notFound(res);
     return res.json({
       backboard: hostBackboardEnabled(),
-      scope: "Bounded hosted operator memory. Visitor access remains isolated.",
+      tinker: tinkerAvailable(),
+      scope:
+        "Bounded hosted operator integrations. Visitor access remains isolated.",
     });
   });
   router.post("/api/audits/:id/memory", async (req, res) => {
