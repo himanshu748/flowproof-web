@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-15T12:18:49.254Z",
+  "source": "816d869ed7851b471b0ff83b103903ef2f069eae",
+  "ci": "https://github.com/himanshu748/flowproof-web/actions/runs/38731823339",
+  "deployment": "dep-db8c3mk9v7es738bnb80",
+  "scope": "Actual public UI, agent-approved fixed owner-authorized live homepage, not a customer test.",
+  "model": "none; two hosted model attempts failed and the UI retained its explicitly labelled deterministic draft",
+  "counts": {
+    "passed": 5,
+    "failed": 0,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "tiger": "UI displayed save confirmation; independent HTTP read proof is separate",
+  "reportDownload": "actual browser download",
+  "screenshotsEmbedded": 5,
+  "files": [
+    {
+      "path": "ui-live-report.html",
+      "bytes": 2249565,
+      "sha256": "e20dd5294dca38e1834c6afcb7d1dececbf00c26ada89ee410c5e5f31c3b530a"
+    },
+    {
+      "path": "ui-live-audit.jpg",
+      "bytes": 76012,
+      "sha256": "f657bcfdd707e6082857d4ed35aa481f37b76ee8433eefdd04e0c00c1de0b968"
+    }
+  ]
+}

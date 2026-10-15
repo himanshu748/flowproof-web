@@ -1,0 +1,17 @@
+{
+  "startedAt": "2026-10-15T12:15:14.384Z",
+  "status": "failed",
+  "maxCalls": 1,
+  "calls": 1,
+  "scope": "Single confirmed-free diagnostic of fixed public homepage requirements after two hosted failures; no private brief, payment change or model retry.",
+  "pricing": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-15T12:15:15.367Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+  },
+  "httpStatus": 500,
+  "errorClass": "ProviderError",
+  "errorCode": "provider_rejected",
+  "errorMessage": "Google Gemma returned HTTP 500. No response error body was retained.",
+  "completedAt": "2026-10-15T12:15:16.433Z"
+}

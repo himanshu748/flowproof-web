@@ -2,6 +2,12 @@
 
 **Hosted persistence and lexical retrieval verified on October 15, 2026.** The public Render application saved three synthetic audits to a separately approved dedicated Tiger trial service and read every audit back through the actual database path. [Hosted receipt](evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json) · [Deployment](DEPLOYMENT.md).
 
+## Actual homepage persistence, 12:19 UTC
+
+Release `816d869e` verified the owned homepage through real HTTPS/Playwright. The [HTTP receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json) records five passing checks and one unverified judgment, then four passes/one failure/one unverified after deliberately changing only the heading expectation. Both completed audits were read from Tiger with deeply matching JSON; [lexical search](evidence/hosted-website/2026-10-15T12-19-58Z/tiger-lexical.json) found the failed heading, and distinct visitors were denied. This is deterministic execution with zero model calls, not a new Gemma success or a client acceptance test.
+
+The [actual UI report](evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html) embeds five downloaded screenshots. Their bytes are in that portable file, not in the hosted database. The expiry, strict-TLS and limited-role boundaries below still apply.
+
 ## Dedicated hosted store
 
 Source `2a8eae95c95cf91adb0cd2bed155e6dbb81249ef` passed [CI 38727532102](https://github.com/himanshu748/flowproof-web/actions/runs/38727532102) and deployed to the existing Free Render service at 11:33:30 UTC. The 11:34–11:35 hosted proof observed healthy **5 passed / 1 unverified**, broken **2 passed / 3 failed / 1 unverified**, then restored **5 passed / 1 unverified**. Each completed GET returned the Tiger storage header and audit JSON deeply equal to its completed result. Search for `horizontal` recovered the broken mobile-layout assertion. A different visitor cookie received 404 for scoped search and persistence reads.
@@ -17,11 +23,11 @@ The dedicated service uses system-CA and exact-hostname verification with a Goog
 
 The original Shared Free service still lacks an authenticated CA trust path. The new dedicated service resolves TLS for its own connection only. Certificate and hostname verification remain enabled everywhere.
 
-## Exact live-target migration; application verification pending
+## Verified exact live-target migration and application path
 
 The [reviewed follow-on SQL](hosted-tiger-live-target.sql) restricts persisted source targets to the synthetic origin or exactly `https://flowproof-demo.onrender.com/`. Its [October 15, 11:53 UTC receipt](evidence/tiger-hosted/2026-10-15/live-target-migration.json) records strict TLS, a validated constraint and unchanged runtime grants, credentials and billing. FieldIssue was not changed. The operator must use the catalog-confirmed old constraint name on this dedicated service; the placeholder file is not a command to run blindly.
 
-This prepares storage for the owner-authorized live-homepage candidate. Actual hosted network execution and persistence for that target are still pending. The completed three-audit proof above used the synthetic sample and remains separately scoped.
+The [final 11:59 strict-TLS receipt](evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json) additionally verifies that missing source/URL and unrelated website values fail closed. Runtime grants remained unchanged. The subsequent actual-homepage write/read/search proof above establishes this target’s application path; the older three-audit receipt remains synthetic evidence.
 
 ## Historical October 14 experiments
 

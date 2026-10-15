@@ -2,13 +2,28 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
-## Live-homepage candidate: hosted verification pending
+## Latest verified real-homepage release, 15 October 2026
 
-The candidate adds **Audit this live site** in Review, Overview and Projects. Its only external target is the owner-authorized `https://flowproof-demo.onrender.com/` homepage. It uses the existing safe HTTPS fetch and Playwright path with page scripts disabled, bounded same-origin resources and a prerender of the actual landing content. Fonts are served locally. Gemma can draft from its fixed public brief; Tinker remains synthetic-only. See the [judge procedure](JUDGE_GUIDE.md).
+Source **`816d869ed7851b471b0ff83b103903ef2f069eae`** passed [Actions run 38731823339](https://github.com/himanshu748/flowproof-web/actions/runs/38731823339): **436 application tests, 19 Python tests**, production build and actual browser checks. Existing **Free** Render deployment `dep-db8c3mk9v7es738bnb80` became live at **12:09:30.404076 UTC**.
 
-Focused tests passed, but the full test/build and actual hosted network audit are still pending at this documentation stage. No new runtime SHA, deployment or live audit result is claimed. The strict-TLS [Tiger migration receipt](evidence/tiger-hosted/2026-10-15/live-target-migration.json) records a schema restriction allowing only the synthetic origin or the exact authorized homepage, with runtime grants and billing unchanged. [Operator SQL](hosted-tiger-live-target.sql). Database migration is not end-to-end execution proof.
+The **Audit this live site** preset visits only the owner-authorized `https://flowproof-demo.onrender.com/` homepage, through real HTTPS fetches and Playwright with page scripts disabled. Actual landing content is prerendered and fonts are served locally. The [12:19 HTTP verification](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json) made **zero model calls** and used explicitly labelled deterministic checks:
 
-## Latest verified hosted Tinker and Tiger release, 15 October 2026
+| Actual homepage condition | Passed | Failed | Blocked | Unverified |
+|---|---:|---:|---:|---:|
+| Approved published requirements | 5 | 0 | 0 | 1 |
+| Deliberately wrong heading expectation | 4 | 1 | 0 | 1 |
+
+Both audits round-tripped through Tiger with deeply matching JSON. Scoped lexical retrieval returned the failed heading; cross-visitor project/audit/history requests were denied. The negative control changed only the approved expectation, not the website, so it is not a website regression or an unchanged-check recovery claim. An earlier verifier attempt stopped because it expected 404 for an unauthenticated request that correctly returned 401; the corrected run used a distinct visitor cookie and preserved the failed attempt separately.
+
+A separate [actual UI receipt](evidence/hosted-website/2026-10-15T12-15Z/ui-receipt.json) records five passes, one manual judgment, Tiger save confirmation and a real HTML download. The [published report](evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html) contains five embedded screenshots; the [UI capture](evidence/hosted-website/2026-10-15T12-15Z/ui-live-audit.jpg) shows its result. These are agent checks of the owned site, not customer acceptance.
+
+### Gemma incident during this release
+
+Hosted generation attempts returned [HTTP 503](evidence/hosted-website/2026-10-15-gemma-incident/hosted-attempt-503.json). A single bounded native diagnostic at 12:15 UTC confirmed [Google HTTP 500 before parsing](evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json). No accepted AI proposal or live-site AI success is claimed; the UI retained its labelled deterministic draft. Earlier 10:55 Gemma/Mastra/Sentry success below remains historical evidence, separate from this incident. No billed service, hidden model fallback or success retry was substituted.
+
+The [Tiger target migration](hosted-tiger-live-target.sql) and [final 11:59 strict-TLS check](evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json) accept the exact sample/owned-site targets and reject missing or unrelated URLs, with grants and billing unchanged. [Judge guide](JUDGE_GUIDE.md). Arbitrary visitor client URLs and JavaScript interaction testing remain unsupported. The video is not yet published; the submission remains a draft.
+
+## Earlier verified hosted Tinker and Tiger release, 15 October 2026
 
 Source **`2a8eae95c95cf91adb0cd2bed155e6dbb81249ef`** passed [Actions run 38727532102](https://github.com/himanshu748/flowproof-web/actions/runs/38727532102): **423 application tests, 19 Python tests**, production build and real browser verification. Existing **Free** Render deployment `dep-db8bj7avcj2c738tlgv0` became live at **11:33:30.566169 UTC**. The [11:34 hosted receipt](evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json) completed successfully at 11:35:31 UTC.
 
@@ -91,7 +106,7 @@ The rebrand deployment at commit `e028105dc2838f9f1f2460206af2601eba29344a` (`de
 - **Live demo:** [https://flowproof-demo.onrender.com](https://flowproof-demo.onrender.com)
 - **Audited application commit:** `8786b263c0bb4a65cb80e8b9d1eeaee2a882bcab`
 - **GitHub Actions:** [run 38345840955](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955), success. All **85 tests**, production build, healthy/broken Chromium audit, and artifact upload passed.
-- **CI evidence:** [flowproof-evidence](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955/artifacts/11787869924), 795,977 bytes, expires 20 October 2026. SHA-256 `75ff3032cc1797ff1e0ac87d8e5a15febf03fc8e98e1610f73e814330a58da8b`.
+- **Historical CI evidence:** `flowproof-evidence`, artifact ID `11787869924`, from [run 38345840955](https://github.com/himanshu748/flowproof-web/actions/runs/38345840955). Its direct download returned 404 during the later link check. The recorded artifact was 795,977 bytes with an advertised expiry of 20 October 2026 and SHA-256 `75ff3032cc1797ff1e0ac87d8e5a15febf03fc8e98e1610f73e814330a58da8b`; these are historical metadata, not a claim that the download remains available.
 - **Render:** free Docker web service `srv-db6r2egm7kps73b19hag`, Singapore. Deployment `dep-db6r2f8m7kps73b19kb0` became live at 04:21:20 UTC. The deployed commit matches the audited application commit.
 - **Hosted behavior:** two real Chromium audits completed. Healthy: **5 passed, 0 failed, 1 unverified**. Broken: **2 passed, 3 failed, 1 unverified**. Both portable reports include real screenshot evidence.
 - **Hosted access checks:** secure visitor cookies; cross-visitor projects, audits, screenshots and reports denied; mixed-case private-route bypass denied; unapproved runs, external targets and cross-origin writes rejected.

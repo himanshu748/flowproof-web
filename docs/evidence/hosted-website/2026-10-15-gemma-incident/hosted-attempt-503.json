@@ -1,0 +1,39 @@
+{
+  "startedAt": "2026-10-15T12:10:20.978Z",
+  "completedAt": "2026-10-15T12:10:54.910Z",
+  "status": "failed",
+  "origin": "https://flowproof-demo.onrender.com",
+  "modelRequests": 1,
+  "scope": "Agent verification of the real owner-authorized Briefstamp homepage, not a client website or customer validation. The negative control changes only its approved expectation, never the deployed website.",
+  "approval": {
+    "actor": "agent verification harness",
+    "humanApproval": false
+  },
+  "billingChanges": 0,
+  "otherWebsiteTargets": 0,
+  "calls": [
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/target-presets",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/projects/0cf54a83-de5e-49e8-b08f-e8b644e6ffa7/generate-gemma",
+      "method": "POST",
+      "status": 503
+    }
+  ],
+  "audits": [],
+  "artifacts": [],
+  "error": "Unexpected status from /api/projects/0cf54a83-de5e-49e8-b08f-e8b644e6ffa7/generate-gemma\n\n503 !== 200\n"
+}

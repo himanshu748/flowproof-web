@@ -1,10 +1,12 @@
-# FlowProof product requirements, version 1.0
+# Briefstamp product requirements, version 1.0
+
+The source specification is retained below with the current product name. Implementation status is tracked in [PRD_STATUS.md](PRD_STATUS.md).
 
 Source: the user-provided implementation brief, October 13, 2026. Status: proposed for implementation. Challenge: Hacktoberfest 2026 Week 2, Side Hustle. Deadline supplied in the brief: October 18, 2026, 11:59 PM PDT. Budget: ₹0 out of pocket.
 
 ## Vision and users
 
-FlowProof turns client website requirements into verified acceptance tests and professional delivery reports. Freelancers and small agencies should be able to show clients how a delivered website meets agreed requirements without hours of manual screenshot and document work. The product combines open-weight AI, deterministic browser testing and traceable evidence. Proposed pricing of ₹499 per project handoff or ₹999 per month is a hypothesis requiring customer validation, not an existing offer.
+Briefstamp turns client website requirements into verified acceptance tests and professional delivery reports. Freelancers and small agencies should be able to show clients how a delivered website meets agreed requirements without hours of manual screenshot and document work. The product combines open-weight AI, deterministic browser testing and traceable evidence. Proposed pricing of ₹499 per project handoff or ₹999 per month is a hypothesis requiring customer validation, not an existing offer.
 
 ## Required journey
 

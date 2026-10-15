@@ -12,14 +12,15 @@ import {
 
 // One free Gemma request, then two read-only audits of the explicitly authorized
 // production homepage. No arbitrary URL, provider retry, token, purchase or upload.
-if (process.argv.slice(2).join(" ") !== "--run") {
+const mode = process.argv.slice(2).join(" ");
+if (!["--run", "--run-deterministic"].includes(mode)) {
   console.log(
-    "Use --run for one live Gemma request and two owned-site audits. No call made.",
+    "Use --run for one live Gemma request and two owned-site audits, or explicitly --run-deterministic for labelled rules with zero model calls. No call made.",
   );
   if (process.argv.length > 2) process.exitCode = 1;
-} else await verify();
+} else await verify(mode === "--run");
 
-async function verify() {
+async function verify(useGemma: boolean) {
   const startedAt = new Date().toISOString();
   const directory = path.resolve(
     "work/hosted-website",
@@ -29,12 +30,14 @@ async function verify() {
   const origin = new URL(HOSTED_WEBSITE_URL).origin;
   const deadline = Date.now() + 6 * 60_000;
   let cookie = "";
+  let otherVisitorCookie = "";
   const receipt = {
     startedAt,
     completedAt: "",
     status: "running",
     origin,
     modelRequests: 0,
+    generationMode: useGemma ? "live-gemma" : "explicit-deterministic-no-ai",
     scope:
       "Agent verification of the real owner-authorized Briefstamp homepage, not a client website or customer validation. The negative control changes only its approved expectation, never the deployed website.",
     approval: { actor: "agent verification harness", humanApproval: false },
@@ -66,7 +69,7 @@ async function verify() {
       body?: unknown;
       expected?: number;
       binary?: boolean;
-      anonymous?: boolean;
+      otherVisitor?: boolean;
     } = {},
   ): Promise<{ value: T; storage: string | null }> {
     assert(Date.now() < deadline, "Verification deadline expired");
@@ -81,7 +84,9 @@ async function verify() {
       redirect: "error",
       signal: AbortSignal.timeout(Math.min(55_000, deadline - Date.now())),
       headers: {
-        ...(!options.anonymous && cookie ? { cookie } : {}),
+        ...((options.otherVisitor ? otherVisitorCookie : cookie)
+          ? { cookie: options.otherVisitor ? otherVisitorCookie : cookie }
+          : {}),
         ...(options.body === undefined
           ? {}
           : { "content-type": "application/json", origin }),
@@ -95,10 +100,11 @@ async function verify() {
       status: response.status,
     });
     const received = response.headers.get("set-cookie");
-    if (received && !options.anonymous) {
+    if (received) {
       assert(/;\s*Secure(?:;|$)/i.test(received));
       assert(/;\s*HttpOnly(?:;|$)/i.test(received));
-      cookie = received.split(";")[0];
+      if (options.otherVisitor) otherVisitorCookie = received.split(";")[0];
+      else cookie = received.split(";")[0];
     }
     const chunks: Buffer[] = [];
     let total = 0;
@@ -197,11 +203,11 @@ async function verify() {
     assert(report.toString("utf8").includes("data:image/png;base64,"));
     await artifact(name + "-report.html", report);
     await request(`/api/audits/${current.id}`, {
-      anonymous: true,
+      otherVisitor: true,
       expected: 404,
     });
     await request(`/api/audits/${current.id}/report`, {
-      anonymous: true,
+      otherVisitor: true,
       expected: 404,
     });
     receipt.audits.push({
@@ -218,10 +224,16 @@ async function verify() {
   }
   try {
     const { value: bootstrap } = await request<Bootstrap>("/api/bootstrap");
+    await request<Bootstrap>("/api/bootstrap", { otherVisitor: true });
     assert(
-      bootstrap.demo?.gemma?.available,
-      "The free live Gemma gate is unavailable",
+      otherVisitorCookie && otherVisitorCookie !== cookie,
+      "Distinct visitor scope required",
     );
+    if (useGemma)
+      assert(
+        bootstrap.demo?.gemma?.available,
+        "The free live Gemma gate is unavailable",
+      );
     const { value: presets } = await request<{
       presets: { id: string; url: string }[];
     }>("/api/target-presets");
@@ -239,17 +251,28 @@ async function verify() {
     assert.equal(project.url, HOSTED_WEBSITE_URL);
     assert.equal(project.brief, HOSTED_WEBSITE_BRIEF);
     assert(project.checks.every((x) => !x.approved && x.path === "/"));
-    receipt.modelRequests++;
-    const { value: generated } = await request<Project>(
-      `/api/projects/${project.id}/generate-gemma`,
-      { method: "POST", body: { modelConsent: true } },
-    );
-    assert.equal(generated.generator.provider, "Google Gemma (live API)");
-    assert.equal(generated.generator.model, "gemma-4-26b-a4b-it");
+    let generated = project;
+    if (useGemma) {
+      receipt.modelRequests++;
+      generated = (
+        await request<Project>(`/api/projects/${project.id}/generate-gemma`, {
+          method: "POST",
+          body: { modelConsent: true },
+        })
+      ).value;
+      assert.equal(generated.generator.provider, "Google Gemma (live API)");
+      assert.equal(generated.generator.model, "gemma-4-26b-a4b-it");
+    } else {
+      assert.equal(generated.generator.provider, "Deterministic parser");
+      assert.equal(generated.generator.model, null);
+    }
     assert.equal(generated.checks.length, 6);
     assert(generated.checks.every((x) => !x.approved && x.path === "/"));
     assert.equal(new Set(generated.checks.map((x) => x.kind)).size, 6);
-    await artifact("gemma-project.json", generated);
+    await artifact(
+      useGemma ? "gemma-project.json" : "deterministic-project.json",
+      generated,
+    );
     await request(`/api/projects/${project.id}/audits`, {
       method: "POST",
       body: {},
@@ -296,7 +319,7 @@ async function verify() {
     );
     await artifact("tiger-lexical.json", search);
     await request(`/api/failures?q=heading&projectId=${project.id}`, {
-      anonymous: true,
+      otherVisitor: true,
       expected: 404,
     });
     // Leave the test plan in its original approved state for subsequent review.
