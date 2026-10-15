@@ -3213,7 +3213,10 @@ function CreateProject({
               await onCreate({
                 name: String(form.get("name")),
                 target,
-                url: String(form.get("url") || ""),
+                url:
+                  target === "sample"
+                    ? "https://sample.flowproof.test/"
+                    : String(form.get("url") || ""),
                 brief: String(form.get("brief")),
                 authorized:
                   target === "sample" || form.get("authorized") === "on",
@@ -3235,7 +3238,8 @@ function CreateProject({
             <input
               name="name"
               placeholder="e.g. Studio North website"
-              maxLength={100}
+              minLength={2}
+              maxLength={80}
               required
             />
           </label>
@@ -3312,6 +3316,8 @@ function CreateProject({
             <textarea
               name="brief"
               rows={5}
+              minLength={10}
+              maxLength={demo ? 6000 : 12000}
               required
               placeholder={
                 'The homepage should show the heading "Thoughtful websites. Built to last."\nA contact link should point to /contact.\nThe page should fit a mobile screen without horizontal scrolling.'
