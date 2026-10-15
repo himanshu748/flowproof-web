@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "status": "verified",
+  "startedAt": "2026-10-15T11:03:44.383710Z",
+  "scope": "Exactly one existing sampler TTL update; no inference, training, checkpoint creation or publication.",
+  "approval": "User explicitly approved the reviewed TINKER_HOSTED_RENEWAL_PLAN.md; retention only in this script.",
+  "sdkVersion": "0.32.0",
+  "sdkRetries": 0,
+  "localSetupRepair": "Initial import used an unavailable public SDK alias and failed before reservation or network I/O; corrected to the installed official low-level client module.",
+  "checkpointPathSha256": "aa0abf444d45949192561ce8ef6a1eaad26d5b28c1d45a32edf50f43747bb4c0",
+  "originalTrainingReceiptSha256": "c0679c3216355ebdae3fb47fc50979463005ffe76e865615f0e0706baf6dbdff",
+  "targetExpiryNoLaterThan": "2026-10-20T00:00:00Z",
+  "deadlineSafetySeconds": 30,
+  "accountBoundary": {
+    "checkedAt": "2026-10-15T10:49:00Z",
+    "source": "Authenticated account UI inspected by parent agent",
+    "existingPromotionalCreditConfirmed": true,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "newOutOfPocketUsd": 0
+  },
+  "reservation": {
+    "maxExistingPromotionalCreditUsd": "0.01",
+    "maxTtlUpdates": 1,
+    "ttlUpdatesAttempted": 1,
+    "maximumMetadataReads": 2,
+    "metadataReadsAttempted": 2,
+    "incrementalStorageEstimateUsd": "0.001785042144580689026890432099",
+    "conservativeTotalRetentionEstimateUsd": "0.002208049018516819388966049383",
+    "pricing": {
+      "usdPerDecimalGbPer720Hours": "0.10"
+    },
+    "estimateIsNotFinalBilledUsage": true
+  },
+  "http": [
+    {
+      "operation": "initial_exact_metadata",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "operation": "single_ttl_update",
+      "method": "PUT",
+      "status": 204
+    },
+    {
+      "operation": "verification_exact_metadata",
+      "method": "GET",
+      "status": 200
+    }
+  ],
+  "trainingCalls": 0,
+  "inferenceCalls": 0,
+  "checkpointCreationCalls": 0,
+  "publicationCalls": 0,
+  "billingSettingChanges": 0,
+  "before": {
+    "sizeBytes": 145936229,
+    "expiresAt": "2026-10-16T07:55:55.406587Z",
+    "public": false
+  },
+  "requestedTtlSeconds": 392144,
+  "after": {
+    "sizeBytes": 145936229,
+    "expiresAt": "2026-10-19T23:59:30.230217Z",
+    "public": false
+  },
+  "originalTrainingReceiptUnchanged": true,
+  "completedAt": "2026-10-15T11:03:47.048209Z"
+}

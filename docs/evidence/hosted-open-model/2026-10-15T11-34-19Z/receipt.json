@@ -1,0 +1,1001 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-15T11:34:19.068Z",
+  "origin": "https://flowproof-demo.onrender.com",
+  "status": "verified",
+  "scope": "Real hosted synthetic application smoke; not a model quality evaluation or human approval.",
+  "approval": {
+    "actorType": "agent",
+    "purpose": "Explicit verifier approval of the fixed synthetic test harness only",
+    "humanApproval": false
+  },
+  "modelRequests": 1,
+  "modelProvider": "Tinker",
+  "modelRequestScope": "Reserved application generation attempts; backend inference is only verified after a validated live-provider result.",
+  "memoryOperations": 0,
+  "settingsOrPaymentChanges": 0,
+  "backboardRequested": false,
+  "tigerStorage": {
+    "requested": true,
+    "status": "verified_saved_reads_and_lexical_retrieval",
+    "auditReads": [
+      {
+        "label": "healthy",
+        "auditId": "e3e85bbd-162c-4d3a-8dbf-94b7ecfa21d2",
+        "persistence": "saved",
+        "storage": "tiger",
+        "semanticMatch": true,
+        "artifact": "healthy-tiger-read.json"
+      },
+      {
+        "label": "broken",
+        "auditId": "6d9cee9a-fa42-4a0a-bb61-154cf43139a4",
+        "persistence": "saved",
+        "storage": "tiger",
+        "semanticMatch": true,
+        "artifact": "broken-tiger-read.json"
+      },
+      {
+        "label": "restored",
+        "auditId": "95c22575-fce6-4da7-9417-446fb0710226",
+        "persistence": "saved",
+        "storage": "tiger",
+        "semanticMatch": true,
+        "artifact": "restored-tiger-read.json"
+      }
+    ],
+    "lexicalRetrieval": {
+      "mode": "tiger-lexical",
+      "matchingAuditId": "6d9cee9a-fa42-4a0a-bb61-154cf43139a4",
+      "matchingProjectId": "a209cc5c-a62a-4b26-a70e-639d76897860",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "crossVisitorSearch": 404,
+      "crossVisitorPersistence": 404,
+      "artifact": "tiger-failure-search.json"
+    },
+    "scope": "Tiger stores synthetic audit JSON and screenshot references. Downloaded screenshot bytes are separate HTTP evidence, not proof of binary image storage in the database."
+  },
+  "calls": [
+    {
+      "operation": "bootstrap-visitor",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:19.071Z",
+      "httpStatus": 200,
+      "responseBytes": 9759,
+      "responseSha256": "7c6a2d2f83f1f4aa61fffdde8c4cde1a460cd1854109838884a14783163cff47"
+    },
+    {
+      "operation": "one-live-tinker-generation",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:34:19.503Z",
+      "httpStatus": 200,
+      "responseBytes": 2521,
+      "responseSha256": "6b27dfdf2e739265269b9260063067cd16d457ec44dbda71c4a773d17ff5172f"
+    },
+    {
+      "operation": "reject-unapproved-ai-plan",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:34:28.342Z",
+      "httpStatus": 409,
+      "responseBytes": 79,
+      "responseSha256": "799500761cbeb83bf87a024bf0ea7da72672559e34db3f88fbb1fe20a242eb56"
+    },
+    {
+      "operation": "synthetic-harness-approval-healthy",
+      "method": "PUT",
+      "startedAt": "2026-10-15T11:34:28.517Z",
+      "httpStatus": 200,
+      "responseBytes": 2516,
+      "responseSha256": "e5041028e754e0c07f6f117e0af30b14002dd2fa66221dab3def653f429019b7"
+    },
+    {
+      "operation": "start-healthy-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:34:28.822Z",
+      "httpStatus": 202,
+      "responseBytes": 2560,
+      "responseSha256": "f2dd36e32703ac4cdd5c5aba9a4ac5eea228c16d62a14c931e75b5015cb2e818"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:30.002Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "f2dd36e32703ac4cdd5c5aba9a4ac5eea228c16d62a14c931e75b5015cb2e818"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:31.156Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "f2dd36e32703ac4cdd5c5aba9a4ac5eea228c16d62a14c931e75b5015cb2e818"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:32.347Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "f2dd36e32703ac4cdd5c5aba9a4ac5eea228c16d62a14c931e75b5015cb2e818"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:33.652Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "f2dd36e32703ac4cdd5c5aba9a4ac5eea228c16d62a14c931e75b5015cb2e818"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:34.853Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3125,
+      "responseSha256": "7a244761385a6a3f2452af716742d53ea908cf509e06bd10169bd08fae73d843"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:36.053Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3125,
+      "responseSha256": "7a244761385a6a3f2452af716742d53ea908cf509e06bd10169bd08fae73d843"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:37.253Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3656,
+      "responseSha256": "1c38cb08af11519ec61fcb2b44ff05d31647cd896461fa3d03a84f656bae83f9"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:38.456Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3656,
+      "responseSha256": "1c38cb08af11519ec61fcb2b44ff05d31647cd896461fa3d03a84f656bae83f9"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:39.612Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4317,
+      "responseSha256": "87692e87c67bbe5f922e84c96ddf714332c3179d20826df2734bd7dce4950e92"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:40.853Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4317,
+      "responseSha256": "87692e87c67bbe5f922e84c96ddf714332c3179d20826df2734bd7dce4950e92"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:42.054Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4878,
+      "responseSha256": "7cb70596422ab3b74995205e8293992190ed034c7486d8b22401ae23a754a88d"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:43.257Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4878,
+      "responseSha256": "7cb70596422ab3b74995205e8293992190ed034c7486d8b22401ae23a754a88d"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:44.434Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4878,
+      "responseSha256": "7cb70596422ab3b74995205e8293992190ed034c7486d8b22401ae23a754a88d"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:45.654Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 5822,
+      "responseSha256": "3767917fb9b441752cc5ebc7c97d0a5f4f839a80a4f8842feb49fcb5d5f72403"
+    },
+    {
+      "operation": "poll-healthy-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:46.812Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 6109,
+      "responseSha256": "6377e70754746811b9d4cad82b5ae68fcb57fe0739e7c286b492e02cb09719de"
+    },
+    {
+      "operation": "poll-healthy-tiger-persistence",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:46.994Z",
+      "httpStatus": 200,
+      "responseBytes": 19,
+      "responseSha256": "0a6d07bf433c8e3a78e4293361560fdbba6b1027e5fceb2c0f5a591f243d69df"
+    },
+    {
+      "operation": "poll-healthy-tiger-persistence",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:48.133Z",
+      "httpStatus": 200,
+      "responseBytes": 57,
+      "responseSha256": "45bce229635353464241becb0aac33ae30fbdcdd8a893c3bee41ee6fb4cf059e"
+    },
+    {
+      "operation": "read-healthy-audit-from-tiger",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:48.317Z",
+      "httpStatus": 200,
+      "storage": "tiger",
+      "responseBytes": 6109,
+      "responseSha256": "234de90193b89be0a33b40cc20bfa44a1772bc3486cc682a923eb131fcaca2d2"
+    },
+    {
+      "operation": "screenshot-healthy-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:48.700Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:49.019Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:49.266Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-healthy-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:49.532Z",
+      "httpStatus": 200,
+      "responseBytes": 43135,
+      "responseSha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "operation": "screenshot-healthy-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:49.732Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "report-healthy",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:50.069Z",
+      "httpStatus": 200,
+      "responseBytes": 547248,
+      "responseSha256": "20e9f12ae94c708f9e25241f3a81fc930c5dab3c250ae2505c416758b6900117"
+    },
+    {
+      "operation": "select-broken-variant",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:34:50.748Z",
+      "httpStatus": 200,
+      "responseBytes": 2520,
+      "responseSha256": "125a704f5f16eacba10e26c7589eb5ef6728010a4514b08b755dd9715346261e"
+    },
+    {
+      "operation": "synthetic-harness-approval-broken",
+      "method": "PUT",
+      "startedAt": "2026-10-15T11:34:50.892Z",
+      "httpStatus": 200,
+      "responseBytes": 2515,
+      "responseSha256": "a13eda16783b06c2265f4a1cf62a4b5ce21c5e07da328f554d76f769a17e2438"
+    },
+    {
+      "operation": "start-broken-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:34:51.062Z",
+      "httpStatus": 202,
+      "responseBytes": 2559,
+      "responseSha256": "4314e2c3c267aaffbc383ad22e25a6a0a79c57b0d51f5c277204ab36aa859118"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:52.228Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2559,
+      "responseSha256": "4314e2c3c267aaffbc383ad22e25a6a0a79c57b0d51f5c277204ab36aa859118"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:53.457Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2559,
+      "responseSha256": "4314e2c3c267aaffbc383ad22e25a6a0a79c57b0d51f5c277204ab36aa859118"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:54.649Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2559,
+      "responseSha256": "4314e2c3c267aaffbc383ad22e25a6a0a79c57b0d51f5c277204ab36aa859118"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:55.857Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3145,
+      "responseSha256": "f0162c18990638055a008bc1045b01ca3d6f780bd22834e0cf20fab254a4540c"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:57.049Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3145,
+      "responseSha256": "f0162c18990638055a008bc1045b01ca3d6f780bd22834e0cf20fab254a4540c"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:58.200Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3680,
+      "responseSha256": "b7206712947776626a5796555029271faf0e1794d7c99c08b33bb5fe77b4a840"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:34:59.455Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3680,
+      "responseSha256": "b7206712947776626a5796555029271faf0e1794d7c99c08b33bb5fe77b4a840"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:00.632Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4265,
+      "responseSha256": "ca8d43b8b399572ea0059de20faa80f88059b0c4f2e60cfab9b24447caea14d2"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:01.854Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4265,
+      "responseSha256": "ca8d43b8b399572ea0059de20faa80f88059b0c4f2e60cfab9b24447caea14d2"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:03.023Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4828,
+      "responseSha256": "60387bcc1b045a51e4261f4658df23bf8a7228c065efadacedc1a2da460f4360"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:04.194Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4828,
+      "responseSha256": "60387bcc1b045a51e4261f4658df23bf8a7228c065efadacedc1a2da460f4360"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:05.354Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4828,
+      "responseSha256": "60387bcc1b045a51e4261f4658df23bf8a7228c065efadacedc1a2da460f4360"
+    },
+    {
+      "operation": "poll-broken-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:06.652Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 6059,
+      "responseSha256": "b34d662058be551f163ab0ec549277e63aee920fbb9b7d7e6e52b608b97f45b5"
+    },
+    {
+      "operation": "poll-broken-tiger-persistence",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:06.858Z",
+      "httpStatus": 200,
+      "responseBytes": 19,
+      "responseSha256": "0a6d07bf433c8e3a78e4293361560fdbba6b1027e5fceb2c0f5a591f243d69df"
+    },
+    {
+      "operation": "poll-broken-tiger-persistence",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:08.031Z",
+      "httpStatus": 200,
+      "responseBytes": 57,
+      "responseSha256": "1a5f34ca109b8dc16d2a91fa39e63a68c3621e58dc8e773903d8847925b73adc"
+    },
+    {
+      "operation": "read-broken-audit-from-tiger",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:08.189Z",
+      "httpStatus": 200,
+      "storage": "tiger",
+      "responseBytes": 6059,
+      "responseSha256": "256ecdd54a3702af21d90114a3287d8cb8d0f326e56465c1399ac5138801f456"
+    },
+    {
+      "operation": "screenshot-broken-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:08.573Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:08.776Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:08.990Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "screenshot-broken-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:09.303Z",
+      "httpStatus": 200,
+      "responseBytes": 42917,
+      "responseSha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "operation": "screenshot-broken-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:09.614Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "report-broken",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:09.850Z",
+      "httpStatus": 200,
+      "responseBytes": 540682,
+      "responseSha256": "ed0f10bde550d9fb034292f0e2b28bb500605f02cdf4c57733f210b9f7347ad7"
+    },
+    {
+      "operation": "select-restored-variant",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:35:10.185Z",
+      "httpStatus": 200,
+      "responseBytes": 2521,
+      "responseSha256": "bb7e00021ea63b6cc9464c04a1598dabbd0ef14e55b489029fd5a0ad6451cc23"
+    },
+    {
+      "operation": "synthetic-harness-approval-restored",
+      "method": "PUT",
+      "startedAt": "2026-10-15T11:35:10.454Z",
+      "httpStatus": 200,
+      "responseBytes": 2516,
+      "responseSha256": "0cc1a2ed3737f33016151d0864ff321e8cddf6049681dcff37625e4b039c2868"
+    },
+    {
+      "operation": "start-restored-audit",
+      "method": "POST",
+      "startedAt": "2026-10-15T11:35:10.659Z",
+      "httpStatus": 202,
+      "responseBytes": 2560,
+      "responseSha256": "35debb0cefc25c3bf108fcd0260b57301f35371e92b67caa476bfcb810d16022"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:11.845Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "35debb0cefc25c3bf108fcd0260b57301f35371e92b67caa476bfcb810d16022"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:13.053Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "35debb0cefc25c3bf108fcd0260b57301f35371e92b67caa476bfcb810d16022"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:14.252Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 2560,
+      "responseSha256": "35debb0cefc25c3bf108fcd0260b57301f35371e92b67caa476bfcb810d16022"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:15.434Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3125,
+      "responseSha256": "893fcfdca6a5a0378cadd7bd6527ec1940bdae45a650f7bad98206ee4f0aefcb"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:16.657Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3125,
+      "responseSha256": "893fcfdca6a5a0378cadd7bd6527ec1940bdae45a650f7bad98206ee4f0aefcb"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:17.850Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3656,
+      "responseSha256": "586f0e238e240193ba3115c7c9d25a98b93676332b59ca29157e5f029c0fb631"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:19.051Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 3656,
+      "responseSha256": "586f0e238e240193ba3115c7c9d25a98b93676332b59ca29157e5f029c0fb631"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:20.232Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4317,
+      "responseSha256": "dd1c7f93603ed84f383b586938d85ae370413d3f54da5683164a94e55af18ada"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:21.459Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4317,
+      "responseSha256": "dd1c7f93603ed84f383b586938d85ae370413d3f54da5683164a94e55af18ada"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:22.640Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4878,
+      "responseSha256": "2efd9820ae6e8567e2bcf548be903c667068e23c064cc6e501f54ffc77c4197a"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:23.857Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 4878,
+      "responseSha256": "2efd9820ae6e8567e2bcf548be903c667068e23c064cc6e501f54ffc77c4197a"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:25.054Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 5822,
+      "responseSha256": "1299cf06a6e0a6ffbef87dd67a3f5979fbaa5e0cb63bd88f4ec028326f764c7d"
+    },
+    {
+      "operation": "poll-restored-audit",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:26.250Z",
+      "httpStatus": 200,
+      "storage": "memory",
+      "responseBytes": 6109,
+      "responseSha256": "beb9b476bfd0bbf5079e40c6214aa8460984aa6e679e306268f6f344c8b955b8"
+    },
+    {
+      "operation": "poll-restored-tiger-persistence",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:26.388Z",
+      "httpStatus": 200,
+      "responseBytes": 19,
+      "responseSha256": "0a6d07bf433c8e3a78e4293361560fdbba6b1027e5fceb2c0f5a591f243d69df"
+    },
+    {
+      "operation": "poll-restored-tiger-persistence",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:27.574Z",
+      "httpStatus": 200,
+      "responseBytes": 57,
+      "responseSha256": "5d3d471a13090d12d071eb296a6351f80406a9725a2ddbcf96cc8b1845fd367a"
+    },
+    {
+      "operation": "read-restored-audit-from-tiger",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:27.750Z",
+      "httpStatus": 200,
+      "storage": "tiger",
+      "responseBytes": 6109,
+      "responseSha256": "bdab1b80686b7b69466b4904bba8e83e12e904d230c51ee8d13d5ab89bd902a1"
+    },
+    {
+      "operation": "screenshot-restored-heading",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:28.138Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-link",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:28.465Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-image_alt",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:28.782Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "screenshot-restored-no_horizontal_overflow",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:28.978Z",
+      "httpStatus": 200,
+      "responseBytes": 43135,
+      "responseSha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "operation": "screenshot-restored-text_visible",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:29.215Z",
+      "httpStatus": 200,
+      "responseBytes": 89923,
+      "responseSha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "operation": "report-restored",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:29.431Z",
+      "httpStatus": 200,
+      "responseBytes": 547254,
+      "responseSha256": "a4108ab28dcc246f029a46ab6c40fd9248172bc74d556a88682171ca7bce7a60"
+    },
+    {
+      "operation": "bootstrap-visitor",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:29.918Z",
+      "httpStatus": 200,
+      "responseBytes": 9759,
+      "responseSha256": "16abcdd15521b00b61c5c0d5e79cc87a87bbcbd1f8f8482a353f55046963ec4a"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:30.060Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:30.210Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-evidence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:30.370Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "tiger-scoped-horizontal-failure-search",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:30.506Z",
+      "httpStatus": 200,
+      "responseBytes": 432,
+      "responseSha256": "159b2495d9fca3a47191ca4eb55ce47358a22ba6e4efbabbb16b7a8c0d7f8ead"
+    },
+    {
+      "operation": "cross-visitor-tiger-search-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:30.883Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "cross-visitor-tiger-persistence-denied",
+      "method": "GET",
+      "startedAt": "2026-10-15T11:35:31.030Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "initial-project.json",
+      "bytes": 2721,
+      "sha256": "c8b52c33848a26a81771c0d845e5e53a4d277b6f94838cee9628cf009894d28f"
+    },
+    {
+      "path": "generated-project.json",
+      "bytes": 2987,
+      "sha256": "7d376c0770a1e5bd8f8fa16f6a1246c6f0d582f9537d74dd1f6b73c402ca401e"
+    },
+    {
+      "path": "healthy-audit.json",
+      "bytes": 7531,
+      "sha256": "8beceb4c99aa9adecd470f737af810fe26bb3b2c361be66c3e3ba382b88d24b9"
+    },
+    {
+      "path": "healthy-tiger-persistence.json",
+      "bytes": 81,
+      "sha256": "e262d62504d1cf67f2f575c21c2b2a4c38186d2dff24ea188325def18a209bb6"
+    },
+    {
+      "path": "healthy-tiger-read.json",
+      "bytes": 7934,
+      "sha256": "dcef13bc762c19cd02a614539a3ec76f0ff3ceb329097fc4c6c21b3b52414ab0"
+    },
+    {
+      "path": "healthy-heading.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-link.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-image_alt.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-no_horizontal_overflow.png",
+      "bytes": 43135,
+      "sha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "path": "healthy-text_visible.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "healthy-report.html",
+      "bytes": 547248,
+      "sha256": "20e9f12ae94c708f9e25241f3a81fc930c5dab3c250ae2505c416758b6900117"
+    },
+    {
+      "path": "broken-audit.json",
+      "bytes": 7481,
+      "sha256": "70c1dab7bf8832ec7281a12b3ad0f44118f87bd459f654d938e578888d48f395"
+    },
+    {
+      "path": "broken-tiger-persistence.json",
+      "bytes": 81,
+      "sha256": "2f17661d648e9caac40fcb23f2f565e7d2087909e454762a0eab8f4a31bd9ffb"
+    },
+    {
+      "path": "broken-tiger-read.json",
+      "bytes": 7884,
+      "sha256": "7b21777c43c49500269f129bb4c9ec057cd98c0fb49c3851b05569fb254c91c8"
+    },
+    {
+      "path": "broken-heading.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-link.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-image_alt.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-no_horizontal_overflow.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "path": "broken-text_visible.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "broken-report.html",
+      "bytes": 540682,
+      "sha256": "ed0f10bde550d9fb034292f0e2b28bb500605f02cdf4c57733f210b9f7347ad7"
+    },
+    {
+      "path": "restored-audit.json",
+      "bytes": 7531,
+      "sha256": "2f708edf2e592b4a2a86a69ff52203e6a38af6c15a37787461c986728e529fb0"
+    },
+    {
+      "path": "restored-tiger-persistence.json",
+      "bytes": 81,
+      "sha256": "aaa01119c7a8928ef57864acd6007e8acead72852583a941b4bec81d5cc95f48"
+    },
+    {
+      "path": "restored-tiger-read.json",
+      "bytes": 7934,
+      "sha256": "0c31fda6d1f6e91a842398c36909122a70dff1aa0e9a221c85c212c7d583f29c"
+    },
+    {
+      "path": "restored-heading.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-link.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-image_alt.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-no_horizontal_overflow.png",
+      "bytes": 43135,
+      "sha256": "b58c37c3791161f3a0a5b43c4290d5a0d7beef0dd94e368be38f493f4c99d32f"
+    },
+    {
+      "path": "restored-text_visible.png",
+      "bytes": 89923,
+      "sha256": "e74471788a08a0c581c78ab8d7a22aad7a79e582ca64de3df0c4410fb5102b91"
+    },
+    {
+      "path": "restored-report.html",
+      "bytes": 547254,
+      "sha256": "a4108ab28dcc246f029a46ab6c40fd9248172bc74d556a88682171ca7bce7a60"
+    },
+    {
+      "path": "tiger-failure-search.json",
+      "bytes": 527,
+      "sha256": "ff6f6e18b9faac3ca036b2201dc43a31919527d0dbbdf0247759b8f9bdd2adee"
+    }
+  ],
+  "generator": {
+    "provider": "Tinker (live trained checkpoint)",
+    "model": "Qwen/Qwen3.5-4B",
+    "reason": "Fresh trained Tinker sampler proposal for the fixed synthetic brief, validated by the server. 260 input / 249 output tokens. 8912 tokens conservatively reserved before the request; this is a budget bound, not actual usage. Review and approve every executable check. This live action does not change the recorded benchmark."
+  },
+  "unapprovedAuditRejected": true,
+  "auditOutcomes": {
+    "healthy": {
+      "id": "e3e85bbd-162c-4d3a-8dbf-94b7ecfa21d2",
+      "status": "completed",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      }
+    },
+    "broken": {
+      "id": "6d9cee9a-fa42-4a0a-bb61-154cf43139a4",
+      "status": "completed",
+      "counts": {
+        "passed": 2,
+        "failed": 3,
+        "blocked": 0,
+        "unverified": 1
+      }
+    },
+    "restored": {
+      "id": "95c22575-fce6-4da7-9417-446fb0710226",
+      "status": "completed",
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      }
+    }
+  },
+  "crossVisitorIsolation": "Project, audit and report each returned HTTP 404 to a different visitor.",
+  "completedAt": "2026-10-15T11:35:31.210Z",
+  "release": {
+    "sourceCommit": "2a8eae95c95cf91adb0cd2bed155e6dbb81249ef",
+    "ciUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38727532102",
+    "renderDeployId": "dep-db8bj7avcj2c738tlgv0",
+    "renderLiveAt": "2026-10-15T11:33:30.566169Z",
+    "renderPlan": "free",
+    "sourceVerifierSha256": "f523bd953deebd7e287955a66a6650e04d04e0bbf703a441e203b5d4dc4be2a1"
+  },
+  "funding": {
+    "render": "Free plan",
+    "tiger": "Dedicated metered service covered by existing no-card trial credits; not a permanent Free service",
+    "tinker": "Explicitly approved existing promotional credits; at most2requests/50000reservedtokens, no card or auto-reload",
+    "newOutOfPocketUsd": 0,
+    "tinkerFundingConfirmationExpiresAt": "2026-10-16T10:49:00Z",
+    "tigerApplicationAndLoginExpiresAt": "2026-10-20T00:00:00Z"
+  }
+}

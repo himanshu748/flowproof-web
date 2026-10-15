@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-10-15T11:11:57.035Z",
+  "status": "provisioned",
+  "approval": "User explicitly approved dedicated Tiger trial service and restricted hosted storage on October15",
+  "configurationChanged": true,
+  "fieldIssueDataChanges": 0,
+  "providerBillingChanges": 0,
+  "service": "briefstamp-evidence",
+  "resourceBasis": "metered no-card trial covered by existing credits, not permanent Free",
+  "priorAttempt": "Initial certificate issuance blocked SQL; preserved separately. Strict system-CA TLS and absent objects were independently rechecked before this new attempt.",
+  "tlsVerified": true,
+  "publicPreflight": {
+    "relationGrants": 46,
+    "columnGrants": 0,
+    "schemaCreate": 0,
+    "customPublicSecurityDefinerFunctions": 0
+  },
+  "existingApplicationRelations": 0,
+  "providerExtensionMetadata": "Dedicated service only; no FieldIssue workload",
+  "otherApplicationRelationPrivileges": 0,
+  "runtimePrivileges": {
+    "can_read": true,
+    "can_insert": true,
+    "can_update": false,
+    "can_delete": false,
+    "can_create": false
+  },
+  "schema": "briefstamp_demo_v1",
+  "runtimeConnectionLimit": 2,
+  "runtimeExpiresAt": "2026-10-20T00:00:00Z",
+  "completedAt": "2026-10-15T11:12:10.354Z",
+  "sensitiveOperationalIdentifiersOmitted": true
+}

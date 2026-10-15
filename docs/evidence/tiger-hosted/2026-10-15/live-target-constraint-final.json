@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-10-15T11:59:05.875Z",
+  "status": "verified_migrated",
+  "scope": "Dedicated Briefstamp audit target CHECK, fail closed on a missing URL. No role, credential, FieldIssue or billing changes.",
+  "fieldIssueChanges": 0,
+  "billingChanges": 0,
+  "strictTlsVerified": true,
+  "predicateChecks": [
+    {
+      "label": "valid-sample",
+      "accepted": true
+    },
+    {
+      "label": "missing-sample-url",
+      "accepted": false
+    },
+    {
+      "label": "valid-owned-website",
+      "accepted": true
+    },
+    {
+      "label": "other-website",
+      "accepted": false
+    },
+    {
+      "label": "missing-source",
+      "accepted": false
+    }
+  ],
+  "constraint": {
+    "convalidated": true,
+    "definition": "CHECK ((((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'sample'::text)) AND ((((payload -> 'source'::text) ->> 'url'::text) ~~ 'https://sample.flowproof.test/%'::text) IS TRUE)) OR ((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'website'::text)) AND (NOT (((payload -> 'source'::text) ->> 'url'::text) IS DISTINCT FROM 'https://flowproof-demo.onrender.com/'::text)))))"
+  },
+  "completedAt": "2026-10-15T11:59:13.428Z"
+}

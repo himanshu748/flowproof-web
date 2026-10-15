@@ -1,6 +1,31 @@
 # Tiger Data integration verification
 
-**Status on October 14, 2026:** an isolated **no-card trial probe verified the real application store, screenshot recovery, lexical search and cosine retrieval over strict TLS**. The separate Shared Free service previously verified four persisted failure rows through the authenticated HTTPS SQL console; its direct connection remains blocked by an unconfirmed CA. Public-demo database persistence is not enabled.
+**Hosted persistence and lexical retrieval verified on October 15, 2026.** The public Render application saved three synthetic audits to a separately approved dedicated Tiger trial service and read every audit back through the actual database path. [Hosted receipt](evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json) · [Deployment](DEPLOYMENT.md).
+
+## Dedicated hosted store
+
+Source `2a8eae95c95cf91adb0cd2bed155e6dbb81249ef` passed [CI 38727532102](https://github.com/himanshu748/flowproof-web/actions/runs/38727532102) and deployed to the existing Free Render service at 11:33:30 UTC. The 11:34–11:35 hosted proof observed healthy **5 passed / 1 unverified**, broken **2 passed / 3 failed / 1 unverified**, then restored **5 passed / 1 unverified**. Each completed GET returned the Tiger storage header and audit JSON deeply equal to its completed result. Search for `horizontal` recovered the broken mobile-layout assertion. A different visitor cookie received 404 for scoped search and persistence reads.
+
+The dedicated service uses system-CA and exact-hostname verification with a Google Trust Services chain. Within its application schema, the restricted role can read and insert, but cannot update, delete or create objects. The role has a two-connection limit and expires **October 20 at 00:00 UTC**, matching the application gate. This is an explicitly approved **metered trial covered by existing no-card credits**, not a permanent Free database. No paid conversion, card or billing change was made.
+
+- [Sanitized provisioning receipt](evidence/tiger-hosted/2026-10-15/provision.json): strict TLS and the restricted permissions.
+- [Reviewed operator setup SQL](hosted-tiger-schema.sql): the sample-only schema, expiry/size limits, lexical index and read/insert grants. This is for a new dedicated service after funding, strict-TLS and privilege checks; it is not an application migration or a command to rerun against the existing service. It contains no service hostname or credential; the new password comes from a private environment variable. Logical row expiry does not physically delete rows, and the dated login expiry does not stop the cloud service.
+- [Separate writer/reader proof](evidence/tiger-hosted/2026-10-15/independent-read.json): three audits recovered across independent processes, lexical retrieval and cross-session denial. Its historical “hosted request pending” scope is resolved by the later hosted receipt, not overwritten.
+- [FieldIssue isolation recheck](evidence/tiger-hosted/2026-10-15/fieldissue-isolation.json): at 11:29 UTC its existing service was live over verified TLS; Briefstamp's role/schema were absent and no FieldIssue rows or configuration changed.
+
+**Storage boundary:** this hosted adapter persists audit JSON and screenshot references only. Screenshot bytes and portable reports were downloaded separately; those downloads do not prove binary-image persistence or survival after a Render restart. Visitor session access still expires after 30 minutes. Hosted vector retrieval is not implemented or claimed; the older isolated vector experiment below is separate.
+
+The original Shared Free service still lacks an authenticated CA trust path. The new dedicated service resolves TLS for its own connection only. Certificate and hostname verification remain enabled everywhere.
+
+## Exact live-target migration; application verification pending
+
+The [reviewed follow-on SQL](hosted-tiger-live-target.sql) restricts persisted source targets to the synthetic origin or exactly `https://flowproof-demo.onrender.com/`. Its [October 15, 11:53 UTC receipt](evidence/tiger-hosted/2026-10-15/live-target-migration.json) records strict TLS, a validated constraint and unchanged runtime grants, credentials and billing. FieldIssue was not changed. The operator must use the catalog-confirmed old constraint name on this dedicated service; the placeholder file is not a command to run blindly.
+
+This prepares storage for the owner-authorized live-homepage candidate. Actual hosted network execution and persistence for that target are still pending. The completed three-audit proof above used the synthetic sample and remains separately scoped.
+
+## Historical October 14 experiments
+
+An isolated no-card trial probe verified the original application store, screenshot recovery, lexical search and cosine retrieval over strict TLS. The separate Shared Free service verified four persisted failure rows through its authenticated HTTPS SQL console; its direct connection remained blocked by an unconfirmed CA. Those historical experiments did not enable public-demo persistence; the dedicated hosted proof above is separate.
 
 | Boundary                 | Observed result                                                                                                                                                                                                                                                 |
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -57,7 +82,7 @@ For reproduction, use a new isolated schema or inspect the existing synthetic sc
 
 The guarded probe is designed to use the application’s PostgreSQL store and Playwright runner. After strict TLS succeeds, it writes two synthetic audits to a unique temporary schema, restarts in a fresh process with an empty local evidence directory, recovers projects/audits/screenshots from the database, and exercises lexical and vector retrieval. It removes only the schema created for that run. No existing Briefstamp state is reset. The earlier Shared Free attempt stopped before these phases; the separate no-card trial run above completed them.
 
-The public Render demo remains isolated and temporary. This probe does not connect visitor sessions to Tiger or change any deployment settings.
+That temporary probe did not connect visitor sessions to Tiger or change deployment settings. The separate October 15 hosted store above now persists scoped audit JSON, with its stated session, image-storage and trial limits.
 
 ## Strict custom-CA configuration
 
@@ -131,4 +156,4 @@ The final `receipt.json` records the actual service identity, strict-TLS observa
 - `temporarySchemaRemoved: true` confirms the probe left no remote test tables behind. If cleanup fails, the command fails and identifies the exact generated schema in the receipt; remove only that schema after reviewing the failure. Never drop unrelated databases or tables.
 - Any incomplete phase remains `not_verified`; a failed process must not be presented as proof of the integration. Sanitized error receipts omit raw provider responses and connection details.
 
-Publishing a receipt establishes only this observed operator-side Tiger run. It does not establish public-demo persistence, production availability, an ongoing free allowance, model fine-tuning success or customer validation.
+Publishing the historical probe receipt establishes only its observed operator-side run. The separate October 15 hosted receipt establishes scoped public-demo audit persistence and lexical retrieval, but neither establishes production availability, an ongoing free allowance, model quality or customer validation.

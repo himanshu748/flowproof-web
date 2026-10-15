@@ -1,6 +1,11 @@
 import express from "express";
 import { snapshotSource } from "../shared/compare-audits";
 import { redact } from "../shared/redact";
+import {
+  HOSTED_WEBSITE_BRIEF,
+  HOSTED_WEBSITE_PRESET,
+  HOSTED_WEBSITE_URL,
+} from "../shared/hosted-target";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -89,7 +94,11 @@ const resultSchema = z.object({
     viewport: z.object({ width: z.number(), height: z.number() }),
   }),
 });
-function validateResult(value: unknown, checks: Audit["checks"]): CheckResult {
+function validateResult(
+  value: unknown,
+  checks: Audit["checks"],
+  source?: Pick<Project, "target" | "url">,
+): CheckResult {
   const result = resultSchema.parse(value);
   const check = checks.find((item) => item.id === result.checkId);
   if (
@@ -97,10 +106,22 @@ function validateResult(value: unknown, checks: Audit["checks"]): CheckResult {
     result.kind !== check.kind ||
     result.expected !== redact(check.expected) ||
     result.requirement !== redact(check.requirement) ||
-    (check.kind === "manual" && result.status !== "unverified")
+    (check.kind === "manual" && result.status !== "unverified") ||
+    (source?.target === "website" && result.evidence.url !== source.url)
   )
     throw new Error("The runner returned mismatched assertion evidence.");
   return result;
+}
+
+function ownedWebsite(
+  project: Pick<Project, "target" | "url" | "authorized" | "brief">,
+) {
+  return (
+    project.target === "website" &&
+    project.url === HOSTED_WEBSITE_URL &&
+    project.authorized === true &&
+    project.brief === HOSTED_WEBSITE_BRIEF
+  );
 }
 
 interface Session {
@@ -150,7 +171,7 @@ function integrations(
       name: "Playwright",
       status: "active",
       detail:
-        "Real Chromium execution on the built-in synthetic sample. Every audit records observed outcomes.",
+        "Real Chromium execution on the built-in synthetic sample or the owner's fixed live homepage. Live websites use the HTTPS and SSRF checks without fixture interception. Every audit records observed outcomes.",
     },
     {
       name: "Local open model",
@@ -162,7 +183,7 @@ function integrations(
       name: "Tiger Data",
       status: tigerAvailable ? "available" : "not_configured",
       detail: tigerAvailable
-        ? "Configured for session-scoped synthetic audit briefs, approved plans and results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Each save/read is verified separately. Hosted retrieval is lexical only."
+        ? "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Each save/read is verified separately. Hosted retrieval is lexical only."
         : "An isolated no-card Tiger trial verified application persistence, screenshot recovery, and lexical/vector retrieval. Demo sessions use temporary memory. The separate Shared Free service remains blocked by certificate verification.",
     },
     {
@@ -190,7 +211,7 @@ function integrations(
       name: "Gemma",
       status: gemmaAvailable ? "available" : "not_configured",
       detail: gemmaAvailable
-        ? "Opt-in Gemma 4 generates unapproved checks for the fixed synthetic sample through Google's free-only API. Current pricing is rechecked before calls. Browser execution still requires approval. No private visitor brief is sent."
+        ? "Opt-in Gemma 4 generates unapproved checks for a server-selected sample or owner-authorized live homepage brief through Google's free-only API. Current pricing is rechecked before calls. Browser execution still requires approval. No private visitor brief is sent."
         : "Public Gemma generation is disabled or its free-use confirmation expired. Deterministic drafts remain labelled as rules.",
     },
     ...optionalIntegrations(true),
@@ -396,19 +417,19 @@ export function createDemoRouter(options: DemoOptions) {
         tinkerAvailable(),
       ),
       storage: tigerAvailable()
-        ? "Ephemeral visitor session; Tiger configured for completed synthetic briefs, approved plans and results for up to 30 minutes. Screenshot references only."
+        ? "Ephemeral visitor session; Tiger configured for approved preset audit briefs, plans and results for up to 30 minutes. Screenshot references only."
         : "Ephemeral visitor session",
       demo: {
         enabled: true,
         expiresMinutes: 30,
         notice:
-          "Synthetic sample only. Your isolated demo session expires after 30 minutes and may reset when the free service restarts. Download reports before leaving. Do not enter private client information.",
+          "Choose the synthetic sample or the owner's fixed live homepage. Your isolated session expires after 30 minutes and may reset when the free service restarts. Download reports before leaving. Do not enter private client information.",
         gemma: {
           available: gemmaAvailable(),
           model: "gemma-4-26b-a4b-it",
           sampleBrief: DEMO_BRIEF,
           description:
-            "Generate checks for the fixed synthetic sample with Google-hosted Gemma. Free-tier inputs may be used to improve Google's products. No client information is sent.",
+            "Generate checks for the server-selected sample or live homepage brief with Google-hosted Gemma. Free-tier inputs may be used to improve Google's products. No client information is sent.",
         },
         tinker: {
           available: tinkerAvailable(),
@@ -422,12 +443,39 @@ export function createDemoRouter(options: DemoOptions) {
     };
     res.json(body);
   });
+  router.get("/api/target-presets", (_req, res) => {
+    res.json({ presets: [HOSTED_WEBSITE_PRESET] });
+  });
+  router.post("/api/projects/preset", (req, res) => {
+    z.object({ preset: z.literal("briefstamp-live") })
+      .strict()
+      .parse(req.body);
+    const s = session(res);
+    if (s.projects.size >= 4)
+      return res.status(409).json({
+        error: "This demo session allows up to four projects.",
+      });
+    // Authorization belongs to this preconfigured site owner, not a visitor-supplied flag.
+    const p: Project = {
+      ...project(
+        HOSTED_WEBSITE_PRESET.name,
+        HOSTED_WEBSITE_BRIEF,
+        "healthy",
+        now(),
+      ),
+      target: "website",
+      url: HOSTED_WEBSITE_URL,
+      authorized: true,
+    };
+    s.projects.set(p.id, p);
+    res.status(201).json(p);
+  });
   router.post("/api/projects", (req, res) => {
     const input = createSchema.parse(req.body);
     const s = session(res);
     if (s.projects.size >= 4)
       return res.status(409).json({
-        error: "This demo session allows up to four sample projects.",
+        error: "This demo session allows up to four projects.",
       });
     const p = project(input.name, input.brief, input.sampleVariant, now());
     s.projects.set(p.id, p);
@@ -441,7 +489,16 @@ export function createDemoRouter(options: DemoOptions) {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
     const input = z.object({ checks: z.unknown() }).strict().parse(req.body);
-    p.checks = validateChecks(input.checks);
+    const checks = validateChecks(input.checks);
+    if (
+      p.target === "website" &&
+      (!ownedWebsite(p) || checks.some((check) => check.path !== "/"))
+    )
+      return res.status(400).json({
+        error:
+          "The live preset allows checks of its fixed public homepage only.",
+      });
+    p.checks = checks;
     p.updatedAt = new Date(now()).toISOString();
     res.json(p);
   });
@@ -449,6 +506,13 @@ export function createDemoRouter(options: DemoOptions) {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
     const { brief } = z.object({ brief: briefSchema }).strict().parse(req.body);
+    if (
+      p.target === "website" &&
+      (!ownedWebsite(p) || brief !== HOSTED_WEBSITE_BRIEF)
+    )
+      return res.status(400).json({
+        error: "The live preset uses only its owner-approved fixed brief.",
+      });
     Object.assign(p, {
       brief,
       checks: validateChecks(generateLocalChecks(brief)),
@@ -468,10 +532,18 @@ export function createDemoRouter(options: DemoOptions) {
       return res.status(503).json({
         error: "Live Gemma is unavailable. The current plan has not changed.",
       });
-    if (p.target !== "sample" || p.brief !== DEMO_BRIEF)
+    const selectedBrief = ownedWebsite(p)
+      ? HOSTED_WEBSITE_BRIEF
+      : p.target === "sample" &&
+          p.url === SAMPLE_URL &&
+          p.authorized &&
+          p.brief === DEMO_BRIEF
+        ? DEMO_BRIEF
+        : null;
+    if (!selectedBrief)
       return res.status(400).json({
         error:
-          "Live Gemma accepts only the original synthetic sample brief. Visitor or client text is not sent.",
+          "Live Gemma accepts only a server-selected sample or live homepage brief. Visitor or client text is not sent.",
       });
     while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
       gemmaStarts.shift();
@@ -486,7 +558,7 @@ export function createDemoRouter(options: DemoOptions) {
     const snapshot = structuredClone(p);
     try {
       await verifyGemmaFree();
-      const proposed = await generateGemma(DEMO_BRIEF.split("\n"));
+      const proposed = await generateGemma(selectedBrief.split("\n"));
       if (s.expires <= now())
         return res.status(401).json({
           error: "The demo session expired. No generated plan was saved.",
@@ -496,7 +568,7 @@ export function createDemoRouter(options: DemoOptions) {
           error:
             "This project changed during generation. The newer plan was kept; review it before trying again.",
         });
-      const checks = validateModelProposal(DEMO_BRIEF, {
+      const checks = validateModelProposal(selectedBrief, {
         checks: proposed.checks,
       });
       Object.assign(p, {
@@ -507,7 +579,7 @@ export function createDemoRouter(options: DemoOptions) {
           ...(proposed.orchestration
             ? { orchestration: proposed.orchestration }
             : {}),
-          reason: `Fresh Gemma proposal for the fixed synthetic brief, validated by the server. ${proposed.latencyMs} ms. ${proposed.usage ? `${proposed.usage.promptTokens} input / ${proposed.usage.completionTokens} output tokens.` : "Provider token usage was not reported."} ${proposed.orchestration ? "Generated and validated in a real isolated Mastra workflow. " : ""}${proposed.transportNormalization?.wholeJsonFenceRemoved ? "A whole JSON code fence was removed before strict schema validation. " : ""}Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check.`,
+          reason: `Fresh Gemma proposal for the ${snapshot.target === "website" ? "owner-authorized live homepage" : "fixed synthetic"} brief, validated by the server. ${proposed.latencyMs} ms. ${proposed.usage ? `${proposed.usage.promptTokens} input / ${proposed.usage.completionTokens} output tokens.` : "Provider token usage was not reported."} ${proposed.orchestration ? "Generated and validated in a real isolated Mastra workflow. " : ""}${proposed.transportNormalization?.wholeJsonFenceRemoved ? "A whole JSON code fence was removed before strict schema validation. " : ""}Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check.`,
         },
         updatedAt: new Date(now()).toISOString(),
       });
@@ -610,6 +682,10 @@ export function createDemoRouter(options: DemoOptions) {
   router.post("/api/projects/:id/variant", (req, res) => {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
+    if (p.target !== "sample")
+      return res.status(400).json({
+        error: "The live website has no synthetic healthy or broken variants.",
+      });
     const { sampleVariant } = z
       .object({ sampleVariant: z.enum(["healthy", "broken"]) })
       .strict()
@@ -624,6 +700,14 @@ export function createDemoRouter(options: DemoOptions) {
     const p = s.projects.get(req.params.id);
     if (!p) return notFound(res);
     const checks = validateChecks(p.checks);
+    if (
+      (p.target === "website" &&
+        (!ownedWebsite(p) || checks.some((check) => check.path !== "/"))) ||
+      (p.target === "sample" && p.url !== SAMPLE_URL)
+    )
+      return res.status(400).json({
+        error: "Only the exact server-approved target and page may be audited.",
+      });
     if (checks.some((check) => check.kind !== "manual" && !check.approved))
       return res.status(409).json({
         error:
@@ -664,7 +748,7 @@ export function createDemoRouter(options: DemoOptions) {
           snapshot,
           a,
           (result) => {
-            const checked = validateResult(result, checks);
+            const checked = validateResult(result, checks, snapshot);
             if (a.results.some((item) => item.checkId === checked.checkId))
               throw new Error(
                 "The runner returned duplicate assertion evidence.",
@@ -677,7 +761,7 @@ export function createDemoRouter(options: DemoOptions) {
           .array(resultSchema)
           .max(24)
           .parse(results)
-          .map((result) => validateResult(result, checks));
+          .map((result) => validateResult(result, checks, snapshot));
         if (
           validated.length !== checks.length ||
           new Set(validated.map((result) => result.checkId)).size !==
@@ -688,7 +772,16 @@ export function createDemoRouter(options: DemoOptions) {
         a.status = "completed";
         const count = (status: string) =>
           a.results.filter((result) => result.status === status).length;
-        a.summary = `${count("passed")} passed, ${count("failed")} failed, ${count("blocked")} blocked, ${count("unverified")} unverified. Real Chromium observations of the synthetic sample; ${snapshot.generator.model ? `checks proposed by ${snapshot.generator.provider} (${snapshot.generator.model}) and reviewed by the visitor. Models do not assign test outcomes.` : "deterministic draft checks reviewed by the visitor. No AI model was used."}`;
+        const scope =
+          snapshot.target === "website"
+            ? "owner-authorized live website"
+            : "synthetic sample";
+        const observation = checks.every((check) => check.kind === "manual")
+          ? "No automated browser assertion was executed; this plan requires human review."
+          : count("passed") + count("failed") === 0
+            ? `No automated browser assertion produced an observed pass or fail for the ${scope}.`
+            : `Real Chromium observations of the ${scope}.`;
+        a.summary = `${count("passed")} passed, ${count("failed")} failed, ${count("blocked")} blocked, ${count("unverified")} unverified. ${observation} ${snapshot.generator.model ? `Checks proposed by ${snapshot.generator.provider} (${snapshot.generator.model}) and reviewed by the visitor. Models do not assign test outcomes.` : "Deterministic draft checks reviewed by the visitor. No AI model was used."}`;
       } catch {
         a.status = "error";
         a.error =
@@ -740,8 +833,12 @@ export function createDemoRouter(options: DemoOptions) {
           stored.id !== a.id ||
           stored.projectId !== a.projectId ||
           stored.status !== "completed" ||
-          stored.source?.target !== "sample" ||
-          stored.source.sampleVariant !== a.source?.sampleVariant ||
+          !stored.source ||
+          !a.source ||
+          stored.source.target !== a.source.target ||
+          stored.source.url !== a.source.url ||
+          stored.source.brief !== redact(a.source.brief) ||
+          stored.source.sampleVariant !== a.source.sampleVariant ||
           stored.results.length !== a.results.length ||
           !stored.results.every((result) =>
             a.results.some(
@@ -749,6 +846,7 @@ export function createDemoRouter(options: DemoOptions) {
                 original.checkId === result.checkId &&
                 original.kind === result.kind &&
                 original.status === result.status &&
+                original.evidence.url === result.evidence.url &&
                 redact(original.expected) === result.expected &&
                 redact(original.requirement) === result.requirement,
             ),
@@ -951,7 +1049,7 @@ export function createDemoRouter(options: DemoOptions) {
       res.status(400).json({
         error:
           err instanceof z.ZodError
-            ? "Invalid demo input. Use a sample project, a brief up to 6,000 characters and at most 24 safe checks."
+            ? "Invalid demo input. Use an approved target preset and at most 24 safe checks. Custom sample briefs allow up to 6,000 characters."
             : "The demo request could not be accepted. Check your input and try again.",
       });
     },

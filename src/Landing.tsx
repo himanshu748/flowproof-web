@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import { MotionConfig, motion, useReducedMotion } from "motion/react";
 import {
   ArrowDown,
@@ -18,7 +18,10 @@ import "./landing.css";
 type LandingProps = {
   onOpenDemo: () => void;
   onOpenModel: () => void;
+  /** Build-time rendering of this same page, with visible content before scripts. */
+  staticRender?: boolean;
 };
+const StaticLanding = createContext(false);
 
 const proofRows = [
   {
@@ -74,10 +77,11 @@ function Reveal({
   delay?: number;
 }) {
   const reduced = useReducedMotion();
+  const staticRender = useContext(StaticLanding);
   return (
     <motion.div
       className={className}
-      initial={reduced ? false : { opacity: 0, y: 16 }}
+      initial={reduced || staticRender ? false : { opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.35, delay, ease: [0.2, 0, 0, 1] }}
@@ -176,10 +180,14 @@ function AcceptanceExample({ onOpenDemo }: Pick<LandingProps, "onOpenDemo">) {
   );
 }
 
-export default function Landing({ onOpenDemo, onOpenModel }: LandingProps) {
+export default function Landing({
+  onOpenDemo,
+  onOpenModel,
+  staticRender = false,
+}: LandingProps) {
   const reduced = useReducedMotion();
   const entrance = (delay: number) => ({
-    initial: reduced ? (false as const) : { opacity: 0, y: 18 },
+    initial: reduced || staticRender ? (false as const) : { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
     transition: {
       duration: 0.5,
@@ -189,465 +197,479 @@ export default function Landing({ onOpenDemo, onOpenModel }: LandingProps) {
   });
 
   return (
-    <MotionConfig reducedMotion="user">
-      <div className="fp-landing" id="top">
-        <a className="lp-skip-link" href="#lp-main">
-          Skip to content
-        </a>
-        <header className="lp-header">
-          <div className="lp-nav-wrap">
-            <Brand />
-            <nav className="lp-nav" aria-label="Main navigation">
-              <a href="#how-it-works">How it works</a>
-              <a href="#the-proof">The proof</a>
-              <a href="#questions">Questions</a>
-            </nav>
-            <button type="button" className="lp-nav-cta" onClick={onOpenDemo}>
-              Open demo <ArrowUpRight size={16} />
-            </button>
-          </div>
-        </header>
+    <StaticLanding.Provider value={staticRender}>
+      <MotionConfig reducedMotion="user">
+        <div className="fp-landing" id="top">
+          <a className="lp-skip-link" href="#lp-main">
+            Skip to content
+          </a>
+          <header className="lp-header">
+            <div className="lp-nav-wrap">
+              <Brand />
+              <nav className="lp-nav" aria-label="Main navigation">
+                <a href="#how-it-works">How it works</a>
+                <a href="#the-proof">The proof</a>
+                <a href="#questions">Questions</a>
+              </nav>
+              <button type="button" className="lp-nav-cta" onClick={onOpenDemo}>
+                Open demo <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </header>
 
-        <main id="lp-main">
-          <section className="lp-hero" aria-labelledby="lp-hero-title">
-            <div className="lp-hero-inner">
-              <div className="lp-hero-copy">
-                <motion.p className="lp-eyebrow" {...entrance(0)}>
-                  <span className="lp-small-line" /> Website delivery, with
-                  receipts
-                </motion.p>
-                <motion.h1 id="lp-hero-title" {...entrance(0.05)}>
-                  Send the site.
-                  <br />
-                  <span>Show the proof.</span>
-                </motion.h1>
-                <motion.p className="lp-hero-description" {...entrance(0.18)}>
-                  Turn a client brief into approved checks, real browser
-                  evidence and a delivery report that speaks for your work.
-                </motion.p>
-                <motion.div className="lp-hero-actions" {...entrance(0.25)}>
+          <main id="lp-main">
+            <section className="lp-hero" aria-labelledby="lp-hero-title">
+              <div className="lp-hero-inner">
+                <div className="lp-hero-copy">
+                  <motion.p className="lp-eyebrow" {...entrance(0)}>
+                    <span className="lp-small-line" /> Website delivery, with
+                    receipts
+                  </motion.p>
+                  <motion.h1 id="lp-hero-title" {...entrance(0.05)}>
+                    Send the site.
+                    <br />
+                    <span>Show the proof.</span>
+                  </motion.h1>
+                  <motion.p className="lp-hero-description" {...entrance(0.18)}>
+                    Turn a client brief into approved checks, real browser
+                    evidence and a delivery report that speaks for your work.
+                  </motion.p>
+                  <motion.div className="lp-hero-actions" {...entrance(0.25)}>
+                    <button
+                      type="button"
+                      className="lp-button lp-button-primary"
+                      onClick={onOpenDemo}
+                    >
+                      Try the live demo <ArrowUpRight size={19} />
+                    </button>
+                    <a className="lp-button lp-button-quiet" href="#the-proof">
+                      See the proof <ArrowDown size={17} />
+                    </a>
+                  </motion.div>
+                  <motion.p className="lp-hero-note" {...entrance(0.32)}>
+                    Generate with Gemma. Review the checks. Run a real browser
+                    audit.
+                  </motion.p>
+                </div>
+
+                <motion.figure className="lp-hero-art" {...entrance(0.12)}>
+                  <div className="lp-hero-image-wrap">
+                    <img
+                      src="/assets/briefstamp-hero.webp"
+                      srcSet="/assets/briefstamp-hero-768.webp 768w, /assets/briefstamp-hero.webp 1536w"
+                      sizes="(max-width: 760px) 95vw, 55vw"
+                      width="1536"
+                      height="1024"
+                      fetchPriority="high"
+                      alt="Concept illustration of a website delivery report with its evidence attached."
+                    />
+                  </div>
+                  <figcaption>
+                    <span className="lp-art-index">01 /</span> A handoff, made
+                    tangible.
+                    <span className="lp-art-caption-detail">
+                      Concept illustration
+                    </span>
+                  </figcaption>
+                  <div className="lp-evidence-stamp" aria-hidden="true">
+                    <FileCheck2 size={19} />
+                    <span>
+                      Evidence
+                      <br />
+                      attached
+                    </span>
+                    <MoveUpRight size={21} />
+                  </div>
+                </motion.figure>
+              </div>
+              <div className="lp-hero-ledger">
+                <span>
+                  For the moment between <br />
+                  <strong>“It’s ready” and “Approved.”</strong>
+                </span>
+                <span>
+                  <ShieldCheck size={19} /> You approve every check
+                </span>
+                <span>
+                  <FileCheck2 size={19} /> Results stay linked to the brief
+                </span>
+                <a
+                  href="#how-it-works"
+                  aria-label="Explore how Briefstamp works"
+                >
+                  <ArrowDown size={21} />
+                </a>
+              </div>
+            </section>
+
+            <section
+              className="lp-flow-section lp-section"
+              id="how-it-works"
+              aria-labelledby="lp-flow-title"
+            >
+              <div className="lp-section-container">
+                <Reveal className="lp-section-heading">
+                  <p className="lp-eyebrow">
+                    From the first brief to the final file
+                  </p>
+                  <h2 id="lp-flow-title">
+                    Close the loop.
+                    <br />
+                    <span>Not another tab.</span>
+                  </h2>
+                  <p>
+                    One clear thread connects what was requested, what was
+                    checked and what actually happened.
+                  </p>
+                </Reveal>
+
+                <Reveal className="lp-proof-path" delay={0.08}>
+                  <div className="lp-path-line" aria-hidden="true">
+                    <svg viewBox="0 0 1000 56" preserveAspectRatio="none">
+                      <path d="M0 28H1000" />
+                      <path d="m320 20 8 8-8 8m330-16 8 8-8 8" />
+                    </svg>
+                  </div>
+                  <article className="lp-flow-step">
+                    <span className="lp-step-number">01</span>
+                    <h3>Make the brief testable.</h3>
+                    <p>
+                      Paste the requirements. Review and edit the proposed
+                      checks before anything runs.
+                    </p>
+                    <div className="lp-requirement-note">
+                      <span>Client requirement</span>
+                      <p>
+                        “The homepage must fit a mobile screen without
+                        horizontal scrolling.”
+                      </p>
+                    </div>
+                  </article>
+                  <article className="lp-flow-step">
+                    <span className="lp-step-number">02</span>
+                    <h3>Let the browser verify it.</h3>
+                    <p>
+                      Approved assertions run in Playwright. Screenshots and
+                      observed results record what the site did.
+                    </p>
+                    <div className="lp-check-note">
+                      <span>
+                        <Check size={14} /> Approved check
+                      </span>
+                      <p>
+                        Mobile layout <span>390px</span>
+                      </p>
+                      <small>Compare page width with viewport width</small>
+                    </div>
+                  </article>
+                  <article className="lp-flow-step">
+                    <span className="lp-step-number">03</span>
+                    <h3>Deliver the whole story.</h3>
+                    <p>
+                      Open a readable report with each result, its original
+                      requirement and its evidence in one place.
+                    </p>
+                    <div className="lp-delivery-note">
+                      <FileCheck2 size={29} />
+                      <div>
+                        <span>Website delivery report</span>
+                        <small>Requirement · Observation · Evidence</small>
+                      </div>
+                      <ArrowUpRight size={18} />
+                    </div>
+                  </article>
+                </Reveal>
+              </div>
+            </section>
+
+            <section
+              className="lp-proof-section lp-section"
+              id="the-proof"
+              aria-labelledby="lp-proof-title"
+            >
+              <div className="lp-section-container lp-proof-layout">
+                <Reveal className="lp-proof-copy">
+                  <p className="lp-eyebrow">A pass should mean something</p>
+                  <h2 id="lp-proof-title">
+                    The difference
+                    <br />
+                    is in the <span>evidence.</span>
+                  </h2>
+                  <p>
+                    A changed headline. Missing image text. A page wider than a
+                    phone. See what happens when an intentionally broken sample
+                    meets the same checks.
+                  </p>
+                  <div className="lp-proof-callout">
+                    <CircleDashed size={22} />
+                    <p>
+                      Some things need a person.
+                      <br />
+                      <span>
+                        “Feels trustworthy” stays unverified until a human
+                        reviews it. It never becomes an automatic pass.
+                      </span>
+                    </p>
+                  </div>
+                  <a
+                    className="lp-text-link"
+                    href="https://github.com/himanshu748/flowproof-web/actions"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Inspect the real audit workflow <ArrowUpRight size={17} />
+                  </a>
+                </Reveal>
+                <Reveal className="lp-proof-demo" delay={0.08}>
+                  <AcceptanceExample onOpenDemo={onOpenDemo} />
+                </Reveal>
+              </div>
+            </section>
+
+            <section
+              className="lp-accountability-section lp-section"
+              aria-labelledby="lp-accountability-title"
+            >
+              <div className="lp-section-container">
+                <Reveal className="lp-accountability-heading">
+                  <div>
+                    <p className="lp-eyebrow">Built in the open</p>
+                    <h2 id="lp-accountability-title">
+                      Honest software.
+                      <br />
+                      <span>Including the small print.</span>
+                    </h2>
+                  </div>
+                  <p>
+                    Briefstamp is a working MVP. The browser audit is real.
+                    Research results and infrastructure limits are visible, too.
+                  </p>
+                </Reveal>
+                <Reveal className="lp-capability-list">
+                  <article>
+                    <div>
+                      <span className="lp-capability-state lp-state-working">
+                        <Check size={13} /> Working
+                      </span>
+                      <h3>Real checks. Real reports.</h3>
+                    </div>
+                    <p>
+                      Playwright execution, screenshots, result reports and
+                      GitHub Actions audits work today. Audit this real public
+                      landing page or compare the healthy and broken synthetic
+                      samples. Browser checks are read only, with page scripts
+                      disabled.
+                    </p>
+                    <button
+                      type="button"
+                      className="lp-text-link"
+                      onClick={onOpenDemo}
+                    >
+                      Open workspace <ArrowUpRight size={17} />
+                    </button>
+                  </article>
+                  <article>
+                    <div>
+                      <span className="lp-capability-state lp-state-research">
+                        Open model, reviewed by you
+                      </span>
+                      <h3>AI that shows its work.</h3>
+                    </div>
+                    <p>
+                      Open the sample and choose Generate with Gemma to request
+                      a fresh plan from Google's open-weight model. You review
+                      its checks before the browser runs. Saved Tinker
+                      experiments separately measure a token-cost and accuracy
+                      tradeoff.
+                    </p>
+                    <a
+                      className="lp-text-link"
+                      href="https://github.com/himanshu748/flowproof-web/blob/main/docs/PUBLIC_GEMMA.md"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      How live Gemma works <ArrowUpRight size={17} />
+                    </a>
+                    <button
+                      type="button"
+                      className="lp-text-link"
+                      onClick={onOpenModel}
+                    >
+                      Read model results <ArrowUpRight size={17} />
+                    </button>
+                  </article>
+                  <article>
+                    <div>
+                      <span className="lp-capability-state lp-state-research">
+                        Hosted trial verified
+                      </span>
+                      <h3>Persistence, tested honestly.</h3>
+                    </div>
+                    <p>
+                      The hosted demo saves audit results to a dedicated Tiger
+                      Data trial with verified TLS and session-scoped keyword
+                      retrieval. Access expires October 20. Sessions last up to
+                      30 minutes; screenshots remain temporary files.
+                    </p>
+                    <a
+                      className="lp-text-link"
+                      href="https://github.com/himanshu748/flowproof-web/blob/main/docs/TIGER_VERIFICATION.md"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Read the evidence <ArrowUpRight size={17} />
+                    </a>
+                  </article>
+                </Reveal>
+              </div>
+            </section>
+
+            <section
+              className="lp-faq-section lp-section"
+              id="questions"
+              aria-labelledby="lp-faq-title"
+            >
+              <div className="lp-section-container lp-faq-layout">
+                <Reveal>
+                  <p className="lp-eyebrow">Before the handoff</p>
+                  <h2 id="lp-faq-title">
+                    Good questions.
+                    <br />
+                    <span>Clear answers.</span>
+                  </h2>
+                  <p className="lp-faq-intro">
+                    A little context before you open the workspace.
+                  </p>
+                </Reveal>
+                <div className="lp-faq-list">
+                  <details>
+                    <summary>
+                      Can I test my client’s website?
+                      <ChevronDown size={19} />
+                    </summary>
+                    <p>
+                      In the public workspace, choose “Audit this live site” to
+                      check Briefstamp’s real landing page, which its owner has
+                      authorized, or use the synthetic samples. Private setup
+                      supports other authorized public websites. Scripts are
+                      disabled, so JavaScript-only flows are outside this audit.
+                      Only audit a site you own or have permission to test.
+                    </p>
+                  </details>
+                  <details>
+                    <summary>
+                      Will it submit forms or change my site?
+                      <ChevronDown size={19} />
+                    </summary>
+                    <p>
+                      No. Approved checks inspect visible text, headings, links,
+                      image alternative text and mobile overflow. Form
+                      submissions, purchases and destructive browser actions are
+                      outside the supported checks.
+                    </p>
+                  </details>
+                  <details>
+                    <summary>
+                      Does a passed report guarantee everything works?
+                      <ChevronDown size={19} />
+                    </summary>
+                    <p>
+                      A pass means the specific approved assertion ran and
+                      matched its expected result. It does not certify an entire
+                      website. Unsupported, blocked and subjective requirements
+                      remain clearly separate from passed checks.
+                    </p>
+                  </details>
+                  <details>
+                    <summary>
+                      Can I keep the delivery report?
+                      <ChevronDown size={19} />
+                    </summary>
+                    <p>
+                      Yes. Download the report with screenshot evidence from the
+                      workspace. Public demo sessions are temporary, so save
+                      your report before leaving.
+                    </p>
+                  </details>
+                  <details>
+                    <summary>
+                      What does it cost to try?
+                      <ChevronDown size={19} />
+                    </summary>
+                    <p>
+                      The public sample demo is free and requires no payment
+                      details. Commercial pricing has not launched. The current
+                      project uses confirmed free resources and a bounded
+                      research pilot.
+                    </p>
+                  </details>
+                </div>
+              </div>
+            </section>
+
+            <section
+              className="lp-final-section"
+              aria-labelledby="lp-final-title"
+            >
+              <div className="lp-section-container lp-final-inner">
+                <Reveal>
+                  <p className="lp-eyebrow">
+                    Make the next handoff a clear one
+                  </p>
+                  <h2 id="lp-final-title">
+                    Good work deserves
+                    <br />
+                    <span>a better handoff.</span>
+                  </h2>
                   <button
                     type="button"
-                    className="lp-button lp-button-primary"
+                    className="lp-button lp-button-white"
                     onClick={onOpenDemo}
                   >
-                    Try the live demo <ArrowUpRight size={19} />
+                    Try Briefstamp <ArrowUpRight size={19} />
                   </button>
-                  <a className="lp-button lp-button-quiet" href="#the-proof">
-                    See the proof <ArrowDown size={17} />
-                  </a>
-                </motion.div>
-                <motion.p className="lp-hero-note" {...entrance(0.32)}>
-                  Generate with Gemma. Review the checks. Run a real browser
-                  audit.
-                </motion.p>
+                  <p className="lp-final-note">
+                    A live website or a safe sample. A real browser. Your
+                    approval.
+                  </p>
+                </Reveal>
+                <div className="lp-final-mark" aria-hidden="true">
+                  <FileCheck2 strokeWidth={0.8} />
+                </div>
               </div>
+            </section>
+          </main>
 
-              <motion.figure className="lp-hero-art" {...entrance(0.12)}>
-                <div className="lp-hero-image-wrap">
-                  <img
-                    src="/assets/briefstamp-hero.webp"
-                    srcSet="/assets/briefstamp-hero-768.webp 768w, /assets/briefstamp-hero.webp 1536w"
-                    sizes="(max-width: 760px) 95vw, 55vw"
-                    width="1536"
-                    height="1024"
-                    fetchPriority="high"
-                    alt=""
-                  />
-                </div>
-                <figcaption>
-                  <span className="lp-art-index">01 /</span> A handoff, made
-                  tangible.
-                  <span className="lp-art-caption-detail">
-                    Concept illustration
-                  </span>
-                </figcaption>
-                <div className="lp-evidence-stamp" aria-hidden="true">
-                  <FileCheck2 size={19} />
-                  <span>
-                    Evidence
-                    <br />
-                    attached
-                  </span>
-                  <MoveUpRight size={21} />
-                </div>
-              </motion.figure>
-            </div>
-            <div className="lp-hero-ledger">
-              <span>
-                For the moment between <br />
-                <strong>“It’s ready” and “Approved.”</strong>
-              </span>
-              <span>
-                <ShieldCheck size={19} /> You approve every check
-              </span>
-              <span>
-                <FileCheck2 size={19} /> Results stay linked to the brief
-              </span>
-              <a href="#how-it-works" aria-label="Explore how Briefstamp works">
-                <ArrowDown size={21} />
-              </a>
-            </div>
-          </section>
-
-          <section
-            className="lp-flow-section lp-section"
-            id="how-it-works"
-            aria-labelledby="lp-flow-title"
-          >
-            <div className="lp-section-container">
-              <Reveal className="lp-section-heading">
-                <p className="lp-eyebrow">
-                  From the first brief to the final file
-                </p>
-                <h2 id="lp-flow-title">
-                  Close the loop.
-                  <br />
-                  <span>Not another tab.</span>
-                </h2>
-                <p>
-                  One clear thread connects what was requested, what was checked
-                  and what actually happened.
-                </p>
-              </Reveal>
-
-              <Reveal className="lp-proof-path" delay={0.08}>
-                <div className="lp-path-line" aria-hidden="true">
-                  <svg viewBox="0 0 1000 56" preserveAspectRatio="none">
-                    <path d="M0 28H1000" />
-                    <path d="m320 20 8 8-8 8m330-16 8 8-8 8" />
-                  </svg>
-                </div>
-                <article className="lp-flow-step">
-                  <span className="lp-step-number">01</span>
-                  <h3>Make the brief testable.</h3>
-                  <p>
-                    Paste the requirements. Review and edit the proposed checks
-                    before anything runs.
-                  </p>
-                  <div className="lp-requirement-note">
-                    <span>Client requirement</span>
-                    <p>
-                      “The homepage must fit a mobile screen without horizontal
-                      scrolling.”
-                    </p>
-                  </div>
-                </article>
-                <article className="lp-flow-step">
-                  <span className="lp-step-number">02</span>
-                  <h3>Let the browser verify it.</h3>
-                  <p>
-                    Approved assertions run in Playwright. Screenshots and
-                    observed results record what the site did.
-                  </p>
-                  <div className="lp-check-note">
-                    <span>
-                      <Check size={14} /> Approved check
-                    </span>
-                    <p>
-                      Mobile layout <span>390px</span>
-                    </p>
-                    <small>Compare page width with viewport width</small>
-                  </div>
-                </article>
-                <article className="lp-flow-step">
-                  <span className="lp-step-number">03</span>
-                  <h3>Deliver the whole story.</h3>
-                  <p>
-                    Open a readable report with each result, its original
-                    requirement and its evidence in one place.
-                  </p>
-                  <div className="lp-delivery-note">
-                    <FileCheck2 size={29} />
-                    <div>
-                      <span>Website delivery report</span>
-                      <small>Requirement · Observation · Evidence</small>
-                    </div>
-                    <ArrowUpRight size={18} />
-                  </div>
-                </article>
-              </Reveal>
-            </div>
-          </section>
-
-          <section
-            className="lp-proof-section lp-section"
-            id="the-proof"
-            aria-labelledby="lp-proof-title"
-          >
-            <div className="lp-section-container lp-proof-layout">
-              <Reveal className="lp-proof-copy">
-                <p className="lp-eyebrow">A pass should mean something</p>
-                <h2 id="lp-proof-title">
-                  The difference
-                  <br />
-                  is in the <span>evidence.</span>
-                </h2>
-                <p>
-                  A changed headline. Missing image text. A page wider than a
-                  phone. See what happens when an intentionally broken sample
-                  meets the same checks.
-                </p>
-                <div className="lp-proof-callout">
-                  <CircleDashed size={22} />
-                  <p>
-                    Some things need a person.
-                    <br />
-                    <span>
-                      “Feels trustworthy” stays unverified until a human reviews
-                      it. It never becomes an automatic pass.
-                    </span>
-                  </p>
-                </div>
+          <footer className="lp-footer">
+            <div className="lp-section-container lp-footer-inner">
+              <div>
+                <Brand />
+                <p>From client brief to delivery proof.</p>
+              </div>
+              <div className="lp-footer-links">
+                <button type="button" onClick={onOpenModel}>
+                  Model lab <ArrowUpRight size={14} />
+                </button>
                 <a
-                  className="lp-text-link"
-                  href="https://github.com/himanshu748/flowproof-web/actions"
+                  href="https://github.com/himanshu748/flowproof-web"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Inspect the real audit workflow <ArrowUpRight size={17} />
+                  <Github size={16} /> View source
                 </a>
-              </Reveal>
-              <Reveal className="lp-proof-demo" delay={0.08}>
-                <AcceptanceExample onOpenDemo={onOpenDemo} />
-              </Reveal>
-            </div>
-          </section>
-
-          <section
-            className="lp-accountability-section lp-section"
-            aria-labelledby="lp-accountability-title"
-          >
-            <div className="lp-section-container">
-              <Reveal className="lp-accountability-heading">
-                <div>
-                  <p className="lp-eyebrow">Built in the open</p>
-                  <h2 id="lp-accountability-title">
-                    Honest software.
-                    <br />
-                    <span>Including the small print.</span>
-                  </h2>
-                </div>
-                <p>
-                  Briefstamp is a working MVP. The browser audit is real.
-                  Research results and infrastructure limits are visible, too.
-                </p>
-              </Reveal>
-              <Reveal className="lp-capability-list">
-                <article>
-                  <div>
-                    <span className="lp-capability-state lp-state-working">
-                      <Check size={13} /> Working
-                    </span>
-                    <h3>Real checks. Real reports.</h3>
-                  </div>
-                  <p>
-                    Playwright execution, screenshots, result reports and GitHub
-                    Actions audits work today. Public demo sessions use
-                    temporary storage.
-                  </p>
-                  <button
-                    type="button"
-                    className="lp-text-link"
-                    onClick={onOpenDemo}
-                  >
-                    Open workspace <ArrowUpRight size={17} />
-                  </button>
-                </article>
-                <article>
-                  <div>
-                    <span className="lp-capability-state lp-state-research">
-                      Open model, reviewed by you
-                    </span>
-                    <h3>AI that shows its work.</h3>
-                  </div>
-                  <p>
-                    Open the sample and choose Generate with Gemma to request a
-                    fresh plan from Google's open-weight model. You review its
-                    checks before the browser runs. Saved Tinker experiments
-                    separately measure a token-cost and accuracy tradeoff.
-                  </p>
-                  <a
-                    className="lp-text-link"
-                    href="https://github.com/himanshu748/flowproof-web/blob/main/docs/PUBLIC_GEMMA.md"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    How live Gemma works <ArrowUpRight size={17} />
-                  </a>
-                  <button
-                    type="button"
-                    className="lp-text-link"
-                    onClick={onOpenModel}
-                  >
-                    Read model results <ArrowUpRight size={17} />
-                  </button>
-                </article>
-                <article>
-                  <div>
-                    <span className="lp-capability-state lp-state-research">
-                      Isolated trial verified
-                    </span>
-                    <h3>Persistence, tested honestly.</h3>
-                  </div>
-                  <p>
-                    A temporary Tiger Data trial verified saving, recovery and
-                    failure retrieval, then was cleaned up. Permanent hosted
-                    storage is still pending.
-                  </p>
-                  <a
-                    className="lp-text-link"
-                    href="https://github.com/himanshu748/flowproof-web/blob/main/docs/TIGER_VERIFICATION.md"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Read the evidence <ArrowUpRight size={17} />
-                  </a>
-                </article>
-              </Reveal>
-            </div>
-          </section>
-
-          <section
-            className="lp-faq-section lp-section"
-            id="questions"
-            aria-labelledby="lp-faq-title"
-          >
-            <div className="lp-section-container lp-faq-layout">
-              <Reveal>
-                <p className="lp-eyebrow">Before the handoff</p>
-                <h2 id="lp-faq-title">
-                  Good questions.
-                  <br />
-                  <span>Clear answers.</span>
-                </h2>
-                <p className="lp-faq-intro">
-                  A little context before you open the workspace.
-                </p>
-              </Reveal>
-              <div className="lp-faq-list">
-                <details>
-                  <summary>
-                    Can I test my client’s website?
-                    <ChevronDown size={19} />
-                  </summary>
-                  <p>
-                    The public demo uses a synthetic website to keep visitors
-                    and sites safe. Private setup supports authorized public
-                    websites with network protections. Only audit a site you own
-                    or have permission to test.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Will it submit forms or change my site?
-                    <ChevronDown size={19} />
-                  </summary>
-                  <p>
-                    No. Approved checks inspect visible text, headings, links,
-                    image alternative text and mobile overflow. Form
-                    submissions, purchases and destructive browser actions are
-                    outside the supported checks.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Does a passed report guarantee everything works?
-                    <ChevronDown size={19} />
-                  </summary>
-                  <p>
-                    A pass means the specific approved assertion ran and matched
-                    its expected result. It does not certify an entire website.
-                    Unsupported, blocked and subjective requirements remain
-                    clearly separate from passed checks.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    Can I keep the delivery report?
-                    <ChevronDown size={19} />
-                  </summary>
-                  <p>
-                    Yes. Download the report with screenshot evidence from the
-                    workspace. Public demo sessions are temporary, so save your
-                    report before leaving.
-                  </p>
-                </details>
-                <details>
-                  <summary>
-                    What does it cost to try?
-                    <ChevronDown size={19} />
-                  </summary>
-                  <p>
-                    The public sample demo is free and requires no payment
-                    details. Commercial pricing has not launched. The current
-                    project uses confirmed free resources and a bounded research
-                    pilot.
-                  </p>
-                </details>
+                <a href="#top">
+                  Back to top <ArrowRight size={14} className="lp-up-arrow" />
+                </a>
               </div>
+              <p className="lp-footer-small">
+                An independent open-source project.
+                <br />
+                Built for thoughtful website delivery.
+              </p>
             </div>
-          </section>
-
-          <section
-            className="lp-final-section"
-            aria-labelledby="lp-final-title"
-          >
-            <div className="lp-section-container lp-final-inner">
-              <Reveal>
-                <p className="lp-eyebrow">Make the next handoff a clear one</p>
-                <h2 id="lp-final-title">
-                  Good work deserves
-                  <br />
-                  <span>a better handoff.</span>
-                </h2>
-                <button
-                  type="button"
-                  className="lp-button lp-button-white"
-                  onClick={onOpenDemo}
-                >
-                  Try Briefstamp <ArrowUpRight size={19} />
-                </button>
-                <p className="lp-final-note">
-                  A safe sample. A real browser. Your call on the results.
-                </p>
-              </Reveal>
-              <div className="lp-final-mark" aria-hidden="true">
-                <FileCheck2 strokeWidth={0.8} />
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <footer className="lp-footer">
-          <div className="lp-section-container lp-footer-inner">
-            <div>
-              <Brand />
-              <p>From client brief to delivery proof.</p>
-            </div>
-            <div className="lp-footer-links">
-              <button type="button" onClick={onOpenModel}>
-                Model lab <ArrowUpRight size={14} />
-              </button>
-              <a
-                href="https://github.com/himanshu748/flowproof-web"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github size={16} /> View source
-              </a>
-              <a href="#top">
-                Back to top <ArrowRight size={14} className="lp-up-arrow" />
-              </a>
-            </div>
-            <p className="lp-footer-small">
-              An independent open-source project.
-              <br />
-              Built for thoughtful website delivery.
-            </p>
-          </div>
-        </footer>
-      </div>
-    </MotionConfig>
+          </footer>
+        </div>
+      </MotionConfig>
+    </StaticLanding.Provider>
   );
 }

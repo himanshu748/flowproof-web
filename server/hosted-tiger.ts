@@ -4,6 +4,10 @@ import type { Audit } from "../shared/types.js";
 import { redact } from "../shared/redact.js";
 import { databaseConfig } from "./database.js";
 import { CheckSchema, isSafePath } from "./schema.js";
+import {
+  HOSTED_WEBSITE_URL,
+  HOSTED_WEBSITE_BRIEF,
+} from "../shared/hosted-target.js";
 
 const CUTOFF = Date.parse("2026-10-20T00:00:00Z");
 const TTL_MS = 30 * 60_000;
@@ -24,6 +28,8 @@ const ownSample = (value: string) => {
     return false;
   }
 };
+const ownEvidence = (value: string) =>
+  ownSample(value) || value === HOSTED_WEBSITE_URL;
 const kind = CheckSchema.innerType().shape.kind;
 const generatorSchema = z
   .object({
@@ -64,8 +70,8 @@ const auditSchema = z
     summary: z.string().max(6000).optional(),
     source: z
       .object({
-        target: z.literal("sample"),
-        url: z.string().refine(ownSample),
+        target: z.enum(["sample", "website"]),
+        url: z.string().refine(ownEvidence),
         sampleVariant: z.enum(["healthy", "broken"]),
         brief: z.string().max(12000),
         generator: generatorSchema,
@@ -85,7 +91,7 @@ const auditSchema = z
               .object({
                 observed: z.string().max(6000),
                 dom: z.string().max(6000).optional(),
-                url: z.string().refine(ownSample),
+                url: z.string().refine(ownEvidence),
                 screenshot: z.string().max(180).optional(),
                 viewport: z
                   .object({
@@ -150,7 +156,7 @@ function connection(env: NodeJS.ProcessEnv, now: number) {
     idleTimeoutMillis: 10_000,
     statement_timeout: 5000,
     query_timeout: 5500,
-    application_name: "briefstamp-public-synthetic",
+    application_name: "briefstamp-public-audit",
   };
 }
 
@@ -168,8 +174,21 @@ export function hostedTigerEnabled(
 
 function normalizedAudit(value: unknown, now: number): Audit {
   if (Buffer.byteLength(JSON.stringify(value)) > 2 * 1024 * 1024)
-    throw new Error("The synthetic audit exceeds its storage limit.");
+    throw new Error("The public audit exceeds its storage limit.");
   const audit = auditSchema.parse(value);
+  const website = audit.source.target === "website";
+  if (
+    website
+      ? audit.source.url !== HOSTED_WEBSITE_URL ||
+        audit.source.brief !== HOSTED_WEBSITE_BRIEF ||
+        audit.checks.some((check) => check.path !== "/") ||
+        audit.results.some(
+          (result) => result.evidence.url !== HOSTED_WEBSITE_URL,
+        )
+      : !ownSample(audit.source.url) ||
+        audit.results.some((result) => !ownSample(result.evidence.url))
+  )
+    throw new Error("The public audit must match its fixed authorized target.");
   if (
     Date.parse(audit.createdAt) <= now - TTL_MS ||
     Date.parse(audit.createdAt) > now ||
@@ -177,7 +196,7 @@ function normalizedAudit(value: unknown, now: number): Audit {
     Date.parse(audit.completedAt) > now
   )
     throw new Error(
-      "Only a current completed synthetic audit can be stored or retrieved.",
+      "Only a current completed public audit can be stored or retrieved.",
     );
   const text = (value: string) => redact(value);
   audit.projectName = text(audit.projectName);
@@ -201,7 +220,7 @@ function normalizedAudit(value: unknown, now: number): Audit {
       audit.results.length
   )
     throw new Error(
-      "The synthetic audit must contain one result per unique check.",
+      "The public audit must contain one result per unique check.",
     );
   for (const result of audit.results) {
     result.requirement = text(result.requirement);
@@ -219,7 +238,7 @@ function normalizedAudit(value: unknown, now: number): Audit {
         : !check.approved)
     )
       throw new Error(
-        "The synthetic audit result does not match its approved check.",
+        "The public audit result does not match its approved check.",
       );
     if (
       result.evidence.screenshot &&
@@ -228,7 +247,7 @@ function normalizedAudit(value: unknown, now: number): Audit {
       )
     )
       throw new Error(
-        "Only a reference to this synthetic audit's screenshot is permitted.",
+        "Only a reference to this public audit's screenshot is permitted.",
       );
   }
   return audit;
@@ -295,7 +314,7 @@ export function createHostedTigerStore(
       if (!result.rows.length) return null;
       const audit = normalizedAudit(result.rows[0].payload, now());
       if (audit.id !== auditId)
-        throw new Error("The stored synthetic audit identity is invalid.");
+        throw new Error("The stored public audit identity is invalid.");
       return audit;
     },
     async searchFailures(

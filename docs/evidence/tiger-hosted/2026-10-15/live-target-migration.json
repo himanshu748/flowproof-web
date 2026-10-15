@@ -1,0 +1,26 @@
+{
+  "startedAt": "2026-10-15T11:53:07.423Z",
+  "status": "migrated",
+  "service": "briefstamp-evidence",
+  "scope": "Narrow existing dedicated audit table to synthetic origin or the exact owner-authorized live Briefstamp homepage; unchanged runtime role, grants and billing.",
+  "fieldIssueChanges": 0,
+  "billingChanges": 0,
+  "credentialChanges": 0,
+  "strictTlsVerified": true,
+  "previousConstraint": {
+    "conname": "audits_payload_check2",
+    "definition": "CHECK ((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'sample'::text)))"
+  },
+  "runtimePrivileges": {
+    "can_read": true,
+    "can_insert": true,
+    "can_update": false,
+    "can_delete": false,
+    "can_create": false
+  },
+  "constraint": {
+    "convalidated": true,
+    "definition": "CHECK ((((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'sample'::text)) AND (((payload -> 'source'::text) ->> 'url'::text) ~~ 'https://sample.flowproof.test/%'::text)) OR ((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'website'::text)) AND (NOT (((payload -> 'source'::text) ->> 'url'::text) IS DISTINCT FROM 'https://flowproof-demo.onrender.com/'::text)))))"
+  },
+  "completedAt": "2026-10-15T11:53:13.881Z"
+}

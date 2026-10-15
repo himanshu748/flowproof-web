@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
+import { HOSTED_WEBSITE_BRIEF } from "../shared/hosted-target.js";
 import {
   generateGoogleGemmaProposal,
   type GoogleGemmaProposalResult,
@@ -55,7 +56,13 @@ export async function executeGemmaWorkflow(
     observability
       ? observability.traceOperation(
           name,
-          { target: "sample", checkCount: input.requirements.length },
+          {
+            target:
+              input.requirements.join("\n") === HOSTED_WEBSITE_BRIEF
+                ? "website"
+                : "sample",
+            checkCount: input.requirements.length,
+          },
           task,
         )
       : task();

@@ -57,6 +57,11 @@ import type {
   CheckResult,
   Project,
 } from "../shared/types";
+import {
+  HOSTED_WEBSITE_BRIEF,
+  HOSTED_WEBSITE_PRESET,
+  HOSTED_WEBSITE_URL,
+} from "../shared/hosted-target";
 import "./styles.css";
 import Landing from "./Landing";
 import { AuditComparison } from "./AuditComparison";
@@ -175,6 +180,70 @@ function Empty({
     </div>
   );
 }
+function LiveSitePreset({
+  busy,
+  onCreate,
+  compact = false,
+}: {
+  busy: string;
+  onCreate: () => void;
+  compact?: boolean;
+}) {
+  const titleId = compact ? "review-live-site-title" : "live-site-preset-title";
+  return (
+    <section
+      className={`live-site-preset${compact ? " live-site-preset-compact" : ""}`}
+      aria-labelledby={titleId}
+    >
+      <span className="live-site-preset-icon" aria-hidden="true">
+        <Globe2 size={compact ? 22 : 25} strokeWidth={1.6} />
+      </span>
+      <div className="live-site-preset-copy">
+        {!compact && (
+          <span className="section-kicker">A REAL PUBLIC WEBSITE</span>
+        )}
+        <h2 id={titleId}>
+          {compact
+            ? "Ready to test a real website?"
+            : "Put Briefstamp to its own test."}
+        </h2>
+        <p>
+          Review Briefstamp's published brief, approve the checks, then capture
+          evidence from our live landing page.
+        </p>
+        <a
+          href={HOSTED_WEBSITE_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="live-site-preset-url"
+        >
+          {new URL(HOSTED_WEBSITE_URL).hostname}
+          <ExternalLink size={13} aria-hidden="true" />
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+        <p className="live-site-preset-scope">
+          Owner-authorized site. Real network browser checks, with page scripts
+          disabled. Other client websites require your own private workspace.
+        </p>
+      </div>
+      <button
+        type="button"
+        className="button primary live-site-preset-action"
+        disabled={!!busy}
+        onClick={onCreate}
+      >
+        {busy === "create-live" ? (
+          <LoaderCircle size={17} className="spin" />
+        ) : (
+          <ArrowUpRight size={17} />
+        )}
+        {busy === "create-live"
+          ? "Preparing the plan…"
+          : "Audit this live site"}
+      </button>
+    </section>
+  );
+}
 function EvidenceImage({ path, alt }: { path: string; alt: string }) {
   const [url, setUrl] = useState("");
   const [error, setError] = useState(false);
@@ -281,6 +350,14 @@ function App({
   const demo = data?.demo;
   const project =
     data?.projects.find((p) => p.id === projectId) || data?.projects[0];
+  const hostedWebsiteProject =
+    project?.target === "website" && project.url === HOSTED_WEBSITE_URL;
+  const gemmaBriefAllowed =
+    (project?.target === "sample" &&
+      project.brief === demo?.gemma?.sampleBrief) ||
+    (hostedWebsiteProject && project.brief === HOSTED_WEBSITE_BRIEF);
+  const tinkerBriefAllowed =
+    project?.target === "sample" && project.brief === demo?.tinker?.sampleBrief;
   const audit =
     data?.audits.find((a) => a.id === auditId) ||
     data?.audits.find((a) => a.projectId === project?.id) ||
@@ -334,6 +411,10 @@ function App({
       setDirty(false);
     }
   }, [project?.id, project?.updatedAt]);
+  useEffect(() => {
+    setGemmaConsent(false);
+    setTinkerConsent(false);
+  }, [project?.id, project?.brief, project?.target]);
   useEffect(() => {
     if (!notice) return;
     const timer = setTimeout(() => setNotice(""), 4500);
@@ -392,6 +473,31 @@ function App({
     setAuditId("");
     navigate(next);
   };
+  const openCreatedProject = (created: Project) => {
+    setData((current) =>
+      current
+        ? {
+            ...current,
+            projects: [
+              created,
+              ...current.projects.filter((item) => item.id !== created.id),
+            ],
+          }
+        : current,
+    );
+    setCreateOpen(false);
+    setProjectId(created.id);
+    setAuditId("");
+    navigate("review");
+    setNotice("Project created. Review and approve the checks before running.");
+  };
+  const createLiveWebsiteProject = () =>
+    perform("create-live", async () => {
+      const created = await api<Project>("/projects/preset", "POST", {
+        preset: HOSTED_WEBSITE_PRESET.id,
+      });
+      openCreatedProject(created);
+    });
   const updateProject = (next: Project) => {
     setData((current) =>
       current
@@ -745,6 +851,12 @@ function App({
                         New project
                       </button>
                     </div>
+                    {demo?.enabled && (
+                      <LiveSitePreset
+                        busy={busy}
+                        onCreate={createLiveWebsiteProject}
+                      />
+                    )}
                     {view === "overview" && (
                       <>
                         <section className="welcome-panel">
@@ -772,7 +884,7 @@ function App({
                               className="button dark"
                               onClick={() => project && chooseProject(project)}
                             >
-                              {allAudits.length
+                              {allAudits.length || project?.target === "website"
                                 ? "Open test plan"
                                 : "Explore the sample project"}
                               <ArrowRight size={16} />
@@ -1149,6 +1261,13 @@ function App({
                         </button>
                       </div>
                     </div>
+                    {demo?.enabled && project.target === "sample" && (
+                      <LiveSitePreset
+                        busy={busy}
+                        onCreate={createLiveWebsiteProject}
+                        compact
+                      />
+                    )}
                     <div className="flow-strip">
                       <span className="done">
                         <Check size={14} />
@@ -1173,7 +1292,11 @@ function App({
                           <div className="panel-heading">
                             <h2>
                               <FileText size={18} />
-                              Client brief
+                              {hostedWebsiteProject
+                                ? "Public website brief"
+                                : demo?.enabled
+                                  ? "Example brief"
+                                  : "Client brief"}
                             </h2>
                             <span className="tag">SOURCE OF TRUTH</span>
                           </div>
@@ -1189,11 +1312,14 @@ function App({
                                 <span className="tag">LIVE AI</span>
                               </div>
                               <p>
-                                Gemma 4 can turn the original sample brief into
-                                a fresh plan. Every generated check starts
+                                Gemma 4 can turn{" "}
+                                {hostedWebsiteProject
+                                  ? "this public website brief"
+                                  : "the original sample brief"}{" "}
+                                into a fresh plan. Every generated check starts
                                 unapproved. Your current plan will be replaced.
                               </p>
-                              {project.brief === demo.gemma.sampleBrief ? (
+                              {gemmaBriefAllowed ? (
                                 <>
                                   <label className="live-gemma-consent">
                                     <input
@@ -1205,7 +1331,10 @@ function App({
                                       disabled={!!busy || !demo.gemma.available}
                                     />
                                     <span>
-                                      Use Google-hosted Gemma for this synthetic
+                                      Use Google-hosted Gemma for this{" "}
+                                      {hostedWebsiteProject
+                                        ? "public website"
+                                        : "synthetic"}{" "}
                                       brief. Google may use free-tier inputs to
                                       improve its products. No client text is
                                       sent.
@@ -1253,13 +1382,13 @@ function App({
                                       ? "Live Gemma is currently unavailable. Your labelled rule-based draft remains usable."
                                       : dirty
                                         ? "Save your edited plan before replacing it."
-                                        : "Free sample requests are limited. Generation does not run an audit."}
+                                        : "Free demo requests are limited. Generation does not run an audit."}
                                   </p>
                                 </>
                               ) : (
                                 <p className="field-help">
-                                  Live AI accepts only the original sample
-                                  brief. Open a fresh demo session to try it.
+                                  Live AI accepts only the original sample brief
+                                  or the preconfigured Briefstamp website brief.
                                   Your edited brief stays with the rule-based
                                   parser.
                                 </p>
@@ -1286,7 +1415,11 @@ function App({
                                   onChange={(event) =>
                                     setTinkerConsent(event.target.checked)
                                   }
-                                  disabled={!!busy || !demo.tinker.available}
+                                  disabled={
+                                    !!busy ||
+                                    !demo.tinker.available ||
+                                    !tinkerBriefAllowed
+                                  }
                                 />
                                 <span>
                                   Send the original synthetic sample brief to
@@ -1301,7 +1434,7 @@ function App({
                                   dirty ||
                                   !tinkerConsent ||
                                   !demo.tinker.available ||
-                                  project.brief !== demo.tinker.sampleBrief ||
+                                  !tinkerBriefAllowed ||
                                   !sessionStorage.getItem(tokenKey)
                                 }
                                 onClick={() =>
@@ -1330,17 +1463,21 @@ function App({
                                   : "Generate with Tinker"}
                               </button>
                               <p className="field-help">
-                                {!demo.tinker.available
-                                  ? "The hosted sampler is unavailable or its credit confirmation expired."
-                                  : !sessionStorage.getItem(tokenKey)
-                                    ? "Save and verify your operator token in Connections first."
-                                    : "A two-request experiment allowance applies. No automatic retries."}
+                                {!tinkerBriefAllowed
+                                  ? "The Tinker experiment accepts only the original synthetic sample brief. Use Gemma or the reviewed fixed checks for this website."
+                                  : !demo.tinker.available
+                                    ? "The hosted sampler is unavailable or its credit confirmation expired."
+                                    : !sessionStorage.getItem(tokenKey)
+                                      ? "Save and verify your operator token in Connections first."
+                                      : "A two-request experiment allowance applies. No automatic retries."}
                               </p>
                             </details>
                           )}
                           <details className="brief-editor">
                             <summary>
-                              Edit brief and regenerate checks{" "}
+                              {demo?.enabled && hostedWebsiteProject
+                                ? "Regenerate the fixed website plan"
+                                : "Edit brief and regenerate checks"}{" "}
                               <ChevronDown size={14} />
                             </summary>
                             <form
@@ -1352,7 +1489,12 @@ function App({
                                     await api<Project>(
                                       `/projects/${project.id}/generate`,
                                       "POST",
-                                      { brief: form.get("brief") },
+                                      {
+                                        brief:
+                                          demo?.enabled && hostedWebsiteProject
+                                            ? HOSTED_WEBSITE_BRIEF
+                                            : form.get("brief"),
+                                      },
                                     ),
                                   );
                                   setNotice(
@@ -1362,14 +1504,27 @@ function App({
                               }}
                             >
                               <label>
-                                Updated requirements
+                                {demo?.enabled && hostedWebsiteProject
+                                  ? "Owner-approved website brief"
+                                  : "Updated requirements"}
                                 <textarea
+                                  key={project.id}
                                   name="brief"
                                   defaultValue={project.brief}
+                                  readOnly={
+                                    !!demo?.enabled && hostedWebsiteProject
+                                  }
                                   rows={5}
                                   required
                                 />
                               </label>
+                              {demo?.enabled && hostedWebsiteProject && (
+                                <p className="field-help">
+                                  The public demo keeps this website brief fixed
+                                  to the owner's authorized homepage. You can
+                                  review and edit the checks before approving.
+                                </p>
+                              )}
                               <p className="field-help">
                                 Regenerating replaces the current plan and
                                 resets all approvals.
@@ -1650,6 +1805,14 @@ function App({
                                 requirements fail. Switching resets approvals.
                               </p>
                             </>
+                          )}
+                          {demo?.enabled && hostedWebsiteProject && (
+                            <p className="field-help">
+                              This public landing page is authorized by its
+                              operator. Playwright visits the actual website
+                              with page scripts disabled. Custom client URLs are
+                              not available in the public demo.
+                            </p>
                           )}
                           <div className="safe-note">
                             <ShieldCheck size={14} />
@@ -2564,14 +2727,7 @@ function App({
             onClose={() => setCreateOpen(false)}
             onCreate={async (values) => {
               const created = await api<Project>("/projects", "POST", values);
-              setData((current) =>
-                current
-                  ? { ...current, projects: [created, ...current.projects] }
-                  : current,
-              );
-              setCreateOpen(false);
-              chooseProject(created);
-              setNotice("Project created. Review your generated checks.");
+              openCreatedProject(created);
             }}
           />
         )}
@@ -2874,8 +3030,9 @@ function CreateProject({
             <div className="form-note" id="demo-target-note">
               <Info size={15} />
               <span>
-                This public demo audits synthetic websites only. Use example
-                requirements and do not enter client information.
+                Create a synthetic sample here, or use “Audit this live site” on
+                Projects to check Briefstamp's preconfigured public landing. Use
+                example requirements and do not enter client information.
               </span>
             </div>
           )}

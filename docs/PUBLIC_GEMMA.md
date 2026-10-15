@@ -2,7 +2,11 @@
 
 **Verified on the free Render service on October 15, 2026:** source `e43dbe7430368292ff9b225f4bf5e3236c2d03c0` generated a real Gemma proposal through a two-step Mastra workflow, rejected an unapproved audit, and executed healthy, broken and restored pages in Chromium. [Hosted receipt](evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json) · [Deployment and CI](DEPLOYMENT.md).
 
-The product flow is: **the open model proposes, the developer reviews and approves, the deterministic browser records what happened.** Gemma cannot provide browser scripts or mark assertions passed. The model lab's saved Tinker evaluation is a separate experiment.
+The product flow is: **the open model proposes, the developer reviews and approves, the deterministic browser records what happened.** Gemma cannot provide browser scripts or mark assertions passed. The model lab's frozen Tinker evaluation and the later [protected hosted Tinker workflow](HOSTED_TINKER.md) are separate experiments.
+
+## Candidate live-homepage scope
+
+The next candidate adds a second fixed brief for the owner-authorized Briefstamp homepage. Consent sends that public brief only; visitor edits and private client text remain rejected. The candidate uses real HTTPS/Playwright with page scripts disabled and the prerendered landing content. Its hosted generation and real-network audit are **pending**, so the synthetic proof below must not be presented as live-homepage evidence. [Judge guide](JUDGE_GUIDE.md).
 
 ## Actual hosted provider and browser proof
 
@@ -38,4 +42,4 @@ Before deployment, the [local public-router proof](evidence/public-gemma/2026-10
 
 [Four earlier unsuccessful native invocations](evidence/public-gemma/2026-10-15T09-42-19Z/earlier-failures.json) are retained: two transport failures before a model call and two provider attempts without an accepted plan, including one HTTP 200 response rejected by validation. They are not successful generations. Original logs remain in `outputs/public-gemma-local-smoke.log`.
 
-The earlier [Ollama/Gemma 3 proof](GEMMA_WORKFLOW.md) is separate: three requirements succeeded while two full-brief attempts timed out. Later success does not erase these failures. Hosted Sentry proposal ingestion is now [independently verified](SENTRY_HOSTED.md). Tiger’s new configured store and the manual Temporal CI workflow still await their own hosted/remote proofs; see the [integration ledger](INTEGRATIONS.md).
+The earlier [Ollama/Gemma 3 proof](GEMMA_WORKFLOW.md) is separate: three requirements succeeded while two full-brief attempts timed out. Later success does not erase these failures. Hosted Sentry proposal ingestion is now [independently verified](SENTRY_HOSTED.md). The later `2a8eae95` release independently verified [protected hosted Tinker](HOSTED_TINKER.md), [Tiger persistence/lexical retrieval](TIGER_VERIFICATION.md) and [Temporal hosted CI recovery](TEMPORAL.md). Those later receipts do not rerun or replace this Gemma/Sentry proof.

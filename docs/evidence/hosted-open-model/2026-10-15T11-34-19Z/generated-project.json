@@ -1,0 +1,72 @@
+{
+  "id": "a209cc5c-a62a-4b26-a70e-639d76897860",
+  "name": "Forma Studio",
+  "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+  "target": "sample",
+  "url": "https://sample.flowproof.test/",
+  "sampleVariant": "healthy",
+  "authorized": true,
+  "checks": [
+    {
+      "id": "911a9d67-09a8-4c07-9432-9d06fa7c4f31",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "64d070bb-588a-42ea-965b-12367a3ed065",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "d57b7ce5-84d3-4784-8ae9-847591f963ca",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "7c6571b0-e9cb-48f4-af1b-5e5d4d4928b0",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": false
+    },
+    {
+      "id": "a7e17abe-9076-46d2-8ec1-27ddb594aa7f",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "7349b95a-2936-4884-84b8-6bfbf7a4cc26",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Tinker (live trained checkpoint)",
+    "model": "Qwen/Qwen3.5-4B",
+    "reason": "Fresh trained Tinker sampler proposal for the fixed synthetic brief, validated by the server. 260 input / 249 output tokens. 8912 tokens conservatively reserved before the request; this is a budget bound, not actual usage. Review and approve every executable check. This live action does not change the recorded benchmark."
+  },
+  "createdAt": "2026-10-15T11:34:19.464Z",
+  "updatedAt": "2026-10-15T11:34:28.322Z"
+}

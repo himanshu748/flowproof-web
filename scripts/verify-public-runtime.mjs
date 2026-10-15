@@ -353,6 +353,25 @@ export async function resolve(specifier, context, nextResolve) {
     "ready",
     "SDK import guard must be installed",
   );
+  const landingHtml = await request("/", { text: true });
+  assert.match(
+    landingHtml,
+    /id="lp-hero-title"/,
+    "The actual landing content must exist before scripts run",
+  );
+  assert.match(landingHtml, /Send the site\./);
+  assert.match(landingHtml, /Show the proof\./);
+  assert.doesNotMatch(
+    landingHtml,
+    /(?:href|src)="https:\/\/(?:fonts\.googleapis|fonts\.gstatic)/,
+    "The protected same-origin audit must not need third-party font requests",
+  );
+  assert.doesNotMatch(
+    landingHtml,
+    /opacity:0(?:;|")/,
+    "Prerendered content must remain visible with scripts disabled",
+  );
+  receipt.scriptFreeLandingVerified = true;
   const bootstrap = await request("/api/bootstrap");
   assert(cookie.startsWith("flowproof_demo="));
   assert.equal(bootstrap.demo.enabled, true);

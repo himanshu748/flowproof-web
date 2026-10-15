@@ -1,0 +1,27 @@
+{
+  "status": "verified",
+  "verifiedAt": "2026-10-15T11:14:56.829Z",
+  "scope": "Real restricted-role application-store proof on dedicated Tiger service; separate processes/pools. Hosted request path still requires its own verification.",
+  "tls": "System CA and exact-hostname verification enabled; Google Trust Services verified independently",
+  "auditsPersisted": 3,
+  "auditsRead": 3,
+  "separateWriterAndReaderProcesses": true,
+  "lexicalQuery": "horizontal",
+  "lexicalResults": [
+    {
+      "auditId": "b9ccb13a-7682-4a59-96b2-2d4603ce30ad",
+      "projectId": "d63709f6-acdb-44b4-a2ad-28ba8a8cde0b",
+      "createdAt": "2026-10-15T10:56:17.487Z",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "observed": "Document width is 1824px; viewport width is 390px.",
+      "retrieval": "lexical"
+    }
+  ],
+  "crossSessionReadDenied": true,
+  "crossSessionSearchEmpty": true,
+  "screenshotStorage": "References only, no image bytes",
+  "freeBasis": "No-card metered trial covered by existing credits; not permanent Free",
+  "fieldIssueDataOrConfigurationChanges": 0
+}

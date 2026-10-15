@@ -1,0 +1,72 @@
+{
+  "id": "a209cc5c-a62a-4b26-a70e-639d76897860",
+  "name": "Forma Studio",
+  "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+  "target": "sample",
+  "url": "https://sample.flowproof.test/",
+  "sampleVariant": "healthy",
+  "authorized": true,
+  "checks": [
+    {
+      "id": "904c8eef-d9d3-4649-aeca-f2047ab43263",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "7822d286-4d3f-4ba6-be6c-ed6768ae47db",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "e2cfe549-f487-43c0-85b8-2d16ad62382c",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "926fc5fa-5beb-4a60-b477-9379cccb5228",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": false
+    },
+    {
+      "id": "686ea4b3-b3d0-4509-ab78-6ae79d7a5936",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": false
+    },
+    {
+      "id": "e7eb947a-5096-4563-bd4a-bb2cabbc0714",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "generator": {
+    "provider": "Deterministic parser",
+    "model": null,
+    "reason": "Public demo proposals use local rules. No AI service or fine-tuned model is used."
+  },
+  "createdAt": "2026-10-15T11:34:19.464Z",
+  "updatedAt": "2026-10-15T11:34:19.464Z"
+}

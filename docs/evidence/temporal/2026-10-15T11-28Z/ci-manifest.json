@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "sourceCommit": "2a8eae95c95cf91adb0cd2bed155e6dbb81249ef",
+  "actionsRunUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38727552047",
+  "runAttempt": 1,
+  "recordedAt": "2026-10-15T11:29:30.382Z",
+  "proofStepOutcome": "success",
+  "receiptStatus": "verified",
+  "cliRelease": "v1.9.1",
+  "cliArchiveSha256": "09a0326a51db84d02735e53542b9ebd8c4758daf47482a9ab0abce15844e60d5",
+  "originalReceiptSha256": "22bc4cdb9f646e9657edb9a12714b9ba379846ff5aedb399b458f4b00bd026c3",
+  "redactions": [
+    "repository absolute path",
+    "ephemeral runner hostname"
+  ],
+  "scope": "Hosted CI development-server recovery; no Temporal Cloud or always-on production worker.",
+  "evidenceRetention": "Receipt and manifest are in job logs. Histories, attempts, HTML and PNG bytes remain ephemeral runner files; only their hashes are retained here.",
+  "artifactUploads": 0,
+  "files": [
+    {
+      "path": "history-before-restart.json",
+      "bytes": 26950,
+      "sha256": "92019917a8fcdea86c8017ad6e6aabe4a02de00c1c91b5f43b10a2f6eccb77de"
+    },
+    {
+      "path": "history-completed.json",
+      "bytes": 37484,
+      "sha256": "ec2465dda3e461c5938e734c66d0a37ed8c4531dc50f2b1e056df3159e54ae83"
+    },
+    {
+      "path": "activity-attempts.jsonl",
+      "bytes": 1265,
+      "sha256": "6c4042cde8d12a6582d3551b34919c8bfcde5ebf41774b2c2d04f500a72b1520"
+    },
+    {
+      "path": "receipts/f16fa035-2991-4279-915a-8579eb7e240a/report.html",
+      "bytes": 567174,
+      "sha256": "2e363ed594732b13f7c2c344f3d1d7f2ebe73d7d93bdb4ec44ca97948450df37"
+    },
+    {
+      "path": "evidence/f16fa035-2991-4279-915a-8579eb7e240a/01-sample-heading.png",
+      "bytes": 93476,
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2"
+    },
+    {
+      "path": "evidence/f16fa035-2991-4279-915a-8579eb7e240a/02-sample-text.png",
+      "bytes": 93476,
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2"
+    },
+    {
+      "path": "evidence/f16fa035-2991-4279-915a-8579eb7e240a/03-sample-link.png",
+      "bytes": 93476,
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2"
+    },
+    {
+      "path": "evidence/f16fa035-2991-4279-915a-8579eb7e240a/04-sample-alt.png",
+      "bytes": 93476,
+      "sha256": "466415c6c0c6a13015c0de40190d65607b6c091ccf47ef165d9770928c1086f2"
+    },
+    {
+      "path": "evidence/f16fa035-2991-4279-915a-8579eb7e240a/05-sample-mobile.png",
+      "bytes": 44635,
+      "sha256": "dbc817c29c5b1b5e5d0c6162a1acc28f83fa017b1e34ecf50a89ed48d9733e14"
+    }
+  ]
+}

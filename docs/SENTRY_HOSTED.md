@@ -27,3 +27,5 @@ The final transport allowlist retains fixed operation names, trace/span identifi
 A sponsored entitlement with paid overage disabled was verified before configuration. No billing or FieldIssue settings changed. This does not establish browser-audit tracing, error-event ingestion, indefinite entitlement or all-provider observability. Further hosted use still requires a fresh confirmation and the same bounded configuration.
 
 Sources: [child workflow](../server/gemma-workflow-child.ts), [privacy transport](../server/observability.ts), [earlier local SDK proof](ORCHESTRATION_OBSERVABILITY.md), [deployment ledger](DEPLOYMENT.md).
+
+The later `2a8eae95` release has a separate [Tinker/Tiger hosted receipt](HOSTED_TINKER.md). It made no Gemma call and does not establish a second Sentry trace; this page retains the exact earlier observed trace.

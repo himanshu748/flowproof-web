@@ -1,6 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Audit } from "../shared/types";
 import {
+  HOSTED_WEBSITE_URL,
+  HOSTED_WEBSITE_BRIEF,
+} from "../shared/hosted-target";
+import {
   createHostedTigerStore,
   hostedTigerEnabled,
 } from "../server/hosted-tiger";
@@ -85,6 +89,52 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("disabled-by-default scoped hosted Tiger adapter", () => {
+  it("round-trips only the preauthorized live landing, with its source and evidence bound together", async () => {
+    const live = fixture();
+    live.source = {
+      ...live.source!,
+      target: "website",
+      url: HOSTED_WEBSITE_URL,
+      brief: HOSTED_WEBSITE_BRIEF,
+      sampleVariant: "healthy",
+    };
+    live.results[0].evidence.url = HOSTED_WEBSITE_URL;
+    const store = createHostedTigerStore({ env, now: () => NOW });
+    pgMock.query.mockResolvedValueOnce({ rows: [{ audit_id: auditId }] });
+    expect(await store.persistAudit(session, live)).toMatchObject({
+      inserted: true,
+    });
+    pgMock.query.mockResolvedValueOnce({ rows: [{ payload: live }] });
+    expect(await store.getAudit(session, auditId)).toEqual(live);
+    const changes = [
+      (a: Audit) => {
+        a.source!.url = HOSTED_WEBSITE_URL + "api/bootstrap";
+      },
+      (a: Audit) => {
+        a.checks[0].path = "/api/bootstrap";
+      },
+      (a: Audit) => {
+        a.source!.brief = "Unapproved private client brief";
+      },
+      (a: Audit) => {
+        a.source!.target = "sample";
+      },
+      (a: Audit) => {
+        a.results[0].evidence.url = "https://sample.flowproof.test/";
+      },
+      (a: Audit) => {
+        a.results[0].evidence.url =
+          "https://flowproof-demo.onrender.com.evil.invalid/";
+      },
+    ];
+    for (const change of changes) {
+      const invalid = structuredClone(live);
+      change(invalid);
+      const calls = pgMock.query.mock.calls.length;
+      await expect(store.persistAudit(session, invalid)).rejects.toThrow();
+      expect(pgMock.query.mock.calls.length).toBe(calls);
+    }
+  });
   it("constructs and inspects configuration offline; uses existing strict TLS config with bounded pool and no DDL", async () => {
     const store = createHostedTigerStore({ env, now: () => NOW });
     expect(hostedTigerEnabled(env, NOW)).toBe(true);

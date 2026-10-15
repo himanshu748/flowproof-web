@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-15T11:29:17.955Z",
+  "service": "FieldIssue-live",
+  "status": "live",
+  "tlsAuthorized": true,
+  "certificateAndHostnameVerification": true,
+  "issuer": "Google Trust Services",
+  "readOnly": true,
+  "briefstampRoleAbsent": true,
+  "briefstampSchemaAbsent": true,
+  "fieldIssueRowsOrConfigurationChanged": 0
+}

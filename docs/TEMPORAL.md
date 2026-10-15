@@ -1,4 +1,4 @@
-# Temporal audit recovery: local and manual CI proof
+# Temporal audit recovery: verified local and hosted CI proof
 
 Temporal is an optional operator service. It is disabled by default and unavailable in the public synthetic demo. The integration accepts only a loopback Temporal address and creates no cloud resources or billable services.
 
@@ -56,7 +56,7 @@ A successful receipt has `status: "verified"`. A failed or unavailable run recor
 
 ## Manual GitHub Actions proof
 
-The [Temporal recovery workflow](../.github/workflows/temporal-proof.yml) is **implemented but not yet executed remotely**. It runs only through `workflow_dispatch` on the public repository, with `contents: read`, a standard `ubuntu-latest` runner and a twelve-minute deadline. It installs locked npm dependencies and Chromium, then invokes the unchanged verifier with `--cli` and the fresh `work/temporal-ci` output directory. No application build, scheduled run, provider key, Temporal Cloud account or paid worker is required. The job fails unless the resulting receipt says `verified` and names its exact source commit.
+The [Temporal recovery workflow](../.github/workflows/temporal-proof.yml) **passed on the public GitHub runner** in [run 38727552047](https://github.com/himanshu748/flowproof-web/actions/runs/38727552047), source `2a8eae95c95cf91adb0cd2bed155e6dbb81249ef`, on October 15 at 11:28–11:29 UTC. The [actual receipt](evidence/temporal/2026-10-15T11-28Z/temporal-verification.json) and [execution manifest](evidence/temporal/2026-10-15T11-28Z/ci-manifest.json) retain the exact source and nine evidence-file hashes. Both server and worker changed process IDs; the workflow/run IDs stayed unchanged, with two activity attempts and one browser execution before and after restart. The attempt log remained unchanged and the workflow completed. It runs only through `workflow_dispatch` on the public repository, with `contents: read`, a standard `ubuntu-latest` runner and a twelve-minute deadline. It installs locked npm dependencies and Chromium, then invokes the unchanged verifier with `--cli` and the fresh `work/temporal-ci` output directory. No application build, scheduled run, provider key, Temporal Cloud account or paid worker is required. The job fails unless the resulting receipt says `verified` and names its exact source commit.
 
 The Linux amd64 CLI is pinned to official **v1.9.1**:
 
@@ -66,9 +66,9 @@ The Linux amd64 CLI is pinned to official **v1.9.1**:
 
 The workflow adds `ci-manifest.json` separately from the verifier's receipt. It records the source commit, Actions run URL, run attempt, pinned archive digest and actual evidence-file hashes. Repository paths and the ephemeral runner hostname are redacted in the logged receipt. A single `BRIEFSTAMP_TEMPORAL_RECEIPT_B64=` line carries the receipt and manifest as base64 JSON, capped at 32 KiB before encoding; the manifest also appears as readable JSON in the logs and the job summary describes the observed restart. A blocked or missing receipt remains a failure.
 
-There is **no artifact upload or cache** in this workflow. PNGs, portable HTML, event histories and the attempt log remain ephemeral runner files; their hashes do not mean those bytes are durably hosted. SQLite, environment files and raw worker/server logs are never included in the receipt packet. A maintainer can download the job logs, review the bounded receipt/manifest and publish sanitized execution evidence afterward. Do not claim that step has happened before a real run and review.
+There is **no artifact upload or cache** in this workflow. PNGs, portable HTML, event histories and the attempt log remain ephemeral runner files; their hashes do not mean those bytes are durably hosted. SQLite, environment files and raw worker/server logs are never included in the receipt packet. The bounded receipt and manifest were recovered from this successful job’s logs, reviewed and published at the links above. The nine hashed evidence files remain ephemeral runner files; their image/report bytes are not durably hosted by this CI proof.
 
-This would demonstrate **development-server recovery on hosted CI**, not Temporal Cloud, an always-on worker or recovery on the public Render service. [GitHub documents free standard runner use for public repositories](https://docs.github.com/en/billing/concepts/product-billing/github-actions); this workflow uses no larger runner or paid artifact storage. The existing local evidence above remains valid independently of a future CI run.
+This demonstrates **development-server recovery on hosted CI**, not Temporal Cloud, an always-on worker or recovery on the public Render service. [GitHub documents free standard runner use for public repositories](https://docs.github.com/en/billing/concepts/product-billing/github-actions); this workflow uses no larger runner or paid artifact storage. The earlier local evidence remains valid independently of this remote run.
 
 ## Limits and evidence handling
 
