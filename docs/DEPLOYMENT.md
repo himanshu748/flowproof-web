@@ -2,13 +2,15 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
-## Verified rebrand snapshot, 14 October 2026
+## Verified public snapshot, 15 October 2026
 
-Briefstamp was deployed at commit `e028105dc2838f9f1f2460206af2601eba29344a` using the existing free Docker service. Deployment `dep-db7nahmq1p3s73d3kil0` became live at 12:30:00 UTC. Health and the homepage returned HTTP 200, the browser displayed the Briefstamp name, and no error-level logs were returned after deployment. The separate documentation commit `f1eee9baee58e951bc8eeaa959761cd58447346c` passed [Actions run 38564166138](https://github.com/himanshu748/flowproof-web/actions/runs/38564166138), including 106 application tests, 17 provenance tests, the build and healthy/broken browser audits.
+The public repository's main branch, passing CI and live Render deployment were rechecked at 03:50 UTC on October 15, 2026. All three match commit `5d5586109d59286aba7627aa30bc455bd45dbf71`. [Actions run 38580708979](https://github.com/himanshu748/flowproof-web/actions/runs/38580708979) passed 106 application tests, 17 provenance tests, the production build, real healthy/broken browser audits and artifact upload.
 
-The Tiger application-store probe subsequently verified a separate, no-card trial using an isolated temporary schema. Its evidence and cleanup are in [Tiger verification](TIGER_VERIFICATION.md). That operator-side experiment does not connect this public demo to Tiger. Current integration disclosures distinguish trial evidence, the Shared Free CA blocker and ephemeral visitor storage. Recorded Tinker results remain separate from live model inference.
+The existing Render Docker service remains on `plan: free`, is not suspended, and has auto-deploy disabled. Deployment `dep-db7p4ajncjis73f3ieo0` became live at 14:32:14 UTC on October 14. The fresh check returned HTTP 200 from health and bootstrap, confirmed the title `Briefstamp · Delivery, verified`, and found zero error-level logs since October 15 at 00:00 UTC. This read-only check inspected existing CI evidence; it did not rerun browser audits or model training.
 
-The original release below is a historical receipt. Later model and Tiger experiments retain their own source commits, evidence and limitations.
+The October 14 Tiger application-store probe verified a separate, no-card trial using an isolated temporary schema. Its evidence and cleanup are in [Tiger verification](TIGER_VERIFICATION.md). That operator-side experiment does not connect this public demo to Tiger. Current integration disclosures distinguish trial evidence, the Shared Free CA blocker and ephemeral visitor storage. Recorded Tinker results remain separate from live model inference.
+
+The rebrand deployment at commit `e028105dc2838f9f1f2460206af2601eba29344a` (`dep-db7nahmq1p3s73d3kil0`, live October 14 at 12:30 UTC) and [Actions run 38564166138](https://github.com/himanshu748/flowproof-web/actions/runs/38564166138) at documentation commit `f1eee9baee58e951bc8eeaa959761cd58447346c` are earlier snapshots. The original release below is also a historical receipt. Model and Tiger experiments retain their own source commits, evidence and limitations.
 
 ## Verified release — 13 October 2026
 

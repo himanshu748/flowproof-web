@@ -12,7 +12,7 @@
 
 The [sanitized TLS attempt](evidence/tiger-tls-attempt.json) preserves the failure code, timing, source-code hashes and the original receipt hash. The private original is `outputs/tiger-verification/receipt.json`; database hostname and project-scoped console URL are omitted from the public derivative. No credentials or personal account details are included.
 
-Tiger Data's [strict-SSL documentation](https://www.tigerdata.com/docs/use-timescale/latest/security/strict-ssl/) states that free services do not supply signed SSL certificates. Its [service-creation documentation](https://www.tigerdata.com/docs/get-started/quickstart/create-service) describes Shared as the free option. The failed certificate check was retained: no `rejectUnauthorized: false`, insecure SSL mode, paid conversion or fabricated success was used. A future direct-connection verification requires a provider-authenticated trust path; accepting an unauthenticated certificate from the failed endpoint would not establish its identity.
+Tiger Data's [strict-SSL documentation](https://www.tigerdata.com/docs/use-timescale/latest/security/strict-ssl/) states that free services do not supply signed SSL certificates. Its [service-creation documentation](https://www.tigerdata.com/docs/get-started/quickstart/create-service) describes Shared as the free option. The failed certificate check was retained: no `rejectUnauthorized: false`, insecure SSL mode, paid conversion or fabricated success was used. A future direct-connection verification of the separate Shared Free service requires a provider-authenticated trust path; accepting an unauthenticated certificate from the failed endpoint would not establish its identity.
 
 ## Verified application-store trial probe
 
@@ -51,7 +51,7 @@ The bundled SQL and source-audit copies preserve their original bytes and hashes
 
 The preparation receipt intentionally retains `prepared_not_executed_in_cloud`, its historical status before the successful run; the later cloud-read and verification receipts establish the new result. The TLS-failure receipt likewise remains unchanged.
 
-For reproduction, use a new isolated schema or inspect the existing synthetic schema; do not blindly repeat its `CREATE SCHEMA` write. The independent read can inspect its persisted rows. The successful console result does **not** clear the direct application TLS blocker, verify project/screenshot persistence through the application, or enable database persistence in the public demo.
+For reproduction, use a new isolated schema or inspect the existing synthetic schema; do not blindly repeat its `CREATE SCHEMA` write. The independent read can inspect its persisted rows. The successful console result does **not** clear the Shared Free adapter's TLS blocker, verify project/screenshot persistence through that adapter, or enable database persistence in the public demo. The separate no-card trial probe above provides application-store persistence evidence.
 
 ## Direct-adapter probe
 
@@ -69,7 +69,7 @@ The free service currently presents a chain signed by `O=Timescale Inc, CN=ca.ti
 
 An approved support request asked for an authenticated CA copy or fingerprint. The initial reply confirms that publicly trusted certificates require a paid plan. On October 14, support recommended downloading the chain directly from the PostgreSQL endpoint and computing its fingerprint locally, but supplied neither an authenticated certificate nor an independently confirmed fingerprint. The replies passed Gmail's DKIM, SPF and DMARC checks. Authenticating a message about how to fetch a certificate does not authenticate the certificate returned by an untrusted endpoint.
 
-The application connection and its persistence/retrieval probe remain blocked. No peer certificate was added to the trust store and no paid conversion was made. Local tests verify client behavior only: correct-host TLS works with a confirmed fixture CA; wrong-host and untrusted-CA handshakes fail. They do not prove Tiger connectivity.
+The separate Shared Free application connection and its persistence/retrieval probe remain blocked. No peer certificate was added to the trust store and no paid conversion was made. Local TLS fixture tests verify client behavior only: correct-host TLS works with a confirmed fixture CA; wrong-host and untrusted-CA handshakes fail. The no-card trial probe independently verified real Tiger connectivity using the default trusted chain; it does not resolve this Shared Free CA blocker.
 
 ## Prerequisites
 

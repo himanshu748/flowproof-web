@@ -2,6 +2,8 @@
 
 The local MVP and isolated public demo are implemented and tested. The hackathon definition of done is not yet complete.
 
+The public repository, passing Actions run and free Render deployment were rechecked on October 15, 2026. They match commit `5d5586109d59286aba7627aa30bc455bd45dbf71`; see [deployment evidence](DEPLOYMENT.md). The Tiger trial evidence below records its October 14 execution, not a persistent hosted database.
+
 | Requirement | Current evidence                                                                                                                                                                                                                                                                                                                                                                  |
 | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | F01/F02     | Real project creation, synthetic sample, conservative brief parsing                                                                                                                                                                                                                                                                                                               |
@@ -10,14 +12,14 @@ The local MVP and isolated public demo are implemented and tested. The hackathon
 | F05/F06     | Real Chromium screenshots and captured text, healthy/broken fixtures, bounded request policy                                                                                                                                                                                                                                                                                      |
 | F07         | Standalone mobile-readable HTML with embedded screenshots, browser print-to-PDF                                                                                                                                                                                                                                                                                                   |
 | F08         | Local PostgreSQL and an isolated no-card Tiger trial verified the real application store, two projects/audits, ten recovered screenshots, lexical/vector retrieval and cleanup. The separate Shared Free service remains TLS-blocked; public demo persistence is disabled. See [Tiger evidence](TIGER_VERIFICATION.md).                                                           |
-| F09         | [Actions run 38564166138](https://github.com/himanshu748/flowproof-web/actions/runs/38564166138) passed 106 application tests, 17 provenance tests, production build, healthy/broken browser audits and artifact upload.                                                                                                                                                          |
+| F09         | [Actions run 38580708979](https://github.com/himanshu748/flowproof-web/actions/runs/38580708979) passed 106 application tests, 17 provenance tests, production build, healthy/broken browser audits and artifact upload at the published commit `5d55861`.                                                                                                                               |
 | F10         | 360 untouched candidates plus a separate 96-example agent-reviewed pilot, zero human validated. Real baseline and LoRA runs completed on confirmed promotional credits. Few-shot prompting achieved 23/24 reference matches and 19/20 correct browser pairs; LoRA achieved 22/24 and 18/20. No improvement over the strongest baseline. See [measured results](MODEL_RESULTS.md). |
 | F11         | Local MiniLM vectors and cosine/lexical retrieval verified locally, through the Shared Free console, and through the real application store on a separate no-card Tiger trial.                                                                                                                                                                                                    |
 | F12/F13/F14 | Mastra, Sentry and Temporal not implemented                                                                                                                                                                                                                                                                                                                                       |
 
 ## Verified local scope
 
-- The previously published release passed 85 tests, including real browser regression tests, network guard tests, source-scope abstention tests, report escaping and completion-after-evidence-storage tests. That historical count does not certify the subsequent model-evaluation changes; use their matching CI run.
+- The current published snapshot passed 106 application tests and 17 model-provenance tests in its matching CI run. These include real browser regressions, network guards, source-scope abstention, report escaping and completion after evidence storage. The original release's 85-test count remains a historical receipt in [deployment evidence](DEPLOYMENT.md).
 - Production frontend build passes.
 - The saved fixture plan detects four broken assertions. The UI brief checks the visible contact label rather than destination and correctly detects three broken assertions. Both healthy plans produce five passes and one unverified human judgment.
 - A local Gemma proposal starts unapproved, is explicitly approved in the synthetic test, and passes actual Chromium execution. It is a smoke test, not a model-quality evaluation.
@@ -31,9 +33,10 @@ The local MVP and isolated public demo are implemented and tested. The hackathon
 1. An authorized real client website and representative customer requirements. All executed website targets here were synthetic.
 2. A lasting zero-cost database connection for the hosted app. An isolated no-card Tiger trial now verifies application project/audit/screenshot persistence and retrieval, and its temporary schema was removed. Public-demo persistence is disabled and the separate Shared Free service remains TLS-blocked.
 3. Human review and a broader independent dataset. Tinker experiments ran on confirmed promotional credits, but this pilot did not improve over the strongest baseline. Do not claim that success criterion or generalization to clients.
-4. Public repository, remote Actions and Render sample demo are now verified; see [deployment evidence](DEPLOYMENT.md). A published demo video remains optional.
-5. A real potential-customer invitation and truthful feedback outcome. No messages were sent.
-6. Any desired P1 integrations with actual evidence.
-7. The final DEV article and submission receipt. No submission was made.
+4. A real potential-customer invitation and truthful feedback outcome. No customer invitations were sent.
+5. Any desired P1 integrations with actual evidence.
+6. The final DEV article and submission receipt. No submission was made.
+
+The public repository, remote Actions and accessible Render sample demo requirements have evidence. A published demo video remains optional.
 
 The free Render public demo uses isolated in-memory visitor sessions and temporary screenshots; sessions expire after 30 minutes and restart clears state. The private operator mode can store completed screenshots in PostgreSQL before declaring an audit complete. Run one API replica; this MVP does not provide user accounts or durable workflow execution. External targets run without JavaScript and with same-origin resources only, so some sites will be blocked or untestable by design.

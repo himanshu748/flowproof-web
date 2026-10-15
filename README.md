@@ -4,7 +4,9 @@ Previously FlowProof. The existing repository, demo URL and storage identifiers 
 
 Turn website requirements into approved browser checks and evidence-backed delivery reports.
 
-[Live demo](https://flowproof-demo.onrender.com) · [Passing browser audit](https://github.com/himanshu748/flowproof-web/actions/runs/38564166138) · [Evidence and limitations](docs/DEPLOYMENT.md)
+[Live demo](https://flowproof-demo.onrender.com) · [Passing browser audit](https://github.com/himanshu748/flowproof-web/actions/runs/38580708979) · [Evidence and limitations](docs/DEPLOYMENT.md)
+
+The landing page introduces the workflow with original conceptual artwork and a labelled interactive sample. Choose **Open demo** to enter the real workspace. See the [requirement-by-requirement PRD status](docs/PRD_STATUS.md) for completed capabilities and remaining gaps.
 
 Briefstamp includes a local working product and an isolated public-demo mode. It includes a React delivery cockpit, safe typed acceptance checks, a real Playwright runner, screenshot and redacted text evidence, standalone HTML reports, PostgreSQL persistence, failure retrieval, and a GitHub Actions workflow. Integration readiness and measured model results are shown honestly in the app.
 
@@ -22,7 +24,7 @@ npm run dev
 
 Open http://127.0.0.1:5173. The server listens only on loopback by default. With no configuration, data persists to `data/state.json`. The sample site is served through browser routing and makes no network requests.
 
-1. Open the Forma Studio sample.
+1. Choose **Open demo**, then open the Forma Studio sample.
 2. Review the proposed checks. Edit any interpretation and approve the checks.
 3. Run the audit and inspect the actual screenshots and observed text.
 4. Switch the sample to the broken version, reapprove and run again.
@@ -43,7 +45,7 @@ npm run audit:plan -- briefstamp-plan.json
 
 Copy `.env.example` to `.env`. Keep it private. The app loads `.env` through Node's environment loader.
 
-- **PostgreSQL:** set `DATABASE_URL`. TLS certificate verification is enabled; only trusted local PostgreSQL should set `DATABASE_SSL=false`. The app creates dedicated `flowproof_*` tables. It is a single-process MVP: run one replica. Audit evidence is persisted as database byte arrays after a completed run, so downloaded reports can survive an ephemeral host restart. The current free Tiger service fails strict certificate verification; its direct adapter remains blocked. Do not disable verification or upgrade to bypass this limitation.
+- **PostgreSQL:** set `DATABASE_URL`. TLS certificate verification is enabled; only trusted local PostgreSQL should set `DATABASE_SSL=false`. The app creates dedicated `flowproof_*` tables. It is a single-process MVP: run one replica. Audit evidence is persisted as database byte arrays after a completed run, so downloaded reports can survive an ephemeral host restart. The separate Shared Free Tiger service fails strict certificate verification; its direct adapter remains blocked. The successful no-card trial probe was isolated and temporary. Do not disable verification or upgrade to bypass the Shared Free limitation.
 - **Local open model:** run Ollama with a supported completion model, set `FLOWPROOF_AI_ENABLED=true`, `FLOWPROOF_OLLAMA_MODEL=gemma3:4b` (or your installed Qwen model). Every plan records its actual provider. Invalid responses fall back to an explicitly labeled conservative rule parser. There is no default remote AI billing path.
 - **Failure vectors:** with PostgreSQL and local `all-minilm:22m`, set `FLOWPROOF_EMBEDDINGS=true`. Failure descriptions are embedded locally and searched using actual cosine similarity plus lexical ranking in PostgreSQL. The portable array implementation uses a full scan appropriate to a small demo. It does not claim pgvector acceleration.
 - **Tinker:** see [measured results](docs/MODEL_RESULTS.md) and [reproduction instructions](docs/MODEL_EVALUATION.md). Recorded baseline, training and paired-browser receipts are bundled. New provider work requires independently confirmed free credits and shared token/cost budgets. Live Tinker proposal generation is not configured.

@@ -58,6 +58,7 @@ import type {
   Project,
 } from "../shared/types";
 import "./styles.css";
+import Landing from "./Landing";
 
 type View =
   | "overview"
@@ -219,9 +220,20 @@ function EvidenceImage({ path, alt }: { path: string; alt: string }) {
     </div>
   );
 }
-function App() {
+function App({
+  initialView = "overview",
+  openModel = false,
+  active = true,
+}: {
+  initialView?: View;
+  openModel?: boolean;
+  active?: boolean;
+}) {
   const [data, setData] = useState<Bootstrap | null>(null);
-  const [view, setView] = useState<View>("overview");
+  const [view, setView] = useState<View>(initialView);
+  useEffect(() => {
+    if (openModel) setView("model");
+  }, [openModel]);
   const [projectId, setProjectId] = useState("");
   const [auditId, setAuditId] = useState("");
   const [draft, setDraft] = useState<TestCheck[]>([]);
@@ -439,7 +451,16 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="app-shell">
-        <a className="skip-link" href="#main">
+        <a
+          className="skip-link"
+          href="#main"
+          onClick={(event) => {
+            event.preventDefault();
+            const main = document.getElementById("main");
+            main?.focus();
+            main?.scrollIntoView({ behavior: "instant" });
+          }}
+        >
           Skip to content
         </a>
         <AnimatePresence>
@@ -458,7 +479,13 @@ function App() {
           aria-label="Main navigation"
         >
           <div className="sidebar-brand">
-            <Logo />
+            <a
+              className="brand-home-link"
+              href="#"
+              aria-label="Briefstamp home"
+            >
+              <Logo />
+            </a>
             <button
               className="icon-button mobile-only"
               aria-label="Close navigation"
@@ -2171,6 +2198,7 @@ function App() {
         </AnimatePresence>
         {createOpen && (
           <CreateProject
+            active={active}
             demo={!!demo?.enabled}
             onClose={() => setCreateOpen(false)}
             onCreate={async (values) => {
@@ -2322,10 +2350,12 @@ function EvidencePanel({
 }
 function CreateProject({
   demo = false,
+  active = true,
   onClose,
   onCreate,
 }: {
   demo?: boolean;
+  active?: boolean;
   onClose: () => void;
   onCreate: (values: {
     name: string;
@@ -2344,6 +2374,7 @@ function CreateProject({
   const loadingRef = useRef(false);
   loadingRef.current = loading;
   useEffect(() => {
+    if (!active) return;
     previousFocus.current = document.activeElement as HTMLElement;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -2372,7 +2403,7 @@ function CreateProject({
       document.removeEventListener("keydown", handle);
       previousFocus.current?.focus();
     };
-  }, []);
+  }, [active]);
   return (
     <div
       className="modal-backdrop"
@@ -2560,8 +2591,51 @@ function CreateProject({
   );
 }
 
+function Application() {
+  const [route, setRoute] = useState(
+    window.location.hash === "#main" ? "#demo" : window.location.hash,
+  );
+  useEffect(() => {
+    const updateRoute = () => setRoute(window.location.hash);
+    window.addEventListener("hashchange", updateRoute);
+    return () => window.removeEventListener("hashchange", updateRoute);
+  }, []);
+  const workspace =
+    route === "#demo" || route === "#model" || route === "#main";
+  const [visitedWorkspace, setVisitedWorkspace] = useState(workspace);
+  useEffect(() => {
+    if (workspace) setVisitedWorkspace(true);
+    if (workspace || !route) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [route, workspace]);
+  return (
+    <>
+      {!workspace && (
+        <MotionConfig reducedMotion="user">
+          <Landing
+            onOpenDemo={() => {
+              window.location.hash = "demo";
+            }}
+            onOpenModel={() => {
+              window.location.hash = "model";
+            }}
+          />
+        </MotionConfig>
+      )}
+      {(visitedWorkspace || workspace) && (
+        <div hidden={!workspace}>
+          <App
+            active={workspace}
+            initialView={route === "#model" ? "model" : "overview"}
+            openModel={route === "#model"}
+          />
+        </div>
+      )}
+    </>
+  );
+}
+
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <Application />
   </React.StrictMode>,
 );

@@ -172,13 +172,13 @@ const integrations = (): IntegrationStatus[] => [
     name: "GitHub Actions",
     status: "available",
     detail:
-      "Real browser audit workflow included. No remote Actions run has been verified.",
+      "Public repository browser audits have passed in GitHub Actions. Source commits and receipts are recorded in deployment evidence.",
   },
   {
     name: "Render",
     status: "not_configured",
     detail:
-      "Free-service blueprint included. Public deployment has not been verified.",
+      "A separate public sample demo is verified on free Render. This private runtime's hosting is not established by that deployment.",
   },
   {
     name: "Gemma",
