@@ -1,0 +1,31 @@
+{
+  "startedAt": "2026-10-15T13:34:36.355Z",
+  "firstDownloadAt": "2026-10-15T13:35:40.444Z",
+  "elapsedSeconds": 64.089,
+  "method": "CUA browser actions on deployed public service; warm server; includes screenshot/tool overhead; one observation, not an SLA",
+  "source": "816d869ed7851b471b0ff83b103903ef2f069eae",
+  "healthyAuditSuffix": "a7a550dc",
+  "brokenAuditSuffix": "44307989",
+  "restoredAuditSuffix": "16ce0944",
+  "healthy": {
+    "passed": 5,
+    "failed": 0,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "broken": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "restored": {
+    "passed": 5,
+    "failed": 0,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "modelCalls": 0,
+  "sourcePlan": "Explicitly labelled deterministic public sample",
+  "restoration": "Synthetic condition selector; assertions unchanged, reapproved after each condition change"
+}

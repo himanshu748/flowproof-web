@@ -1,34 +1,37 @@
 # Briefstamp: a three-minute judge visit
 
-**The real homepage audit is verified on release `816d869e`.** The [hosted receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json) records five passes and one unverified judgment, then a deliberate wrong-expectation failure. It used labelled deterministic checks and zero model calls. [Actual UI report with five screenshots](evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html).
+Approve a brief, watch the browser check it, and download the evidence.
+
+[Open Briefstamp](https://flowproof-demo.onrender.com/#demo) · [Watch the 68-second video](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance](demo/README.md)
 
 ## Audit the actual homepage
 
-1. Open [the workspace](https://flowproof-demo.onrender.com/#demo). The Free Render service may need time to wake. In Review, Overview or Projects, choose **Audit this live site**. The target is the owner-authorized `https://flowproof-demo.onrender.com/` homepage.
-2. Review six checks: heading, visible text, link label, image alternatives, mobile width and a subjective judgment. The initial draft is labelled deterministic. Optional **Generate with Gemma** requires consent to the fixed public brief. During the latest live-site verification, hosted generation failed and a native diagnostic returned HTTP 500; use the clearly labelled draft if generation is unavailable. [Dated AI evidence and incident](PUBLIC_GEMMA.md).
-3. Read the expected results, choose **Approve all checks**, then **Save & run audit**. Inspect the observed text and screenshots. The welcoming/trustworthy judgment stays **unverified**.
-4. Open the delivery report and download its HTML before the session expires. The report joins requirements, assertions, observations and embedded screenshots. A pass covers its specific assertion and captured viewport.
+1. Choose **Audit this live site** in Review, Overview or Projects. Its owner-authorized target is Briefstamp's published homepage.
+2. Read the six proposed checks and their expected results. The starter draft is labelled templates; **Generate with Gemma** is optional and requires consent to the fixed public brief.
+3. Choose **Approve all checks**, then **Save & run audit**. Inspect the observed text and browser screenshots. The subjective welcoming/trustworthy requirement stays **unverified**.
+4. Choose **Export delivery report** to keep the portable HTML, with its requirements, observations and embedded screenshots.
 
-The runner visits the real HTTPS site with page JavaScript disabled and bounded same-origin resources. The landing content is prerendered and fonts are served locally. This does not test JavaScript flows, forms, purchases or arbitrary client URLs. Opening a project makes no model call, and no private client text is sent. Tinker remains synthetic-only.
+The [retained live-site receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json) records **5 passed / 0 failed / 1 unverified** on release `816d869e`. [Open the actual downloaded report](evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html).
 
-## See a controlled failure
+## Prove a failure
 
-Open the heading’s **Edit check** and set **Expected result** to `Briefstamp negative control: this heading is intentionally absent`. Editing clears approval. Review and approve it, then run again. The retained proof observed **4 passed / 1 failed / 1 unverified**, with actual page headings in the evidence. The public site was not changed.
+Open the heading's **Edit check** and set **Expected result** to `Briefstamp negative control: this heading is intentionally absent`. Editing clears approval. Review, approve and run again. The retained control recorded **4 passed / 1 failed / 1 unverified**, with actual page headings in its evidence.
 
-This is a deliberately wrong assertion, not a website regression. The comparison must not count a changed expectation as a regression or recovery. Restore `Send the site. Show the proof.`, approve and rerun if the four-audit visitor allowance permits; that restoration is an optional procedure, not a retained live-site result.
+This changes the assertion, not the website. The comparison must not count it as a website regression or recovery. Both retained audits round-tripped through Tiger with matching JSON; keyword retrieval recovered the failed heading, and another visitor was denied access. [Receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json).
 
-Both verified audits were read back from Tiger with matching JSON. Lexical retrieval found the failed heading; another visitor could not access the project’s audit/history. [Receipt](evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json).
+## Or compare broken and restored pages
 
-## Or inspect a website-state regression
+Choose **Projects → Forma Studio**. Approve and run its healthy sample, change **Sample condition** to **Intentionally broken website**, then review, approve and run again. Switch back to healthy, reapprove and rerun to see recoveries under unchanged assertions.
 
-Use Forma Studio instead to audit healthy, broken and restored synthetic pages under unchanged checks. The public-brief proof recorded **5 passed / 1 unverified → 2 passed / 3 failed / 1 unverified → 5 passed / 1 unverified**. The separate CI fixture checks the contact destination and records four failures. These are different plans, both executed by real Chromium. [Exact evidence](DEPLOYMENT.md).
+The [captured hosted journey](demo/journey.json) observed **5/0/1 → 2/3/1 → 5/0/1** (passed/failed/unverified), with three recoveries. The separate CI fixture checks a contact destination and records four failures. [Exact CI evidence](evidence/ci-regression-2026-10-15.json). One warm-server visit reached its first HTML download in **64.089 seconds**; that observation includes capture/tool overhead and is not an SLA.
 
-Choose one path rather than adding every audit to the same visitor session.
+Choose one audit path per visitor session.
 
-## Evidence and limits
+## Limitations
 
-[Entry evidence](HACKATHON_ENTRY.md) · [Integration ledger](INTEGRATIONS.md) · [Tinker tradeoffs](MODEL_RESULTS.md) · [Tiger scope](TIGER_VERIFICATION.md) · [Temporal CI recovery](TEMPORAL.md).
+- Free Render may wake slowly before serving HTML. The app provides startup/retry states afterward. Sessions last up to 30 minutes, may reset on restart and allow four audits; download reports before leaving. Expiry recovery opens fresh, unapproved checks without replaying an action.
+- Only the sample and owned homepage are public targets. Browser scripts are disabled; JavaScript flows, forms and purchases are outside scope. A pass covers its specific assertion and viewport. The live negative-control proof and video used templates with zero model calls. Latest live-site Gemma attempts failed, including a native HTTP 500. [Dated model proof and incident](PUBLIC_GEMMA.md).
+- Tiger stores JSON and image references, not image bytes or hosted vectors. The credit-covered metered trial has an October 20 access boundary. [TLS and exact-target storage restrictions](TIGER_VERIFICATION.md). Tinker is synthetic-only; Tinker and Backboard require bounded operator allowances.
+- SerpApi is not public, ElevenLabs is unverified, Entire proof is local and .tech is missing. No customer feedback, human dataset validation or winning outcome is claimed. The author reviews and publishes the submission.
 
-Tiger stores audit JSON and screenshot references, not image bytes or hosted vectors. Its [exact-target SQL](hosted-tiger-live-target.sql) and [final strict-TLS constraint receipt](evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json) restrict storage to the sample or owned homepage. The credit-covered metered trial has an October 20 access boundary. Tinker and Backboard remain operator-protected with bounded allowances.
-
-SerpApi is not mounted publicly, ElevenLabs is unverified, Entire evidence is local and .tech is missing. No customer feedback, human dataset validation or winning outcome is claimed. The submission is a draft for the author to publish.
+[Entry evidence](HACKATHON_ENTRY.md) · [Integration ledger](INTEGRATIONS.md) · [Tinker tradeoffs](MODEL_RESULTS.md) · [Temporal recovery](TEMPORAL.md) · [UI QA](evidence/judge-qa-2026-10-15/receipt.json)

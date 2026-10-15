@@ -1,0 +1,7 @@
+ RUN  v4.1.11 /Users/himanshujha/Documents/Codex/2026-10-13/flowproof-product-requirements-document-version-1
+
+
+ Test Files  29 passed (29)
+      Tests  452 passed (452)
+   Start at  19:18:06
+   Duration  57.30s (transform 820ms, setup 0ms, import 8.05s, tests 45.20s, environment 3ms)

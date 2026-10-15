@@ -1,0 +1,79 @@
+[
+  {
+    "start": 0,
+    "end": 6,
+    "shot": "01-landing",
+    "title": "Client handoffs need evidence.",
+    "caption": "Briefstamp turns requirements into approved checks and a report clients can read."
+  },
+  {
+    "start": 6,
+    "end": 12,
+    "shot": "02-review",
+    "title": "Start with six requirements.",
+    "caption": "This hosted walkthrough uses a synthetic website and clearly labelled template checks."
+  },
+  {
+    "start": 12,
+    "end": 17,
+    "shot": "03-approved",
+    "title": "Approval comes before execution.",
+    "caption": "Review the plan, approve the checks, then run the browser audit."
+  },
+  {
+    "start": 17,
+    "end": 23,
+    "shot": "05-healthy",
+    "title": "A real browser. Observed outcomes.",
+    "caption": "5 passed · 0 failed · 1 unverified. A subjective requirement still needs human judgment."
+  },
+  {
+    "start": 23,
+    "end": 29,
+    "shot": "06-broken-plan",
+    "title": "Change the sample. Keep the assertions.",
+    "caption": "Selecting the broken condition resets approvals. Review and approve again before running."
+  },
+  {
+    "start": 29,
+    "end": 37,
+    "shot": "07-broken",
+    "title": "The broken website fails three checks.",
+    "caption": "2 passed · 3 failed · 1 unverified. Missing evidence never becomes a pass."
+  },
+  {
+    "start": 37,
+    "end": 44,
+    "shot": "08-failure-evidence",
+    "title": "See what the browser actually found.",
+    "caption": "The failed heading stays linked to its requirement and captured screenshot."
+  },
+  {
+    "start": 44,
+    "end": 50,
+    "shot": "09-restored-plan",
+    "title": "Restore the sample. Approve again.",
+    "caption": "Same assertions. The operator restores the synthetic condition; this is not automatic repair."
+  },
+  {
+    "start": 50,
+    "end": 56,
+    "shot": "10-restored",
+    "title": "Three recoveries, checked by Chromium.",
+    "caption": "5 passed · 0 failed · 1 unverified. The subjective requirement remains unresolved."
+  },
+  {
+    "start": 56,
+    "end": 62,
+    "shot": "11-comparison",
+    "title": "Compare the same checks across runs.",
+    "caption": "3 recovered · 2 still passing · 1 unknown. Changed or manual checks cannot prove a fix."
+  },
+  {
+    "start": 62,
+    "end": 68,
+    "shot": "12-downloaded",
+    "title": "Send the site. Show the proof.",
+    "caption": "Download a portable delivery report with observed results and screenshot evidence."
+  }
+]

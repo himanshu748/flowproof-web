@@ -1,0 +1,169 @@
+{
+  "checkedAt": "2026-10-15T13:57:54.355843+00:00",
+  "status": "verified-with-scoped-limitations",
+  "runtimeSource": "4f7e8ad86099d8544d11b7f83c0b3456aad58f84",
+  "localVerification": {
+    "applicationTests": 452,
+    "testFiles": 29,
+    "pythonTests": 19,
+    "productionBuild": "passed",
+    "publicRuntimeBrowserCheck": "passed before the later project-form-only correction; final CI independently reruns it"
+  },
+  "hostedJourney": {
+    "receipt": "../../demo/journey.json",
+    "warmServerFirstReportSeconds": 64.089,
+    "source": "816d869ed7851b471b0ff83b103903ef2f069eae",
+    "browser": "Codex in-app browser via CUA",
+    "modelRequests": 0
+  },
+  "localBrowserQA": {
+    "expiry": "Injected clock advanced 31 minutes once in an ignored loopback-only harness using the real demo router. An attempted project mutation returned SESSION_EXPIRED; the UI created a fresh workspace with all checks unapproved, no audit and a persistent notice. The interrupted action was not replayed.",
+    "startup": "A six-second API delay showed a friendly opening panel after HTML delivery. A one-time synthetic 503 showed Retry and an optional private connection disclosure. Retry opened a normal unapproved workspace. This does not measure Render cold-start latency or control its pre-HTML interstitial.",
+    "projectCreation": "Empty required fields prevented submission. Browser QA found an empty sample URL request; the form was corrected to send the canonical synthetic URL and then created Judge path QA with one unapproved heading check.",
+    "editing": "Approving then editing an assertion reset its approval. Save and JSON plan download worked. Empty regenerated requirements were rejected by required-field validation; restoring the brief regenerated unapproved checks.",
+    "mobile": {
+      "viewportWidth": 390,
+      "observedDocumentWidth": 390,
+      "pages": [
+        "landing and expanded FAQ",
+        "workspace review",
+        "model results",
+        "downloaded portable HTML report"
+      ],
+      "reportEmbeddedScreenshots": 5
+    },
+    "navigation": [
+      "mobile navigation open/close",
+      "overview and guide tabs",
+      "projects",
+      "reports empty-state CTA",
+      "failure-library empty search",
+      "model results",
+      "connections refresh",
+      "landing return",
+      "all five FAQ disclosures",
+      "healthy/broken illustrative preview",
+      "new-project cancellation",
+      "keyboard skip-to-main"
+    ],
+    "hostedAuditUI": [
+      "approve all",
+      "save and run healthy",
+      "condition switch resets approvals",
+      "broken browser failures",
+      "captured screenshot evidence",
+      "restore and reapprove unchanged assertions",
+      "requirement comparison disclosure",
+      "download healthy and restored HTML reports"
+    ]
+  },
+  "notRerun": [
+    "Optional model, Backboard memory, SerpApi search and speech requests were not repeated; dated provider receipts remain separate. Ordinary hosted Tiger audit storage stayed enabled.",
+    "The browser print dialog and exhaustive combinations of every optional control.",
+    "Actual 30-minute wall-clock expiry on Render; recovery was exercised with an isolated injected clock."
+  ],
+  "security": {
+    "tlsAuthQuotasApprovalWeakened": false,
+    "hostingPlanChanged": false,
+    "publicHistoryScan": {
+      "atSource": "4f7e8ad86099d8544d11b7f83c0b3456aad58f84",
+      "commits": 23,
+      "scannedBytes": 8651284,
+      "elapsedSeconds": 21.6,
+      "detections": 1,
+      "actionableCredentials": 0,
+      "triage": "The same public timing sentence in docs/ALL_INTEGRATION_GATES.md; not a credential.",
+      "allLocalRefsSnapshot": "../secret-history-2026-10-15.json",
+      "limitations": "Known-pattern text scanning does not prove that all possible credentials are absent; binary/unreachable content is outside this claim."
+    },
+    "newModelMemorySearchOrSpeechCalls": 0,
+    "hostedTigerPersistence": "Ordinary public audit storage remained enabled during the hosted journey; its save confirmation was observed in the UI."
+  },
+  "artifacts": [
+    {
+      "path": "expired-session.png",
+      "bytes": 73775,
+      "sha256": "5b5939c6208df7ad22ef13f39388f6380ae92a20a34ae56deb0cc60b9fa8aa4b",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "capturedAt": "2026-10-15T13:40:27.118701+00:00"
+    },
+    {
+      "path": "startup-opening-desktop.png",
+      "bytes": 39678,
+      "sha256": "b7da01bb9c7d18fc93c1945dea0fe58234b47eca520f08a2b17f1cf1d69a05b5",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "capturedAt": "2026-10-15T13:42:37.297249+00:00"
+    },
+    {
+      "path": "mobile-startup-error.png",
+      "bytes": 26956,
+      "sha256": "0e964de4ec413374b3fc1f83830d7666b5a1b82b961b8a6ad4de989e776d160c",
+      "dimensions": [
+        390,
+        844
+      ],
+      "capturedAt": "2026-10-15T13:44:47.929709+00:00"
+    },
+    {
+      "path": "mobile-created-project.png",
+      "bytes": 42759,
+      "sha256": "717f0b7a094bfd9b47a85ad612f3895ff47998925b629ea9405a89e8546694bd",
+      "dimensions": [
+        390,
+        844
+      ],
+      "capturedAt": "2026-10-15T13:53:39.590724+00:00"
+    },
+    {
+      "path": "mobile-downloaded-report.png",
+      "bytes": 39688,
+      "sha256": "ce54c400292f853c59a30a9d89f26a4f63bc14ca34ca7bc5b09e4fa8eabbd2e4",
+      "dimensions": [
+        390,
+        844
+      ],
+      "capturedAt": "2026-10-15T13:53:41.152483+00:00"
+    },
+    {
+      "path": "mobile-navigation.png",
+      "bytes": 22681,
+      "sha256": "c5401714c6a51c6dd487122fcd0ba0f09effcd66765c059e0c40c368ea210464",
+      "dimensions": [
+        390,
+        844
+      ],
+      "capturedAt": "2026-10-15T13:43:41.714741+00:00"
+    },
+    {
+      "path": "mobile-faq.png",
+      "bytes": 40669,
+      "sha256": "7faf47784a0b2e75f03f38f7dfeb73cb25cd51b00d6ee6a044b1da3bc259e7c3",
+      "dimensions": [
+        390,
+        844
+      ],
+      "capturedAt": "2026-10-15T13:50:17.281111+00:00"
+    },
+    {
+      "path": "app-tests.txt",
+      "bytes": 286,
+      "sha256": "c84ce07818fccf39a599387722b1cc6983a4980bfc87e58b600d6e684e87be12"
+    },
+    {
+      "path": "python-tests.txt",
+      "bytes": 118,
+      "sha256": "23f33eed9421073094fbeea7a81956857446e68e66859ee179c4c1ae657ff930"
+    },
+    {
+      "path": "build.txt",
+      "bytes": 1089,
+      "sha256": "ac7afc77b110fc9c3d639dd5cc2f4cd461a96659c61a7756d36b189299db156c"
+    }
+  ]
+}

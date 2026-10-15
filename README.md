@@ -8,11 +8,11 @@ Formerly FlowProof; existing repository and demo URLs are retained.
 
 ![Briefstamp compares an intentionally broken sample with its restored version](docs/evidence/acceptance-comparison.jpg)
 
-[Try the live demo](https://flowproof-demo.onrender.com/#demo) · [Three-minute judge guide](docs/JUDGE_GUIDE.md) · Video: pending publication
+[Try the live demo](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Three-minute judge guide](docs/JUDGE_GUIDE.md)
 
 ## The problem
 
-A finished website still leaves a freelancer explaining whether it meets the brief. Screenshots, test notes and handoff documents take time to assemble. Briefstamp connects each agreed requirement to an approved assertion, an observed browser result and a portable client report.
+A site can look finished while a promised headline, contact link or mobile layout is wrong. Freelancers assemble screenshots and test notes while clients try to match the delivery to the brief. Briefstamp joins each requirement, approved check and browser observation in one portable report.
 
 ## How it works
 
@@ -27,19 +27,15 @@ flowchart LR
 
 ## Measured results
 
-The same approved **CI fixture plan** detected four regressions and four recoveries. [Recorded execution](docs/evidence/ci-regression-2026-10-15.json).
+| Evidence | Observed result | Receipt |
+|---|---|---|
+| CI fixture: healthy | **5 passed / 0 failed / 1 unverified** | [Browser execution](docs/evidence/ci-regression-2026-10-15.json) |
+| CI fixture: broken | **1 passed / 4 failed / 1 unverified** | [Same approved plan](docs/evidence/ci-regression-2026-10-15.json) |
+| CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
+| Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
+| Verification | **452 application tests, 19 Python tests, build** | [QA receipt](docs/evidence/judge-qa-2026-10-15/receipt.json) · [CI](https://github.com/himanshu748/flowproof-web/actions/workflows/audit.yml) |
 
-| Fixture state | Passed | Failed | Unverified |
-|---|---:|---:|---:|
-| Healthy | 5 | 0 | 1 |
-| Intentionally broken | 1 | 4 | 1 |
-| Restored | 5 | 0 | 1 |
-
-The actual live homepage separately passed five checks; a deliberately wrong heading expectation failed. Both audits round-tripped through Tiger. [Live-site receipt](docs/evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json).
-
-Tinker LoRA used **69.55% fewer input tokens** than few-shot on the frozen 24-example comparison, while reference agreement fell from **23/24 to 22/24**. [Exact cost/quality tradeoff](docs/MODEL_RESULTS.md).
-
-[Release CI](https://github.com/himanshu748/flowproof-web/actions/runs/38731823339): **436 application tests, 19 Python tests, build and real browser checks passed** for deployed revision `816d869e`.
+The live homepage separately passed five checks; a deliberately wrong heading expectation failed. Both audits round-tripped through Tiger. [Live-site receipt](docs/evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json).
 
 ## Integrations with receipts
 

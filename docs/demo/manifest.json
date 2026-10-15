@@ -1,0 +1,220 @@
+{
+  "product": "Briefstamp",
+  "format": "Edited screenshot walkthrough, not continuous screen recording",
+  "capture_ui": "Codex in-app browser through CUA",
+  "captured_service": "https://flowproof-demo.onrender.com/",
+  "capture_source_commit": "816d869ed7851b471b0ff83b103903ef2f069eae",
+  "audit_target": "Synthetic sample website rendered in real Chromium",
+  "disclosure": "Edited walkthrough · actual hosted UI captures · template plan · no model call",
+  "model_calls": 0,
+  "outcomes": {
+    "healthy": {
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "broken": {
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "restored": {
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1
+    }
+  },
+  "restoration": "Synthetic condition selector; assertions unchanged, reapproved after each condition change",
+  "editing": "Original screenshots copied byte for byte. Editorial timing, fades, modest camera zoom and authored cursor choreography. No UI values were altered. Screenshots resampled to 1920x1206 then padded with a 72px header and 162px caption footer.",
+  "renderer": {
+    "name": "browser-video-recording/scripts/render_browser_demo.py",
+    "sha256": "f791472f135513eb4094661ba1be8ee800820220fe20764eaa3f486e8f203550"
+  },
+  "sources": [
+    {
+      "path": "source/01-landing.png",
+      "sha256": "2dad43a8de3986be95a435870e16971a0145e79d422125e1a98c6f1765028191",
+      "bytes": 118800,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/02-review.png",
+      "sha256": "a5261985c4d8ec174bf278460c47247b46b40b417b13bcab321b99c9f0e234af",
+      "bytes": 130392,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/03-approved.png",
+      "sha256": "e0d01b898a0acb6f7c9620e8fcf2e32c8cc72b8d15aa6bc2e8088d131fdaf50b",
+      "bytes": 131147,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/04-running.png",
+      "sha256": "404e4f4a531f20e8413a5e34cfd4fcb4381df2755c6ed3f1734e6b9ff8f6e68b",
+      "bytes": 116837,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": false
+    },
+    {
+      "path": "source/05-healthy.png",
+      "sha256": "bbd5179b872521b59b6ccbbe41a9c4418782516aaee8a3bf3b0088028bb59723",
+      "bytes": 115701,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/06-broken-plan.png",
+      "sha256": "781ec13df1fa13562f25c22b9d345041de9e35dc7816a27cf20c3e6e92acf03d",
+      "bytes": 130864,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/07-broken.png",
+      "sha256": "25deffb5bd6aeacc1d9e5f8060f80d985c1b6bdd2dd512fbe72e18dd5014e602",
+      "bytes": 111740,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/08-failure-evidence.png",
+      "sha256": "f1def96a39d9ad1bd06f54cdf40632cd6301ee79fd68b74614ee34b9b9398da2",
+      "bytes": 117873,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/09-restored-plan.png",
+      "sha256": "da446a898cb63a85638407ddb62d53f8a7311cfbd9942718878d7530e8b72f50",
+      "bytes": 130389,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/10-restored.png",
+      "sha256": "5612a68c8e86783f3f22b801f1189eb3610875f6c67c632e336a32cba3cc8146",
+      "bytes": 111627,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/11-comparison.png",
+      "sha256": "907e05dc7e0eb8c8bad86a1e41b5ad9fa16276c5d637e369527c6e24f194c40a",
+      "bytes": 116291,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    },
+    {
+      "path": "source/12-downloaded.png",
+      "sha256": "51a1f9ebeb4bc1b440aed092a6ff16e1c9896291ebd669449a04d415cfbe7391",
+      "bytes": 116143,
+      "dimensions": [
+        1920,
+        1205
+      ],
+      "used_in_video": true
+    }
+  ],
+  "assets": [
+    {
+      "path": "briefstamp-demo.mp4",
+      "sha256": "5bde3eab9d26d55da468172f375df7034d4f44ce2f0cd75ee6f4bc553cdc8e16",
+      "bytes": 15761948
+    },
+    {
+      "path": "briefstamp-demo-poster.png",
+      "sha256": "1824b0151b8c7af3fed11d66b2d9ef648fd11c1ce1a784aec0f0ca6499bda6aa",
+      "bytes": 570489
+    },
+    {
+      "path": "briefstamp-pointer.png",
+      "sha256": "1f02392696cba33f513f3aae3e87cd1755a259f61d00d6d7abf20941f1e34992",
+      "bytes": 344
+    },
+    {
+      "path": "journey.json",
+      "sha256": "5ac1e66ed921b20cbfe6dc5df9620e7037eb52161864ba4b82dc7fd34ef7c039",
+      "bytes": 899
+    },
+    {
+      "path": "captions.json",
+      "sha256": "8a7bacc874893f8e0d1f45170cd9d42e9aa7a420dd7daa01df6b8c0d4a129fd6",
+      "bytes": 2431
+    },
+    {
+      "path": "motion-config.json",
+      "sha256": "bd7941c1007c5ecd072bdc00bc7a1721693ecc2639a8146f783ef5fdc588b809",
+      "bytes": 4243
+    },
+    {
+      "path": "briefstamp-demo.vtt",
+      "sha256": "bd5d8bd58bd85db75bfe1c2229beb7339003c6e72363488a7ba032a129a9f4e1",
+      "bytes": 1654
+    }
+  ],
+  "video": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1920,
+        "height": 1440,
+        "r_frame_rate": "60/1",
+        "nb_frames": "4080"
+      }
+    ],
+    "format": {
+      "duration": "68.000000",
+      "size": "15761948"
+    }
+  },
+  "claims_excluded": [
+    "Continuous wall-clock proof",
+    "A latency SLA",
+    "An AI generation call in this walkthrough",
+    "Automatic repair",
+    "All requirements verified",
+    "An audit of an arbitrary client website"
+  ]
+}
