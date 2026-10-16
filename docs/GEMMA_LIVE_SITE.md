@@ -1,5 +1,7 @@
 # Live-site Gemma diagnosis and rerun
 
+**October 16 recheck on deployed source `64a62729`:** one native Google attempt returned HTTP 200, using **389 input / 296 output tokens** and a 2,153-byte request. After verifier approval the owned homepage recorded **5 passed / 0 failed / 1 unverified**; the wrong-heading control recorded **4 passed / 1 failed / 1 unverified**. Both audits matched their Tiger reads and lexical retrieval recovered the deliberate failure. [New receipt](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json). The exact three-span proposal trace was [independently verified in Sentry](evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json). This fresh success does not establish the internal cause of the historical Google 500 below or guarantee provider uptime. The earlier template-based video remains labelled.
+
 ## What the original failure establishes
 
 The [12:15 UTC native diagnostic](evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json) received **Google HTTP 500 before response parsing**. The earlier hosted route returned HTTP 503 for several classes of failure, so that status alone does not establish a provider error. The old adapter discarded the provider error body. Google's internal root cause cannot be recovered from that receipt.

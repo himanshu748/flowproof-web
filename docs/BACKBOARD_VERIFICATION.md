@@ -1,5 +1,7 @@
 # Backboard: real audit memory and retrieval
 
+**Fresh hosted proof, October 16:** [one new protected write/search](HOSTED_OPTIONAL.md) retrieved all six actual sample-audit facts. Free credit changed $4.98 → $4.97; paid credit was unchanged, auto-reload remained off and no payment method was configured. The new two-call tranche is consumed and preserved in Render configuration, separately from the historical reservations below. [Exact receipt](evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json) · [Post-account observation](evidence/provider-refresh/2026-10-16/post-account-observations.json). No new assistant or inference request ran.
+
 **Verified October 15, 2026:** the actual Briefstamp Backboard adapter stored an anonymous summary of a completed synthetic audit, then retrieved the same audit with its failed heading and all six observed statuses intact. [Sanitized live receipt](evidence/backboard/2026-10-15T09-28-55-074Z/receipt.json).
 
 That earlier run was an operator-run cloud integration test. Its receipt alone does not establish deployment, client-data suitability, lifetime free eligibility or general retrieval quality. The saved memory is historical context, not a new audit or new proof that a website passes.

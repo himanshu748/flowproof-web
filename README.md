@@ -37,9 +37,9 @@ flowchart LR
 | CI fixture: broken | **1 passed / 4 failed / 1 unverified** | [Same approved plan](docs/evidence/ci-regression-2026-10-15.json) |
 | CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
 | Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
-| Verification | **476 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/gemma-rerun-preflight-2026-10-15/contract-ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38760611627) |
+| Verification | **571 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/provider-refresh/2026-10-16/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38878045224) |
 
-Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 unverified**; its wrong-heading control recorded **4 / 1 / 1**. Both audits round-tripped through Tiger. [Real model-to-browser receipt](docs/evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json).
+On October 16, Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 unverified**; its wrong-heading control recorded **4 / 1 / 1**. Both audits round-tripped through Tiger. [Fresh model-to-browser receipt](docs/evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json).
 
 ## Integrations with receipts
 
@@ -50,6 +50,7 @@ Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 u
 - **Sentry:** the new live Gemma proposal’s three spans were independently verified in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** one protected hosted write/search recovered all six audit facts. [Proof](docs/BACKBOARD_VERIFICATION.md).
 - **Temporal:** a hosted CI restart retained the same workflow/run and one browser execution. [Proof](docs/TEMPORAL.md).
+- **SerpApi and ElevenLabs:** protected hosted search and a real, independently decoded synthetic report MP3. Listening remains unverified. [Proof and audio](docs/HOSTED_OPTIONAL.md).
 
 ## Run locally
 
@@ -66,8 +67,8 @@ Open http://127.0.0.1:5173. The default sample needs no paid account. [Configura
 - Public targets are the owned homepage and sample; scripts are disabled. The public sample’s plan yields three failures, versus four in the CI fixture.
 - The video uses labelled templates. Earlier provider and validation failures remain in the [Gemma diagnosis](docs/GEMMA_LIVE_SITE.md); a dated success is no uptime guarantee.
 - Tinker used fewer tokens with lower reference agreement; the dataset has no human-validated examples.
-- Credit-funded services expire. Tiger stores image references only; budgets and sessions are bounded. Sentry verification covers proposal generation, not browser-audit traces or error events.
-- No customer acceptance or all-sponsor completion is claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
+- Credit-funded services expire. Tiger stores image references only; budgets and sessions are bounded. Sentry verification covers proposal generation. Optional search, speech and memory proofs are operator-only and their demonstration allowances are consumed. [Current funding boundaries](docs/PROVIDER_ALLOWANCES.md).
+- The author reports that freelancer friend Priyanshu tried Briefstamp and said “it's good.” [Workflow details and willingness to pay remain unknown](docs/CUSTOMER_VALIDATION.md); this is not independently observed customer acceptance. All-sponsor completion is not claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
 
 ## AI disclosure
 

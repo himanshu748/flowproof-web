@@ -2,22 +2,42 @@
 
 **Draft for author review. Not published.**
 
-Turn a client brief into approved browser checks and a proof-of-delivery report.
+Prepared for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 
-Freelancers deliver websites, then spend more time proving that the agreed work is finished. Briefstamp makes that handoff reviewable: requirements become typed assertions, the developer approves them, Playwright records actual observations, and a portable HTML report joins each result to its evidence.
+## What I Built
 
-[Try the demo](https://flowproof-demo.onrender.com/#demo) · [Judge guide](JUDGE_GUIDE.md) · [Source](https://github.com/himanshu748/flowproof-web). [68-second video](https://youtu.be/xve020VJl0s).
+Turn a client brief into approved browser checks and a proof-of-delivery report. Freelancers can show what matches the agreement, what fails and what still needs judgment. ₹499 per handoff is a pricing hypothesis.
 
-[MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4).
+## Demo
 
-The live, owner-authorized Briefstamp homepage passed five checks with one subjective requirement unverified. Changing only the heading expectation produced a real failure. Both audits were saved and read back through Tiger over verified TLS. This new live-site run used a real Google-hosted Gemma proposal through Mastra, followed by explicit verifier approval. [Receipt](evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json).
+[Live app](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://youtu.be/xve020VJl0s) · [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Judge guide](JUDGE_GUIDE.md).
 
-Separately, the same approved CI fixture plan recorded five passes, then four failures after controlled breakage, then five passes after restoration. Its manual judgment stayed unverified. Verification passed 476 application tests, 19 Python tests and a production build.
+## Code
 
-Gemma/Mastra generation, the new proposal’s three [dashboard-verified Sentry spans](SENTRY_HOSTED.md), protected Tinker inference, Backboard memory and Temporal CI recovery have dated receipts. Frozen Tinker evaluation used 69.55% fewer input tokens with LoRA, but reference agreement fell from 23/24 to 22/24. Historical provider and validation failures remain documented. Sentry proof covers proposal generation.
+[Public MIT repository](https://github.com/himanshu748/flowproof-web).
 
-Public targets are limited, page scripts are disabled, and credit-funded services have explicit expiry and budget boundaries. No customer feedback, human dataset validation or all-sponsor completion is claimed.
+## How I Built It
 
-AI coding assistance helped implementation. The model proposes; approval gates execution; the browser supplies evidence.
+Gemma proposes typed checks through Mastra; the developer approves; Chromium observes; Tiger saves the evidence-linked audit. The [October 16 homepage run](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes and one unverified requirement. A wrong-heading expectation failed. Both audits matched Tiger readbacks; Sentry independently displayed three proposal spans.
 
-[Results and integration evidence](HACKATHON_ENTRY.md) · [Limitations](PRD_STATUS.md).
+[Hosted optional checks](HOSTED_OPTIONAL.md) verified Backboard recall, SerpApi search and ElevenLabs MP3 generation. Temporal recovery ran in CI. [Verification](evidence/provider-refresh/2026-10-16/ci.json) passed 571 application tests, 19 Python tests and build.
+
+## Why Does Open Innovation Matter?
+
+Open weights let me run Gemma locally and fine-tune Qwen while keeping the browser executor independent of the model host. Tinker LoRA used [69.55% fewer input tokens](MODEL_RESULTS.md), with lower reference agreement: 22/24 versus 23/24. This is a measured tradeoff, not equal-quality savings.
+
+## My First User
+
+My freelancer friend Priyanshu tried it and said “it's good.” [Workflow details and willingness to pay remain unknown](CUSTOMER_VALIDATION.md).
+
+## Prize Categories
+
+[Evidence and category scope](HACKATHON_ENTRY.md): Gemma, Render, Tinker, Mastra, Tiger Data, Sentry, Backboard, GitHub Actions, Temporal, SerpApi and ElevenLabs.
+
+## Limitations and Next
+
+Fixed targets, expiring credits, operator-only optional calls, unvalidated training examples. Video uses templates; generated audio decodes but listening is unverified. Next: observed freelancer workflows and pricing validation.
+
+AI assisted coding and drafting; retained approvals came from verifiers.
+
+Related reading: [Human-in-the-loop QA, metataro](https://dev.to/metataro/human-in-the-loop-qa-let-an-ai-agent-run-your-test-sheet-on-android-iphone-web-and-desktop-and-2dp0) · [Playwright post-mortem, tamizuddin](https://dev.to/tamizuddin/post-mortem-surviving-ai-generated-playwright-tests-in-production-5bak).

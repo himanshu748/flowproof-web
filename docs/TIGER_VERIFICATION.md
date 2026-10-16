@@ -1,5 +1,7 @@
 # Tiger Data integration verification
 
+**Fresh October 16 hosted verification:** source `64a62729` saved and read two actual-homepage audits from a real Gemma proposal, with exact JSON equality, scoped lexical retrieval of the wrong-heading control and cross-visitor denial. A separate protected optional-provider proof also saved/read its completed synthetic audit. [Homepage receipt](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) · [Sample receipt](evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json). The signed-in no-card trial remains active with credit; strict TLS, restricted grants and the October 20 application/role cutoff remain unchanged. Visitor-scoped stored audits expire with the demonstration window; committed reports are separate retained artifacts. No screenshot bytes, hosted vectors, FieldIssue changes or permanent-free storage are claimed.
+
 The [14:20 post-deploy homepage proof](evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json) reverified the current presentation release `5d707e36`: five passes, a deliberate heading-expectation failure, matching Tiger JSON reads, scoped lexical retrieval and cross-visitor denial. It used templates and zero model calls. [Deployment receipt](evidence/presentation-release-2026-10-15/deployment.json).
 
 

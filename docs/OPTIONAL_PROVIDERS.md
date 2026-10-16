@@ -1,8 +1,8 @@
 # Optional provider adapters and runtime evidence
 
-These server modules provide concrete API integrations for project memory, search visibility and spoken sample reports. **A real SerpApi search is verified in [this receipt](evidence/serpapi/2026-10-15T07-38-38-984Z/receipt.json). Backboard and ElevenLabs live checks remain pending.** Contract tests use an injected transport and synthetic allowance. They establish request shape, parsing and safety behavior; they do not establish a working provider account or deployed integration. The public demo must keep these integrations unverified until retained real receipts exist.
+These server modules provide concrete API integrations for project memory, search visibility and spoken sample reports. **October 16's [protected hosted proof](HOSTED_OPTIONAL.md) executed SerpApi search, ElevenLabs MP3 generation and Backboard write/retrieval on Free Render.** The MP3 independently decodes; audible wording/listening is unverified. These operator-only allowances are now consumed. Contract tests use injected transports and never substitute for the linked real receipts.
 
-## Existing account checks, October15
+## Historical account checks, October 15, before the later hosted proofs
 
 The user asked to inspect FieldIssue’s existing provider setup. Only its known Render service configuration was read; no FieldIssue data, settings or service was changed. Keys stay private and are never bundled into the public sample.
 

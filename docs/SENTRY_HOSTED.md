@@ -1,8 +1,10 @@
 # Sentry: verified hosted proposal traces
 
+**Fresh October 16 dashboard verification:** trace `c74fe62d211044c4a0a202f69b141542`, emitted by the [new deployed live-homepage Gemma run](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json), appeared in the authenticated Briefstamp-only dashboard with **three spans**: root `briefstamp.proposal` **23.30 seconds**, status **ok**; generation **7.59 seconds**; validation **0.53 milliseconds**. [Independent sidecar](evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json) · [Actual screenshot](evidence/hosted-website/2026-10-16T09-10-55Z/sentry-trace.png). Source `64a62729018fc2372611c7b21bfffecf3b779556`; original worker `ingestionVerified: false` remains unchanged. Sponsored Team entitlement and $0 pay-as-you-go were rechecked before the run. This remains proposal tracing only.
+
 **The live-homepage proposal trace was independently verified in Sentry’s authenticated dashboard at 16:32 UTC (22:02 IST) on October 15, 2026.** The later [dashboard verification receipt](evidence/hosted-website/2026-10-15T15-37-09Z/sentry-verification.json) establishes ingestion for the exact trace emitted by the [15:37 application run](evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json), from source `2e3c3397ea5a594ecb329f7b52ef373fe1049161`.
 
-## Latest independently observed trace
+## Earlier October 15 independently observed trace
 
 Trace `70ef2a9b80da4b60bd4bc104ed1ec823` appeared in the separate Briefstamp project with three spans:
 

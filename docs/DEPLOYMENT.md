@@ -2,6 +2,16 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
+## Provider refresh release, October 16, 09:10 UTC
+
+Source **`64a62729018fc2372611c7b21bfffecf3b779556`** passed [CI 38878045224](https://github.com/himanshu748/flowproof-web/actions/runs/38878045224): **571 application tests, 19 Python tests**, build and actual sample/browser audits. The same existing **Free Render** service deployed it as `dep-db8uiujrjlhs73djq85g`, live at **09:10:00.602321 UTC**. Its URL, hosting plan and manual-deploy setting remain unchanged. Only the approved scoped provider credentials/proofs were updated; no purchase, card or billing change. [CI](evidence/provider-refresh/2026-10-16/ci.json) · [Deployment](evidence/provider-refresh/2026-10-16/deployment.json) · [Configuration readback](evidence/provider-refresh/2026-10-16/configuration.json).
+
+The [fresh real Gemma/homepage flow](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) used one successful native attempt, **389 input / 296 output tokens**, explicit verifier approval, **5/0/0/1** original outcomes and **4/1/0/1** with a deliberately wrong heading expectation. Both audits matched their Tiger readbacks; lexical retrieval and cross-visitor denial passed. The exact proposal trace has [independent Sentry dashboard proof](evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json).
+
+The separate [protected optional-provider flow](HOSTED_OPTIONAL.md) verified one real SerpApi search (zero results), ElevenLabs MP3 generation and a Backboard write/search retrieving all six actual audit facts. Its synthetic sample recorded **2/3/0/1** and also round-tripped through Tiger. The MP3 decodes; listening/audible wording remains unverified. These operator-only proof allowances are consumed and their [spent counters were carried into Render configuration](evidence/provider-refresh/2026-10-16/spent-reservations.json) without a second deployment. A refreshed timestamp or ephemeral replacement disk is never permission to regain them. Tinker's existing unused remainder was preserved without inference or retraining. [Funding and scheduled read-only rechecks](PROVIDER_ALLOWANCES.md).
+
+Counts above are ordered passed / failed / blocked / unverified. These are agent verification runs, not customer acceptance, a production SLA or completion of the full PRD. The template-based YouTube video and older receipts below remain unchanged history.
+
 ## Gemma live-homepage release, October 15, 15:32 UTC
 
 Source **`2e3c3397ea5a594ecb329f7b52ef373fe1049161`** passed [CI 38760611627](https://github.com/himanshu748/flowproof-web/actions/runs/38760611627): **476 application tests, 19 Python tests**, build and actual browser audits. [Exact CI receipt](evidence/gemma-rerun-preflight-2026-10-15/contract-ci.json).
