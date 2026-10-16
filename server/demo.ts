@@ -45,6 +45,12 @@ import {
   generateHostedTinkerProposal,
   hostTinkerEnabled,
 } from "./hosted-tinker";
+import {
+  authorizeHostedOptional,
+  hostOptionalEnabled,
+  narrateHostedSample,
+  searchHostedHomepage,
+} from "./hosted-optional";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -336,6 +342,24 @@ export function createDemoRouter(options: DemoOptions) {
       !authorizeHostedTinker(req.headers, process.env, now())
     )
       return res.status(404).json({ error: "Not found in this demo session." });
+    const optionalProvider =
+      req.method === "POST"
+        ? /^\/api\/projects\/[^/]+\/search-visibility\/?$/i.test(req.path)
+          ? "serpapi"
+          : /^\/api\/audits\/[^/]+\/spoken-report\/?$/i.test(req.path)
+            ? "elevenlabs"
+            : null
+        : null;
+    if (
+      optionalProvider &&
+      !authorizeHostedOptional(
+        optionalProvider,
+        req.headers,
+        process.env,
+        now(),
+      )
+    )
+      return res.status(404).json({ error: "Not found in this demo session." });
     const origin = req.headers.origin;
     if (!["GET", "HEAD", "OPTIONS"].includes(req.method) && origin) {
       let host: string;
@@ -361,6 +385,10 @@ export function createDemoRouter(options: DemoOptions) {
         : undefined;
     if (session && session.expires <= now()) session = undefined;
     if (!session) {
+      if (optionalProvider)
+        return res
+          .status(404)
+          .json({ error: "Not found in this demo session." });
       // Only bootstrap creates sessions; guessing URLs never consumes visitor slots.
       if (req.method !== "GET" || req.path !== "/api/bootstrap")
         return res.status(401).json({
@@ -897,12 +925,16 @@ export function createDemoRouter(options: DemoOptions) {
   router.get("/api/operator/status", (req, res) => {
     if (
       !authorizeHostedBackboard(req.headers) &&
-      !authorizeHostedTinker(req.headers, process.env, now())
+      !authorizeHostedTinker(req.headers, process.env, now()) &&
+      !authorizeHostedOptional("serpapi", req.headers, process.env, now()) &&
+      !authorizeHostedOptional("elevenlabs", req.headers, process.env, now())
     )
       return notFound(res);
     return res.json({
       backboard: hostBackboardEnabled(),
       tinker: tinkerAvailable(),
+      serpapi: hostOptionalEnabled("serpapi", process.env, now()),
+      elevenlabs: hostOptionalEnabled("elevenlabs", process.env, now()),
       scope:
         "Bounded hosted operator integrations. Visitor access remains isolated.",
     });
@@ -949,6 +981,81 @@ export function createDemoRouter(options: DemoOptions) {
         error:
           "Backboard retrieval is unavailable or its approved credit limit is reached. Saved memory is not a new audit result.",
       });
+    }
+  });
+  router.post("/api/projects/:id/search-visibility", async (req, res) => {
+    if (!authorizeHostedOptional("serpapi", req.headers, process.env, now()))
+      return notFound(res);
+    const project = session(res).projects.get(req.params.id);
+    if (!project) return notFound(res);
+    z.object({}).strict().parse(req.body);
+    if (!ownedWebsite(project))
+      return res
+        .status(400)
+        .json({
+          error:
+            "Search visibility is restricted to the owner's fixed live homepage.",
+        });
+    try {
+      return res.json(await searchHostedHomepage(project));
+    } catch {
+      return res
+        .status(503)
+        .json({
+          error:
+            "The bounded SerpApi observation is unavailable or its confirmed free allowance is exhausted. It does not change any audit result.",
+        });
+    }
+  });
+  router.post("/api/audits/:id/spoken-report", async (req, res) => {
+    if (!authorizeHostedOptional("elevenlabs", req.headers, process.env, now()))
+      return notFound(res);
+    const audit = session(res).audits.get(req.params.id);
+    if (!audit) return notFound(res);
+    z.object({}).strict().parse(req.body);
+    if (audit.status !== "completed")
+      return res
+        .status(409)
+        .json({
+          error: "Only a completed synthetic sample audit can be narrated.",
+        });
+    if (audit.source?.target !== "sample" || audit.source.url !== SAMPLE_URL)
+      return res
+        .status(400)
+        .json({
+          error: "Free speech is restricted to the built-in synthetic sample.",
+        });
+    try {
+      const result = await narrateHostedSample(audit);
+      return res
+        .set("Content-Type", "audio/mpeg")
+        .set(
+          "Content-Disposition",
+          'attachment; filename="briefstamp-synthetic-report.mp3"',
+        )
+        .set(
+          "X-Briefstamp-Attribution",
+          "Voice generated with ElevenLabs. Noncommercial synthetic demonstration only.",
+        )
+        .set("X-Briefstamp-Scope", "noncommercial-synthetic-demonstration")
+        .set(
+          "X-Briefstamp-Reserved-Characters",
+          String(result.reservedCharacters),
+        )
+        .set(
+          "X-Briefstamp-Reported-Characters",
+          result.reportedCharacters === null
+            ? "unreported"
+            : String(result.reportedCharacters),
+        )
+        .send(result.audio);
+    } catch {
+      return res
+        .status(503)
+        .json({
+          error:
+            "The noncommercial ElevenLabs sample is unavailable or its confirmed free allowance is exhausted. Written audit evidence is unchanged.",
+        });
     }
   });
   async function readImage(s: Session, value: string): Promise<Buffer | null> {

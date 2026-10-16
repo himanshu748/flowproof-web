@@ -3,6 +3,7 @@ import type { ObservabilityStatus } from "./observability.js";
 import { hostBackboardEnabled } from "./hosted-backboard.js";
 import { googleGemmaConfiguration } from "./providers/gemma-google.js";
 import { hostedSentryAvailable } from "./sentry-configuration.js";
+import { hostOptionalEnabled } from "./hosted-optional.js";
 
 /** Configuration is distinct from a verified provider request. Never expose keys. */
 export function optionalIntegrations(
@@ -60,16 +61,34 @@ export function optionalIntegrations(
         ? "Hosted project memory requires the operator token, a session-owned audit and fresh approved existing credits. Public visitors cannot call it. Configuration does not establish remote verification; free-host allowance files are ephemeral."
         : "Project memory writes anonymous assertion facts and retrieves only scoped structured records. Calls require a fresh verified allowance and explicit operator action; configuration is separate from remote verification.",
     },
-    provider(
-      "SerpApi",
-      "BRIEFSTAMP_SERPAPI_ENABLED",
-      "A real one-request search against this demo was verified on the Free plan. Operator search is restricted to authorized domains and never changes audit outcomes.",
-    ),
-    provider(
-      "ElevenLabs",
-      "BRIEFSTAMP_ELEVENLABS_ENABLED",
-      "Optional spoken reports cover noncommercial synthetic demonstrations only; free-plan commercial delivery is unsupported.",
-    ),
+    publicDemo
+      ? {
+          name: "SerpApi",
+          status: hostOptionalEnabled("serpapi")
+            ? "available"
+            : "not_configured",
+          detail:
+            "Hosted search requires the operator token, a session-owned fixed Briefstamp homepage and fresh confirmed-free proof. At most one request per approved allowance. A search snapshot is an observation, never an audit pass; configuration is separate from remote verification. Free-host allowance files are ephemeral.",
+        }
+      : provider(
+          "SerpApi",
+          "BRIEFSTAMP_SERPAPI_ENABLED",
+          "Operator search is restricted to authorized domains and never changes audit outcomes.",
+        ),
+    publicDemo
+      ? {
+          name: "ElevenLabs",
+          status: hostOptionalEnabled("elevenlabs")
+            ? "available"
+            : "not_configured",
+          detail:
+            "Operator-only hosted speech reads counts from a session-owned completed synthetic sample, using a confirmed stock voice and fresh confirmed-free proof. At most one call of 1,000 characters; noncommercial scope and attribution are mandatory. Configuration is separate from a verified MP3. Free-host allowance files are ephemeral.",
+        }
+      : provider(
+          "ElevenLabs",
+          "BRIEFSTAMP_ELEVENLABS_ENABLED",
+          "Optional spoken reports cover noncommercial synthetic demonstrations only; free-plan commercial delivery is unsupported.",
+        ),
     {
       name: "Entire",
       status: "available",
