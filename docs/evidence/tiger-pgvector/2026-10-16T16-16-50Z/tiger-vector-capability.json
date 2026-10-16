@@ -1,0 +1,65 @@
+{
+  "checkedAt": "2026-10-16T16:10:39.879Z",
+  "strictTls": true,
+  "extensions": [
+    {
+      "name": "vector",
+      "default_version": "0.8.7",
+      "installed_version": null
+    },
+    {
+      "name": "vectorscale",
+      "default_version": "0.9.0",
+      "installed_version": null
+    }
+  ],
+  "columns": [
+    {
+      "attname": "session_hash",
+      "type": "text"
+    },
+    {
+      "attname": "audit_id",
+      "type": "uuid"
+    },
+    {
+      "attname": "project_id",
+      "type": "uuid"
+    },
+    {
+      "attname": "check_id",
+      "type": "text"
+    },
+    {
+      "attname": "text_sha256",
+      "type": "text"
+    },
+    {
+      "attname": "model",
+      "type": "text"
+    },
+    {
+      "attname": "model_digest",
+      "type": "text"
+    },
+    {
+      "attname": "catalog_sha256",
+      "type": "text"
+    },
+    {
+      "attname": "embedding",
+      "type": "double precision[]"
+    },
+    {
+      "attname": "created_at",
+      "type": "timestamp with time zone"
+    }
+  ],
+  "counts": {
+    "embeddings": 24,
+    "audits": 8
+  },
+  "publicSpent": 4,
+  "mutations": 0,
+  "freeBasis": "Existing no-card credit-covered dedicated trial; signed-in proof 2026-10-16T14:17:13Z remains inside 24 hours"
+}

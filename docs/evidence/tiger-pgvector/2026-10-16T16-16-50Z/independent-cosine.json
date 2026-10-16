@@ -1,0 +1,41 @@
+{
+  "method": "Independent JavaScript true cosine over stored pgvector values and float32 query; no SQL operator reuse",
+  "rows": [
+    {
+      "checkId": "3a5854a2-8d98-4ad4-bf6b-9ecbaab22204",
+      "kind": "no_horizontal_overflow",
+      "rank": 1,
+      "sqlCosine": 0.378126416634895,
+      "independentCosine": 0.3781263446933457,
+      "absoluteError": 7.194154927336882e-8,
+      "previousArrayDotProduct": 0.3781263417931506,
+      "scoreDelta": 7.484174441296787e-8,
+      "rrf": 0.01639344262295082,
+      "lexicalScore": 0
+    },
+    {
+      "checkId": "f38e8beb-048d-4b65-bdc4-9d1e9363f641",
+      "kind": "heading",
+      "rank": 2,
+      "sqlCosine": 0.20973292618194006,
+      "independentCosine": 0.2097328928898144,
+      "absoluteError": 3.329212566738349e-8,
+      "previousArrayDotProduct": 0.20973289516274507,
+      "scoreDelta": 3.1019194990378196e-8,
+      "rrf": 0.016129032258064516,
+      "lexicalScore": 0
+    },
+    {
+      "checkId": "581aa91d-033d-4969-ba08-b1de9e48f8e7",
+      "kind": "image_alt",
+      "rank": 3,
+      "sqlCosine": 0.023354533589156512,
+      "independentCosine": 0.02335452966233193,
+      "absoluteError": 3.926824580779975e-9,
+      "previousArrayDotProduct": 0.02335452957408811,
+      "scoreDelta": 4.015068402751787e-9,
+      "rrf": 0.015873015873015872,
+      "lexicalScore": 0
+    }
+  ]
+}

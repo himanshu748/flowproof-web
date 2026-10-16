@@ -1,5 +1,8 @@
 # Tiger Data integration verification
 
+**Latest: pgvector migration and real retrieval verified at 16:32 UTC, October 16.** [New receipt and scores](evidence/tiger-pgvector/2026-10-16T16-16-50Z/) prove a stored `vector(384)` column, pgvector 0.8.7, pgvectorscale 0.9.0 and a valid DiskANN index on the same trial. The one-statement exact cosine/full-text RRF query ranks mobile overflow first at **0.378126416634895**; independent float32 cosine is **0.3781263446933457**. Rank order is unchanged from the earlier array implementation. The fresh browser audit/persistence ran on Render; retrieval ran through the matching local adapter against hosted Tiger. No fresh Gemma/search calls, judge reservations or grant changes occurred. Arrays and earlier evidence remain intact; fixed queries and trial cutoff still apply. The earlier dated sections below describe their original storage and scope.
+
+
 **Hosted hybrid retrieval serving a native Gemma evidence agent was verified on October 16 at 12:14 UTC.** Source `f990d9a14ae95dc322e4d81a411e9dd764ff9207` passed [CI 38898518897](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): 871 application tests, 19 Python tests, build and real browser audits. The existing Free Render service ran the [complete proof](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json). This bounded native Google Gemma loop is separate from the Mastra proposal workflow.
 
 ## Hosted hybrid retrieval and agent consumption

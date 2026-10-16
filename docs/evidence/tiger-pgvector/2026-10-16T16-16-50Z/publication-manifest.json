@@ -1,0 +1,82 @@
+{
+  "sourceCommit": "2e0c7d690078657c3e501a0e71ed1494036fc9b1",
+  "files": [
+    {
+      "path": "attempt-1/hybrid-query.json",
+      "bytes": 11924,
+      "sha256": "b4578a8dc7889c323fb7991b7c8e748b0f69ef8927f6119bb7aa31eef49dcb4c"
+    },
+    {
+      "path": "attempt-1/hybrid-results.json",
+      "bytes": 2654,
+      "sha256": "10ec26f459bf1a6bc27f64de125c8b70cdb3e20b97698940c6eefafa95fba999"
+    },
+    {
+      "path": "attempt-1/receipt.json",
+      "bytes": 1162,
+      "sha256": "d3cba8b1ab5828a5a20a6a8e49c61eed41724453f9476b7efa7194f754ad3885"
+    },
+    {
+      "path": "attempt-1/source-audit.json",
+      "bytes": 7172,
+      "sha256": "f8505982788217086f2f0c60fa38bb78cd10c181b80afae271e8c87adf31a706"
+    },
+    {
+      "path": "ci.json",
+      "bytes": 3002,
+      "sha256": "b5851a0f85c7d66f0866a83f2957902ae322d32a2e64be6b05b81005ecb98549"
+    },
+    {
+      "path": "deployment.json",
+      "bytes": 423,
+      "sha256": "441127def46d9b34520997fd1bf6cc4f69f71d862afc96293da67f36ddf4274c"
+    },
+    {
+      "path": "funding.json",
+      "bytes": 386,
+      "sha256": "bd24d13a12cd12baad9588858121f7a59900eefb289bfadaec0c18ce5117a2f9"
+    },
+    {
+      "path": "hybrid-query.json",
+      "bytes": 11924,
+      "sha256": "b4578a8dc7889c323fb7991b7c8e748b0f69ef8927f6119bb7aa31eef49dcb4c"
+    },
+    {
+      "path": "hybrid-results.json",
+      "bytes": 2654,
+      "sha256": "7f7f7232db807a11f501034c175f29ae78694e6f4de701f55e74c688eb110b75"
+    },
+    {
+      "path": "independent-cosine.json",
+      "bytes": 1351,
+      "sha256": "8629d2ee3d96230400b79d00efba55c2fe3abf0c93e816cd6505a91c0942aaf6"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 4681,
+      "sha256": "efd125e431e19731f7c6859ebc01645473f22d31ed17b01a7c33a980b70ba6ca"
+    },
+    {
+      "path": "source-audit.json",
+      "bytes": 7172,
+      "sha256": "c09ec4e8d982eae46d7bfb1687d0515797ba3581929e6bff79f37dc20d4974d1"
+    },
+    {
+      "path": "tiger-pgvector-migration.json",
+      "bytes": 1242,
+      "sha256": "60a4a2cc634200271fdd2dc4a174dfeb3d799fba85697cd7d0342b2d0c14c332"
+    },
+    {
+      "path": "tiger-vector-capability.json",
+      "bytes": 1225,
+      "sha256": "281a56df44e110eec56b5e66df88b35c1b66538b8809bfcc59ba531b50d42688"
+    },
+    {
+      "path": "tiger-vector-install.json",
+      "bytes": 1121,
+      "sha256": "077d5bfe792dad901143c0c8ec482b0b70759f48811600220f71c005b701cd51"
+    }
+  ],
+  "redactions": [],
+  "scope": "Synthetic data only; no credential, session cookie, session hash, host connection URL or billing balance published"
+}

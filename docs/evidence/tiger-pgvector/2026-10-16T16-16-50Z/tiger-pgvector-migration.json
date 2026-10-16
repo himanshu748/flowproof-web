@@ -1,0 +1,45 @@
+{
+  "status": "verified",
+  "verifiedAt": "2026-10-16T16:16:50.761Z",
+  "strictTls": true,
+  "migrationSha256": "12351bd81cbf729186faaaa5ed7ecc51ce6cd24a877435d6e6a889459e838d9f",
+  "diskannMigrationSha256": "67803e809261af367799eebb22d769744586f1860337dfd740452bf293d5c677",
+  "privileges": {
+    "schema_usage": true,
+    "type_usage": true,
+    "cosine": 1,
+    "search_path": "pg_catalog, briefstamp_demo_v1"
+  },
+  "columns": [
+    {
+      "attname": "embedding_vector",
+      "type": "vector(384)",
+      "generated": "s",
+      "not_null": true
+    }
+  ],
+  "counts": {
+    "rows": 24,
+    "stored_vectors": 24,
+    "dimensions": 384
+  },
+  "oldEmbeddingRowsUnchanged": true,
+  "oldRows": {
+    "count": 24,
+    "digest": "0bdee42f39c28627487fe87fab94efe4"
+  },
+  "diskann": {
+    "installed": true
+  },
+  "index": [
+    {
+      "relname": "briefstamp_demo_embeddings_diskann",
+      "indisvalid": true,
+      "indisready": true,
+      "definition": "CREATE INDEX briefstamp_demo_embeddings_diskann ON briefstamp_demo_v1.failure_embeddings USING diskann (embedding_vector)"
+    }
+  ],
+  "grantChanges": 0,
+  "allowanceChanges": 0,
+  "freeBasis": "Existing funded no-card trial, billing read 2026-10-16T16:11:08Z; not permanent Free"
+}

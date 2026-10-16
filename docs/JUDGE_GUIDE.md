@@ -1,5 +1,8 @@
 # Briefstamp: a three-minute judge visit
 
+**Storage update, October 16 at 16:32 UTC:** [pgvector and independent score proof](evidence/tiger-pgvector/2026-10-16T16-16-50Z/) supersedes the array-storage limitation for the current deployment. Earlier dated agent receipts below retain their original array implementation and model usage; the new query proof makes no fresh model/search request. Three fixed MiniLM queries, exact ranking and the existing expiry/budget limits remain.
+
+
 Approve a brief, watch the browser check it, and download the evidence.
 
 

@@ -1,5 +1,8 @@
 # Briefstamp: a short path through the evidence
 
+**Storage update, October 16 at 16:32 UTC:** [pgvector and independent score proof](evidence/tiger-pgvector/2026-10-16T16-16-50Z/) supersedes the array-storage limitation for the current deployment. Earlier dated agent receipts below retain their original array implementation and model usage; the new query proof makes no fresh model/search request. Three fixed MiniLM queries, exact ranking and the existing expiry/budget limits remain.
+
+
 **For freelance website handoffs:** turn an agreed requirement into a reviewed check, an observed result and a portable report. A passing check proves its specific assertion; it does not certify the entire website.
 
 ## Try it in three minutes

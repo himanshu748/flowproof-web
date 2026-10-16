@@ -1,0 +1,50 @@
+{
+  "verifiedAt": "2026-10-16T16:13:51.278Z",
+  "strictTls": true,
+  "extensions": [
+    {
+      "extname": "vector",
+      "extversion": "0.8.7",
+      "schema": "public"
+    },
+    {
+      "extname": "vectorscale",
+      "extversion": "0.9.0",
+      "schema": "public"
+    }
+  ],
+  "vectorscale": {
+    "installed": true
+  },
+  "originalTablesUnchanged": true,
+  "counts": {
+    "audits": {
+      "count": 32,
+      "digest": "2c254b4d156cf4d0c2e93101f852b8df"
+    },
+    "agent_reservations": {
+      "count": 4,
+      "digest": "ac9e545d5b5a3a4741fa898d64ab73ed"
+    },
+    "judge_agent_grants": {
+      "count": 1,
+      "digest": "c4bbbc087806975c700df6e985ecc4eb"
+    },
+    "judge_agent_expansions": {
+      "count": 1,
+      "digest": "3b41c9ce082850882a26dc26e01132d3"
+    },
+    "judge_agent_reservations": {
+      "count": 4,
+      "digest": "df47ca1ac73cf962087b2e3c1bb09584"
+    },
+    "judge_agent_results": {
+      "count": 4,
+      "digest": "fe595c97c2bf059608094700ea6eeaf8"
+    }
+  },
+  "publicJudgeReservationsUnchanged": 4,
+  "serviceChanges": 0,
+  "billingChanges": 0,
+  "newProviderRequests": 0
+}

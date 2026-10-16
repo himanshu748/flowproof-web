@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-16T16:11:08.528Z",
+  "source": "Existing authorized Tiger signed-in billing view, in-app browser after reload",
+  "noPaymentMethod": true,
+  "positiveCredit": true,
+  "exactBalanceOmitted": true,
+  "scope": "Existing dedicated Briefstamp service only; metered trial covered by existing credits, not permanent Free",
+  "billingChanges": 0,
+  "newServices": 0
+}

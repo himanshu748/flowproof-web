@@ -1,5 +1,8 @@
 # Live-site Gemma diagnosis and rerun
 
+**Storage update, October 16 at 16:32 UTC:** [pgvector and independent score proof](evidence/tiger-pgvector/2026-10-16T16-16-50Z/) supersedes the array-storage limitation for the current deployment. Earlier dated agent receipts below retain their original array implementation and model usage; the new query proof makes no fresh model/search request. Three fixed MiniLM queries, exact ranking and the existing expiry/budget limits remain.
+
+
 ## Public judge run: upstream failure and independent success
 
 **Earlier verification under the original 12-run cap:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Earlier source and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).

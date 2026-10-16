@@ -1,0 +1,33 @@
+{
+  "startedAt": "2026-10-16T16:23:54.057Z",
+  "status": "failed",
+  "sourceCommit": "37f0136711500704d9df76a0c3810c26ac68796b",
+  "scope": "Fresh hosted synthetic Chromium audit and dedicated restricted-role pgvector/RRF retrieval; no model or search request",
+  "approvalActor": "Automated synthetic verification harness",
+  "providerCalls": 0,
+  "publicJudgeReservationsConsumed": 0,
+  "deployment": {
+    "sourceCommit": "37f0136711500704d9df76a0c3810c26ac68796b",
+    "status": "live",
+    "verifiedAt": "2026-10-16T16:23:41.260Z",
+    "plan": "free",
+    "ciUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38930890042",
+    "environmentExactlyPreserved": true,
+    "spentProofBytesPreserved": true,
+    "newServices": 0,
+    "billingChanges": 0,
+    "credentialTransfers": 0,
+    "deploymentId": "dep-db94u049v7es739i1t2g"
+  },
+  "indexing": {
+    "indexed": 3,
+    "matched": 3,
+    "skipped": 0,
+    "model": "all-minilm:22m",
+    "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+  },
+  "failure": {
+    "name": "error",
+    "message": "too many connections for role \"briefstamp_demo_runtime\""
+  }
+}
