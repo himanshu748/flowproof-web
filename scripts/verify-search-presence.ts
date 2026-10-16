@@ -271,7 +271,13 @@ async function verify(prepare: boolean) {
     for (const [index, check] of checks.entries()) {
       let physical = 0;
       const observation = await executeSearchPresence(check, {
-        env: { ...env, BRIEFSTAMP_PROVIDER_ALLOWANCE_FILE: allowanceFile },
+        // Explicitly enable only this new local two-call grant. The consumed
+        // hosted provider flag and all old proofs stay byte-for-byte unchanged.
+        env: {
+          ...env,
+          BRIEFSTAMP_SERPAPI_ENABLED: "true",
+          BRIEFSTAMP_PROVIDER_ALLOWANCE_FILE: allowanceFile,
+        },
         reserveCheck: async (c) => {
           assert.equal(sha(JSON.stringify(c)), sha(JSON.stringify(check)));
           try {
