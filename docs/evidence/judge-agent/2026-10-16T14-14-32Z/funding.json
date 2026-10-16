@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-10-16T14:14:32.215Z",
+  "status": "free_capacity_confirmed_no_execution",
+  "render": {
+    "plan": "free",
+    "sameService": true,
+    "environmentExactlyUnchanged": true
+  },
+  "serpapi": {
+    "plan": "Free Plan",
+    "accountStatus": "Active",
+    "monthlyPrice": 0,
+    "extraCredits": 0,
+    "remainingSearches": 214,
+    "remainingPlanSearches": 214,
+    "minimumForExpansion": 96,
+    "searchCallsThisCheck": 0
+  },
+  "gemma": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-16T14:14:32.213Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+    "modelCallsThisCheck": 0
+  },
+  "tiger": {
+    "strictTlsVerified": true,
+    "baseGrantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+    "baseProofSha256": "fbaef465b12db6c4b1571d61cb50b3347a6b4189cb39ff09efbd392f1ea64f5c",
+    "baseMaximumRuns": 12,
+    "spentJudgeSlots": 4,
+    "oldOperatorReservations": 4,
+    "cutoff": "2026-10-20T00:00:00.000Z",
+    "funding": "Existing credit-covered no-card trial; signed-in funding confirmation retained separately."
+  },
+  "proposedTotalRuns": 100,
+  "proposedRemainingRuns": 96,
+  "spentReservationsReset": false,
+  "modelOrSearchCalls": 0,
+  "credentialTransfers": 0,
+  "billingChanges": 0,
+  "newServices": 0
+}

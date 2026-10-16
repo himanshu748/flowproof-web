@@ -36,6 +36,32 @@ const grant: JudgeAgentGrant = {
   maxRuns: 12,
   expiresAt: "2026-10-20T00:00:00Z",
 };
+const expandedGrant: JudgeAgentGrant = {
+  ...grant,
+  maxRuns: 100,
+  expansion: {
+    expansionId: uuid(90),
+    proofSha256: "b".repeat(64),
+    baseProofSha256: grant.proofSha256,
+    maxRuns: 100,
+  },
+};
+interface ExpansionSeal {
+  grantId: string;
+  expansionId: string;
+  proofSha256: string;
+  baseProofSha256: string;
+  maxRuns: number;
+  expiresAt: string;
+}
+const expansionSeal: ExpansionSeal = {
+  grantId: grant.grantId,
+  expansionId: uuid(90),
+  proofSha256: "b".repeat(64),
+  baseProofSha256: grant.proofSha256,
+  maxRuns: 100,
+  expiresAt: grant.expiresAt,
+};
 const env = {
   BRIEFSTAMP_TIGER_ENABLED: "true",
   BRIEFSTAMP_TIGER_CONFIRMED_FREE_UNTIL: "2026-10-20T00:00:00Z",
@@ -98,6 +124,7 @@ function backend() {
   let clock = NOW,
     tail = Promise.resolve();
   const grants = new Map<string, JudgeAgentGrant>(),
+    expansions = new Map<string, ExpansionSeal>(),
     rows: Reservation[] = [],
     results = new Map<string, Record<string, unknown>>(),
     audits = new Map<string, Audit>();
@@ -170,6 +197,15 @@ function backend() {
         if (tx) tx.grantInserted = id;
       }
       return { rows: [] };
+    }
+    if (
+      statement.startsWith("SELECT ") &&
+      statement.includes("FROM briefstamp_demo_v1.judge_agent_expansions")
+    ) {
+      const value = expansions.get(String(parameters[0]));
+      return {
+        rows: value ? [{ ...value, expiresAt: new Date(value.expiresAt) }] : [],
+      };
     }
     if (statement.startsWith("SELECT grant_id AS")) {
       const value = grants.get(String(parameters[0]));
@@ -310,6 +346,7 @@ function backend() {
     fresh,
     rows,
     grants,
+    expansions,
     results,
     statements,
     fail,
@@ -632,5 +669,293 @@ describe("append-only durable judge grants", () => {
       }),
     ).rejects.toThrow("immutable judge result");
     expect(db.results.get(run.runId!)).toEqual(persisted);
+  });
+});
+
+describe("append-only expansion of the same judge grant", () => {
+  async function existingFour() {
+    const db = backend();
+    for (let visitor = 1; visitor <= 4; visitor++) {
+      const a = db.fresh(visitor);
+      await db
+        .store()
+        .reserveJudgeAgentRun(scope(visitor), a.projectId, a.id, grant);
+    }
+    return db;
+  }
+
+  it("preserves four spent slots and their results, then reserves slot five with 95 remaining", async () => {
+    const db = await existingFour();
+    const oldRows = structuredClone(db.rows);
+    const oldBase = structuredClone(db.grants.get(grant.grantId));
+    const prior = db.rows[0];
+    const oldResult = {
+      status: "completed_with_unavailable_tools",
+      sourceAuditUnchanged: true,
+      factualSummary: ["Offline fixture; a spent partial run remains spent."],
+    };
+    await db
+      .store()
+      .appendJudgeAgentResult(scope(1), prior.runId, prior.auditId, oldResult);
+    db.expansions.set(grant.grantId, structuredClone(expansionSeal));
+    expect(await db.store().judgeAgentStatus(scope(5), expandedGrant)).toEqual({
+      maximumRuns: 100,
+      usedRuns: 4,
+      remainingRuns: 96,
+      visitorUsed: false,
+    });
+    expect(
+      await db.store().judgeAgentStatus(scope(1), expandedGrant),
+    ).toMatchObject({
+      maximumRuns: 100,
+      usedRuns: 4,
+      remainingRuns: 96,
+      visitorUsed: true,
+      ownRunId: prior.runId,
+      ownResult: oldResult,
+    });
+    const next = db.fresh(5);
+    expect(
+      await db
+        .store()
+        .reserveJudgeAgentRun(scope(5), next.projectId, next.id, expandedGrant),
+    ).toMatchObject({
+      reserved: true,
+      slot: 5,
+      budget: { maximumRuns: 100, usedRuns: 5, remainingRuns: 95 },
+    });
+    expect(db.rows.slice(0, 4)).toEqual(oldRows);
+    expect(db.grants.get(grant.grantId)).toEqual(oldBase);
+    expect(db.expansions.get(grant.grantId)).toEqual(expansionSeal);
+    expect(db.results.get(prior.runId)).toEqual(oldResult);
+    expect(
+      db.statements.every(
+        (statement) => !/\b(?:UPDATE|DELETE|CREATE|ALTER)\b/i.test(statement),
+      ),
+    ).toBe(true);
+    expect(
+      db.statements.some((statement) =>
+        /INSERT INTO .*judge_agent_expansions/.test(statement),
+      ),
+    ).toBe(false);
+    expect(await db.store().judgeAgentStatus(scope(6), grant)).toEqual({
+      maximumRuns: 12,
+      usedRuns: 5,
+      remainingRuns: 7,
+      visitorUsed: false,
+    });
+  });
+
+  it("counts existing slots toward both the unchanged six-per-hour cap and the exact 100-run total", async () => {
+    const db = await existingFour();
+    const original = structuredClone(db.rows);
+    db.expansions.set(grant.grantId, structuredClone(expansionSeal));
+    for (let visitor = 5; visitor <= 100; visitor++) {
+      let source = db.fresh(visitor);
+      if ((visitor - 1) % 6 === 0) {
+        expect(
+          await db
+            .store()
+            .reserveJudgeAgentRun(
+              scope(visitor),
+              source.projectId,
+              source.id,
+              expandedGrant,
+            ),
+        ).toMatchObject({
+          reserved: false,
+          reason: "rate_limited",
+          budget: { usedRuns: visitor - 1 },
+        });
+        expect(db.rows).toHaveLength(visitor - 1);
+        db.advance(3_600_001);
+        source = db.fresh(visitor);
+      }
+      expect(
+        await db
+          .store()
+          .reserveJudgeAgentRun(
+            scope(visitor),
+            source.projectId,
+            source.id,
+            expandedGrant,
+          ),
+      ).toMatchObject({
+        reserved: true,
+        slot: visitor,
+        budget: {
+          maximumRuns: 100,
+          usedRuns: visitor,
+          remainingRuns: 100 - visitor,
+        },
+      });
+    }
+    const extra = db.fresh(101);
+    expect(
+      await db
+        .store()
+        .reserveJudgeAgentRun(
+          scope(101),
+          extra.projectId,
+          extra.id,
+          expandedGrant,
+        ),
+    ).toMatchObject({
+      reserved: false,
+      reason: "exhausted",
+      budget: { maximumRuns: 100, usedRuns: 100, remainingRuns: 0 },
+    });
+    expect(db.rows).toHaveLength(100);
+    expect(db.rows.slice(0, 4)).toEqual(original);
+    expect(db.rows.map((row) => row.slot)).toEqual(
+      Array.from({ length: 100 }, (_, index) => index + 1),
+    );
+    expect(new Set(db.rows.map((row) => row.grantId))).toEqual(
+      new Set([grant.grantId]),
+    );
+    expect(db.grants.get(grant.grantId)).toEqual(grant);
+    expect(db.expansions.get(grant.grantId)).toEqual(expansionSeal);
+  });
+
+  it("cannot initialize an expanded grant when its original twelve-run seal is missing", async () => {
+    const db = backend();
+    db.expansions.set(grant.grantId, structuredClone(expansionSeal));
+    const source = db.fresh(1);
+    await expect(
+      db.store().judgeAgentStatus(scope(1), expandedGrant),
+    ).rejects.toThrow();
+    await expect(
+      db
+        .store()
+        .reserveJudgeAgentRun(
+          scope(1),
+          source.projectId,
+          source.id,
+          expandedGrant,
+        ),
+    ).rejects.toThrow();
+    expect(db.grants.size).toBe(0);
+    expect(db.rows).toHaveLength(0);
+    expect(
+      db.statements.some((statement) =>
+        statement.startsWith(
+          "INSERT INTO briefstamp_demo_v1.judge_agent_grants",
+        ),
+      ),
+    ).toBe(false);
+  });
+
+  it.each([
+    ["missing", undefined],
+    ["grant identity", { ...expansionSeal, grantId: uuid(91) }],
+    ["expansion identity", { ...expansionSeal, expansionId: uuid(92) }],
+    ["expansion proof", { ...expansionSeal, proofSha256: "c".repeat(64) }],
+    ["base proof", { ...expansionSeal, baseProofSha256: "d".repeat(64) }],
+    ["run cap", { ...expansionSeal, maxRuns: 101 }],
+    ["expiry", { ...expansionSeal, expiresAt: "2026-10-19T23:00:00Z" }],
+  ] as const)(
+    "refuses a %s expansion seal without creating or freeing a slot",
+    async (_reason, seal) => {
+      const db = await existingFour();
+      const original = structuredClone(db.rows);
+      if (seal) db.expansions.set(grant.grantId, structuredClone(seal));
+      const next = db.fresh(5);
+      await expect(
+        db.store().judgeAgentStatus(scope(5), expandedGrant),
+      ).rejects.toThrow();
+      await expect(
+        db
+          .store()
+          .reserveJudgeAgentRun(
+            scope(5),
+            next.projectId,
+            next.id,
+            expandedGrant,
+          ),
+      ).rejects.toThrow();
+      expect(db.rows).toEqual(original);
+      expect(db.grants.get(grant.grantId)).toEqual(grant);
+      expect(db.expansions.get(grant.grantId)).toEqual(seal);
+      expect(
+        db.statements.filter((statement) =>
+          statement.includes("FROM briefstamp_demo_v1.judge_agent_expansions"),
+        ),
+      ).toHaveLength(2);
+      expect(
+        db.statements.some((statement) =>
+          /INSERT INTO .*judge_agent_expansions/.test(statement),
+        ),
+      ).toBe(false);
+    },
+  );
+
+  it("rolls back a pre-commit reservation failure without touching either seal or prior spent slots", async () => {
+    const db = await existingFour();
+    db.expansions.set(grant.grantId, structuredClone(expansionSeal));
+    const original = structuredClone(db.rows);
+    const source = db.fresh(5);
+    db.fail.insert = true;
+    const failure = await db
+      .store()
+      .reserveJudgeAgentRun(
+        scope(5),
+        source.projectId,
+        source.id,
+        expandedGrant,
+      )
+      .catch(String);
+    expect(failure).not.toContain("Private failed SQL");
+    expect(db.statements).toContain("ROLLBACK");
+    expect(db.rows).toEqual(original);
+    expect(db.grants.get(grant.grantId)).toEqual(grant);
+    expect(db.expansions.get(grant.grantId)).toEqual(expansionSeal);
+    db.fail.insert = false;
+    expect(
+      await db.store().judgeAgentStatus(scope(5), expandedGrant),
+    ).toMatchObject({ usedRuns: 4, remainingRuns: 96, visitorUsed: false });
+  });
+
+  it("keeps an ambiguously committed expanded slot consumed across a new store instance", async () => {
+    const db = await existingFour();
+    db.expansions.set(grant.grantId, structuredClone(expansionSeal));
+    const source = db.fresh(5);
+    db.fail.commit = true;
+    const before = db.statements.length;
+    await expect(
+      db
+        .store()
+        .reserveJudgeAgentRun(
+          scope(5),
+          source.projectId,
+          source.id,
+          expandedGrant,
+        ),
+    ).rejects.toThrow("ambiguous commit");
+    expect(db.statements.slice(before)).not.toContain("ROLLBACK");
+    expect(sql.releases.at(-1)).toHaveBeenCalledWith(true);
+    expect(db.rows).toHaveLength(5);
+    expect(db.rows.at(-1)?.slot).toBe(5);
+    db.fail.commit = false;
+    expect(
+      await db.store().judgeAgentStatus(scope(5), expandedGrant),
+    ).toMatchObject({
+      maximumRuns: 100,
+      usedRuns: 5,
+      remainingRuns: 95,
+      visitorUsed: true,
+    });
+    expect(
+      await db
+        .store()
+        .reserveJudgeAgentRun(
+          scope(5),
+          source.projectId,
+          source.id,
+          expandedGrant,
+        ),
+    ).toMatchObject({ reserved: false, reason: "visitor_used" });
+    expect(db.rows).toHaveLength(5);
+    expect(db.grants.get(grant.grantId)).toEqual(grant);
+    expect(db.expansions.get(grant.grantId)).toEqual(expansionSeal);
   });
 });

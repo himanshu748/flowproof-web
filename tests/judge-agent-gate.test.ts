@@ -86,7 +86,48 @@ async function fixture() {
   env.BRIEFSTAMP_JUDGE_AGENT_PROOF_JSON = JSON.stringify(proof);
   const gate = createJudgeAgentGate({ priorPins: pins });
   const config = gate.configuration(env, NOW)!;
-  return { env, proof, gate, config, directory };
+  return { env, proof, gate, config, directory, pins };
+}
+async function expandedFixture() {
+  const base = await fixture();
+  const expansion = {
+    expansionId: uuid(90),
+    grantId: base.proof.grantId,
+    baseProofSha256: base.config.grant.proofSha256,
+    credentialSha256: base.proof.credentialSha256,
+    checkedAt: base.proof.checkedAt,
+    expiresAt: base.proof.expiresAt,
+    freeOnly: true,
+    paidOverageDisabled: true,
+    baseMaxRuns: 12,
+    maxRuns: 100,
+    maxRunsPerHour: 6,
+    maxModelCallsPerRun: 2,
+    maxSearchCallsPerRun: 1,
+    maxRunsPerVisitor: 1,
+    confirmedFreeSearches: 214,
+    evidence:
+      "Synthetic explicitly approved expansion fixture, not cloud proof",
+  };
+  const expansionPin = {
+    grantId: expansion.grantId,
+    baseProofSha256: expansion.baseProofSha256,
+    expansionId: expansion.expansionId,
+    proofSha256: sha(JSON.stringify(expansion)),
+  };
+  const gate = createJudgeAgentGate({ priorPins: base.pins, expansionPin });
+  const env: NodeJS.ProcessEnv = {
+    ...base.env,
+    BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON: JSON.stringify(expansion),
+  };
+  return {
+    base,
+    env,
+    expansion,
+    expansionPin,
+    gate,
+    config: gate.configuration(env, NOW)!,
+  };
 }
 const account = (change: Record<string, unknown> = {}) => ({
   account_status: "Active",
@@ -114,6 +155,176 @@ afterEach(async () => {
   vi.restoreAllMocks();
   for (const directory of directories.splice(0))
     await rm(directory, { recursive: true, force: true });
+});
+
+describe("pinned same-grant expansion to one hundred total runs", () => {
+  it("keeps the exact base proof identity and original proof while selecting only the separately pinned expansion", async () => {
+    const { base, env, gate, config, expansionPin } = await expandedFixture();
+    expect(config).not.toBeNull();
+    expect(config.proof).toEqual(base.proof);
+    expect(config.proof.maxRuns).toBe(12);
+    expect(env.BRIEFSTAMP_JUDGE_AGENT_PROOF_JSON).toBe(
+      base.env.BRIEFSTAMP_JUDGE_AGENT_PROOF_JSON,
+    );
+    expect(config.grant).toEqual({
+      ...base.config.grant,
+      maxRuns: 100,
+      expansion: {
+        expansionId: uuid(90),
+        proofSha256: expansionPin.proofSha256,
+        baseProofSha256: base.config.grant.proofSha256,
+        maxRuns: 100,
+      },
+    });
+    expect(gate.configuration(base.env, NOW)?.grant).toEqual(base.config.grant);
+    expect(judgeAgentConfiguration(env, NOW)).toBeNull();
+  });
+  it.each([
+    { maxRuns: 99 },
+    { maxRuns: 101 },
+    { baseMaxRuns: 100 },
+    { maxModelCallsPerRun: 3 },
+    { maxSearchCallsPerRun: 2 },
+    { maxRunsPerVisitor: 2 },
+    { maxRunsPerHour: 7 },
+    { grantId: uuid(99) },
+    { expansionId: uuid(99) },
+    { baseProofSha256: "0".repeat(64) },
+    { credentialSha256: "0".repeat(64) },
+    { checkedAt: "2026-10-16T08:00:01Z" },
+    { expiresAt: "2026-10-20T00:00:01Z" },
+    { confirmedFreeSearches: 99 },
+    { freeOnly: false },
+    { paidOverageDisabled: false },
+    { evidence: "A changed proof is not the pinned approval" },
+  ])(
+    "fails closed on an altered expansion without falling back to twelve: %j",
+    async (change) => {
+      const { env, gate, expansion } = await expandedFixture();
+      env.BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON = JSON.stringify({
+        ...expansion,
+        ...change,
+      });
+      expect(gate.configuration(env, NOW)).toBeNull();
+    },
+  );
+  it("rejects malformed presence and expiry; canonical key ordering cannot mint another allowance", async () => {
+    const { env, gate, expansion, config } = await expandedFixture();
+    for (const raw of ["", "{", "null", "[]"])
+      expect(
+        gate.configuration(
+          { ...env, BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON: raw },
+          NOW,
+        ),
+      ).toBeNull();
+    env.BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON = JSON.stringify(
+      Object.fromEntries(Object.entries(expansion).reverse()),
+      null,
+      2,
+    );
+    expect(gate.configuration(env, NOW)?.grant).toEqual(config.grant);
+    expect(gate.configuration(env, Date.parse(expansion.expiresAt))).toBeNull();
+    const changedBase = {
+      ...JSON.parse(env.BRIEFSTAMP_JUDGE_AGENT_PROOF_JSON!),
+      evidence: "Changed base proof cannot inherit the expansion",
+    };
+    expect(
+      gate.configuration(
+        {
+          ...env,
+          BRIEFSTAMP_JUDGE_AGENT_PROOF_JSON: JSON.stringify(changedBase),
+        },
+        NOW,
+      ),
+    ).toBeNull();
+  });
+  it("checks all remaining slots against fresh free funding, up to exactly one hundred", async () => {
+    const { gate, config } = await expandedFixture();
+    const fetcher = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify(
+            account({ total_searches_left: 96, plan_searches_left: 96 }),
+          ),
+        ),
+    );
+    await expect(
+      gate.funding(config, {
+        now: () => NOW,
+        minimumSearches: 96,
+        forceFresh: true,
+        fetcher,
+      }),
+    ).resolves.toMatchObject({ remainingSearches: 96 });
+    await expect(
+      gate.funding(config, {
+        now: () => NOW,
+        minimumSearches: 97,
+        forceFresh: true,
+        fetcher,
+      }),
+    ).rejects.toMatchObject({ code: "free_funding_insufficient" });
+    fetcher.mockImplementation(
+      async () =>
+        new Response(
+          JSON.stringify(
+            account({ total_searches_left: 100, plan_searches_left: 100 }),
+          ),
+        ),
+    );
+    await expect(
+      gate.funding(config, {
+        now: () => NOW,
+        minimumSearches: 100,
+        forceFresh: true,
+        fetcher,
+      }),
+    ).resolves.toMatchObject({ remainingSearches: 100 });
+    const count = fetcher.mock.calls.length;
+    await expect(
+      gate.funding(config, { now: () => NOW, minimumSearches: 101, fetcher }),
+    ).rejects.toMatchObject({ code: "invalid_funding_minimum" });
+    expect(fetcher).toHaveBeenCalledTimes(count);
+  });
+  it("refuses expansion removal or forged selected seal before initializing a search ledger", async () => {
+    const { base, gate, config } = await expandedFixture();
+    const fetcher = vi.fn();
+    await expect(
+      gate.searchOptions(config, uuid(91), {
+        env: base.env,
+        now: () => NOW,
+        fetcher,
+      }),
+    ).rejects.toMatchObject({ code: "invalid_judge_grant" });
+    await expect(
+      gate.funding(
+        { ...config, grant: { ...config.grant, maxRuns: 12 } } as never,
+        { now: () => NOW, fetcher },
+      ),
+    ).rejects.toMatchObject({ code: "invalid_judge_grant" });
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(await readdir(base.directory)).toEqual([]);
+  });
+  it("never refunds a previously consumed base-run ledger after expansion", async () => {
+    const { base, env, gate, config } = await expandedFixture();
+    const fetcher = vi.fn(async () => new Response(JSON.stringify(account())));
+    const options = await base.gate.searchOptions(base.config, uuid(92), {
+      env: base.env,
+      now: () => NOW,
+      fetcher,
+    });
+    const filename = options.env!.BRIEFSTAMP_PROVIDER_ALLOWANCE_FILE!;
+    const ledger = JSON.parse(await readFile(filename, "utf8"));
+    ledger.providers.serpapi.usedCalls = 1;
+    ledger.providers.serpapi.usedUnits = 1;
+    const spent = JSON.stringify(ledger);
+    await writeFile(filename, spent);
+    await expect(
+      gate.searchOptions(config, uuid(92), { env, now: () => NOW, fetcher }),
+    ).rejects.toMatchObject({ code: "budget_exhausted" });
+    expect(await readFile(filename, "utf8")).toBe(spent);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe("separate immutable judge grant", () => {

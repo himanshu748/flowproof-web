@@ -28,7 +28,7 @@ Open weights let me run Gemma locally and fine-tune Qwen while keeping the brows
 
 ## My First User
 
-My freelancer friend Priyanshu tried it and said “it's good.” [Workflow details and willingness to pay remain unknown](CUSTOMER_VALIDATION.md).
+The author reports that freelancer friend Priyanshu tried Briefstamp and said he “can pay” for it. No price was named; no transcript or recording exists. This is not independently observed customer acceptance, and he is not a paying customer. [Corrected account, October 16, 2026](CUSTOMER_VALIDATION.md).
 
 ## Prize Categories
 
@@ -95,7 +95,7 @@ Both native Gemma requests returned HTTP 200: **517 input / 38 output tokens**, 
 - Backboard demonstrates assistant memory, not a generated answer grounded in that memory. The audio file decodes, but its audible wording has not been independently listened to.
 - I am not entering Entire or .tech: Entire evidence is local only, and I chose to keep the existing Render domain. Arduino, TabPFN, DigitalOcean and MongoDB Atlas are not used.
 
-Next: observe complete freelancer handoffs, validate the training examples and test the ₹499 pricing hypothesis. Priyanshu's short feedback is a starting point; payment intent and completed workflow details remain unknown.
+Next: observe complete freelancer handoffs, validate the training examples and test the ₹499 pricing hypothesis. Priyanshu's author-reported statement that he “can pay” is a starting point; no price was named, and completed workflow details remain unrecorded.
 
 AI assisted coding and drafting; retained approvals came from verifiers.
 

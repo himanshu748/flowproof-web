@@ -14,8 +14,6 @@ Formerly FlowProof; existing repository and demo URLs are retained.
 
 [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance and captions](docs/demo/README.md).
 
-**Try Tiger + SerpApi:** [Open the evidence agent](https://flowproof-demo.onrender.com/#agent), approve its checks, run the browser audit, then consent to Gemma investigating the results. [Real public-route proof](docs/evidence/judge-agent/2026-10-16T13-07-24Z/) · [Steps and limits](docs/JUDGE_GUIDE.md#try-the-public-evidence-agent).
-
 ## The problem
 
 A site can look finished while a promised headline, contact link or mobile layout is wrong. Freelancers assemble screenshots and test notes while clients try to match the delivery to the brief. Briefstamp joins each requirement, approved check and browser observation in one portable report.
@@ -46,6 +44,12 @@ On October 16, Google-hosted Gemma proposed the live-homepage plan: **5 passed /
 
 A separate [hosted evidence-agent run](docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) used two native Gemma requests to select Tiger failure history and SerpApi search, then cite their actual results. Tiger returned three saved failures; search returned zero matching results. The source audit stayed **2 passed / 3 failed / 1 unverified**. [Scope, earlier failures and consumed allowances](docs/HOSTED_OPTIONAL.md).
 
+## Optional: public evidence agent
+
+The main sample demo works without this optional step. [Try Tiger + SerpApi](https://flowproof-demo.onrender.com/#agent): approve the fixed checks, run the browser audit, then consent to Gemma investigating the results. [Retained public receipts](docs/evidence/judge-agent/2026-10-16T13-07-24Z/) · [Steps and limits](docs/JUDGE_GUIDE.md#optional-public-evidence-agent).
+
+Providers can fail: of four retained public attempts, one completed, two returned Google HTTP 500, and one had a search timeout. The shared allowance is capped at **100 runs total, six/hour and one/session**, ending **October 20, 2026 at 00:00 UTC**; failed reservations stay spent. [Free allowance check](docs/evidence/judge-agent/2026-10-16T14-14-32Z/funding.json).
+
 ## Integrations with receipts
 
 - **Gemma:** a dated hosted run generated six unapproved checks; a separate native JSON tool loop selected and cited stored history and search observations. [Proposal proof](docs/PUBLIC_GEMMA.md) · [Agent proof](docs/HOSTED_OPTIONAL.md).
@@ -73,10 +77,10 @@ Open http://127.0.0.1:5173. The default sample needs no paid account. [Configura
 
 - Public targets are the owned homepage and sample; scripts are disabled. The public sample’s plan yields three failures, versus four in the CI fixture.
 - The video uses labelled templates. Earlier provider and validation failures remain in the [Gemma diagnosis](docs/GEMMA_LIVE_SITE.md); a dated success is no uptime guarantee.
-- Live provider reliability remains unresolved: the [four retained public attempts](docs/evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) include two Google HTTP 500 failures and a search timeout with unknown upstream completion; one tokenless HTTP run completed. The app preserves unavailable states and spent slots. Its separate grant caps 12 runs total, six/hour and one/session, with at most two model requests and one search per run, ending October 20 at 00:00 UTC. Three fixed queries and exact-text MiniLM arrays do not establish arbitrary-query retrieval, hosted embedding inference or a general benchmark. Empty searches are not acceptance verdicts; Mastra remains the separate proposal workflow.
+- Live provider reliability remains unresolved: the [four retained public attempts](docs/evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) include two Google HTTP 500 failures and a search timeout with unknown upstream completion; one tokenless HTTP run completed. The app preserves unavailable states and spent slots. The [optional agent](#optional-public-evidence-agent) uses at most two model requests and one search per run. Three fixed queries and exact-text MiniLM arrays do not establish arbitrary-query retrieval, hosted embedding inference or a general benchmark. Empty searches are not acceptance verdicts; Mastra remains the separate proposal workflow.
 - Tinker used fewer tokens with lower reference agreement; the dataset has no human-validated examples.
 - Credit-funded services expire. Tiger stores image references rather than image bytes, with an October 20 access cutoff; budgets and sessions are bounded. Sentry verification covers proposal generation. Earlier optional search, speech, memory and all four operator-agent allowances remain consumed; the separate judge grant cannot replenish them. [Current funding boundaries](docs/PROVIDER_ALLOWANCES.md).
-- The author reports that freelancer friend Priyanshu tried Briefstamp and said “it's good.” [Workflow details and willingness to pay remain unknown](docs/CUSTOMER_VALIDATION.md); this is not independently observed customer acceptance. All-sponsor completion is not claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
+- The author reports that freelancer friend Priyanshu tried Briefstamp and said he “can pay” for it. No price was named; no transcript or recording exists. This is not independently observed customer acceptance, and he is not a paying customer. [Corrected account, October 16, 2026](docs/CUSTOMER_VALIDATION.md). All-sponsor completion is not claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
 
 ## AI disclosure
 

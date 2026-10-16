@@ -209,11 +209,10 @@ export default function Landing({
               <nav className="lp-nav" aria-label="Main navigation">
                 <a href="#how-it-works">How it works</a>
                 <a href="#the-proof">The proof</a>
-                <a href="#agent">Evidence agent</a>
                 <a href="#questions">Questions</a>
               </nav>
               <button type="button" className="lp-nav-cta" onClick={onOpenDemo}>
-                Open demo <ArrowUpRight size={16} />
+                Open sample demo <ArrowUpRight size={16} />
               </button>
             </div>
           </header>
@@ -241,18 +240,15 @@ export default function Landing({
                       className="lp-button lp-button-primary"
                       onClick={onOpenDemo}
                     >
-                      Try the live demo <ArrowUpRight size={19} />
+                      Try the sample demo <ArrowUpRight size={19} />
                     </button>
                     <a className="lp-button lp-button-quiet" href="#the-proof">
                       See the proof <ArrowDown size={17} />
                     </a>
-                    <a className="lp-text-link" href="#agent">
-                      Try the evidence agent <ArrowUpRight size={16} />
-                    </a>
                   </motion.div>
                   <motion.p className="lp-hero-note" {...entrance(0.32)}>
-                    Generate with Gemma. Review the checks. Run a real browser
-                    audit.
+                    Review the sample checks. Run a real browser audit. Download
+                    the report.
                   </motion.p>
                 </div>
 
@@ -605,6 +601,25 @@ export default function Landing({
                       details. Commercial pricing has not launched. The current
                       project uses confirmed free resources and a bounded
                       research pilot.
+                    </p>
+                  </details>
+                  <details>
+                    <summary>
+                      Optional: public evidence agent
+                      <ChevronDown size={19} />
+                    </summary>
+                    <p>
+                      The main sample demo works without this step. Approve a
+                      sample audit, then consent to Gemma consulting Tiger
+                      history and SerpApi search. Of four retained public
+                      attempts, one completed, two returned Google HTTP 500, and
+                      one had a search timeout.
+                    </p>
+                    <p>
+                      Shared allowance: 100 runs total, six/hour and
+                      one/session, ending October 20, 2026 at 00:00 UTC. Failed
+                      reservations stay spent.{" "}
+                      <a href="#agent">Open the optional evidence agent</a>.
                     </p>
                   </details>
                 </div>

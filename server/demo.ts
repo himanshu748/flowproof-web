@@ -1015,7 +1015,7 @@ export function createDemoRouter(options: DemoOptions) {
       const config = judgeAgentConfiguration(process.env, now());
       return config
         ? {
-            identity: config.grant.proofSha256,
+            identity: JSON.stringify(config.grant),
             modelRequests: 2 as const,
             searchTimeoutMs: 60_000 as const,
             judge: config,
@@ -1063,6 +1063,7 @@ export function createDemoRouter(options: DemoOptions) {
       return unavailable(
         "The live judge allowance is unavailable or expired. You can inspect the recorded run.",
       );
+    const grantIdentity = JSON.stringify(config.grant);
     if (!tigerAvailable() || !gemmaAvailable())
       return unavailable(
         "The required free model or Tiger connection is unavailable. No live run was reserved.",
@@ -1078,8 +1079,7 @@ export function createDemoRouter(options: DemoOptions) {
       const currentConfig = judgeAgentConfiguration(process.env, now());
       if (
         !currentConfig ||
-        currentConfig.grant.proofSha256 !== config.grant.proofSha256 ||
-        currentConfig.grant.grantId !== config.grant.grantId
+        JSON.stringify(currentConfig.grant) !== grantIdentity
       )
         return unavailable(
           "The live allowance changed. Refresh status before starting a run.",
@@ -1114,8 +1114,7 @@ export function createDemoRouter(options: DemoOptions) {
       if (
         s.expires <= now() ||
         !fundedConfig ||
-        fundedConfig.grant.proofSha256 !== config.grant.proofSha256 ||
-        fundedConfig.grant.grantId !== config.grant.grantId
+        JSON.stringify(fundedConfig.grant) !== grantIdentity
       )
         return unavailable(
           "The session or allowance expired. No live run was reserved.",

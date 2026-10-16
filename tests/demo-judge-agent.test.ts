@@ -13,6 +13,7 @@ import {
   type executeEvidenceAgent,
 } from "../server/evidence-agent";
 import { GOOGLE_GEMMA_MODEL } from "../server/providers/gemma-google";
+import type { JudgeAgentBudget } from "../server/hosted-tiger";
 import type { runAudit } from "../server/runner";
 import { HOSTED_WEBSITE_URL } from "../shared/hosted-target";
 import type { Audit, Bootstrap, CheckResult, Project } from "../shared/types";
@@ -159,7 +160,7 @@ async function harness(
     { runId: string; auditId: string; result?: Record<string, unknown> }
   >();
   let externalUsedRuns = 0;
-  const budget = (scope: string) => {
+  const budget = (scope: string): JudgeAgentBudget => {
     const own = reservations.get(scope);
     const usedRuns = externalUsedRuns + reservations.size;
     return {
@@ -1160,6 +1161,81 @@ describe("public judge evidence-agent HTTP boundary", () => {
     expect(body.budget).toBeUndefined();
     expect(body.funding).toBeUndefined();
     expect(boundary.funding).toHaveBeenCalledOnce();
+    h.noAgentWork();
+  });
+  const expandedConfig = () => ({
+    ...config,
+    grant: {
+      ...grant,
+      maxRuns: 100 as const,
+      expansion: {
+        expansionId: "2b6cd30d-9dd2-4aa0-ae08-a057f235154f",
+        proofSha256: "c".repeat(64),
+        baseProofSha256: grant.proofSha256,
+        maxRuns: 100 as const,
+      },
+    },
+  });
+
+  it("withholds saved status when expansion is removed during the database read", async () => {
+    const h = await harness();
+    const v = await h.visitor();
+    boundary.configuration.mockReturnValue(expandedConfig());
+    h.store.judgeAgentStatus.mockImplementationOnce(async () => {
+      boundary.configuration.mockReturnValue(config);
+      return {
+        maximumRuns: 100,
+        usedRuns: 4,
+        remainingRuns: 96,
+        visitorUsed: true,
+        ownResult: { status: "failed", sourceAuditId: randomUUID() },
+      };
+    });
+    const response = await h.status(v);
+    const body = await response.json();
+    expect(body.available).toBe(false);
+    expect(body.budget).toBeUndefined();
+    expect(body.result).toBeUndefined();
+    expect(boundary.funding).not.toHaveBeenCalled();
+    h.noAgentWork();
+  });
+
+  it("withholds available status when expansion is removed during funding", async () => {
+    const h = await harness();
+    const v = await h.visitor();
+    boundary.configuration.mockReturnValue(expandedConfig());
+    boundary.funding.mockImplementationOnce(async () => {
+      boundary.configuration.mockReturnValue(config);
+      return {
+        verified: true,
+        fixture: true,
+        checkedAt: new Date(NOW).toISOString(),
+      };
+    });
+    const response = await h.status(v);
+    const body = await response.json();
+    expect(body.available).toBe(false);
+    expect(body.budget).toBeUndefined();
+    expect(body.funding).toBeUndefined();
+    expect(boundary.funding).toHaveBeenCalledOnce();
+    h.noAgentWork();
+  });
+
+  it("reserves nothing when expansion is removed during review funding", async () => {
+    const h = await harness();
+    const v = await h.ready();
+    boundary.configuration.mockReturnValue(expandedConfig());
+    boundary.funding.mockImplementationOnce(async () => {
+      boundary.configuration.mockReturnValue(config);
+      return {
+        verified: true,
+        fixture: true,
+        checkedAt: new Date(NOW).toISOString(),
+      };
+    });
+    const response = await h.review(v);
+    expect(response.status).toBe(409);
+    expect(await response.json()).toMatchObject({ allowanceConsumed: false });
     h.noAgentWork();
   });
 });

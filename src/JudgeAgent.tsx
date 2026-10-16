@@ -95,17 +95,17 @@ export function JudgeAgentInvite({ onOpen }: { onOpen: () => void }) {
         <Sparkles size={24} />
       </div>
       <div>
-        <span className="section-kicker">A LIVE EVIDENCE WORKFLOW</span>
-        <h2 id="judge-agent-invite-title">
-          Give the agent something real to investigate.
-        </h2>
+        <span className="section-kicker">OPTIONAL, AFTER THE SAMPLE DEMO</span>
+        <h2 id="judge-agent-invite-title">Optional: public evidence agent</h2>
         <p>
-          Approve a sample audit. Let Gemma consult Tiger history and search
-          visibility, then inspect the receipts.
+          The main sample demo works without this step. Of four retained public
+          attempts, one completed, two returned Google HTTP 500, and one had a
+          search timeout. Shared allowance: 100 runs total, six/hour and
+          one/session, ending October 20, 2026 at 00:00 UTC.
         </p>
       </div>
-      <button type="button" className="button primary" onClick={onOpen}>
-        Try the evidence agent <ArrowRight size={17} />
+      <button type="button" className="button" onClick={onOpen}>
+        Open the optional agent <ArrowRight size={17} />
       </button>
     </section>
   );
@@ -427,11 +427,18 @@ export function JudgeAgent({
     >
       <div className="judge-agent-heading">
         <div>
-          <span className="section-kicker">LIVE, WITH YOUR APPROVAL</span>
-          <h1 id="judge-agent-title">Follow the evidence.</h1>
+          <span className="section-kicker">OPTIONAL, WITH YOUR APPROVAL</span>
+          <h1 id="judge-agent-title">Optional: public evidence agent</h1>
           <p>
-            Give Gemma a real browser audit. See which tools it chooses, what
-            Tiger and SerpApi return, and exactly what it cites.
+            The <a href="#demo">main sample demo</a> works without this step.
+            Give Gemma a browser audit, then inspect Tiger history, SerpApi
+            search and the cited observations. Of four retained public attempts,
+            one completed, two returned Google HTTP 500, and one had a search
+            timeout.
+          </p>
+          <p>
+            Shared allowance: 100 runs total, six/hour and one/session, ending
+            October 20, 2026 at 00:00 UTC. Failed reservations stay spent.
           </p>
         </div>
         <a

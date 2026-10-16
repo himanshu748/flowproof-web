@@ -22,7 +22,7 @@ Open weights enable local Gemma and Qwen fine-tuning. Tinker LoRA used [69.55% f
 
 ## First User
 
-Freelancer friend Priyanshu tried it and said “it's good.” [Workflow details and payment intent remain unknown](CUSTOMER_VALIDATION.md).
+Author-reported: freelancer friend Priyanshu tried Briefstamp and said he “can pay” for it. No price was named; no transcript or recording exists. This is not independently observed customer acceptance, and he is not a paying customer. [Corrected account](CUSTOMER_VALIDATION.md).
 
 ## Proposed Categories
 

@@ -101,7 +101,7 @@ const titles: Record<View, string> = {
   model: "Model lab",
   settings: "Connections",
   history: "Failure library",
-  agent: "Evidence agent",
+  agent: "Optional evidence agent",
 };
 const tokenKey = "flowproof.operator-token";
 let recoverDemoSession: (() => Promise<void>) | null = null;
@@ -827,11 +827,11 @@ function App({
     icon: typeof LayoutDashboard;
   }[] = [
     { view: "overview", label: "Overview", icon: LayoutDashboard },
-    { view: "agent", label: "Evidence agent", icon: Sparkles },
     { view: "projects", label: "Projects", icon: Folder },
     { view: "reports", label: "Delivery reports", icon: FileCheck2 },
     { view: "history", label: "Failure library", icon: BookOpen },
     { view: "model", label: "Model lab", icon: Beaker },
+    { view: "agent", label: "Optional evidence agent", icon: Sparkles },
   ];
   const intro = [
     {
@@ -1183,7 +1183,7 @@ function App({
                 )}
                 {data && view === "agent" && !demo?.enabled && (
                   <div className="panel" style={{ padding: 24 }}>
-                    <h1>Evidence agent</h1>
+                    <h1>Optional evidence agent</h1>
                     <p>
                       The visitor allowance is available on the public demo.{" "}
                       <a href="https://flowproof-demo.onrender.com/#agent">
@@ -1220,9 +1220,6 @@ function App({
                         New project
                       </button>
                     </div>
-                    {view === "overview" && demo?.enabled && (
-                      <JudgeAgentInvite onOpen={() => navigate("agent")} />
-                    )}
                     {view === "overview" && (
                       <section
                         className="stats-grid workspace-summary"
@@ -1503,6 +1500,9 @@ function App({
                               <ArrowRight size={15} />
                             </button>
                           </section>
+                        )}
+                        {view === "overview" && demo?.enabled && (
+                          <JudgeAgentInvite onOpen={() => navigate("agent")} />
                         )}
                       </div>
                       {view === "overview" && (

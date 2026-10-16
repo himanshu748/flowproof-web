@@ -64,7 +64,38 @@ export const JudgeAgentProofSchema = z
   })
   .strict();
 export type JudgeAgentProof = z.infer<typeof JudgeAgentProofSchema>;
-export const JudgeAgentGrantSchema = z
+export const JUDGE_AGENT_EXPANSION_PIN = Object.freeze({
+  grantId: "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+  baseProofSha256:
+    "fbaef465b12db6c4b1571d61cb50b3347a6b4189cb39ff09efbd392f1ea64f5c",
+  expansionId: "a3b8d32e-e7ec-4576-bbac-c0b9d74baaaa",
+  proofSha256:
+    "cf9fa8a9367035b7226401f8c90b4e59a1072a8620e05ca6b411479704a8804a",
+});
+export const JudgeAgentExpansionProofSchema = z
+  .object({
+    expansionId: z.string().uuid(),
+    grantId: z.string().uuid(),
+    baseProofSha256: hash,
+    credentialSha256: hash,
+    checkedAt: z.string().datetime({ offset: true }),
+    expiresAt: z.string().datetime({ offset: true }),
+    freeOnly: z.literal(true),
+    paidOverageDisabled: z.literal(true),
+    baseMaxRuns: z.literal(12),
+    maxRuns: z.literal(100),
+    maxRunsPerHour: z.literal(6),
+    maxModelCallsPerRun: z.literal(2),
+    maxSearchCallsPerRun: z.literal(1),
+    maxRunsPerVisitor: z.literal(1),
+    confirmedFreeSearches: z.number().int().min(100).max(1_000_000),
+    evidence: z.string().min(8).max(500),
+  })
+  .strict();
+export type JudgeAgentExpansionProof = z.infer<
+  typeof JudgeAgentExpansionProofSchema
+>;
+const BaseJudgeAgentGrantSchema = z
   .object({
     grantId: z.string().uuid(),
     proofSha256: hash,
@@ -75,9 +106,25 @@ export const JudgeAgentGrantSchema = z
       .refine((value) => Date.parse(value) <= CUTOFF),
   })
   .strict();
+const expansionSealSchema = z
+  .object({
+    expansionId: z.string().uuid(),
+    proofSha256: hash,
+    baseProofSha256: hash,
+    maxRuns: z.literal(100),
+  })
+  .strict();
+export const JudgeAgentGrantSchema = z.union([
+  BaseJudgeAgentGrantSchema,
+  BaseJudgeAgentGrantSchema.extend({
+    maxRuns: z.literal(100),
+    expansion: expansionSealSchema,
+  }).strict(),
+]);
 export type JudgeAgentGrant = z.infer<typeof JudgeAgentGrantSchema>;
 export interface JudgeAgentConfiguration {
   proof: JudgeAgentProof;
+  expansion?: JudgeAgentExpansionProof;
   grant: JudgeAgentGrant;
   key: string;
 }
@@ -125,7 +172,10 @@ const ledgerSchema = z
     providers: z.object({ serpapi: searchAllowance }).strict(),
   })
   .strict();
-function validProof(proof: JudgeAgentProof, now: number) {
+function validProof(
+  proof: Pick<JudgeAgentProof, "checkedAt" | "expiresAt">,
+  now: number,
+) {
   const checked = Date.parse(proof.checkedAt),
     expires = Date.parse(proof.expiresAt);
   return (
@@ -148,10 +198,41 @@ function denied(code: string): never {
 export function createJudgeAgentGate(
   options: {
     priorPins?: Record<keyof typeof JUDGE_AGENT_PRIOR_PINS, string>;
+    expansionPin?: {
+      grantId: string;
+      baseProofSha256: string;
+      expansionId: string;
+      proofSha256: string;
+    };
   } = {},
 ) {
   const pins = { ...(options.priorPins ?? JUDGE_AGENT_PRIOR_PINS) };
+  const expansionPin = {
+    ...(options.expansionPin ?? JUDGE_AGENT_EXPANSION_PIN),
+  };
   for (const value of Object.values(pins)) hash.parse(value);
+  z.string().uuid().parse(expansionPin.grantId);
+  z.string().uuid().parse(expansionPin.expansionId);
+  hash.parse(expansionPin.baseProofSha256);
+  hash.parse(expansionPin.proofSha256);
+  function validExpansion(
+    expansion: JudgeAgentExpansionProof,
+    proof: JudgeAgentProof,
+    now: number,
+  ) {
+    return (
+      validProof(expansion, now) &&
+      expansion.grantId === proof.grantId &&
+      expansion.grantId === expansionPin.grantId &&
+      expansion.expansionId === expansionPin.expansionId &&
+      expansion.baseProofSha256 === sha(JSON.stringify(proof)) &&
+      expansion.baseProofSha256 === expansionPin.baseProofSha256 &&
+      sha(JSON.stringify(expansion)) === expansionPin.proofSha256 &&
+      expansion.credentialSha256 === proof.credentialSha256 &&
+      expansion.expiresAt === proof.expiresAt &&
+      Date.parse(expansion.checkedAt) >= Date.parse(proof.checkedAt)
+    );
+  }
   const cached = new Map<
     string,
     { checked: number; snapshot: JudgeAgentFundingSnapshot }
@@ -206,15 +287,36 @@ export function createJudgeAgentGate(
           .safeParse(JSON.parse(oldSearch)).success
       )
         return null;
+      const expansionRaw = env.BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON;
+      let expansion: JudgeAgentExpansionProof | undefined;
+      if (expansionRaw !== undefined) {
+        if (!expansionRaw || expansionRaw.length > 16384) return null;
+        expansion = JudgeAgentExpansionProofSchema.parse(
+          JSON.parse(expansionRaw),
+        );
+        if (!validExpansion(expansion, proof, now)) return null;
+      }
+      const grant = JudgeAgentGrantSchema.parse({
+        grantId: proof.grantId,
+        proofSha256: sha(JSON.stringify(proof)),
+        maxRuns: expansion ? 100 : 12,
+        expiresAt: proof.expiresAt,
+        ...(expansion
+          ? {
+              expansion: {
+                expansionId: expansion.expansionId,
+                proofSha256: sha(JSON.stringify(expansion)),
+                baseProofSha256: expansion.baseProofSha256,
+                maxRuns: 100,
+              },
+            }
+          : {}),
+      });
       return {
         proof,
+        ...(expansion ? { expansion } : {}),
         key: key.data,
-        grant: {
-          grantId: proof.grantId,
-          proofSha256: sha(JSON.stringify(proof)),
-          maxRuns: 12,
-          expiresAt: proof.expiresAt,
-        },
+        grant,
       };
     } catch {
       return null;
@@ -232,7 +334,6 @@ export function createJudgeAgentGate(
       config.grant.grantId !== proof.data.grantId ||
       config.grant.proofSha256 !== sha(JSON.stringify(proof.data)) ||
       config.grant.expiresAt !== proof.data.expiresAt ||
-      config.grant.maxRuns !== 12 ||
       config.proof.priorStandaloneSerpProofSha256 !== pins.standaloneSerp ||
       Object.keys(priorNames).some(
         (name) =>
@@ -242,6 +343,20 @@ export function createJudgeAgentGate(
       )
     )
       denied("invalid_judge_grant");
+    if (config.grant.maxRuns === 100) {
+      const expansion = JudgeAgentExpansionProofSchema.safeParse(
+        config.expansion,
+      );
+      if (
+        !expansion.success ||
+        !validExpansion(expansion.data, config.proof, now) ||
+        config.grant.expansion.expansionId !== expansion.data.expansionId ||
+        config.grant.expansion.proofSha256 !==
+          sha(JSON.stringify(expansion.data)) ||
+        config.grant.expansion.baseProofSha256 !== config.grant.proofSha256
+      )
+        denied("invalid_judge_grant");
+    } else if (config.expansion !== undefined) denied("invalid_judge_grant");
   }
   async function funding(
     config: JudgeAgentConfiguration,
@@ -251,9 +366,13 @@ export function createJudgeAgentGate(
       current = clock();
     assertConfig(config, current);
     const minimum = opts.minimumSearches ?? 1;
-    if (!Number.isInteger(minimum) || minimum < 1 || minimum > 12)
+    if (
+      !Number.isInteger(minimum) ||
+      minimum < 1 ||
+      minimum > config.grant.maxRuns
+    )
       denied("invalid_funding_minimum");
-    const identity = `${config.proof.credentialSha256}:${config.grant.grantId}:${config.grant.proofSha256}`;
+    const identity = `${config.proof.credentialSha256}:${config.grant.grantId}:${config.grant.proofSha256}:${config.grant.maxRuns === 100 ? config.grant.expansion.proofSha256 : "base"}`;
     const previous = cached.get(identity);
     if (
       !opts.forceFresh &&
@@ -338,7 +457,7 @@ export function createJudgeAgentGate(
     const current = configuration(env, now);
     if (
       !current ||
-      current.grant.proofSha256 !== config.grant.proofSha256 ||
+      JSON.stringify(current.grant) !== JSON.stringify(config.grant) ||
       current.key !== config.key
     )
       denied("invalid_judge_grant");

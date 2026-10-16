@@ -28,7 +28,7 @@ import {
 } from "./judge-agent-gate.js";
 
 export interface JudgeAgentBudget {
-  maximumRuns: 12;
+  maximumRuns: 12 | 100;
   usedRuns: number;
   remainingRuns: number;
   visitorUsed: boolean;
@@ -359,13 +359,40 @@ export function createHostedTigerStore(
     if (
       seal.grantId !== grant.grantId ||
       seal.proofSha256 !== grant.proofSha256 ||
-      seal.maxRuns !== grant.maxRuns ||
+      seal.maxRuns !== 12 ||
       new Date(seal.expiresAt).toISOString() !==
         new Date(grant.expiresAt).toISOString()
     )
       throw new Error(
         "The immutable judge grant does not match its stored seal.",
       );
+    if (grant.maxRuns === 100) {
+      const expanded = await execute(
+        'SELECT grant_id AS "grantId",expansion_id AS "expansionId",proof_sha256 AS "proofSha256",base_proof_sha256 AS "baseProofSha256",max_runs AS "maxRuns",expires_at AS "expiresAt" FROM briefstamp_demo_v1.judge_agent_expansions WHERE grant_id=$1 LIMIT 1',
+        [grant.grantId],
+      );
+      const expansion = z
+        .object({
+          grantId: uuid,
+          expansionId: uuid,
+          proofSha256: z.string().regex(/^[a-f0-9]{64}$/),
+          baseProofSha256: z.string().regex(/^[a-f0-9]{64}$/),
+          maxRuns: z.literal(100),
+          expiresAt: z.union([z.date(), z.string().datetime({ offset: true })]),
+        })
+        .strict()
+        .parse(expanded.rows[0]);
+      if (
+        expansion.grantId !== grant.grantId ||
+        expansion.expansionId !== grant.expansion.expansionId ||
+        expansion.proofSha256 !== grant.expansion.proofSha256 ||
+        expansion.baseProofSha256 !== grant.proofSha256 ||
+        grant.expansion.baseProofSha256 !== grant.proofSha256 ||
+        new Date(expansion.expiresAt).toISOString() !==
+          new Date(grant.expiresAt).toISOString()
+      )
+        throw new Error("The judge expansion does not match its stored seal.");
+    }
     return true;
   };
   const readJudgeBudget = async (
@@ -374,7 +401,7 @@ export function createHostedTigerStore(
     grant: JudgeAgentGrant,
   ): Promise<JudgeAgentBudget> => {
     const result = await execute(
-      'SELECT run_id AS "runId",slot,session_hash AS "sessionHash",audit_id AS "auditId" FROM briefstamp_demo_v1.judge_agent_reservations WHERE grant_id=$1 ORDER BY slot LIMIT 13',
+      'SELECT run_id AS "runId",slot,session_hash AS "sessionHash",audit_id AS "auditId" FROM briefstamp_demo_v1.judge_agent_reservations WHERE grant_id=$1 ORDER BY slot LIMIT 101',
       [grant.grantId],
     );
     const rows = z
@@ -382,24 +409,25 @@ export function createHostedTigerStore(
         z
           .object({
             runId: uuid,
-            slot: z.number().int().min(1).max(12),
+            slot: z.number().int().min(1).max(grant.maxRuns),
             sessionHash: sessionSchema,
             auditId: uuid,
           })
           .strict(),
       )
-      .max(12)
+      .max(grant.maxRuns)
       .parse(result.rows);
     if (
       new Set(rows.map((row) => row.slot)).size !== rows.length ||
+      rows.some((row, index) => row.slot !== index + 1) ||
       new Set(rows.map((row) => row.sessionHash)).size !== rows.length
     )
       throw new Error("The judge reservation counters are invalid.");
     const own = rows.find((row) => row.sessionHash === sessionHash);
     const budget: JudgeAgentBudget = {
-      maximumRuns: 12,
+      maximumRuns: grant.maxRuns,
       usedRuns: rows.length,
-      remainingRuns: 12 - rows.length,
+      remainingRuns: grant.maxRuns - rows.length,
       visitorUsed: Boolean(own),
       ...(own ? { ownRunId: own.runId } : {}),
     };
@@ -442,13 +470,18 @@ export function createHostedTigerStore(
     ): Promise<JudgeAgentBudget> {
       sessionSchema.parse(sessionHash);
       validateJudgeGrant(grant);
-      if (!(await checkJudgeSeal(query, grant)))
+      if (!(await checkJudgeSeal(query, grant))) {
+        if (grant.maxRuns === 100)
+          throw new Error(
+            "An expansion requires the existing base grant seal.",
+          );
         return {
           maximumRuns: 12,
           usedRuns: 0,
           remainingRuns: 12,
           visitorUsed: false,
         };
+      }
       return readJudgeBudget(query, sessionHash, grant);
     },
     /** One checked-out connection, grant lock and confirmed COMMIT precede provider I/O. */
@@ -492,12 +525,13 @@ export function createHostedTigerStore(
           audit.source.sampleVariant !== "broken"
         )
           throw new Error("The owned synthetic audit does not match.");
-        await execute(
-          `INSERT INTO briefstamp_demo_v1.judge_agent_grants (grant_id,proof_sha256,max_runs,expires_at)
+        if (grant.maxRuns === 12)
+          await execute(
+            `INSERT INTO briefstamp_demo_v1.judge_agent_grants (grant_id,proof_sha256,max_runs,expires_at)
           SELECT $1,$2,$3,$4::timestamptz WHERE $4::timestamptz>now()
           ON CONFLICT (grant_id) DO NOTHING RETURNING grant_id`,
-          [grant.grantId, grant.proofSha256, grant.maxRuns, grant.expiresAt],
-        );
+            [grant.grantId, grant.proofSha256, 12, grant.expiresAt],
+          );
         if (!(await checkJudgeSeal(execute, grant)))
           throw new Error("The judge grant could not be sealed.");
         let budget = await readJudgeBudget(execute, sessionHash, grant);
@@ -515,7 +549,7 @@ export function createHostedTigerStore(
             .number()
             .int()
             .min(0)
-            .max(12)
+            .max(grant.maxRuns)
             .parse(hourly.rows[0]?.recentRuns);
           if (recent >= 6)
             reservation = { reserved: false, reason: "rate_limited", budget };
@@ -551,6 +585,8 @@ export function createHostedTigerStore(
           }
         }
         validateJudgeGrant(grant);
+        if (!(await checkJudgeSeal(execute, grant)))
+          throw new Error("The judge grant seal is unavailable before commit.");
         connection(env, now());
         commitAttempted = true;
         await client.query("COMMIT");

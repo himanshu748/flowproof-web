@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-16T14:17:13.289Z",
+  "source": "Existing authorized Tiger signed-in billing view, refreshed",
+  "trialDays": 20,
+  "noPaymentMethod": true,
+  "positiveCredit": true,
+  "exactBalanceOmitted": true,
+  "mutations": 0
+}
