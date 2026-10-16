@@ -6,9 +6,9 @@ export default defineConfig({
     port: 5173,
     watch: { ignored: ["**/outputs/**", "**/work/**", "**/data/**"] },
     proxy: {
-      "/api": "http://127.0.0.1:4310",
-      "/evidence": "http://127.0.0.1:4310",
-      "/reports": "http://127.0.0.1:4310",
+      "/api": { target: "http://127.0.0.1:4310", changeOrigin: false },
+      "/evidence": { target: "http://127.0.0.1:4310", changeOrigin: false },
+      "/reports": { target: "http://127.0.0.1:4310", changeOrigin: false },
     },
   },
 });

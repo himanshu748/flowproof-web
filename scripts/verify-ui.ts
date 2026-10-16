@@ -6,12 +6,15 @@ const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext({
   viewport: { width: 1440, height: 1000 },
   reducedMotion: "reduce",
-  recordVideo: { dir: "work/ui-video", size: { width: 1440, height: 1000 } },
 });
 const page = await context.newPage();
 const errors: string[] = [];
 page.on("pageerror", (e) => errors.push(e.message));
-await page.goto("http://127.0.0.1:5173", { waitUntil: "networkidle" });
+await page.goto("http://127.0.0.1:5173/#demo", { waitUntil: "networkidle" });
+await page
+  .getByRole("heading", { name: "Forma Studio", exact: true })
+  .waitFor();
+await page.getByRole("button", { name: "Overview", exact: true }).click();
 await page.getByRole("heading", { name: "Your work. Verified." }).waitFor();
 await page.screenshot({
   path: "outputs/flowproof-desktop.png",
@@ -126,8 +129,7 @@ await fs.writeFile(
   ),
 );
 await context.close();
-await page.video()?.saveAs("outputs/flowproof-walkthrough.webm");
 await browser.close();
 console.log(
-  "UI workflow, report export, modal and responsive checks passed. Screenshots and walkthrough saved in outputs.",
+  "UI workflow, report export, modal and responsive checks passed. Screenshots saved in outputs.",
 );
