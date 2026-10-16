@@ -170,7 +170,7 @@ export class EvidenceAgentError extends Error {
 function refusal(code: string): never {
   throw new Error(code);
 }
-function validatedAudit(audit: Audit) {
+export function validatedAudit(audit: Audit) {
   if (
     !z.string().uuid().safeParse(audit.id).success ||
     !z.string().uuid().safeParse(audit.projectId).success ||
@@ -248,7 +248,7 @@ function validatedAudit(audit: Audit) {
     })),
   });
 }
-function validateCitations(
+export function validateCitations(
   output: EvidenceAgentFindings,
   audit: z.infer<typeof EvidenceAuditObservationSchema>,
   observations: EvidenceToolObservation[],
@@ -307,6 +307,46 @@ function validateCitations(
     !observations.some((item) => item.status === "unavailable")
   )
     refusal("invented_tool_unavailability");
+}
+
+/** Shared finite tool normalization for native and durable activity execution. */
+export function normalizeFailureHistory(
+  result: unknown,
+  projectId: string,
+  queryId: EvidenceAgentQueryId,
+  id: "tool-1" | "tool-2",
+): EvidenceToolObservation {
+  const rows = HistoryRowsSchema.parse(result);
+  if (
+    rows.some(
+      (row) => row.projectId !== projectId || row.queryId !== queryId,
+    ) ||
+    new Set(rows.map((row) => `${row.auditId}:${row.checkId}`)).size !==
+      rows.length
+  )
+    refusal("invalid_tool_observation");
+  return EvidenceToolObservationSchema.parse({
+    id,
+    type: "failure_history",
+    status: "observed",
+    queryId,
+    rows: rows.slice(0, 5).map(({ projectId: _projectId, ...row }) => row),
+  });
+}
+export function normalizeSearchVisibility(
+  value: unknown,
+  id: "tool-1" | "tool-2",
+): EvidenceToolObservation {
+  const result = SearchVisibilitySchema.parse(value);
+  return EvidenceToolObservationSchema.parse({
+    id,
+    type: "search_visibility",
+    status: "observed",
+    domain: result.domain,
+    query: result.query,
+    observedAt: result.observedAt,
+    resultCount: result.results.length,
+  });
 }
 
 /** Caller must reserve its durable tranche and authenticate before invoking this loop. */
@@ -454,42 +494,20 @@ export async function executeEvidenceAgent(
             (signal) => deps.failureHistory(tool.arguments.queryId, signal),
             10_000,
           );
-          const rows = HistoryRowsSchema.parse(result);
-          if (
-            rows.some(
-              (row) =>
-                row.projectId !== input.audit.projectId ||
-                row.queryId !== tool.arguments.queryId,
-            ) ||
-            new Set(rows.map((row) => `${row.auditId}:${row.checkId}`)).size !==
-              rows.length
-          )
-            refusal("invalid_tool_observation");
-          observation = EvidenceToolObservationSchema.parse({
+          observation = normalizeFailureHistory(
+            result,
+            input.audit.projectId,
+            tool.arguments.queryId,
             id,
-            type: "failure_history",
-            status: "observed",
-            queryId: tool.arguments.queryId,
-            rows: rows
-              .slice(0, 5)
-              .map(({ projectId: _projectId, ...row }) => row),
-          });
+          );
         } else {
-          const result = SearchVisibilitySchema.parse(
+          observation = normalizeSearchVisibility(
             await bounded(
               (signal) => deps.searchVisibility(signal),
               maximumSearchDurationMs,
             ),
-          );
-          observation = EvidenceToolObservationSchema.parse({
             id,
-            type: "search_visibility",
-            status: "observed",
-            domain: result.domain,
-            query: result.query,
-            observedAt: result.observedAt,
-            resultCount: result.results.length,
-          });
+          );
         }
       } catch (error) {
         observation = {

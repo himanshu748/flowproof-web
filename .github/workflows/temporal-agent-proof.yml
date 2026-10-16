@@ -1,0 +1,75 @@
+name: Briefstamp Temporal evidence-agent proof
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "temporal/agent-*.ts"
+      - "scripts/*temporal-agent*.ts"
+      - "server/evidence-agent.ts"
+      - ".github/workflows/temporal-agent-proof.yml"
+permissions:
+  contents: read
+jobs:
+  agent-recovery:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci --legacy-peer-deps
+      - name: Install official checksum-pinned Temporal CLI 1.9.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          cli_dir="$RUNNER_TEMP/briefstamp-temporal-cli"
+          archive="$RUNNER_TEMP/temporal_cli_1.9.1_linux_amd64.tar.gz"
+          mkdir -p "$cli_dir"
+          curl --fail --location --silent --show-error --proto '=https' --proto-redir '=https' --tlsv1.2 \
+            --max-time 120 --retry 0 \
+            'https://github.com/temporalio/cli/releases/download/v1.9.1/temporal_cli_1.9.1_linux_amd64.tar.gz' \
+            --output "$archive"
+          printf '%s  %s\n' '09a0326a51db84d02735e53542b9ebd8c4758daf47482a9ab0abce15844e60d5' "$archive" | sha256sum --check --strict
+          tar -xzf "$archive" -C "$cli_dir" temporal
+          "$cli_dir/temporal" --version
+      - name: Real Temporal retry, worker death and permanent failure
+        run: |
+          mkdir -p work
+          node --import tsx scripts/verify-temporal-agent.ts \
+            --cli "$RUNNER_TEMP/briefstamp-temporal-cli/temporal" \
+            --output work/temporal-agent-ci
+      - name: Bound and identify the retained evidence
+        if: always()
+        run: |
+          node --input-type=module <<'JS'
+          import { readFile, readdir, writeFile } from 'node:fs/promises';
+          import { createHash } from 'node:crypto';
+          import assert from 'node:assert/strict';
+          const root = 'work/temporal-agent-ci/';
+          const files = [];
+          for (const name of (await readdir(root)).filter(n => n.endsWith('.json'))) {
+            const bytes = await readFile(root + name);
+            assert(bytes.length < 2 * 1024 * 1024, 'Unexpected proof size');
+            files.push({name, bytes:bytes.length, sha256:createHash('sha256').update(bytes).digest('hex')});
+          }
+          const manifest = {sourceCommit: process.env.GITHUB_SHA,
+            actionsRunUrl:`${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`,
+            files, scope:'CI/local retained-provider fixtures; no fresh model/search calls or public judge reservations'};
+          await writeFile(root+'ci-manifest.json', JSON.stringify(manifest,null,2)+'\n');
+          console.log(JSON.stringify(manifest));
+          const receipt = JSON.parse(await readFile(root+'receipt.json','utf8'));
+          assert.equal(receipt.sourceCommit, process.env.GITHUB_SHA);
+          assert.equal(receipt.status, 'verified');
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: temporal-agent-histories
+          path: work/temporal-agent-ci/*.json
+          retention-days: 3
+          if-no-files-found: error
