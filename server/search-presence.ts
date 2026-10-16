@@ -10,6 +10,7 @@ import {
 
 export const SEARCH_PRESENCE_TARGETS = [
   "https://github.com/himanshu748",
+  "https://github.com/himanshu748/langchain-rag-tutorial-2026",
   "https://flowproof-demo.onrender.com/",
 ] as const;
 export const SearchPresenceCheckSchema = z

@@ -169,6 +169,58 @@ describe("approved search-presence observations", () => {
     expect(value).toEqual(before);
   });
 
+  it("scopes the separate repository control to its exact approved page, excluding profile, siblings and descendants", async () => {
+    const targetUrl =
+      "https://github.com/himanshu748/langchain-rag-tutorial-2026" as const;
+    const expectedText = "langchain-rag-tutorial-2026";
+    const outside = [
+      "https://github.com/himanshu748",
+      `${targetUrl}-other`,
+      `${targetUrl}/issues`,
+      "https://github.com/himanshu748/another-repository",
+    ].map((link) => profile({ link, title: expectedText }));
+    const h = await harness(success(outside));
+    const proposed = check({ targetUrl, expectedText, approved: false });
+    expect(await executeSearchPresence(proposed, h.options)).toMatchObject({
+      failureCode: "approval_required",
+    });
+    expect(h.reserveCheck).not.toHaveBeenCalled();
+    expect(
+      await executeSearchPresence({ ...proposed, approved: true }, h.options),
+    ).toMatchObject({
+      status: "no_match",
+      scopedResultCount: 0,
+      citations: [],
+    });
+
+    const indexed = await harness(
+      success([
+        ...outside,
+        profile({
+          link: `${targetUrl}/?utm_source=search`,
+          title: `GitHub - himanshu748/${expectedText}`,
+        }),
+      ]),
+    );
+    const result = await executeSearchPresence(
+      check({ targetUrl, expectedText }),
+      indexed.options,
+    );
+    expect(result).toMatchObject({
+      status: "matched",
+      query: "site:github.com/himanshu748/langchain-rag-tutorial-2026",
+      scopedResultCount: 1,
+      citations: [{ link: `${targetUrl}/`, matchesExpectedText: true }],
+    });
+    expect(indexed.fetcher).toHaveBeenCalledOnce();
+    expect(
+      SearchPresenceCheckSchema.safeParse({
+        ...check(),
+        targetUrl: "https://github.com/himanshu748/another-repository",
+      }).success,
+    ).toBe(false);
+  });
+
   it("requires the approved selected field rather than a matching URL or unselected snippet", async () => {
     const h = await harness(
       success([

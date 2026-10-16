@@ -12,15 +12,72 @@ import {
 import { execFileSync } from "node:child_process";
 
 const mode = process.argv.slice(2).join(" ");
-if (mode !== "--prepare" && mode !== "--run")
+const repair = mode.endsWith("-indexed-repair");
+if (
+  ![
+    "--prepare",
+    "--run",
+    "--prepare-indexed-repair",
+    "--run-indexed-repair",
+  ].includes(mode)
+)
   console.log(
     "Not run. --prepare pins the current owner-authorized two-check plan and free allowance once; --run consumes it once. No default key reads or requests.",
   );
-else await verify(mode === "--prepare");
+else await verify(mode.startsWith("--prepare"));
 async function verify(prepare: boolean) {
-  const directory = path.resolve("work/search-presence-20261016");
+  const parentDirectory = "work/search-presence-20261016";
+  const directory = path.resolve(
+    repair ? "work/search-presence-indexed-repair-20261016" : parentDirectory,
+  );
+  const maximumRequests = repair ? 1 : 2;
+  const approvedTargets = repair
+    ? [
+        [
+          "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+          "langchain-rag-tutorial-2026",
+        ],
+      ]
+    : [
+        ["https://github.com/himanshu748", "himanshu748"],
+        ["https://flowproof-demo.onrender.com/", "Briefstamp"],
+      ];
   const sha = (x: string | Buffer) =>
     createHash("sha256").update(x).digest("hex");
+  let parent: any;
+  let parentReceiptSha256: string | undefined;
+  if (repair) {
+    const bytes = await readFile(path.join(parentDirectory, "receipt.json"));
+    parentReceiptSha256 = sha(bytes);
+    parent = JSON.parse(bytes.toString("utf8"));
+    assert.equal(parent.status, "observed_different_control_outcomes");
+    assert.equal(parent.observations[0].status, "no_match");
+    assert.equal(parent.observations[0].organicResultCount, 9);
+    assert.equal(parent.observations[0].scopedResultCount, 0);
+    assert.equal(parent.observations[1].status, "empty");
+    assert.equal(parent.observations[1].organicResultCount, 0);
+    assert.equal(parent.dedicatedCallsReserved, 2);
+    const spent = JSON.parse(
+      await readFile(
+        path.join(parentDirectory, "allowance.private.json"),
+        "utf8",
+      ),
+    ).providers.serpapi;
+    assert.equal(spent.usedCalls, 2);
+    assert.equal(spent.usedUnits, 2);
+    const retained = JSON.parse(
+      await readFile(
+        path.join(parentDirectory, "check-1-response.json"),
+        "utf8",
+      ),
+    );
+    assert(
+      retained.organic_results.some(
+        (r: any) => r.link === approvedTargets[0][0],
+      ),
+      "Repair target must come from the actual retained response",
+    );
+  }
   const env = JSON.parse(
     await readFile("work/judge-100/active-render.private.json", "utf8"),
   );
@@ -34,7 +91,7 @@ async function verify(prepare: boolean) {
       funding.accountStatus === "Active" &&
       funding.monthlyPrice === 0 &&
       funding.extraCredits === 0 &&
-      funding.remainingSearches >= 98,
+      funding.remainingSearches >= 96 + maximumRequests,
   );
   assert(
     Date.now() >= Date.parse(funding.checkedAt) &&
@@ -49,20 +106,12 @@ async function verify(prepare: boolean) {
   const allowanceFile = path.join(directory, "allowance.private.json");
   if (prepare) {
     await mkdir(directory, { recursive: false, mode: 0o700 });
-    const checks = [
-      {
-        targetUrl: "https://github.com/himanshu748",
-        expectedText: "himanshu748",
-      },
-      {
-        targetUrl: "https://flowproof-demo.onrender.com/",
-        expectedText: "Briefstamp",
-      },
-    ].map((x) =>
+    const checks = approvedTargets.map(([targetUrl, expectedText]) =>
       SearchPresenceCheckSchema.parse({
         id: randomUUID(),
         kind: "search_presence",
-        ...x,
+        targetUrl,
+        expectedText,
         matchField: "title",
         authorized: true,
         approved: false,
@@ -70,8 +119,7 @@ async function verify(prepare: boolean) {
     );
     await save("proposed-checks.json", checks);
     await save("approved-checks.json", {
-      approvalActor:
-        "Automated verifier under the owner instruction to run these two controlled checks; not customer approval",
+      approvalActor: `Automated verifier under the owner instruction to run ${maximumRequests} controlled check(s); not customer approval`,
       approvedAt: new Date().toISOString(),
       checks: checks.map((c) => ({ ...c, approved: true })),
     });
@@ -81,6 +129,9 @@ async function verify(prepare: boolean) {
     for (const f of await readdir("work"))
       if (/^evidence-agent-.*\.reservation\.json$/.test(f))
         old.add("work/" + f);
+    if (repair)
+      for (const name of await readdir(parentDirectory))
+        old.add(path.join(parentDirectory, name));
     const snapshot = [];
     for (const f of old)
       snapshot.push({ path: f, sha256: sha(await readFile(f)) });
@@ -98,13 +149,12 @@ async function verify(prepare: boolean) {
               Date.parse("2026-10-20T00:00:00Z"),
             ),
           ).toISOString(),
-          evidence:
-            "Owner-authorized two search_presence checks; authenticated Free Plan funding receipt 2026-10-16T16:36:30Z; all earlier reservations retained",
+          evidence: `Owner-authorized ${maximumRequests} search_presence check(s); authenticated Free Plan funding receipt 2026-10-16T16:36:30Z; all earlier reservations retained${repair ? "; separate additive indexed-target repair, original two calls remain spent" : ""}`,
           unit: "requests",
           operations: ["search-visibility"],
-          maxUnits: 2,
+          maxUnits: maximumRequests,
           usedUnits: 0,
-          maxCalls: 2,
+          maxCalls: maximumRequests,
           usedCalls: 0,
           freeOnly: true,
           paidOverageDisabled: true,
@@ -116,7 +166,7 @@ async function verify(prepare: boolean) {
       JSON.stringify({
         status: "prepared_no_search",
         directory,
-        maximumRequests: 2,
+        maximumRequests,
       }),
     );
     return;
@@ -161,7 +211,7 @@ async function verify(prepare: boolean) {
   const checks = approval.checks.map((c: unknown) =>
     SearchPresenceCheckSchema.parse(c),
   );
-  assert.equal(checks.length, 2);
+  assert.equal(checks.length, maximumRequests);
   assert(
     checks.every(
       (c: any) => c.approved && c.authorized && c.matchField === "title",
@@ -169,20 +219,17 @@ async function verify(prepare: boolean) {
   );
   assert.deepEqual(
     checks.map((c: any) => [c.targetUrl, c.expectedText]),
-    [
-      ["https://github.com/himanshu748", "himanshu748"],
-      ["https://flowproof-demo.onrender.com/", "Briefstamp"],
-    ],
+    approvedTargets,
   );
   const allowance = JSON.parse(await readFile(allowanceFile, "utf8"));
   assert.equal(
     allowance.providers.serpapi.usedCalls,
     0,
-    "This exact two-call tranche is already used; it must not be reset",
+    "This exact tranche is already used; it must not be reset",
   );
   await save("run-reservation.json", {
     reservedAt: new Date().toISOString(),
-    maximumRequests: 2,
+    maximumRequests,
     approvedPlanSha256: sha(JSON.stringify(approval)),
     sourceCommit: execFileSync("git", ["rev-parse", "HEAD"], {
       encoding: "utf8",
@@ -204,10 +251,20 @@ async function verify(prepare: boolean) {
     scope:
       "Real SerpApi Google title presence checks from the local protected verifier, not new Chromium acceptance or a public agent run",
     approvalActor: approval.approvalActor,
-    maximumRequests: 2,
+    maximumRequests,
     automaticRetries: 0,
     publicJudgeReservationsConsumed: 0,
     observations: [],
+    ...(repair
+      ? {
+          parentReceipt: parentDirectory + "/receipt.json",
+          parentReceiptSha256,
+          repairScope:
+            "One additive search for an exact owner-controlled repository discovered in the retained first response; not an independent benchmark",
+          retainedDemoEmpty: parent.observations[1],
+          noNewEmptySearch: true,
+        }
+      : {}),
   };
   const pool = new pg.Pool({
     ...databaseConfig(env.BRIEFSTAMP_TIGER_DATABASE_URL, {}),
@@ -257,8 +314,8 @@ async function verify(prepare: boolean) {
         preAccount.account_status === "Active" &&
         preAccount.plan_monthly_price === 0 &&
         preAccount.extra_credits === 0 &&
-        preAccount.total_searches_left >= 98,
-      "Fresh free quota must cover the untouched judge grant plus two checks",
+        preAccount.total_searches_left >= 96 + maximumRequests,
+      "Fresh free quota must cover the untouched judge grant plus this dedicated tranche",
     );
     receipt.preAccount = {
       checkedAt: new Date().toISOString(),
@@ -271,7 +328,7 @@ async function verify(prepare: boolean) {
     for (const [index, check] of checks.entries()) {
       let physical = 0;
       const observation = await executeSearchPresence(check, {
-        // Explicitly enable only this new local two-call grant. The consumed
+        // Explicitly enable only this new local dedicated grant. The consumed
         // hosted provider flag and all old proofs stay byte-for-byte unchanged.
         env: {
           ...env,
@@ -373,8 +430,8 @@ async function verify(prepare: boolean) {
     receipt.earlierReservationFilesUnchanged = prior.length;
     const spent = JSON.parse(await readFile(allowanceFile, "utf8")).providers
       .serpapi;
-    assert.equal(spent.usedCalls, 2);
-    assert.equal(spent.usedUnits, 2);
+    assert.equal(spent.usedCalls, maximumRequests);
+    assert.equal(spent.usedUnits, maximumRequests);
     receipt.dedicatedCallsReserved = spent.usedCalls;
     const accountUrl = new URL("https://serpapi.com/account.json");
     accountUrl.searchParams.set("api_key", key);
@@ -399,7 +456,9 @@ async function verify(prepare: boolean) {
     };
     receipt.controls = {
       indexedTitleMatched: receipt.observations[0]?.status === "matched",
-      demoReturnedEmpty: receipt.observations[1]?.status === "empty",
+      demoReturnedEmpty:
+        (repair ? parent.observations[1] : receipt.observations[1])?.status ===
+        "empty",
     };
     receipt.status =
       receipt.controls.indexedTitleMatched && receipt.controls.demoReturnedEmpty
