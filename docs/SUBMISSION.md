@@ -30,6 +30,6 @@ Author-reported: freelancer friend Priyanshu tried Briefstamp and said he “can
 
 ## Limitations and Next
 
-Fixed targets, expiring consumed grants, operator-only tools and unvalidated training examples. Retrieval uses three precomputed MiniLM queries and PostgreSQL arrays, not pgvector. Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
+Fixed targets, expiring consumed grants, operator-only tools and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
 
 AI assisted coding and drafting; verifier approvals are not customer acceptance.
