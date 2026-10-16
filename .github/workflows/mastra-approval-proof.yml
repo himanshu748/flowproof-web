@@ -1,0 +1,53 @@
+name: Briefstamp Mastra approval proof
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "server/approval-workflow.ts"
+      - "scripts/verify-mastra-approval.ts"
+      - "tests/approval-workflow.test.ts"
+      - ".github/workflows/mastra-approval-proof.yml"
+permissions:
+  contents: read
+jobs:
+  suspend-resume:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci --legacy-peer-deps
+      - run: npx playwright install --with-deps chromium
+      - name: Real Mastra suspension, approval payload and Chromium handoff
+        run: |
+          mkdir -p work
+          node --import tsx scripts/verify-mastra-approval.ts --run-local --output work/mastra-approval-ci
+      - name: Require a real suspended state and one browser execution
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import {readFile} from 'node:fs/promises';
+          const r=JSON.parse(await readFile('work/mastra-approval-ci/receipt.json','utf8'));
+          assert.equal(r.status,'verified');
+          assert.equal(r.sourceCommit, process.env.GITHUB_SHA);
+          assert.equal(r.suspended.status,'suspended');
+          assert.equal(r.suspended.browserCalls,0);
+          assert.equal(r.resumed.status,'success');
+          assert.equal(r.browserCalls,1);
+          assert.equal(r.proposalReplayCalls,1);
+          assert.equal(r.remoteProviderCalls,0);
+          assert.equal(r.publicJudgeReservationsConsumed,0);
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mastra-approval-evidence
+          path: work/mastra-approval-ci/
+          retention-days: 3
+          if-no-files-found: error
