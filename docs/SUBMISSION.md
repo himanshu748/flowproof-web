@@ -32,7 +32,7 @@ My freelancer friend Priyanshu tried it and said “it's good.” [Workflow deta
 
 ## Prize Categories
 
-[Evidence and category scope](HACKATHON_ENTRY.md): Gemma, Render, Tinker, Mastra, Tiger Data, Sentry, Backboard, GitHub Actions, Temporal, SerpApi and ElevenLabs.
+[Evidence and category scope](HACKATHON_ENTRY.md): Gemma, Render, Tinker, Mastra, Sentry, Backboard, GitHub Actions, Temporal and ElevenLabs. [Tiger Data and SerpApi have narrower integration evidence](DEV_POST.md).
 
 ## Limitations and Next
 
