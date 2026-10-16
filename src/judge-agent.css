@@ -5,7 +5,9 @@
 .judge-agent :where(p, small) {
   color: var(--muted);
 }
-.judge-agent :where(button, .button, summary) {
+.judge-agent button,
+.judge-agent .button,
+.judge-agent summary {
   min-height: 44px;
 }
 .judge-agent :where(code, p, strong, small, a) {

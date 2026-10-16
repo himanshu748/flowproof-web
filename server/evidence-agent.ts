@@ -98,7 +98,7 @@ export interface EvidenceAgentDependencies {
   /** Trusted durable grant only; two logical turns remain fixed. */
   maxModelRequests?: 2 | 6;
   /** Trusted search-only transport budget; never read from a model or HTTP body. */
-  searchTimeoutMs?: 10_000 | 30_000;
+  searchTimeoutMs?: 10_000 | 30_000 | 60_000;
   /** Trusted caller liveness/ownership check immediately before every model call. */
   beforeModel?: () => void;
   generate?: (request: EvidenceAgentPhaseRequest) => Promise<EvidenceAgentTurn>;
@@ -152,7 +152,7 @@ export interface EvidenceAgentReceipt {
     toolRetries: 0;
     refundPerformed: false;
     maximumDurationMs: 50_000 | 90_000;
-    maximumSearchDurationMs?: 10_000 | 30_000;
+    maximumSearchDurationMs?: 10_000 | 30_000 | 60_000;
   };
   scope: string;
 }
@@ -319,7 +319,7 @@ export async function executeEvidenceAgent(
   const maximumSearchDurationMs = deps.searchTimeoutMs ?? 10_000;
   const expandedBudget = maximumModelCalls === 6;
   const maximumDurationMs =
-    expandedBudget || maximumSearchDurationMs === 30_000 ? 90_000 : 50_000;
+    expandedBudget || maximumSearchDurationMs >= 30_000 ? 90_000 : 50_000;
   const receipt: EvidenceAgentReceipt = {
     version: 1,
     status: "running",
@@ -426,7 +426,8 @@ export async function executeEvidenceAgent(
       refusal("invalid_model_request_budget");
     if (
       maximumSearchDurationMs !== 10_000 &&
-      maximumSearchDurationMs !== 30_000
+      maximumSearchDurationMs !== 30_000 &&
+      maximumSearchDurationMs !== 60_000
     )
       refusal("invalid_search_timeout_budget");
     if (input.task !== EVIDENCE_AGENT_TASK) refusal("invalid_fixed_task");

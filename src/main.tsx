@@ -149,7 +149,7 @@ async function api<T>(
       const timeout = setTimeout(
         () => controller.abort(),
         method === "POST" && /^\/audits\/[^/]+\/judge-review$/.test(path)
-          ? 120_000
+          ? 150_000
           : path === "/bootstrap"
             ? 65_000
             : 55_000,

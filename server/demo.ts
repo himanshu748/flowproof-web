@@ -1017,7 +1017,7 @@ export function createDemoRouter(options: DemoOptions) {
         ? {
             identity: config.grant.proofSha256,
             modelRequests: 2 as const,
-            searchTimeoutMs: 30_000 as const,
+            searchTimeoutMs: 60_000 as const,
             judge: config,
             operator: undefined,
           }
@@ -1389,9 +1389,15 @@ export function createDemoRouter(options: DemoOptions) {
                 fetcher: async (input, init) => {
                   signal.throwIfAborted();
                   assertCurrent();
-                  const transportSignal = init?.signal
-                    ? AbortSignal.any([signal, init.signal])
-                    : signal;
+                  // The public judge search has one 60s transport allowance,
+                  // still inside the agent's unchanged 90s total deadline.
+                  // Replacing the generic 30s signal adds waiting, never a retry
+                  // or another reserved search. Operator defaults stay intact.
+                  const transportSignal = config.judge
+                    ? signal
+                    : init?.signal
+                      ? AbortSignal.any([signal, init.signal])
+                      : signal;
                   const attempt: (typeof providerAttempts)[number] = {
                     provider: "serpapi",
                     operation: "search-visibility",

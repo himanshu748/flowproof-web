@@ -105,7 +105,7 @@ function receipt(audit: Audit): EvidenceAgentReceipt {
       toolRetries: 0,
       refundPerformed: false,
       maximumDurationMs: 90_000,
-      maximumSearchDurationMs: 30_000,
+      maximumSearchDurationMs: 60_000,
     },
     scope: "Offline injected HTTP route fixture.",
   };
@@ -448,6 +448,7 @@ describe("public judge evidence-agent HTTP boundary", () => {
     { modelConsent: "true" },
     {},
     { modelConsent: true, task: "Injected private brief" },
+    { modelConsent: true, searchTimeoutMs: 60_000 },
   ])("rejects missing/invalid consent or extra input %j", async (body) => {
     const h = await harness();
     const v = await h.ready();
@@ -483,7 +484,7 @@ describe("public judge evidence-agent HTTP boundary", () => {
     });
     expect(h.agent.mock.calls[0][1]).toMatchObject({
       maxModelRequests: 2,
-      searchTimeoutMs: 30_000,
+      searchTimeoutMs: 60_000,
     });
     expect(boundary.funding).toHaveBeenCalledWith(
       config,
@@ -519,6 +520,78 @@ describe("public judge evidence-agent HTTP boundary", () => {
     const serialized = JSON.stringify(result);
     expect(serialized).not.toContain(config.key);
     expect(serialized).not.toContain("proofSha256");
+  });
+
+  it("forwards the bounded judge signal instead of the generic provider's expired 30-second signal", async () => {
+    const nativeFetch = globalThis.fetch;
+    const boundedCaller = new AbortController();
+    const genericProviderTimeout = new AbortController();
+    genericProviderTimeout.abort(
+      new DOMException("Fixture 30-second timeout", "TimeoutError"),
+    );
+    const syntheticUrl =
+      "https://serpapi.com/search.json?q=PRIVATE_QUERY&api_key=SYNTHETIC_SECRET_NOT_A_CREDENTIAL";
+    const providerFetch = vi.fn(async (init?: RequestInit) => {
+      expect(init?.signal).toBe(boundedCaller.signal);
+      expect(init?.signal).not.toBe(genericProviderTimeout.signal);
+      expect(init?.signal?.aborted).toBe(false);
+      return new Response('{"fixture":true}', {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      });
+    });
+    vi.spyOn(globalThis, "fetch").mockImplementation((input, init) => {
+      const url = new URL(input instanceof Request ? input.url : String(input));
+      if (url.hostname === "serpapi.com") return providerFetch(init);
+      if (url.hostname !== "127.0.0.1")
+        return Promise.reject(new Error("Unexpected external test transport"));
+      return nativeFetch(input, init);
+    });
+    boundary.search.mockImplementation(
+      async (_project: Project, options: { fetcher: typeof fetch }) => {
+        const response = await options.fetcher(syntheticUrl, {
+          method: "GET",
+          signal: genericProviderTimeout.signal,
+        });
+        expect(response.status).toBe(200);
+        return { provider: "SerpApi", status: "observed", results: [] };
+      },
+    );
+    const h = await harness({
+      evidenceAgent: async ({ audit }, tools) => {
+        expect(tools.searchTimeoutMs).toBe(60_000);
+        await tools.searchVisibility(boundedCaller.signal);
+        return receipt(audit);
+      },
+    });
+    const v = await h.ready();
+    const response = await h.review(v);
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(providerFetch).toHaveBeenCalledOnce();
+    expect(boundary.search).toHaveBeenCalledOnce();
+    expect(body.providerAttempts).toEqual([
+      {
+        provider: "serpapi",
+        operation: "search-visibility",
+        startedAt: expect.any(String),
+        durationMs: expect.any(Number),
+        status: 200,
+        outcome: "response",
+      },
+    ]);
+    expect(body.reservation).toMatchObject({
+      consumed: true,
+      maxModelCalls: 2,
+      maxSearchCalls: 1,
+    });
+    for (const privateValue of [
+      syntheticUrl,
+      "PRIVATE_QUERY",
+      "api_key",
+      "SYNTHETIC_SECRET_NOT_A_CREDENTIAL",
+    ])
+      expect(JSON.stringify(body)).not.toContain(privateValue);
   });
 
   it("keeps the old operator endpoint hidden from tokenless visitors", async () => {

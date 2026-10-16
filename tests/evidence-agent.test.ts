@@ -585,7 +585,7 @@ describe("bounded two-turn evidence agent", () => {
     expect(h.generate).toHaveBeenCalledOnce();
     expect(h.searchVisibility).toHaveBeenCalledOnce();
   });
-  it.each([10_000, 30_000] as const)(
+  it.each([10_000, 30_000, 60_000] as const)(
     "enforces the exact %ims search boundary and aborts late provider I/O",
     async (searchTimeoutMs) => {
       vi.useFakeTimers();
@@ -645,7 +645,7 @@ describe("bounded two-turn evidence agent", () => {
         maximumModelCalls: 2,
         modelRetries: 0,
         maximumSearchDurationMs: searchTimeoutMs,
-        maximumDurationMs: searchTimeoutMs === 30000 ? 90000 : 50000,
+        maximumDurationMs: searchTimeoutMs >= 30_000 ? 90_000 : 50_000,
       });
       expect(receipt.status).toBe("completed_with_unavailable_tools");
       expect(receipt.observations).toEqual([
@@ -665,6 +665,84 @@ describe("bounded two-turn evidence agent", () => {
       expect(receipt).toEqual(saved);
     },
   );
+  it("keeps the total 90-second deadline in judge search mode without extra model calls", async () => {
+    vi.useFakeTimers();
+    vi.spyOn(AbortSignal, "timeout").mockImplementation((milliseconds) => {
+      const controller = new AbortController();
+      setTimeout(() => controller.abort(), milliseconds);
+      return controller.signal;
+    });
+    const audit = sample();
+    const h = dependencies(audit);
+    let releaseSummary!: () => void;
+    const delayedSummary = new Promise<void>((resolve) => {
+      releaseSummary = resolve;
+    });
+    h.generate.mockImplementation(async (request) => {
+      if (request.phase === "select_tools") {
+        await new Promise<void>((resolve) => setTimeout(resolve, 19_000));
+        return turn(selection);
+      }
+      await delayedSummary;
+      return turn(findings());
+    });
+    const failureHistory = vi.fn(
+      async (
+        _query: "mobile_paraphrase" | "images" | "contact",
+        signal: AbortSignal,
+      ) => {
+        await new Promise<void>((resolve) => setTimeout(resolve, 9_000));
+        signal.throwIfAborted();
+        return history(audit);
+      },
+    );
+    const searchVisibility = vi.fn(async (signal: AbortSignal) => {
+      await new Promise<void>((resolve) => setTimeout(resolve, 59_000));
+      signal.throwIfAborted();
+      return search();
+    });
+    const outcome = executeEvidenceAgent(input(audit), {
+      ...h.deps,
+      failureHistory,
+      searchVisibility,
+      searchTimeoutMs: 60_000,
+    }).then(
+      (result) => ({ result, error: undefined }),
+      (error: EvidenceAgentError) => ({ result: undefined, error }),
+    );
+    let settled = false;
+    void outcome.then(() => {
+      settled = true;
+    });
+    await vi.advanceTimersByTimeAsync(89_999);
+    expect(settled).toBe(false);
+    expect(h.generate).toHaveBeenCalledTimes(2);
+    await vi.advanceTimersByTimeAsync(1);
+    const { error } = await outcome;
+    expect(error).toMatchObject({
+      code: "tool_timeout",
+      receipt: {
+        status: "failed",
+        sourceAuditUnchanged: true,
+        limits: {
+          maximumModelCalls: 2,
+          maximumLogicalModelTurns: 2,
+          maximumSearchDurationMs: 60_000,
+          maximumDurationMs: 90_000,
+          modelRetries: 0,
+          toolRetries: 0,
+        },
+      },
+    });
+    expect(error!.receipt.observations).toHaveLength(2);
+    const saved = structuredClone(error!.receipt);
+    releaseSummary();
+    await vi.advanceTimersByTimeAsync(0);
+    expect(error!.receipt).toEqual(saved);
+    expect(h.generate).toHaveBeenCalledTimes(2);
+    expect(failureHistory).toHaveBeenCalledOnce();
+    expect(searchVisibility).toHaveBeenCalledOnce();
+  });
   it("allows a 20-second search only in the explicitly configured 30-second mode without adding model requests", async () => {
     vi.useFakeTimers();
     vi.spyOn(AbortSignal, "timeout").mockImplementation((milliseconds) => {
