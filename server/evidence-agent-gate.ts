@@ -16,6 +16,11 @@ export const EVIDENCE_AGENT_EXPIRES_BY = "2026-10-20T00:00:00.000Z";
 // docs/evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json
 export const EVIDENCE_AGENT_PRIOR_SERP_RECEIPT_SHA256 =
   "75d7d7d17e2476ebeb09abe14c53b29bc23012b27a811649376623e47d6574ff";
+// The one failed native attempt at 2026-10-16T11:31Z: invalid_model_json,
+// HTTP 200, 516 input / 38 output tokens, no tool or search execution.
+// Bound to the exact unexpected-response.json bytes, not a reconstructed receipt.
+export const EVIDENCE_AGENT_FAILED_RECEIPT_SHA256 =
+  "da520b1fde09e57d15e03d4f92bc8b1e4af124e122a87b7c8131a762d2e6a384";
 const sha256 = (value: string) => createHash("sha256").update(value).digest();
 const hash = z.string().regex(/^[a-f0-9]{64}$/);
 const credential = z
@@ -51,7 +56,29 @@ const proofSchema = z
   })
   .strict();
 
-export type EvidenceAgentProof = z.infer<typeof proofSchema>;
+const repairProofSchema = proofSchema
+  .extend({
+    previousAgentProofSha256: hash,
+    previousAgentReceiptSha256: z.literal(EVIDENCE_AGENT_FAILED_RECEIPT_SHA256),
+  })
+  .strict();
+
+export type EvidenceAgentRepairProof = z.infer<typeof repairProofSchema>;
+export type EvidenceAgentProof =
+  | z.infer<typeof proofSchema>
+  | EvidenceAgentRepairProof;
+
+function validWindow(proof: EvidenceAgentProof, now: number, fresh: boolean) {
+  const checked = Date.parse(proof.checkedAt);
+  const expires = Date.parse(proof.expiresAt);
+  return (
+    checked <= now &&
+    expires > checked &&
+    expires - checked <= DAY &&
+    expires <= Date.parse(EVIDENCE_AGENT_EXPIRES_BY) &&
+    (!fresh || (now - checked <= DAY && expires > now))
+  );
+}
 
 // Matches the shared providerRequest allowance format, with a one-search cap.
 // Counter fields are read from disk and never replaced by zero on an existing file.
@@ -95,6 +122,7 @@ export function evidenceAgentConfiguration(
   const token = operatorToken.safeParse(env.FLOWPROOF_TOKEN);
   const raw = env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON;
   const priorRaw = env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON;
+  const repairRaw = env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON;
   if (
     !key.success ||
     !token.success ||
@@ -106,28 +134,39 @@ export function evidenceAgentConfiguration(
   )
     return null;
   try {
-    const proof = proofSchema.parse(JSON.parse(raw));
+    const primary = proofSchema.parse(JSON.parse(raw));
     const historical = historicalSearchProof.parse(JSON.parse(priorRaw));
-    const checked = Date.parse(proof.checkedAt);
-    const expires = Date.parse(proof.expiresAt);
     const credentialHash = sha256(key.data).toString("hex");
     if (
-      proof.usedRuns !== 0 ||
-      now < checked ||
-      now - checked > DAY ||
-      expires <= now ||
-      expires <= checked ||
-      expires - checked > DAY ||
-      expires > Date.parse(EVIDENCE_AGENT_EXPIRES_BY) ||
-      proof.credentialSha256 !== credentialHash ||
+      !validWindow(primary, now, false) ||
+      primary.credentialSha256 !== credentialHash ||
       historical.credentialSha256 !== credentialHash ||
-      proof.priorSerpProofSha256 !== sha256(priorRaw).toString("hex") ||
+      primary.priorSerpProofSha256 !== sha256(priorRaw).toString("hex") ||
       historical.usedCalls < historical.maxCalls ||
       historical.usedUnits < historical.maxUnits
     )
       return null;
+    // An explicitly configured repair never falls back to a primary allowance.
+    // It is separately approved, not a retry, refund or refresh of spent counters.
+    if (repairRaw !== undefined) {
+      if (!repairRaw || repairRaw.length > 16_384 || primary.usedRuns !== 1)
+        return null;
+      const repair = repairProofSchema.parse(JSON.parse(repairRaw));
+      if (
+        repair.usedRuns !== 0 ||
+        !validWindow(repair, now, true) ||
+        repair.trancheId === primary.trancheId ||
+        repair.credentialSha256 !== credentialHash ||
+        repair.priorSerpProofSha256 !== primary.priorSerpProofSha256 ||
+        repair.previousAgentProofSha256 !== sha256(raw).toString("hex") ||
+        Date.parse(repair.checkedAt) < Date.parse(primary.checkedAt)
+      )
+        return null;
+      return { proof: repair, key: key.data };
+    }
+    if (primary.usedRuns !== 0 || !validWindow(primary, now, true)) return null;
     // Historical entitlement may be expired. It is retained spent, never refreshed.
-    return { proof, key: key.data };
+    return { proof: primary, key: key.data };
   } catch {
     return null;
   }

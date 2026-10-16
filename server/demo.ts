@@ -205,7 +205,7 @@ function integrations(
       name: "Tiger Data",
       status: tigerAvailable ? "available" : "not_configured",
       detail: tigerAvailable
-        ? "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Each save/read is verified separately. Hosted retrieval is lexical only."
+        ? "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Visitor history uses lexical retrieval. A separate operator-only evidence agent supports fixed-query MiniLM cosine/full-text RRF under its own bounded allowance. Every operation is verified separately."
         : "An isolated no-card Tiger trial verified application persistence, screenshot recovery, and lexical/vector retrieval. Demo sessions use temporary memory. The separate Shared Free service remains blocked by certificate verification.",
     },
     {

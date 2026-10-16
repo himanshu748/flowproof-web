@@ -6,6 +6,7 @@ import { setTimeout as pause } from "node:timers/promises";
 import { isDeepStrictEqual } from "node:util";
 import type { Audit, Bootstrap, Project } from "../shared/types.js";
 import { loadAgentRetrievalCatalog } from "../server/agent-retrieval-catalog.js";
+import { evidenceAgentConfiguration } from "../server/evidence-agent-gate.js";
 
 const mode = process.argv.slice(2).join(" ");
 // Recovery is limited to the known bootstrap-order error before the agent route
@@ -25,7 +26,12 @@ async function verify() {
   assert(accessFile && /^[a-f0-9]{40}$/.test(expectedCommit || ""));
   const access = JSON.parse(await readFile(accessFile, "utf8"));
   const token = access.FLOWPROOF_TOKEN;
-  const proof = JSON.parse(access.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON);
+  const configuration = evidenceAgentConfiguration(access);
+  assert(
+    configuration,
+    "No approved, fresh, unspent evidence-agent allowance is configured",
+  );
+  const proof = configuration.proof;
   assert(typeof token === "string" && token.length >= 32);
   assert.equal(proof.usedRuns, 0);
   const startedAt = new Date().toISOString();

@@ -123,6 +123,7 @@ export interface EvidenceAgentReceipt {
     phase: EvidenceAgentPhaseRequest["phase"];
     result?: EvidenceAgentTurn;
     failedAttempts?: GemmaEvidenceProviderError["attempts"];
+    failureDiagnostic?: GemmaEvidenceProviderError["diagnostic"];
   }>;
   selection?: z.infer<typeof EvidenceToolSelectionSchema>;
   toolSelectionAbstained?: boolean;
@@ -388,8 +389,11 @@ export async function executeEvidenceAgent(
       record.result = structuredClone(result);
       return result.output;
     } catch (error) {
-      if (error instanceof GemmaEvidenceProviderError)
+      if (error instanceof GemmaEvidenceProviderError) {
         record.failedAttempts = structuredClone(error.attempts);
+        if (error.diagnostic)
+          record.failureDiagnostic = structuredClone(error.diagnostic);
+      }
       throw error;
     }
   };

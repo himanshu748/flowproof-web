@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { z } from "zod";
+import { redact } from "../../shared/redact.js";
 import {
   GOOGLE_GEMMA_MODEL,
   googleGemmaConfiguration,
@@ -228,11 +229,25 @@ export interface EvidenceAgentTurn {
   output: unknown;
   attempts: EvidenceAgentAttempt[];
   freePricing: unknown;
+  /** Actual native calls record wrappers; optional only for offline callbacks. */
+  transportNormalization?: {
+    emptyThoughtPartIgnored: boolean;
+    wholeJsonFenceRemoved: boolean;
+  };
+}
+export interface GemmaEvidenceDiagnostic {
+  finalTextSha256: string;
+  redactedSample: string;
+  sampleTruncated: boolean;
+  emptyThoughtPartIgnored: boolean;
+  wholeJsonFenceRemoved: boolean;
+  scope: "Bounded redacted provider text for invalid JSON diagnosis, not a successful model result.";
 }
 export class GemmaEvidenceProviderError extends ProviderError {
   constructor(
     code: string,
     readonly attempts: EvidenceAgentAttempt[] = [],
+    readonly diagnostic?: GemmaEvidenceDiagnostic,
   ) {
     super(
       code,
@@ -454,13 +469,44 @@ export async function generateGemmaEvidenceTurn(
     );
     if (parts.length !== 1)
       throw new GemmaEvidenceProviderError("invalid_response", attempts);
+    const text = parts[0].text.trim();
+    // Match the already observed proposal-adapter wrapper, without repairing data.
+    const wholeJsonFence = /^```json\r?\n([\s\S]*?)\r?\n```$/.exec(text);
+    const wholeJsonFenceRemoved =
+      !!wholeJsonFence && !wholeJsonFence[1].includes("```");
+    const emptyThoughtPartIgnored =
+      decoded.data.candidates[0].content.parts.some(
+        (part) => part.thought === true,
+      );
     let output: unknown;
     try {
-      output = JSON.parse(parts[0].text.trim());
+      output = JSON.parse(wholeJsonFenceRemoved ? wholeJsonFence![1] : text);
     } catch {
-      throw new GemmaEvidenceProviderError("invalid_model_json", attempts);
+      const safeText = redact(
+        text.split(env.GOOGLE_GEMMA_API_KEY!).join("[REDACTED_SECRET]"),
+      );
+      throw new GemmaEvidenceProviderError("invalid_model_json", attempts, {
+        finalTextSha256: createHash("sha256")
+          .update(parts[0].text)
+          .digest("hex"),
+        redactedSample: safeText.slice(0, 512),
+        sampleTruncated: safeText.length > 512,
+        emptyThoughtPartIgnored,
+        wholeJsonFenceRemoved,
+        scope:
+          "Bounded redacted provider text for invalid JSON diagnosis, not a successful model result.",
+      });
     }
-    return { model: GOOGLE_GEMMA_MODEL, output, attempts, freePricing };
+    return {
+      model: GOOGLE_GEMMA_MODEL,
+      output,
+      attempts,
+      freePricing,
+      transportNormalization: {
+        emptyThoughtPartIgnored,
+        wholeJsonFenceRemoved,
+      },
+    };
   } catch (error) {
     if (error instanceof GemmaEvidenceProviderError) throw error;
     throw new GemmaEvidenceProviderError(

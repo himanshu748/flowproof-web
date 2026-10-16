@@ -702,6 +702,112 @@ function response(output: unknown = selection) {
   };
 }
 describe("native Gemma evidence-agent transport", () => {
+  it.each(["\n", "\r\n"])(
+    "unwraps only a complete json fence with %j line endings and records it",
+    async (newline) => {
+      const raw = response();
+      raw.candidates[0].content.parts[0].text = `\`\`\`json${newline}${JSON.stringify(selection)}${newline}\`\`\``;
+      const fetcher = vi.fn<typeof fetch>(async () => Response.json(raw));
+      const result = await generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        fetcher,
+        verifyPricing: async () => ({}),
+      });
+      expect(result.output).toEqual(selection);
+      expect(result.transportNormalization).toEqual({
+        emptyThoughtPartIgnored: false,
+        wholeJsonFenceRemoved: true,
+      });
+      expect(fetcher).toHaveBeenCalledOnce();
+    },
+  );
+  it("preserves all generated fields while removing a transport fence", async () => {
+    const output = { ...selection, unauthorizedApproval: true };
+    const raw = response();
+    raw.candidates[0].content.parts[0].text = `\`\`\`json\n${JSON.stringify(output)}\n\`\`\``;
+    const result = await generateGemmaEvidenceTurn(nativeRequest(), {
+      env: env(),
+      now: () => now,
+      fetcher: async () => Response.json(raw),
+      verifyPricing: async () => ({}),
+    });
+    expect(result.output).toEqual(output);
+    const audit = sample();
+    const h = dependencies(audit);
+    h.generate.mockResolvedValue(result);
+    await expect(
+      executeEvidenceAgent(input(audit), h.deps),
+    ).rejects.toMatchObject({ code: "invalid_model_or_input_schema" });
+    expect(h.failureHistory).not.toHaveBeenCalled();
+    expect(h.searchVisibility).not.toHaveBeenCalled();
+  });
+  it.each([
+    "Here is the result:\n```json\n{}\n```",
+    "```json\n{}\n```\nAdditional explanation",
+    "```\n{}\n```",
+    '```json\n{"text":"```"}\n```',
+  ])(
+    "does not repair partial, nested or unlabelled fences: %j",
+    async (text) => {
+      const raw = response();
+      raw.candidates[0].content.parts[0].text = text;
+      await expect(
+        generateGemmaEvidenceTurn(nativeRequest(), {
+          env: env(),
+          now: () => now,
+          fetcher: async () => Response.json(raw),
+          verifyPricing: async () => ({}),
+        }),
+      ).rejects.toMatchObject({
+        code: "invalid_model_json",
+        diagnostic: { wholeJsonFenceRemoved: false },
+      });
+    },
+  );
+  it("retains a bounded redacted non-JSON sample and exact text hash without fabricating output", async () => {
+    const text = `Invalid response contact private@example.org api_key=${key} ${"x".repeat(1200)}`;
+    const raw = response();
+    raw.candidates[0].content.parts[0].text = text;
+    try {
+      await generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        fetcher: async () => Response.json(raw),
+        verifyPricing: async () => ({}),
+      });
+      throw new Error("Expected invalid model JSON");
+    } catch (error) {
+      expect(error).toBeInstanceOf(GemmaEvidenceProviderError);
+      const failure = error as GemmaEvidenceProviderError;
+      expect(failure.code).toBe("invalid_model_json");
+      expect(failure.diagnostic).toMatchObject({
+        finalTextSha256: createHash("sha256").update(text).digest("hex"),
+        sampleTruncated: true,
+        wholeJsonFenceRemoved: false,
+      });
+      expect(failure.diagnostic!.redactedSample.length).toBeLessThanOrEqual(
+        512,
+      );
+      expect(JSON.stringify(failure)).not.toContain(key);
+      expect(JSON.stringify(failure)).not.toContain("private@example.org");
+      const audit = sample();
+      const h = dependencies(audit);
+      h.generate.mockRejectedValue(failure);
+      await expect(
+        executeEvidenceAgent(input(audit), h.deps),
+      ).rejects.toMatchObject({
+        receipt: {
+          status: "failed",
+          modelTurns: [
+            { phase: "select_tools", failureDiagnostic: failure.diagnostic },
+          ],
+        },
+      });
+      expect(h.generate).toHaveBeenCalledOnce();
+      expect(h.failureHistory).not.toHaveBeenCalled();
+    }
+  });
   it("uses a fixed native endpoint, records actual byte hashes/usage, and never includes credentials in the prompt", async () => {
     const verifyPricing = vi.fn(async () => ({
       model: GOOGLE_GEMMA_MODEL,
