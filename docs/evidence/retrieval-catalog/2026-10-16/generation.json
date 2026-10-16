@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-10-16T10:59:07.520Z",
+  "provider": "Existing local Ollama",
+  "model": "all-minilm:22m",
+  "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+  "dimensions": 384,
+  "documents": 3,
+  "queries": 3,
+  "sourceAuditSha256": "57212df3ddf94a08d527664881b96e84c82a76a2dae14bfd51832de37cb64fc4",
+  "catalogCanonicalSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e",
+  "scope": "Actual local Chromium broken sample and local MiniLM embeddings; not hosted SQL or a model agent result.",
+  "paidCalls": 0,
+  "modelDownloads": 0,
+  "serialization": "SHA-256 of ECMAScript JSON.stringify(parsed catalogue), as checked by the runtime"
+}

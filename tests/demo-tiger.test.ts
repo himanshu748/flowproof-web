@@ -84,6 +84,15 @@ async function harness(
           retrieval: "lexical";
         }>,
     ),
+    indexAuditFailures: vi.fn(async () => ({
+      indexed: 0,
+      matched: 0,
+      skipped: 0,
+      model: "all-minilm:22m" as const,
+      catalogSha256: "0".repeat(64),
+    })),
+    searchFailuresHybrid: vi.fn(async () => []),
+    reserveAgentRun: vi.fn(async () => ({ reserved: false })),
     close: vi.fn(async () => {}),
   };
   adapter.create.mockReturnValue(store);
