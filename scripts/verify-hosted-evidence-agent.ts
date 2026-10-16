@@ -168,6 +168,7 @@ async function verify() {
     maxModelCalls: proof.maxModelCalls,
     maxSearchCalls: 1,
     maximumTransientRetries: proof.maxModelCalls === 6 ? 4 : 0,
+    maximumSearchDurationMs: configuration.searchTimeoutMs,
     billingChanges: 0,
     priorAllowancesReset: false,
     ...(recovery ? { recovery } : {}),
@@ -420,6 +421,10 @@ async function verify() {
     assert.equal(agent.reservation.maxModelCalls, proof.maxModelCalls);
     assert.equal(agent.limits.maximumLogicalModelTurns, 2);
     assert.equal(agent.limits.maximumModelCalls, proof.maxModelCalls);
+    assert.equal(
+      agent.limits.maximumSearchDurationMs,
+      configuration.searchTimeoutMs,
+    );
     assert(
       agent.modelTurns.every((turn: any) => {
         const attempts = turn.result?.attempts;
@@ -487,6 +492,11 @@ async function verify() {
       rows: independent,
     });
     await artifact("serpapi-search.json", search);
+    assert.equal(agent.providerAttempts.length, 1);
+    assert.equal(agent.providerAttempts[0].provider, "serpapi");
+    assert.equal(agent.providerAttempts[0].status, 200);
+    assert.equal(agent.providerAttempts[0].outcome, "response");
+    await artifact("serpapi-transport.json", agent.providerAttempts);
     // Duplicate hits Tiger's UNIQUE tranche reservation before either model/tool.
     await request(route, { body, auth: true, expected: 409 });
     const after = await request<Audit>(`/api/audits/${audit.id}`);

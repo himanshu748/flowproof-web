@@ -97,6 +97,8 @@ const HistoryRowsSchema = z
 export interface EvidenceAgentDependencies {
   /** Trusted durable grant only; two logical turns remain fixed. */
   maxModelRequests?: 2 | 6;
+  /** Trusted search-only transport budget; never read from a model or HTTP body. */
+  searchTimeoutMs?: 10_000 | 30_000;
   /** Trusted caller liveness/ownership check immediately before every model call. */
   beforeModel?: () => void;
   generate?: (request: EvidenceAgentPhaseRequest) => Promise<EvidenceAgentTurn>;
@@ -150,6 +152,7 @@ export interface EvidenceAgentReceipt {
     toolRetries: 0;
     refundPerformed: false;
     maximumDurationMs: 50_000 | 90_000;
+    maximumSearchDurationMs?: 10_000 | 30_000;
   };
   scope: string;
 }
@@ -313,8 +316,10 @@ export async function executeEvidenceAgent(
 ): Promise<EvidenceAgentReceipt> {
   const now = deps.now ?? Date.now;
   const maximumModelCalls = deps.maxModelRequests ?? 2;
+  const maximumSearchDurationMs = deps.searchTimeoutMs ?? 10_000;
   const expandedBudget = maximumModelCalls === 6;
-  const maximumDurationMs = expandedBudget ? 90_000 : 50_000;
+  const maximumDurationMs =
+    expandedBudget || maximumSearchDurationMs === 30_000 ? 90_000 : 50_000;
   const receipt: EvidenceAgentReceipt = {
     version: 1,
     status: "running",
@@ -335,6 +340,7 @@ export async function executeEvidenceAgent(
       toolRetries: 0,
       refundPerformed: false,
       maximumDurationMs,
+      maximumSearchDurationMs,
     },
     scope:
       "Model-selected finite read-only tools over a fixed synthetic audit and the owned homepage. Typed model findings are separate from server-rendered facts. Historical/search observations are not new browser checks or acceptance evidence.",
@@ -418,6 +424,11 @@ export async function executeEvidenceAgent(
   try {
     if (maximumModelCalls !== 2 && maximumModelCalls !== 6)
       refusal("invalid_model_request_budget");
+    if (
+      maximumSearchDurationMs !== 10_000 &&
+      maximumSearchDurationMs !== 30_000
+    )
+      refusal("invalid_search_timeout_budget");
     if (input.task !== EVIDENCE_AGENT_TASK) refusal("invalid_fixed_task");
     sourceSnapshot = JSON.stringify(input.audit);
     const audit = validatedAudit(input.audit);
@@ -464,7 +475,10 @@ export async function executeEvidenceAgent(
           });
         } else {
           const result = SearchVisibilitySchema.parse(
-            await bounded((signal) => deps.searchVisibility(signal), 10_000),
+            await bounded(
+              (signal) => deps.searchVisibility(signal),
+              maximumSearchDurationMs,
+            ),
           );
           observation = EvidenceToolObservationSchema.parse({
             id,
@@ -542,6 +556,7 @@ export async function executeEvidenceAgent(
     const allowed = [
       "invalid_fixed_sample_scope",
       "invalid_model_request_budget",
+      "invalid_search_timeout_budget",
       "altered_fixed_sample_plan",
       "incomplete_audit_results",
       "mismatched_observed_audit_result",

@@ -1030,6 +1030,7 @@ export function createDemoRouter(options: DemoOptions) {
     const initialConfig = evidenceAgentConfiguration(process.env, now());
     if (!initialConfig) return notFound(res);
     const modelReservations = initialConfig.proof.maxModelCalls;
+    const searchTimeoutMs = initialConfig.searchTimeoutMs ?? 10_000;
     if (gemmaStarts.length + modelReservations > 12)
       return res
         .status(429)
@@ -1041,9 +1042,13 @@ export function createDemoRouter(options: DemoOptions) {
       isDeepStrictEqual(s.audits.get(audit.id), snapshot) &&
       isDeepStrictEqual(s.projects.get(website.id), websiteSnapshot);
     const assertCurrent = () => {
+      const config = evidenceAgentConfiguration(process.env, now());
       if (
         !current() ||
-        !authorizeEvidenceAgent(req.headers, process.env, now())
+        !authorizeEvidenceAgent(req.headers, process.env, now()) ||
+        config?.proof.trancheId !== initialConfig.proof.trancheId ||
+        config?.proof.maxModelCalls !== modelReservations ||
+        (config?.searchTimeoutMs ?? 10_000) !== searchTimeoutMs
       )
         throw new Error("EvidenceAgentSourceChanged");
     };
@@ -1051,6 +1056,14 @@ export function createDemoRouter(options: DemoOptions) {
     let reserved = false;
     let reservationAttempted = false;
     const toolReceipts: Array<{ tool: string; result: unknown }> = [];
+    const providerAttempts: Array<{
+      provider: "serpapi";
+      operation: "search-visibility";
+      startedAt: string;
+      durationMs: number;
+      status: number | null;
+      outcome: "pending" | "response" | "aborted" | "request_failed";
+    }> = [];
     try {
       const pricing = await verifyGemmaFree();
       if (!current())
@@ -1077,7 +1090,8 @@ export function createDemoRouter(options: DemoOptions) {
       if (
         !config ||
         config.proof.trancheId !== initialConfig.proof.trancheId ||
-        config.proof.maxModelCalls !== modelReservations
+        config.proof.maxModelCalls !== modelReservations ||
+        (config.searchTimeoutMs ?? 10_000) !== searchTimeoutMs
       )
         return notFound(res);
       reservationAttempted = true;
@@ -1101,6 +1115,7 @@ export function createDemoRouter(options: DemoOptions) {
         { audit: snapshot, task: EVIDENCE_AGENT_TASK },
         {
           maxModelRequests: modelReservations,
+          searchTimeoutMs,
           beforeModel: assertCurrent,
           failureHistory: async (queryId, signal) => {
             signal.throwIfAborted();
@@ -1123,15 +1138,41 @@ export function createDemoRouter(options: DemoOptions) {
             assertCurrent();
             const result = await checkSearchVisibility(websiteSnapshot, {
               ...options,
-              fetcher: (input, init) => {
+              fetcher: async (input, init) => {
                 signal.throwIfAborted();
                 assertCurrent();
-                return fetch(input, {
-                  ...init,
-                  signal: init?.signal
-                    ? AbortSignal.any([signal, init.signal])
-                    : signal,
-                });
+                const transportSignal = init?.signal
+                  ? AbortSignal.any([signal, init.signal])
+                  : signal;
+                const attempt: (typeof providerAttempts)[number] = {
+                  provider: "serpapi",
+                  operation: "search-visibility",
+                  startedAt: new Date().toISOString(),
+                  durationMs: 0,
+                  status: null,
+                  outcome: "pending",
+                };
+                const started = performance.now();
+                providerAttempts.push(attempt);
+                try {
+                  const response = await fetch(input, {
+                    ...init,
+                    signal: transportSignal,
+                  });
+                  attempt.status = response.status;
+                  attempt.outcome = "response";
+                  return response;
+                } catch (error) {
+                  attempt.outcome = transportSignal.aborted
+                    ? "aborted"
+                    : "request_failed";
+                  throw error;
+                } finally {
+                  attempt.durationMs = Math.max(
+                    0,
+                    Math.round(performance.now() - started),
+                  );
+                }
               },
             });
             signal.throwIfAborted();
@@ -1157,6 +1198,7 @@ export function createDemoRouter(options: DemoOptions) {
         },
         indexing,
         toolReceipts,
+        providerAttempts,
         pricing,
         auditUnchanged: true,
         sourceAuditId: audit.id,
@@ -1186,6 +1228,7 @@ export function createDemoRouter(options: DemoOptions) {
               : false,
           failureType: error instanceof Error ? error.name : "UnknownError",
           toolReceipts,
+          providerAttempts,
           ...(error instanceof EvidenceAgentError
             ? { code: error.code, receipt: error.receipt }
             : {}),

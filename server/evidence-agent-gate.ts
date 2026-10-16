@@ -25,6 +25,10 @@ export const EVIDENCE_AGENT_FAILED_RECEIPT_SHA256 =
 // INTERNAL before any tool or search ran. Exact unexpected-response.json bytes.
 export const EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256 =
   "06064dc3f52050916b37c63a59ed098b56740d73bb9873115f57a3fd92598536";
+// The 2026-10-16T12:00Z native run cited real Tiger history but its search
+// timed out. Bind the exact partial agent-run.json, not an end-to-end success.
+export const EVIDENCE_AGENT_PARTIAL_RESILIENT_RECEIPT_SHA256 =
+  "8a1909603a3144c8127ed468fea53eeac328e044e226ec9fe32f96dd8e19a0b4";
 const sha256 = (value: string) => createHash("sha256").update(value).digest();
 const hash = z.string().regex(/^[a-f0-9]{64}$/);
 const credential = z
@@ -76,13 +80,27 @@ const resilientProofSchema = repairProofSchema
     cumulativeAgentReservedModelCalls: z.literal(10),
   })
   .strict();
+const searchRepairProofSchema = resilientProofSchema
+  .extend({
+    maxModelCalls: z.literal(2),
+    previousResilientProofSha256: hash,
+    previousResilientReceiptSha256: z.literal(
+      EVIDENCE_AGENT_PARTIAL_RESILIENT_RECEIPT_SHA256,
+    ),
+    cumulativeAgentReservedModelCalls: z.literal(12),
+  })
+  .strict();
 
 export type EvidenceAgentRepairProof = z.infer<typeof repairProofSchema>;
 export type EvidenceAgentResilientProof = z.infer<typeof resilientProofSchema>;
+export type EvidenceAgentSearchRepairProof = z.infer<
+  typeof searchRepairProofSchema
+>;
 export type EvidenceAgentProof =
   | z.infer<typeof proofSchema>
   | EvidenceAgentRepairProof
-  | EvidenceAgentResilientProof;
+  | EvidenceAgentResilientProof
+  | EvidenceAgentSearchRepairProof;
 
 function validWindow(proof: EvidenceAgentProof, now: number, fresh: boolean) {
   const checked = Date.parse(proof.checkedAt);
@@ -132,7 +150,11 @@ const ledgerSchema = z
 export function evidenceAgentConfiguration(
   env: NodeJS.ProcessEnv = process.env,
   now = Date.now(),
-): { proof: EvidenceAgentProof; key: string } | null {
+): {
+  proof: EvidenceAgentProof;
+  key: string;
+  searchTimeoutMs: 10000 | 30000;
+} | null {
   if (env.BRIEFSTAMP_EVIDENCE_AGENT_ENABLED !== "true") return null;
   const key = credential.safeParse(env.SERPAPI_API_KEY);
   const token = operatorToken.safeParse(env.FLOWPROOF_TOKEN);
@@ -140,6 +162,8 @@ export function evidenceAgentConfiguration(
   const priorRaw = env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON;
   const repairRaw = env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON;
   const resilientRaw = env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON;
+  const searchRepairRaw =
+    env.BRIEFSTAMP_EVIDENCE_AGENT_SEARCH_REPAIR_PROOF_JSON;
   if (
     !key.success ||
     !token.success ||
@@ -165,7 +189,11 @@ export function evidenceAgentConfiguration(
       return null;
     // A configured later tranche never falls back to an earlier allowance.
     // Every prior reservation stays spent; the exact raw proofs remain bound.
-    if (repairRaw !== undefined || resilientRaw !== undefined) {
+    if (
+      repairRaw !== undefined ||
+      resilientRaw !== undefined ||
+      searchRepairRaw !== undefined
+    ) {
       if (!repairRaw || repairRaw.length > 16_384 || primary.usedRuns !== 1)
         return null;
       const repair = repairProofSchema.parse(JSON.parse(repairRaw));
@@ -178,7 +206,7 @@ export function evidenceAgentConfiguration(
         Date.parse(repair.checkedAt) < Date.parse(primary.checkedAt)
       )
         return null;
-      if (resilientRaw !== undefined) {
+      if (resilientRaw !== undefined || searchRepairRaw !== undefined) {
         if (
           !resilientRaw ||
           resilientRaw.length > 16_384 ||
@@ -187,8 +215,7 @@ export function evidenceAgentConfiguration(
           return null;
         const resilient = resilientProofSchema.parse(JSON.parse(resilientRaw));
         if (
-          resilient.usedRuns !== 0 ||
-          !validWindow(resilient, now, true) ||
+          !validWindow(resilient, now, false) ||
           resilient.trancheId === primary.trancheId ||
           resilient.trancheId === repair.trancheId ||
           resilient.credentialSha256 !== credentialHash ||
@@ -199,14 +226,46 @@ export function evidenceAgentConfiguration(
           Date.parse(resilient.checkedAt) < Date.parse(repair.checkedAt)
         )
           return null;
-        return { proof: resilient, key: key.data };
+        if (searchRepairRaw !== undefined) {
+          if (
+            !searchRepairRaw ||
+            searchRepairRaw.length > 16_384 ||
+            resilient.usedRuns !== 1
+          )
+            return null;
+          const searchRepair = searchRepairProofSchema.parse(
+            JSON.parse(searchRepairRaw),
+          );
+          if (
+            searchRepair.usedRuns !== 0 ||
+            !validWindow(searchRepair, now, true) ||
+            [primary.trancheId, repair.trancheId, resilient.trancheId].includes(
+              searchRepair.trancheId,
+            ) ||
+            searchRepair.credentialSha256 !== credentialHash ||
+            searchRepair.priorSerpProofSha256 !==
+              primary.priorSerpProofSha256 ||
+            searchRepair.previousAgentProofSha256 !==
+              sha256(raw).toString("hex") ||
+            searchRepair.previousRepairProofSha256 !==
+              sha256(repairRaw).toString("hex") ||
+            searchRepair.previousResilientProofSha256 !==
+              sha256(resilientRaw).toString("hex") ||
+            Date.parse(searchRepair.checkedAt) < Date.parse(resilient.checkedAt)
+          )
+            return null;
+          return { proof: searchRepair, key: key.data, searchTimeoutMs: 30000 };
+        }
+        if (resilient.usedRuns !== 0 || !validWindow(resilient, now, true))
+          return null;
+        return { proof: resilient, key: key.data, searchTimeoutMs: 10000 };
       }
       if (repair.usedRuns !== 0 || !validWindow(repair, now, true)) return null;
-      return { proof: repair, key: key.data };
+      return { proof: repair, key: key.data, searchTimeoutMs: 10000 };
     }
     if (primary.usedRuns !== 0 || !validWindow(primary, now, true)) return null;
     // Historical entitlement may be expired. It is retained spent, never refreshed.
-    return { proof: primary, key: key.data };
+    return { proof: primary, key: key.data, searchTimeoutMs: 10000 };
   } catch {
     return null;
   }

@@ -62,7 +62,11 @@ beforeEach(() => {
 });
 
 afterEach(async () => {
-  for (const cleanup of cleanups.splice(0)) await cleanup();
+  try {
+    for (const cleanup of cleanups.splice(0)) await cleanup();
+  } finally {
+    vi.restoreAllMocks();
+  }
 });
 
 function deferred<T>() {
@@ -94,6 +98,7 @@ function receipt(audit: Audit): EvidenceAgentReceipt {
       toolRetries: 0,
       refundPerformed: false,
       maximumDurationMs: 50_000,
+      maximumSearchDurationMs: 10_000,
     },
     scope: "Offline injected HTTP route fixture.",
   };
@@ -641,7 +646,9 @@ describe("operator evidence-agent HTTP boundary", () => {
         return {};
       },
     });
-    expect((await h.review(await h.ready())).status).toBe(404);
+    const response = await h.review(await h.ready());
+    expect(response.status).toBe(409);
+    expect(await response.json()).toMatchObject({ allowanceConsumed: false });
     h.noAgentWork();
   });
 
@@ -887,6 +894,169 @@ describe("operator evidence-agent HTTP boundary", () => {
     h.noAgentWork();
     release.resolve();
   });
+});
+
+describe("evidence-agent search timeout and transport evidence", () => {
+  it("passes the explicitly configured thirty-second search deadline without fabricating a provider attempt", async () => {
+    boundary.configuration.mockReturnValue({
+      proof: { trancheId: TRANCHE, maxModelCalls: 2 },
+      searchTimeoutMs: 30_000,
+    });
+    const h = await harness({
+      evidenceAgent: async ({ audit }) => receipt(audit),
+    });
+    const v = await h.ready();
+    const response = await h.review(v);
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      providerAttempts: [],
+      auditUnchanged: true,
+      reservation: { maxModelCalls: 2, maxSearchCalls: 1, consumed: true },
+    });
+    expect(h.agent.mock.calls[0][1]).toMatchObject({
+      maxModelRequests: 2,
+      searchTimeoutMs: 30_000,
+    });
+    expect(boundary.searchOptions).not.toHaveBeenCalled();
+    expect(boundary.search).not.toHaveBeenCalled();
+    expect(h.store.searchFailuresHybrid).not.toHaveBeenCalled();
+  });
+
+  it("retains the ten-second default for proofs without a search-deadline override", async () => {
+    const h = await harness({
+      evidenceAgent: async ({ audit }) => receipt(audit),
+    });
+    const response = await h.review(await h.ready());
+    expect(response.status).toBe(200);
+    expect(h.agent.mock.calls[0][1]).toMatchObject({
+      searchTimeoutMs: 10_000,
+    });
+    expect(await response.json()).toMatchObject({ providerAttempts: [] });
+    expect(boundary.searchOptions).not.toHaveBeenCalled();
+    expect(boundary.search).not.toHaveBeenCalled();
+  });
+
+  it("records only sanitized transport metadata for an actually invoked mocked HTTP 200 search", async () => {
+    const nativeFetch = globalThis.fetch;
+    const syntheticUrl =
+      "https://serpapi.com/search.json?q=PRIVATE_QUERY&api_key=SYNTHETIC_SECRET_NOT_A_CREDENTIAL";
+    const providerFetch = vi.fn(
+      async () =>
+        new Response('{"fixture":true}', {
+          status: 200,
+          headers: { "content-type": "application/json" },
+        }),
+    );
+    vi.spyOn(globalThis, "fetch").mockImplementation((input, init) => {
+      const url = new URL(input instanceof Request ? input.url : String(input));
+      if (url.hostname === "serpapi.com") return providerFetch();
+      if (url.hostname !== "127.0.0.1")
+        return Promise.reject(new Error("Unexpected external test transport"));
+      return nativeFetch(input, init);
+    });
+    boundary.search.mockImplementation(
+      async (_project: Project, options: { fetcher: typeof fetch }) => {
+        const response = await options.fetcher(syntheticUrl, { method: "GET" });
+        expect(response.status).toBe(200);
+        return { provider: "SerpApi", status: "observed", results: [] };
+      },
+    );
+    const h = await harness({
+      evidenceAgent: async ({ audit }, tools) => {
+        await tools.searchVisibility(new AbortController().signal);
+        return receipt(audit);
+      },
+    });
+    const response = await h.review(await h.ready());
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(providerFetch).toHaveBeenCalledOnce();
+    expect(body.providerAttempts).toEqual([
+      {
+        provider: "serpapi",
+        operation: "search-visibility",
+        startedAt: expect.any(String),
+        durationMs: expect.any(Number),
+        status: 200,
+        outcome: "response",
+      },
+    ]);
+    expect(
+      Number.isFinite(Date.parse(body.providerAttempts[0].startedAt)),
+    ).toBe(true);
+    expect(body.providerAttempts[0].durationMs).toBeGreaterThanOrEqual(0);
+    const serialized = JSON.stringify(body);
+    for (const privateValue of [
+      syntheticUrl,
+      "PRIVATE_QUERY",
+      "api_key",
+      "SYNTHETIC_SECRET_NOT_A_CREDENTIAL",
+    ])
+      expect(serialized).not.toContain(privateValue);
+  });
+
+  it.each(["aborted", "request_failed"] as const)(
+    "retains the sanitized %s transport attempt when the agent exits with an error",
+    async (outcome) => {
+      const nativeFetch = globalThis.fetch;
+      const controller = new AbortController();
+      const syntheticUrl =
+        "https://serpapi.com/search.json?q=PRIVATE_QUERY&api_key=SYNTHETIC_SECRET_NOT_A_CREDENTIAL";
+      const providerFetch = vi.fn(async () => {
+        if (outcome === "aborted") controller.abort();
+        throw new Error(`PRIVATE_PROVIDER_BODY ${syntheticUrl}`);
+      });
+      vi.spyOn(globalThis, "fetch").mockImplementation((input, init) => {
+        const url = new URL(
+          input instanceof Request ? input.url : String(input),
+        );
+        if (url.hostname === "serpapi.com") return providerFetch();
+        if (url.hostname !== "127.0.0.1")
+          return Promise.reject(
+            new Error("Unexpected external test transport"),
+          );
+        return nativeFetch(input, init);
+      });
+      boundary.search.mockImplementation(
+        async (_project: Project, options: { fetcher: typeof fetch }) => {
+          await options.fetcher(syntheticUrl, { method: "GET" });
+          throw new Error("Unreachable provider fixture path");
+        },
+      );
+      const h = await harness({
+        evidenceAgent: async ({ audit }, tools) => {
+          await tools.searchVisibility(controller.signal);
+          return receipt(audit);
+        },
+      });
+      const response = await h.review(await h.ready());
+      expect(response.status).toBe(503);
+      const body = await response.json();
+      expect(providerFetch).toHaveBeenCalledOnce();
+      expect(body.allowanceConsumed).toBe(true);
+      expect(body.providerAttempts).toEqual([
+        {
+          provider: "serpapi",
+          operation: "search-visibility",
+          startedAt: expect.any(String),
+          durationMs: expect.any(Number),
+          status: null,
+          outcome,
+        },
+      ]);
+      expect(body.providerAttempts[0].durationMs).toBeGreaterThanOrEqual(0);
+      expect(body.toolReceipts).toEqual([]);
+      const serialized = JSON.stringify(body);
+      for (const privateValue of [
+        syntheticUrl,
+        "PRIVATE_QUERY",
+        "api_key",
+        "SYNTHETIC_SECRET_NOT_A_CREDENTIAL",
+        "PRIVATE_PROVIDER_BODY",
+      ])
+        expect(serialized).not.toContain(privateValue);
+    },
+  );
 });
 
 describe("evidence-agent physical request reservations", () => {
