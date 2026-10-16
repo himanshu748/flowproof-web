@@ -1,0 +1,138 @@
+{
+  "project": {
+    "id": "46823116-413a-4b57-a88a-911b61478af6",
+    "name": "Forma Studio",
+    "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+    "target": "sample",
+    "url": "https://sample.flowproof.test/",
+    "sampleVariant": "healthy",
+    "authorized": true,
+    "checks": [
+      {
+        "id": "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+        "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+        "requirement": "A contact link must say \"Start a project\".",
+        "kind": "link",
+        "path": "/",
+        "expected": "Start a project",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+        "requirement": "Every content image must have nonempty alternative text.",
+        "kind": "image_alt",
+        "path": "/",
+        "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+        "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "path": "/",
+        "expected": "No horizontal scrolling",
+        "viewport": "mobile",
+        "approved": true
+      },
+      {
+        "id": "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+        "requirement": "The homepage must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Independent by design.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "3b514fc1-574a-475b-8a70-036c6b54396b",
+        "requirement": "The site should feel welcoming and trustworthy.",
+        "kind": "manual",
+        "path": "/",
+        "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+        "viewport": "desktop",
+        "approved": true
+      }
+    ],
+    "generator": {
+      "provider": "Retained Google Gemma proposal (replay)",
+      "model": "gemma-4-26b-a4b-it",
+      "reason": "No fresh inference; proposal source hash is in this receipt"
+    },
+    "createdAt": "2026-10-16T17:33:16.832Z",
+    "updatedAt": "2026-10-16T17:33:16.832Z"
+  },
+  "audit": {
+    "id": "f9ae73fd-a604-4b80-921d-07992d70f73f",
+    "projectId": "46823116-413a-4b57-a88a-911b61478af6",
+    "projectName": "Mastra approval proof",
+    "createdAt": "2026-10-16T17:33:16.832Z",
+    "status": "running",
+    "checks": [
+      {
+        "id": "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+        "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+        "requirement": "A contact link must say \"Start a project\".",
+        "kind": "link",
+        "path": "/",
+        "expected": "Start a project",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+        "requirement": "Every content image must have nonempty alternative text.",
+        "kind": "image_alt",
+        "path": "/",
+        "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+        "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "path": "/",
+        "expected": "No horizontal scrolling",
+        "viewport": "mobile",
+        "approved": true
+      },
+      {
+        "id": "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+        "requirement": "The homepage must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Independent by design.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "3b514fc1-574a-475b-8a70-036c6b54396b",
+        "requirement": "The site should feel welcoming and trustworthy.",
+        "kind": "manual",
+        "path": "/",
+        "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+        "viewport": "desktop",
+        "approved": true
+      }
+    ],
+    "results": []
+  }
+}

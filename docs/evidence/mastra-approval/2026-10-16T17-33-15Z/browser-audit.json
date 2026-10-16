@@ -1,0 +1,172 @@
+{
+  "id": "f9ae73fd-a604-4b80-921d-07992d70f73f",
+  "projectId": "46823116-413a-4b57-a88a-911b61478af6",
+  "projectName": "Mastra approval proof",
+  "createdAt": "2026-10-16T17:33:16.832Z",
+  "status": "completed",
+  "checks": [
+    {
+      "id": "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    },
+    {
+      "id": "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "3b514fc1-574a-475b-8a70-036c6b54396b",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "status": "passed",
+      "expected": "Design that moves business forward.",
+      "durationMs": 637,
+      "evidence": {
+        "observed": "The expected heading is visible.",
+        "dom": "Design that moves business forward.\nA little studio.\nA wider perspective.",
+        "screenshot": "/evidence/f9ae73fd-a604-4b80-921d-07992d70f73f/01-7f14d43c-2c01-454c-bf93-d7754406a7a2.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "status": "passed",
+      "expected": "Start a project",
+      "durationMs": 600,
+      "evidence": {
+        "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+        "dom": "Start a project ↗ → /contact",
+        "screenshot": "/evidence/f9ae73fd-a604-4b80-921d-07992d70f73f/02-f1d392d1-cc85-4224-86b5-19642f9e4b89.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "status": "passed",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "durationMs": 599,
+      "evidence": {
+        "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+        "dom": "Image 1: Common Ground brand identity with a mountain symbol and warm paper typography",
+        "screenshot": "/evidence/f9ae73fd-a604-4b80-921d-07992d70f73f/03-ae7083b7-1050-4aed-a88c-3bffb0e9cfe6.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "status": "passed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 585,
+      "evidence": {
+        "observed": "Document width is 390px; viewport width is 390px.",
+        "dom": "document.scrollWidth=390; window.innerWidth=390",
+        "screenshot": "/evidence/f9ae73fd-a604-4b80-921d-07992d70f73f/04-6db52faa-3509-4ff1-9cff-ce6f3dfc73b8.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    },
+    {
+      "checkId": "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "status": "passed",
+      "expected": "Independent by design.",
+      "durationMs": 597,
+      "evidence": {
+        "observed": "The expected text is visible on the page.",
+        "dom": "INDEPENDENT BY DESIGN.",
+        "screenshot": "/evidence/f9ae73fd-a604-4b80-921d-07992d70f73f/05-a2a6ac8f-5e7c-404d-92f3-633cf3d752c5.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "3b514fc1-574a-475b-8a70-036c6b54396b",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "status": "unverified",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "durationMs": 0,
+      "evidence": {
+        "observed": "This requirement needs a human decision. No automated assertion was executed.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-16T17:33:20.161Z"
+}

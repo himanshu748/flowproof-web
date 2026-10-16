@@ -1,0 +1,13 @@
+{
+  "id": 38940485474,
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38940485474",
+  "headSha": "3fedaef936e6796f45eb342b73997e912fd093cc",
+  "conclusion": "success",
+  "applicationTests": 1072,
+  "pythonTests": 19,
+  "build": "success",
+  "publicRuntime": "success",
+  "chromium": "success",
+  "logSha256": "9147bb8e031888c7e714709f83dcdf53926d7f201fd427e25c3e4d463a5f58f0",
+  "testCountExcerpt": "acceptance-log-excerpt.txt"
+}

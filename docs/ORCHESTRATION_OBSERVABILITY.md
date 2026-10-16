@@ -1,5 +1,13 @@
 # Mastra coordination and optional Sentry tracing
 
+## New explicit approval proof: October 16, 17:33 UTC
+
+[Real CI states, resume payload, Chromium results and five PNGs](evidence/mastra-approval/2026-10-16T17-33-15Z/) show an actual Mastra `suspended` state with zero browser calls. The same run resumes with the exact plan digest and six approved IDs, executes the browser once and records **5 passed / 0 failed / 0 blocked / 1 unverified**. The proposal is a replay of an earlier actual Gemma response; this proof makes zero fresh model/provider calls and consumes no public judge slot. Approval is an owner-instructed automated verifier action, not independently observed human acceptance.
+
+[`createApprovalWorkflow`](../server/approval-workflow.ts) composes propose → validate → suspend → browser handoff. Its immutable process-local plan binds the brief, run ID and proposed checks; resume supplies approved IDs rather than model-generated actions. Duplicate/concurrent resume claims, stale digests, invalid IDs, unsafe or preapproved proposals and mismatched browser results are rejected by [22 SDK tests](../tests/approval-workflow.test.ts). This proof does not use a durable Mastra store, survive process loss or replace the hosted public approval routes. The original hosted proposal and Sentry ingestion evidence remain separate in [PUBLIC_GEMMA](PUBLIC_GEMMA.md) and [SENTRY_HOSTED](SENTRY_HOSTED.md).
+
+## Earlier October 15 local integration
+
 Briefstamp executes actual Mastra SDK workflows and tools around proposal generation, validation, approval checks, browser execution and summaries. Sentry's actual Node SDK captures manually instrumented operations through a strict privacy boundary. Both integrations work locally without paid resources.
 
 ## What was verified
