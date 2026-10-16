@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-10-16T13:33:18.620Z",
+  "status": "live",
+  "sourceCommit": "c551f59ea45c0cae19ab0aea089a3e3573d1efe1",
+  "ci": {
+    "id": 38908327718,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38908327718",
+    "conclusion": "success"
+  },
+  "plan": "free",
+  "oldProofBytesPreserved": true,
+  "environmentExactlyPreserved": true,
+  "existingGrant": {
+    "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+    "proofSha256": "fbaef465b12db6c4b1571d61cb50b3347a6b4189cb39ff09efbd392f1ea64f5c",
+    "maxRuns": 12,
+    "expiresAt": "2026-10-20T00:00:00.000Z"
+  },
+  "newSlotsBeforeDeploy": 3,
+  "grantRegenerated": false,
+  "newServices": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "deploy": {
+    "id": "dep-db92f7vf3r2c73fs8qog",
+    "status": "live",
+    "commit": {
+      "id": "c551f59ea45c0cae19ab0aea089a3e3573d1efe1",
+      "message": "Wait for slow judge searches within the fixed run budget",
+      "createdAt": "2026-10-16T13:30:06Z"
+    },
+    "createdAt": "2026-10-16T13:33:19.315764Z",
+    "finishedAt": "2026-10-16T13:35:19.504157Z"
+  },
+  "completedAt": "2026-10-16T13:35:29.375Z",
+  "freePlanReadbackVerified": true,
+  "environmentReadbackVerified": true
+}

@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-10-16T13:16:06.768Z",
+  "status": "live",
+  "sourceCommit": "e6a53da1bd85b0711a2cc18e14843f47fcd97fb7",
+  "ci": {
+    "id": 38906162942,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38906162942",
+    "conclusion": "success"
+  },
+  "plan": "free",
+  "oldProofBytesPreserved": true,
+  "environmentExactlyPreserved": true,
+  "existingGrant": {
+    "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+    "proofSha256": "fbaef465b12db6c4b1571d61cb50b3347a6b4189cb39ff09efbd392f1ea64f5c",
+    "maxRuns": 12,
+    "expiresAt": "2026-10-20T00:00:00.000Z"
+  },
+  "newSlotsBeforeDeploy": 2,
+  "grantRegenerated": false,
+  "newServices": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "deploy": {
+    "id": "dep-db9275ss728c73bgtgn0",
+    "status": "live",
+    "commit": {
+      "id": "e6a53da1bd85b0711a2cc18e14843f47fcd97fb7",
+      "message": "Retain committed reservation IDs in failed judge receipts",
+      "createdAt": "2026-10-16T13:13:03Z"
+    },
+    "createdAt": "2026-10-16T13:16:07.453325Z",
+    "finishedAt": "2026-10-16T13:17:56.656937Z"
+  },
+  "completedAt": "2026-10-16T13:18:10.962Z",
+  "freePlanReadbackVerified": true,
+  "environmentReadbackVerified": true
+}

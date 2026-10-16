@@ -1,0 +1,7 @@
+acceptance	Run npm run test	2026-10-16T13:31:38.4485045Z       Tests  963 passed (963)
+acceptance	Offline model provenance and budget safeguards	2026-10-16T13:31:38.5888398Z Ran 19 tests in 0.037s
+acceptance	Real public demo within the free runtime memory limit	2026-10-16T13:31:52.6388238Z healthy: {"passed":5,"failed":0,"blocked":0,"unverified":1}, five real screenshots and portable report
+acceptance	Real public demo within the free runtime memory limit	2026-10-16T13:31:56.1634581Z broken: {"passed":2,"failed":3,"blocked":0,"unverified":1}, five real screenshots and portable report
+acceptance	Real healthy, broken and recovered website audits	2026-10-16T13:32:02.8883193Z healthy: passed, passed, passed, passed, passed, unverified
+acceptance	Real healthy, broken and recovered website audits	2026-10-16T13:32:05.9625330Z broken: failed, passed, failed, failed, failed, unverified
+acceptance	Real healthy, broken and recovered website audits	2026-10-16T13:32:09.0139394Z recovered: passed, passed, passed, passed, passed, unverified

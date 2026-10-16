@@ -1,0 +1,455 @@
+{
+  "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+  "model": "gemma-4-26b-a4b-it",
+  "scope": "Public judge flow over approved fixed synthetic evidence and the owned homepage. Two model requests and one search maximum per reserved session; precomputed MiniLM PostgreSQL arrays, no arbitrary query embedding inference. Findings do not change browser acceptance results.",
+  "budget": {
+    "usedRuns": 3,
+    "maximumRuns": 12,
+    "visitorUsed": true,
+    "remainingRuns": 9
+  },
+  "limits": {
+    "toolRetries": 0,
+    "modelRetries": 0,
+    "refundPerformed": false,
+    "maximumToolCalls": 2,
+    "maximumDurationMs": 90000,
+    "maximumModelCalls": 2,
+    "maximumSearchDurationMs": 30000,
+    "maximumLogicalModelTurns": 2
+  },
+  "status": "completed_with_unavailable_tools",
+  "funding": {
+    "checkedAt": "2026-10-16T13:20:13.051Z",
+    "confirmedFree": true
+  },
+  "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+  "pricing": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-16T13:20:12.083Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+  },
+  "version": 1,
+  "indexing": {
+    "model": "all-minilm:22m",
+    "indexed": 3,
+    "matched": 3,
+    "skipped": 0,
+    "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+  },
+  "selection": {
+    "tools": [
+      {
+        "name": "failure_history",
+        "arguments": {
+          "queryId": "mobile_paraphrase"
+        }
+      },
+      {
+        "name": "search_visibility",
+        "arguments": {}
+      }
+    ]
+  },
+  "startedAt": "2026-10-16T13:20:16.579Z",
+  "toolCalls": [
+    {
+      "name": "failure_history",
+      "status": "observed",
+      "arguments": {
+        "queryId": "mobile_paraphrase"
+      },
+      "durationMs": 221,
+      "observationId": "tool-1"
+    },
+    {
+      "name": "search_visibility",
+      "status": "unavailable",
+      "arguments": {},
+      "durationMs": 30001,
+      "observationId": "tool-2"
+    }
+  ],
+  "trancheId": "c539ae76-5a7e-4446-88e2-6ebe6ff3659e",
+  "transport": "native_google_gemma",
+  "modelTurns": [
+    {
+      "phase": "select_tools",
+      "result": {
+        "model": "gemma-4-26b-a4b-it",
+        "output": {
+          "tools": [
+            {
+              "name": "failure_history",
+              "arguments": {
+                "queryId": "mobile_paraphrase"
+              }
+            },
+            {
+              "name": "search_visibility",
+              "arguments": {}
+            }
+          ]
+        },
+        "attempts": [
+          {
+            "index": 1,
+            "model": "gemma-4-26b-a4b-it",
+            "phase": "select_tools",
+            "usage": {
+              "totalTokens": 558,
+              "promptTokens": 520,
+              "completionTokens": 38
+            },
+            "status": 200,
+            "durationMs": 2081,
+            "requestBytes": 1866,
+            "retryDelayMs": 0,
+            "requestSha256": "8d603352bf741445671419594cbc01bbb83ad59884e05a921bdd12d9bd829818",
+            "responseBytes": 783,
+            "providerStatus": null,
+            "responseSha256": "f4b7a13042c734772a0cbf0d4da05fc9a0fff7ba3d3c413ea18cfeb05480c38b",
+            "retryDelayCompleted": false,
+            "providerModelVersion": "gemma-4-26b-a4b-it"
+          }
+        ],
+        "freePricing": {
+          "model": "gemma-4-26b-a4b-it",
+          "checkedAt": "2026-10-16T13:20:12.083Z",
+          "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+        },
+        "transportNormalization": {
+          "wholeJsonFenceRemoved": true,
+          "emptyThoughtPartIgnored": true
+        }
+      }
+    },
+    {
+      "phase": "summarize",
+      "result": {
+        "model": "gemma-4-26b-a4b-it",
+        "output": {
+          "findings": [
+            {
+              "type": "audit_result",
+              "status": "failed",
+              "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+              "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715",
+              "observationId": "audit"
+            },
+            {
+              "type": "audit_result",
+              "status": "failed",
+              "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+              "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179",
+              "observationId": "audit"
+            },
+            {
+              "type": "audit_result",
+              "status": "failed",
+              "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+              "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b",
+              "observationId": "audit"
+            },
+            {
+              "type": "historical_failure",
+              "status": "failed",
+              "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+              "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b",
+              "observationId": "tool-1"
+            },
+            {
+              "type": "historical_failure",
+              "status": "failed",
+              "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+              "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715",
+              "observationId": "tool-1"
+            },
+            {
+              "type": "historical_failure",
+              "status": "failed",
+              "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+              "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179",
+              "observationId": "tool-1"
+            },
+            {
+              "tool": "search_visibility",
+              "type": "tool_unavailable",
+              "observationId": "tool-2"
+            }
+          ],
+          "abstention": "none"
+        },
+        "attempts": [
+          {
+            "index": 1,
+            "model": "gemma-4-26b-a4b-it",
+            "phase": "summarize",
+            "usage": {
+              "totalTokens": 1958,
+              "promptTokens": 1203,
+              "completionTokens": 755
+            },
+            "status": 200,
+            "durationMs": 17124,
+            "requestBytes": 3813,
+            "retryDelayMs": 0,
+            "requestSha256": "8d228680841a699fb1b885fa9f4f436a3282222a87b7d5cc5342ed9761f50d66",
+            "responseBytes": 2297,
+            "providerStatus": null,
+            "responseSha256": "16f6946e8108f44723cef9c7cfd105ac46e419e165fed5270221e44b8fcbec2c",
+            "retryDelayCompleted": false,
+            "providerModelVersion": "gemma-4-26b-a4b-it"
+          }
+        ],
+        "freePricing": {
+          "model": "gemma-4-26b-a4b-it",
+          "checkedAt": "2026-10-16T13:20:12.083Z",
+          "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+        },
+        "transportNormalization": {
+          "wholeJsonFenceRemoved": true,
+          "emptyThoughtPartIgnored": true
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-16T13:21:06.014Z",
+  "modelOutput": {
+    "findings": [
+      {
+        "type": "audit_result",
+        "status": "failed",
+        "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+        "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715",
+        "observationId": "audit"
+      },
+      {
+        "type": "audit_result",
+        "status": "failed",
+        "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+        "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179",
+        "observationId": "audit"
+      },
+      {
+        "type": "audit_result",
+        "status": "failed",
+        "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+        "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b",
+        "observationId": "audit"
+      },
+      {
+        "type": "historical_failure",
+        "status": "failed",
+        "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+        "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b",
+        "observationId": "tool-1"
+      },
+      {
+        "type": "historical_failure",
+        "status": "failed",
+        "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+        "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715",
+        "observationId": "tool-1"
+      },
+      {
+        "type": "historical_failure",
+        "status": "failed",
+        "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+        "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179",
+        "observationId": "tool-1"
+      },
+      {
+        "tool": "search_visibility",
+        "type": "tool_unavailable",
+        "observationId": "tool-2"
+      }
+    ],
+    "abstention": "none"
+  },
+  "reservation": {
+    "durable": "Tiger sealed grant and UNIQUE session/slot",
+    "consumed": true,
+    "maxModelCalls": 2,
+    "maxSearchCalls": 1
+  },
+  "observations": [
+    {
+      "id": "tool-1",
+      "rows": [
+        {
+          "rrf": 0.01639344262295082,
+          "kind": "no_horizontal_overflow",
+          "cosine": 0.3781263417931506,
+          "status": "failed",
+          "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+          "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b",
+          "queryId": "mobile_paraphrase",
+          "retrieval": "hybrid-rrf",
+          "vectorRank": 1,
+          "lexicalRank": null,
+          "lexicalScore": 0
+        },
+        {
+          "rrf": 0.016129032258064516,
+          "kind": "heading",
+          "cosine": 0.20973289516274507,
+          "status": "failed",
+          "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+          "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715",
+          "queryId": "mobile_paraphrase",
+          "retrieval": "hybrid-rrf",
+          "vectorRank": 2,
+          "lexicalRank": null,
+          "lexicalScore": 0
+        },
+        {
+          "rrf": 0.015873015873015872,
+          "kind": "image_alt",
+          "cosine": 0.02335452957408811,
+          "status": "failed",
+          "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+          "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179",
+          "queryId": "mobile_paraphrase",
+          "retrieval": "hybrid-rrf",
+          "vectorRank": 3,
+          "lexicalRank": null,
+          "lexicalScore": 0
+        }
+      ],
+      "type": "failure_history",
+      "status": "observed",
+      "queryId": "mobile_paraphrase"
+    },
+    {
+      "id": "tool-2",
+      "type": "search_visibility",
+      "status": "unavailable",
+      "failureCode": "tool_timeout"
+    }
+  ],
+  "toolReceipts": [
+    {
+      "tool": "failure_history",
+      "result": [
+        {
+          "rrf": 0.01639344262295082,
+          "kind": "no_horizontal_overflow",
+          "model": "all-minilm:22m",
+          "cosine": 0.3781263417931506,
+          "status": "failed",
+          "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+          "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b",
+          "queryId": "mobile_paraphrase",
+          "observed": "Document width is 1824px; viewport width is 390px.",
+          "projectId": "4f40c347-297a-4ef4-8e26-16b1540bfb2e",
+          "retrieval": "hybrid-rrf",
+          "textSha256": "3a9e09c5e2849ed97afcd2f629ee22dd0deba3418fd574aa3fb1ce4ab23a2223",
+          "vectorRank": 1,
+          "lexicalRank": null,
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+          "lexicalScore": 0,
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+        },
+        {
+          "rrf": 0.016129032258064516,
+          "kind": "heading",
+          "model": "all-minilm:22m",
+          "cosine": 0.20973289516274507,
+          "status": "failed",
+          "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+          "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715",
+          "queryId": "mobile_paraphrase",
+          "observed": "No visible heading exactly matches the expected text.",
+          "projectId": "4f40c347-297a-4ef4-8e26-16b1540bfb2e",
+          "retrieval": "hybrid-rrf",
+          "textSha256": "67f578f8c65a32a308d3e1a82859fd80d04337a26ed900d4d0fda39f10bad130",
+          "vectorRank": 2,
+          "lexicalRank": null,
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+          "lexicalScore": 0,
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+        },
+        {
+          "rrf": 0.015873015873015872,
+          "kind": "image_alt",
+          "model": "all-minilm:22m",
+          "cosine": 0.02335452957408811,
+          "status": "failed",
+          "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+          "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179",
+          "queryId": "mobile_paraphrase",
+          "observed": "1 of 1 images lack the required alternative text.",
+          "projectId": "4f40c347-297a-4ef4-8e26-16b1540bfb2e",
+          "retrieval": "hybrid-rrf",
+          "textSha256": "9020c270e0f55340b3cc32c8b95c8e04f6886e0c188474b60032c0a917276b1f",
+          "vectorRank": 3,
+          "lexicalRank": null,
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "requirement": "Every content image must have nonempty alternative text.",
+          "lexicalScore": 0,
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+        }
+      ]
+    }
+  ],
+  "sourceAuditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+  "auditUnchanged": true,
+  "factualSummary": [
+    "The recorded synthetic audit has 2 passed, 3 failed, 0 blocked and 1 unverified checks. These are existing browser outcomes, not outcomes assigned by the model.",
+    "tool-1: failure history returned 3 saved failed or blocked checks for mobile_paraphrase. Historical retrieval is not a new browser observation.",
+    "tool-2: search_visibility was unavailable; no successful or empty observation is inferred."
+  ],
+  "auditObservation": {
+    "id": "audit",
+    "type": "audit_results",
+    "auditId": "e3e243c0-205e-40fb-b8eb-e12e264953ac",
+    "results": [
+      {
+        "kind": "heading",
+        "status": "failed",
+        "checkId": "19058b2f-95be-4bae-84ab-57c3fbfca715"
+      },
+      {
+        "kind": "link",
+        "status": "passed",
+        "checkId": "10b5b9e1-ec66-4a13-8133-eefcd596dd7e"
+      },
+      {
+        "kind": "image_alt",
+        "status": "failed",
+        "checkId": "325fd57f-ccb1-4ef0-b4f6-073489313179"
+      },
+      {
+        "kind": "no_horizontal_overflow",
+        "status": "failed",
+        "checkId": "a4fe1852-49b4-49d2-b36e-902fa408b35b"
+      },
+      {
+        "kind": "text_visible",
+        "status": "passed",
+        "checkId": "d25afd37-1c68-4f96-89cb-7033ed3ac396"
+      },
+      {
+        "kind": "manual",
+        "status": "unverified",
+        "checkId": "4597683b-fd82-415b-83e6-9a0cf975382a"
+      }
+    ]
+  },
+  "providerAttempts": [
+    {
+      "status": null,
+      "outcome": "aborted",
+      "provider": "serpapi",
+      "operation": "search-visibility",
+      "startedAt": "2026-10-16T13:20:18.904Z",
+      "durationMs": 29983
+    }
+  ],
+  "sourceAuditSha256": "b78ca992b7f6f5171b36673f9fa11bea0f373c0a16cfa85042328a8ca90c1196",
+  "sourceAuditUnchanged": true,
+  "toolSelectionAbstained": false
+}

@@ -1,0 +1,110 @@
+{
+  "code": "provider_rejected",
+  "error": "The evidence-agent proof could not complete. Audit results are unchanged.",
+  "budget": {
+    "usedRuns": 4,
+    "maximumRuns": 12,
+    "visitorUsed": true,
+    "remainingRuns": 8
+  },
+  "status": "failed",
+  "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+  "receipt": {
+    "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+    "model": "gemma-4-26b-a4b-it",
+    "scope": "Model-selected finite read-only tools over a fixed synthetic audit and the owned homepage. Typed model findings are separate from server-rendered facts. Historical/search observations are not new browser checks or acceptance evidence.",
+    "limits": {
+      "toolRetries": 0,
+      "modelRetries": 0,
+      "refundPerformed": false,
+      "maximumToolCalls": 2,
+      "maximumDurationMs": 90000,
+      "maximumModelCalls": 2,
+      "maximumSearchDurationMs": 60000,
+      "maximumLogicalModelTurns": 2
+    },
+    "status": "failed",
+    "version": 1,
+    "startedAt": "2026-10-16T13:37:40.722Z",
+    "toolCalls": [],
+    "transport": "native_google_gemma",
+    "modelTurns": [
+      {
+        "phase": "select_tools",
+        "failedAttempts": [
+          {
+            "index": 1,
+            "model": "gemma-4-26b-a4b-it",
+            "phase": "select_tools",
+            "usage": null,
+            "status": 500,
+            "durationMs": 1037,
+            "requestBytes": 1866,
+            "retryDelayMs": 0,
+            "requestSha256": "1f9c90a70e36a045ba38f4a61424b5bce8edf49878daf059bff64e2b56bc1275",
+            "responseBytes": 109,
+            "providerStatus": "INTERNAL",
+            "responseSha256": "8afb0f460c66c8c994af4793c44df522eb1a5d19c266051b83bc31ff0a64671f",
+            "retryDelayCompleted": false,
+            "providerModelVersion": null
+          }
+        ]
+      }
+    ],
+    "completedAt": "2026-10-16T13:37:41.762Z",
+    "failureCode": "provider_rejected",
+    "observations": [],
+    "sourceAuditId": "7add72f2-039e-4540-9d07-8633fb7acc8e",
+    "auditObservation": {
+      "id": "audit",
+      "type": "audit_results",
+      "auditId": "7add72f2-039e-4540-9d07-8633fb7acc8e",
+      "results": [
+        {
+          "kind": "heading",
+          "status": "failed",
+          "checkId": "c68cf205-6df1-4dc8-bc4b-04c7f1bfa0a7"
+        },
+        {
+          "kind": "link",
+          "status": "passed",
+          "checkId": "1c9f6793-ee73-436f-8c70-28d1ab641f63"
+        },
+        {
+          "kind": "image_alt",
+          "status": "failed",
+          "checkId": "c0109c54-524e-4d81-b2fd-720ba477a67f"
+        },
+        {
+          "kind": "no_horizontal_overflow",
+          "status": "failed",
+          "checkId": "0165dca8-90cf-4319-b375-c8c618de316d"
+        },
+        {
+          "kind": "text_visible",
+          "status": "passed",
+          "checkId": "9dbafb9e-67cd-4412-a8ec-536effb09b49"
+        },
+        {
+          "kind": "manual",
+          "status": "unverified",
+          "checkId": "17a4d42c-be59-41af-9879-058c7e595d93"
+        }
+      ]
+    },
+    "sourceAuditUnchanged": true
+  },
+  "trancheId": "3e80a196-49f7-4670-ae07-8f0f27e1bd53",
+  "failureType": "EvidenceAgentError",
+  "reservation": {
+    "durable": "Tiger sealed grant and UNIQUE session/slot",
+    "consumed": true,
+    "maxModelCalls": 2,
+    "maxSearchCalls": 1
+  },
+  "toolReceipts": [],
+  "sourceAuditId": "7add72f2-039e-4540-9d07-8633fb7acc8e",
+  "auditUnchanged": true,
+  "providerAttempts": [],
+  "allowanceConsumed": true
+}

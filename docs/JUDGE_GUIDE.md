@@ -2,7 +2,24 @@
 
 Approve a brief, watch the browser check it, and download the evidence.
 
+**Latest verification:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Current release and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).
+
+
 [Open Briefstamp](https://flowproof-demo.onrender.com/#demo) · [Watch the 68-second video](https://youtu.be/xve020VJl0s) · [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance](demo/README.md)
+
+## Try the public evidence agent
+
+**Public judge flow verified:** [open the evidence agent](https://flowproof-demo.onrender.com/#agent), approve the fixed checks, run Chromium, then consent to Gemma selecting Tiger history and SerpApi search. [Actual public-route receipts](evidence/judge-agent/2026-10-16T13-07-24Z/) retain both a complete tokenless run and the earlier upstream model failure; the four old operator allowances remain spent.
+
+The walkthrough:
+
+1. Open [Evidence agent](https://flowproof-demo.onrender.com/#agent). Read availability and remaining shared runs. Opening the page or **Refresh status** makes no model or search request.
+2. Select **Prepare the sample**. Review the six labelled template checks for the intentionally broken synthetic site and its fixed owned-homepage search target.
+3. Select **I reviewed these checks. Approve all**, then **Run the approved browser audit**. Inspect the returned counts, observations and screenshots. Continue only when Tiger confirms the audit is saved; manual judgment remains unverified.
+4. Read the separate model/search consent and select **Run the evidence agent**. No operator token is needed on this public path. The server reserves a run before calling Gemma or search; the model chooses from the bounded tools and cites returned observations.
+5. Inspect selected tools, Tiger ranks, the actual search outcome, citations and token usage. Download the browser report and agent receipt. **Refresh status** can recover this session's saved result without replaying the run.
+
+The separate grant allows **12 total runs, at most six/hour and one per visitor session**, each with at most **two model requests and one search**. The existing shared 12-model-request hourly cap also includes proposal requests. The cutoff is **October 20, 2026 at 00:00 UTC**. Failed or ambiguous reservations remain consumed; a fresh browser or deploy does not replenish the global grant. When unavailable, inspect the [recorded operator proof](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json). Its four spent allowances remain untouched. [Grant architecture](AGENT_RETRIEVAL.md#public-judge-grant-architecture).
 
 ## Audit the actual homepage
 
@@ -29,7 +46,7 @@ Choose one audit path per visitor session.
 
 ## Inspect the protected partner proof
 
-These are operator-only integrations, so a judge can inspect receipts without credentials or spending an allowance. The [12:14 UTC hosted agent receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) records a complete evidence-review loop on release `f990d9a14ae95dc322e4d81a411e9dd764ff9207`:
+These earlier proofs used operator-only integrations. Judges can inspect their receipts without credentials or spending an allowance; the new public walkthrough above has a separate durable grant. The [12:14 UTC hosted agent receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) records a complete evidence-review loop on release `f990d9a14ae95dc322e4d81a411e9dd764ff9207`:
 
 1. Native Google Gemma selected **failure history** and **search visibility**.
 2. Tiger returned three saved failures, ranking mobile overflow first even though the paraphrase had no lexical match. SerpApi returned HTTP 200 and zero matching homepage search results.
@@ -39,13 +56,13 @@ This used two model requests without retries: **1,759 input / 773 output tokens*
 
 The earlier [09:13 UTC optional proof](HOSTED_OPTIONAL.md) separately ran one search, one ElevenLabs counts-only narration and a Backboard write/search pair. All six Backboard facts matched the actual audit. The 92,386-byte MP3 decoded as 22.987755 seconds; audible wording/listening remains unverified.
 
-The optional-operation and all four agent allowances are consumed, with [spent agent configuration verified](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json). Earlier failures and the partial search-timeout run remain retained. A restart or refreshed account timestamp does not replenish them. [Allowance boundaries](PROVIDER_ALLOWANCES.md) · [Release CI](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): **871 app tests, 19 Python tests, build and real Chromium audits**.
+The earlier optional-operation and all four operator-agent allowances are consumed, with [spent agent configuration verified](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json). Earlier failures and the partial search-timeout run remain retained. A restart or refreshed account timestamp does not replenish them. [Allowance boundaries](PROVIDER_ALLOWANCES.md) · [Release CI](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): **871 app tests, 19 Python tests, build and real Chromium audits**.
 
 ## Limitations
 
 - Free Render may wake slowly before serving HTML. The app provides startup/retry states afterward. Sessions last up to 30 minutes, may reset on restart and allow four audits; download reports before leaving. Expiry recovery opens fresh, unapproved checks without replaying an action.
 - Only the sample and owned homepage are public targets. Browser scripts are disabled; JavaScript flows, forms and purchases are outside scope. A pass covers its specific assertion and viewport. The video used templates with zero model calls; the newer live negative-control receipt used Gemma. Historical HTTP 500 and invalid-plan failures remain in the [diagnosis](GEMMA_LIVE_SITE.md).
-- Tiger stores JSON, image references and the bounded precomputed history vectors; image bytes remain separate. The credit-covered metered trial has an October 20 at 00:00 UTC access boundary. [TLS and exact-target storage restrictions](TIGER_VERIFICATION.md). Tinker is synthetic-only and retains one unused call / 41,088 reserved tokens; no new Tinker inference ran during the October 16 refresh. Tinker/Sentry funding proofs expire October 17 at 08:23:47.620 UTC; Gemma/Tiger retain October 20 gates. Search, speech, Backboard and agent proofs remain operator-protected with consumed budgets.
-- SerpApi and ElevenLabs are evidenced hosted operator routes, unavailable to anonymous visitors. ElevenLabs is a noncommercial synthetic demonstration; audible wording remains unverified. Entire proof is local and Temporal recovery is local/CI only, with no always-on Render worker. The author declined .tech and retains the Render domain. The author reports that freelancer friend Priyanshu tried Briefstamp and said “it's good”; [workflow details and willingness to pay remain unknown](CUSTOMER_VALIDATION.md). Human dataset validation and a winning outcome are not claimed. The author reviews and publishes the submission.
+- Tiger stores JSON, image references and the bounded precomputed history vectors; image bytes remain separate. The credit-covered metered trial has an October 20 at 00:00 UTC access boundary. [TLS and exact-target storage restrictions](TIGER_VERIFICATION.md). Tinker is synthetic-only and retains one unused call / 41,088 reserved tokens; no new Tinker inference ran during the October 16 refresh. Tinker/Sentry funding proofs expire October 17 at 08:23:47.620 UTC; Gemma/Tiger retain October 20 gates. Standalone search, speech, Backboard and the recorded operator-agent proofs retain consumed budgets. The separate public judge grant is separate and cannot reset them.
+- The earlier standalone SerpApi and ElevenLabs routes remain operator-only. The public agent path permits only its reserved fixed-domain search, with [actual public-route verification](evidence/judge-agent/2026-10-16T13-07-24Z/). ElevenLabs is a noncommercial synthetic demonstration; audible wording remains unverified. Entire proof is local and Temporal recovery is local/CI only, with no always-on Render worker. The author declined .tech and retains the Render domain. The author reports that freelancer friend Priyanshu tried Briefstamp and said “it's good”; [workflow details and willingness to pay remain unknown](CUSTOMER_VALIDATION.md). Human dataset validation and a winning outcome are not claimed. The author reviews and publishes the submission.
 
 [Entry evidence](HACKATHON_ENTRY.md) · [Integration ledger](INTEGRATIONS.md) · [Tinker tradeoffs](MODEL_RESULTS.md) · [Temporal recovery](TEMPORAL.md) · [UI QA](evidence/judge-qa-2026-10-15/receipt.json)

@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-10-16T13:42:23.470Z",
+  "status": "verified",
+  "agentStatus": "failed",
+  "liveUrl": "https://flowproof-demo.onrender.com/#agent",
+  "strictTlsVerified": true,
+  "downloadedResultExactlyMatchedTiger": true,
+  "ownReservationSlot": 4,
+  "oldReservationsStillPresent": 4,
+  "grantRunsUsed": 4,
+  "grantRunsRemaining": 8,
+  "sourceAuditId": "7add72f2-039e-4540-9d07-8633fb7acc8e",
+  "sourceResults": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "negativeControls": [
+    {
+      "label": "missing-origin",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "label": "cross-origin",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "label": "missing-consent",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "label": "cross-session",
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "label": "operator-still-hidden",
+      "status": 404,
+      "expected": 404
+    }
+  ],
+  "anotherSession": {
+    "resultVisible": false,
+    "visitorUsed": false,
+    "budget": {
+      "maximumRuns": 12,
+      "usedRuns": 4,
+      "remainingRuns": 8,
+      "visitorUsed": false
+    }
+  },
+  "render": {
+    "plan": "free",
+    "autoDeploy": "no",
+    "historicalEnvironmentExactlyPreserved": true
+  },
+  "serpapi": {
+    "plan": "Free Plan",
+    "remainingSearches": 214,
+    "monthlyPrice": 0,
+    "extraCredits": 0
+  },
+  "verificationProviderInferenceCalls": 0,
+  "verificationSearchCalls": 0
+}

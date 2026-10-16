@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-10-16T13:46:46.067092Z",
+  "status": "deployed_with_upstream_provider_failures",
+  "liveUrl": "https://flowproof-demo.onrender.com/#agent",
+  "sourceCommit": "c551f59ea45c0cae19ab0aea089a3e3573d1efe1",
+  "completePublicTokenlessHttpRunVerified": true,
+  "completeInAppBrowserAgentRunVerified": false,
+  "liveProviderReliabilityResolved": false,
+  "attempts": [
+    {
+      "slot": 1,
+      "client": "in_app_browser",
+      "status": "failed",
+      "receipt": "attempt-1/agent-run.json",
+      "actualModelAttempts": 2,
+      "actualSearchAttempts": 1,
+      "sourceCommit": "bf594b7a00a7300063acbccbd3d3bed167dc5c5a"
+    },
+    {
+      "slot": 2,
+      "client": "tokenless_http",
+      "status": "completed",
+      "receipt": "attempt-2/agent-run.json",
+      "actualModelAttempts": 2,
+      "actualSearchAttempts": 1,
+      "sourceCommit": "bf594b7a00a7300063acbccbd3d3bed167dc5c5a"
+    },
+    {
+      "slot": 3,
+      "client": "in_app_browser",
+      "status": "completed_with_unavailable_tools",
+      "receipt": "attempt-3/agent-run.json",
+      "actualModelAttempts": 2,
+      "actualSearchAttempts": 1,
+      "sourceCommit": "e6a53da1bd85b0711a2cc18e14843f47fcd97fb7"
+    },
+    {
+      "slot": 4,
+      "client": "in_app_browser",
+      "status": "failed",
+      "receipt": "attempt-4/agent-run.json",
+      "actualModelAttempts": 1,
+      "actualSearchAttempts": 0,
+      "sourceCommit": "c551f59ea45c0cae19ab0aea089a3e3573d1efe1"
+    }
+  ],
+  "grant": {
+    "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+    "maximumRuns": 12,
+    "usedRuns": 4,
+    "remainingRuns": 8,
+    "maximumPerSession": 1,
+    "maximumRunsPerHour": 6,
+    "maximumModelCallsPerRun": 2,
+    "maximumSearchCallsPerRun": 1,
+    "expiresAt": "2026-10-20T00:00:00.000Z",
+    "regenerated": false,
+    "refunded": false
+  },
+  "newGrantUsage": {
+    "reservedModelCalls": 8,
+    "actualModelHttpAttempts": 7,
+    "modelHttp200": 5,
+    "modelHttp500": 2,
+    "modelUsageUnknownAttempts": 2,
+    "reservedSearchCalls": 4,
+    "actualSearchHttpAttempts": 3,
+    "searchHttp200": 2,
+    "abortedSearchesWithUnknownUpstreamCompletion": 1
+  },
+  "previousSpentReservations": {
+    "agentTranches": 4,
+    "modelReservations": 12,
+    "observedModelAttempts": 6,
+    "agentSearchReservations": 4,
+    "earlierTimedOutSearchCompletion": "unknown",
+    "standaloneSearchReservation": 1,
+    "exactHistoricalEnvironmentPreserved": true
+  },
+  "funding": {
+    "renderPlan": "free",
+    "serpapiPlan": "Free Plan",
+    "serpapiRemainingAtLastRead": 214,
+    "extraCredits": 0,
+    "monthlyPrice": 0,
+    "tiger": "Existing no-card credit-covered metered trial; not permanent Free",
+    "billingChanges": 0,
+    "credentialTransfers": 0,
+    "newServices": 0
+  },
+  "safety": {
+    "strictTlsVerified": true,
+    "approvalAndConsentRequired": true,
+    "fixedSyntheticAuditAndOwnedSearchTargetOnly": true,
+    "durableReservationBeforeProviderIo": true,
+    "sourceAuditsUnchanged": true
+  },
+  "verification": {
+    "ci": "ci.json",
+    "ui": "ui-qa.json",
+    "lastStrictTlsReadback": "attempt-4/verification.json"
+  },
+  "fallbackInspection": "Only local loopback Ollama gemma3:4b exists as an alternate; no implemented/confirmed-free hosted Google Gemma3 or OpenRouter evidence-agent adapter. No model/provider whitelist or credentials changed."
+}

@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-10-16T13:03:31.734Z",
+  "status": "live",
+  "sourceCommit": "bf594b7a00a7300063acbccbd3d3bed167dc5c5a",
+  "ci": {
+    "id": 38904574365,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38904574365",
+    "conclusion": "success"
+  },
+  "plan": "free",
+  "newServices": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "oldProofBytesPreserved": true,
+  "grant": {
+    "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+    "proofSha256": "fbaef465b12db6c4b1571d61cb50b3347a6b4189cb39ff09efbd392f1ea64f5c",
+    "maxRuns": 12,
+    "expiresAt": "2026-10-20T00:00:00.000Z"
+  },
+  "migration": {
+    "strictTlsVerified": true,
+    "additiveTables": 3,
+    "oldReservationsBefore": 4,
+    "oldReservationsAfter": 4,
+    "newSlotsUsed": 0,
+    "sealVerified": true,
+    "selectInsertOnly": true
+  },
+  "configurationReadbackVerified": true,
+  "deploy": {
+    "id": "dep-db921brbc2fs73cj8u70",
+    "status": "live",
+    "commit": {
+      "id": "bf594b7a00a7300063acbccbd3d3bed167dc5c5a",
+      "message": "Enable a bounded public evidence agent for judges",
+      "createdAt": "2026-10-16T13:00:23Z"
+    },
+    "createdAt": "2026-10-16T13:03:43.325023Z",
+    "finishedAt": "2026-10-16T13:05:10.76591Z"
+  },
+  "completedAt": "2026-10-16T13:05:31.768Z",
+  "freePlanReadbackVerified": true,
+  "environmentReadbackVerified": true
+}

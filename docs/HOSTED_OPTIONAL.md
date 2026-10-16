@@ -1,5 +1,16 @@
 # Hosted evidence review, search, sample speech and memory
 
+## Public judge walkthrough
+
+**Latest verification:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Current release and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).
+
+
+**Public judge flow verified:** [open the evidence agent](https://flowproof-demo.onrender.com/#agent), approve the fixed checks, run Chromium, then consent to Gemma selecting Tiger history and SerpApi search. [Actual public-route receipts](evidence/judge-agent/2026-10-16T13-07-24Z/) retain both a complete tokenless run and the earlier upstream model failure; the four old operator allowances remain spent.
+
+The [new `#agent` path](https://flowproof-demo.onrender.com/#agent) is designed for a judge to prepare the fixed sample, review and approve template checks, run Chromium, inspect saved Tiger evidence, then explicitly consent to native Gemma's bounded tool loop. It requires the owning visitor session and exact hosted HTTPS origin, without an operator token. [Step-by-step guide](JUDGE_GUIDE.md#try-the-public-evidence-agent).
+
+Its separate durable grant permits **12 runs total, six/hour, one/session**, at most **two model calls and one search per run**, ending **October 20 at 00:00 UTC**. The shared 12-model-request hourly limit also covers proposals. A reserved run stays spent on failure; saved results can be reloaded without repeating providers. All four earlier operator-agent tranches and the standalone search/speech/memory reservations below remain consumed. The [new public receipts](evidence/judge-agent/2026-10-16T13-07-24Z/) are separate from those older operator routes, which remain protected. [Grant and funding boundaries](PROVIDER_ALLOWANCES.md#separate-public-judge-grant-verified-public-route).
+
 ## Native Gemma evidence-agent loop: verified at 12:15 UTC
 
 The [October 16 hosted receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) verifies a complete operator-only loop on the existing **Free Render** service, source `f990d9a14ae95dc322e4d81a411e9dd764ff9207`. Google-hosted `gemma-4-26b-a4b-it` selected the history and search tools, received their actual results, and cited both in its second response. [Actual model and tool output](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json) · [CI: 871 application tests, 19 Python tests, build and real Chromium audits](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897).

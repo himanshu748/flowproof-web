@@ -1,6 +1,9 @@
 # Tiger Data and SerpApi evidence agent
 
-**Hosted flow verified October 16, 2026.** A real native Gemma turn selected both tools; the second turn consumed their actual observations and cited the returned facts. [Complete verifier receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) · [Actual agent selection, observations and model output](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json).
+**Earlier operator flow verified October 16, 2026.** A real native Gemma turn selected both tools; the second turn consumed their actual observations and cited the returned facts. [Complete verifier receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) · [Actual agent selection, observations and model output](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json).
+
+**Latest verification:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Current release and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).
+
 
 The run used deployed source `f990d9a14ae95dc322e4d81a411e9dd764ff9207`, which passed [CI](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): **871 application tests, 19 Python tests, build and real browser audits**. CI does not call the live models or search provider; the dated hosted receipt is separate evidence.
 
@@ -15,6 +18,16 @@ flowchart LR
   D --> E
   E --> F[Validated findings beside unchanged audit]
 ```
+
+## Public judge grant architecture
+
+**Public judge flow verified:** [open the evidence agent](https://flowproof-demo.onrender.com/#agent), approve the fixed checks, run Chromium, then consent to Gemma selecting Tiger history and SerpApi search. [Actual public-route receipts](evidence/judge-agent/2026-10-16T13-07-24Z/) retain both a complete tokenless run and the earlier upstream model failure; the four old operator allowances remain spent.
+
+The new [judge walkthrough](JUDGE_GUIDE.md#try-the-public-evidence-agent) prepares the fixed broken sample, requires an explicit approval action, runs the real browser audit and verifies exact Tiger JSON readback before separate model/search consent. `POST /api/audits/:id/judge-review` requires the exact HTTPS Briefstamp origin and the owning visitor cookie, without an operator token. `GET /api/judge-agent/status` reads availability and only that visitor's saved result; it never replays model or search work.
+
+A separate immutable Tiger grant seals **12 total runs**, **six judge runs per hour** and **one run per visitor session**, with **two physical model requests and one search maximum per run**. The existing shared 12-model-request hourly cap also includes proposal work. A transaction commits the unique visitor/slot reservation before provider I/O. Its append-only result can be read after a lost response; failure or ambiguous commit does not refund the slot. Session ownership, current source snapshots, free funding and expiry are rechecked across awaited operations. No model call is triggered merely by opening the page.
+
+The [reviewed additive SQL](hosted-tiger-judge.sql), [grant gate](../server/judge-agent-gate.ts) and [HTTP regression tests](../tests/demo-judge-agent.test.ts) define the public path. Grant/counters live in Tiger, so Render restarts cannot reset them; visitor sessions and image bytes remain ephemeral. The grant ends no later than **October 20, 2026 at 00:00 UTC**, alongside existing Tiger access restrictions. The existing four spent operator tranches and standalone search proof are pinned and preserved, not repurposed as public capacity. The fixed-vector retrieval and native Gemma limits below are unchanged; the linked dated public receipts establish execution separately from the code and offline tests.
 
 ## What the hosted model actually consumed
 
@@ -45,7 +58,7 @@ The model cannot choose a URL, SQL, script, request header, project ID, domain o
 
 The successful tranche reserved **two free Gemma requests and one free SerpApi search**, without retry or refund. Its search deadline was explicitly bounded to **30 seconds** within a **90-second** global deadline; this did not increase model-call or search quotas. The full reservation is consumed. Earlier reservations remain spent. Fresh account observations, allowance timestamps and server restarts do not authorize additional calls. [Funding boundaries](PROVIDER_ALLOWANCES.md).
 
-Before provider I/O, the verifier reserves an exclusive off-host record and the app inserts the tranche into Tiger under a global UNIQUE key. The route requires the operator token, explicit model consent, visitor ownership, exact approved synthetic checks, matching Tiger readback and shared model/browser locks. Cancellation, expiry and source changes fail closed. Billing settings, FieldIssue data and access durations were not changed.
+For the recorded operator proof, before provider I/O the verifier reserves an exclusive off-host record and the app inserts the tranche into Tiger under a global UNIQUE key. That route requires the operator token, explicit model consent, visitor ownership, exact approved synthetic checks, matching Tiger readback and shared model/browser locks. Cancellation, expiry and source changes fail closed. Billing settings, FieldIssue data and access durations were not changed.
 
 Earlier attempts remain visible: [HTTP 200 with invalid model JSON](evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md), [upstream HTTP 500 / INTERNAL](evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md), and [a partial run whose search timed out at 10 seconds](evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md). The last of those genuinely cited Tiger rows but received no search response; upstream search completion remained unknown. The later successful run does not relabel earlier failures or replace their receipts.
 

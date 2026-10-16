@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-16T13:46:46.067092Z",
+  "client": "Codex in-app browser",
+  "sourceCommit": "c551f59ea45c0cae19ab0aea089a3e3573d1efe1",
+  "latestAgentStatus": "failed",
+  "error": "Google HTTP 500 INTERNAL before tool selection",
+  "savedFailureRecoveredOnReload": true,
+  "sameFourSlotsStillSpent": true,
+  "mobile": {
+    "bodyWidth": 390,
+    "buttonHeights": [
+      44,
+      44
+    ],
+    "documentWidth": 390,
+    "viewportWidth": 390
+  },
+  "viewportOverrideReset": true,
+  "actualBrowserReportDownloaded": true,
+  "agentReceiptDownloaded": true,
+  "screenshots": [
+    "attempt-4/browser-failure.jpg",
+    "attempt-4/mobile-failure.jpg"
+  ],
+  "completeInAppBrowserAgentSuccessObserved": false,
+  "completeTokenlessHttpSuccessRetained": "attempt-2/agent-run.json",
+  "modelOrSearchRetriesByQa": 0
+}

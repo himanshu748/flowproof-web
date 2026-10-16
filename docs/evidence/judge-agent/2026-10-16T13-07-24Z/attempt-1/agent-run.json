@@ -1,0 +1,329 @@
+{
+  "code": "provider_rejected",
+  "error": "The evidence-agent proof could not complete. Audit results are unchanged.",
+  "budget": {
+    "usedRuns": 1,
+    "maximumRuns": 12,
+    "visitorUsed": true,
+    "remainingRuns": 11
+  },
+  "status": "failed",
+  "receipt": {
+    "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+    "model": "gemma-4-26b-a4b-it",
+    "scope": "Model-selected finite read-only tools over a fixed synthetic audit and the owned homepage. Typed model findings are separate from server-rendered facts. Historical/search observations are not new browser checks or acceptance evidence.",
+    "limits": {
+      "toolRetries": 0,
+      "modelRetries": 0,
+      "refundPerformed": false,
+      "maximumToolCalls": 2,
+      "maximumDurationMs": 90000,
+      "maximumModelCalls": 2,
+      "maximumSearchDurationMs": 30000,
+      "maximumLogicalModelTurns": 2
+    },
+    "status": "failed",
+    "version": 1,
+    "selection": {
+      "tools": [
+        {
+          "name": "failure_history",
+          "arguments": {
+            "queryId": "mobile_paraphrase"
+          }
+        },
+        {
+          "name": "search_visibility",
+          "arguments": {}
+        }
+      ]
+    },
+    "startedAt": "2026-10-16T13:07:24.164Z",
+    "toolCalls": [
+      {
+        "name": "failure_history",
+        "status": "observed",
+        "arguments": {
+          "queryId": "mobile_paraphrase"
+        },
+        "durationMs": 230,
+        "observationId": "tool-1"
+      },
+      {
+        "name": "search_visibility",
+        "status": "observed",
+        "arguments": {},
+        "durationMs": 84,
+        "observationId": "tool-2"
+      }
+    ],
+    "transport": "native_google_gemma",
+    "modelTurns": [
+      {
+        "phase": "select_tools",
+        "result": {
+          "model": "gemma-4-26b-a4b-it",
+          "output": {
+            "tools": [
+              {
+                "name": "failure_history",
+                "arguments": {
+                  "queryId": "mobile_paraphrase"
+                }
+              },
+              {
+                "name": "search_visibility",
+                "arguments": {}
+              }
+            ]
+          },
+          "attempts": [
+            {
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "phase": "select_tools",
+              "usage": {
+                "totalTokens": 565,
+                "promptTokens": 527,
+                "completionTokens": 38
+              },
+              "status": 200,
+              "durationMs": 1850,
+              "requestBytes": 1866,
+              "retryDelayMs": 0,
+              "requestSha256": "420d8bec99410aa87b2b11c86e71237ab3708bd5e384d9d1c3def27079998ccd",
+              "responseBytes": 783,
+              "providerStatus": null,
+              "responseSha256": "9f77644932e3c74c59f6500b278144fcbb514ec9f66c8aed4b58c42b7d178ac4",
+              "retryDelayCompleted": false,
+              "providerModelVersion": "gemma-4-26b-a4b-it"
+            }
+          ],
+          "freePricing": {
+            "model": "gemma-4-26b-a4b-it",
+            "checkedAt": "2026-10-16T13:07:19.619Z",
+            "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+          },
+          "transportNormalization": {
+            "wholeJsonFenceRemoved": true,
+            "emptyThoughtPartIgnored": true
+          }
+        }
+      },
+      {
+        "phase": "summarize",
+        "failedAttempts": [
+          {
+            "index": 1,
+            "model": "gemma-4-26b-a4b-it",
+            "phase": "summarize",
+            "usage": null,
+            "status": 500,
+            "durationMs": 804,
+            "requestBytes": 3929,
+            "retryDelayMs": 0,
+            "requestSha256": "9bf3c1317b7248c495c7ae65c04dbd4fd814301a17fa76f93b53fd02d070c621",
+            "responseBytes": 109,
+            "providerStatus": "INTERNAL",
+            "responseSha256": "8afb0f460c66c8c994af4793c44df522eb1a5d19c266051b83bc31ff0a64671f",
+            "retryDelayCompleted": false,
+            "providerModelVersion": null
+          }
+        ]
+      }
+    ],
+    "completedAt": "2026-10-16T13:07:27.138Z",
+    "failureCode": "provider_rejected",
+    "observations": [
+      {
+        "id": "tool-1",
+        "rows": [
+          {
+            "rrf": 0.01639344262295082,
+            "kind": "no_horizontal_overflow",
+            "cosine": 0.3781263417931506,
+            "status": "failed",
+            "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+            "checkId": "cd8a1eec-f925-4d5a-8d92-54130f6693d5",
+            "queryId": "mobile_paraphrase",
+            "retrieval": "hybrid-rrf",
+            "vectorRank": 1,
+            "lexicalRank": null,
+            "lexicalScore": 0
+          },
+          {
+            "rrf": 0.016129032258064516,
+            "kind": "heading",
+            "cosine": 0.20973289516274507,
+            "status": "failed",
+            "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+            "checkId": "58da0791-b1ef-40df-adf5-25d6f0aa796c",
+            "queryId": "mobile_paraphrase",
+            "retrieval": "hybrid-rrf",
+            "vectorRank": 2,
+            "lexicalRank": null,
+            "lexicalScore": 0
+          },
+          {
+            "rrf": 0.015873015873015872,
+            "kind": "image_alt",
+            "cosine": 0.02335452957408811,
+            "status": "failed",
+            "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+            "checkId": "fa3bc7e8-c423-4c17-830f-8a6d587b8d2e",
+            "queryId": "mobile_paraphrase",
+            "retrieval": "hybrid-rrf",
+            "vectorRank": 3,
+            "lexicalRank": null,
+            "lexicalScore": 0
+          }
+        ],
+        "type": "failure_history",
+        "status": "observed",
+        "queryId": "mobile_paraphrase"
+      },
+      {
+        "id": "tool-2",
+        "type": "search_visibility",
+        "query": "site:flowproof-demo.onrender.com",
+        "domain": "flowproof-demo.onrender.com",
+        "status": "observed",
+        "observedAt": "2026-10-16T13:07:26.331Z",
+        "resultCount": 0
+      }
+    ],
+    "sourceAuditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+    "auditObservation": {
+      "id": "audit",
+      "type": "audit_results",
+      "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+      "results": [
+        {
+          "kind": "heading",
+          "status": "failed",
+          "checkId": "58da0791-b1ef-40df-adf5-25d6f0aa796c"
+        },
+        {
+          "kind": "link",
+          "status": "passed",
+          "checkId": "89f0603a-84ec-41b8-b660-92afd3af9c92"
+        },
+        {
+          "kind": "image_alt",
+          "status": "failed",
+          "checkId": "fa3bc7e8-c423-4c17-830f-8a6d587b8d2e"
+        },
+        {
+          "kind": "no_horizontal_overflow",
+          "status": "failed",
+          "checkId": "cd8a1eec-f925-4d5a-8d92-54130f6693d5"
+        },
+        {
+          "kind": "text_visible",
+          "status": "passed",
+          "checkId": "553176eb-337a-4f2a-a528-68c44b963501"
+        },
+        {
+          "kind": "manual",
+          "status": "unverified",
+          "checkId": "2ee55aef-0175-445d-9dbf-4f3a0b93c276"
+        }
+      ]
+    },
+    "sourceAuditUnchanged": true,
+    "toolSelectionAbstained": false
+  },
+  "failureType": "EvidenceAgentError",
+  "toolReceipts": [
+    {
+      "tool": "failure_history",
+      "result": [
+        {
+          "rrf": 0.01639344262295082,
+          "kind": "no_horizontal_overflow",
+          "model": "all-minilm:22m",
+          "cosine": 0.3781263417931506,
+          "status": "failed",
+          "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+          "checkId": "cd8a1eec-f925-4d5a-8d92-54130f6693d5",
+          "queryId": "mobile_paraphrase",
+          "observed": "Document width is 1824px; viewport width is 390px.",
+          "projectId": "f6384f92-716c-4d12-8a68-9f8382205c6c",
+          "retrieval": "hybrid-rrf",
+          "textSha256": "3a9e09c5e2849ed97afcd2f629ee22dd0deba3418fd574aa3fb1ce4ab23a2223",
+          "vectorRank": 1,
+          "lexicalRank": null,
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+          "lexicalScore": 0,
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+        },
+        {
+          "rrf": 0.016129032258064516,
+          "kind": "heading",
+          "model": "all-minilm:22m",
+          "cosine": 0.20973289516274507,
+          "status": "failed",
+          "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+          "checkId": "58da0791-b1ef-40df-adf5-25d6f0aa796c",
+          "queryId": "mobile_paraphrase",
+          "observed": "No visible heading exactly matches the expected text.",
+          "projectId": "f6384f92-716c-4d12-8a68-9f8382205c6c",
+          "retrieval": "hybrid-rrf",
+          "textSha256": "67f578f8c65a32a308d3e1a82859fd80d04337a26ed900d4d0fda39f10bad130",
+          "vectorRank": 2,
+          "lexicalRank": null,
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+          "lexicalScore": 0,
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+        },
+        {
+          "rrf": 0.015873015873015872,
+          "kind": "image_alt",
+          "model": "all-minilm:22m",
+          "cosine": 0.02335452957408811,
+          "status": "failed",
+          "auditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+          "checkId": "fa3bc7e8-c423-4c17-830f-8a6d587b8d2e",
+          "queryId": "mobile_paraphrase",
+          "observed": "1 of 1 images lack the required alternative text.",
+          "projectId": "f6384f92-716c-4d12-8a68-9f8382205c6c",
+          "retrieval": "hybrid-rrf",
+          "textSha256": "9020c270e0f55340b3cc32c8b95c8e04f6886e0c188474b60032c0a917276b1f",
+          "vectorRank": 3,
+          "lexicalRank": null,
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "requirement": "Every content image must have nonempty alternative text.",
+          "lexicalScore": 0,
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+        }
+      ]
+    },
+    {
+      "tool": "search_visibility",
+      "result": {
+        "query": "site:flowproof-demo.onrender.com",
+        "domain": "flowproof-demo.onrender.com",
+        "status": "observed",
+        "results": [],
+        "provider": "SerpApi",
+        "limitation": "A bounded search snapshot, not proof that every page is indexed or a ranking guarantee. No result URL was visited.",
+        "observedAt": "2026-10-16T13:07:26.331Z"
+      }
+    }
+  ],
+  "sourceAuditId": "1a913e10-3179-475b-961f-42c4f3966f3c",
+  "auditUnchanged": true,
+  "providerAttempts": [
+    {
+      "status": 200,
+      "outcome": "response",
+      "provider": "serpapi",
+      "operation": "search-visibility",
+      "startedAt": "2026-10-16T13:07:26.255Z",
+      "durationMs": 74
+    }
+  ],
+  "allowanceConsumed": true
+}

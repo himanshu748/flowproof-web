@@ -1,0 +1,50 @@
+{
+  "checkedAt": "2026-10-16T12:49:37.262Z",
+  "status": "confirmed_free_existing_scopes",
+  "render": {
+    "plan": "free",
+    "autoDeploy": "no",
+    "oldConfigurationExactlyPreserved": true
+  },
+  "serpapi": {
+    "accountStatus": "Active",
+    "plan": "Free Plan",
+    "monthlyPrice": 0,
+    "remainingSearches": 215,
+    "extraCredits": 0,
+    "requestsThisCheck": 0
+  },
+  "gemma": {
+    "model": "gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-16T12:49:38.145Z",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+    "inputPrice": "Free of charge",
+    "outputPrice": "Free of charge",
+    "paidTier": "Not available",
+    "requestsThisCheck": 0
+  },
+  "tiger": {
+    "strictTlsVerified": true,
+    "durableOldReservations": 4,
+    "trial": "Existing credit-covered no-card trial; previous signed-in funding proof retained, not permanent Free.",
+    "applicationCutoff": "2026-10-20T00:00:00.000Z",
+    "fundingConfirmedAt": "2026-10-16T12:53:48.286910+00:00",
+    "fundingSource": "Authenticated Tiger billing page observed in the in-app browser",
+    "trialDaysRemaining": 20,
+    "noPaymentMethod": true,
+    "positivePrepaidCredit": true
+  },
+  "proposedNewJudgeAllowance": {
+    "maximumRuns": 12,
+    "maxModelRequestsPerRun": 2,
+    "maxSearchRequestsPerRun": 1,
+    "maximumPerSession": 1,
+    "durableHourlyRuns": 6
+  },
+  "oldAllowancesReset": false,
+  "providerInferenceRequests": 0,
+  "searchRequests": 0,
+  "billingChanges": 0,
+  "newServices": 0,
+  "credentialTransfers": 0
+}

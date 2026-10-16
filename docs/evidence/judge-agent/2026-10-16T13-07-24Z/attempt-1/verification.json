@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-16T13:12:40.319Z",
+  "strictTlsVerified": true,
+  "downloadedFailureExactlyMatchedTiger": true,
+  "status": "failed",
+  "runId": "396db2dd-6725-46f0-9c28-a6bc8ed7a618",
+  "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+  "slot": 1,
+  "allowanceConsumed": true,
+  "modelAttempts": 2,
+  "firstUsage": {
+    "input": 527,
+    "output": 38
+  },
+  "secondStatus": 500,
+  "secondProviderStatus": "INTERNAL",
+  "secondUsage": null,
+  "searchStatus": 200,
+  "searchResultCount": 0,
+  "searchDurationMs": 74,
+  "browserUiReloadRecoveredSavedFailure": true,
+  "modelCallsByVerification": 0,
+  "searchCallsByVerification": 0
+}

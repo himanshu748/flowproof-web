@@ -1,0 +1,129 @@
+{
+  "completedAt": "2026-10-16T13:10:38.896Z",
+  "mode": "independent_tokenless_http_visitor",
+  "status": "completed",
+  "httpStatus": 200,
+  "sourceAuditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+  "budget": {
+    "maximumRuns": 12,
+    "usedRuns": 2,
+    "remainingRuns": 10,
+    "visitorUsed": true
+  },
+  "savedResult": true,
+  "duplicateStatus": 409,
+  "automaticRetries": 0,
+  "oldReservationsReset": false,
+  "calls": [
+    {
+      "route": "/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/judge-agent/status",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/projects",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/projects/7f04b22a-26f3-4cab-9f6b-603c1b86623d/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/projects/7f04b22a-26f3-4cab-9f6b-603c1b86623d/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804/judge-review",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "route": "/judge-agent/status",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/audits/2f9f5ab7-88d7-48ad-a14c-b346b230e804/judge-review",
+      "method": "POST",
+      "status": 409
+    }
+  ]
+}
