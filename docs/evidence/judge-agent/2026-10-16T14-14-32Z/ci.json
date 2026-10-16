@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "b0ce3cd10c5394086b335d06a8819260aee38582",
+  "id": 38917096974,
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38917096974",
+  "conclusion": "success",
+  "appTests": 1000,
+  "pythonTests": 19,
+  "productionBuild": "passed",
+  "realPublicRuntimeAndBrowserAudits": "passed",
+  "providerModelAndSearchCalls": 0,
+  "scope": "CI offline provider fixtures and actual synthetic Chromium; not a new live model result"
+}

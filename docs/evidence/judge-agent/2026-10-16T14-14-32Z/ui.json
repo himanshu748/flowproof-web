@@ -1,0 +1,22 @@
+{
+  "verifiedAt": "2026-10-16T14:45:09.853Z",
+  "client": "In-app browser",
+  "sourceCommit": "b0ce3cd10c5394086b335d06a8819260aee38582",
+  "hostedOptionalCopyObserved": true,
+  "hostedBudgetObserved": {
+    "maximumRuns": 100,
+    "usedRuns": 4,
+    "remainingRuns": 96
+  },
+  "mobile": {
+    "bodyWidth": 390,
+    "documentWidth": 390,
+    "viewportWidth": 390
+  },
+  "viewportRestored": true,
+  "mainSampleReviewAccessible": true,
+  "modelCalls": 0,
+  "searchCalls": 0,
+  "judgeRunsCreated": 0,
+  "scope": "Copy,placement,budget and sample-review navigation; no new audit or agent execution in this UI check"
+}

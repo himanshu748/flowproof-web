@@ -1,0 +1,5 @@
+acceptance	Run npm run test	2026-10-16T14:38:09.4646550Z       Tests  1000 passed (1000)
+acceptance	Offline model provenance and budget safeguards	2026-10-16T14:38:09.6501697Z Ran 19 tests in 0.059s
+acceptance	Run npm run build	2026-10-16T14:38:24.4768387Z ✓ built in 2.86s
+acceptance	Run npm run build	2026-10-16T14:38:24.8112372Z ✓ built in 127ms
+acceptance	Run npm run build	2026-10-16T14:38:25.5006547Z ✓ built in 196ms

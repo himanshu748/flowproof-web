@@ -1,0 +1,48 @@
+{
+  "verifiedAt": "2026-10-16T14:43:49.124Z",
+  "scope": "Read-only HTTP and strict-TLS counter verification after deployment; no new live model or search result",
+  "sourceCommit": "b0ce3cd10c5394086b335d06a8819260aee38582",
+  "deployment": {
+    "id": "dep-db93ek59fdbs738irvng",
+    "status": "live",
+    "plan": "free",
+    "autoDeploy": "no"
+  },
+  "demoUrl": "https://flowproof-demo.onrender.com/#demo",
+  "demoHttpStatus": 200,
+  "updatedLandingCopyVerified": true,
+  "agentAbsentFromPrimaryLandingNavigation": true,
+  "bootstrapHttpStatus": 200,
+  "agentStatusHttpStatus": 200,
+  "available": true,
+  "budget": {
+    "maximumRuns": 100,
+    "usedRuns": 4,
+    "remainingRuns": 96,
+    "visitorUsed": false
+  },
+  "expiresAt": "2026-10-20T00:00:00.000Z",
+  "funding": {
+    "confirmedFree": true,
+    "checkedAt": "2026-10-16T14:43:43.055Z"
+  },
+  "preservation": {
+    "strictTlsVerified": true,
+    "baseGrantUnchanged": true,
+    "baseGrantSha256": "2a161a421cb94057a4c2f86927bcebf226e835a303d4565ab1477dc6e4f6a132",
+    "priorJudgeReservationsUnchanged": true,
+    "priorJudgeRowsSha256": "f06495aebed84cf0cbc2dcc6a5b68bead381acf31a1369a88802022838d40a09",
+    "priorJudgeResultsUnchanged": true,
+    "priorJudgeResultsSha256": "8668d0fb0480772c714c20970bbfd7f952d6740742b2db8bee31ade754361054",
+    "judgeSlotsSpent": 4,
+    "remainingRuns": 96
+  },
+  "oldConfigurationExactlyPreserved": true,
+  "onlyNewConfiguration": "BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON",
+  "modelCalls": 0,
+  "searchCalls": 0,
+  "judgeReservationsCreated": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "newServices": 0
+}

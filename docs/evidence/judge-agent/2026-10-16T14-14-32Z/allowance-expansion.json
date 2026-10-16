@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-10-16T14:40:02.004Z",
+  "status": "live",
+  "sourceCommit": "b0ce3cd10c5394086b335d06a8819260aee38582",
+  "ci": {
+    "id": 38917096974,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38917096974",
+    "conclusion": "success"
+  },
+  "maximumRuns": 100,
+  "perHour": 6,
+  "perSession": 1,
+  "maxModelCallsPerRun": 2,
+  "maxSearchCallsPerRun": 1,
+  "expiresAt": "2026-10-20T00:00:00.000Z",
+  "grantId": "69c1acd6-6a7c-44e1-bb82-e4d2544a62ea",
+  "expansionId": "a3b8d32e-e7ec-4576-bbac-c0b9d74baaaa",
+  "expansionProofSha256": "cf9fa8a9367035b7226401f8c90b4e59a1072a8620e05ca6b411479704a8804a",
+  "baseProofSha256": "fbaef465b12db6c4b1571d61cb50b3347a6b4189cb39ff09efbd392f1ea64f5c",
+  "plan": "free",
+  "modelCalls": 0,
+  "searchCalls": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "newServices": 0,
+  "funding": {
+    "provider": "SerpApi",
+    "checkedAt": "2026-10-16T14:40:07.652Z",
+    "plan": "Free Plan",
+    "remainingSearches": 214,
+    "modelRequests": 0,
+    "searchRequests": 0,
+    "gemma": {
+      "model": "gemma-4-26b-a4b-it",
+      "checkedAt": "2026-10-16T14:40:08.613Z",
+      "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+    }
+  },
+  "migration": {
+    "strictTlsVerified": true,
+    "baseGrantUnchanged": true,
+    "baseGrantSha256": "2a161a421cb94057a4c2f86927bcebf226e835a303d4565ab1477dc6e4f6a132",
+    "baseProofBytesUnchanged": true,
+    "priorOperatorReservationsUnchanged": true,
+    "priorOperatorCount": 4,
+    "priorOperatorRowsSha256": "cbe9602dc4659e0c0b2703d5f8be2ede1921ceff4937daab7ca2cee5fc3eb44e",
+    "existingJudgeRowsUnchanged": true,
+    "existingJudgeRowsSha256": "f06495aebed84cf0cbc2dcc6a5b68bead381acf31a1369a88802022838d40a09",
+    "existingJudgeResultsUnchanged": true,
+    "existingJudgeResultsSha256": "8668d0fb0480772c714c20970bbfd7f952d6740742b2db8bee31ade754361054",
+    "usedJudgeSlots": 4,
+    "remainingJudgeSlots": 96,
+    "expansionSealMatched": true,
+    "runtimeExpansionSelectOnly": true
+  },
+  "configuration": {
+    "previousValuesByteIdentical": true,
+    "onlyAddition": "BRIEFSTAMP_JUDGE_AGENT_EXPANSION_PROOF_JSON",
+    "exactReadback": true
+  },
+  "deploy": {
+    "id": "dep-db93ek59fdbs738irvng",
+    "status": "live",
+    "commitId": "b0ce3cd10c5394086b335d06a8819260aee38582",
+    "createdAt": "2026-10-16T14:40:16.447743Z",
+    "updatedAt": "2026-10-16T14:42:42.922866Z"
+  },
+  "lastReadAt": "2026-10-16T14:43:28.680Z"
+}

@@ -48,7 +48,7 @@ A separate [hosted evidence-agent run](docs/evidence/hosted-evidence-agent/2026-
 
 The main sample demo works without this optional step. [Try Tiger + SerpApi](https://flowproof-demo.onrender.com/#agent): approve the fixed checks, run the browser audit, then consent to Gemma investigating the results. [Retained public receipts](docs/evidence/judge-agent/2026-10-16T13-07-24Z/) · [Steps and limits](docs/JUDGE_GUIDE.md#optional-public-evidence-agent).
 
-Providers can fail: of four retained public attempts, one completed, two returned Google HTTP 500, and one had a search timeout. The shared allowance is capped at **100 runs total, six/hour and one/session**, ending **October 20, 2026 at 00:00 UTC**; failed reservations stay spent. [Free allowance check](docs/evidence/judge-agent/2026-10-16T14-14-32Z/funding.json).
+Providers can fail: of four retained public attempts, one completed, two returned Google HTTP 500, and one had a search timeout. The shared allowance is capped at **100 runs total, six/hour and one/session**, ending **October 20, 2026 at 00:00 UTC**; failed reservations stay spent. [Free allowance check](docs/evidence/judge-agent/2026-10-16T14-14-32Z/funding.json) · [Live expansion readback](docs/evidence/judge-agent/2026-10-16T14-14-32Z/verification.json).
 
 ## Integrations with receipts
 

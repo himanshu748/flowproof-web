@@ -2,7 +2,7 @@
 
 ## Public judge walkthrough
 
-**Earlier verification under the original 12-run cap:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Current release and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).
+**Earlier verification under the original 12-run cap:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Earlier source and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).
 
 
 **Public judge flow verified:** [open the evidence agent](https://flowproof-demo.onrender.com/#agent), approve the fixed checks, run Chromium, then consent to Gemma selecting Tiger history and SerpApi search. [Actual public-route receipts](evidence/judge-agent/2026-10-16T13-07-24Z/) retain both a complete tokenless run and the earlier upstream model failure; the four old operator allowances remain spent.
@@ -71,3 +71,5 @@ node --import tsx scripts/verify-hosted-optional.ts
 ```
 
 The [October 16 allowance check](evidence/judge-agent/2026-10-16T14-14-32Z/funding.json) confirmed enough existing free search capacity for the owner-approved **100-total-run expansion**, with the same grant UUID, four spent judge slots and 96 remaining at that check. The base grant, all prior reservations, six/hour, one/session, per-run request limits and October 20 cutoff remain unchanged; no model or search request was made by that check. [Refreshed no-card Tiger trial boundary](evidence/judge-agent/2026-10-16T14-14-32Z/tiger-funding.json).
+
+[Live expansion readback](evidence/judge-agent/2026-10-16T14-14-32Z/verification.json) confirmed **100 total / four spent / 96 remaining**, unchanged original grant and results, and HTTP 200 for `/#demo`. The [in-app browser copy check](evidence/judge-agent/2026-10-16T14-14-32Z/ui.json) observed the optional placement and a 390px layout without page overflow. These checks made no model or search calls and do not resolve the retained upstream provider failures.
