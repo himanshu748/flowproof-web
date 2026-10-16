@@ -12,13 +12,16 @@ import {
 import { execFileSync } from "node:child_process";
 
 const mode = process.argv.slice(2).join(" ");
-const repair = mode.endsWith("-indexed-repair");
+const finalControl = mode.endsWith("-indexed-final");
+const repair = finalControl || mode.endsWith("-indexed-repair");
 if (
   ![
     "--prepare",
     "--run",
     "--prepare-indexed-repair",
     "--run-indexed-repair",
+    "--prepare-indexed-final",
+    "--run-indexed-final",
   ].includes(mode)
 )
   console.log(
@@ -28,7 +31,11 @@ else await verify(mode.startsWith("--prepare"));
 async function verify(prepare: boolean) {
   const parentDirectory = "work/search-presence-20261016";
   const directory = path.resolve(
-    repair ? "work/search-presence-indexed-repair-20261016" : parentDirectory,
+    finalControl
+      ? "work/search-presence-indexed-final-20261016"
+      : repair
+        ? "work/search-presence-indexed-repair-20261016"
+        : parentDirectory,
   );
   const maximumRequests = repair ? 1 : 2;
   const approvedTargets = repair
@@ -77,6 +84,25 @@ async function verify(prepare: boolean) {
       ),
       "Repair target must come from the actual retained response",
     );
+  }
+  if (finalControl) {
+    const priorRepair = JSON.parse(
+      await readFile(
+        "work/search-presence-indexed-repair-20261016/receipt.json",
+        "utf8",
+      ),
+    );
+    assert.equal(priorRepair.status, "completed_with_unavailable_check");
+    assert.equal(priorRepair.observations[0].failureCode, "request_failed");
+    assert.equal(priorRepair.dedicatedCallsReserved, 1);
+    const spent = JSON.parse(
+      await readFile(
+        "work/search-presence-indexed-repair-20261016/allowance.private.json",
+        "utf8",
+      ),
+    ).providers.serpapi;
+    assert.equal(spent.usedCalls, 1);
+    assert.equal(spent.usedUnits, 1);
   }
   const env = JSON.parse(
     await readFile("work/judge-100/active-render.private.json", "utf8"),
@@ -132,6 +158,13 @@ async function verify(prepare: boolean) {
     if (repair)
       for (const name of await readdir(parentDirectory))
         old.add(path.join(parentDirectory, name));
+    if (finalControl)
+      for (const name of await readdir(
+        "work/search-presence-indexed-repair-20261016",
+      ))
+        old.add(
+          path.join("work/search-presence-indexed-repair-20261016", name),
+        );
     const snapshot = [];
     for (const f of old)
       snapshot.push({ path: f, sha256: sha(await readFile(f)) });
@@ -261,6 +294,13 @@ async function verify(prepare: boolean) {
           parentReceiptSha256,
           repairScope:
             "One additive search for an exact owner-controlled repository discovered in the retained first response; not an independent benchmark",
+          ...(finalControl
+            ? {
+                finalControl: true,
+                previousTimeoutRetained:
+                  "work/search-presence-indexed-repair-20261016/receipt.json",
+              }
+            : {}),
           retainedDemoEmpty: parent.observations[1],
           noNewEmptySearch: true,
         }
