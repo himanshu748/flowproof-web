@@ -1,0 +1,30 @@
+{
+  "executedAt": "2026-10-16T10:04:18.914Z",
+  "screens": [
+    "overview",
+    "review",
+    "audit",
+    "reports",
+    "model lab",
+    "failure library",
+    "project modal"
+  ],
+  "viewportWidths": [
+    1440,
+    768,
+    390,
+    360
+  ],
+  "consoleErrors": [],
+  "liveAudit": "completed",
+  "reportDownload": "verified",
+  "mobileNavigation": "verified",
+  "modalEscape": "verified",
+  "reducedMotion": "enabled",
+  "sourceCommit": "4d8f7fd2440d68f795cdc3da42d0fa362bf8552d",
+  "command": "node --import tsx scripts/verify-ui.ts",
+  "exitCode": 0,
+  "environment": "Isolated local public demo without provider credentials. Existing label-based sample, real Chromium execution.",
+  "providerRequests": 0,
+  "scope": "Observed workflow, widths and captured page errors only; not a complete accessibility or every-button audit."
+}

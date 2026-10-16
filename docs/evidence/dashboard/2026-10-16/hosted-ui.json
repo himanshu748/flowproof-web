@@ -1,0 +1,65 @@
+{
+  "checkedAt": "2026-10-16T10:19:02.764Z",
+  "sourceCommit": "4d8f7fd2440d68f795cdc3da42d0fa362bf8552d",
+  "method": "Actual CUA actions in Codex in-app browser against the deployed Free Render service",
+  "url": "https://flowproof-demo.onrender.com/#demo",
+  "flow": [
+    "workspace wake state",
+    "six template checks initially unapproved and run disabled",
+    "verifier approved all checks",
+    "real hosted Chromium audit",
+    "Tiger save confirmation visible",
+    "portable HTML downloaded",
+    "populated overview",
+    "public-demo notice expanded to full limitations",
+    "mobile drawer keyboard handling"
+  ],
+  "counts": {
+    "passed": 5,
+    "failed": 0,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "modelActionsInvoked": 0,
+  "proposalSource": "Explicitly labelled deterministic template sample; this UI check is not a new model evaluation.",
+  "viewports": [
+    {
+      "width": 675,
+      "height": 827,
+      "flow": "review, audit, report download"
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "flow": "populated overview screenshot"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "flow": "overview, notice and drawer checks"
+    }
+  ],
+  "mobileDrawer": {
+    "initialFocus": "Close navigation",
+    "backgroundInert": true,
+    "bodyScrollLocked": true,
+    "shiftTabFromBrandWrapsTo": "Connections",
+    "escapeCloses": true,
+    "focusReturnedTo": "Open navigation",
+    "closedVisibility": "hidden",
+    "backgroundRestored": true
+  },
+  "consoleErrors": [],
+  "transientWarning": {
+    "text": "Failed to fetch",
+    "context": "Observed after the running audit reached three passes. Later polling showed completion and Tiger save confirmation; the report download succeeded and cleared the alert.",
+    "cause": "Unconfirmed; no provider failure or general reliability conclusion is inferred."
+  },
+  "report": "hosted-report.html",
+  "screenshots": [
+    "hosted-overview.png",
+    "hosted-mobile.png"
+  ],
+  "scope": "Agent verification of the sample and UI. Not customer acceptance, a new Gemma result, exhaustive accessibility or every-button coverage."
+}

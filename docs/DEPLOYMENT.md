@@ -2,6 +2,12 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
+## Delivery workspace release, October 16, 10:08 UTC
+
+Source **`4d8f7fd2440d68f795cdc3da42d0fa362bf8552d`** passed [CI 38884672613](https://github.com/himanshu748/flowproof-web/actions/runs/38884672613): **571 application tests, 19 Python tests**, build and real sample/browser audits. The existing **Free Render** service deployed `dep-db8ve6eq1p3s739hka50`, live at **10:08:06.044605 UTC**. The environment matched the previously verified spent-allowance configuration before and after deployment. No credential, provider budget, hosting plan or billing setting changed. [Deployment readback](evidence/dashboard/2026-10-16/deployment.json).
+
+The [redesigned workspace](DASHBOARD_DESIGN.md) leads with projects, approval progress and actual latest results. [Local UI verification](evidence/dashboard/2026-10-16/local-ui.json) completed across seven screens and four widths. The [actual hosted in-app check](evidence/dashboard/2026-10-16/hosted-ui.json) explicitly approved the labelled template sample, observed **5/0/0/1**, saw Tiger save confirmation and downloaded the real [portable report](evidence/dashboard/2026-10-16/hosted-report.html). Desktop and 390-pixel mobile screenshots, full-notice disclosure and drawer keyboard checks are retained. A transient “Failed to fetch” warning during audit polling cleared on the next successful request; its cause is unconfirmed. This UI run made no model call and does not replace the separate Gemma proof below.
+
 ## Provider refresh release, October 16, 09:10 UTC
 
 Source **`64a62729018fc2372611c7b21bfffecf3b779556`** passed [CI 38878045224](https://github.com/himanshu748/flowproof-web/actions/runs/38878045224): **571 application tests, 19 Python tests**, build and actual sample/browser audits. The same existing **Free Render** service deployed it as `dep-db8uiujrjlhs73djq85g`, live at **09:10:00.602321 UTC**. Its URL, hosting plan and manual-deploy setting remain unchanged. Only the approved scoped provider credentials/proofs were updated; no purchase, card or billing change. [CI](evidence/provider-refresh/2026-10-16/ci.json) · [Deployment](evidence/provider-refresh/2026-10-16/deployment.json) · [Configuration readback](evidence/provider-refresh/2026-10-16/configuration.json).

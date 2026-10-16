@@ -1,0 +1,46 @@
+{
+  "algorithm": "sha256",
+  "scope": "Retained dashboard release files; manifest excludes itself.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1636,
+      "sha256": "d8bf327d04d91738e927461a3d7193dc91ce3f95c444c5538ce4026f613b150d"
+    },
+    {
+      "path": "ci.json",
+      "bytes": 916,
+      "sha256": "86a72bd7d61707bafd2de9e21e00996359d2665eef177044e33633020aaacef1"
+    },
+    {
+      "path": "deployment.json",
+      "bytes": 917,
+      "sha256": "af676ed4976b81395627192b29546c1a18f4f55ea89d6fc27d66c30c357a662d"
+    },
+    {
+      "path": "hosted-mobile.png",
+      "bytes": 34162,
+      "sha256": "766ee8ed1d78450a1033c7c63c66b83126995d661695acca8921e8c773de0a75"
+    },
+    {
+      "path": "hosted-overview.png",
+      "bytes": 72059,
+      "sha256": "dcb2308b9f755f1f2ae3374ca70194a12eebe621ff742928c461b88f271a15ee"
+    },
+    {
+      "path": "hosted-report.html",
+      "bytes": 546877,
+      "sha256": "7f2439275228b4e91bedc025655d48420e8988744088c88d127afb5a352f9e50"
+    },
+    {
+      "path": "hosted-ui.json",
+      "bytes": 2152,
+      "sha256": "907df3c6534ddebec98a5cb8cbd68310452988cb72099b850fd9fd2e7295e54b"
+    },
+    {
+      "path": "local-ui.json",
+      "bytes": 837,
+      "sha256": "82925059c98a8918bda79680d4d47981270155625f70a097e8d1bcd94bccb6e9"
+    }
+  ]
+}

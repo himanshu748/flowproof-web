@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-16T10:08:51.659Z",
+  "sourceCommit": "4d8f7fd2440d68f795cdc3da42d0fa362bf8552d",
+  "plan": "free",
+  "repo": "https://github.com/himanshu748/flowproof-web",
+  "autoDeploy": "no",
+  "environmentUnchanged": true,
+  "spentAllowancesPreserved": true,
+  "billingChanges": 0,
+  "ci": {
+    "id": 38884672613,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38884672613",
+    "conclusion": "success"
+  },
+  "status": "live",
+  "deploy": {
+    "id": "dep-db8ve6eq1p3s739hka50",
+    "status": "live",
+    "commit": {
+      "id": "4d8f7fd2440d68f795cdc3da42d0fa362bf8552d",
+      "message": "fix: preserve local origin and streamline UI verification",
+      "createdAt": "2026-10-16T10:03:28Z"
+    },
+    "createdAt": "2026-10-16T10:06:17.958469Z",
+    "finishedAt": "2026-10-16T10:08:06.044605Z"
+  },
+  "environmentReadbackUnchanged": true,
+  "freePlanReadbackVerified": true
+}

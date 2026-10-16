@@ -37,7 +37,7 @@ flowchart LR
 | CI fixture: broken | **1 passed / 4 failed / 1 unverified** | [Same approved plan](docs/evidence/ci-regression-2026-10-15.json) |
 | CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
 | Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
-| Verification | **571 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/provider-refresh/2026-10-16/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38878045224) |
+| Verification | **571 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/dashboard/2026-10-16/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38884672613) |
 
 On October 16, Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 unverified**; its wrong-heading control recorded **4 / 1 / 1**. Both audits round-tripped through Tiger. [Fresh model-to-browser receipt](docs/evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json).
 
@@ -61,6 +61,8 @@ npm run dev
 ```
 
 Open http://127.0.0.1:5173. The default sample needs no paid account. [Configuration and deployment](docs/DEPLOYMENT.md).
+
+[Delivery workspace design and desktop/mobile verification](docs/DASHBOARD_DESIGN.md).
 
 ## Limitations
 
