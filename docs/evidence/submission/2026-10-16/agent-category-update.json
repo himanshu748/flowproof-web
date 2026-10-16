@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-16T12:25:50.176Z",
+  "status": "verified_existing_public_article_updated",
+  "articleId": 4861350,
+  "url": "https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1",
+  "publicPageHttp": 200,
+  "publicApiHttp": 404,
+  "publishedAt": "2026-10-16T10:38:36Z",
+  "editedAt": null,
+  "preparedBodySha256": "9ff6d976f574fddb5e9661354f29a53f999fcb290d2b1dfe521e4324329d262e",
+  "persistedEditorBodySha256": "9ff6d976f574fddb5e9661354f29a53f999fcb290d2b1dfe521e4324329d262e",
+  "bodyExactlyMatchesPrepared": true,
+  "bodyComparisonSource": "Persisted editor reopened after save through in-app browser; exact bytes matched prepared body. Canonical article independently displayed all11 category headings and proof links.",
+  "publicApiLimitation": "The public per-ID API returned404; no current API body comparison is claimed. Canonical public page returned200 with both new sections.",
+  "articleIdSource": "Canonical article DOM data-article-id observed4861350 in in-app browser.",
+  "anonymousPublicPageSha256": "9cb23260e1ed2ddf6affb7880e6c14a70549601f92984b872e241d9bd2ddeabe",
+  "categoryCount": 11,
+  "tags": [
+    "devchallenge",
+    "hf26challenge"
+  ],
+  "aiDisclosure": {
+    "label": "AI-assisted",
+    "source": "Independently observed canonical article in in-app browser after save; Some AI preserved."
+  },
+  "articleTitle": "Briefstamp: proof at the website handoff",
+  "sourceDocument": "docs/DEV_POST.md",
+  "verifiedEvidenceSource": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+  "screenshots": [
+    {
+      "file": "agent-category-update.png",
+      "bytes": 106567,
+      "sha256": "61aca870ad33402a383146e8c1a3384dd83d96b225d1b8f57aee6724cf28e1c9"
+    },
+    {
+      "file": "agent-serpapi-update.png",
+      "bytes": 106844,
+      "sha256": "65d9d2b347ea91f1ece9986660694b3c16ce3c7a32317b62add2660123ecd31e"
+    }
+  ],
+  "newArticleCreated": false,
+  "scope": "Only the existing Briefstamp entry was updated with actual Tiger/SerpApi model-consumption proof. Organizer acceptance, eligibility and awards are not inferred."
+}
