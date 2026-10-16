@@ -83,6 +83,7 @@ async function verify() {
   const pool = new pg.Pool({
     ...databaseConfig(env.BRIEFSTAMP_TIGER_DATABASE_URL, {}),
     max: 1,
+    idleTimeoutMillis: 1,
     statement_timeout: 5000,
   });
   const store = createHostedTigerStore({ env });
@@ -188,6 +189,15 @@ async function verify() {
     );
     await save("hybrid-query.json", captured);
     await save("hybrid-results.json", rows);
+    assert.deepEqual(
+      await store.searchFailuresHybrid(
+        createHash("sha256").update(randomBytes(32)).digest("hex"),
+        audit.projectId,
+        "mobile_paraphrase",
+      ),
+      [],
+    );
+    await store.close();
     const stored = (
       await pool.query(
         'SELECT check_id AS "checkId",embedding_vector::text AS vector FROM briefstamp_demo_v1.failure_embeddings WHERE session_hash=$1 AND audit_id=$2 ORDER BY check_id',
@@ -210,7 +220,10 @@ async function verify() {
       const vector = JSON.parse(
         stored.find((v) => v.checkId === row.checkId).vector,
       );
-      const calculated = cosine(vector, query.vector.map(Math.fround));
+      const calculated = cosine(
+        vector.map(Math.fround),
+        query.vector.map(Math.fround),
+      );
       const document = catalog.documents.find(
         (d) => d.textSha256 === row.textSha256,
       )!;
@@ -238,14 +251,6 @@ async function verify() {
         "Independent JavaScript true cosine over stored pgvector values and float32 query; no SQL operator reuse",
       rows: independent,
     });
-    assert.deepEqual(
-      await store.searchFailuresHybrid(
-        createHash("sha256").update(randomBytes(32)).digest("hex"),
-        audit.projectId,
-        "mobile_paraphrase",
-      ),
-      [],
-    );
     const after = (
       await pool.query(
         "SELECT count(*)::integer AS spent FROM briefstamp_demo_v1.judge_agent_reservations",
