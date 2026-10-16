@@ -481,6 +481,27 @@ describe("operator evidence-agent HTTP boundary", () => {
     h.noAgentWork();
   });
 
+  it("compares JSON evidence without mistaking omitted optional fields for changed observations", async () => {
+    const h = await harness({
+      execute: async (project, audit, onResult) => {
+        const rows = await fixtureExecution(project, audit, async () => {});
+        for (const row of rows) {
+          row.evidence.dom = undefined;
+          row.evidence.screenshot = undefined;
+          await onResult(row);
+        }
+        return rows;
+      },
+    });
+    h.store.getAudit.mockImplementation(async (scope, id) =>
+      JSON.parse(JSON.stringify(h.saved.get(`${scope}:${id}`) ?? null)),
+    );
+    const v = await h.ready();
+    expect((await h.review(v)).status).toBe(200);
+    expect(h.store.reserveAgentRun).toHaveBeenCalledTimes(1);
+    expect(h.agent).toHaveBeenCalledTimes(1);
+  });
+
   it("returns the injected result and exact tool receipts without changing audit results", async () => {
     const h = await harness();
     const v = await h.ready();

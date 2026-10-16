@@ -7,8 +7,13 @@ import { isDeepStrictEqual } from "node:util";
 import type { Audit, Bootstrap, Project } from "../shared/types.js";
 import { loadAgentRetrievalCatalog } from "../server/agent-retrieval-catalog.js";
 
+const mode = process.argv.slice(2).join(" ");
+// Recovery is limited to the known bootstrap-order error before the agent route
+// was ever attempted. It retains the parent record and the SAME durable tranche.
+const recoverPreflight = mode === "--resume-preflight";
+const recoverJsonGuard = mode === "--resume-json-guard";
 // Default mode performs no file/network/provider operation. No automatic rerun.
-if (process.argv.slice(2).join(" ") !== "--run") {
+if (mode !== "--run" && !recoverPreflight && !recoverJsonGuard) {
   console.log(
     "Not run. --run requires the prepared one-shot allowance, existing operator access and the exact green deployed commit. No requests sent.",
   );
@@ -30,9 +35,107 @@ async function verify() {
     startedAt.replace(/[:.]/g, "-"),
   );
   await mkdir(directory, { recursive: true, mode: 0o700 });
-  const statePath = path.resolve(
+  const originalStatePath = path.resolve(
     `work/evidence-agent-${proof.trancheId}.reservation.json`,
   );
+  let recovery: Record<string, unknown> | undefined;
+  if (recoverPreflight) {
+    const parentBytes = await readFile(originalStatePath);
+    const parent = JSON.parse(parentBytes.toString("utf8"));
+    assert.equal(parent.trancheId, proof.trancheId);
+    assert.equal(parent.routeAttempted, false);
+    assert.equal(parent.status, "consumed_no_retry");
+    const failed = JSON.parse(await readFile(parent.receipt, "utf8"));
+    assert.equal(failed.sourceCommit, expectedCommit);
+    assert.equal(failed.status, "failed");
+    assert(!failed.agent);
+    assert.deepEqual(failed.calls, [
+      { route: "/health", method: "GET", status: 200 },
+      { route: "/api/operator/status", method: "GET", status: 401 },
+    ]);
+    recovery = {
+      reason:
+        "Known verifier bootstrap-order error before any agent/model/search request",
+      parentStateSha256: createHash("sha256").update(parentBytes).digest("hex"),
+      parentReceipt: parent.receipt,
+      sameTranche: true,
+      previousProviderAttempts: 0,
+      allowanceReset: false,
+    };
+  }
+  if (recoverJsonGuard) {
+    const parentPath = originalStatePath.replace(
+      ".reservation.json",
+      ".preflight-recovery.reservation.json",
+    );
+    const parentBytes = await readFile(parentPath);
+    const parent = JSON.parse(parentBytes.toString("utf8"));
+    assert.equal(parent.trancheId, proof.trancheId);
+    assert.equal(parent.routeAttempted, true);
+    assert.equal(parent.status, "consumed_no_retry");
+    const failedBytes = await readFile(parent.receipt);
+    const failed = JSON.parse(failedBytes.toString("utf8"));
+    assert.equal(failed.status, "failed");
+    assert.equal(
+      failed.sourceCommit,
+      "c0d4b2cf3b46513f32ad294157132ac9fc44f09a",
+    );
+    assert(!failed.agent);
+    const attempted = failed.calls.filter((call: any) =>
+      call.route.endsWith("/agent-review"),
+    );
+    assert.deepEqual(
+      attempted.map((call: any) => call.status),
+      [404, 400, 404, 409],
+    );
+    const response = JSON.parse(
+      await readFile(
+        path.join(path.dirname(parent.receipt), "unexpected-response.json"),
+        "utf8",
+      ),
+    );
+    assert.equal(response.status, 409);
+    assert.equal(
+      response.response.error,
+      "Tiger's audit did not exactly match the browser observation.",
+    );
+    const confirmationFile =
+      process.env.BRIEFSTAMP_AGENT_CONTINUATION_PROOF_FILE;
+    assert(confirmationFile);
+    const confirmation = JSON.parse(await readFile(confirmationFile, "utf8"));
+    assert.equal(confirmation.trancheId, proof.trancheId);
+    assert.equal(confirmation.durableReservations, 0);
+    assert.equal(confirmation.strictTlsVerified, true);
+    assert.equal(
+      confirmation.failedReceiptSha256,
+      createHash("sha256").update(failedBytes).digest("hex"),
+    );
+    assert(
+      Date.now() >= Date.parse(confirmation.checkedAt) &&
+        Date.now() - Date.parse(confirmation.checkedAt) < 5 * 60_000,
+    );
+    recovery = {
+      reason:
+        "Known JSON optional-field guard rejected before quota reservation or any provider call; independent Tiger read confirms original tranche unspent",
+      parentStateSha256: createHash("sha256").update(parentBytes).digest("hex"),
+      parentReceipt: parent.receipt,
+      sameTranche: true,
+      previousProviderAttempts: 0,
+      allowanceReset: false,
+      continuationProof: confirmation,
+    };
+  }
+  const statePath = recoverJsonGuard
+    ? originalStatePath.replace(
+        ".reservation.json",
+        ".json-guard-recovery.reservation.json",
+      )
+    : recoverPreflight
+      ? originalStatePath.replace(
+          ".reservation.json",
+          ".preflight-recovery.reservation.json",
+        )
+      : originalStatePath;
   const state = {
     startedAt,
     trancheId: proof.trancheId,
@@ -40,6 +143,7 @@ async function verify() {
     maxModelCalls: 2,
     maxSearchCalls: 1,
     routeAttempted: false,
+    ...(recovery ? { recovery } : {}),
   };
   // Persist an off-host one-shot reservation before even a health/bootstrap read.
   await writeFile(statePath, JSON.stringify(state, null, 2), {
@@ -57,6 +161,7 @@ async function verify() {
     retries: 0,
     billingChanges: 0,
     priorAllowancesReset: false,
+    ...(recovery ? { recovery } : {}),
     approval: { actor: "automated synthetic verifier", humanApproval: false },
     calls: [],
     artifacts: [],
@@ -158,13 +263,13 @@ async function verify() {
   try {
     const status = await request<{ status: string }>("/health");
     assert.equal(status.value.status, "ok");
+    const boot = (await request<Bootstrap>("/api/bootstrap")).value;
     const availability = (
       await request<{ evidenceAgent: boolean }>("/api/operator/status", {
         auth: true,
       })
     ).value;
     assert.equal(availability.evidenceAgent, true);
-    const boot = (await request<Bootstrap>("/api/bootstrap")).value;
     const sample = boot.projects.find((p) => p.target === "sample")!;
     assert(sample);
     const website = (

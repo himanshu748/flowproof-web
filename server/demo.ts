@@ -1057,7 +1057,16 @@ export function createDemoRouter(options: DemoOptions) {
         });
       const stored = await tiger().getAudit(s.hash, audit.id);
       assertCurrent();
-      if (!isDeepStrictEqual(stored, snapshot))
+      // PostgreSQL stores JSON, which omits JS-only undefined optional fields
+      // (the real runner emits dom/screenshot: undefined). Compare every JSON
+      // value, including IDs, statuses and evidence; object property order is
+      // irrelevant and absent optional fields are not changed observations.
+      if (
+        !isDeepStrictEqual(
+          JSON.parse(JSON.stringify(stored)),
+          JSON.parse(JSON.stringify(snapshot)),
+        )
+      )
         return res.status(409).json({
           error: "Tiger's audit did not exactly match the browser observation.",
         });
