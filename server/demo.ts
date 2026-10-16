@@ -220,7 +220,7 @@ function integrations(
       name: "Tiger Data",
       status: tigerAvailable ? "available" : "not_configured",
       detail: tigerAvailable
-        ? "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Visitor history uses lexical retrieval. A separate operator-only evidence agent supports fixed-query MiniLM cosine/full-text RRF under its own bounded allowance. Every operation is verified separately."
+        ? "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Visitor history uses lexical retrieval. The separate evidence agent supports fixed-query MiniLM cosine/full-text RRF, with a sealed public judge allowance when enabled. Every operation is verified separately."
         : "An isolated no-card Tiger trial verified application persistence, screenshot recovery, and lexical/vector retrieval. Demo sessions use temporary memory. The separate Shared Free service remains blocked by certificate verification.",
     },
     {
@@ -1513,6 +1513,18 @@ export function createDemoRouter(options: DemoOptions) {
           ...(judge
             ? {
                 status: "failed",
+                ...(judgeRunId
+                  ? {
+                      trancheId: judgeRunId,
+                      grantId: initialConfig.judge!.grant.grantId,
+                      reservation: {
+                        durable: "Tiger sealed grant and UNIQUE session/slot",
+                        consumed: true,
+                        maxModelCalls: modelReservations,
+                        maxSearchCalls: 1,
+                      },
+                    }
+                  : {}),
                 sourceAuditId: audit.id,
                 auditUnchanged: current(),
                 budget: judgeBudget,

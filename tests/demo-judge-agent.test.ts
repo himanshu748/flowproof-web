@@ -701,15 +701,37 @@ describe("public judge evidence-agent HTTP boundary", () => {
     const response = await h.review(v);
     expect(response.status).toBe(503);
     const body = await response.json();
-    expect(body.allowanceConsumed).toBe(true);
+    const scope = h.store.persistAudit.mock.calls[0][0];
+    const committed = h.reservations.get(scope)!;
+    expect(body).toMatchObject({
+      status: "failed",
+      sourceAuditId: v.audit.id,
+      allowanceConsumed: true,
+      trancheId: committed.runId,
+      grantId: GRANT_ID,
+      reservation: {
+        durable: "Tiger sealed grant and UNIQUE session/slot",
+        consumed: true,
+        maxModelCalls: 2,
+        maxSearchCalls: 1,
+      },
+      budget: { usedRuns: 1, remainingRuns: 11, visitorUsed: true },
+    });
     expect(JSON.stringify(body)).not.toContain("PRIVATE");
     expect(h.reservations.size).toBe(1);
+    expect(h.store.appendJudgeAgentResult).toHaveBeenCalledOnce();
+    expect(h.store.appendJudgeAgentResult).toHaveBeenCalledWith(
+      scope,
+      committed.runId,
+      v.audit.id,
+      body,
+    );
+    expect(committed.result).toEqual(body);
     expect((await h.review(v)).status).toBe(409);
     expect(h.agent).toHaveBeenCalledOnce();
-    expect(await (await h.status(v)).json()).toMatchObject({
-      available: false,
-      result: { status: "failed", allowanceConsumed: true },
-    });
+    const resumed = await (await h.status(v)).json();
+    expect(resumed.available).toBe(false);
+    expect(resumed.result).toEqual(body);
     expect(
       await (await h.request(`/api/audits/${v.audit.id}`, v.cookie)).json(),
     ).toEqual(v.audit);
