@@ -51,6 +51,18 @@ import {
   narrateHostedSample,
   searchHostedHomepage,
 } from "./hosted-optional";
+import {
+  authorizeEvidenceAgent,
+  evidenceAgentConfiguration,
+  evidenceAgentEnabled,
+  agentSearchOptions,
+} from "./evidence-agent-gate";
+import {
+  executeEvidenceAgent,
+  EVIDENCE_AGENT_TASK,
+  EvidenceAgentError,
+} from "./evidence-agent";
+import { checkSearchVisibility } from "./providers/serpapi";
 
 const COOKIE = "flowproof_demo";
 const TTL = 30 * 60_000;
@@ -167,6 +179,8 @@ interface DemoOptions {
   tigerAvailable?: () => boolean;
   /** Trusted dependency injection only; never accepted from an HTTP request. */
   tigerStore?: ReturnType<typeof createHostedTigerStore>;
+  /** Trusted test injection; this dependency is never accepted over HTTP. */
+  evidenceAgent?: typeof executeEvidenceAgent;
 }
 
 function integrations(
@@ -335,6 +349,12 @@ export function createDemoRouter(options: DemoOptions) {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "no-referrer");
     res.setHeader("X-Frame-Options", "DENY");
+    if (
+      req.method === "POST" &&
+      /^\/api\/audits\/[^/]+\/agent-review\/?$/i.test(req.path) &&
+      !authorizeEvidenceAgent(req.headers, process.env, now())
+    )
+      return res.status(404).json({ error: "Not found in this demo session." });
     // A tokenless caller cannot use session or project existence as an oracle.
     if (
       req.method === "POST" &&
@@ -927,7 +947,8 @@ export function createDemoRouter(options: DemoOptions) {
       !authorizeHostedBackboard(req.headers) &&
       !authorizeHostedTinker(req.headers, process.env, now()) &&
       !authorizeHostedOptional("serpapi", req.headers, process.env, now()) &&
-      !authorizeHostedOptional("elevenlabs", req.headers, process.env, now())
+      !authorizeHostedOptional("elevenlabs", req.headers, process.env, now()) &&
+      !authorizeEvidenceAgent(req.headers, process.env, now())
     )
       return notFound(res);
     return res.json({
@@ -935,9 +956,225 @@ export function createDemoRouter(options: DemoOptions) {
       tinker: tinkerAvailable(),
       serpapi: hostOptionalEnabled("serpapi", process.env, now()),
       elevenlabs: hostOptionalEnabled("elevenlabs", process.env, now()),
+      evidenceAgent: evidenceAgentEnabled(process.env, now()),
       scope:
         "Bounded hosted operator integrations. Visitor access remains isolated.",
     });
+  });
+  router.post("/api/audits/:id/agent-review", async (req, res) => {
+    if (!authorizeEvidenceAgent(req.headers, process.env, now()))
+      return notFound(res);
+    const parsed = z
+      .object({
+        websiteProjectId: z.string().uuid(),
+        modelConsent: z.literal(true),
+      })
+      .strict()
+      .safeParse(req.body);
+    if (!parsed.success)
+      return res.status(400).json({
+        error:
+          "Consent is required to send the fixed synthetic observations and public search data to Gemma. No allowance was reserved.",
+      });
+    const s = session(res);
+    const audit = s.audits.get(req.params.id);
+    const website = s.projects.get(parsed.data.websiteProjectId);
+    if (!audit || !website) return notFound(res);
+    const p = s.projects.get(audit.projectId);
+    const template = generateLocalChecks(DEMO_BRIEF);
+    const safe =
+      p?.target === "sample" &&
+      p.authorized &&
+      p.brief === DEMO_BRIEF &&
+      audit.status === "completed" &&
+      audit.source?.target === "sample" &&
+      audit.source.url === SAMPLE_URL &&
+      audit.source.brief === DEMO_BRIEF &&
+      audit.source.sampleVariant === "broken" &&
+      ownedWebsite(website) &&
+      audit.results.some((r) => r.status === "failed") &&
+      audit.checks.length === template.length &&
+      audit.checks.every((check, i) => {
+        const expected = template[i];
+        return (
+          check.requirement === expected.requirement &&
+          check.kind === expected.kind &&
+          check.expected === expected.expected &&
+          check.path === expected.path &&
+          check.viewport === expected.viewport &&
+          check.selector === expected.selector &&
+          (check.kind === "manual" || check.approved)
+        );
+      });
+    if (!safe)
+      return res.status(400).json({
+        error:
+          "Agent review accepts only the unchanged, approved broken synthetic sample and the owner's fixed homepage.",
+      });
+    if (!tigerAvailable() || s.persistence.get(audit.id)?.status !== "saved")
+      return res.status(409).json({
+        error: "The completed audit must first be saved and verified in Tiger.",
+      });
+    if (!gemmaAvailable())
+      return res.status(503).json({
+        error:
+          "The confirmed-free Gemma model is unavailable. No agent run was reserved.",
+      });
+    if (modelBusy || active)
+      return res.status(429).json({
+        error:
+          "Another model or browser audit is running. Try again after it finishes.",
+      });
+    while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
+      gemmaStarts.shift();
+    if (gemmaStarts.length + 2 > 12)
+      return res
+        .status(429)
+        .json({ error: "The shared hourly model budget is exhausted." });
+    const snapshot = structuredClone(audit);
+    const websiteSnapshot = structuredClone(website);
+    const current = () =>
+      s.expires > now() &&
+      isDeepStrictEqual(s.audits.get(audit.id), snapshot) &&
+      isDeepStrictEqual(s.projects.get(website.id), websiteSnapshot);
+    const assertCurrent = () => {
+      if (
+        !current() ||
+        !authorizeEvidenceAgent(req.headers, process.env, now())
+      )
+        throw new Error("EvidenceAgentSourceChanged");
+    };
+    modelBusy = true;
+    let reserved = false;
+    let reservationAttempted = false;
+    const toolReceipts: Array<{ tool: string; result: unknown }> = [];
+    try {
+      const pricing = await verifyGemmaFree();
+      if (!current())
+        return res.status(409).json({
+          error:
+            "The session or source changed before reservation. No model request was sent.",
+        });
+      const stored = await tiger().getAudit(s.hash, audit.id);
+      assertCurrent();
+      if (!isDeepStrictEqual(stored, snapshot))
+        return res.status(409).json({
+          error: "Tiger's audit did not exactly match the browser observation.",
+        });
+      const config = evidenceAgentConfiguration(process.env, now());
+      if (!config) return notFound(res);
+      reservationAttempted = true;
+      const reservation = await tiger().reserveAgentRun(
+        s.hash,
+        audit.projectId,
+        audit.id,
+        config.proof.trancheId,
+      );
+      reserved = reservation.reserved;
+      assertCurrent();
+      if (!reservation.reserved)
+        return res.status(409).json({
+          error:
+            "This evidence-agent allowance is already reserved or spent. It cannot be retried or renewed by a deploy.",
+        });
+      gemmaStarts.push(now(), now());
+      const indexing = await tiger().indexAuditFailures(s.hash, audit.id);
+      assertCurrent();
+      const result = await (options.evidenceAgent ?? executeEvidenceAgent)(
+        { audit: snapshot, task: EVIDENCE_AGENT_TASK },
+        {
+          beforeModel: assertCurrent,
+          failureHistory: async (queryId, signal) => {
+            signal.throwIfAborted();
+            assertCurrent();
+            const rows = await tiger().searchFailuresHybrid(
+              s.hash,
+              audit.projectId,
+              queryId,
+            );
+            signal.throwIfAborted();
+            assertCurrent();
+            toolReceipts.push({ tool: "failure_history", result: rows });
+            return rows;
+          },
+          searchVisibility: async (signal) => {
+            signal.throwIfAborted();
+            assertCurrent();
+            const options = await agentSearchOptions(req.headers);
+            signal.throwIfAborted();
+            assertCurrent();
+            const result = await checkSearchVisibility(websiteSnapshot, {
+              ...options,
+              fetcher: (input, init) => {
+                signal.throwIfAborted();
+                assertCurrent();
+                return fetch(input, {
+                  ...init,
+                  signal: init?.signal
+                    ? AbortSignal.any([signal, init.signal])
+                    : signal,
+                });
+              },
+            });
+            signal.throwIfAborted();
+            assertCurrent();
+            toolReceipts.push({ tool: "search_visibility", result });
+            return result;
+          },
+        },
+      );
+      if (!current())
+        return res.status(409).json({
+          error:
+            "The session or source changed during agent review. The allowance stays consumed; audit results are unchanged.",
+        });
+      return res.json({
+        ...result,
+        trancheId: config.proof.trancheId,
+        reservation: {
+          durable: "Tiger UNIQUE tranche",
+          consumed: true,
+          maxModelCalls: 2,
+          maxSearchCalls: 1,
+        },
+        indexing,
+        toolReceipts,
+        pricing,
+        auditUnchanged: true,
+        sourceAuditId: audit.id,
+        sourceAuditSha256: createHash("sha256")
+          .update(JSON.stringify(snapshot))
+          .digest("hex"),
+        scope:
+          "Operator-only fixed synthetic evidence agent; PostgreSQL arrays with precomputed exact-text MiniLM vectors, no pgvector or arbitrary query embedding inference.",
+      });
+    } catch (error) {
+      // Native model errors are serialized by the agent, never forward raw URLs,
+      // response bodies, database messages or credentials from a thrown error.
+      return res
+        .status(
+          error instanceof Error &&
+            error.message === "EvidenceAgentSourceChanged"
+            ? 409
+            : 503,
+        )
+        .json({
+          error:
+            "The evidence-agent proof could not complete. Audit results are unchanged.",
+          allowanceConsumed: reserved
+            ? true
+            : reservationAttempted
+              ? "unknown; no retry or refund"
+              : false,
+          failureType: error instanceof Error ? error.name : "UnknownError",
+          toolReceipts,
+          ...(error instanceof EvidenceAgentError
+            ? { code: error.code, receipt: error.receipt }
+            : {}),
+        });
+    } finally {
+      modelBusy = false;
+    }
   });
   router.post("/api/audits/:id/memory", async (req, res) => {
     if (!authorizeHostedBackboard(req.headers)) return notFound(res);
@@ -990,21 +1227,17 @@ export function createDemoRouter(options: DemoOptions) {
     if (!project) return notFound(res);
     z.object({}).strict().parse(req.body);
     if (!ownedWebsite(project))
-      return res
-        .status(400)
-        .json({
-          error:
-            "Search visibility is restricted to the owner's fixed live homepage.",
-        });
+      return res.status(400).json({
+        error:
+          "Search visibility is restricted to the owner's fixed live homepage.",
+      });
     try {
       return res.json(await searchHostedHomepage(project));
     } catch {
-      return res
-        .status(503)
-        .json({
-          error:
-            "The bounded SerpApi observation is unavailable or its confirmed free allowance is exhausted. It does not change any audit result.",
-        });
+      return res.status(503).json({
+        error:
+          "The bounded SerpApi observation is unavailable or its confirmed free allowance is exhausted. It does not change any audit result.",
+      });
     }
   });
   router.post("/api/audits/:id/spoken-report", async (req, res) => {
@@ -1014,17 +1247,13 @@ export function createDemoRouter(options: DemoOptions) {
     if (!audit) return notFound(res);
     z.object({}).strict().parse(req.body);
     if (audit.status !== "completed")
-      return res
-        .status(409)
-        .json({
-          error: "Only a completed synthetic sample audit can be narrated.",
-        });
+      return res.status(409).json({
+        error: "Only a completed synthetic sample audit can be narrated.",
+      });
     if (audit.source?.target !== "sample" || audit.source.url !== SAMPLE_URL)
-      return res
-        .status(400)
-        .json({
-          error: "Free speech is restricted to the built-in synthetic sample.",
-        });
+      return res.status(400).json({
+        error: "Free speech is restricted to the built-in synthetic sample.",
+      });
     try {
       const result = await narrateHostedSample(audit);
       return res
@@ -1050,12 +1279,10 @@ export function createDemoRouter(options: DemoOptions) {
         )
         .send(result.audio);
     } catch {
-      return res
-        .status(503)
-        .json({
-          error:
-            "The noncommercial ElevenLabs sample is unavailable or its confirmed free allowance is exhausted. Written audit evidence is unchanged.",
-        });
+      return res.status(503).json({
+        error:
+          "The noncommercial ElevenLabs sample is unavailable or its confirmed free allowance is exhausted. Written audit evidence is unchanged.",
+      });
     }
   });
   async function readImage(s: Session, value: string): Promise<Buffer | null> {

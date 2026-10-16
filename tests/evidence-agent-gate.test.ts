@@ -1,0 +1,490 @@
+import { createHash } from "node:crypto";
+import {
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  symlink,
+  unlink,
+  writeFile,
+} from "node:fs/promises";
+import type { IncomingHttpHeaders } from "node:http";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { HOSTED_WEBSITE_URL } from "../shared/hosted-target.js";
+import type { Project } from "../shared/types.js";
+import {
+  agentSearchOptions,
+  authorizeEvidenceAgent,
+  evidenceAgentConfiguration,
+  evidenceAgentEnabled,
+  EVIDENCE_AGENT_PRIOR_SERP_RECEIPT_SHA256,
+} from "../server/evidence-agent-gate.js";
+import { checkSearchVisibility } from "../server/providers/serpapi.js";
+
+const now = Date.parse("2026-10-16T10:00:00Z");
+const key = "synthetic-evidence-agent-key-not-a-real-provider-key";
+const token = ["synthetic", "evidence", "agent", "operator", "fixture"].join("-");
+const tranche = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
+const digest = (value: string) =>
+  createHash("sha256").update(value).digest("hex");
+const directories: string[] = [];
+const headers = { "x-flowproof-token": token };
+const project: Project = {
+  id: "synthetic-test-project",
+  name: "Synthetic test project",
+  target: "website",
+  url: HOSTED_WEBSITE_URL,
+  authorized: true,
+  brief: "Synthetic test brief, not client data",
+  sampleVariant: "healthy",
+  checks: [],
+  createdAt: "",
+  updatedAt: "",
+  generator: { provider: "Synthetic fixture", model: null },
+};
+
+async function environment(): Promise<NodeJS.ProcessEnv> {
+  const directory = await mkdtemp(
+    path.join(os.tmpdir(), "briefstamp-evidence-agent-"),
+  );
+  directories.push(directory);
+  const historical = JSON.stringify({
+    credentialSha256: digest(key),
+    checkedAt: "2026-10-15T08:00:00Z",
+    expiresAt: "2026-10-16T08:00:00Z",
+    evidence: "Synthetic fixture for a consumed historical reservation",
+    freeOnly: true,
+    paidOverageDisabled: true,
+    confirmedFreeUnits: 100,
+    unit: "requests",
+    operations: ["search-visibility"],
+    maxUnits: 1,
+    usedUnits: 1,
+    maxCalls: 1,
+    usedCalls: 1,
+  });
+  return {
+    FLOWPROOF_DATA_DIR: directory,
+    FLOWPROOF_TOKEN: token,
+    SERPAPI_API_KEY: key,
+    BRIEFSTAMP_EVIDENCE_AGENT_ENABLED: "true",
+    BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON: historical,
+    BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON: JSON.stringify({
+      trancheId: tranche,
+      credentialSha256: digest(key),
+      checkedAt: "2026-10-16T09:00:00Z",
+      expiresAt: "2026-10-17T09:00:00Z",
+      confirmedFreeSearches: 100,
+      freeOnly: true,
+      paidOverageDisabled: true,
+      priorSerpReceiptSha256: EVIDENCE_AGENT_PRIOR_SERP_RECEIPT_SHA256,
+      priorSerpProofSha256: digest(historical),
+      priorSerpCalls: 1,
+      priorSerpUnits: 1,
+      maxModelCalls: 2,
+      maxSearchCalls: 1,
+      usedRuns: 0,
+      evidence: "Synthetic fixture only, not real account or funding evidence",
+    }),
+  };
+}
+
+function amend(env: NodeJS.ProcessEnv, change: Record<string, unknown>) {
+  env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON = JSON.stringify({
+    ...JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON!),
+    ...change,
+  });
+}
+
+function amendHistory(env: NodeJS.ProcessEnv, change: Record<string, unknown>) {
+  env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON = JSON.stringify({
+    ...JSON.parse(env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON!),
+    ...change,
+  });
+  amend(env, {
+    priorSerpProofSha256: digest(env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON),
+  });
+}
+
+const filename = (env: NodeJS.ProcessEnv) =>
+  path.join(
+    env.FLOWPROOF_DATA_DIR!,
+    "provider-allowances",
+    `evidence-agent-serpapi-${tranche}.json`,
+  );
+const response = () =>
+  Response.json({
+    search_metadata: { status: "Success" },
+    organic_results: [],
+  });
+const search = async (
+  env: NodeJS.ProcessEnv,
+  fetcher: typeof fetch,
+  supplied: IncomingHttpHeaders | Headers = headers,
+) =>
+  checkSearchVisibility(
+    project,
+    await agentSearchOptions(supplied, { env, fetcher, now: () => now }),
+  );
+
+afterEach(async () => {
+  vi.restoreAllMocks();
+  for (const directory of directories.splice(0))
+    await rm(directory, { recursive: true, force: true });
+});
+
+describe("evidence-agent operator and confirmed-free proof gate", () => {
+  it("binds the known committed historical receipt", async () => {
+    expect(
+      digest(
+        await readFile(
+          "docs/evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+          "utf8",
+        ),
+      ),
+    ).toBe(EVIDENCE_AGENT_PRIOR_SERP_RECEIPT_SHA256);
+  });
+
+  it("checks availability without files or transport and omits the operator token", async () => {
+    const env = await environment();
+    const original = { ...env };
+    expect(evidenceAgentEnabled(env, now)).toBe(true);
+    expect(Object.keys(evidenceAgentConfiguration(env, now)!)).toEqual([
+      "proof",
+      "key",
+    ]);
+    expect(evidenceAgentConfiguration(env, now)?.proof).toMatchObject({
+      trancheId: tranche,
+      usedRuns: 0,
+      maxModelCalls: 2,
+      maxSearchCalls: 1,
+    });
+    expect(env).toEqual(original);
+    expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+  });
+
+  it("accepts only the exact existing operator token in a header", async () => {
+    const env = await environment();
+    for (const value of [headers, new Headers({ "X-FlowProof-Token": token })])
+      expect(authorizeEvidenceAgent(value, env, now)).toBe(true);
+    const fetcher = vi.fn<typeof fetch>();
+    for (const supplied of [
+      {},
+      { "x-flowproof-token": token + "wrong" },
+      { "x-flowproof-token": [token, token] },
+      { "x-flowproof-token": "short" },
+      { "x-flowproof-token": token + "\n" },
+      { authorization: `Bearer ${token}` },
+      { token },
+    ]) {
+      expect(authorizeEvidenceAgent(supplied, env, now)).toBe(false);
+      await expect(search(env, fetcher, supplied)).rejects.toMatchObject({
+        code: "unauthorized",
+      });
+    }
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+  });
+
+  it.each([
+    { trancheId: "not-a-uuid" },
+    { trancheId: "../../replacement" },
+    { credentialSha256: "0".repeat(64) },
+    { checkedAt: "2026-10-14T09:00:00Z" },
+    { checkedAt: "2026-10-16T10:00:01Z" },
+    { expiresAt: "2026-10-16T10:00:00Z" },
+    { expiresAt: "2026-10-16T08:00:00Z" },
+    { expiresAt: "2026-10-18T09:00:00Z" },
+    { confirmedFreeSearches: 0 },
+    { confirmedFreeSearches: 1.5 },
+    { freeOnly: false },
+    { paidOverageDisabled: false },
+    { priorSerpReceiptSha256: "0".repeat(64) },
+    { priorSerpProofSha256: "0".repeat(64) },
+    { priorSerpCalls: 0 },
+    { priorSerpUnits: 0 },
+    { maxModelCalls: 3 },
+    { maxSearchCalls: 2 },
+    { usedRuns: 1 },
+    { usedRuns: 2 },
+    { evidence: "" },
+    { unexpected: true },
+  ])("fails closed for unsafe agent proof %j", async (change) => {
+    const env = await environment();
+    amend(env, change);
+    const fetcher = vi.fn<typeof fetch>();
+    expect(evidenceAgentConfiguration(env, now)).toBeNull();
+    expect(evidenceAgentEnabled(env, now)).toBe(false);
+    expect(authorizeEvidenceAgent(headers, env, now)).toBe(false);
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "unauthorized",
+    });
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+  });
+
+  it("does not infer free funding from a key, flag, malformed JSON or partial configuration", async () => {
+    const env = await environment();
+    for (const change of [
+      { BRIEFSTAMP_EVIDENCE_AGENT_ENABLED: "false" },
+      { BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON: undefined },
+      { BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON: "{}" },
+      { BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON: "invalid-json" },
+      { BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON: "x".repeat(16_385) },
+      { BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON: undefined },
+      { BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON: "invalid-json" },
+      { BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON: "x".repeat(16_385) },
+      { SERPAPI_API_KEY: ["different", "synthetic", "fixture"].join("-") },
+      { SERPAPI_API_KEY: "invalid key with spaces" },
+      { FLOWPROOF_TOKEN: undefined },
+      { FLOWPROOF_TOKEN: "short" },
+    ])
+      expect(evidenceAgentEnabled({ ...env, ...change }, now)).toBe(false);
+    expect(evidenceAgentEnabled(env, Number.NaN)).toBe(false);
+    expect(evidenceAgentEnabled(env, Number.POSITIVE_INFINITY)).toBe(false);
+    expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+  });
+
+  it("enforces the absolute October 20 UTC ceiling as well as a fresh 24-hour window", async () => {
+    const env = await environment();
+    const late = Date.parse("2026-10-19T12:00:00Z");
+    amend(env, {
+      checkedAt: "2026-10-19T11:00:00Z",
+      expiresAt: "2026-10-20T00:00:00Z",
+    });
+    expect(evidenceAgentEnabled(env, late)).toBe(true);
+    amend(env, { expiresAt: "2026-10-20T00:00:01Z" });
+    expect(evidenceAgentEnabled(env, late)).toBe(false);
+    amend(env, { expiresAt: "2026-10-20T00:00:00Z" });
+    expect(evidenceAgentEnabled(env, Date.parse("2026-10-20T00:00:00Z"))).toBe(
+      false,
+    );
+  });
+
+  it.each([
+    { usedCalls: 0 },
+    { usedUnits: 0 },
+    { maxCalls: 2 },
+    { maxUnits: 2 },
+    { usedCalls: 2 },
+    { credentialSha256: "0".repeat(64) },
+    { freeOnly: false },
+    { paidOverageDisabled: false },
+    { operations: ["memory-write"] },
+    { unexpected: true },
+  ])(
+    "rejects historical resets or mismatches even with a rebound hash %j",
+    async (change) => {
+      const env = await environment();
+      amendHistory(env, change);
+      expect(evidenceAgentEnabled(env, now)).toBe(false);
+      expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+    },
+  );
+
+  it("requires the exact historical proof bytes, while allowing that spent proof to be expired", async () => {
+    const env = await environment();
+    expect(evidenceAgentEnabled(env, now)).toBe(true);
+    const prior = JSON.parse(env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON!);
+    expect(Date.parse(prior.expiresAt)).toBeLessThan(now);
+    env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON = JSON.stringify(prior, null, 2);
+    expect(evidenceAgentEnabled(env, now)).toBe(false);
+  });
+});
+
+describe("evidence-agent immutable separate search allowance", () => {
+  it("uses the shared provider guard for one search and retains historical proof byte for byte", async () => {
+    const env = await environment();
+    const original = { ...env };
+    const options = await agentSearchOptions(headers, { env, now: () => now });
+    expect(options.env?.BRIEFSTAMP_PROVIDER_ALLOWANCE_FILE).toBe(filename(env));
+    expect(options.env?.BRIEFSTAMP_SEARCH_DOMAINS).toBe(
+      new URL(HOSTED_WEBSITE_URL).hostname,
+    );
+    expect(options.env?.FLOWPROOF_TOKEN).toBeUndefined();
+    expect(options.env?.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON).toBeUndefined();
+    const fetcher = vi.fn<typeof fetch>(async (_url, init) => {
+      const reserved = JSON.parse(await readFile(filename(env), "utf8"))
+        .providers.serpapi;
+      expect(reserved).toMatchObject({
+        maxCalls: 1,
+        usedCalls: 1,
+        maxUnits: 1,
+        usedUnits: 1,
+      });
+      expect(init?.redirect).toBe("error");
+      return response();
+    });
+    expect(await search(env, fetcher)).toMatchObject({
+      status: "observed",
+      results: [],
+    });
+    const spent = await readFile(filename(env), "utf8");
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "budget_exhausted",
+    });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(await readFile(filename(env), "utf8")).toBe(spent);
+    expect(env).toEqual(original);
+  });
+
+  it("does not gain another ledger from reordered proof fields or uppercase spelling of the same UUID", async () => {
+    const env = await environment();
+    const fetcher = vi.fn<typeof fetch>(async () => response());
+    await search(env, fetcher);
+    const spent = await readFile(filename(env), "utf8");
+    const proof = JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON!);
+    proof.trancheId = tranche.toUpperCase();
+    env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON = JSON.stringify(
+      Object.fromEntries(Object.entries(proof).reverse()),
+    );
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "budget_exhausted",
+    });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(await readFile(filename(env), "utf8")).toBe(spent);
+    expect(await readdir(path.dirname(filename(env)))).toEqual([
+      path.basename(filename(env)),
+    ]);
+  });
+
+  it.each([
+    { checkedAt: "2026-10-16T09:30:00Z", expiresAt: "2026-10-17T09:30:00Z" },
+    { confirmedFreeSearches: 200 },
+    { evidence: "A newer synthetic proof does not replenish this tranche" },
+  ])(
+    "never treats refreshed proof fields as a new identity %j",
+    async (change) => {
+      const env = await environment();
+      const fetcher = vi.fn<typeof fetch>(async () => response());
+      await search(env, fetcher);
+      const spent = await readFile(filename(env), "utf8");
+      amend(env, change);
+      expect(evidenceAgentEnabled(env, now)).toBe(true);
+      await expect(search(env, fetcher)).rejects.toMatchObject({
+        code: "free_confirmation_required",
+      });
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(await readFile(filename(env), "utf8")).toBe(spent);
+      expect(await readdir(path.dirname(filename(env)))).toEqual([
+        path.basename(filename(env)),
+      ]);
+    },
+  );
+
+  it.each(["transport", "http", "invalid-response"])(
+    "never retries or refunds a %s failure",
+    async (failure) => {
+      const env = await environment();
+      const original = env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON;
+      const fetcher = vi.fn<typeof fetch>(async () => {
+        if (failure === "transport")
+          throw new Error("Synthetic network failure");
+        if (failure === "http") return new Response(null, { status: 503 });
+        return Response.json({ search_metadata: { status: "Processing" } });
+      });
+      await expect(search(env, fetcher)).rejects.toBeInstanceOf(Error);
+      const spent = await readFile(filename(env), "utf8");
+      expect(JSON.parse(spent).providers.serpapi).toMatchObject({
+        usedCalls: 1,
+        usedUnits: 1,
+      });
+      await expect(search(env, fetcher)).rejects.toMatchObject({
+        code: "budget_exhausted",
+      });
+      expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(await readFile(filename(env), "utf8")).toBe(spent);
+      expect(env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON).toBe(original);
+    },
+  );
+
+  it.each([
+    "corrupt",
+    "widened",
+    "mismatched-proof",
+    "mismatched-key",
+    "excess-counter",
+    "other-provider",
+  ])("does not repair or overwrite an existing %s ledger", async (kind) => {
+    const env = await environment();
+    await agentSearchOptions(headers, { env, now: () => now });
+    const raw = JSON.parse(await readFile(filename(env), "utf8"));
+    if (kind === "widened") raw.providers.serpapi.maxCalls = 2;
+    if (kind === "mismatched-proof")
+      raw.providers.serpapi.evidence = "An unrelated synthetic immutable proof";
+    if (kind === "mismatched-key")
+      raw.providers.serpapi.credentialSha256 = "0".repeat(64);
+    if (kind === "excess-counter") raw.providers.serpapi.usedCalls = 2;
+    if (kind === "other-provider")
+      raw.providers.backboard = raw.providers.serpapi;
+    const modified =
+      kind === "corrupt" ? "corrupt-ledger" : JSON.stringify(raw);
+    await writeFile(filename(env), modified);
+    const fetcher = vi.fn<typeof fetch>();
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "free_confirmation_required",
+    });
+    expect(await readFile(filename(env), "utf8")).toBe(modified);
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+
+  it("rejects a symlink ledger without changing its target", async () => {
+    const env = await environment();
+    await agentSearchOptions(headers, { env, now: () => now });
+    const original = await readFile(filename(env), "utf8");
+    const target = path.join(env.FLOWPROOF_DATA_DIR!, "synthetic-target.json");
+    await writeFile(target, original);
+    await unlink(filename(env));
+    await symlink(target, filename(env));
+    const fetcher = vi.fn<typeof fetch>();
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "free_confirmation_required",
+    });
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(await readFile(target, "utf8")).toBe(original);
+  });
+
+  it("allows at most one transport across concurrent requests", async () => {
+    const env = await environment();
+    await agentSearchOptions(headers, { env, now: () => now });
+    const fetcher = vi.fn<typeof fetch>(async () => response());
+    const outcomes = await Promise.allSettled([
+      search(env, fetcher),
+      search(env, fetcher),
+    ]);
+    expect(
+      outcomes.filter((result) => result.status === "fulfilled"),
+    ).toHaveLength(1);
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(
+      JSON.parse(await readFile(filename(env), "utf8")).providers.serpapi,
+    ).toMatchObject({ usedCalls: 1, usedUnits: 1 });
+  });
+
+  it("uses only the fixed public domain even if unrelated environment controls are supplied", async () => {
+    const env = {
+      ...(await environment()),
+      BRIEFSTAMP_SEARCH_DOMAINS: "example.org",
+      BRIEFSTAMP_PROVIDER_ALLOWANCE_FILE: "/tmp/unrelated.json",
+    };
+    const fetcher = vi.fn<typeof fetch>();
+    const options = await agentSearchOptions(headers, {
+      env,
+      fetcher,
+      now: () => now,
+    });
+    await expect(
+      checkSearchVisibility(
+        { ...project, url: "https://example.org/" },
+        options,
+      ),
+    ).rejects.toMatchObject({ code: "invalid_input" });
+    expect(fetcher).not.toHaveBeenCalled();
+    expect(
+      JSON.parse(await readFile(filename(env), "utf8")).providers.serpapi
+        .usedCalls,
+    ).toBe(0);
+  });
+});
