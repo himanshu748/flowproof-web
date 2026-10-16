@@ -1,0 +1,57 @@
+{
+  "allowance": {
+    "runId": "01a14576-a37c-74f0-9d9a-c47fa55a034e",
+    "workflowId": "briefstamp-agent-permanent-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+    "inputSha256": "8f5dad9bbd51c109b29b6ea55fefdfa8bd3d05606fe07af376d370f5c2809584",
+    "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+    "provenance": {
+      "kind": "retained-native-receipt-fixture",
+      "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+      "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+    },
+    "version": 1,
+    "logicalAllowanceReserved": true,
+    "maximumModelAttempts": 6,
+    "maximumSearchAttempts": 3,
+    "maximumTigerAttempts": 3,
+    "maximumAttemptsPerPhase": 3,
+    "scope": "dedicated-temporal-fixture",
+    "reservedAt": "2026-10-16T16:06:05.465Z"
+  },
+  "activities": [
+    {
+      "runId": "01a14576-a37c-74f0-9d9a-c47fa55a034e",
+      "workflowId": "briefstamp-agent-permanent-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "inputSha256": "8f5dad9bbd51c109b29b6ea55fefdfa8bd3d05606fe07af376d370f5c2809584",
+      "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+      "provenance": {
+        "kind": "retained-native-receipt-fixture",
+        "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+        "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+      },
+      "activityId": "gemma-select-tools",
+      "phase": "select",
+      "version": 1,
+      "attempts": [
+        {
+          "version": 1,
+          "attempt": 1,
+          "bindingSha256": "3fb3c92165db53caa18ac40de83c15792b6bfcca265af33235f283abe7820ebb",
+          "status": "failed",
+          "completedAt": "2026-10-16T16:06:05.495Z",
+          "retryable": false,
+          "code": "injected_http_400"
+        }
+      ]
+    }
+  ],
+  "counters": {
+    "select": 1,
+    "tiger": 0,
+    "search": 0,
+    "summary": 0
+  },
+  "modelAttempts": 1,
+  "searchAttempts": 0,
+  "tigerAttempts": 0
+}

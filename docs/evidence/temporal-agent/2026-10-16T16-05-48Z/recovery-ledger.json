@@ -1,0 +1,423 @@
+{
+  "allowance": {
+    "runId": "01a14576-65e1-7e2a-915c-1871f3db7bf0",
+    "workflowId": "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+    "inputSha256": "871cbbe3d39a28f6d3b291871d3faae6e886bc9ef41cbb19b48d518b4f3ee3b2",
+    "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+    "provenance": {
+      "kind": "retained-native-receipt-fixture",
+      "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+      "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+    },
+    "version": 1,
+    "logicalAllowanceReserved": true,
+    "maximumModelAttempts": 6,
+    "maximumSearchAttempts": 3,
+    "maximumTigerAttempts": 3,
+    "maximumAttemptsPerPhase": 3,
+    "scope": "dedicated-temporal-fixture",
+    "reservedAt": "2026-10-16T16:05:52.279Z"
+  },
+  "activities": [
+    {
+      "runId": "01a14576-65e1-7e2a-915c-1871f3db7bf0",
+      "workflowId": "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "inputSha256": "871cbbe3d39a28f6d3b291871d3faae6e886bc9ef41cbb19b48d518b4f3ee3b2",
+      "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+      "provenance": {
+        "kind": "retained-native-receipt-fixture",
+        "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+        "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+      },
+      "activityId": "gemma-select-tools",
+      "phase": "select",
+      "version": 1,
+      "attempts": [
+        {
+          "version": 1,
+          "attempt": 1,
+          "bindingSha256": "c039008f522e8da16624577568d89159730820357470e961ee9109ea38e9b02d",
+          "status": "failed",
+          "completedAt": "2026-10-16T16:05:52.323Z",
+          "retryable": true,
+          "code": "injected_http_500"
+        },
+        {
+          "version": 1,
+          "attempt": 2,
+          "bindingSha256": "c039008f522e8da16624577568d89159730820357470e961ee9109ea38e9b02d",
+          "status": "completed",
+          "completedAt": "2026-10-16T16:05:53.383Z",
+          "retryable": false,
+          "responseSha256": "c0b4eec234f341e63e8ee55f80243f5fbf71d910da6ca5fd3d40a07bf64b4ebd"
+        }
+      ],
+      "response": {
+        "provenance": {
+          "kind": "retained-native-receipt-fixture",
+          "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+          "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+        },
+        "selection": {
+          "tools": [
+            {
+              "arguments": {
+                "queryId": "mobile_paraphrase"
+              },
+              "name": "failure_history"
+            },
+            {
+              "arguments": {},
+              "name": "search_visibility"
+            }
+          ]
+        },
+        "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+        "turn": {
+          "attempts": [
+            {
+              "durationMs": 1893,
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "phase": "select_tools",
+              "providerModelVersion": "gemma-4-26b-a4b-it",
+              "providerStatus": null,
+              "requestBytes": 1866,
+              "requestSha256": "60f86234ce64b5069d71308ba2949304915d0b5b1ec123b9c685697c7b49c8ae",
+              "responseBytes": 783,
+              "responseSha256": "14512505d63442ca1dd42de56942ef33b5b38afd1e765fe4ca6aba40acaac12d",
+              "retryDelayCompleted": false,
+              "retryDelayMs": 0,
+              "status": 200,
+              "usage": {
+                "completionTokens": 38,
+                "promptTokens": 518,
+                "totalTokens": 556
+              }
+            }
+          ],
+          "freePricing": {
+            "checkedAt": "2026-10-16T13:07:19.619Z",
+            "model": "gemma-4-26b-a4b-it",
+            "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+          },
+          "model": "gemma-4-26b-a4b-it",
+          "output": {
+            "tools": [
+              {
+                "arguments": {
+                  "queryId": "mobile_paraphrase"
+                },
+                "name": "failure_history"
+              },
+              {
+                "arguments": {},
+                "name": "search_visibility"
+              }
+            ]
+          },
+          "transportNormalization": {
+            "emptyThoughtPartIgnored": true,
+            "wholeJsonFenceRemoved": true
+          }
+        }
+      }
+    },
+    {
+      "runId": "01a14576-65e1-7e2a-915c-1871f3db7bf0",
+      "workflowId": "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "inputSha256": "05b60b231af1124412cc4045f1b2fa206cb38f7b8e0439907a7a46c3ccddc824",
+      "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+      "provenance": {
+        "kind": "retained-native-receipt-fixture",
+        "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+        "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+      },
+      "activityId": "tiger-failure-history",
+      "phase": "tiger",
+      "version": 1,
+      "attempts": [
+        {
+          "version": 1,
+          "attempt": 1,
+          "bindingSha256": "d1201d24cad99f09efa86fd86c22001b1283f8e5fae7d3dd089b2d32b8d2db10",
+          "status": "completed",
+          "completedAt": "2026-10-16T16:05:53.582Z",
+          "retryable": false,
+          "responseSha256": "e0f5bfefc1513ab908477fe13efa52ea762de1d30f028fe49c5908cbdefd53e6"
+        }
+      ],
+      "response": {
+        "id": "tool-1",
+        "queryId": "mobile_paraphrase",
+        "rows": [
+          {
+            "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+            "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+            "cosine": 0.3781263417931506,
+            "kind": "no_horizontal_overflow",
+            "lexicalRank": null,
+            "lexicalScore": 0,
+            "queryId": "mobile_paraphrase",
+            "retrieval": "hybrid-rrf",
+            "rrf": 0.01639344262295082,
+            "status": "failed",
+            "vectorRank": 1
+          },
+          {
+            "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+            "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+            "cosine": 0.20973289516274507,
+            "kind": "heading",
+            "lexicalRank": null,
+            "lexicalScore": 0,
+            "queryId": "mobile_paraphrase",
+            "retrieval": "hybrid-rrf",
+            "rrf": 0.016129032258064516,
+            "status": "failed",
+            "vectorRank": 2
+          },
+          {
+            "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+            "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+            "cosine": 0.02335452957408811,
+            "kind": "image_alt",
+            "lexicalRank": null,
+            "lexicalScore": 0,
+            "queryId": "mobile_paraphrase",
+            "retrieval": "hybrid-rrf",
+            "rrf": 0.015873015873015872,
+            "status": "failed",
+            "vectorRank": 3
+          }
+        ],
+        "status": "observed",
+        "type": "failure_history"
+      }
+    },
+    {
+      "runId": "01a14576-65e1-7e2a-915c-1871f3db7bf0",
+      "workflowId": "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "inputSha256": "28fb17f094bee6bf1829da58a6aad2486a0619efd28a53a568b27877f00a76fc",
+      "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+      "provenance": {
+        "kind": "retained-native-receipt-fixture",
+        "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+        "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+      },
+      "activityId": "serpapi-search-visibility",
+      "phase": "search",
+      "version": 1,
+      "attempts": [
+        {
+          "version": 1,
+          "attempt": 1,
+          "bindingSha256": "96ffb2c3cab54be2c07f2f73becb94d0af01d78a7d1cb140d4d478381add3dbc",
+          "status": "failed",
+          "completedAt": "2026-10-16T16:06:04.285Z",
+          "retryable": true,
+          "code": "injected_pre_dispatch_timeout"
+        },
+        {
+          "version": 1,
+          "attempt": 2,
+          "bindingSha256": "96ffb2c3cab54be2c07f2f73becb94d0af01d78a7d1cb140d4d478381add3dbc",
+          "status": "completed",
+          "completedAt": "2026-10-16T16:06:05.321Z",
+          "retryable": false,
+          "responseSha256": "f71fd871cefa22c64e0b63774feb4d34924fc4b45157b15924d3a1fd1ac4515e"
+        }
+      ],
+      "response": {
+        "domain": "flowproof-demo.onrender.com",
+        "id": "tool-2",
+        "observedAt": "2026-10-16T13:10:18.500Z",
+        "query": "site:flowproof-demo.onrender.com",
+        "resultCount": 0,
+        "status": "observed",
+        "type": "search_visibility"
+      }
+    },
+    {
+      "runId": "01a14576-65e1-7e2a-915c-1871f3db7bf0",
+      "workflowId": "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "inputSha256": "56b4ad3d7f210df24fe9088697401b0a9dd617395f71f9de9f8506af44cb3c2e",
+      "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+      "provenance": {
+        "kind": "retained-native-receipt-fixture",
+        "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+        "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+      },
+      "activityId": "gemma-summarize",
+      "phase": "summary",
+      "version": 1,
+      "attempts": [
+        {
+          "version": 1,
+          "attempt": 1,
+          "bindingSha256": "f53aeacb2e51865bcefee8462950743cf588bfb5e6ac88a32eb98b1cefa8b8e9",
+          "status": "completed",
+          "completedAt": "2026-10-16T16:06:05.365Z",
+          "retryable": false,
+          "responseSha256": "7660775a9fe8bfcb05539a808bfc94250a356f5532be29f6741e0f963bd61d43"
+        }
+      ],
+      "response": {
+        "findings": {
+          "abstention": "none",
+          "findings": [
+            {
+              "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+              "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+              "observationId": "audit",
+              "status": "failed",
+              "type": "audit_result"
+            },
+            {
+              "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+              "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+              "observationId": "audit",
+              "status": "failed",
+              "type": "audit_result"
+            },
+            {
+              "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+              "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+              "observationId": "audit",
+              "status": "failed",
+              "type": "audit_result"
+            },
+            {
+              "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+              "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+              "observationId": "tool-1",
+              "status": "failed",
+              "type": "historical_failure"
+            },
+            {
+              "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+              "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+              "observationId": "tool-1",
+              "status": "failed",
+              "type": "historical_failure"
+            },
+            {
+              "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+              "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+              "observationId": "tool-1",
+              "status": "failed",
+              "type": "historical_failure"
+            },
+            {
+              "observationId": "tool-2",
+              "resultCount": 0,
+              "type": "search_snapshot"
+            }
+          ]
+        },
+        "provenance": {
+          "kind": "retained-native-receipt-fixture",
+          "receiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+          "source": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json"
+        },
+        "sourceAuditSha256": "21002959b2a2e1b916e2b4ae0adfda2e40ce0b5ab50dcef46c48ddb01ae38aac",
+        "sourceAuditUnchanged": true,
+        "turn": {
+          "attempts": [
+            {
+              "durationMs": 16658,
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "phase": "summarize",
+              "providerModelVersion": "gemma-4-26b-a4b-it",
+              "providerStatus": null,
+              "requestBytes": 3929,
+              "requestSha256": "c5278e7caea89212d54a2cce9cb2fc86be60c2b5ea1a1140c2f02a0a8bf05a06",
+              "responseBytes": 2283,
+              "responseSha256": "d38d9c282cff663d5ef933c320c0a462b7c0df06af6c160419030930583bb4fe",
+              "retryDelayCompleted": false,
+              "retryDelayMs": 0,
+              "status": 200,
+              "usage": {
+                "completionTokens": 753,
+                "promptTokens": 1252,
+                "totalTokens": 2005
+              }
+            }
+          ],
+          "freePricing": {
+            "checkedAt": "2026-10-16T13:07:19.619Z",
+            "model": "gemma-4-26b-a4b-it",
+            "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+          },
+          "model": "gemma-4-26b-a4b-it",
+          "output": {
+            "abstention": "none",
+            "findings": [
+              {
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+                "observationId": "audit",
+                "status": "failed",
+                "type": "audit_result"
+              },
+              {
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+                "observationId": "audit",
+                "status": "failed",
+                "type": "audit_result"
+              },
+              {
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+                "observationId": "audit",
+                "status": "failed",
+                "type": "audit_result"
+              },
+              {
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+                "observationId": "tool-1",
+                "status": "failed",
+                "type": "historical_failure"
+              },
+              {
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+                "observationId": "tool-1",
+                "status": "failed",
+                "type": "historical_failure"
+              },
+              {
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+                "observationId": "tool-1",
+                "status": "failed",
+                "type": "historical_failure"
+              },
+              {
+                "observationId": "tool-2",
+                "resultCount": 0,
+                "type": "search_snapshot"
+              }
+            ]
+          },
+          "transportNormalization": {
+            "emptyThoughtPartIgnored": true,
+            "wholeJsonFenceRemoved": true
+          }
+        }
+      }
+    }
+  ],
+  "counters": {
+    "select": 2,
+    "tiger": 1,
+    "search": 2,
+    "summary": 1
+  },
+  "modelAttempts": 3,
+  "searchAttempts": 2,
+  "tigerAttempts": 1
+}

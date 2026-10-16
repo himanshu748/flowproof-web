@@ -1,0 +1,6 @@
+{
+  "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c": "transient-recovery",
+  "briefstamp-agent-permanent-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c": "permanent-400",
+  "briefstamp-agent-validation-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c": "summary-invalid-citation",
+  "briefstamp-agent-exhausted-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c": "exhausted-500"
+}

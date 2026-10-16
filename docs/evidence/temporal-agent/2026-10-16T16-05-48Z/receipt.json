@@ -1,0 +1,396 @@
+{
+  "status": "verified",
+  "startedAt": "2026-10-16T16:05:48.086Z",
+  "sourceCommit": "70cc00119a7a22ffaadb073cee8cfff8a4751411",
+  "scope": "Real Temporal development server and worker processes; retained native model/tool fixture replay, no fresh inference",
+  "modelCalls": 0,
+  "searchCalls": 0,
+  "publicJudgeGrantConsumed": false,
+  "fixtureSource": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json",
+  "limitations": [
+    "CI/local only; no hosted persistent worker.",
+    "Provider responses are retained fixtures, not new model or search results.",
+    "Unknown external-call completion fails closed; providers without native idempotency are not claimed exactly-once."
+  ],
+  "cliVersion": "temporal version 1.9.1 (Server 1.32.0, UI 2.54.1)",
+  "cliBinarySha256": "712217694cac9f786a72d4b6c876cd15f3dcf1bf31434d9fed6af25242a327a0",
+  "sourceAuditSha256": "9bfd0b2109b1b0531e1fd38650d1e8d80001ca7dec57bdd40ec874414effb92e",
+  "fixtureReceiptSha256": "432415e4e39207611a87fe563f86da655e9bea7c17ffae517b5dc8a90907794c",
+  "recovery": {
+    "workflowId": "briefstamp-agent-recovery-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+    "runId": "01a14576-65e1-7e2a-915c-1871f3db7bf0",
+    "workerKilledWith": "SIGKILL",
+    "workerPidChanged": true,
+    "before": {
+      "status": "running",
+      "activities": {
+        "reserveEvidenceAllowance": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 1,
+          "retries": 0,
+          "scheduledEventIds": [
+            "5"
+          ],
+          "completedEventIds": [
+            "7"
+          ],
+          "lastFailures": []
+        },
+        "selectEvidenceTools": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 2,
+          "retries": 1,
+          "scheduledEventIds": [
+            "11"
+          ],
+          "completedEventIds": [
+            "13"
+          ],
+          "lastFailures": [
+            {
+              "message": "A bounded evidence attempt may be retried.",
+              "source": "TypeScriptSDK",
+              "stackTrace": "ApplicationFailure: A bounded evidence attempt may be retried.\n    at Function.create (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/common/src/failure.ts:228:12)\n    at translate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:170:32)\n    at operate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:293:14)\n    at async Activity.execute (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:145:14)\n    at async NativeConnection.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/connection.ts:219:12)\n    at async Client.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/client/src/base-client.ts:105:12)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:199:24)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/worker.ts:1252:24)",
+              "applicationFailureInfo": {
+                "type": "EvidenceTransientProviderError",
+                "details": {
+                  "payloads": [
+                    {
+                      "metadata": {
+                        "encoding": "anNvbi9wbGFpbg=="
+                      },
+                      "data": "eyJjb2RlIjoiaW5qZWN0ZWRfaHR0cF81MDAiLCJzY29wZSI6ImRlZGljYXRlZC10ZW1wb3JhbC1maXh0dXJlIn0="
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "retrieveTigerEvidence": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 1,
+          "retries": 0,
+          "scheduledEventIds": [
+            "17"
+          ],
+          "completedEventIds": [
+            "19"
+          ],
+          "lastFailures": []
+        }
+      },
+      "eventCount": 23,
+      "terminalEventId": null
+    },
+    "after": {
+      "status": "completed",
+      "activities": {
+        "reserveEvidenceAllowance": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 1,
+          "retries": 0,
+          "scheduledEventIds": [
+            "5"
+          ],
+          "completedEventIds": [
+            "7"
+          ],
+          "lastFailures": []
+        },
+        "selectEvidenceTools": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 2,
+          "retries": 1,
+          "scheduledEventIds": [
+            "11"
+          ],
+          "completedEventIds": [
+            "13"
+          ],
+          "lastFailures": [
+            {
+              "message": "A bounded evidence attempt may be retried.",
+              "source": "TypeScriptSDK",
+              "stackTrace": "ApplicationFailure: A bounded evidence attempt may be retried.\n    at Function.create (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/common/src/failure.ts:228:12)\n    at translate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:170:32)\n    at operate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:293:14)\n    at async Activity.execute (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:145:14)\n    at async NativeConnection.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/connection.ts:219:12)\n    at async Client.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/client/src/base-client.ts:105:12)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:199:24)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/worker.ts:1252:24)",
+              "applicationFailureInfo": {
+                "type": "EvidenceTransientProviderError",
+                "details": {
+                  "payloads": [
+                    {
+                      "metadata": {
+                        "encoding": "anNvbi9wbGFpbg=="
+                      },
+                      "data": "eyJjb2RlIjoiaW5qZWN0ZWRfaHR0cF81MDAiLCJzY29wZSI6ImRlZGljYXRlZC10ZW1wb3JhbC1maXh0dXJlIn0="
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "retrieveTigerEvidence": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 1,
+          "retries": 0,
+          "scheduledEventIds": [
+            "17"
+          ],
+          "completedEventIds": [
+            "19"
+          ],
+          "lastFailures": []
+        },
+        "searchEvidenceVisibility": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 2,
+          "retries": 1,
+          "scheduledEventIds": [
+            "31"
+          ],
+          "completedEventIds": [
+            "33"
+          ],
+          "lastFailures": [
+            {
+              "message": "A bounded evidence attempt may be retried.",
+              "source": "TypeScriptSDK",
+              "stackTrace": "ApplicationFailure: A bounded evidence attempt may be retried.\n    at Function.create (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/common/src/failure.ts:228:12)\n    at translate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:170:32)\n    at operate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:293:14)\n    at async Activity.execute (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:145:14)\n    at async NativeConnection.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/connection.ts:219:12)\n    at async Client.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/client/src/base-client.ts:105:12)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:199:24)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/worker.ts:1252:24)",
+              "applicationFailureInfo": {
+                "type": "EvidencePreDispatchTimeout",
+                "details": {
+                  "payloads": [
+                    {
+                      "metadata": {
+                        "encoding": "anNvbi9wbGFpbg=="
+                      },
+                      "data": "eyJjb2RlIjoiaW5qZWN0ZWRfcHJlX2Rpc3BhdGNoX3RpbWVvdXQiLCJzY29wZSI6ImRlZGljYXRlZC10ZW1wb3JhbC1maXh0dXJlIn0="
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "summarizeEvidence": {
+          "scheduled": 1,
+          "completed": 1,
+          "failed": 0,
+          "attempts": 1,
+          "retries": 0,
+          "scheduledEventIds": [
+            "37"
+          ],
+          "completedEventIds": [
+            "39"
+          ],
+          "lastFailures": []
+        }
+      },
+      "eventCount": 43,
+      "terminalEventId": "43"
+    },
+    "completedActivitiesReexecuted": 0,
+    "sourceAuditUnchanged": true,
+    "modelFindingsFromRetainedReceipt": true,
+    "logicalReservations": 1,
+    "dedicatedFixtureAttempts": {
+      "select": 2,
+      "tiger": 1,
+      "search": 2,
+      "summary": 1
+    }
+  },
+  "failures": {
+    "permanent": {
+      "workflowId": "briefstamp-agent-permanent-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "runId": "01a14576-a37c-74f0-9d9a-c47fa55a034e",
+      "stats": {
+        "status": "failed",
+        "activities": {
+          "reserveEvidenceAllowance": {
+            "scheduled": 1,
+            "completed": 1,
+            "failed": 0,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "5"
+            ],
+            "completedEventIds": [
+              "7"
+            ],
+            "lastFailures": []
+          },
+          "selectEvidenceTools": {
+            "scheduled": 1,
+            "completed": 0,
+            "failed": 1,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "11"
+            ],
+            "completedEventIds": [],
+            "lastFailures": []
+          }
+        },
+        "eventCount": 17,
+        "terminalEventId": "17"
+      },
+      "answerReturned": false
+    },
+    "validation": {
+      "workflowId": "briefstamp-agent-validation-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "runId": "01a14576-a3e3-7b7d-9597-9ad23753ea03",
+      "stats": {
+        "status": "failed",
+        "activities": {
+          "reserveEvidenceAllowance": {
+            "scheduled": 1,
+            "completed": 1,
+            "failed": 0,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "5"
+            ],
+            "completedEventIds": [
+              "7"
+            ],
+            "lastFailures": []
+          },
+          "selectEvidenceTools": {
+            "scheduled": 1,
+            "completed": 1,
+            "failed": 0,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "11"
+            ],
+            "completedEventIds": [
+              "13"
+            ],
+            "lastFailures": []
+          },
+          "retrieveTigerEvidence": {
+            "scheduled": 1,
+            "completed": 1,
+            "failed": 0,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "17"
+            ],
+            "completedEventIds": [
+              "19"
+            ],
+            "lastFailures": []
+          },
+          "searchEvidenceVisibility": {
+            "scheduled": 1,
+            "completed": 1,
+            "failed": 0,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "23"
+            ],
+            "completedEventIds": [
+              "25"
+            ],
+            "lastFailures": []
+          },
+          "summarizeEvidence": {
+            "scheduled": 1,
+            "completed": 0,
+            "failed": 1,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "29"
+            ],
+            "completedEventIds": [],
+            "lastFailures": []
+          }
+        },
+        "eventCount": 35,
+        "terminalEventId": "35"
+      },
+      "answerReturned": false
+    },
+    "exhausted": {
+      "workflowId": "briefstamp-agent-exhausted-0e3a7b27-c30a-4f8d-a721-5858cbd6d87c",
+      "runId": "01a14576-a4aa-73a6-a599-67f957b7a1fe",
+      "stats": {
+        "status": "failed",
+        "activities": {
+          "reserveEvidenceAllowance": {
+            "scheduled": 1,
+            "completed": 1,
+            "failed": 0,
+            "attempts": 1,
+            "retries": 0,
+            "scheduledEventIds": [
+              "5"
+            ],
+            "completedEventIds": [
+              "7"
+            ],
+            "lastFailures": []
+          },
+          "selectEvidenceTools": {
+            "scheduled": 1,
+            "completed": 0,
+            "failed": 1,
+            "attempts": 3,
+            "retries": 2,
+            "scheduledEventIds": [
+              "11"
+            ],
+            "completedEventIds": [],
+            "lastFailures": [
+              {
+                "message": "A bounded evidence attempt may be retried.",
+                "source": "TypeScriptSDK",
+                "stackTrace": "ApplicationFailure: A bounded evidence attempt may be retried.\n    at Function.create (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/common/src/failure.ts:228:12)\n    at translate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:170:32)\n    at operate (/home/runner/work/flowproof-web/flowproof-web/temporal/agent-activities.ts:293:14)\n    at async Activity.execute (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:145:14)\n    at async NativeConnection.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/connection.ts:219:12)\n    at async Client.withAbortSignal (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/client/src/base-client.ts:105:12)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/activity.ts:199:24)\n    at async <anonymous> (/home/runner/work/flowproof-web/flowproof-web/node_modules/@temporalio/worker/src/worker.ts:1252:24)",
+                "applicationFailureInfo": {
+                  "type": "EvidenceTransientProviderError",
+                  "details": {
+                    "payloads": [
+                      {
+                        "metadata": {
+                          "encoding": "anNvbi9wbGFpbg=="
+                        },
+                        "data": "eyJjb2RlIjoiaW5qZWN0ZWRfaHR0cF81MDAiLCJzY29wZSI6ImRlZGljYXRlZC10ZW1wb3JhbC1maXh0dXJlIn0="
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "eventCount": 17,
+        "terminalEventId": "17"
+      },
+      "answerReturned": false
+    }
+  },
+  "completedAt": "2026-10-16T16:06:08.870Z"
+}

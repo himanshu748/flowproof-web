@@ -1,8 +1,23 @@
-# Temporal audit recovery: verified local and hosted CI proof
+# Temporal recovery: full evidence agent and browser audit
 
 Temporal is an optional operator service. It is disabled by default and unavailable in the public synthetic demo. The integration accepts only a loopback Temporal address and creates no cloud resources or billable services.
 
 The workflow schedules the existing approved Playwright audit as an activity. Activity retries are bounded to three attempts and eight minutes total. Invalid plans and safety violations become nonretryable application failures. Actual failed or blocked browser observations remain failed or blocked; workflow completion never means every requirement passed.
+
+
+## Full evidence-agent recovery (October 16)
+
+The [real CI proof](evidence/temporal-agent/2026-10-16T16-05-48Z/README.md) wraps Gemma tool selection, Tiger retrieval, SerpApi search and Gemma summary in separate Temporal activities. [CI run 38929162466](https://github.com/himanshu748/flowproof-web/actions/runs/38929162466) passed with the official development server. A first-selection HTTP 500 retried once. After Tiger completed, the verifier killed the worker with SIGKILL; the new worker resumed the same workflow/run and retained all three pre-kill completion event IDs. Search recovered from an injected pre-dispatch timeout in two attempts. Permanent HTTP 400, invalid citations and three exhausted HTTP 500 attempts all ended FAILED without an answer.
+
+[Raw histories and receipt](evidence/temporal-agent/2026-10-16T16-05-48Z/) derive attempts from Temporal history, not logs. Each activity has exponential backoff (1 second, coefficient 2, maximum interval 4 seconds), at most three attempts and nonretryable safety/validation/4xx errors. Stable workflow-run/activity identities bind a single durable reservation and cached completed responses. The ledger refuses ambiguous in-flight completion instead of dispatching a duplicate. Existing browser acceptance results are validated immutable inputs to separate cited findings.
+
+The provider adapter in this proof **replays retained native responses**. It makes zero fresh model/search requests and uses no public judge reservations. The full agent recovery remains **CI/local only**; the public agent is not served by a persistent Temporal worker. Reproduce using a new output directory:
+
+```sh
+node --import tsx scripts/verify-temporal-agent.ts --cli work/temporal-cli/temporal --output work/temporal-agent-unique
+```
+
+The original browser-audit proof below is separate and remains unchanged.
 
 ## Recorded verification
 

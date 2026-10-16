@@ -58,7 +58,7 @@ Providers can fail: of four retained public attempts, one completed, two returne
 - **Tiger Data:** strict-TLS audit persistence, matching reads, lexical retrieval and a hosted fixed-query vector/history tool. The vector path uses precomputed MiniLM embeddings in PostgreSQL arrays. [Storage proof](docs/TIGER_VERIFICATION.md) · [Agent receipt](docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json).
 - **Sentry:** the new live Gemma proposal’s three spans were independently verified in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** one protected hosted write/search recovered all six audit facts. [Proof](docs/BACKBOARD_VERIFICATION.md).
-- **Temporal:** a hosted CI restart retained the same workflow/run and one browser execution. [Proof](docs/TEMPORAL.md).
+- **Temporal:** the full evidence-agent workflow recovered from injected failures and worker death in real CI; permanent errors failed honestly. Provider responses were retained fixtures; no public judge allowance was used. [Histories and receipt](docs/evidence/temporal-agent/2026-10-16T16-05-48Z/) · [Scope](docs/TEMPORAL.md).
 - **SerpApi and ElevenLabs:** agent-selected search in the public walkthrough and a protected, independently decoded synthetic report MP3. Listening remains unverified. [Proof and audio](docs/HOSTED_OPTIONAL.md).
 
 ## Run locally

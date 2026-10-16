@@ -1,0 +1,74 @@
+{
+  "source": "GitHub Actions artifact temporal-agent-histories",
+  "actionsRunUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38929162466",
+  "sourceCommit": "70cc00119a7a22ffaadb073cee8cfff8a4751411",
+  "redactions": [],
+  "scope": "Unmodified CI JSON containing synthetic audit and retained provider fixtures only; no SQLite, environment or worker/server log publication.",
+  "files": [
+    {
+      "path": "ci-manifest.json",
+      "sha256": "ed84923e25dc493db0896129451c198fae2d4d7af5cc349676e3cd7fc343e2cf",
+      "bytes": 2187
+    },
+    {
+      "path": "exhausted-failed-history.json",
+      "sha256": "3a5f2c21e3036e3767ee95d38f7815b9d6ceaf268b2e78d5550ef7653ca05e0d",
+      "bytes": 42948
+    },
+    {
+      "path": "exhausted-ledger.json",
+      "sha256": "02539fa96fa0a009dcd9c03bbb8c5122dc6deddf5d8c5def75a3f0935fe1ebca",
+      "bytes": 2712
+    },
+    {
+      "path": "faults.json",
+      "sha256": "f959db368ed14d7f521aa3ac692fc403778d16c1f10db89e771e155c02815edb",
+      "bytes": 363
+    },
+    {
+      "path": "permanent-failed-history.json",
+      "sha256": "a1b6a3f9647fd3091865913eabc9aaf97ada51b409207af307eb9b4a88cb11cd",
+      "bytes": 41274
+    },
+    {
+      "path": "permanent-ledger.json",
+      "sha256": "35b2ca0a0c3ebbc76d2232dff47570e574439ef671a6bc70f60a4297a13785b7",
+      "bytes": 2084
+    },
+    {
+      "path": "receipt.json",
+      "sha256": "87c314ac2f25e5940d947f48570ecc5ab58f21238110e2d967d776c4aaceb233",
+      "bytes": 15653
+    },
+    {
+      "path": "recovery-before-worker-kill.json",
+      "sha256": "61b47abd23b8c2e904a6fa4c7b86f54e94abbf2d058595727f16f291ba1f7072",
+      "bytes": 54984
+    },
+    {
+      "path": "recovery-completed-history.json",
+      "sha256": "d8d9d08fc4d3be48fe70614748a6a3400db93aa055fecef13599a190cf981084",
+      "bytes": 101302
+    },
+    {
+      "path": "recovery-ledger.json",
+      "sha256": "5ca27979665154205708c2b9ab66c22cea8309bf7d144f784aad74032db109e7",
+      "bytes": 15904
+    },
+    {
+      "path": "recovery-result.json",
+      "sha256": "3d92c9fbc2b4b2462c48c324936246a5d21da04df16f2f259c11f7a38923d83c",
+      "bytes": 9726
+    },
+    {
+      "path": "validation-failed-history.json",
+      "sha256": "2b91558fd36c9654bbd6a4a72950e37b30fa85d36173e56866fa8152199542a1",
+      "bytes": 84015
+    },
+    {
+      "path": "validation-ledger.json",
+      "sha256": "99ab5915d1c679eb79dc49af19616588ef83610aa993edb65c3a8a6636b99b39",
+      "bytes": 9650
+    }
+  ]
+}

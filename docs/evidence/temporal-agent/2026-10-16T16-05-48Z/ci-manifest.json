@@ -1,0 +1,67 @@
+{
+  "sourceCommit": "70cc00119a7a22ffaadb073cee8cfff8a4751411",
+  "actionsRunUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38929162466",
+  "files": [
+    {
+      "name": "exhausted-failed-history.json",
+      "bytes": 42948,
+      "sha256": "3a5f2c21e3036e3767ee95d38f7815b9d6ceaf268b2e78d5550ef7653ca05e0d"
+    },
+    {
+      "name": "exhausted-ledger.json",
+      "bytes": 2712,
+      "sha256": "02539fa96fa0a009dcd9c03bbb8c5122dc6deddf5d8c5def75a3f0935fe1ebca"
+    },
+    {
+      "name": "faults.json",
+      "bytes": 363,
+      "sha256": "f959db368ed14d7f521aa3ac692fc403778d16c1f10db89e771e155c02815edb"
+    },
+    {
+      "name": "permanent-failed-history.json",
+      "bytes": 41274,
+      "sha256": "a1b6a3f9647fd3091865913eabc9aaf97ada51b409207af307eb9b4a88cb11cd"
+    },
+    {
+      "name": "permanent-ledger.json",
+      "bytes": 2084,
+      "sha256": "35b2ca0a0c3ebbc76d2232dff47570e574439ef671a6bc70f60a4297a13785b7"
+    },
+    {
+      "name": "receipt.json",
+      "bytes": 15653,
+      "sha256": "87c314ac2f25e5940d947f48570ecc5ab58f21238110e2d967d776c4aaceb233"
+    },
+    {
+      "name": "recovery-before-worker-kill.json",
+      "bytes": 54984,
+      "sha256": "61b47abd23b8c2e904a6fa4c7b86f54e94abbf2d058595727f16f291ba1f7072"
+    },
+    {
+      "name": "recovery-completed-history.json",
+      "bytes": 101302,
+      "sha256": "d8d9d08fc4d3be48fe70614748a6a3400db93aa055fecef13599a190cf981084"
+    },
+    {
+      "name": "recovery-ledger.json",
+      "bytes": 15904,
+      "sha256": "5ca27979665154205708c2b9ab66c22cea8309bf7d144f784aad74032db109e7"
+    },
+    {
+      "name": "recovery-result.json",
+      "bytes": 9726,
+      "sha256": "3d92c9fbc2b4b2462c48c324936246a5d21da04df16f2f259c11f7a38923d83c"
+    },
+    {
+      "name": "validation-failed-history.json",
+      "bytes": 84015,
+      "sha256": "2b91558fd36c9654bbd6a4a72950e37b30fa85d36173e56866fa8152199542a1"
+    },
+    {
+      "name": "validation-ledger.json",
+      "bytes": 9650,
+      "sha256": "99ab5915d1c679eb79dc49af19616588ef83610aa993edb65c3a8a6636b99b39"
+    }
+  ],
+  "scope": "CI/local retained-provider fixtures; no fresh model/search calls or public judge reservations"
+}
