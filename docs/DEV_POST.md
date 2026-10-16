@@ -1,7 +1,5 @@
 # Briefstamp: proof at the website handoff
 
-**Draft for author review. Not published.**
-
 Prepared for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 
 ## What I Built

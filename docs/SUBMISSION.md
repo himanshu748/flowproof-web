@@ -1,6 +1,6 @@
 # Briefstamp: proof at the website handoff
 
-**Draft for author review. Not published.**
+Concise summary of the [published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1).
 
 Prepared for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 

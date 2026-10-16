@@ -10,7 +10,7 @@ Formerly FlowProof; existing repository and demo URLs are retained.
 
 *Recorded template workflow; actual browser results. [Comparison screenshot](docs/evidence/acceptance-comparison.jpg).*
 
-[Try the live demo](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://youtu.be/xve020VJl0s) · [Three-minute judge guide](docs/JUDGE_GUIDE.md)
+[Try the live demo](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://youtu.be/xve020VJl0s) · [Three-minute judge guide](docs/JUDGE_GUIDE.md) · [DEV entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1)
 
 [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Video provenance and captions](docs/demo/README.md).
 
@@ -74,4 +74,4 @@ Open http://127.0.0.1:5173. The default sample needs no paid account. [Configura
 
 ## AI disclosure
 
-AI coding assistance helped build Briefstamp. Model proposals require approval; deterministic browser execution supplies the results. Retained test approvals came from a verification harness, not a customer. The submission remains a draft for the author to review and publish.
+AI coding assistance helped build Briefstamp. Model proposals require approval; deterministic browser execution supplies the results. Retained test approvals came from a verification harness, not a customer. The [Week 2 entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1) was published October 16 with AI-assisted disclosure. [Publication receipt](docs/evidence/submission/2026-10-16/publication.json).

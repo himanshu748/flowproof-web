@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-16T10:40:08.780Z",
+  "url": "https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1",
+  "articleId": 4861350,
+  "title": "Briefstamp: proof at the website handoff",
+  "publishedAt": "2026-10-16T10:38:36Z",
+  "publishedAtIst": "16 October 2026 at 4:08:36 pm IST",
+  "anonymousPublicApiStatus": 200,
+  "anonymousPublicPageStatus": 200,
+  "tags": [
+    "devchallenge",
+    "hf26challenge"
+  ],
+  "aiDisclosure": "some_ai",
+  "bodySha256": "69e67f6bf5bf8a3967fb29ee33d82091872b69893eae51adee1b939debff3474",
+  "pageSha256": "1cd6a5b88b0c345812ffe5719efc99500ed43c44d91edbc0992bd27f4b2923fd",
+  "draftNoticeAbsent": true,
+  "nineProposedEntries": true,
+  "tigerCategoryEvidence": "partial; no agent-consuming-hybrid-results claim",
+  "serpApiCategoryEntry": "withheld",
+  "method": "User-authorized publication through the specific authenticated in-app editor; independent public GETs without credentials verified visibility.",
+  "providerCalls": 0,
+  "hostingChanges": 0,
+  "publishedBodyMatchesApprovedRevision": true,
+  "sourceBeforePublication": "4666ebf94cd4efc6dfd5fbf7cb725889566aaa3d",
+  "screenshot": "published-page.png",
+  "screenshotSha256": "b961fe5f0111e352358bc430654d5acc98aa817b55ec813053a715bc91becd6b"
+}
