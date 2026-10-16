@@ -1,0 +1,15 @@
+{
+  "approvalActor": "Automated verifier under the owner instruction to run 1 controlled check(s); not customer approval",
+  "approvedAt": "2026-10-16T16:56:30.598Z",
+  "checks": [
+    {
+      "id": "3c6bbde8-2776-45f3-a580-67c3a58cde2c",
+      "kind": "search_presence",
+      "targetUrl": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+      "expectedText": "langchain-rag-tutorial-2026",
+      "matchField": "title",
+      "authorized": true,
+      "approved": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "40aeea28-91e2-4393-87da-e309a5e5741e",
+    "kind": "search_presence",
+    "targetUrl": "https://github.com/himanshu748",
+    "expectedText": "himanshu748",
+    "matchField": "title",
+    "authorized": true,
+    "approved": false
+  },
+  {
+    "id": "0af4a530-b453-42d1-933c-65aaf9708d3f",
+    "kind": "search_presence",
+    "targetUrl": "https://flowproof-demo.onrender.com/",
+    "expectedText": "Briefstamp",
+    "matchField": "title",
+    "authorized": true,
+    "approved": false
+  }
+]

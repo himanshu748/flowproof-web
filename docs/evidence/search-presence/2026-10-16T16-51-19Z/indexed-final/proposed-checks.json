@@ -1,0 +1,11 @@
+[
+  {
+    "id": "bfded751-02c4-4852-b16e-aab24bcb7e2c",
+    "kind": "search_presence",
+    "targetUrl": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+    "expectedText": "langchain-rag-tutorial-2026",
+    "matchField": "title",
+    "authorized": true,
+    "approved": false
+  }
+]

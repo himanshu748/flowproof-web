@@ -1,0 +1,114 @@
+{
+  "search_metadata": {
+    "id": "6ad25c9b32a8e3e96ed569f7",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/i-Bua_2P1vobfuRMyvcj-gml8KDyOzeLHHPQFq7Nh90/6ad25c9b32a8e3e96ed569f7.json",
+    "markdown_endpoint": "https://serpapi.com/searches/i-Bua_2P1vobfuRMyvcj-gml8KDyOzeLHHPQFq7Nh90/6ad25c9b32a8e3e96ed569f7.md",
+    "pixel_position_endpoint": "https://serpapi.com/searches/i-Bua_2P1vobfuRMyvcj-gml8KDyOzeLHHPQFq7Nh90/6ad25c9b32a8e3e96ed569f7.json_with_pixel_position",
+    "created_at": "2026-10-16 17:19:23 UTC",
+    "processed_at": "2026-10-16 17:19:23 UTC",
+    "google_url": "https://www.google.com/search?q=site%3Agithub.com%2Fhimanshu748%2Flangchain-rag-tutorial-2026&oq=site%3Agithub.com%2Fhimanshu748%2Flangchain-rag-tutorial-2026&hl=en&safe=active&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/i-Bua_2P1vobfuRMyvcj-gml8KDyOzeLHHPQFq7Nh90/6ad25c9b32a8e3e96ed569f7.html",
+    "total_time_taken": 42.54
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "site:github.com/himanshu748/langchain-rag-tutorial-2026",
+    "google_domain": "google.com",
+    "hl": "en",
+    "safe": "active",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "site:github.com/himanshu748/langchain-rag-tutorial-2026",
+    "total_results": 3,
+    "time_taken_displayed": 0.25,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "himanshu748/langchain-rag-tutorial-2026: Hands-on ...",
+      "link": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESdQHrOzAV15Gj6-GFoPdh762xH3vALqvASRY_dRXrX397iFD7ORjsVGvcnxZIljZrEqDKln5hhQlMSVQaka9gINvOF9BrgTXRSvtESkWqq-UxsLSuN6PfAeUsOjB3ryeaEI5Ha1lRWHgOdCzGUEu7JoCL2KKm_Q&ved=2ahUKEwjpwt-Ahr-XAxWgliYFHQPzCCMQFnoECBsQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › langchain-rag-tutori...",
+      "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX____4-Pi3ubtvcnZNUVU-Q0cpLjLr6-x3en0sMTYkKS59gIORk5aUl5n8_Pzw8PFTV1tbX2Pc3d5DSEzn5-g3PECLjpFKTlKFh4qxs7XCxMUuMze_wcLh4uPV1tZzd3o_Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA-KkidVAa_WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV_eC2H3e0C7lk1aBEzd-7SpigJOZVoXx-J5UxzADil-8-KZYoRaK5y2WZxSdgm0j-dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y-EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII.png",
+      "snippet": "Hands-on LangChain RAG tutorial with a practical retrieval workflow and FastAPI boundaries. agents, Chroma, OpenAI embeddings, and optional conversation memory.",
+      "snippet_highlighted_words": [
+        "Hands-on LangChain RAG tutorial"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Hands-on LangChain RAG tutorial with a practical retrieval workflow and FastAPI boundaries. agents, Chroma, OpenAI embeddings, and optional conversation memory.",
+          "source_info_link": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+          "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX____4-Pi3ubtvcnZNUVU-Q0cpLjLr6-x3en0sMTYkKS59gIORk5aUl5n8_Pzw8PFTV1tbX2Pc3d5DSEzn5-g3PECLjpFKTlKFh4qxs7XCxMUuMze_wcLh4uPV1tZzd3o_Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA-KkidVAa_WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV_eC2H3e0C7lk1aBEzd-7SpigJOZVoXx-J5UxzADil-8-KZYoRaK5y2WZxSdgm0j-dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y-EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CqwBL2dvdG8_dXJsPUNBRVNkUUhyT3pBVnA1WTNDdWtseDFXSjhTOTcxTXNwQ1lFSDZLUVhXM0N6b05qTllxaHNYOGV5akhsaTI5S2FjcUlVU3N3czZ3czJ6WTF3bWVveWlRSmE2R0gwT01faFotaUxqM3FXeTFLTVgxazNZUml0bl96WUNOSjdSTEU3TFZITWVsWUI0SzVOcmlhbUxBYVg1QnN0b0lRcklKRVVWdxIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSAFYAGgA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CqwBL2dvdG8_dXJsPUNBRVNkUUhyT3pBVnA1WTNDdWtseDFXSjhTOTcxTXNwQ1lFSDZLUVhXM0N6b05qTllxaHNYOGV5akhsaTI5S2FjcUlVU3N3czZ3czJ6WTF3bWVveWlRSmE2R0gwT01faFotaUxqM3FXeTFLTVgxazNZUml0bl96WUNOSjdSTEU3TFZITWVsWUI0SzVOcmlhbUxBYVg1QnN0b0lRcklKRVVWdxIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSAFYAGgA",
+      "source": "GitHub"
+    },
+    {
+      "position": 2,
+      "title": "Actions · himanshu748/langchain-rag-tutorial-2026",
+      "link": "https://github.com/himanshu748/langchain-rag-tutorial-2026/actions",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfQHrOzAVAg4Lm0tCEv42pvcJKnqx6B5h6b1X1xGhOajcK9oI_0b-w8oyiRX41iRUHJpzRnWI20WVD2t8b5lEOxvPCc2aS8xZRZ0ysFCQFLui4iNlU5x-1S-zUavD0CRGRHBV_RwO3kT6eTXan7dadCsuahG6hsMgr1uhSe1g&ved=2ahUKEwjpwt-Ahr-XAxWgliYFHQPzCCMQFnoECBwQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › actions",
+      "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX____4-Pi3ubtvcnZNUVU-Q0cpLjLr6-x3en0sMTYkKS59gIORk5aUl5n8_Pzw8PFTV1tbX2Pc3d5DSEzn5-g3PECLjpFKTlKFh4qxs7XCxMUuMze_wcLh4uPV1tZzd3o_Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA-KkidVAa_WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV_eC2H3e0C7lk1aBEzd-7SpigJOZVoXx-J5UxzADil-8-KZYoRaK5y2WZxSdgm0j-dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y-EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII.png",
+      "snippet": "Automate your workflow from idea to production. GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD.",
+      "snippet_highlighted_words": [
+        "Automate your workflow from idea to production"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Automate your workflow from idea to production. GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD.",
+          "source_info_link": "https://github.com/himanshu748/langchain-rag-tutorial-2026/actions",
+          "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX____4-Pi3ubtvcnZNUVU-Q0cpLjLr6-x3en0sMTYkKS59gIORk5aUl5n8_Pzw8PFTV1tbX2Pc3d5DSEzn5-g3PECLjpFKTlKFh4qxs7XCxMUuMze_wcLh4uPV1tZzd3o_Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA-KkidVAa_WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV_eC2H3e0C7lk1aBEzd-7SpigJOZVoXx-J5UxzADil-8-KZYoRaK5y2WZxSdgm0j-dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y-EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CrYBL2dvdG8_dXJsPUNBRVNmUUhyT3pBVjNDaHljZ1ZLcXdqVlR0czcyN0ctbG1aZlBGN2FEanJJTFE4YWdBazlqdG85cmZwcHl6MEtLRkJlRHVuSmNUSkxsc0dBRnR3QjlXdkFEV2pESXE1Y0Z5bkVvN3V6N2hnNnN1Yk5PSHI2S2xldl9VUURGYW9TbVJ6YnFjRkFMeERkdXpJZHVSRm1fUmRERWd0dGpiM0I1Y0pwMklZQ1VRVk8SBBoCCAAaIBIAGgAiACoAMgYIAxICdXM6AEIECAEQAEoAWgByAHoAIgIQAUgBWABoAA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CrYBL2dvdG8_dXJsPUNBRVNmUUhyT3pBVjNDaHljZ1ZLcXdqVlR0czcyN0ctbG1aZlBGN2FEanJJTFE4YWdBazlqdG85cmZwcHl6MEtLRkJlRHVuSmNUSkxsc0dBRnR3QjlXdkFEV2pESXE1Y0Z5bkVvN3V6N2hnNnN1Yk5PSHI2S2xldl9VUURGYW9TbVJ6YnFjRkFMeERkdXpJZHVSRm1fUmRERWd0dGpiM0I1Y0pwMklZQ1VRVk8SBBoCCAAaIBIAGgAiACoAMgYIAxICdXM6AEIECAEQAEoAWgByAHoAIgIQAUgBWABoAA",
+      "source": "GitHub"
+    },
+    {
+      "position": 3,
+      "title": "Releases · himanshu748/langchain-rag-tutorial-2026",
+      "link": "https://github.com/himanshu748/langchain-rag-tutorial-2026/releases",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfgHrOzAVgng2M5A_xDMZ3HOwE60Xv3UzEbQy86qG4BPj5PdhnDciCuL2irzd5pRGPFeEP9z1NvFS3lMKEJq9t_0Yk8nXcR6ya-mi2EX-h7tevZBp19UeEZAn-jlXAbY6kXu75lej0AP38KzeA9dTpr_FO97NUEeBZO_6Rs1Irg&ved=2ahUKEwjpwt-Ahr-XAxWgliYFHQPzCCMQFnoECCEQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › releases",
+      "favicon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX____4-Pi3ubtvcnZNUVU-Q0cpLjLr6-x3en0sMTYkKS59gIORk5aUl5n8_Pzw8PFTV1tbX2Pc3d5DSEzn5-g3PECLjpFKTlKFh4qxs7XCxMUuMze_wcLh4uPV1tZzd3o_Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA-KkidVAa_WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV_eC2H3e0C7lk1aBEzd-7SpigJOZVoXx-J5UxzADil-8-KZYoRaK5y2WZxSdgm0j-dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y-EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII.png",
+      "snippet": "You can create a release to package software, along with release notes and links to binary files, for other people to use. Learn more about releases in our docs ...",
+      "snippet_highlighted_words": [
+        "create a release to package software"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "You can create a release to package software, along with release notes and links to binary files, for other people to use. Learn more about releases in our docs ...",
+          "source_info_link": "https://github.com/himanshu748/langchain-rag-tutorial-2026/releases",
+          "icon": "https://serpapi.com/images/i/iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX____4-Pi3ubtvcnZNUVU-Q0cpLjLr6-x3en0sMTYkKS59gIORk5aUl5n8_Pzw8PFTV1tbX2Pc3d5DSEzn5-g3PECLjpFKTlKFh4qxs7XCxMUuMze_wcLh4uPV1tZzd3o_Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA-KkidVAa_WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV_eC2H3e0C7lk1aBEzd-7SpigJOZVoXx-J5UxzADil-8-KZYoRaK5y2WZxSdgm0j-dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y-EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII.png"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CrgBL2dvdG8_dXJsPUNBRVNmZ0hyT3pBVlRfQXRmVnc3RWlVdnNaaVl3MmJ1cFN1TUNGY0d5anJyblU4MjNFNTFZSlg3U1MxNThYbWZSVlNKckpDaVVKd0NrcS1EblNWRklBWDRqUlRKLVVhS2RxTTlVOXVnTEN1Mm1mUzdVWmJtNmhFd3JibkRHV2tiTWFXeDF2SlpiM3JaSWlPeEFvZk5IWVRGWGxTTi0wY3BiN0JYOFBnN2Y3dTFLQRIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSAFYAGgA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CrgBL2dvdG8_dXJsPUNBRVNmZ0hyT3pBVlRfQXRmVnc3RWlVdnNaaVl3MmJ1cFN1TUNGY0d5anJyblU4MjNFNTFZSlg3U1MxNThYbWZSVlNKckpDaVVKd0NrcS1EblNWRklBWDRqUlRKLVVhS2RxTTlVOXVnTEN1Mm1mUzdVWmJtNmhFd3JibkRHV2tiTWFXeDF2SlpiM3JaSWlPeEFvZk5IWVRGWGxTTi0wY3BiN0JYOFBnN2Y3dTFLQRIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSAFYAGgA",
+      "source": "GitHub"
+    }
+  ]
+}

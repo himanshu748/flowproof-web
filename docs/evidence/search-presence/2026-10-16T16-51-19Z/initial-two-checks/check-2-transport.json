@@ -1,0 +1,11 @@
+{
+  "request": "https://serpapi.com/search.json?engine=google&q=site%3Aflowproof-demo.onrender.com&api_key=%5Bredacted%5D&hl=en&safe=active&num=10",
+  "startedAt": "2026-10-16T16:51:32.193Z",
+  "physicalRequests": 1,
+  "status": 200,
+  "durationMs": 1311,
+  "originalBodySha256": "000fc9f579fa57c763be1e0e588eed4e970e79d5cae13f195a4fe74fcbb3ca60",
+  "redactions": [
+    "API key field and any exact key occurrence"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "kind": "search_presence_observation",
+  "checkId": "0af4a530-b453-42d1-933c-65aaf9708d3f",
+  "provider": "SerpApi",
+  "engine": "google",
+  "targetUrl": "https://flowproof-demo.onrender.com/",
+  "expectedText": "Briefstamp",
+  "matchField": "title",
+  "query": "site:flowproof-demo.onrender.com",
+  "status": "empty",
+  "observedAt": "2026-10-16T16:51:33.504Z",
+  "organicResultCount": 0,
+  "scopedResultCount": 0,
+  "citations": [],
+  "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+}

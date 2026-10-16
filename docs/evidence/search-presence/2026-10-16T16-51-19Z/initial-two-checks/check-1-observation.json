@@ -1,0 +1,16 @@
+{
+  "kind": "search_presence_observation",
+  "checkId": "40aeea28-91e2-4393-87da-e309a5e5741e",
+  "provider": "SerpApi",
+  "engine": "google",
+  "targetUrl": "https://github.com/himanshu748",
+  "expectedText": "himanshu748",
+  "matchField": "title",
+  "query": "site:github.com/himanshu748",
+  "status": "no_match",
+  "observedAt": "2026-10-16T16:51:32.189Z",
+  "organicResultCount": 9,
+  "scopedResultCount": 0,
+  "citations": [],
+  "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+}

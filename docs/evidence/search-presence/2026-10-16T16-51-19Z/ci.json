@@ -1,0 +1,15 @@
+{
+  "id": 38938946701,
+  "html_url": "https://github.com/himanshu748/flowproof-web/actions/runs/38938946701",
+  "head_sha": "fb27d9c0a5a06e375f5a37df375dd825ff37f988",
+  "status": "completed",
+  "conclusion": "success",
+  "created_at": "2026-10-16T17:20:44Z",
+  "updated_at": "2026-10-16T17:23:14Z",
+  "applicationTests": 1050,
+  "pythonTests": 19,
+  "build": "passed",
+  "runtime": "passed",
+  "chromium": "passed",
+  "countSource": "work/search-presence-ci.log from source 3fa2246721a21fd5d61235f68ff783ef2629f524; final commit only changes verifier gate, not tests"
+}

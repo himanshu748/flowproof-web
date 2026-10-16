@@ -1,0 +1,7 @@
+{
+  "reservedAt": "2026-10-16T17:23:51.200Z",
+  "maximumRequests": 1,
+  "approvedPlanSha256": "d679c35f8f21cbfd022924ca04ffd3cbf76fb84b21cad74413fb47ef0a542ea3",
+  "sourceCommit": "fb27d9c0a5a06e375f5a37df375dd825ff37f988",
+  "neverRefund": true
+}

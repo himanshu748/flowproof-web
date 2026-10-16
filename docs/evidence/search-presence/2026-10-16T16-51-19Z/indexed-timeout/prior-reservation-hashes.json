@@ -1,0 +1,118 @@
+[
+  {
+    "path": "work/serpapi-one-search-allowance.json",
+    "sha256": "6c405b26c1771cf11eccb9f078376d328e9a53e09e989f98d163a204c7844827"
+  },
+  {
+    "path": "work/agent-funding/failed-repair-spent.json",
+    "sha256": "c29e94a25106b0219e22c47fb19a0c9324c21b2c219a06f824033d862e3a670b"
+  },
+  {
+    "path": "work/agent-funding/failed-tranche-spent.json",
+    "sha256": "329ae4f9c474009dfb781f593a3d6ddf528921c863717395d4f38745cb560ed3"
+  },
+  {
+    "path": "work/agent-funding/partial-resilient-spent.json",
+    "sha256": "47c256edbdd880541a5d2df2865c437d098b1a332a20341441c067397d5eb3f8"
+  },
+  {
+    "path": "work/agent-funding/search-repair-spent.json",
+    "sha256": "9282d29e884adbfb53fe7e7f0039f810bfee92a1a950df58edccbdc33a389697"
+  },
+  {
+    "path": "work/judge-100/active-render.private.json",
+    "sha256": "7def4501dee10001786284e3ebf127bd9ce99dc4b452238b92462e2cd4a9ebf3"
+  },
+  {
+    "path": "work/evidence-agent-61e24605-3562-48c6-9ae3-417fca5fa473.reservation.json",
+    "sha256": "d5f1b5ef47a2f5303e704381fd5fccc9e2d776c2435063db2a60c95a66d71f78"
+  },
+  {
+    "path": "work/evidence-agent-73a35ac4-ca43-4b51-bb46-e4f6116d95e8.reservation.json",
+    "sha256": "4b7aff3cee16fdba2450a96eb65e502b674cb4a1f9dc50425c832fedae0117b4"
+  },
+  {
+    "path": "work/evidence-agent-aa271756-5f19-4c7d-be67-b98d842e372e.reservation.json",
+    "sha256": "8798f984483e62cb5562d006ed72bafcdd401f51e3ddd3452477ff2a67eeb36f"
+  },
+  {
+    "path": "work/evidence-agent-d0f5d611-121d-492a-8433-6ac47ddd80ec.json-guard-recovery.reservation.json",
+    "sha256": "8870795a8ac21ad506ebea0fd15cef7cd472b416e1235c23cc21b2113836b842"
+  },
+  {
+    "path": "work/evidence-agent-d0f5d611-121d-492a-8433-6ac47ddd80ec.preflight-recovery.reservation.json",
+    "sha256": "9fcc5eea332acc23522f34914e7827460dd996a656559a70d7a3c162fbf693af"
+  },
+  {
+    "path": "work/evidence-agent-d0f5d611-121d-492a-8433-6ac47ddd80ec.reservation.json",
+    "sha256": "e385cc36482e7a7be036f6fddc57100cd2658c8c68bce1377bf9c2996cf39922"
+  },
+  {
+    "path": "work/search-presence-20261016/allowance.private.json",
+    "sha256": "436be9576700efe3cce9c6e180be58129c22f08afa5333f4a9c0ba0a3e73dcd7"
+  },
+  {
+    "path": "work/search-presence-20261016/approved-checks.json",
+    "sha256": "35d14ffa95969ebbd353b68b9212003439e8ea4659631785f99312fad007a29d"
+  },
+  {
+    "path": "work/search-presence-20261016/check-1-attempt.json",
+    "sha256": "6255ae22db69ca1a8316cf91c32411a0bfe21ddc8b32b2d260766902be7e416e"
+  },
+  {
+    "path": "work/search-presence-20261016/check-1-observation.json",
+    "sha256": "6a7603770cf89062c4f712181ec3cb8acdb3174241aaea09abd7d717b54d269a"
+  },
+  {
+    "path": "work/search-presence-20261016/check-1-reservation.json",
+    "sha256": "99a9af22eee81fa6a94ac47ac58e12196c63b902c4b3af7067dbba41b6f2080d"
+  },
+  {
+    "path": "work/search-presence-20261016/check-1-response.json",
+    "sha256": "655761bd6be6b3e2cf45e54292bd85e5eac0d1701711fe970ea57f33e508acdd"
+  },
+  {
+    "path": "work/search-presence-20261016/check-1-transport.json",
+    "sha256": "6a7b3090af636dfb69ff80f80ecf9e37fb9c10d5ea6d3a55898d5a996b461fb2"
+  },
+  {
+    "path": "work/search-presence-20261016/check-2-attempt.json",
+    "sha256": "10176d6f7bc8f09bf07f40418d29bbbf5a7686f456bc43e7a6255bb47fbf4030"
+  },
+  {
+    "path": "work/search-presence-20261016/check-2-observation.json",
+    "sha256": "4aad42c0b10933b5b1e3d2c3fced9cb9bafdd475039ce4e921d71c8d9e3aef15"
+  },
+  {
+    "path": "work/search-presence-20261016/check-2-reservation.json",
+    "sha256": "4754a5aa07bdfef6e2fea46b06feed3741177d8781b7a644aff978e6a50c4474"
+  },
+  {
+    "path": "work/search-presence-20261016/check-2-response.json",
+    "sha256": "6dec9286911e73feb61c5db3d6927a80d5f5e3bcd814fcfccd709c3d3f399082"
+  },
+  {
+    "path": "work/search-presence-20261016/check-2-transport.json",
+    "sha256": "ecff9bbf286dc4296257d3abfbefa221637efe5af8e41f28fd945117109406fb"
+  },
+  {
+    "path": "work/search-presence-20261016/funding.json",
+    "sha256": "c402a74f7d559ab4b8da15e9cd027c0574e8bda43df910e107684171538bcc91"
+  },
+  {
+    "path": "work/search-presence-20261016/prior-reservation-hashes.json",
+    "sha256": "7f55049e9be742ab0b16fd8e0c74a4017e672fe4c085eecafdb65530ce229592"
+  },
+  {
+    "path": "work/search-presence-20261016/proposed-checks.json",
+    "sha256": "2348bc799e880d1dceb7bbda975826ed33c37f7b760aad559a976987bb1874b7"
+  },
+  {
+    "path": "work/search-presence-20261016/receipt.json",
+    "sha256": "d2871d1750f0e4e0fbaa73833250784efe48734ba0d16e549adc7f10c18bf6c2"
+  },
+  {
+    "path": "work/search-presence-20261016/run-reservation.json",
+    "sha256": "79b6561ea3dee4d66a3218fef5570d3fa5370802a0cbbab4de1ec9410fc40479"
+  }
+]

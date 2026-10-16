@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-16T16:36:30.478Z",
+  "expiresAt": "2026-10-17T16:36:30.478Z",
+  "evidence": "Owner-authorized two search_presence checks; authenticated Free Plan funding receipt 2026-10-16T16:36:30Z; all earlier reservations retained",
+  "unit": "requests",
+  "operations": [
+    "search-visibility"
+  ],
+  "maxUnits": 2,
+  "usedUnits": 2,
+  "maxCalls": 2,
+  "usedCalls": 2,
+  "freeOnly": true,
+  "paidOverageDisabled": true,
+  "confirmedFreeUnits": 214
+}

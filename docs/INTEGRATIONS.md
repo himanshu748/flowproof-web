@@ -1,5 +1,7 @@
 # Integration evidence ledger
 
+**Approved search-presence controls, October 16 at 17:24 UTC:** [Real responses and all attempts](evidence/search-presence/2026-10-16T16-51-19Z/) show an exact owned-repository title match (three organic results, one scoped hit) and an earlier zero-result demo search. The initial exact-profile mismatch and subsequent 30-second timeout remain retained. This local protected checker uses separate, fully spent allowances; it does not replace the public agent’s fixed-homepage search or alter browser acceptance. No judge slot was consumed.
+
 This file distinguishes local execution, provider calls, hosted application verification and submission evidence. **All integrations are not complete.** Current application source `b0ce3cd10c5394086b335d06a8819260aee38582` is [deployed on the existing Free Render service](evidence/judge-agent/2026-10-16T14-14-32Z/verification.json), with [1,000 app/19 Python tests, build and real Chromium checks passed](evidence/judge-agent/2026-10-16T14-14-32Z/ci.json). The public `#agent` path is implemented. Its [four actual attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) retain one complete tokenless HTTP run and three browser failure/partial outcomes. The native loop remains separate from Mastra proposal generation.
 
 

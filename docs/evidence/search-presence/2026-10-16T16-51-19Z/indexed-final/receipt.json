@@ -1,0 +1,82 @@
+{
+  "startedAt": "2026-10-16T17:23:51.218Z",
+  "status": "verified",
+  "sourceCommit": "fb27d9c0a5a06e375f5a37df375dd825ff37f988",
+  "scope": "Real SerpApi Google title presence checks from the local protected verifier, not new Chromium acceptance or a public agent run",
+  "approvalActor": "Automated verifier under the owner instruction to run 1 controlled check(s); not customer approval",
+  "maximumRequests": 1,
+  "automaticRetries": 0,
+  "publicJudgeReservationsConsumed": 0,
+  "observations": [
+    {
+      "kind": "search_presence_observation",
+      "checkId": "bfded751-02c4-4852-b16e-aab24bcb7e2c",
+      "provider": "SerpApi",
+      "engine": "google",
+      "targetUrl": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+      "expectedText": "langchain-rag-tutorial-2026",
+      "matchField": "title",
+      "query": "site:github.com/himanshu748/langchain-rag-tutorial-2026",
+      "status": "matched",
+      "observedAt": "2026-10-16T17:23:55.326Z",
+      "organicResultCount": 3,
+      "scopedResultCount": 1,
+      "citations": [
+        {
+          "title": "himanshu748/langchain-rag-tutorial-2026: Hands-on ...",
+          "snippet": "Hands-on LangChain RAG tutorial with a practical retrieval workflow and FastAPI boundaries. agents, Chroma, OpenAI embeddings, and optional conversation memory.",
+          "link": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+          "position": 1,
+          "matchesExpectedText": true
+        }
+      ],
+      "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+    }
+  ],
+  "parentReceipt": "work/search-presence-20261016/receipt.json",
+  "parentReceiptSha256": "d2871d1750f0e4e0fbaa73833250784efe48734ba0d16e549adc7f10c18bf6c2",
+  "repairScope": "One additive search for an exact owner-controlled repository discovered in the retained first response; not an independent benchmark",
+  "finalControl": true,
+  "previousTimeoutRetained": "work/search-presence-indexed-repair-20261016/receipt.json",
+  "retainedDemoEmpty": {
+    "kind": "search_presence_observation",
+    "checkId": "0af4a530-b453-42d1-933c-65aaf9708d3f",
+    "provider": "SerpApi",
+    "engine": "google",
+    "targetUrl": "https://flowproof-demo.onrender.com/",
+    "expectedText": "Briefstamp",
+    "matchField": "title",
+    "query": "site:flowproof-demo.onrender.com",
+    "status": "empty",
+    "observedAt": "2026-10-16T16:51:33.504Z",
+    "organicResultCount": 0,
+    "scopedResultCount": 0,
+    "citations": [],
+    "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+  },
+  "noNewEmptySearch": true,
+  "ciUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38938946701",
+  "preAccount": {
+    "checkedAt": "2026-10-16T17:23:51.724Z",
+    "plan": "Free Plan",
+    "monthlyPrice": 0,
+    "extraCredits": 0,
+    "remainingSearches": 211
+  },
+  "judgeSpentBefore": 4,
+  "judgeSpentAfter": 4,
+  "earlierReservationFilesUnchanged": 40,
+  "dedicatedCallsReserved": 1,
+  "postAccount": {
+    "checkedAt": "2026-10-16T17:23:59.105Z",
+    "plan": "Free Plan",
+    "monthlyPrice": 0,
+    "extraCredits": 0,
+    "remainingSearches": 211
+  },
+  "controls": {
+    "indexedTitleMatched": true,
+    "demoReturnedEmpty": true
+  },
+  "completedAt": "2026-10-16T17:23:59.105Z"
+}

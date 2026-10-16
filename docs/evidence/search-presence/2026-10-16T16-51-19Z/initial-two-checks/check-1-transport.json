@@ -1,0 +1,11 @@
+{
+  "request": "https://serpapi.com/search.json?engine=google&q=site%3Agithub.com%2Fhimanshu748&api_key=%5Bredacted%5D&hl=en&safe=active&num=10",
+  "startedAt": "2026-10-16T16:51:24.139Z",
+  "physicalRequests": 1,
+  "status": 200,
+  "durationMs": 8047,
+  "originalBodySha256": "931611b3d7276fea39bdb3428ee6ba376ec56f46d71e9e315321cf7586752fdc",
+  "redactions": [
+    "API key field and any exact key occurrence"
+  ]
+}

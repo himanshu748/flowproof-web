@@ -1,0 +1,8 @@
+{
+  "request": "https://serpapi.com/search.json?engine=google&q=site%3Agithub.com%2Fhimanshu748%2Flangchain-rag-tutorial-2026&api_key=%5Bredacted%5D&hl=en&safe=active&num=10",
+  "startedAt": "2026-10-16T17:19:23.660Z",
+  "physicalRequests": 1,
+  "status": null,
+  "durationMs": 30003,
+  "error": "transport_failed_unknown_upstream_completion"
+}

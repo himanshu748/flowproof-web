@@ -1,0 +1,68 @@
+{
+  "startedAt": "2026-10-16T16:51:19.984Z",
+  "status": "observed_different_control_outcomes",
+  "sourceCommit": "f1e5904324ceb27c999e930d9c79145ff13a6d7d",
+  "scope": "Real SerpApi Google title presence checks from the local protected verifier, not new Chromium acceptance or a public agent run",
+  "approvalActor": "Automated verifier under the owner instruction to run these two controlled checks; not customer approval",
+  "maximumRequests": 2,
+  "automaticRetries": 0,
+  "publicJudgeReservationsConsumed": 0,
+  "observations": [
+    {
+      "kind": "search_presence_observation",
+      "checkId": "40aeea28-91e2-4393-87da-e309a5e5741e",
+      "provider": "SerpApi",
+      "engine": "google",
+      "targetUrl": "https://github.com/himanshu748",
+      "expectedText": "himanshu748",
+      "matchField": "title",
+      "query": "site:github.com/himanshu748",
+      "status": "no_match",
+      "observedAt": "2026-10-16T16:51:32.189Z",
+      "organicResultCount": 9,
+      "scopedResultCount": 0,
+      "citations": [],
+      "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+    },
+    {
+      "kind": "search_presence_observation",
+      "checkId": "0af4a530-b453-42d1-933c-65aaf9708d3f",
+      "provider": "SerpApi",
+      "engine": "google",
+      "targetUrl": "https://flowproof-demo.onrender.com/",
+      "expectedText": "Briefstamp",
+      "matchField": "title",
+      "query": "site:flowproof-demo.onrender.com",
+      "status": "empty",
+      "observedAt": "2026-10-16T16:51:33.504Z",
+      "organicResultCount": 0,
+      "scopedResultCount": 0,
+      "citations": [],
+      "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+    }
+  ],
+  "ciUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38934817770",
+  "preAccount": {
+    "checkedAt": "2026-10-16T16:51:20.466Z",
+    "plan": "Free Plan",
+    "monthlyPrice": 0,
+    "extraCredits": 0,
+    "remainingSearches": 214
+  },
+  "judgeSpentBefore": 4,
+  "judgeSpentAfter": 4,
+  "earlierReservationFilesUnchanged": 12,
+  "dedicatedCallsReserved": 2,
+  "postAccount": {
+    "checkedAt": "2026-10-16T16:51:37.423Z",
+    "plan": "Free Plan",
+    "monthlyPrice": 0,
+    "extraCredits": 0,
+    "remainingSearches": 213
+  },
+  "controls": {
+    "indexedTitleMatched": false,
+    "demoReturnedEmpty": true
+  },
+  "completedAt": "2026-10-16T16:51:37.423Z"
+}

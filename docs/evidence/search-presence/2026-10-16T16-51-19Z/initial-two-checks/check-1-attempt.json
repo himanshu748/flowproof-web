@@ -1,0 +1,5 @@
+{
+  "request": "https://serpapi.com/search.json?engine=google&q=site%3Agithub.com%2Fhimanshu748&api_key=%5Bredacted%5D&hl=en&safe=active&num=10",
+  "startedAt": "2026-10-16T16:51:24.139Z",
+  "physicalRequests": 1
+}

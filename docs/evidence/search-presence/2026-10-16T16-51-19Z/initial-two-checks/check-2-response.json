@@ -1,0 +1,29 @@
+{
+  "search_metadata": {
+    "id": "6ad25614a9fcce76f7a6e2b1",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/aaCVN6VVKeHudRWpKWZmcmXJj_NaVzOHliFW6I3B23o/6ad25614a9fcce76f7a6e2b1.json",
+    "markdown_endpoint": "https://serpapi.com/searches/aaCVN6VVKeHudRWpKWZmcmXJj_NaVzOHliFW6I3B23o/6ad25614a9fcce76f7a6e2b1.md",
+    "pixel_position_endpoint": "https://serpapi.com/searches/aaCVN6VVKeHudRWpKWZmcmXJj_NaVzOHliFW6I3B23o/6ad25614a9fcce76f7a6e2b1.json_with_pixel_position",
+    "created_at": "2026-10-16 16:51:32 UTC",
+    "processed_at": "2026-10-16 16:51:32 UTC",
+    "google_url": "https://www.google.com/search?q=site%3Aflowproof-demo.onrender.com&oq=site%3Aflowproof-demo.onrender.com&hl=en&safe=active&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/aaCVN6VVKeHudRWpKWZmcmXJj_NaVzOHliFW6I3B23o/6ad25614a9fcce76f7a6e2b1.html",
+    "total_time_taken": 0.96
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "site:flowproof-demo.onrender.com",
+    "google_domain": "google.com",
+    "hl": "en",
+    "safe": "active",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "site:flowproof-demo.onrender.com",
+    "total_results": 0,
+    "time_taken_displayed": 0.11,
+    "organic_results_state": "Fully empty"
+  },
+  "error": "Google hasn't returned any results for this query."
+}

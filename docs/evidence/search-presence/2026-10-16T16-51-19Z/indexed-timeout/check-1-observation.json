@@ -1,0 +1,17 @@
+{
+  "kind": "search_presence_observation",
+  "checkId": "3c6bbde8-2776-45f3-a580-67c3a58cde2c",
+  "provider": "SerpApi",
+  "engine": "google",
+  "targetUrl": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+  "expectedText": "langchain-rag-tutorial-2026",
+  "matchField": "title",
+  "query": "site:github.com/himanshu748/langchain-rag-tutorial-2026",
+  "status": "unavailable",
+  "observedAt": "2026-10-16T17:19:23.654Z",
+  "organicResultCount": null,
+  "scopedResultCount": null,
+  "citations": [],
+  "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited.",
+  "failureCode": "request_failed"
+}

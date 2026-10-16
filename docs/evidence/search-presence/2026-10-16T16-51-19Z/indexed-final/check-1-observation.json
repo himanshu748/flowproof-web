@@ -1,0 +1,24 @@
+{
+  "kind": "search_presence_observation",
+  "checkId": "bfded751-02c4-4852-b16e-aab24bcb7e2c",
+  "provider": "SerpApi",
+  "engine": "google",
+  "targetUrl": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+  "expectedText": "langchain-rag-tutorial-2026",
+  "matchField": "title",
+  "query": "site:github.com/himanshu748/langchain-rag-tutorial-2026",
+  "status": "matched",
+  "observedAt": "2026-10-16T17:23:55.326Z",
+  "organicResultCount": 3,
+  "scopedResultCount": 1,
+  "citations": [
+    {
+      "title": "himanshu748/langchain-rag-tutorial-2026: Hands-on ...",
+      "snippet": "Hands-on LangChain RAG tutorial with a practical retrieval workflow and FastAPI boundaries. agents, Chroma, OpenAI embeddings, and optional conversation memory.",
+      "link": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+      "position": 1,
+      "matchesExpectedText": true
+    }
+  ],
+  "limitation": "A bounded Google organic search snapshot, separate from browser acceptance. Empty or unmatched results do not prove that a page is unindexed. No result link was visited."
+}

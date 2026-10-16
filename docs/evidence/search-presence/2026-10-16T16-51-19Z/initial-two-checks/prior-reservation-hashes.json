@@ -1,0 +1,50 @@
+[
+  {
+    "path": "work/serpapi-one-search-allowance.json",
+    "sha256": "6c405b26c1771cf11eccb9f078376d328e9a53e09e989f98d163a204c7844827"
+  },
+  {
+    "path": "work/agent-funding/failed-repair-spent.json",
+    "sha256": "c29e94a25106b0219e22c47fb19a0c9324c21b2c219a06f824033d862e3a670b"
+  },
+  {
+    "path": "work/agent-funding/failed-tranche-spent.json",
+    "sha256": "329ae4f9c474009dfb781f593a3d6ddf528921c863717395d4f38745cb560ed3"
+  },
+  {
+    "path": "work/agent-funding/partial-resilient-spent.json",
+    "sha256": "47c256edbdd880541a5d2df2865c437d098b1a332a20341441c067397d5eb3f8"
+  },
+  {
+    "path": "work/agent-funding/search-repair-spent.json",
+    "sha256": "9282d29e884adbfb53fe7e7f0039f810bfee92a1a950df58edccbdc33a389697"
+  },
+  {
+    "path": "work/judge-100/active-render.private.json",
+    "sha256": "7def4501dee10001786284e3ebf127bd9ce99dc4b452238b92462e2cd4a9ebf3"
+  },
+  {
+    "path": "work/evidence-agent-61e24605-3562-48c6-9ae3-417fca5fa473.reservation.json",
+    "sha256": "d5f1b5ef47a2f5303e704381fd5fccc9e2d776c2435063db2a60c95a66d71f78"
+  },
+  {
+    "path": "work/evidence-agent-73a35ac4-ca43-4b51-bb46-e4f6116d95e8.reservation.json",
+    "sha256": "4b7aff3cee16fdba2450a96eb65e502b674cb4a1f9dc50425c832fedae0117b4"
+  },
+  {
+    "path": "work/evidence-agent-aa271756-5f19-4c7d-be67-b98d842e372e.reservation.json",
+    "sha256": "8798f984483e62cb5562d006ed72bafcdd401f51e3ddd3452477ff2a67eeb36f"
+  },
+  {
+    "path": "work/evidence-agent-d0f5d611-121d-492a-8433-6ac47ddd80ec.json-guard-recovery.reservation.json",
+    "sha256": "8870795a8ac21ad506ebea0fd15cef7cd472b416e1235c23cc21b2113836b842"
+  },
+  {
+    "path": "work/evidence-agent-d0f5d611-121d-492a-8433-6ac47ddd80ec.preflight-recovery.reservation.json",
+    "sha256": "9fcc5eea332acc23522f34914e7827460dd996a656559a70d7a3c162fbf693af"
+  },
+  {
+    "path": "work/evidence-agent-d0f5d611-121d-492a-8433-6ac47ddd80ec.reservation.json",
+    "sha256": "e385cc36482e7a7be036f6fddc57100cd2658c8c68bce1377bf9c2996cf39922"
+  }
+]

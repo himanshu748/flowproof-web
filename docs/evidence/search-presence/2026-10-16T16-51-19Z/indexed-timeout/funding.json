@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-10-16T16:36:30.478Z",
+  "source": "Authenticated SerpApi account API, whitelist only",
+  "status": 200,
+  "plan": "Free Plan",
+  "accountStatus": "Active",
+  "monthlyPrice": 0,
+  "extraCredits": 0,
+  "remainingSearches": 214,
+  "remainingPlanSearches": 214,
+  "minimumReservedForJudges": 96,
+  "separateNewCheckMaximum": 2,
+  "searchCallsThisCheck": 0,
+  "oldReservationFiles": [
+    {
+      "path": "work/serpapi-one-search-allowance.json",
+      "sha256": "6c405b26c1771cf11eccb9f078376d328e9a53e09e989f98d163a204c7844827"
+    },
+    {
+      "path": "work/agent-funding/failed-repair-spent.json",
+      "sha256": "c29e94a25106b0219e22c47fb19a0c9324c21b2c219a06f824033d862e3a670b"
+    },
+    {
+      "path": "work/agent-funding/failed-tranche-spent.json",
+      "sha256": "329ae4f9c474009dfb781f593a3d6ddf528921c863717395d4f38745cb560ed3"
+    },
+    {
+      "path": "work/agent-funding/partial-resilient-spent.json",
+      "sha256": "47c256edbdd880541a5d2df2865c437d098b1a332a20341441c067397d5eb3f8"
+    },
+    {
+      "path": "work/agent-funding/search-repair-spent.json",
+      "sha256": "9282d29e884adbfb53fe7e7f0039f810bfee92a1a950df58edccbdc33a389697"
+    },
+    {
+      "path": "work/judge-100/active-render.private.json",
+      "sha256": "7def4501dee10001786284e3ebf127bd9ce99dc4b452238b92462e2cd4a9ebf3"
+    }
+  ],
+  "allowanceResets": 0,
+  "billingChanges": 0
+}

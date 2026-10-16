@@ -1,0 +1,11 @@
+{
+  "request": "https://serpapi.com/search.json?engine=google&q=site%3Agithub.com%2Fhimanshu748%2Flangchain-rag-tutorial-2026&api_key=%5Bredacted%5D&hl=en&safe=active&num=10",
+  "startedAt": "2026-10-16T17:23:55.259Z",
+  "physicalRequests": 1,
+  "status": 200,
+  "durationMs": 63,
+  "originalBodySha256": "0343a6b88af047ca18001f760a128e84b6e95ab1096e6d73f1c6e0fc3816b7ab",
+  "redactions": [
+    "API key field and any exact key occurrence"
+  ]
+}

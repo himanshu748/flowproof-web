@@ -1,5 +1,7 @@
 # Hosted evidence review, search, sample speech and memory
 
+**Approved search-presence controls, October 16 at 17:24 UTC:** [Real responses and all attempts](evidence/search-presence/2026-10-16T16-51-19Z/) show an exact owned-repository title match (three organic results, one scoped hit) and an earlier zero-result demo search. The initial exact-profile mismatch and subsequent 30-second timeout remain retained. This local protected checker uses separate, fully spent allowances; it does not replace the public agent’s fixed-homepage search or alter browser acceptance. No judge slot was consumed.
+
 **Storage update, October 16 at 16:32 UTC:** [pgvector and independent score proof](evidence/tiger-pgvector/2026-10-16T16-16-50Z/) supersedes the array-storage limitation for the current deployment. Earlier dated agent receipts below retain their original array implementation and model usage; the new query proof makes no fresh model/search request. Three fixed MiniLM queries, exact ranking and the existing expiry/budget limits remain.
 
 

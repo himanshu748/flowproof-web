@@ -1,0 +1,293 @@
+{
+  "search_metadata": {
+    "id": "6ad2560c2bcc249bf0b5cc94",
+    "status": "Success",
+    "json_endpoint": "https://serpapi.com/searches/mBn3awcWE6cTv8sqjk8ySBZOddiuZqlzFadVGnOCZYo/6ad2560c2bcc249bf0b5cc94.json",
+    "markdown_endpoint": "https://serpapi.com/searches/mBn3awcWE6cTv8sqjk8ySBZOddiuZqlzFadVGnOCZYo/6ad2560c2bcc249bf0b5cc94.md",
+    "pixel_position_endpoint": "https://serpapi.com/searches/mBn3awcWE6cTv8sqjk8ySBZOddiuZqlzFadVGnOCZYo/6ad2560c2bcc249bf0b5cc94.json_with_pixel_position",
+    "created_at": "2026-10-16 16:51:24 UTC",
+    "processed_at": "2026-10-16 16:51:24 UTC",
+    "google_url": "https://www.google.com/search?q=site%3Agithub.com%2Fhimanshu748&oq=site%3Agithub.com%2Fhimanshu748&hl=en&safe=active&sourceid=chrome&ie=UTF-8",
+    "raw_html_file": "https://serpapi.com/searches/mBn3awcWE6cTv8sqjk8ySBZOddiuZqlzFadVGnOCZYo/6ad2560c2bcc249bf0b5cc94.html",
+    "total_time_taken": 7.66
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "site:github.com/himanshu748",
+    "google_domain": "google.com",
+    "hl": "en",
+    "safe": "active",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "site:github.com/himanshu748",
+    "total_results": 9,
+    "time_taken_displayed": 0.14,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "himanshu748/langchain-rag-tutorial-2026: Hands-on ...",
+      "link": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESdQHrOzAVGC5BPiI6jYVLt2koh9IWJat7dw-KV3l2Wbs1zZd5RzscVUQKafIB9RTEzfSFLSAPQVTK6bw4lJEa0MRLx0QiKi5gThMk9vEAXIOhyB8Z0Y9ZgNKtK-txLkPSm-0BWFehDxFs5ofr5EZkeQBwflZD0A&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECCAQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › langchain-rag-tutoria...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "A FastAPI RAG (Retrieval Augmented Generation) tutorial using LangChain v1-style agents, Chroma, OpenAI embeddings, and optional conversation memory. ✨ What's ...",
+      "snippet_highlighted_words": [
+        "FastAPI RAG (Retrieval Augmented Generation"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "A FastAPI RAG (Retrieval Augmented Generation) tutorial using LangChain v1-style agents, Chroma, OpenAI embeddings, and optional conversation memory. ✨ What's ...",
+          "source_info_link": "https://github.com/himanshu748/langchain-rag-tutorial-2026",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CqgBL2dvdG8_dXJsPUNBRVNjZ0hyT3pBVmxmLW5GSnNNY0s3RVB1bk9rX2VlVU44bWo5Z1pZc1FVNGtUekd4MFhQOV93X3hqQkFlc2YtT1dNT3FxTXF5WWtkMEZXYmNFOVlfa0Z0bkllTDJmUUZfVTJBS2diQVFjZE4wSlVlWjljQ0lPY1VUN0dWVjBuRGMxRHFJcjFZbnUzbmdOZFY4aWs3dlg4N1lzcHdBEgQaAggAGiASABoAIgAqADIGCAMSAnVzOgBCBAgBEABKAFoAcgB6ACICEAFIAFgAaAA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CqgBL2dvdG8_dXJsPUNBRVNjZ0hyT3pBVmxmLW5GSnNNY0s3RVB1bk9rX2VlVU44bWo5Z1pZc1FVNGtUekd4MFhQOV93X3hqQkFlc2YtT1dNT3FxTXF5WWtkMEZXYmNFOVlfa0Z0bkllTDJmUUZfVTJBS2diQVFjZE4wSlVlWjljQ0lPY1VUN0dWVjBuRGMxRHFJcjFZbnUzbmdOZFY4aWs3dlg4N1lzcHdBEgQaAggAGiASABoAIgAqADIGCAMSAnVzOgBCBAgBEABKAFoAcgB6ACICEAFIAFgAaAA",
+      "source": "GitHub",
+      "read_more_link": "https://github.com/himanshu748/langchain-rag-tutorial-2026#:~:text=A%20FastAPI%20RAG%20(Retrieval%20Augmented,What's%20New%20in%20This%20Update"
+    },
+    {
+      "position": 2,
+      "title": "himanshu748/prreviewiq-code-review-agent: AI ...",
+      "link": "https://github.com/himanshu748/prreviewiq-code-review-agent",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESdgHrOzAVUWfztkP0l5YnaZNCq-wPsmqEPUhmLIlsW6yFwA7lb6vA3df6_rs1CZWJHLJ3QBI78PykbqTJOIaiy0PFzjK4CkOQJTecZhi3_EmPkcLUQdsQDFSslteHk4PAvqxLRfIqgsQZH8PwOIaayYXbiDq2AZY&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECBwQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › prreviewiq-code-revi...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "PRReviewIQ is a local FastAPI app plus Python CLI that reviews pull request diffs with HuggingFace and logs every review insight into a Notion knowledge base ...",
+      "snippet_highlighted_words": [
+        "PRReviewIQ"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "PRReviewIQ is a local FastAPI app plus Python CLI that reviews pull request diffs with HuggingFace and logs every review insight into a Notion knowledge base ...",
+          "source_info_link": "https://github.com/himanshu748/prreviewiq-code-review-agent",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CqkBL2dvdG8_dXJsPUNBRVNjd0hyT3pBVlA5LThsai1aLUNKVDltd0xVRUdnYmxDSHROcklqZ0FvMkRFM1AwVWNQdmJYS3NEWDJHc2FMRktPdmZrNEtoQ1JpaGVTeEwtd0V6blZGOGFxMTZiUFRtUG9WX1o0dURRRlB4c3RCLTY5OFdWYldfSUlaUW1aMFV4X0ZXcDZJR3JtUFV1RGg4MVZOVHkzS2Q4dDhKWRIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CqkBL2dvdG8_dXJsPUNBRVNjd0hyT3pBVlA5LThsai1aLUNKVDltd0xVRUdnYmxDSHROcklqZ0FvMkRFM1AwVWNQdmJYS3NEWDJHc2FMRktPdmZrNEtoQ1JpaGVTeEwtd0V6blZGOGFxMTZiUFRtUG9WX1o0dURRRlB4c3RCLTY5OFdWYldfSUlaUW1aMFV4X0ZXcDZJR3JtUFV1RGg4MVZOVHkzS2Q4dDhKWRIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "source": "GitHub",
+      "read_more_link": "https://github.com/himanshu748/prreviewiq-code-review-agent#:~:text=PRReviewIQ%20is%20a%20local%20FastAPI,knowledge%20base%20through%20Notion%20MCP."
+    },
+    {
+      "position": 3,
+      "title": "Overview · himanshu748/prreviewiq-code-review-agent",
+      "link": "https://github.com/himanshu748/prreviewiq-code-review-agent/security",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfwHrOzAViYo2qF_4Ex94rvgIJ-7DJAflvrXz99yg6bjVO7OoKMjPpG7omx6BI_nIwixoGak11rxPU2dvVx9ArzFa4fwANsYnzzo-p9GDTpgzScPamKHfGm7u2KI6Ebnhgbxh5dcoQD7GG_78hYo5RncduHCUvs5ocpucNWFYQwc&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECBgQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › security",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "GitHub is where people build software. More than 150 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
+      "snippet_highlighted_words": [
+        "GitHub"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "GitHub is where people build software. More than 150 million people use GitHub to discover, fork, and contribute to over 420 million projects.",
+          "source_info_link": "https://github.com/himanshu748/prreviewiq-code-review-agent/security",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CrUBL2dvdG8_dXJsPUNBRVNmQUhyT3pBVm9scy1fNTljUjVqQmNiUS1Jc3BoQkVWUGFRbnNDVWhJc2dmbjl6SlBxSkpSamh2Q3p3c0g4SHlDR29YT1JTYnRFUEJVeTNvUXRLbnhSZ0ZqdWRVMzA3ak5CTngwYWNHMUo2emMzX0FOMWVCTHBGY05GUjBhRm4zNVlfbnpVYXpxQlhzMzN5ZmN6Rnc4UGlRb0FGalFsNFhGMzZHc21wWRIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CrUBL2dvdG8_dXJsPUNBRVNmQUhyT3pBVm9scy1fNTljUjVqQmNiUS1Jc3BoQkVWUGFRbnNDVWhJc2dmbjl6SlBxSkpSamh2Q3p3c0g4SHlDR29YT1JTYnRFUEJVeTNvUXRLbnhSZ0ZqdWRVMzA3ak5CTngwYWNHMUo2emMzX0FOMWVCTHBGY05GUjBhRm4zNVlfbnpVYXpxQlhzMzN5ZmN6Rnc4UGlRb0FGalFsNFhGMzZHc21wWRIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "source": "GitHub"
+    },
+    {
+      "position": 4,
+      "title": "himanshu748/build-small-hackathon-thousand-token-theater",
+      "link": "https://github.com/himanshu748/build-small-hackathon-thousand-token-theater",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAEShgEB6zswFQyt_FDEZNd4-U2MM7NgqAdDtSNW5LYmONfdDiLK5aTB9Sv4qcGXAsAyGXWlb7pOHae5YMv6msQGvU4_a4I_xHZguYKKqJCH51A_H7_GhG_DeJR7tTWqL1LsVkx7LzNEoXwmYXoub-eaoDHSJkFrOK2WSGDoEcWVJqdsoGsmCFz0Uw&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECBcQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › build-small-hackatho...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "A troupe of small-model actors improvises a one-act play that you direct — and now you can hear it: every actor performs each line aloud in their own voice.",
+      "about_this_result": {
+        "source": {
+          "description": "A troupe of small-model actors improvises a one-act play that you direct — and now you can hear it: every actor performs each line aloud in their own voice.",
+          "source_info_link": "https://github.com/himanshu748/build-small-hackathon-thousand-token-theater",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CsABL2dvdG8_dXJsPUNBRVNnd0VCNnpzd0ZSRjNERjdLU3RfWlIyeDJZeGp1RVZ5cDluY0U3LXROd0hLNlctcUhjSXp3d1hqTTBrSEtfX2poZ1hoLU1XWWIwZ2JnelVtVGxFYWtKZTJsdjZBRjFFZHdfbUNveGpFM3lTUUxtLVBWaUJNeXVHc08xcVRsOVQzRmxmT1c1Qzd1N1ZBdHp1cnFzS2p2dzkwdERPckY2SVZzUUtORFVNVmtCbWlWWDk4MW93EgQaAggAGiASABoAIgAqADIGCAMSAnVzOgBCBAgBEABKAFoAcgB6ACICEAFIAFgAaAA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CsABL2dvdG8_dXJsPUNBRVNnd0VCNnpzd0ZSRjNERjdLU3RfWlIyeDJZeGp1RVZ5cDluY0U3LXROd0hLNlctcUhjSXp3d1hqTTBrSEtfX2poZ1hoLU1XWWIwZ2JnelVtVGxFYWtKZTJsdjZBRjFFZHdfbUNveGpFM3lTUUxtLVBWaUJNeXVHc08xcVRsOVQzRmxmT1c1Qzd1N1ZBdHp1cnFzS2p2dzkwdERPckY2SVZzUUtORFVNVmtCbWlWWDk4MW93EgQaAggAGiASABoAIgAqADIGCAMSAnVzOgBCBAgBEABKAFoAcgB6ACICEAFIAFgAaAA",
+      "source": "GitHub",
+      "read_more_link": "https://github.com/himanshu748/build-small-hackathon-thousand-token-theater#:~:text=A%20troupe%20of%20small%2Dmodel%20actors,aloud%20in%20their%20own%20voice."
+    },
+    {
+      "position": 5,
+      "title": "fin-ed/RED_TEAM.md at main · himanshu748/fin-ed",
+      "link": "https://github.com/himanshu748/fin-ed/blob/main/RED_TEAM.md",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESdgHrOzAVlf1xU-cYlhKo51eGPUU3-Ry29QlW47y5Mh5xoN8SviyZTJYcEA4pBTYnS-f6dGfAXAX8dK5Zxvs33akebYXJ_sTvKWk4mZp4n76Ju967uH0nnlwqjG_FgYzqvV3Ktp8_OYILHFJuLdGbX2WVMD_bjVg&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECBYQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › fin-ed › blob › RED...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "Verified on 15 August 2026 with deterministic tests. The focused safety suite completed 458 tests successfully. The direct outbound consent suite completed 6 ...",
+      "about_this_result": {
+        "source": {
+          "description": "Verified on 15 August 2026 with deterministic tests. The focused safety suite completed 458 tests successfully. The direct outbound consent suite completed 6 ...",
+          "source_info_link": "https://github.com/himanshu748/fin-ed/blob/main/RED_TEAM.md",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CqkBL2dvdG8_dXJsPUNBRVNjd0hyT3pBVkQwQWZaUFV1d3N3WUNOc0ZuRDBUa2ppbTZhWE1DblRUSDVzZ0p3NlpyeWFyYW5QODRuZkJhQzFkcWJiUmQ2N3YzZ1ZmOWhzNzA1Q1lPS3JOSm13WXFoWnlIUWZDdzktN1E1b3JsTmtZMUExYTN3dEt4M3ItMWZwczBpMk5uTWJHdDN3MUczZl9HLWNJVHB5Yk5tMBIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CqkBL2dvdG8_dXJsPUNBRVNjd0hyT3pBVkQwQWZaUFV1d3N3WUNOc0ZuRDBUa2ppbTZhWE1DblRUSDVzZ0p3NlpyeWFyYW5QODRuZkJhQzFkcWJiUmQ2N3YzZ1ZmOWhzNzA1Q1lPS3JOSm13WXFoWnlIUWZDdzktN1E1b3JsTmtZMUExYTN3dEt4M3ItMWZwczBpMk5uTWJHdDN3MUczZl9HLWNJVHB5Yk5tMBIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "source": "GitHub",
+      "read_more_link": "https://github.com/himanshu748/fin-ed/blob/main/RED_TEAM.md#:~:text=Verified%20on%2015%20August%202026,suite%20completed%206%20tests%20successfully."
+    },
+    {
+      "position": 6,
+      "title": "studypilot/docs/JUDGING.md at main",
+      "link": "https://github.com/himanshu748/studypilot/blob/main/docs/JUDGING.md",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESfgHrOzAVEChn-Qlx--dnXPIpwW0kR6dBsNuTRXyk9EpZYyoEcctir8SkOBKz6RSC8M_dguag2D08iczRrUbRBYOt71IIIK33SyySBvyX87uQTxWA_W8kqmzMaa2UwDhOn3ExDysOB3scq9PS9KeSexKqiaajUVj89onEtLeu_g&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECCwQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › studypilot › blob › J...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "date": "Sep 10, 2026",
+      "snippet": "A Strands planning agent that turns overloaded syllabi into realistic, approval-gated study plans. - studypilot/docs/JUDGING.md at main ...",
+      "about_this_result": {
+        "source": {
+          "description": "A Strands planning agent that turns overloaded syllabi into realistic, approval-gated study plans. - studypilot/docs/JUDGING.md at main ...",
+          "source_info_link": "https://github.com/himanshu748/studypilot/blob/main/docs/JUDGING.md",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CrQBL2dvdG8_dXJsPUNBRVNld0hyT3pBVnd1RjQ3NFBKVk9UaTBYOElDelhKS1hsNU03Q1JicFFnbzE5cnhBQTlJVE9nbVdfRjJQM3ZsUjRMb3o3NGFIRDB1WVVUMEl5OGtkUnNaaXVlTVAxdm9iR1UxNGs4SmxSZXZjSWhXVkpKS0RGdjJJaE50cnpRM2xSWDBGRUx5QnpMRGtrUWh0ZzNnOXZxZkM4ZE4xeUJJQXlxSWJXQ1lnEgQaAggAGiASABoAIgAqADIGCAMSAnVzOgBCBAgBEABKAFoAcgB6ACICEAFIAFgAaAA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CrQBL2dvdG8_dXJsPUNBRVNld0hyT3pBVnd1RjQ3NFBKVk9UaTBYOElDelhKS1hsNU03Q1JicFFnbzE5cnhBQTlJVE9nbVdfRjJQM3ZsUjRMb3o3NGFIRDB1WVVUMEl5OGtkUnNaaXVlTVAxdm9iR1UxNGs4SmxSZXZjSWhXVkpKS0RGdjJJaE50cnpRM2xSWDBGRUx5QnpMRGtrUWh0ZzNnOXZxZkM4ZE4xeUJJQXlxSWJXQ1lnEgQaAggAGiASABoAIgAqADIGCAMSAnVzOgBCBAgBEABKAFoAcgB6ACICEAFIAFgAaAA",
+      "source": "GitHub"
+    },
+    {
+      "position": 7,
+      "title": "turnguard-voice-lab/PRODUCT.md at main",
+      "link": "https://github.com/himanshu748/turnguard-voice-lab/blob/main/PRODUCT.md",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESggEB6zswFdQaIU8GO7UB3sf13zhzT3d-tYDrvRFmmiiKOWZAWvHHEHkc-jcp5fhNQE1_0N96zmwGNglhIK9nSeH3WN5ZIGKaK2VK25DESnWBmFOVddkwrkryRXLjDPCwfQ08Jh9Awq6gdipOHQc-pxTHi_uVUMpJLuvFBtlt_tajVTMo&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECB0QAQ&uoh=1",
+      "displayed_link": "https://github.com › turnguard-voice-lab › blob › PROD...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "Independent offline learning lab for developers building interruptible voice clients. It exposes cancellation and stream-lifecycle bugs without a speech ...",
+      "snippet_highlighted_words": [
+        "Independent offline learning lab for developers building interruptible voice clients"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Independent offline learning lab for developers building interruptible voice clients. It exposes cancellation and stream-lifecycle bugs without a speech ...",
+          "source_info_link": "https://github.com/himanshu748/turnguard-voice-lab/blob/main/PRODUCT.md",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CrkBL2dvdG8_dXJsPUNBRVNmd0hyT3pBVl9OQ2lKT2ozOFdNV3ZiSUluQk0tZFFQZU1TNWhEM3NCdTNWaE12T3ZQck9qV0pMMnBlNUV5RGVxTm12QnhQMXR0QWtXM2lfMFBVc1cyOEtJTldJdnR4UVNlVW5zeUdyaWZfTUItVHlxTm9GSlF3bG9IVVozbF9DNVFJdnFwTjRrOFVTV1loNmxJaHhyU0VoWWJQR0tkVEo2eHhPLVM2d2djRm8SBBoCCAAaIBIAGgAiACoAMgYIAxICdXM6AEIECAEQAEoAWgByAHoAIgIQAUgAWABoAA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CrkBL2dvdG8_dXJsPUNBRVNmd0hyT3pBVl9OQ2lKT2ozOFdNV3ZiSUluQk0tZFFQZU1TNWhEM3NCdTNWaE12T3ZQck9qV0pMMnBlNUV5RGVxTm12QnhQMXR0QWtXM2lfMFBVc1cyOEtJTldJdnR4UVNlVW5zeUdyaWZfTUItVHlxTm9GSlF3bG9IVVozbF9DNVFJdnFwTjRrOFVTV1loNmxJaHhyU0VoWWJQR0tkVEo2eHhPLVM2d2djRm8SBBoCCAAaIBIAGgAiACoAMgYIAxICdXM6AEIECAEQAEoAWgByAHoAIgIQAUgAWABoAA",
+      "source": "GitHub",
+      "read_more_link": "https://github.com/himanshu748/turnguard-voice-lab/blob/main/PRODUCT.md#:~:text=Independent%20offline%20learning%20lab%20for,bugs%20without%20a%20speech%20service."
+    },
+    {
+      "position": 8,
+      "title": "gitignore - himanshu748/autopm-notion-product-manager",
+      "link": "https://github.com/himanshu748/autopm-notion-product-manager/blob/main/.gitignore",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESjAEB6zswFULngg_MPEHGCRpidqR6enFmAxSrLAcGVhsJoSSF_JsZWOfrgjkubUkXrDZy3ec6ydaEKtdPSb1THHpB4l-fzjWzfTftCFrAjPWckdLm99eWE7YrIssr_hb5qFinfUbOMvfbeb6LxYcU2sXsJ6JKU-nazMhwQyA-zZJRy3XRBd8VbnO_J0Vn9A&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECBoQAQ&uoh=1",
+      "displayed_link": "https://github.com › himanshu748 › blob › main ›",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "Notion-based AI product manager for planning, specs, prioritization, and product workflow automation. - autopm-notion-product-manager/.gitignore at main ...",
+      "snippet_highlighted_words": [
+        "Notion-based AI product manager"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "Notion-based AI product manager for planning, specs, prioritization, and product workflow automation. - autopm-notion-product-manager/.gitignore at main ...",
+          "source_info_link": "https://github.com/himanshu748/autopm-notion-product-manager/blob/main/.gitignore",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CsgBL2dvdG8_dXJsPUNBRVNpUUVCNnpzd0ZiQTdtMHliNEZLNWRUcTUydXNZR1lQaHR6RTJCYjNPQnZpOTVLQ3BvTFVDaWRPYTJzRE5DUEdYeDRERDBMbzhnSHVzTjJyZ0V1aGQ3RWxZc3VMNmlFdFlIa0F2UHRCYlFYUVAwaV94NGRYN29zNy0xbGNHdjdjZHZZQWxLR0poOE81NUxzcjVEQURjQ0ZiclJPU3FZbi1sTVctV3ZyRV80RFJBVmM0dUZuWGdxRDAyeWcSBBoCCAAaIBIAGgAiACoAMgYIAxICdXM6AEIECAEQAEoAWgByAHoAIgIQAUgAWABoAA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CsgBL2dvdG8_dXJsPUNBRVNpUUVCNnpzd0ZiQTdtMHliNEZLNWRUcTUydXNZR1lQaHR6RTJCYjNPQnZpOTVLQ3BvTFVDaWRPYTJzRE5DUEdYeDRERDBMbzhnSHVzTjJyZ0V1aGQ3RWxZc3VMNmlFdFlIa0F2UHRCYlFYUVAwaV94NGRYN29zNy0xbGNHdjdjZHZZQWxLR0poOE81NUxzcjVEQURjQ0ZiclJPU3FZbi1sTVctV3ZyRV80RFJBVmM0dUZuWGdxRDAyeWcSBBoCCAAaIBIAGgAiACoAMgYIAxICdXM6AEIECAEQAEoAWgByAHoAIgIQAUgAWABoAA",
+      "source": "GitHub"
+    },
+    {
+      "position": 9,
+      "title": "dependency-sentinel/docs/GROQ-AGENTCORE.md at main",
+      "link": "https://github.com/himanshu748/dependency-sentinel/blob/main/docs/GROQ-AGENTCORE.md",
+      "redirect_link": "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESjgEB6zswFVgtpDCZPEcuTj4kA9OtZD7--uEqbie8fXsCz1cjX3T9AK1CNj2vbjlXy7eo7_A5slD-70yGUfppjfLrSoPAYfR4jRNLH8ds-uSGGQPGQBlhvsTBC5Pph_Dg4BIl4qLqEA-eZ02OC4OKuDlqpn32hQZ2cTtDGKHfD7I1jvh0fXRVFHcCBi-S-j7c&ved=2ahUKEwih7LXP_76XAxXf_rsIHRaePUYQFnoECBkQAQ&uoh=1",
+      "displayed_link": "https://github.com › dependency-sentinel › blob › GROQ...",
+      "favicon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp",
+      "snippet": "An evidence-first Strands agent for safe dependency upgrades with disposable worktrees and human approval. - dependency-sentinel/docs/GROQ-AGENTCORE.md at ...",
+      "snippet_highlighted_words": [
+        "safe dependency upgrades"
+      ],
+      "about_this_result": {
+        "source": {
+          "description": "An evidence-first Strands agent for safe dependency upgrades with disposable worktrees and human approval. - dependency-sentinel/docs/GROQ-AGENTCORE.md at ...",
+          "source_info_link": "https://github.com/himanshu748/dependency-sentinel/blob/main/docs/GROQ-AGENTCORE.md",
+          "icon": "https://serpapi.com/images/i/UklGRloBAABXRUJQVlA4IE4BAABQBwCdASogACAAPtE-tFooIigoFAEAGglpABOY66msBQAhm_jie7on_u43Y8wznTq3o6RYivaXQwLqgtFvGxqSxD0AAP79L-I2CJh157_guzOImTEj4KETbf3LoXG53uwsqC7TNrPYvnj0JCbHaYHsiJ0dZxjZp00AIDh71pmydvV9rbfX7pBwD6xKTC28fi7cmmnaetDkFUKtNDh1oyUvgEJ5B0Jos2E3N5Wf9ywcn5v3_j66N4LrWwMgFUK8OJeK59_R9U8Iq0vdjaoGaiwCdWiWFqTkHXGL7cy9_twJalsMPdZeuuD4BKfDlkDiZPTQbYNs-KpL44LixNJqixiQZYn6Pg05yAzQrotV5msFHgGjybbpLCJP2Jxb24id-1ooSLAITw21MsGq7M_mh1A1SG77Y3rdqY4h760MO7-2OyFmK97IagzfP7hUwAAA.webp"
+        },
+        "languages": [
+          "en"
+        ],
+        "regions": [
+          "US"
+        ]
+      },
+      "about_page_link": "https://www.google.com/search/about-this-result?origin=www.google.com&req=CsoBL2dvdG8_dXJsPUNBRVNpd0VCNnpzd0ZWdnpHQ0M0MWhWOUtJSWJmM19ZcFdVWElDSU5McENPbGpKdXgtc1ZTQjZ0bWtQMjdGVzFDMjVDM0l1aWdZamNhRXZwUTFob3YxVXFMRjZkMmdET2V6SWdBbTdYZTdPU0hOZk9CVHFmanV1WjMwWURQY1ZMTms5a2l1OVd0SFo0QWZpaFFhNzZ6YmtRa24wRmw1NjFub2c5X21RQURmYmExWjZHU3FWWFFpY3Vpa2R5YWpBeBIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "about_page_serpapi_link": "https://serpapi.com/search.json?engine=google_about_this_result&google_domain=google.com&req_token=CsoBL2dvdG8_dXJsPUNBRVNpd0VCNnpzd0ZWdnpHQ0M0MWhWOUtJSWJmM19ZcFdVWElDSU5McENPbGpKdXgtc1ZTQjZ0bWtQMjdGVzFDMjVDM0l1aWdZamNhRXZwUTFob3YxVXFMRjZkMmdET2V6SWdBbTdYZTdPU0hOZk9CVHFmanV1WjMwWURQY1ZMTms5a2l1OVd0SFo0QWZpaFFhNzZ6YmtRa24wRmw1NjFub2c5X21RQURmYmExWjZHU3FWWFFpY3Vpa2R5YWpBeBIEGgIIABogEgAaACIAKgAyBggDEgJ1czoAQgQIARAASgBaAHIAegAiAhABSABYAGgA",
+      "source": "GitHub"
+    }
+  ],
+  "dmca_messages": {
+    "title": "Notices about Filtered Results",
+    "messages": [
+      {
+        "content": "In order to show you the most relevant results, we have omitted some entries very similar to the 9 already displayed.If you like, you can repeat the search with the omitted results included.",
+        "highlighted_words": [
+          {
+            "link": "https://www.google.com/search?q=site:github.com/himanshu748&safe=active&sca_esv=d40b8ce7b327f72a&hl=en&gl=us&sxsrf=APpeQntdHW4zFTr4ezf9Z8QO3Z1JBanlfg:1792169491671&filter=0",
+            "text": "repeat the search with the omitted results included"
+          }
+        ]
+      }
+    ]
+  }
+}

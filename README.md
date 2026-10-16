@@ -59,7 +59,8 @@ Providers can fail: of four retained public attempts, one completed, two returne
 - **Sentry:** the new live Gemma proposal’s three spans were independently verified in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** one protected hosted write/search recovered all six audit facts. [Proof](docs/BACKBOARD_VERIFICATION.md).
 - **Temporal:** the full evidence-agent workflow recovered from injected failures and worker death in real CI; permanent errors failed honestly. Provider responses were retained fixtures; no public judge allowance was used. [Histories and receipt](docs/evidence/temporal-agent/2026-10-16T16-05-48Z/) · [Scope](docs/TEMPORAL.md).
-- **SerpApi and ElevenLabs:** agent-selected search in the public walkthrough and a protected, independently decoded synthetic report MP3. Listening remains unverified. [Proof and audio](docs/HOSTED_OPTIONAL.md).
+- **SerpApi:** agent-selected public search plus approved title-presence controls: one exact-page hit and an honest empty demo search; mismatches and timeout retained. [Real responses and scope](docs/evidence/search-presence/2026-10-16T16-51-19Z/).
+- **ElevenLabs:** a protected, independently decoded synthetic report MP3. Listening remains unverified. [Proof and audio](docs/HOSTED_OPTIONAL.md).
 
 ## Run locally
 
