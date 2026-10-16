@@ -1,0 +1,39 @@
+{
+  "provider": "Backboard",
+  "memories": [
+    {
+      "format": "briefstamp-audit-v1",
+      "project": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "audit": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z",
+      "facts": [
+        {
+          "kind": "heading",
+          "status": "failed"
+        },
+        {
+          "kind": "link",
+          "status": "passed"
+        },
+        {
+          "kind": "image_alt",
+          "status": "failed"
+        },
+        {
+          "kind": "no_horizontal_overflow",
+          "status": "failed"
+        },
+        {
+          "kind": "text_visible",
+          "status": "passed"
+        },
+        {
+          "kind": "manual",
+          "status": "unverified"
+        }
+      ],
+      "score": 0.33153504
+    }
+  ],
+  "scope": "Anonymous saved assertion outcomes; retrieved memory is not new audit evidence."
+}

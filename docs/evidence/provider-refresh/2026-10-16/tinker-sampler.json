@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-16T08:33:20.925527+00:00",
+  "scope": "One read-only metadata request for the existing approved sampler; no inference,training,TTLupdate or checkpoint creation",
+  "checkpointPathSha256": "aa0abf444d45949192561ce8ef6a1eaad26d5b28c1d45a32edf50f43747bb4c0",
+  "httpStatus": 200,
+  "sizeBytes": 145936229,
+  "expiresAt": "2026-10-19T23:59:30.230217+00:00",
+  "public": false,
+  "type": "sampler"
+}

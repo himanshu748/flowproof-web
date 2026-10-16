@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "date": "2026-10-16",
+  "scope": "Sanitized dated provider API observations and authenticated dashboard observations. Funding/configuration evidence only; not proof of successful generation, retrieval, audio or permanent free access.",
+  "providerWriteCalls": 0,
+  "billingChanges": 0,
+  "sources": {
+    "readOnlyApiCheckedAt": "2026-10-16T08:23:47.620245+00:00",
+    "dashboardObservationSource": "Coding agent read authenticated in-app browser billing views; account identifiers, contact data and payment details omitted."
+  },
+  "serpapi": {
+    "plan_name": "Free Plan",
+    "account_status": "Active",
+    "searches_per_month": 250,
+    "this_month_usage": 33,
+    "total_searches_left": 217,
+    "plan_searches_left": 217,
+    "extra_credits": 0,
+    "source": "GET https://serpapi.com/account.json; key-bearing URL omitted"
+  },
+  "elevenlabs": {
+    "httpStatus": 200,
+    "tier": "creator",
+    "status": "active",
+    "character_count": 45317,
+    "character_limit": 129719,
+    "can_extend_character_limit": false,
+    "allowed_to_extend_character_limit": false,
+    "has_open_invoices": false,
+    "remainingCharacters": 84402,
+    "nextInvoiceAmountDueCents": 0,
+    "nextInvoiceSubtotalCents": 0,
+    "voiceMetadataHttpStatus": 401,
+    "sponsorRedemptionProvenance": "unverified",
+    "scope": "Existing zero-upcoming-invoice Creator entitlement, not a permanent Free-plan or commercial-license assertion."
+  },
+  "backboard": {
+    "httpStatus": 200,
+    "free_credit_usd": 4.98,
+    "auto_reload_enabled": false,
+    "paymentMethodConfigured": false,
+    "mixedCreditAccount": true,
+    "paidBalanceOmitted": true,
+    "newApprovedTrancheMaxUsd": 0.03,
+    "newApprovedTrancheMaxCalls": 2,
+    "historicalHostedCallsRemainConsumed": 2,
+    "historicalHostedReservedUsd": 0.02,
+    "scope": "Existing-credit exception; no universal free-first spending rule inferred."
+  },
+  "tinker": {
+    "source": "Authenticated Tinker dashboard, billing credits and payment methods",
+    "promotionalCreditUsd": 9.19,
+    "grantLabel": "Tinker x MLH",
+    "automaticReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "grantPeriodEnd": "2027-10-08",
+    "scope": "Metadata refresh only; no inference or retention change."
+  },
+  "tiger": {
+    "source": "Authenticated Tiger Cloud billing view",
+    "trialDaysRemaining": 20,
+    "positiveCreditObserved": true,
+    "paymentMethodConfigured": false,
+    "applicationAndRoleCutoff": "2026-10-20T00:00:00Z",
+    "scope": "Credit-covered metered trial, not permanent Free; no FieldIssue configuration or rows changed."
+  },
+  "sentry": {
+    "source": "Authenticated Sentry subscription view",
+    "observedPlan": "Sponsored Team",
+    "payAsYouGoLimitUsd": 0,
+    "additionalSpendUsd": 0
+  },
+  "scheduledRechecks": {
+    "dates": [
+      "2026-10-17",
+      "2026-10-18"
+    ],
+    "localTime": "10:00",
+    "timezone": "Asia/Kolkata",
+    "providerCallsAuthorized": 0,
+    "preserveSpentReservations": true
+  },
+  "techDomain": "declined_by_author_existing_Render_URL_retained"
+}

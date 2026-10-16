@@ -1,0 +1,19 @@
+{
+  "status": "mp3_received",
+  "provider": "ElevenLabs",
+  "model": "eleven_multilingual_v2",
+  "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+  "modelAndVoiceEvidence": "Fixed adapter request configuration in sourceCommit; the hosted response does not independently report a model or voice identifier.",
+  "mimeType": "audio/mpeg",
+  "bytes": 92386,
+  "sha256": "ecff35558d477c3fb7d4408f187171ac5fc155d81a6e392306ef3a0a81b0f7d6",
+  "attribution": "Voice generated with ElevenLabs. Noncommercial synthetic demonstration only.",
+  "scope": "noncommercial-synthetic-demonstration",
+  "reservedCharacters": 347,
+  "reportedCharacters": 153,
+  "statusCountsReadFrom": "synthetic-audit.json",
+  "narration": "elevenlabs-narration.txt",
+  "decodingVerified": false,
+  "listeningVerified": false,
+  "limitation": "Received bounded MP3 bytes and counts-bound narration. Audio decoding, audible wording and playback require independent verification; no commercial license or additional audit verification is claimed."
+}

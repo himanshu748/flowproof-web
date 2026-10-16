@@ -1,0 +1,52 @@
+{
+  "sourceCommit": "64a62729018fc2372611c7b21bfffecf3b779556",
+  "runId": 38878045224,
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38878045224",
+  "conclusion": "success",
+  "appTestFiles": 31,
+  "appTests": 571,
+  "pythonTests": 19,
+  "build": "passed",
+  "publicRuntime": {
+    "healthy": {
+      "passed": 5,
+      "failed": 0,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "broken": {
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1
+    }
+  },
+  "ciFixture": {
+    "healthy": [
+      5,
+      0,
+      0,
+      1
+    ],
+    "broken": [
+      1,
+      4,
+      0,
+      1
+    ],
+    "restored": [
+      5,
+      0,
+      0,
+      1
+    ]
+  },
+  "countsOrder": [
+    "passed",
+    "failed",
+    "blocked",
+    "unverified"
+  ],
+  "logSha256": "dad6e96e79dc5a828655fcd1afa64db75cb0236193c16f6d68c40582dadcf53b",
+  "scope": "Actual successful remote CI; application provider tests use injected transports and do not substitute for hosted provider receipts."
+}

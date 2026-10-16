@@ -1,0 +1,18 @@
+{
+  "verifiedAt": "2026-10-16T09:16:54.369214+00:00",
+  "provider": "ElevenLabs",
+  "audioPath": "elevenlabs-synthetic-report.mp3",
+  "audioBytes": 92386,
+  "audioSha256": "ecff35558d477c3fb7d4408f187171ac5fc155d81a6e392306ef3a0a81b0f7d6",
+  "codec": "mp3",
+  "sampleRateHz": 22050,
+  "channels": 1,
+  "durationSeconds": 22.987755,
+  "decoder": "ffmpeg and ffprobe installed locally",
+  "fullDecodeExitCode": 0,
+  "decodingVerified": true,
+  "listeningVerified": false,
+  "audibleWordingVerified": false,
+  "scope": "Received actual hosted provider output and independently decoded all frames. This session does not support audio input; no human or agent listening claim. Original runtime receipt remains unchanged. Counts-bound text and original audit are retained separately.",
+  "billingChanges": 0
+}

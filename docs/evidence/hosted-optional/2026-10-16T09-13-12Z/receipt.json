@@ -1,0 +1,680 @@
+{
+  "version": 1,
+  "startedAt": "2026-10-16T09:13:12.626Z",
+  "origin": "https://flowproof-demo.onrender.com",
+  "sourceCommit": "64a62729018fc2372611c7b21bfffecf3b779556",
+  "status": "verified",
+  "scope": "Agent verification of the fixed hosted homepage and synthetic sample; not a friend trial, human feedback, model quality result, commercial audio license or a website certification.",
+  "approval": {
+    "actorType": "agent",
+    "humanApproval": false,
+    "purpose": "Explicit verifier approval of a bounded synthetic audit plan only"
+  },
+  "settingsOrPaymentChanges": 0,
+  "modelCalls": 0,
+  "providerRetries": 0,
+  "providerBalanceReads": 0,
+  "backboardRequested": true,
+  "artifacts": [
+    {
+      "path": "live-project.json",
+      "bytes": 2731,
+      "sha256": "103b8c6f25ac20227e81ce7d273aa4e4c0f2f1c1f0ab35365b3019ec35723d3f"
+    },
+    {
+      "path": "synthetic-project.json",
+      "bytes": 2739,
+      "sha256": "88e9b69195daede6bce2613da4a37e3290d156845f2350e4f660848353bec930"
+    },
+    {
+      "path": "approved-synthetic-project.json",
+      "bytes": 2734,
+      "sha256": "44548f93fac7f07eb843d13ec8c57e581b9e58521c248879162967334adcf4ca"
+    },
+    {
+      "path": "synthetic-audit.json",
+      "bytes": 7173,
+      "sha256": "d00a6bb31e508ae3ab4a5237058bfb574428fdaf572fc0ee67604be228744957"
+    },
+    {
+      "path": "tiger-persistence.json",
+      "bytes": 67,
+      "sha256": "41da29770f94dda295e8d1b282fea05a1f12c39148e0618dd965686e8e980f42"
+    },
+    {
+      "path": "tiger-read.json",
+      "bytes": 7576,
+      "sha256": "ebc7ba19f2c7834db13c76cb27cde9e304af42415bdf3c208b7dbe6f92c1f322"
+    },
+    {
+      "path": "synthetic-1-screenshot.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "synthetic-2-screenshot.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "synthetic-3-screenshot.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "synthetic-4-screenshot.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "path": "synthetic-5-screenshot.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "path": "synthetic-report.html",
+      "bytes": 540397,
+      "sha256": "625bdb122498d560306746dad0384a16a82bd1d7cd46c5ca2265898d552ab5bd"
+    },
+    {
+      "path": "serpapi-search.json",
+      "bytes": 337,
+      "sha256": "186fea36e98dd06e0a12f431d6042241c8260761cd14474e803570fac7ad659e"
+    },
+    {
+      "path": "elevenlabs-synthetic-report.mp3",
+      "bytes": 92386,
+      "sha256": "ecff35558d477c3fb7d4408f187171ac5fc155d81a6e392306ef3a0a81b0f7d6"
+    },
+    {
+      "path": "elevenlabs-narration.txt",
+      "bytes": 347,
+      "sha256": "ffee07a2e05622a49ef9fe8e2358dfba6d8aaaa6effcc7d215e8b67a212e4af9"
+    },
+    {
+      "path": "elevenlabs-audio-receipt.json",
+      "bytes": 1000,
+      "sha256": "b702f68a65185b447072ddd533a299464b6afbfd93acd05462782d3825432e7d"
+    },
+    {
+      "path": "backboard-write.json",
+      "bytes": 258,
+      "sha256": "2703c28b99411b738b2bbd85ca021bbae50beb4e82bde07f563ba2d93dad7630"
+    },
+    {
+      "path": "backboard-search.json",
+      "bytes": 959,
+      "sha256": "99e52772b65e8fcb906356fbdef0b6185beaff7ad0bbec1c495164e15b214e40"
+    }
+  ],
+  "calls": [
+    {
+      "operation": "create-owner-visitor",
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:12.631Z",
+      "httpStatus": 200,
+      "responseBytes": 10244,
+      "responseSha256": "ab1c892560da31c477a3ef95a63a4929f7ba11497e2b621a8766d5d14b0c2827"
+    },
+    {
+      "operation": "create-second-isolated-visitor",
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:13.139Z",
+      "httpStatus": 200,
+      "responseBytes": 10244,
+      "responseSha256": "0398465fc97bf6d32b5b53e4a0bd576308ff24421d771777525b3924246ee50f"
+    },
+    {
+      "operation": "read-protected-configuration-availability",
+      "route": "/api/operator/status",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:13.301Z",
+      "httpStatus": 200,
+      "responseBytes": 146,
+      "responseSha256": "32d1252aab1df6bd272258bc07dcc74199f486e1f9d52cb3321e27d22e99ad38"
+    },
+    {
+      "operation": "create-owner-authorized-live-homepage-preset",
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:13.458Z",
+      "httpStatus": 201,
+      "responseBytes": 2265,
+      "responseSha256": "8a498a8b8a8b94f8587f252183686dba90cfbfde6cf2eb2d69ed6349c966e325"
+    },
+    {
+      "operation": "create-built-in-broken-sample",
+      "route": "/api/projects",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:13.598Z",
+      "httpStatus": 201,
+      "responseBytes": 2273,
+      "responseSha256": "7dc9ec7ed7b891f15d958fd4487dbf8c844eedfec656047a4544a8766e0d5e1d"
+    },
+    {
+      "operation": "search-anonymous-or-cross-visitor-denied",
+      "route": "/api/projects/b8e3c8d2-245b-4d78-85dc-38fdbd275bc4/search-visibility",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:13.746Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "search-anonymous-or-cross-visitor-denied",
+      "route": "/api/projects/b8e3c8d2-245b-4d78-85dc-38fdbd275bc4/search-visibility",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:13.896Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "search-anonymous-or-cross-visitor-denied",
+      "route": "/api/projects/b8e3c8d2-245b-4d78-85dc-38fdbd275bc4/search-visibility",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:14.044Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "search-arbitrary-input-denied-before-provider",
+      "route": "/api/projects/b8e3c8d2-245b-4d78-85dc-38fdbd275bc4/search-visibility",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:14.196Z",
+      "httpStatus": 400,
+      "responseBytes": 140,
+      "responseSha256": "53ca03b7fa79b93ea59f9e6a5358ac2d6d04357dc07a5ac9db7464957ac4611c"
+    },
+    {
+      "operation": "search-non-homepage-target-denied",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/search-visibility",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:14.358Z",
+      "httpStatus": 400,
+      "responseBytes": 79,
+      "responseSha256": "2aa85bd61c4283560ba479643bd8ab6f75cb0d976b7a781009a7d3112d3c4423"
+    },
+    {
+      "operation": "unapproved-synthetic-plan-rejected",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/audits",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:14.519Z",
+      "httpStatus": 409,
+      "responseBytes": 79,
+      "responseSha256": "799500761cbeb83bf87a024bf0ea7da72672559e34db3f88fbb1fe20a242eb56"
+    },
+    {
+      "operation": "explicit-agent-approval-of-synthetic-checks",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/checks",
+      "method": "PUT",
+      "startedAt": "2026-10-16T09:13:14.678Z",
+      "httpStatus": 200,
+      "responseBytes": 2268,
+      "responseSha256": "386a8ddbc72f8733518bf936026e0433494ea3ab031d3fe3492c99a0a6595ea7"
+    },
+    {
+      "operation": "start-one-real-synthetic-chromium-audit",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/audits",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:14.837Z",
+      "httpStatus": 202,
+      "responseBytes": 2312,
+      "responseSha256": "4252c1b7c7331a58cdb8b28d04f2ca82057e170378f397e2ba74607243db108c"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:15.996Z",
+      "httpStatus": 200,
+      "responseBytes": 2312,
+      "responseSha256": "4252c1b7c7331a58cdb8b28d04f2ca82057e170378f397e2ba74607243db108c",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:17.196Z",
+      "httpStatus": 200,
+      "responseBytes": 2312,
+      "responseSha256": "4252c1b7c7331a58cdb8b28d04f2ca82057e170378f397e2ba74607243db108c",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:18.341Z",
+      "httpStatus": 200,
+      "responseBytes": 2312,
+      "responseSha256": "4252c1b7c7331a58cdb8b28d04f2ca82057e170378f397e2ba74607243db108c",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:19.490Z",
+      "httpStatus": 200,
+      "responseBytes": 2898,
+      "responseSha256": "98e76ef39d9425f256bbb3016d8b74e9039733fa227f8538af8da079dea708e8",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:20.691Z",
+      "httpStatus": 200,
+      "responseBytes": 2898,
+      "responseSha256": "98e76ef39d9425f256bbb3016d8b74e9039733fa227f8538af8da079dea708e8",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:21.838Z",
+      "httpStatus": 200,
+      "responseBytes": 3433,
+      "responseSha256": "b3b8bf62340402db1292549ccf3c384aa485ff492b0d552f8664d4f5aa57e5fb",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:22.999Z",
+      "httpStatus": 200,
+      "responseBytes": 3433,
+      "responseSha256": "b3b8bf62340402db1292549ccf3c384aa485ff492b0d552f8664d4f5aa57e5fb",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:24.159Z",
+      "httpStatus": 200,
+      "responseBytes": 4018,
+      "responseSha256": "bee77661b11569f35c7fcc16a46631043339ae175b2f2fb84f03cccff837a44d",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:25.400Z",
+      "httpStatus": 200,
+      "responseBytes": 4018,
+      "responseSha256": "bee77661b11569f35c7fcc16a46631043339ae175b2f2fb84f03cccff837a44d",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:26.598Z",
+      "httpStatus": 200,
+      "responseBytes": 4581,
+      "responseSha256": "ae25557c280a1ddcd44a2239fed95e3f07ae8a118051cf621df06b53bce9ee8f",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:27.798Z",
+      "httpStatus": 200,
+      "responseBytes": 4581,
+      "responseSha256": "ae25557c280a1ddcd44a2239fed95e3f07ae8a118051cf621df06b53bce9ee8f",
+      "storage": "memory"
+    },
+    {
+      "operation": "poll-real-synthetic-browser-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:28.971Z",
+      "httpStatus": 200,
+      "responseBytes": 5751,
+      "responseSha256": "36f4360a983b98879dc44add7814c985340e8c324f3dbeecb21c42c1cebc7083",
+      "storage": "memory"
+    },
+    {
+      "operation": "read-tiger-persistence-state",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/persistence",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:29.143Z",
+      "httpStatus": 200,
+      "responseBytes": 19,
+      "responseSha256": "0a6d07bf433c8e3a78e4293361560fdbba6b1027e5fceb2c0f5a591f243d69df"
+    },
+    {
+      "operation": "poll-tiger-persistence",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/persistence",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:30.291Z",
+      "httpStatus": 200,
+      "responseBytes": 57,
+      "responseSha256": "db3c82def14c62fda9fff84d90b97fb2163710be06c71e5868fa6418ff8d7f7d"
+    },
+    {
+      "operation": "read-exact-audit-back-from-tiger",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:30.451Z",
+      "httpStatus": 200,
+      "responseBytes": 5751,
+      "responseSha256": "e068c7ab4c8d30d777a749749133e4d9c535b16b77455aaa144ab19e7faee4d9",
+      "storage": "tiger"
+    },
+    {
+      "operation": "download-real-browser-screenshot",
+      "route": "/evidence/21618787-3eb3-4355-9e15-5f54a6d035ef/01-4a4b18fd-eee7-41bb-adb1-cda0e263db5b.png",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:30.812Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "download-real-browser-screenshot",
+      "route": "/evidence/21618787-3eb3-4355-9e15-5f54a6d035ef/02-3c8bc96a-64a8-4770-82e3-90848607a1b9.png",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:31.162Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "download-real-browser-screenshot",
+      "route": "/evidence/21618787-3eb3-4355-9e15-5f54a6d035ef/03-c906eefe-6945-4bf3-90d2-76dfd74b156b.png",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:31.372Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "download-real-browser-screenshot",
+      "route": "/evidence/21618787-3eb3-4355-9e15-5f54a6d035ef/04-36f15349-90d0-48ae-bda8-3d7a3ae4c7bc.png",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:31.544Z",
+      "httpStatus": 200,
+      "responseBytes": 42917,
+      "responseSha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "operation": "download-real-browser-screenshot",
+      "route": "/evidence/21618787-3eb3-4355-9e15-5f54a6d035ef/05-6793ed5d-8af1-48a9-b854-8f5fc3672b6c.png",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:31.697Z",
+      "httpStatus": 200,
+      "responseBytes": 88756,
+      "responseSha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9"
+    },
+    {
+      "operation": "download-real-browser-html-report",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/report",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:31.908Z",
+      "httpStatus": 200,
+      "responseBytes": 540397,
+      "responseSha256": "625bdb122498d560306746dad0384a16a82bd1d7cd46c5ca2265898d552ab5bd"
+    },
+    {
+      "operation": "cross-visitor-report-denied",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/report",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:32.211Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "speech-anonymous-or-cross-visitor-denied",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/spoken-report",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:32.362Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "speech-anonymous-or-cross-visitor-denied",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/spoken-report",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:32.523Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "speech-anonymous-or-cross-visitor-denied",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/spoken-report",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:32.679Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "speech-arbitrary-input-denied-before-provider",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/spoken-report",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:32.836Z",
+      "httpStatus": 400,
+      "responseBytes": 140,
+      "responseSha256": "53ca03b7fa79b93ea59f9e6a5358ac2d6d04357dc07a5ac9db7464957ac4611c"
+    },
+    {
+      "operation": "backboard-tokenless-denied",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/memory",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:32.978Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "backboard-cross-visitor-denied",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/memory",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:33.155Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "backboard-tokenless-denied",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/memory/search",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:33.291Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "backboard-cross-visitor-denied",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/memory/search",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:33.437Z",
+      "httpStatus": 404,
+      "responseBytes": 43,
+      "responseSha256": "bc09b95cb375ac1b1aa91a1ef39130fdccdab2bdaedfc6ea9dd58599f0bd666d"
+    },
+    {
+      "operation": "one-real-hosted-serpapi-search",
+      "route": "/api/projects/b8e3c8d2-245b-4d78-85dc-38fdbd275bc4/search-visibility",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:33.576Z",
+      "httpStatus": 200,
+      "responseBytes": 307,
+      "responseSha256": "20f9d0251abf5810288058709e4ae14ad410561329096315962cfcaf8bf11624"
+    },
+    {
+      "operation": "one-real-hosted-elevenlabs-sample-speech",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/spoken-report",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:34.321Z",
+      "httpStatus": 200,
+      "responseBytes": 92386,
+      "responseSha256": "ecff35558d477c3fb7d4408f187171ac5fc155d81a6e392306ef3a0a81b0f7d6"
+    },
+    {
+      "operation": "one-real-hosted-backboard-memory-write",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef/memory",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:40.136Z",
+      "httpStatus": 200,
+      "responseBytes": 236,
+      "responseSha256": "1af043e590cf9cfb6e93049d180d372ff1816ce8c3c89386ced84bee32f272b9"
+    },
+    {
+      "operation": "one-real-hosted-backboard-memory-search",
+      "route": "/api/projects/50532e3d-5c3f-495e-9a63-f7d741eab33e/memory/search",
+      "method": "POST",
+      "startedAt": "2026-10-16T09:13:45.179Z",
+      "httpStatus": 200,
+      "responseBytes": 625,
+      "responseSha256": "9e736e0ad2c72b86bc43c62baf2eafab78a11c2b3d46d8f72bc0a87b623cdbf4"
+    },
+    {
+      "operation": "confirm-providers-did-not-alter-audit",
+      "route": "/api/audits/21618787-3eb3-4355-9e15-5f54a6d035ef",
+      "method": "GET",
+      "startedAt": "2026-10-16T09:13:47.108Z",
+      "httpStatus": 200,
+      "responseBytes": 5751,
+      "responseSha256": "e068c7ab4c8d30d777a749749133e4d9c535b16b77455aaa144ab19e7faee4d9",
+      "storage": "tiger"
+    }
+  ],
+  "providers": {
+    "serpapi-search": {
+      "status": "observed",
+      "provider": "SerpApi",
+      "query": "site:flowproof-demo.onrender.com",
+      "resultCount": 0,
+      "auditOutcomeChanged": false,
+      "scope": "One bounded search observation, not an audit pass or indexing guarantee."
+    },
+    "elevenlabs-speech": {
+      "status": "mp3_received",
+      "provider": "ElevenLabs",
+      "model": "eleven_multilingual_v2",
+      "voiceId": "JBFqnCBsd6RMkjVDRZzb",
+      "modelAndVoiceEvidence": "Fixed adapter request configuration in sourceCommit; the hosted response does not independently report a model or voice identifier.",
+      "mimeType": "audio/mpeg",
+      "bytes": 92386,
+      "sha256": "ecff35558d477c3fb7d4408f187171ac5fc155d81a6e392306ef3a0a81b0f7d6",
+      "attribution": "Voice generated with ElevenLabs. Noncommercial synthetic demonstration only.",
+      "scope": "noncommercial-synthetic-demonstration",
+      "reservedCharacters": 347,
+      "reportedCharacters": 153,
+      "statusCountsReadFrom": "synthetic-audit.json",
+      "narration": "elevenlabs-narration.txt",
+      "decodingVerified": false,
+      "listeningVerified": false,
+      "limitation": "Received bounded MP3 bytes and counts-bound narration. Audio decoding, audible wording and playback require independent verification; no commercial license or additional audit verification is claimed."
+    },
+    "backboard-write": {
+      "status": "accepted",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "scope": "Acceptance alone is not retrieval verification."
+    },
+    "backboard-search": {
+      "status": "stored_and_retrieved",
+      "matchingProjectHash": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "matchingAuditHash": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "matchingFacts": [
+        {
+          "kind": "heading",
+          "status": "failed"
+        },
+        {
+          "kind": "link",
+          "status": "passed"
+        },
+        {
+          "kind": "image_alt",
+          "status": "failed"
+        },
+        {
+          "kind": "no_horizontal_overflow",
+          "status": "failed"
+        },
+        {
+          "kind": "text_visible",
+          "status": "passed"
+        },
+        {
+          "kind": "manual",
+          "status": "unverified"
+        }
+      ],
+      "scope": "Saved historical observations; no inference call or new browser evidence. Account balance is checked separately by the operator."
+    }
+  },
+  "duplicateProviderProbe": "Not performed: consumed allowances are covered by automated tests; this live verifier never intentionally repeats a provider action.",
+  "attemptedProviderOperations": [
+    "serpapi-search",
+    "elevenlabs-speech",
+    "backboard-write",
+    "backboard-search"
+  ],
+  "configuredAvailability": {
+    "backboard": true,
+    "tinker": true,
+    "serpapi": true,
+    "elevenlabs": true,
+    "scope": "Bounded hosted operator integrations. Visitor access remains isolated."
+  },
+  "audit": {
+    "id": "21618787-3eb3-4355-9e15-5f54a6d035ef",
+    "projectId": "50532e3d-5c3f-495e-9a63-f7d741eab33e",
+    "counts": {
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "expectedBuiltInFixtureCounts": {
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1
+    },
+    "sourceTarget": "sample",
+    "sampleVariant": "broken",
+    "generator": {
+      "provider": "Deterministic parser",
+      "model": null,
+      "reason": "Public demo proposals use local rules. No AI service or fine-tuned model is used."
+    },
+    "unapprovedPlanRejected": true,
+    "approvalActorType": "agent",
+    "humanApproval": false
+  },
+  "tiger": {
+    "status": "verified_saved_and_exact_read",
+    "expiresAt": "2026-10-16T09:43:14.950Z",
+    "jsonRoundTripEqual": true,
+    "screenshotScope": "References only; downloaded PNG bytes are separate HTTP evidence."
+  },
+  "securityControls": {
+    "anonymousProviderRoutes": 404,
+    "crossVisitorProviderRoutes": 404,
+    "substitutedInput": 400,
+    "providerCallsDuringControls": 0,
+    "scope": "HTTP observations plus reviewed server guard ordering; no separate provider-side request counter is inferred."
+  },
+  "browserAuditUnchangedAfterProviders": true,
+  "completedAt": "2026-10-16T09:13:48.883Z"
+}

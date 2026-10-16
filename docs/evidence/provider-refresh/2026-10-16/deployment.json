@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-16T09:08:10.030Z",
+  "sourceCommit": "64a62729018fc2372611c7b21bfffecf3b779556",
+  "plan": "free",
+  "repo": "https://github.com/himanshu748/flowproof-web",
+  "autoDeploy": "no",
+  "status": "live",
+  "billingChanges": 0,
+  "ci": {
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38878045224",
+    "conclusion": "success"
+  },
+  "deploy": {
+    "id": "dep-db8uiujrjlhs73djq85g",
+    "status": "live",
+    "commit": "64a62729018fc2372611c7b21bfffecf3b779556",
+    "createdAt": "2026-10-16T09:08:10.571538Z",
+    "updatedAt": "2026-10-16T09:10:28.22898Z",
+    "finishedAt": "2026-10-16T09:10:00.602321Z"
+  }
+}

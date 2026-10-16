@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "auditId": "280e6bec-f80d-4ec5-978c-d17fba7cc159",
+      "projectId": "b64299c0-ab0f-4ff9-b292-2cf8149bc8f4",
+      "createdAt": "2026-10-16T09:12:04.466Z",
+      "kind": "heading",
+      "status": "failed",
+      "requirement": "Negative control: the homepage heading must say \"Briefstamp negative control: this heading is intentionally absent\".",
+      "observed": "No visible heading exactly matches the expected text.",
+      "retrieval": "lexical",
+      "projectName": "Briefstamp live website"
+    }
+  ],
+  "mode": "tiger-lexical"
+}

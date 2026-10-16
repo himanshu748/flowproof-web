@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-16T09:15:54.337Z",
+  "sourceReceipt": "docs/evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+  "scope": "Carry consumed reservations into the server configuration before any later deploy. Does not restart service, replenish calls or alter provider settings.",
+  "deploymentTriggered": false,
+  "billingChanges": 0,
+  "proofs": [
+    {
+      "field": "BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON",
+      "previousProofSha256": "0723d4288614a1cb98a1344613724d33a7a4f093d176c13fd081c406cc8bf74f",
+      "usedCalls": 1,
+      "maxCalls": 1,
+      "usedUnits": 1,
+      "maxUnits": 1,
+      "remainingCalls": 0
+    },
+    {
+      "field": "BRIEFSTAMP_HOSTED_ELEVENLABS_PROOF_JSON",
+      "previousProofSha256": "dcf74b85414b0612ff8edbe685d57e71677113369991deab00df6d4ecdf5dce5",
+      "usedCalls": 1,
+      "maxCalls": 1,
+      "usedUnits": 347,
+      "maxUnits": 1000,
+      "remainingCalls": 0
+    },
+    {
+      "field": "BRIEFSTAMP_BACKBOARD_ALLOWANCE_JSON",
+      "previousProofSha256": "66bc6ebebfbf266cb17598183ba36a7552327649a7aac6c6b3e08830a2d0aaa1",
+      "usedCalls": 2,
+      "maxCalls": 2,
+      "usedUnits": 2,
+      "maxUnits": 2,
+      "usedOperations": [
+        "memory-write",
+        "memory-search"
+      ],
+      "reservedCreditUsd": 0.02,
+      "remainingCalls": 0
+    }
+  ],
+  "status": "spent_reservations_readback_verified",
+  "completedAt": "2026-10-16T09:15:56.025Z"
+}

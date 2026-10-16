@@ -1,0 +1,1 @@
+Briefstamp synthetic demonstration report. The browser recorded 2 passed checks, 3 failed checks, 0 blocked checks, and 1 unverified checks. Review each requirement and its screenshot in the written report. Blocked and unverified checks are not passes. This is a sample demonstration, not customer acceptance or certification of an entire website.

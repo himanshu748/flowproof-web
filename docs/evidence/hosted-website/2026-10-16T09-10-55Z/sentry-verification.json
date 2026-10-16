@@ -1,0 +1,36 @@
+{
+  "verifiedAt": "2026-10-16T09:16:54.369793+00:00",
+  "status": "dashboard_ingestion_verified",
+  "provider": "Sentry",
+  "project": "briefstamp",
+  "projectId": "4512259776380928",
+  "traceId": "c74fe62d211044c4a0a202f69b141542",
+  "sourceCommit": "64a62729018fc2372611c7b21bfffecf3b779556",
+  "observedSpans": [
+    {
+      "operation": "briefstamp.proposal",
+      "spanId": "b364210e9921fd01",
+      "durationSeconds": 23.3,
+      "status": "ok"
+    },
+    {
+      "operation": "briefstamp.proposal.generate",
+      "spanId": "8cb0d0cb00e41157",
+      "durationSeconds": 7.59
+    },
+    {
+      "operation": "briefstamp.proposal.validate",
+      "spanId": "a7bf42f437c68662",
+      "durationMs": 0.53
+    }
+  ],
+  "observedSpanCount": 3,
+  "source": "Authenticated Briefstamp-only trace explorer and exact-trace waterfall in Codex in-app browser. Root status ok read from span attributes. Not inferred from SDK flush.",
+  "screenshot": "sentry-trace.png",
+  "screenshotBytes": 74375,
+  "screenshotSha256": "0ab86c04c1313182407a7285439743c9e74402ea2f8d9ee134684c600b286aaa",
+  "originalApplicationReceiptUnchanged": true,
+  "scope": "One proposal workflow only; no browser-audit or error-event ingestion claim.",
+  "billingChanges": 0,
+  "newModelCalls": 0
+}

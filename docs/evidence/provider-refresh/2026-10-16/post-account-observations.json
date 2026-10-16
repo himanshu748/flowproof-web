@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-16T09:15:10.016920+00:00",
+  "scope": "Read-only account observations after one hosted search, one narration and one Backboard write/search; account-wide deltas are not exclusive attribution or final invoices.",
+  "billingChanges": 0,
+  "providerWriteCalls": 0,
+  "backboard": {
+    "httpStatus": 200,
+    "freeCreditsBeforeUsd": 4.98,
+    "freeCreditsAfterUsd": 4.97,
+    "freeCreditDifferenceUsd": 0.01,
+    "paidCreditsUnchanged": true,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false
+  },
+  "elevenlabs": {
+    "httpStatus": 200,
+    "tier": "creator",
+    "status": "active",
+    "characterCountBefore": 45317,
+    "characterCountAfter": 45317,
+    "characterCountDifference": 0,
+    "remainingCharacters": 84402,
+    "canExtendCharacterLimit": false,
+    "allowedToExtendCharacterLimit": false,
+    "nextInvoiceAmountDueCents": 0,
+    "hasOpenInvoices": false
+  },
+  "serpapi": {
+    "httpStatus": 200,
+    "plan_name": "Free Plan",
+    "account_status": "Active",
+    "searches_per_month": 250,
+    "this_month_usage": 34,
+    "total_searches_left": 216,
+    "extra_credits": 0
+  }
+}

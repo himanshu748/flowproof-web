@@ -1,0 +1,9 @@
+{
+  "provider": "SerpApi",
+  "domain": "flowproof-demo.onrender.com",
+  "query": "site:flowproof-demo.onrender.com",
+  "observedAt": "2026-10-16T09:13:34.275Z",
+  "results": [],
+  "status": "observed",
+  "limitation": "A bounded search snapshot, not proof that every page is indexed or a ranking guarantee. No result URL was visited."
+}
