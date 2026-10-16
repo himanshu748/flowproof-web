@@ -21,6 +21,10 @@ export const EVIDENCE_AGENT_PRIOR_SERP_RECEIPT_SHA256 =
 // Bound to the exact unexpected-response.json bytes, not a reconstructed receipt.
 export const EVIDENCE_AGENT_FAILED_RECEIPT_SHA256 =
   "da520b1fde09e57d15e03d4f92bc8b1e4af124e122a87b7c8131a762d2e6a384";
+// The separately spent repair failed at 2026-10-16T11:45Z with HTTP 500
+// INTERNAL before any tool or search ran. Exact unexpected-response.json bytes.
+export const EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256 =
+  "06064dc3f52050916b37c63a59ed098b56740d73bb9873115f57a3fd92598536";
 const sha256 = (value: string) => createHash("sha256").update(value).digest();
 const hash = z.string().regex(/^[a-f0-9]{64}$/);
 const credential = z
@@ -62,11 +66,23 @@ const repairProofSchema = proofSchema
     previousAgentReceiptSha256: z.literal(EVIDENCE_AGENT_FAILED_RECEIPT_SHA256),
   })
   .strict();
+const resilientProofSchema = repairProofSchema
+  .extend({
+    maxModelCalls: z.literal(6),
+    previousRepairProofSha256: hash,
+    previousRepairReceiptSha256: z.literal(
+      EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256,
+    ),
+    cumulativeAgentReservedModelCalls: z.literal(10),
+  })
+  .strict();
 
 export type EvidenceAgentRepairProof = z.infer<typeof repairProofSchema>;
+export type EvidenceAgentResilientProof = z.infer<typeof resilientProofSchema>;
 export type EvidenceAgentProof =
   | z.infer<typeof proofSchema>
-  | EvidenceAgentRepairProof;
+  | EvidenceAgentRepairProof
+  | EvidenceAgentResilientProof;
 
 function validWindow(proof: EvidenceAgentProof, now: number, fresh: boolean) {
   const checked = Date.parse(proof.checkedAt);
@@ -123,6 +139,7 @@ export function evidenceAgentConfiguration(
   const raw = env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON;
   const priorRaw = env.BRIEFSTAMP_HOSTED_SERPAPI_PROOF_JSON;
   const repairRaw = env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON;
+  const resilientRaw = env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON;
   if (
     !key.success ||
     !token.success ||
@@ -146,15 +163,14 @@ export function evidenceAgentConfiguration(
       historical.usedUnits < historical.maxUnits
     )
       return null;
-    // An explicitly configured repair never falls back to a primary allowance.
-    // It is separately approved, not a retry, refund or refresh of spent counters.
-    if (repairRaw !== undefined) {
+    // A configured later tranche never falls back to an earlier allowance.
+    // Every prior reservation stays spent; the exact raw proofs remain bound.
+    if (repairRaw !== undefined || resilientRaw !== undefined) {
       if (!repairRaw || repairRaw.length > 16_384 || primary.usedRuns !== 1)
         return null;
       const repair = repairProofSchema.parse(JSON.parse(repairRaw));
       if (
-        repair.usedRuns !== 0 ||
-        !validWindow(repair, now, true) ||
+        !validWindow(repair, now, false) ||
         repair.trancheId === primary.trancheId ||
         repair.credentialSha256 !== credentialHash ||
         repair.priorSerpProofSha256 !== primary.priorSerpProofSha256 ||
@@ -162,6 +178,30 @@ export function evidenceAgentConfiguration(
         Date.parse(repair.checkedAt) < Date.parse(primary.checkedAt)
       )
         return null;
+      if (resilientRaw !== undefined) {
+        if (
+          !resilientRaw ||
+          resilientRaw.length > 16_384 ||
+          repair.usedRuns !== 1
+        )
+          return null;
+        const resilient = resilientProofSchema.parse(JSON.parse(resilientRaw));
+        if (
+          resilient.usedRuns !== 0 ||
+          !validWindow(resilient, now, true) ||
+          resilient.trancheId === primary.trancheId ||
+          resilient.trancheId === repair.trancheId ||
+          resilient.credentialSha256 !== credentialHash ||
+          resilient.priorSerpProofSha256 !== primary.priorSerpProofSha256 ||
+          resilient.previousAgentProofSha256 !== sha256(raw).toString("hex") ||
+          resilient.previousRepairProofSha256 !==
+            sha256(repairRaw).toString("hex") ||
+          Date.parse(resilient.checkedAt) < Date.parse(repair.checkedAt)
+        )
+          return null;
+        return { proof: resilient, key: key.data };
+      }
+      if (repair.usedRuns !== 0 || !validWindow(repair, now, true)) return null;
       return { proof: repair, key: key.data };
     }
     if (primary.usedRuns !== 0 || !validWindow(primary, now, true)) return null;

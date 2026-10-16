@@ -1027,7 +1027,10 @@ export function createDemoRouter(options: DemoOptions) {
       });
     while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
       gemmaStarts.shift();
-    if (gemmaStarts.length + 2 > 12)
+    const initialConfig = evidenceAgentConfiguration(process.env, now());
+    if (!initialConfig) return notFound(res);
+    const modelReservations = initialConfig.proof.maxModelCalls;
+    if (gemmaStarts.length + modelReservations > 12)
       return res
         .status(429)
         .json({ error: "The shared hourly model budget is exhausted." });
@@ -1071,7 +1074,12 @@ export function createDemoRouter(options: DemoOptions) {
           error: "Tiger's audit did not exactly match the browser observation.",
         });
       const config = evidenceAgentConfiguration(process.env, now());
-      if (!config) return notFound(res);
+      if (
+        !config ||
+        config.proof.trancheId !== initialConfig.proof.trancheId ||
+        config.proof.maxModelCalls !== modelReservations
+      )
+        return notFound(res);
       reservationAttempted = true;
       const reservation = await tiger().reserveAgentRun(
         s.hash,
@@ -1086,12 +1094,13 @@ export function createDemoRouter(options: DemoOptions) {
           error:
             "This evidence-agent allowance is already reserved or spent. It cannot be retried or renewed by a deploy.",
         });
-      gemmaStarts.push(now(), now());
+      for (let i = 0; i < modelReservations; i++) gemmaStarts.push(now());
       const indexing = await tiger().indexAuditFailures(s.hash, audit.id);
       assertCurrent();
       const result = await (options.evidenceAgent ?? executeEvidenceAgent)(
         { audit: snapshot, task: EVIDENCE_AGENT_TASK },
         {
+          maxModelRequests: modelReservations,
           beforeModel: assertCurrent,
           failureHistory: async (queryId, signal) => {
             signal.throwIfAborted();
@@ -1143,7 +1152,7 @@ export function createDemoRouter(options: DemoOptions) {
         reservation: {
           durable: "Tiger UNIQUE tranche",
           consumed: true,
-          maxModelCalls: 2,
+          maxModelCalls: modelReservations,
           maxSearchCalls: 1,
         },
         indexing,

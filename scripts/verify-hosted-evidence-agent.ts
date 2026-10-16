@@ -146,7 +146,7 @@ async function verify() {
     startedAt,
     trancheId: proof.trancheId,
     status: "reserved_no_retry",
-    maxModelCalls: 2,
+    maxModelCalls: proof.maxModelCalls,
     maxSearchCalls: 1,
     routeAttempted: false,
     ...(recovery ? { recovery } : {}),
@@ -161,10 +161,13 @@ async function verify() {
     status: "running",
     origin,
     sourceCommit: expectedCommit,
+    verifierSha256: createHash("sha256")
+      .update(await readFile(new URL(import.meta.url)))
+      .digest("hex"),
     trancheId: proof.trancheId,
-    maxModelCalls: 2,
+    maxModelCalls: proof.maxModelCalls,
     maxSearchCalls: 1,
-    retries: 0,
+    maximumTransientRetries: proof.maxModelCalls === 6 ? 4 : 0,
     billingChanges: 0,
     priorAllowancesReset: false,
     ...(recovery ? { recovery } : {}),
@@ -382,6 +385,20 @@ async function verify() {
     assert.equal(lexical.mode, "tiger-lexical");
     assert.equal(lexical.results.length, 0);
     await artifact("lexical-control.json", lexical);
+    const keywordControl = (
+      await request<{
+        results: Array<{ auditId: string; kind: string }>;
+        mode: string;
+      }>(`/api/failures?projectId=${sample.id}&q=horizontal`)
+    ).value;
+    assert.equal(keywordControl.mode, "tiger-lexical");
+    assert(
+      keywordControl.results.some(
+        (row) =>
+          row.auditId === audit.id && row.kind === "no_horizontal_overflow",
+      ),
+    );
+    await artifact("lexical-positive-control.json", keywordControl);
     state.routeAttempted = true;
     await writeFile(statePath, JSON.stringify(state, null, 2), { mode: 0o600 });
     const agent = (
@@ -400,12 +417,28 @@ async function verify() {
     assert.equal(agent.transport, "native_google_gemma");
     assert.equal(agent.status, "completed");
     assert.equal(agent.modelTurns.length, 2);
+    assert.equal(agent.reservation.maxModelCalls, proof.maxModelCalls);
+    assert.equal(agent.limits.maximumLogicalModelTurns, 2);
+    assert.equal(agent.limits.maximumModelCalls, proof.maxModelCalls);
     assert(
-      agent.modelTurns.every(
-        (turn: any) =>
-          turn.result?.attempts?.length === 1 &&
-          turn.result.attempts[0].status === 200,
-      ),
+      agent.modelTurns.every((turn: any) => {
+        const attempts = turn.result?.attempts;
+        return (
+          Array.isArray(attempts) &&
+          attempts.length >= 1 &&
+          attempts.length <= (proof.maxModelCalls === 6 ? 3 : 1) &&
+          attempts.at(-1).status === 200 &&
+          attempts
+            .slice(0, -1)
+            .every((a: any) => [500, 502, 503, 504].includes(a.status))
+        );
+      }),
+    );
+    assert(
+      agent.modelTurns.reduce(
+        (n: number, t: any) => n + t.result.attempts.length,
+        0,
+      ) <= proof.maxModelCalls,
     );
     assert(
       agent.modelOutput.findings.some(
@@ -466,6 +499,7 @@ async function verify() {
     receipt.noConsentBlockedHttp = 400;
     receipt.tokenlessBlockedHttp = 404;
     receipt.lexicalControlMatches = 0;
+    receipt.lexicalPositiveControlMatches = keywordControl.results.length;
     receipt.status = "verified";
   } catch (error) {
     receipt.status = "failed";

@@ -46,7 +46,9 @@ beforeEach(() => {
     (headers: IncomingHttpHeaders) => headers["x-flowproof-token"] === OPERATOR,
   );
   boundary.enabled.mockReturnValue(true);
-  boundary.configuration.mockReturnValue({ proof: { trancheId: TRANCHE } });
+  boundary.configuration.mockReturnValue({
+    proof: { trancheId: TRANCHE, maxModelCalls: 2 },
+  });
   boundary.searchOptions.mockResolvedValue({ env: { TEST_FIXTURE: "true" } });
   boundary.search.mockResolvedValue({
     provider: "SerpApi",
@@ -58,6 +60,7 @@ beforeEach(() => {
     limitation: "Offline HTTP test fixture; no search was performed.",
   });
 });
+
 afterEach(async () => {
   for (const cleanup of cleanups.splice(0)) await cleanup();
 });
@@ -85,6 +88,7 @@ function receipt(audit: Audit): EvidenceAgentReceipt {
     sourceAuditUnchanged: true,
     limits: {
       maximumModelCalls: 2,
+      maximumLogicalModelTurns: 2,
       maximumToolCalls: 2,
       modelRetries: 0,
       toolRetries: 0,
@@ -882,5 +886,134 @@ describe("operator evidence-agent HTTP boundary", () => {
     expect((await h.review(v)).status).toBe(429);
     h.noAgentWork();
     release.resolve();
+  });
+});
+
+describe("evidence-agent physical request reservations", () => {
+  const approvedSix = (trancheId = randomUUID()) => {
+    boundary.configuration.mockReturnValue({
+      proof: { trancheId, maxModelCalls: 6 },
+    });
+    return trancheId;
+  };
+  const generateProposal = (
+    h: Awaited<ReturnType<typeof harness>>,
+    v: Visitor,
+  ) =>
+    h.request(`/api/projects/${v.project.id}/generate-gemma`, v.cookie, {
+      modelConsent: true,
+    });
+
+  it("passes the explicitly approved six-request bound to the agent and its reservation receipt", async () => {
+    approvedSix(TRANCHE);
+    const h = await harness();
+    const v = await h.ready();
+    const response = await h.review(v);
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      reservation: { consumed: true, maxModelCalls: 6, maxSearchCalls: 1 },
+      sourceAuditId: v.audit.id,
+      auditUnchanged: true,
+    });
+    expect(h.agent).toHaveBeenCalledOnce();
+    expect(h.agent.mock.calls[0][1]).toMatchObject({ maxModelRequests: 6 });
+    expect(h.store.reserveAgentRun).toHaveBeenCalledBefore(h.agent);
+    expect(
+      await (await h.request(`/api/audits/${v.audit.id}`, v.cookie)).json(),
+    ).toEqual(v.audit);
+  });
+
+  it("shares the twelve-request hourly cap across visitors and refuses a third six-request run before pricing or reservation", async () => {
+    const h = await harness();
+    const first = await h.ready();
+    const second = await h.ready();
+    const third = await h.ready();
+    approvedSix();
+    expect((await h.review(first)).status).toBe(200);
+    approvedSix();
+    expect((await h.review(second)).status).toBe(200);
+    approvedSix();
+    expect((await h.review(third)).status).toBe(429);
+    expect(h.agent).toHaveBeenCalledTimes(2);
+    expect(
+      h.agent.mock.calls.every(
+        ([, deps]) =>
+          (deps as { maxModelRequests?: number }).maxModelRequests === 6,
+      ),
+    ).toBe(true);
+    expect(h.pricing).toHaveBeenCalledTimes(2);
+    expect(h.store.reserveAgentRun).toHaveBeenCalledTimes(2);
+    expect(h.store.indexAuditFailures).toHaveBeenCalledTimes(2);
+    expect(h.reserved.size).toBe(2);
+    expect(boundary.search).toHaveBeenCalledTimes(2);
+    expect((await generateProposal(h, third)).status).toBe(429);
+    expect(h.generate).not.toHaveBeenCalled();
+    expect(h.pricing).toHaveBeenCalledTimes(2);
+  });
+
+  it("combines three-request proposal reservations and a six-request agent run without exceeding twelve", async () => {
+    const h = await harness();
+    const owner = await h.ready();
+    const other = await h.visitor();
+    // The trusted proposal fixture fails after reservation. Its three slots stay spent.
+    expect((await generateProposal(h, owner)).status).toBe(503);
+    approvedSix();
+    expect((await h.review(owner)).status).toBe(200);
+    // 3 + 6 + 3 exactly fills the same hourly budget.
+    expect((await generateProposal(h, owner)).status).toBe(503);
+    approvedSix();
+    expect((await h.review(owner)).status).toBe(429);
+    // A different visitor has not used their personal proposal allowance.
+    expect((await generateProposal(h, other)).status).toBe(429);
+    expect(h.generate).toHaveBeenCalledTimes(2);
+    expect(h.agent).toHaveBeenCalledOnce();
+    expect(h.agent.mock.calls[0][1]).toMatchObject({ maxModelRequests: 6 });
+    expect(h.pricing).toHaveBeenCalledTimes(3);
+    expect(h.store.reserveAgentRun).toHaveBeenCalledOnce();
+    expect(h.reserved.size).toBe(1);
+  });
+
+  it("does not consume agent or hourly reservations when the proof is absent", async () => {
+    const h = await harness();
+    const v = await h.ready();
+    boundary.configuration.mockReturnValue(null);
+    expect((await h.review(v)).status).toBe(404);
+    h.noAgentWork();
+    expect(h.reserved.size).toBe(0);
+    expect(
+      await (await h.request(`/api/audits/${v.audit.id}`, v.cookie)).json(),
+    ).toEqual(v.audit);
+    // Both full six-request allowances still fit after the rejected request.
+    approvedSix();
+    expect((await h.review(v)).status).toBe(200);
+    approvedSix();
+    expect((await h.review(v)).status).toBe(200);
+    expect(h.agent).toHaveBeenCalledTimes(2);
+    expect(h.store.reserveAgentRun).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not refund the six physical request slots when an agent fails early", async () => {
+    const h = await harness({
+      evidenceAgent: async () => {
+        throw new Error(
+          "Offline failure after the first permitted model attempt",
+        );
+      },
+    });
+    const v = await h.ready();
+    approvedSix();
+    const first = await h.review(v);
+    expect(first.status).toBe(503);
+    expect(await first.json()).toMatchObject({ allowanceConsumed: true });
+    approvedSix();
+    const second = await h.review(v);
+    expect(second.status).toBe(503);
+    expect(await second.json()).toMatchObject({ allowanceConsumed: true });
+    approvedSix();
+    expect((await h.review(v)).status).toBe(429);
+    expect(h.agent).toHaveBeenCalledTimes(2);
+    expect(h.pricing).toHaveBeenCalledTimes(2);
+    expect(h.store.reserveAgentRun).toHaveBeenCalledTimes(2);
+    expect(boundary.search).not.toHaveBeenCalled();
   });
 });

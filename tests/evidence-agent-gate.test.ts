@@ -20,6 +20,7 @@ import {
   evidenceAgentConfiguration,
   evidenceAgentEnabled,
   EVIDENCE_AGENT_FAILED_RECEIPT_SHA256,
+  EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256,
   EVIDENCE_AGENT_PRIOR_SERP_RECEIPT_SHA256,
 } from "../server/evidence-agent-gate.js";
 import { checkSearchVisibility } from "../server/providers/serpapi.js";
@@ -31,6 +32,7 @@ const token = ["synthetic", "evidence", "agent", "operator", "fixture"].join(
 );
 const tranche = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
 const repairTranche = "11111111-2222-4333-8444-555555555555";
+const resilientTranche = "66666666-7777-4888-8999-aaaaaaaaaaaa";
 const digest = (value: string) =>
   createHash("sha256").update(value).digest("hex");
 const directories: string[] = [];
@@ -130,6 +132,36 @@ function installRepair(env: NodeJS.ProcessEnv) {
 function amendRepair(env: NodeJS.ProcessEnv, change: Record<string, unknown>) {
   env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON = JSON.stringify({
     ...JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!),
+    ...change,
+  });
+}
+
+function installResilient(env: NodeJS.ProcessEnv) {
+  installRepair(env);
+  amendRepair(env, { usedRuns: 1 });
+  env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON = JSON.stringify({
+    ...JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!),
+    trancheId: resilientTranche,
+    checkedAt: "2026-10-16T09:45:00Z",
+    expiresAt: "2026-10-17T09:45:00Z",
+    maxModelCalls: 6,
+    usedRuns: 0,
+    previousRepairProofSha256: digest(
+      env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!,
+    ),
+    previousRepairReceiptSha256: EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256,
+    cumulativeAgentReservedModelCalls: 10,
+    evidence:
+      "Synthetic separately approved resilient fixture; not live funding evidence",
+  });
+}
+
+function amendResilient(
+  env: NodeJS.ProcessEnv,
+  change: Record<string, unknown>,
+) {
+  env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON = JSON.stringify({
+    ...JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON!),
     ...change,
   });
 }
@@ -713,6 +745,245 @@ describe("separately approved evidence-agent repair allowance", () => {
     expect(await readFile(repairFile, "utf8")).toBe(spent);
     expect(await readdir(path.dirname(repairFile))).toEqual([
       path.basename(repairFile),
+    ]);
+  });
+});
+
+describe("separately bounded resilient evidence-agent allowance", () => {
+  it("selects the six-call tranche while retaining both earlier reservations as spent", async () => {
+    const env = await environment();
+    installResilient(env);
+    const unchanged = { ...env };
+    const config = evidenceAgentConfiguration(env, now);
+    expect(config?.proof).toMatchObject({
+      trancheId: resilientTranche,
+      maxModelCalls: 6,
+      maxSearchCalls: 1,
+      cumulativeAgentReservedModelCalls: 10,
+      usedRuns: 0,
+      previousAgentProofSha256: digest(
+        env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON!,
+      ),
+      previousAgentReceiptSha256: EVIDENCE_AGENT_FAILED_RECEIPT_SHA256,
+      previousRepairProofSha256: digest(
+        env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!,
+      ),
+      previousRepairReceiptSha256: EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256,
+    });
+    expect(authorizeEvidenceAgent(headers, env, now)).toBe(true);
+    expect(JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON!).usedRuns).toBe(
+      1,
+    );
+    expect(
+      JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!).usedRuns,
+    ).toBe(1);
+    expect(env).toEqual(unchanged);
+    expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+  });
+
+  it.each([
+    { maxModelCalls: 2 },
+    { maxModelCalls: 7 },
+    { maxSearchCalls: 2 },
+    { cumulativeAgentReservedModelCalls: 6 },
+    { cumulativeAgentReservedModelCalls: 12 },
+    { trancheId: tranche },
+    { trancheId: repairTranche },
+    { trancheId: tranche.toUpperCase() },
+    { previousAgentProofSha256: "0".repeat(64) },
+    { previousAgentReceiptSha256: EVIDENCE_AGENT_FAILED_REPAIR_RECEIPT_SHA256 },
+    { previousRepairProofSha256: "0".repeat(64) },
+    { previousRepairReceiptSha256: EVIDENCE_AGENT_FAILED_RECEIPT_SHA256 },
+    { credentialSha256: "0".repeat(64) },
+    { priorSerpProofSha256: "0".repeat(64) },
+    { priorSerpCalls: 0 },
+    { usedRuns: 1 },
+    { freeOnly: false },
+    { paidOverageDisabled: false },
+    { confirmedFreeSearches: 0 },
+    { checkedAt: "2026-10-16T09:29:59Z" },
+    { checkedAt: "2026-10-16T10:00:01Z" },
+    { expiresAt: "2026-10-16T10:00:00Z" },
+    { expiresAt: "2026-10-18T09:45:00Z" },
+    { unexpected: true },
+  ])(
+    "rejects invalid resilient proof %j before filesystem or provider access",
+    async (change) => {
+      const env = await environment();
+      installResilient(env);
+      amendResilient(env, change);
+      const fetcher = vi.fn<typeof fetch>();
+      expect(evidenceAgentEnabled(env, now)).toBe(false);
+      await expect(search(env, fetcher)).rejects.toMatchObject({
+        code: "unauthorized",
+      });
+      expect(fetcher).not.toHaveBeenCalled();
+      expect(await readdir(env.FLOWPROOF_DATA_DIR!)).toEqual([]);
+    },
+  );
+
+  it("fails closed for missing, malformed or unused earlier proofs without fallback", async () => {
+    const env = await environment();
+    installResilient(env);
+    for (const field of [
+      "BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON",
+      "BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON",
+    ] as const) {
+      const original = env[field]!;
+      for (const raw of [
+        undefined,
+        "",
+        "{}",
+        "invalid-json",
+        "x".repeat(16_385),
+      ]) {
+        env[field] = raw;
+        expect(evidenceAgentEnabled(env, now)).toBe(false);
+      }
+      env[field] = JSON.stringify({ ...JSON.parse(original), usedRuns: 0 });
+      if (field === "BRIEFSTAMP_EVIDENCE_AGENT_PROOF_JSON") {
+        amendRepair(env, { previousAgentProofSha256: digest(env[field]!) });
+        amendResilient(env, {
+          previousAgentProofSha256: digest(env[field]!),
+          previousRepairProofSha256: digest(
+            env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!,
+          ),
+        });
+      } else
+        amendResilient(env, { previousRepairProofSha256: digest(env[field]!) });
+      expect(evidenceAgentEnabled(env, now)).toBe(false);
+      installResilient(env);
+    }
+    for (const raw of ["", "{}", "invalid-json", "x".repeat(16_385)]) {
+      env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON = raw;
+      expect(evidenceAgentEnabled(env, now)).toBe(false);
+    }
+    delete env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON;
+    expect(evidenceAgentEnabled(env, now)).toBe(false); // Both prior tranches remain spent.
+    amendRepair(env, { usedRuns: 0 });
+    expect(evidenceAgentEnabled(env, now)).toBe(true); // The pre-existing repair gate is unchanged.
+    env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON = "{}";
+    expect(evidenceAgentEnabled(env, now)).toBe(false); // No fallback to that unused repair.
+  });
+
+  it.each([
+    { credentialSha256: "0".repeat(64) },
+    { previousAgentProofSha256: "0".repeat(64) },
+    { previousAgentReceiptSha256: "0".repeat(64) },
+    { priorSerpProofSha256: "0".repeat(64) },
+    { trancheId: tranche },
+    { maxModelCalls: 6 },
+    { maxSearchCalls: 2 },
+    { expiresAt: "2026-10-18T09:30:00Z" },
+  ])(
+    "revalidates spent repair context even if its outer hash is rebound %j",
+    async (change) => {
+      const env = await environment();
+      installResilient(env);
+      amendRepair(env, change);
+      amendResilient(env, {
+        previousRepairProofSha256: digest(
+          env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!,
+        ),
+      });
+      expect(evidenceAgentEnabled(env, now)).toBe(false);
+    },
+  );
+
+  it("binds exact prior proof bytes while allowing their expired spent windows", async () => {
+    const env = await environment();
+    installResilient(env);
+    env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON = JSON.stringify(
+      JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!),
+      null,
+      2,
+    );
+    expect(evidenceAgentEnabled(env, now)).toBe(false);
+    amendResilient(env, {
+      previousRepairProofSha256: digest(
+        env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON,
+      ),
+    });
+    expect(evidenceAgentEnabled(env, now)).toBe(true);
+    const later = Date.parse("2026-10-19T12:00:00Z");
+    expect(evidenceAgentEnabled(env, later)).toBe(false); // The selected proof is stale.
+    amendResilient(env, {
+      checkedAt: "2026-10-19T11:00:00Z",
+      expiresAt: "2026-10-20T00:00:00Z",
+    });
+    expect(evidenceAgentEnabled(env, later)).toBe(true);
+    expect(evidenceAgentEnabled(env, Date.parse("2026-10-20T00:00:00Z"))).toBe(
+      false,
+    );
+    amendResilient(env, { expiresAt: "2026-10-20T00:00:01Z" });
+    expect(evidenceAgentEnabled(env, later)).toBe(false);
+  });
+
+  it("permits only one search on the new ledger and leaves both older ledgers and raw proofs unchanged", async () => {
+    const env = await environment();
+    const fetcher = vi.fn<typeof fetch>(async () => response());
+    await search(env, fetcher);
+    const primaryFile = filename(env);
+    const primarySpent = await readFile(primaryFile, "utf8");
+    installRepair(env);
+    await search(env, fetcher);
+    const repairFile = primaryFile.replace(tranche, repairTranche);
+    const repairSpent = await readFile(repairFile, "utf8");
+    installResilient(env);
+    const unchanged = { ...env };
+    const resilientFile = primaryFile.replace(tranche, resilientTranche);
+    await search(env, fetcher);
+    const spent = await readFile(resilientFile, "utf8");
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "budget_exhausted",
+    });
+    expect(fetcher).toHaveBeenCalledTimes(3);
+    expect(await readFile(primaryFile, "utf8")).toBe(primarySpent);
+    expect(await readFile(repairFile, "utf8")).toBe(repairSpent);
+    expect(await readFile(resilientFile, "utf8")).toBe(spent);
+    expect(env).toEqual(unchanged);
+    expect((await readdir(path.dirname(resilientFile))).sort()).toEqual(
+      [primaryFile, repairFile, resilientFile]
+        .map((value) => path.basename(value))
+        .sort(),
+    );
+  });
+
+  it("does not reset the resilient ledger through refreshed timestamps or rebound earlier bytes", async () => {
+    const env = await environment();
+    installResilient(env);
+    const fetcher = vi.fn<typeof fetch>(async () => response());
+    await search(env, fetcher);
+    const resilientFile = filename(env).replace(tranche, resilientTranche);
+    const spent = await readFile(resilientFile, "utf8");
+    const originalProof = env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON;
+    amendResilient(env, {
+      checkedAt: "2026-10-16T09:50:00Z",
+      expiresAt: "2026-10-17T09:50:00Z",
+    });
+    expect(evidenceAgentEnabled(env, now)).toBe(true);
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "free_confirmation_required",
+    });
+    env.BRIEFSTAMP_EVIDENCE_AGENT_RESILIENT_PROOF_JSON = originalProof;
+    env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON = JSON.stringify(
+      JSON.parse(env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON!),
+      null,
+      2,
+    );
+    amendResilient(env, {
+      previousRepairProofSha256: digest(
+        env.BRIEFSTAMP_EVIDENCE_AGENT_REPAIR_PROOF_JSON,
+      ),
+    });
+    expect(evidenceAgentEnabled(env, now)).toBe(true);
+    await expect(search(env, fetcher)).rejects.toMatchObject({
+      code: "free_confirmation_required",
+    });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(await readFile(resilientFile, "utf8")).toBe(spent);
+    expect(await readdir(path.dirname(resilientFile))).toEqual([
+      path.basename(resilientFile),
     ]);
   });
 });

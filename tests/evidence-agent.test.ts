@@ -702,6 +702,314 @@ function response(output: unknown = selection) {
   };
 }
 describe("native Gemma evidence-agent transport", () => {
+  it("retries only a granted transient HTTP phase, records every attempt and waits 1s then 2s", async () => {
+    let clock = 0;
+    const statuses = [500, 503, 200];
+    const fetcher = vi.fn<typeof fetch>(async () => {
+      clock += 20;
+      const status = statuses.shift()!;
+      return Response.json(
+        status === 200
+          ? response()
+          : {
+              error: { status: "INTERNAL" },
+              usageMetadata: {
+                promptTokenCount: 10,
+                candidatesTokenCount: 0,
+                totalTokenCount: 10,
+              },
+            },
+        { status },
+      );
+    });
+    const wait = vi.fn(async (milliseconds: number, signal: AbortSignal) => {
+      signal.throwIfAborted();
+      clock += milliseconds;
+    });
+    const result = await generateGemmaEvidenceTurn(nativeRequest(), {
+      env: env(),
+      now: () => now,
+      maxAttempts: 3,
+      monotonicNow: () => clock,
+      wait,
+      fetcher,
+      verifyPricing: async () => ({}),
+    });
+    expect(
+      result.attempts.map(
+        ({ index, status, retryDelayMs, retryDelayCompleted, durationMs }) => ({
+          index,
+          status,
+          retryDelayMs,
+          retryDelayCompleted,
+          durationMs,
+        }),
+      ),
+    ).toEqual([
+      {
+        index: 1,
+        status: 500,
+        retryDelayMs: 1000,
+        retryDelayCompleted: true,
+        durationMs: 20,
+      },
+      {
+        index: 2,
+        status: 503,
+        retryDelayMs: 2000,
+        retryDelayCompleted: true,
+        durationMs: 20,
+      },
+      {
+        index: 3,
+        status: 200,
+        retryDelayMs: 0,
+        retryDelayCompleted: false,
+        durationMs: 20,
+      },
+    ]);
+    expect(result.attempts[0].usage).toEqual({
+      promptTokens: 10,
+      completionTokens: 0,
+      totalTokens: 10,
+    });
+    for (const attempt of result.attempts) {
+      expect(attempt.requestSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(attempt.responseSha256).toMatch(/^[a-f0-9]{64}$/);
+    }
+    expect(wait.mock.calls.map(([milliseconds]) => milliseconds)).toEqual([
+      1000, 2000,
+    ]);
+    expect(fetcher).toHaveBeenCalledTimes(3);
+  });
+  it("exhausts three transient attempts without a fourth request or refund", async () => {
+    const fetcher = vi.fn<typeof fetch>(async () =>
+      Response.json({ error: { status: "INTERNAL" } }, { status: 500 }),
+    );
+    const wait = vi.fn(async () => {});
+    await expect(
+      generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        maxAttempts: 3,
+        fetcher,
+        wait,
+        verifyPricing: async () => ({}),
+      }),
+    ).rejects.toMatchObject({
+      code: "provider_rejected",
+      attempts: [
+        { index: 1, status: 500, retryDelayMs: 1000 },
+        { index: 2, status: 500, retryDelayMs: 2000 },
+        { index: 3, status: 500, retryDelayMs: 0 },
+      ],
+    });
+    expect(fetcher).toHaveBeenCalledTimes(3);
+    expect(wait).toHaveBeenCalledTimes(2);
+  });
+  it.each([400, 401, 403, 429])(
+    "does not retry HTTP %i even with the expanded grant",
+    async (status) => {
+      const fetcher = vi.fn<typeof fetch>(async () =>
+        Response.json({ error: { status: "INVALID_ARGUMENT" } }, { status }),
+      );
+      const wait = vi.fn(async () => {});
+      await expect(
+        generateGemmaEvidenceTurn(nativeRequest(), {
+          env: env(),
+          now: () => now,
+          maxAttempts: 3,
+          fetcher,
+          wait,
+          verifyPricing: async () => ({}),
+        }),
+      ).rejects.toMatchObject({
+        code: "provider_rejected",
+        attempts: [{ index: 1, status }],
+      });
+      expect(fetcher).toHaveBeenCalledOnce();
+      expect(wait).not.toHaveBeenCalled();
+    },
+  );
+  it("does not retry malformed successful model JSON with the expanded grant", async () => {
+    const raw = response();
+    raw.candidates[0].content.parts[0].text = "Not JSON";
+    const fetcher = vi.fn<typeof fetch>(async () => Response.json(raw));
+    const wait = vi.fn(async () => {});
+    await expect(
+      generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        maxAttempts: 3,
+        fetcher,
+        wait,
+        verifyPricing: async () => ({}),
+      }),
+    ).rejects.toMatchObject({
+      code: "invalid_model_json",
+      attempts: [{ index: 1, status: 200 }],
+    });
+    expect(fetcher).toHaveBeenCalledOnce();
+    expect(wait).not.toHaveBeenCalled();
+  });
+  it("does not retry a network failure with the expanded grant", async () => {
+    const fetcher = vi.fn<typeof fetch>(async () => {
+      throw new Error("Synthetic transport failure");
+    });
+    const wait = vi.fn(async () => {});
+    await expect(
+      generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        maxAttempts: 3,
+        fetcher,
+        wait,
+        verifyPricing: async () => ({}),
+      }),
+    ).rejects.toMatchObject({
+      code: "request_failed",
+      attempts: [{ index: 1, status: null }],
+    });
+    expect(fetcher).toHaveBeenCalledOnce();
+    expect(wait).not.toHaveBeenCalled();
+  });
+  it("shares one 30-second phase budget and refuses an unaffordable retry delay", async () => {
+    let clock = 0;
+    const fetcher = vi.fn<typeof fetch>(async () => {
+      clock = 29_001;
+      return Response.json({ error: { status: "INTERNAL" } }, { status: 500 });
+    });
+    const wait = vi.fn(async () => {});
+    await expect(
+      generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        maxAttempts: 3,
+        monotonicNow: () => clock,
+        fetcher,
+        wait,
+        verifyPricing: async () => ({}),
+      }),
+    ).rejects.toMatchObject({
+      code: "request_timeout",
+      attempts: [{ index: 1, status: 500, retryDelayMs: 0 }],
+    });
+    expect(fetcher).toHaveBeenCalledOnce();
+    expect(wait).not.toHaveBeenCalled();
+  });
+  it("cancels during backoff without starting another transport", async () => {
+    const controller = new AbortController();
+    let waiting!: () => void;
+    const ready = new Promise<void>((resolve) => {
+      waiting = resolve;
+    });
+    const wait = vi.fn(async (_milliseconds: number, signal: AbortSignal) => {
+      waiting();
+      return new Promise<void>((_resolve, reject) => {
+        signal.addEventListener("abort", () => reject(new Error("Canceled")), {
+          once: true,
+        });
+      });
+    });
+    const fetcher = vi.fn<typeof fetch>(async () =>
+      Response.json({ error: { status: "INTERNAL" } }, { status: 503 }),
+    );
+    const operation = generateGemmaEvidenceTurn(nativeRequest(), {
+      env: env(),
+      now: () => now,
+      maxAttempts: 3,
+      fetcher,
+      wait,
+      signal: controller.signal,
+      verifyPricing: async () => ({}),
+    });
+    const caught = operation.catch((error) => error);
+    await ready;
+    controller.abort();
+    expect(await caught).toMatchObject({
+      code: "request_timeout",
+      attempts: [
+        {
+          index: 1,
+          status: 503,
+          retryDelayMs: 1000,
+          retryDelayCompleted: false,
+        },
+      ],
+    });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
+  it("rechecks caller liveness after a retry delay before any additional transport", async () => {
+    let current = true;
+    const fetcher = vi.fn<typeof fetch>(async () =>
+      Response.json({ error: { status: "INTERNAL" } }, { status: 502 }),
+    );
+    const beforeRequest = vi.fn(() => {
+      if (!current) throw new Error("Expired synthetic session");
+    });
+    await expect(
+      generateGemmaEvidenceTurn(nativeRequest(), {
+        env: env(),
+        now: () => now,
+        maxAttempts: 3,
+        fetcher,
+        beforeRequest,
+        wait: async () => {
+          current = false;
+        },
+        verifyPricing: async () => ({}),
+      }),
+    ).rejects.toMatchObject({
+      code: "caller_guard_rejected",
+      attempts: [{ index: 1, status: 502, retryDelayCompleted: true }],
+    });
+    expect(fetcher).toHaveBeenCalledOnce();
+  });
+  it("keeps the expanded agent to two logical turns and at most six physical requests", async () => {
+    const audit = sample();
+    const h = dependencies(audit);
+    let phaseRequest = 0;
+    const fetcher = vi.fn<typeof fetch>(async (_url, init) => {
+      phaseRequest++;
+      const status = phaseRequest % 3 === 0 ? 200 : 504;
+      const request = JSON.parse(String(init?.body));
+      const phase = JSON.parse(request.contents[0].parts[0].text).phase;
+      return Response.json(
+        status === 200
+          ? response(phase === "select_tools" ? selection : findings())
+          : { error: { status: "UNAVAILABLE" } },
+        { status },
+      );
+    });
+    h.generate.mockImplementation((request) =>
+      generateGemmaEvidenceTurn(request, {
+        env: env(),
+        now: () => now,
+        maxAttempts: 3,
+        fetcher,
+        wait: async () => {},
+        verifyPricing: async () => ({}),
+      }),
+    );
+    const receipt = await executeEvidenceAgent(input(audit), {
+      ...h.deps,
+      maxModelRequests: 6,
+    });
+    expect(receipt.status).toBe("completed");
+    expect(receipt.limits).toMatchObject({
+      maximumModelCalls: 6,
+      maximumLogicalModelTurns: 2,
+      maximumDurationMs: 90000,
+      modelRetries: 4,
+    });
+    expect(receipt.modelTurns).toHaveLength(2);
+    expect(
+      receipt.modelTurns.flatMap((phase) => phase.result!.attempts),
+    ).toHaveLength(6);
+    expect(fetcher).toHaveBeenCalledTimes(6);
+    expect(h.failureHistory).toHaveBeenCalledOnce();
+    expect(h.searchVisibility).toHaveBeenCalledOnce();
+  });
   it.each(["\n", "\r\n"])(
     "unwraps only a complete json fence with %j line endings and records it",
     async (newline) => {

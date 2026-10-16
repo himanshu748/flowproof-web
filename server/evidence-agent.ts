@@ -95,6 +95,8 @@ const HistoryRowsSchema = z
   )
   .max(20);
 export interface EvidenceAgentDependencies {
+  /** Trusted durable grant only; two logical turns remain fixed. */
+  maxModelRequests?: 2 | 6;
   /** Trusted caller liveness/ownership check immediately before every model call. */
   beforeModel?: () => void;
   generate?: (request: EvidenceAgentPhaseRequest) => Promise<EvidenceAgentTurn>;
@@ -141,12 +143,13 @@ export interface EvidenceAgentReceipt {
   sourceAuditUnchanged: boolean;
   failureCode?: string;
   limits: {
-    maximumModelCalls: 2;
+    maximumModelCalls: 2 | 6;
+    maximumLogicalModelTurns?: 2;
     maximumToolCalls: 2;
-    modelRetries: 0;
+    modelRetries: 0 | 4;
     toolRetries: 0;
     refundPerformed: false;
-    maximumDurationMs: 50_000;
+    maximumDurationMs: 50_000 | 90_000;
   };
   scope: string;
 }
@@ -156,7 +159,7 @@ export class EvidenceAgentError extends Error {
     readonly receipt: EvidenceAgentReceipt,
   ) {
     super(
-      "The bounded evidence agent did not complete. Inspect its sanitized receipt; no retry or refund was performed.",
+      "The bounded evidence agent did not complete. Inspect its sanitized attempts; no reservation was refunded.",
     );
     this.name = "EvidenceAgentError";
   }
@@ -309,6 +312,9 @@ export async function executeEvidenceAgent(
   deps: EvidenceAgentDependencies,
 ): Promise<EvidenceAgentReceipt> {
   const now = deps.now ?? Date.now;
+  const maximumModelCalls = deps.maxModelRequests ?? 2;
+  const expandedBudget = maximumModelCalls === 6;
+  const maximumDurationMs = expandedBudget ? 90_000 : 50_000;
   const receipt: EvidenceAgentReceipt = {
     version: 1,
     status: "running",
@@ -322,19 +328,20 @@ export async function executeEvidenceAgent(
     observations: [],
     sourceAuditUnchanged: true,
     limits: {
-      maximumModelCalls: 2,
+      maximumModelCalls,
+      maximumLogicalModelTurns: 2,
       maximumToolCalls: 2,
-      modelRetries: 0,
+      modelRetries: expandedBudget ? 4 : 0,
       toolRetries: 0,
       refundPerformed: false,
-      maximumDurationMs: 50_000,
+      maximumDurationMs,
     },
     scope:
       "Model-selected finite read-only tools over a fixed synthetic audit and the owned homepage. Typed model findings are separate from server-rendered facts. Historical/search observations are not new browser checks or acceptance evidence.",
   };
   let sourceSnapshot = "";
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 50_000);
+  const timer = setTimeout(() => controller.abort(), maximumDurationMs);
   const bounded = async <T>(
     operation: (signal: AbortSignal) => Promise<T>,
     timeoutMs: number,
@@ -366,24 +373,35 @@ export async function executeEvidenceAgent(
     };
     receipt.modelTurns.push(record);
     try {
-      const result = await bounded((signal) => {
-        deps.beforeModel?.();
-        return deps.generate
-          ? deps.generate(request)
-          : generateGemmaEvidenceTurn(request, {
-              env: deps.env,
-              now: deps.now,
-              signal,
-              beforeRequest: deps.beforeModel,
-            });
-      }, 20_000);
+      const result = await bounded(
+        (signal) => {
+          deps.beforeModel?.();
+          return deps.generate
+            ? deps.generate(request)
+            : generateGemmaEvidenceTurn(request, {
+                env: deps.env,
+                now: deps.now,
+                signal,
+                beforeRequest: deps.beforeModel,
+                maxAttempts: expandedBudget ? 3 : 1,
+              });
+        },
+        expandedBudget ? 32_000 : 20_000,
+      );
+      const phaseAttempts = expandedBudget ? 3 : 1;
       if (
         result.model !== GOOGLE_GEMMA_MODEL ||
-        result.attempts.length > 1 ||
+        result.attempts.length > phaseAttempts ||
         (!deps.generate &&
-          (result.attempts.length !== 1 ||
-            result.attempts[0].phase !== request.phase ||
-            result.attempts[0].status !== 200))
+          (result.attempts.length < 1 ||
+            result.attempts.some(
+              (attempt, index) =>
+                attempt.phase !== request.phase ||
+                attempt.index !== index + 1 ||
+                (index === result.attempts.length - 1
+                  ? attempt.status !== 200
+                  : ![500, 502, 503, 504].includes(attempt.status ?? 0)),
+            )))
       )
         refusal("invalid_model_transport_receipt");
       record.result = structuredClone(result);
@@ -398,6 +416,8 @@ export async function executeEvidenceAgent(
     }
   };
   try {
+    if (maximumModelCalls !== 2 && maximumModelCalls !== 6)
+      refusal("invalid_model_request_budget");
     if (input.task !== EVIDENCE_AGENT_TASK) refusal("invalid_fixed_task");
     sourceSnapshot = JSON.stringify(input.audit);
     const audit = validatedAudit(input.audit);
@@ -521,6 +541,7 @@ export async function executeEvidenceAgent(
     receipt.status = "failed";
     const allowed = [
       "invalid_fixed_sample_scope",
+      "invalid_model_request_budget",
       "altered_fixed_sample_plan",
       "incomplete_audit_results",
       "mismatched_observed_audit_result",
