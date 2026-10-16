@@ -209,6 +209,7 @@ export default function Landing({
               <nav className="lp-nav" aria-label="Main navigation">
                 <a href="#how-it-works">How it works</a>
                 <a href="#the-proof">The proof</a>
+                <a href="#agent">Evidence agent</a>
                 <a href="#questions">Questions</a>
               </nav>
               <button type="button" className="lp-nav-cta" onClick={onOpenDemo}>
@@ -244,6 +245,9 @@ export default function Landing({
                     </button>
                     <a className="lp-button lp-button-quiet" href="#the-proof">
                       See the proof <ArrowDown size={17} />
+                    </a>
+                    <a className="lp-text-link" href="#agent">
+                      Try the evidence agent <ArrowUpRight size={16} />
                     </a>
                   </motion.div>
                   <motion.p className="lp-hero-note" {...entrance(0.32)}>

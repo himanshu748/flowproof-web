@@ -1,4 +1,6 @@
 import pg from "pg";
+import { randomUUID } from "node:crypto";
+import { isDeepStrictEqual } from "node:util";
 import { z } from "zod";
 import {
   GemmaAttemptSchema,
@@ -20,6 +22,26 @@ import {
   type AgentRetrievalCatalog,
   type AgentRetrievalQueryId,
 } from "./agent-retrieval-catalog.js";
+import {
+  JudgeAgentGrantSchema,
+  type JudgeAgentGrant,
+} from "./judge-agent-gate.js";
+
+export interface JudgeAgentBudget {
+  maximumRuns: 12;
+  usedRuns: number;
+  remainingRuns: number;
+  visitorUsed: boolean;
+  ownRunId?: string;
+  ownResult?: Record<string, unknown>;
+}
+export interface JudgeAgentReservation {
+  reserved: boolean;
+  runId?: string;
+  slot?: number;
+  reason?: "exhausted" | "visitor_used" | "rate_limited";
+  budget: JudgeAgentBudget;
+}
 
 const CUTOFF = Date.parse("2026-10-20T00:00:00Z");
 const TTL_MS = 30 * 60_000;
@@ -310,7 +332,286 @@ export function createHostedTigerStore(
     return audit;
   };
   const fixedCatalog = options.catalog ?? loadAgentRetrievalCatalog;
+  type Executor = (
+    statement: string,
+    values: unknown[],
+  ) => Promise<{ rows: Record<string, unknown>[] }>;
+  const validateJudgeGrant = (grant: JudgeAgentGrant) => {
+    JudgeAgentGrantSchema.parse(grant);
+    if (Date.parse(grant.expiresAt) <= now())
+      throw new Error("The judge grant has expired.");
+  };
+  const sealSchema = z
+    .object({
+      grantId: uuid,
+      proofSha256: z.string().regex(/^[a-f0-9]{64}$/),
+      maxRuns: z.literal(12),
+      expiresAt: z.union([z.date(), z.string().datetime({ offset: true })]),
+    })
+    .strict();
+  const checkJudgeSeal = async (execute: Executor, grant: JudgeAgentGrant) => {
+    const result = await execute(
+      'SELECT grant_id AS "grantId",proof_sha256 AS "proofSha256",max_runs AS "maxRuns",expires_at AS "expiresAt" FROM briefstamp_demo_v1.judge_agent_grants WHERE grant_id=$1 LIMIT 1',
+      [grant.grantId],
+    );
+    if (!result.rows.length) return false;
+    const seal = sealSchema.parse(result.rows[0]);
+    if (
+      seal.grantId !== grant.grantId ||
+      seal.proofSha256 !== grant.proofSha256 ||
+      seal.maxRuns !== grant.maxRuns ||
+      new Date(seal.expiresAt).toISOString() !==
+        new Date(grant.expiresAt).toISOString()
+    )
+      throw new Error(
+        "The immutable judge grant does not match its stored seal.",
+      );
+    return true;
+  };
+  const readJudgeBudget = async (
+    execute: Executor,
+    sessionHash: string,
+    grant: JudgeAgentGrant,
+  ): Promise<JudgeAgentBudget> => {
+    const result = await execute(
+      'SELECT run_id AS "runId",slot,session_hash AS "sessionHash",audit_id AS "auditId" FROM briefstamp_demo_v1.judge_agent_reservations WHERE grant_id=$1 ORDER BY slot LIMIT 13',
+      [grant.grantId],
+    );
+    const rows = z
+      .array(
+        z
+          .object({
+            runId: uuid,
+            slot: z.number().int().min(1).max(12),
+            sessionHash: sessionSchema,
+            auditId: uuid,
+          })
+          .strict(),
+      )
+      .max(12)
+      .parse(result.rows);
+    if (
+      new Set(rows.map((row) => row.slot)).size !== rows.length ||
+      new Set(rows.map((row) => row.sessionHash)).size !== rows.length
+    )
+      throw new Error("The judge reservation counters are invalid.");
+    const own = rows.find((row) => row.sessionHash === sessionHash);
+    const budget: JudgeAgentBudget = {
+      maximumRuns: 12,
+      usedRuns: rows.length,
+      remainingRuns: 12 - rows.length,
+      visitorUsed: Boolean(own),
+      ...(own ? { ownRunId: own.runId } : {}),
+    };
+    if (own) {
+      const saved = await execute(
+        `SELECT j.payload,j.status FROM briefstamp_demo_v1.judge_agent_results j
+        JOIN briefstamp_demo_v1.judge_agent_reservations r ON r.run_id=j.run_id AND r.session_hash=j.session_hash AND r.audit_id=j.audit_id
+        JOIN briefstamp_demo_v1.judge_agent_grants g ON g.grant_id=r.grant_id
+        JOIN briefstamp_demo_v1.audits a ON a.session_hash=r.session_hash AND a.audit_id=r.audit_id AND a.project_id=r.project_id
+        WHERE j.run_id=$1 AND j.session_hash=$2 AND j.audit_id=$3 AND r.grant_id=$4 AND g.proof_sha256=$5 AND g.expires_at>now() AND a.expires_at>now() LIMIT 1`,
+        [own.runId, sessionHash, own.auditId, grant.grantId, grant.proofSha256],
+      );
+      if (saved.rows.length) {
+        const value = z
+          .object({
+            payload: z.record(z.unknown()),
+            status: z.enum([
+              "completed",
+              "completed_with_unavailable_tools",
+              "failed",
+            ]),
+          })
+          .strict()
+          .parse(saved.rows[0]);
+        if (
+          Buffer.byteLength(JSON.stringify(value.payload)) > 262144 ||
+          value.payload.status !== value.status
+        )
+          throw new Error("The stored judge result is invalid.");
+        budget.ownResult = structuredClone(value.payload);
+      }
+    }
+    return budget;
+  };
   return {
+    /** No insertion or entitlement refresh. Status is a snapshot, not a reservation. */
+    async judgeAgentStatus(
+      sessionHash: string,
+      grant: JudgeAgentGrant,
+    ): Promise<JudgeAgentBudget> {
+      sessionSchema.parse(sessionHash);
+      validateJudgeGrant(grant);
+      if (!(await checkJudgeSeal(query, grant)))
+        return {
+          maximumRuns: 12,
+          usedRuns: 0,
+          remainingRuns: 12,
+          visitorUsed: false,
+        };
+      return readJudgeBudget(query, sessionHash, grant);
+    },
+    /** One checked-out connection, grant lock and confirmed COMMIT precede provider I/O. */
+    async reserveJudgeAgentRun(
+      sessionHash: string,
+      projectId: string,
+      auditId: string,
+      grant: JudgeAgentGrant,
+    ): Promise<JudgeAgentReservation> {
+      sessionSchema.parse(sessionHash);
+      uuid.parse(projectId);
+      uuid.parse(auditId);
+      validateJudgeGrant(grant);
+      let client: pg.PoolClient | undefined;
+      let commitAttempted = false,
+        committed = false;
+      try {
+        client = await database().connect();
+        const execute: Executor = (statement, values) => {
+          connection(env, now());
+          return client!.query(statement, values);
+        };
+        await execute("BEGIN", []);
+        await execute("SET LOCAL statement_timeout = '5s'", []);
+        await execute("SET LOCAL lock_timeout = '2s'", []);
+        await execute("SELECT pg_advisory_xact_lock(hashtextextended($1,0))", [
+          `briefstamp-judge:${grant.grantId}`,
+        ]);
+        validateJudgeGrant(grant);
+        const stored = await execute(
+          "SELECT payload FROM briefstamp_demo_v1.audits WHERE session_hash=$1 AND audit_id=$2 AND project_id=$3 AND expires_at>now() LIMIT 1",
+          [sessionHash, auditId, projectId],
+        );
+        if (!stored.rows.length)
+          throw new Error("The session-owned completed audit is unavailable.");
+        const audit = normalizedAudit(stored.rows[0].payload, now());
+        if (
+          audit.id !== auditId ||
+          audit.projectId !== projectId ||
+          audit.source?.target !== "sample" ||
+          audit.source.sampleVariant !== "broken"
+        )
+          throw new Error("The owned synthetic audit does not match.");
+        await execute(
+          `INSERT INTO briefstamp_demo_v1.judge_agent_grants (grant_id,proof_sha256,max_runs,expires_at)
+          SELECT $1,$2,$3,$4::timestamptz WHERE $4::timestamptz>now()
+          ON CONFLICT (grant_id) DO NOTHING RETURNING grant_id`,
+          [grant.grantId, grant.proofSha256, grant.maxRuns, grant.expiresAt],
+        );
+        if (!(await checkJudgeSeal(execute, grant)))
+          throw new Error("The judge grant could not be sealed.");
+        let budget = await readJudgeBudget(execute, sessionHash, grant);
+        let reservation: JudgeAgentReservation;
+        if (budget.visitorUsed)
+          reservation = { reserved: false, reason: "visitor_used", budget };
+        else if (budget.remainingRuns === 0)
+          reservation = { reserved: false, reason: "exhausted", budget };
+        else {
+          const hourly = await execute(
+            "SELECT count(*)::integer AS \"recentRuns\" FROM briefstamp_demo_v1.judge_agent_reservations WHERE grant_id=$1 AND created_at>now()-interval '1 hour'",
+            [grant.grantId],
+          );
+          const recent = z
+            .number()
+            .int()
+            .min(0)
+            .max(12)
+            .parse(hourly.rows[0]?.recentRuns);
+          if (recent >= 6)
+            reservation = { reserved: false, reason: "rate_limited", budget };
+          else {
+            const runId = randomUUID(),
+              slot = budget.usedRuns + 1;
+            const saved = await execute(
+              `INSERT INTO briefstamp_demo_v1.judge_agent_reservations (run_id,grant_id,slot,session_hash,project_id,audit_id)
+              SELECT $1,g.grant_id,$3,a.session_hash,a.project_id,a.audit_id FROM briefstamp_demo_v1.judge_agent_grants g
+              JOIN briefstamp_demo_v1.audits a ON a.session_hash=$4 AND a.project_id=$5 AND a.audit_id=$6
+              WHERE g.grant_id=$2 AND g.proof_sha256=$7 AND g.expires_at>now() AND a.expires_at>now()
+              ON CONFLICT DO NOTHING RETURNING run_id`,
+              [
+                runId,
+                grant.grantId,
+                slot,
+                sessionHash,
+                projectId,
+                auditId,
+                grant.proofSha256,
+              ],
+            );
+            if (saved.rows.length !== 1)
+              throw new Error(
+                "The durable judge reservation was not confirmed.",
+              );
+            budget = await readJudgeBudget(execute, sessionHash, grant);
+            if (budget.ownRunId !== runId || budget.usedRuns !== slot)
+              throw new Error(
+                "The saved judge reservation did not round-trip.",
+              );
+            reservation = { reserved: true, runId, slot, budget };
+          }
+        }
+        validateJudgeGrant(grant);
+        connection(env, now());
+        commitAttempted = true;
+        await client.query("COMMIT");
+        committed = true;
+        return reservation;
+      } catch {
+        if (client && !commitAttempted)
+          await client.query("ROLLBACK").catch(() => {});
+        throw new Error(
+          "The judge reservation could not be confirmed. An ambiguous commit is not permission to retry or refund a run.",
+        );
+      } finally {
+        client?.release(commitAttempted && !committed);
+      }
+    },
+    /** Append once, scoped to the committed reservation. Never change audit or grant rows. */
+    async appendJudgeAgentResult(
+      sessionHash: string,
+      runId: string,
+      auditId: string,
+      value: Record<string, unknown>,
+    ) {
+      sessionSchema.parse(sessionHash);
+      uuid.parse(runId);
+      uuid.parse(auditId);
+      const status = z
+        .enum(["completed", "completed_with_unavailable_tools", "failed"])
+        .parse(value.status);
+      // Compare the actual JSON document PostgreSQL stores: optional undefined
+      // fields disappear during serialization and are not persisted changes.
+      const payload = JSON.stringify(value);
+      const normalized = JSON.parse(payload) as Record<string, unknown>;
+      if (Buffer.byteLength(payload) > 262144)
+        throw new Error("The judge result exceeds its bound.");
+      const saved = await query(
+        `INSERT INTO briefstamp_demo_v1.judge_agent_results (run_id,session_hash,audit_id,payload,status)
+        SELECT r.run_id,r.session_hash,r.audit_id,$4::jsonb,$5 FROM briefstamp_demo_v1.judge_agent_reservations r
+        JOIN briefstamp_demo_v1.judge_agent_grants g ON g.grant_id=r.grant_id
+        JOIN briefstamp_demo_v1.audits a ON a.session_hash=r.session_hash AND a.audit_id=r.audit_id AND a.project_id=r.project_id
+        WHERE r.run_id=$1 AND r.session_hash=$2 AND r.audit_id=$3 AND g.expires_at>now() AND a.expires_at>now()
+        ON CONFLICT (run_id) DO NOTHING RETURNING run_id`,
+        [runId, sessionHash, auditId, payload, status],
+      );
+      const existing = await query(
+        `SELECT j.payload FROM briefstamp_demo_v1.judge_agent_results j
+        JOIN briefstamp_demo_v1.judge_agent_reservations r ON r.run_id=j.run_id AND r.session_hash=j.session_hash AND r.audit_id=j.audit_id
+        JOIN briefstamp_demo_v1.judge_agent_grants g ON g.grant_id=r.grant_id
+        JOIN briefstamp_demo_v1.audits a ON a.session_hash=r.session_hash AND a.audit_id=r.audit_id AND a.project_id=r.project_id
+        WHERE j.run_id=$1 AND j.session_hash=$2 AND j.audit_id=$3 AND g.expires_at>now() AND a.expires_at>now() LIMIT 1`,
+        [runId, sessionHash, auditId],
+      );
+      if (
+        existing.rows.length !== 1 ||
+        !isDeepStrictEqual(
+          JSON.parse(JSON.stringify(existing.rows[0].payload)),
+          normalized,
+        )
+      )
+        throw new Error("The immutable judge result could not be verified.");
+      return { inserted: saved.rows.length === 1 };
+    },
     async persistAudit(sessionHash: string, value: Audit) {
       sessionSchema.parse(sessionHash);
       const audit = normalizedAudit(value, now());

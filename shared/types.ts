@@ -139,6 +139,12 @@ export interface Bootstrap {
     enabled: boolean;
     expiresMinutes: number;
     notice: string;
+    judgeAgent?: {
+      available: boolean;
+      maximumRuns: 12;
+      sampleBrief: string;
+      description: string;
+    };
     gemma?: {
       available: boolean;
       model: string;

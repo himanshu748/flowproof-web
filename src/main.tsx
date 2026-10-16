@@ -66,6 +66,7 @@ import "./styles.css";
 import "./workspace.css";
 import Landing from "./Landing";
 import { AuditComparison } from "./AuditComparison";
+import { JudgeAgent, JudgeAgentInvite } from "./JudgeAgent";
 import {
   ApiRequestError,
   createOperationGate,
@@ -81,7 +82,8 @@ type View =
   | "reports"
   | "model"
   | "settings"
-  | "history";
+  | "history"
+  | "agent";
 const kinds: { value: CheckKind; label: string }[] = [
   { value: "heading", label: "Heading exists" },
   { value: "text_visible", label: "Text is visible" },
@@ -99,6 +101,7 @@ const titles: Record<View, string> = {
   model: "Model lab",
   settings: "Connections",
   history: "Failure library",
+  agent: "Evidence agent",
 };
 const tokenKey = "flowproof.operator-token";
 let recoverDemoSession: (() => Promise<void>) | null = null;
@@ -121,11 +124,14 @@ async function fetchChecked(
   const response = await fetch(path, options);
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
-    throw new ApiRequestError(
+    const requestError = new ApiRequestError(
       error.error || `Request failed (${response.status}). Please try again.`,
       response.status,
       typeof error.code === "string" ? error.code : undefined,
     );
+    if (error.allowanceConsumed === false)
+      Object.assign(requestError, { allowanceConsumed: false });
+    throw requestError;
   }
   return response;
 }
@@ -139,15 +145,23 @@ async function api<T>(
       const controller = new AbortController();
       if (path === "/bootstrap") pendingBootstrapController = controller;
       // A lost response must release the UI without replaying a model call or
-      // approval. The server's isolated model deadline remains 45 seconds.
+      // approval. Only the evidence agent has a longer bounded deadline.
       const timeout = setTimeout(
         () => controller.abort(),
-        path === "/bootstrap" ? 65_000 : 55_000,
+        method === "POST" && /^\/audits\/[^/]+\/judge-review$/.test(path)
+          ? 120_000
+          : path === "/bootstrap"
+            ? 65_000
+            : 55_000,
       );
       try {
         const response = await fetchChecked(`/api${path}`, {
           method,
-          headers: headers(),
+          headers:
+            path === "/judge-agent/status" ||
+            /^\/audits\/[^/]+\/judge-review$/.test(path)
+              ? { "Content-Type": "application/json" }
+              : headers(),
           signal: controller.signal,
           ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
         });
@@ -349,10 +363,12 @@ function EvidenceImage({ path, alt }: { path: string; alt: string }) {
 function App({
   initialView = "overview",
   openModel = false,
+  openAgent = false,
   active = true,
 }: {
   initialView?: View;
   openModel?: boolean;
+  openAgent?: boolean;
   active?: boolean;
 }) {
   const [data, setData] = useState<Bootstrap | null>(null);
@@ -369,6 +385,9 @@ function App({
   useEffect(() => {
     if (openModel) setView("model");
   }, [openModel]);
+  useEffect(() => {
+    if (openAgent) setView("agent");
+  }, [openAgent]);
   const [projectId, setProjectId] = useState("");
   const [auditId, setAuditId] = useState("");
   const [draft, setDraft] = useState<TestCheck[]>([]);
@@ -667,6 +686,7 @@ function App({
   }, [data?.audits]);
   const navigate = (next: View) => {
     setView(next);
+    if (next === "agent") window.location.hash = "agent";
     setMobileOpen(false);
     setFilter("all");
     setSelectedCheck("");
@@ -807,6 +827,7 @@ function App({
     icon: typeof LayoutDashboard;
   }[] = [
     { view: "overview", label: "Overview", icon: LayoutDashboard },
+    { view: "agent", label: "Evidence agent", icon: Sparkles },
     { view: "projects", label: "Projects", icon: Folder },
     { view: "reports", label: "Delivery reports", icon: FileCheck2 },
     { view: "history", label: "Failure library", icon: BookOpen },
@@ -1148,6 +1169,30 @@ function App({
                     )}
                   </section>
                 )}
+                {data && demo?.enabled && (
+                  <div hidden={view !== "agent"}>
+                    <JudgeAgent
+                      key={data.projects[0]?.id || "judge-agent"}
+                      active={view === "agent" && active}
+                      request={api}
+                      sampleBrief={demo.judgeAgent?.sampleBrief || ""}
+                      projects={data.projects}
+                      onWorkspaceChange={refresh}
+                    />
+                  </div>
+                )}
+                {data && view === "agent" && !demo?.enabled && (
+                  <div className="panel" style={{ padding: 24 }}>
+                    <h1>Evidence agent</h1>
+                    <p>
+                      The visitor allowance is available on the public demo.{" "}
+                      <a href="https://flowproof-demo.onrender.com/#agent">
+                        Open the hosted evidence workflow
+                      </a>
+                      .
+                    </p>
+                  </div>
+                )}
                 {data && (view === "overview" || view === "projects") && (
                   <>
                     <div className="page-heading workspace-page-heading">
@@ -1175,6 +1220,9 @@ function App({
                         New project
                       </button>
                     </div>
+                    {view === "overview" && demo?.enabled && (
+                      <JudgeAgentInvite onOpen={() => navigate("agent")} />
+                    )}
                     {view === "overview" && (
                       <section
                         className="stats-grid workspace-summary"
@@ -3541,7 +3589,10 @@ function Application() {
     return () => window.removeEventListener("hashchange", updateRoute);
   }, []);
   const workspace =
-    route === "#demo" || route === "#model" || route === "#main";
+    route === "#demo" ||
+    route === "#model" ||
+    route === "#main" ||
+    route === "#agent";
   const [visitedWorkspace, setVisitedWorkspace] = useState(workspace);
   useEffect(() => {
     if (workspace) setVisitedWorkspace(true);
@@ -3566,13 +3617,16 @@ function Application() {
           <App
             active={workspace}
             initialView={
-              route === "#model"
-                ? "model"
-                : route === "#demo"
-                  ? "review"
-                  : "overview"
+              route === "#agent"
+                ? "agent"
+                : route === "#model"
+                  ? "model"
+                  : route === "#demo"
+                    ? "review"
+                    : "overview"
             }
             openModel={route === "#model"}
+            openAgent={route === "#agent"}
           />
         </div>
       )}

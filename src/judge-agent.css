@@ -1,0 +1,620 @@
+.judge-agent {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.judge-agent :where(p, small) {
+  color: var(--muted);
+}
+.judge-agent :where(button, .button, summary) {
+  min-height: 44px;
+}
+.judge-agent :where(code, p, strong, small, a) {
+  overflow-wrap: anywhere;
+}
+.judge-agent :where(input[type="checkbox"]) {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  padding: 0;
+  flex-shrink: 0;
+  accent-color: var(--blue);
+}
+.judge-agent-invite {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0 0 24px;
+  padding: 23px;
+  background: #fffaf1;
+  border: 1px solid #e7ddca;
+  border-radius: 10px;
+}
+.judge-agent-invite-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 48px;
+  height: 48px;
+  color: #855a24;
+  background: #f4ead7;
+  border-radius: 10px;
+}
+.judge-agent-invite > div:nth-child(2) {
+  flex: 1;
+}
+.judge-agent-invite h2 {
+  margin: 5px 0 7px;
+}
+.judge-agent-invite p {
+  color: #5d604f;
+  font-size: 13px;
+  max-width: 660px;
+}
+.judge-agent-invite .button {
+  flex-shrink: 0;
+  min-height: 44px;
+}
+.judge-agent-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 22px;
+  margin-bottom: 26px;
+}
+.judge-agent-heading h1 {
+  margin: 8px 0 11px;
+}
+.judge-agent-heading p {
+  max-width: 640px;
+  font-size: 14px;
+}
+.judge-agent-recorded {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 44px;
+  flex-shrink: 0;
+  font-size: 12px;
+}
+.judge-agent-availability {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.judge-agent-availability > div {
+  flex: 1;
+  min-width: 0;
+}
+.judge-agent-availability-icon {
+  color: #49604c;
+}
+.judge-agent-availability p {
+  font-size: 12px;
+  margin-top: 4px;
+}
+.judge-agent-budget {
+  display: block;
+  color: #394c66;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  margin-top: 6px;
+}
+.judge-agent-alert,
+.judge-agent-pending {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  border: 1px solid #dec5a1;
+  background: #fff8e9;
+  border-radius: 8px;
+  color: #7b4f1e;
+}
+.judge-agent-alert p {
+  color: #704b20;
+}
+.judge-agent-pending {
+  background: #f0f4ff;
+  border-color: #d4def7;
+  color: var(--blue);
+}
+.judge-agent-pending p {
+  color: #354b72;
+}
+.judge-agent-pending svg,
+.judge-agent-alert svg {
+  margin-top: 3px;
+}
+.judge-agent-workflow {
+  margin-top: 24px;
+  display: grid;
+  gap: 18px;
+}
+.judge-agent-step {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+}
+.judge-agent-step-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.judge-agent-step-heading p {
+  font-size: 13px;
+  margin-top: 5px;
+}
+.judge-agent-step-number {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #edf1f7;
+  color: #40516a;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.judge-agent-prepare {
+  margin-left: 46px;
+}
+.judge-agent-prepare p {
+  max-width: 750px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.judge-agent-checks {
+  list-style: none;
+  margin: 0 0 20px 46px;
+  padding: 0;
+}
+.judge-agent-approval-note {
+  margin: 0 0 16px 46px;
+  font-size: 12px;
+}
+.judge-agent-checks li {
+  display: flex;
+  gap: 11px;
+  padding: 13px 0;
+  border-bottom: 1px solid #edf0f4;
+}
+.judge-agent-checks li:first-child {
+  padding-top: 0;
+}
+.judge-agent-check-icon {
+  color: #65768d;
+  margin-top: 3px;
+}
+.judge-agent-checks strong {
+  font-size: 13px;
+  font-weight: 550;
+}
+.judge-agent-checks p {
+  font-size: 12px;
+  margin-top: 4px;
+}
+.judge-agent-step-action {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-left: 46px;
+}
+.judge-agent-step-action small {
+  font-size: 11px;
+  max-width: 400px;
+}
+.judge-agent-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 16px;
+  margin: 0 0 18px 46px;
+  background: #f7f8fb;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.judge-agent-consent input {
+  margin-top: 2px;
+}
+.judge-agent-consent span {
+  font-size: 12px;
+  line-height: 1.65;
+  color: #3c4d65;
+}
+.judge-agent-counts {
+  margin: 0 0 16px 46px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.judge-agent-counts > span {
+  padding: 7px 11px;
+  border-radius: 6px;
+  color: #40506a;
+  background: #edf1f6;
+  font-size: 12px;
+}
+.judge-agent-counts strong {
+  font-variant-numeric: tabular-nums;
+}
+.judge-agent-counts .judge-agent-count-failed {
+  color: #983e36;
+  background: #fcf0ed;
+}
+.judge-agent-counts .judge-agent-count-passed {
+  color: #2e654e;
+  background: #edf6f0;
+}
+.judge-agent-storage {
+  margin: 0 0 16px 46px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+.judge-agent-browser-details {
+  margin: 0 0 16px 46px;
+  font-size: 12px;
+}
+.judge-agent-browser-details summary {
+  padding: 12px 0;
+  cursor: pointer;
+  color: #354b72;
+}
+.judge-agent-browser-details ol {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+.judge-agent-browser-details li {
+  padding: 13px 0;
+  border-bottom: 1px solid #e7ecf3;
+}
+.judge-agent-browser-details li > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+}
+.judge-agent-browser-details strong {
+  font-weight: 550;
+}
+.judge-agent-browser-details li > div > span {
+  color: #53647d;
+  font-size: 11px;
+}
+.judge-agent-browser-details p {
+  margin: 6px 0;
+}
+.judge-agent-browser-details a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  gap: 4px;
+}
+.judge-agent-results {
+  margin-top: 24px;
+  padding: 25px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+.judge-agent-result-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.judge-agent-result-mark {
+  color: #385b81;
+  padding: 10px;
+  border-radius: 9px;
+  background: #edf2f8;
+}
+.judge-agent-result-heading h2 {
+  margin: 4px 0 6px;
+  font-size: 21px;
+}
+.judge-agent-result-heading p {
+  font-size: 13px;
+}
+.judge-agent-provenance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 16px;
+  margin: 18px 0;
+  color: #59677b;
+  font-size: 11px;
+}
+.judge-agent-selected {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0;
+  border-block: 1px solid #e8edf3;
+  font-size: 12px;
+}
+.judge-agent-selected strong {
+  margin-right: 9px;
+  font-weight: 550;
+}
+.judge-agent-selected > span {
+  padding: 5px 9px;
+  background: #f1f4fa;
+  border-radius: 5px;
+  color: #405575;
+}
+.judge-agent-result-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 24px;
+  margin-top: 22px;
+}
+.judge-agent-tool {
+  min-width: 0;
+}
+.judge-agent-tool h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.judge-agent-tool > p {
+  font-size: 12px;
+  margin: 8px 0;
+}
+.judge-agent-tool > code {
+  display: block;
+  color: #4e5e74;
+  font-size: 11px;
+}
+.judge-agent-history {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+.judge-agent-history li {
+  padding: 14px;
+  margin-top: 9px;
+  border: 1px solid #e4e9f1;
+  border-radius: 8px;
+  background: #fafbfd;
+}
+.judge-agent-history strong {
+  font-size: 12px;
+  font-weight: 550;
+}
+.judge-agent-history p {
+  font-size: 12px;
+  margin: 7px 0;
+}
+.judge-agent-history dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+  margin: 12px 0 8px;
+}
+.judge-agent-history dt {
+  color: #657188;
+  font-size: 10px;
+}
+.judge-agent-history dd {
+  color: #33445e;
+  font-size: 12px;
+  margin: 3px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+.judge-agent-history small {
+  font-size: 10px;
+}
+.judge-agent-tool .judge-agent-search-count {
+  color: #344763;
+  font-size: 13px;
+  margin: 18px 0 12px;
+}
+.judge-agent-search-count strong {
+  font-size: 28px;
+  font-weight: 550;
+  margin-right: 4px;
+}
+.judge-agent-tool .judge-agent-tool-note {
+  padding: 13px;
+  margin-top: 18px;
+  color: #61634d;
+  background: #f8f5ec;
+  border-radius: 7px;
+}
+.judge-agent-citations {
+  border-top: 1px solid #e4e9f1;
+  margin-top: 24px;
+  padding-top: 20px;
+}
+.judge-agent-citations ol {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+.judge-agent-citations li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #edf0f4;
+}
+.judge-agent-citations code {
+  font-size: 10px;
+  color: #627087;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.judge-agent-model-details {
+  margin-top: 18px;
+  font-size: 12px;
+}
+.judge-agent-model-details summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 550;
+}
+.judge-agent-model-details > div {
+  padding: 14px;
+  border-radius: 7px;
+  background: #f5f7fa;
+}
+.judge-agent-model-details section + section {
+  margin-top: 14px;
+}
+.judge-agent-model-details p {
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.judge-agent-empty {
+  padding: 32px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 24px;
+}
+.judge-agent-empty svg {
+  color: #64748a;
+}
+.judge-agent-empty h2 {
+  margin: 12px 0 8px;
+}
+.judge-agent-empty p {
+  max-width: 560px;
+  margin-inline: auto;
+  font-size: 13px;
+}
+.judge-agent-downloads {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+.judge-agent-downloads > p {
+  flex-basis: 100%;
+  font-size: 12px;
+}
+.judge-agent-scope {
+  font-size: 11px;
+  margin-top: 24px;
+  max-width: 850px;
+}
+.judge-agent-scope a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+@media (max-width: 1000px) {
+  .judge-agent-invite {
+    flex-wrap: wrap;
+  }
+  .judge-agent-invite > .button {
+    margin-left: 68px;
+  }
+}
+@media (max-width: 700px) {
+  .judge-agent-heading {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .judge-agent-availability {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 16px;
+    gap: 10px;
+  }
+  .judge-agent-availability > div {
+    flex-basis: calc(100% - 34px);
+  }
+  .judge-agent-availability > .button {
+    width: 100%;
+    justify-content: center;
+  }
+  .judge-agent-step,
+  .judge-agent-results {
+    padding: 18px;
+  }
+  .judge-agent-prepare,
+  .judge-agent-checks,
+  .judge-agent-approval-note,
+  .judge-agent-step-action,
+  .judge-agent-counts,
+  .judge-agent-storage,
+  .judge-agent-browser-details,
+  .judge-agent-consent {
+    margin-left: 0;
+  }
+  .judge-agent-step-action {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .judge-agent .button {
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+  }
+  .judge-agent-result-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .judge-agent-result-grid > section + section {
+    border-top: 1px solid #e4e9f1;
+    padding-top: 20px;
+  }
+  .judge-agent-result-heading {
+    gap: 11px;
+  }
+  .judge-agent-result-mark {
+    padding: 8px;
+  }
+  .judge-agent-result-heading h2 {
+    font-size: 19px;
+  }
+  .judge-agent-citations li {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .judge-agent-downloads .button {
+    flex: 1 1 220px;
+  }
+  .judge-agent-invite {
+    padding: 18px;
+    gap: 14px;
+  }
+  .judge-agent-invite-mark {
+    flex-basis: 38px;
+    height: 38px;
+  }
+  .judge-agent-invite > div:nth-child(2) {
+    flex-basis: calc(100% - 55px);
+  }
+  .judge-agent-invite > .button {
+    width: 100%;
+    margin-left: 0;
+    white-space: normal;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .judge-agent *,
+  .judge-agent-invite * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
