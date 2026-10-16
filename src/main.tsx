@@ -63,6 +63,7 @@ import {
   HOSTED_WEBSITE_URL,
 } from "../shared/hosted-target";
 import "./styles.css";
+import "./workspace.css";
 import Landing from "./Landing";
 import { AuditComparison } from "./AuditComparison";
 import {
@@ -374,6 +375,62 @@ function App({
   const [dirty, setDirty] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+  const navigationToggleRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!mobileOpen || !active) return;
+    const mobile = window.matchMedia("(max-width: 760px)");
+    if (!mobile.matches) {
+      setMobileOpen(false);
+      return;
+    }
+    const previousFocus =
+      navigationToggleRef.current ??
+      (document.activeElement as HTMLElement | null);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    sidebarRef.current
+      ?.querySelector<HTMLButtonElement>(
+        'button[aria-label="Close navigation"]',
+      )
+      ?.focus();
+    const closeOnDesktop = () => {
+      if (!mobile.matches) setMobileOpen(false);
+    };
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMobileOpen(false);
+      }
+      if (event.key !== "Tab") return;
+      const elements = Array.from(
+        sidebarRef.current?.querySelectorAll<HTMLElement>(
+          'a[href],button:not(:disabled),[tabindex="0"]',
+        ) ?? [],
+      ).filter((element) => element.getClientRects().length > 0);
+      const first = elements[0];
+      const last = elements.at(-1);
+      if (!first || !last) return;
+      if (!sidebarRef.current?.contains(document.activeElement)) {
+        event.preventDefault();
+        first.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    mobile.addEventListener("change", closeOnDesktop);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      mobile.removeEventListener("change", closeOnDesktop);
+      document.removeEventListener("keydown", handleKey);
+      if (previousFocus?.getClientRects().length) previousFocus.focus();
+    };
+  }, [mobileOpen, active]);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState("");
@@ -799,8 +856,12 @@ function App({
           )}
         </AnimatePresence>
         <aside
+          ref={sidebarRef}
+          id="workspace-navigation"
           className={`sidebar ${mobileOpen ? "sidebar-open" : ""}`}
           aria-label="Main navigation"
+          role={mobileOpen ? "dialog" : undefined}
+          aria-modal={mobileOpen || undefined}
         >
           <div className="sidebar-brand">
             <a
@@ -881,12 +942,15 @@ function App({
             </div>
           </div>
         </aside>
-        <div className="main-shell">
+        <div className="main-shell" inert={mobileOpen || undefined}>
           <header className="topbar">
             <div className="breadcrumb">
               <button
                 className="icon-button mobile-only"
                 aria-label="Open navigation"
+                ref={navigationToggleRef}
+                aria-expanded={mobileOpen}
+                aria-controls="workspace-navigation"
                 onClick={() => setMobileOpen(true)}
               >
                 <Menu size={21} />
@@ -933,11 +997,20 @@ function App({
                     aria-label="Public demo information"
                   >
                     <Info size={18} />
-                    <p>
-                      <strong>Public demo.</strong>{" "}
-                      {demo.notice ||
-                        `Choose the synthetic sample or Briefstamp's fixed live homepage. This temporary workspace resets after ${demo.expiresMinutes} minutes or when the free service restarts. Do not enter client information.`}
-                    </p>
+                    <details className="demo-notice-disclosure">
+                      <summary className="demo-notice-summary">
+                        <strong>Public demo</strong>
+                        <span>
+                          {demo.expiresMinutes}-minute workspace. No private
+                          client data.
+                        </span>
+                        <ChevronDown size={15} aria-hidden="true" />
+                      </summary>
+                      <p>
+                        {demo.notice ||
+                          `Choose the synthetic sample or Briefstamp's fixed live homepage. This temporary workspace resets after ${demo.expiresMinutes} minutes or when the free service restarts. Do not enter client information.`}
+                      </p>
+                    </details>
                   </aside>
                 )}
                 {data && sessionNotice && (
@@ -1077,11 +1150,11 @@ function App({
                 )}
                 {data && (view === "overview" || view === "projects") && (
                   <>
-                    <div className="page-heading">
+                    <div className="page-heading workspace-page-heading">
                       <div>
                         <div className="eyebrow">
                           <span className="orange-dot" />
-                          DELIVERY, VERIFIED
+                          DELIVERY WORKSPACE
                         </div>
                         <h1>
                           {view === "overview"
@@ -1090,8 +1163,8 @@ function App({
                         </h1>
                         <p>
                           {view === "overview"
-                            ? "Turn what you promised into proof you can hand over."
-                            : "A clear path from client requirements to confident delivery."}
+                            ? "Review the plan. Capture the evidence. Deliver with clarity."
+                            : "Every website, its agreed checks and the evidence behind them."}
                         </p>
                       </div>
                       <button
@@ -1102,46 +1175,239 @@ function App({
                         New project
                       </button>
                     </div>
-                    {demo?.enabled && (
-                      <LiveSitePreset
-                        busy={busy}
-                        onCreate={createLiveWebsiteProject}
-                      />
-                    )}
                     {view === "overview" && (
-                      <>
-                        <section className="welcome-panel">
-                          <div className="welcome-copy">
-                            <span className="section-kicker">
-                              <span className="tiny-square" />
-                              FROM BRIEF TO PROOF
-                            </span>
-                            <AnimatePresence mode="wait">
-                              <motion.div
-                                key={introStep}
-                                initial={{
-                                  opacity: 0,
-                                  y: reducedMotion ? 0 : 5,
-                                }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.2 }}
+                      <section
+                        className="stats-grid workspace-summary"
+                        aria-label="Workspace totals"
+                      >
+                        <div className="stat-card">
+                          <span className="stat-icon">
+                            <Folder size={18} />
+                          </span>
+                          <div>
+                            <span>Projects in your workspace</span>
+                            <strong>
+                              {data.projects.length.toString().padStart(2, "0")}
+                            </strong>
+                          </div>
+                          <small>
+                            {
+                              data.projects.filter((p) => p.target === "sample")
+                                .length
+                            }{" "}
+                            synthetic sample
+                            {data.projects.filter((p) => p.target === "sample")
+                              .length === 1
+                              ? ""
+                              : "s"}{" "}
+                            included
+                          </small>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-icon">
+                            <ListChecksIcon />
+                          </span>
+                          <div>
+                            <span>Requirements mapped</span>
+                            <strong>
+                              {totalChecks.toString().padStart(2, "0")}
+                            </strong>
+                          </div>
+                          <small>Ready for your review and approval</small>
+                        </div>
+                        <div className="stat-card">
+                          <span className="stat-icon">
+                            <FileCheck2 size={18} />
+                          </span>
+                          <div>
+                            <span>Completed audits</span>
+                            <strong>
+                              {completed.length.toString().padStart(2, "0")}
+                            </strong>
+                          </div>
+                          <small>
+                            {completed.length
+                              ? "Results remain linked to their checks"
+                              : "No audit has been completed yet"}
+                          </small>
+                        </div>
+                      </section>
+                    )}
+                    <div
+                      className={`workspace-grid ${view === "projects" ? "full-width" : ""}`}
+                    >
+                      <div className="workspace-project-column">
+                        <section className="panel projects-panel">
+                          <div className="panel-heading project-collection-heading">
+                            <div>
+                              <span className="panel-kicker">
+                                PROJECT LIBRARY
+                              </span>
+                              <h2>
+                                Your projects{" "}
+                                <span className="count-badge">
+                                  {data.projects.length}
+                                </span>
+                              </h2>
+                              <p>
+                                Pick a website to review its plan or continue a
+                                handoff.
+                              </p>
+                            </div>
+                            {view === "overview" && (
+                              <button
+                                className="text-button muted"
+                                onClick={() => navigate("projects")}
                               >
-                                <h2>{intro[introStep].title}</h2>
-                                <p>{intro[introStep].text}</p>
-                              </motion.div>
-                            </AnimatePresence>
-                            <button
-                              className="button dark"
-                              onClick={() => project && chooseProject(project)}
-                            >
-                              {allAudits.length || project?.target === "website"
-                                ? "Open test plan"
-                                : "Explore the sample project"}
-                              <ArrowRight size={16} />
-                            </button>
+                                View all <ArrowRight size={14} />
+                              </button>
+                            )}
+                          </div>
+                          <div className="project-table-head">
+                            <span>PROJECT</span>
+                            <span>CHECK APPROVAL</span>
+                            <span>LAST AUDIT</span>
+                          </div>
+                          <div className="project-list">
+                            {data.projects.map((p) => {
+                              const last = allAudits.find(
+                                (a) => a.projectId === p.id,
+                              );
+                              const savedApprovalCount = p.checks.filter(
+                                (check) => check.approved,
+                              ).length;
+                              return (
+                                <button
+                                  className="project-row"
+                                  key={p.id}
+                                  onClick={() => chooseProject(p)}
+                                >
+                                  <span
+                                    className={`project-tile ${p.target === "sample" ? "sample-tile" : ""}`}
+                                  >
+                                    {p.target === "sample" ? (
+                                      <LayersIcon />
+                                    ) : (
+                                      <Globe2 size={22} />
+                                    )}
+                                  </span>
+                                  <span className="project-name">
+                                    <strong>{p.name}</strong>
+                                    <small>
+                                      {p.target === "sample"
+                                        ? "Synthetic website"
+                                        : p.url}
+                                      <span className="project-dot">·</span>
+                                      {p.target === "sample" ? (
+                                        <span className="sample-tag">
+                                          SAMPLE
+                                        </span>
+                                      ) : (
+                                        date(p.createdAt)
+                                      )}
+                                    </small>
+                                  </span>
+                                  <span className="project-plan">
+                                    <strong>{p.checks.length} checks</strong>
+                                    <span
+                                      className="project-progress"
+                                      aria-hidden="true"
+                                    >
+                                      {p.checks.map((check) => (
+                                        <span
+                                          key={check.id}
+                                          className={
+                                            check.approved ? "is-approved" : ""
+                                          }
+                                        />
+                                      ))}
+                                    </span>
+                                    <small>{savedApprovalCount} approved</small>
+                                  </span>
+                                  <span className="project-audit">
+                                    {last ? (
+                                      <>
+                                        <Status value={last.status} />
+                                        {last.status === "completed" && (
+                                          <small className="project-audit-counts">
+                                            {
+                                              last.results.filter(
+                                                (result) =>
+                                                  result.status === "passed",
+                                              ).length
+                                            }{" "}
+                                            passed
+                                            <span> · </span>
+                                            {
+                                              last.results.filter(
+                                                (result) =>
+                                                  result.status === "failed",
+                                              ).length
+                                            }{" "}
+                                            failed
+                                          </small>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <span className="not-run">
+                                        <CircleDashed size={13} />
+                                        Not run yet
+                                      </span>
+                                    )}
+                                  </span>
+                                  <ChevronRight
+                                    size={17}
+                                    className="row-arrow"
+                                  />
+                                </button>
+                              );
+                            })}
+                            {data.projects.length === 0 && (
+                              <div className="project-library-empty">
+                                <Folder size={24} aria-hidden="true" />
+                                <h3>A clear home for your next handoff.</h3>
+                                <p>
+                                  Create a project, add the agreed requirements
+                                  and review its checks.
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                          <button
+                            className="add-project-row"
+                            onClick={() => setCreateOpen(true)}
+                          >
+                            <Plus size={16} />
+                            Start a new project
+                          </button>
+                        </section>
+                        {demo?.enabled && (
+                          <div className="workspace-live-preset">
+                            <LiveSitePreset
+                              busy={busy}
+                              onCreate={createLiveWebsiteProject}
+                            />
+                          </div>
+                        )}
+                        {view === "overview" && (
+                          <section
+                            className="workspace-method"
+                            aria-label="How Briefstamp works"
+                          >
+                            <div className="method-heading">
+                              <span className="panel-kicker">
+                                THE DELIVERY PATH
+                              </span>
+                              <span className="method-line" aria-hidden="true">
+                                <FileText size={15} />
+                                <span />
+                                <ShieldCheck size={15} />
+                                <span />
+                                <FileCheck2 size={15} />
+                              </span>
+                            </div>
                             <div
-                              className="intro-steps"
+                              className="intro-steps method-steps"
                               role="tablist"
                               aria-label="How Briefstamp works"
                             >
@@ -1162,314 +1428,213 @@ function App({
                                 ),
                               )}
                             </div>
-                          </div>
-                          <div
-                            className="proof-art"
-                            aria-label="Every requirement connects to an approved check and observed evidence"
-                          >
-                            <div className="art-grid" />
-                            <motion.div
-                              className="proof-sheet"
-                              animate={{
-                                rotate: introStep === 2 ? 0 : -3,
-                                y: introStep === 1 ? -4 : 0,
-                              }}
-                              transition={{ duration: 0.35 }}
-                            >
-                              <div className="proof-sheet-top">
-                                <Logo small />
-                                <span>DELIVERY REPORT</span>
-                                <span className="sheet-dots">•••</span>
-                              </div>
-                              <div className="sheet-title">
-                                Good work deserves
-                                <br />
-                                great evidence.
-                              </div>
-                              <div className="sheet-meta">
-                                YOUR REQUIREMENTS. REAL RESULTS.
-                              </div>
-                              <div className="sheet-line">
-                                <span
-                                  className={
-                                    introStep >= 0
-                                      ? "sheet-check highlighted"
-                                      : "sheet-check"
-                                  }
-                                >
-                                  <FileText size={14} />
-                                </span>
-                                <div>
-                                  <strong>Client requirements</strong>
-                                  <small>The promises you made</small>
-                                </div>
-                                <span className="line-index">01</span>
-                              </div>
-                              <div className="sheet-connector" />
-                              <div className="sheet-line">
-                                <span
-                                  className={
-                                    introStep >= 1
-                                      ? "sheet-check highlighted"
-                                      : "sheet-check"
-                                  }
-                                >
-                                  <ShieldCheck size={14} />
-                                </span>
-                                <div>
-                                  <strong>Approved browser checks</strong>
-                                  <small>
-                                    Reviewed by you, run by Playwright
-                                  </small>
-                                </div>
-                                <span className="line-index">02</span>
-                              </div>
-                              <div className="sheet-connector" />
-                              <div className="sheet-line">
-                                <span
-                                  className={
-                                    introStep >= 2
-                                      ? "sheet-check highlighted"
-                                      : "sheet-check"
-                                  }
-                                >
-                                  <Image size={14} />
-                                </span>
-                                <div>
-                                  <strong>Observed evidence</strong>
-                                  <small>Screenshots with every result</small>
-                                </div>
-                                <span className="line-index">03</span>
-                              </div>
-                              <div className="sheet-bottom">
-                                <span className="small-square" />A CLEARER WAY
-                                TO HAND OVER
-                              </div>
-                            </motion.div>
-                            <div className="proof-stamp">
-                              <ShieldCheck size={18} />
-                              <span>
-                                Evidence you
-                                <br />
-                                <strong>can stand behind.</strong>
-                              </span>
-                            </div>
-                          </div>
-                        </section>
-                        <section
-                          className="stats-grid"
-                          aria-label="Workspace totals"
-                        >
-                          <div className="stat-card">
-                            <div>
-                              <span>Projects in your workspace</span>
-                              <strong>
-                                {data.projects.length
-                                  .toString()
-                                  .padStart(2, "0")}
-                              </strong>
-                            </div>
-                            <span className="stat-icon">
-                              <Folder size={20} />
-                            </span>
-                            <small>
-                              {
-                                data.projects.filter(
-                                  (p) => p.target === "sample",
-                                ).length
-                              }{" "}
-                              synthetic sample
-                              {data.projects.filter(
-                                (p) => p.target === "sample",
-                              ).length === 1
-                                ? ""
-                                : "s"}{" "}
-                              included
-                            </small>
-                          </div>
-                          <div className="stat-card">
-                            <div>
-                              <span>Requirements mapped</span>
-                              <strong>
-                                {totalChecks.toString().padStart(2, "0")}
-                              </strong>
-                            </div>
-                            <span className="stat-icon">
-                              <ListChecksIcon />
-                            </span>
-                            <small>
-                              Every check starts with a client promise
-                            </small>
-                          </div>
-                          <div className="stat-card">
-                            <div>
-                              <span>Completed audits</span>
-                              <strong>
-                                {completed.length.toString().padStart(2, "0")}
-                              </strong>
-                            </div>
-                            <span className="stat-icon">
-                              <FileCheck2 size={20} />
-                            </span>
-                            <small>
-                              {completed.length
-                                ? "Backed by captured browser evidence"
-                                : "Your first proof is one audit away"}
-                            </small>
-                          </div>
-                        </section>
-                      </>
-                    )}
-                    <div
-                      className={`workspace-grid ${view === "projects" ? "full-width" : ""}`}
-                    >
-                      <section className="panel projects-panel">
-                        <div className="panel-heading">
-                          <div>
-                            <h2>
-                              Your projects{" "}
-                              <span className="count-badge">
-                                {data.projects.length}
-                              </span>
-                            </h2>
-                            <p>Pick up where your next handoff starts.</p>
-                          </div>
-                          {view === "overview" && (
-                            <button
-                              className="text-button muted"
-                              onClick={() => navigate("projects")}
-                            >
-                              View all <ArrowRight size={14} />
-                            </button>
-                          )}
-                        </div>
-                        <div className="project-table-head">
-                          <span>PROJECT</span>
-                          <span>TEST PLAN</span>
-                          <span>LAST AUDIT</span>
-                        </div>
-                        {data.projects.map((p) => {
-                          const last = allAudits.find(
-                            (a) => a.projectId === p.id,
-                          );
-                          return (
-                            <button
-                              className="project-row"
-                              key={p.id}
-                              onClick={() => chooseProject(p)}
-                            >
-                              <span
-                                className={`project-tile ${p.target === "sample" ? "sample-tile" : ""}`}
+                            <AnimatePresence mode="wait">
+                              <motion.div
+                                key={introStep}
+                                className="method-copy"
+                                initial={{
+                                  opacity: 0,
+                                  y: reducedMotion ? 0 : 4,
+                                }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.18 }}
                               >
-                                {p.target === "sample" ? (
-                                  <LayersIcon />
-                                ) : (
-                                  <Globe2 size={22} />
-                                )}
-                              </span>
-                              <span className="project-name">
-                                <strong>{p.name}</strong>
-                                <small>
-                                  {p.target === "sample"
-                                    ? "Synthetic website"
-                                    : p.url}
-                                  <span className="project-dot">·</span>
-                                  {p.target === "sample" ? (
-                                    <span className="sample-tag">SAMPLE</span>
-                                  ) : (
-                                    date(p.createdAt)
-                                  )}
-                                </small>
-                              </span>
-                              <span className="project-plan">
-                                <strong>{p.checks.length} checks</strong>
-                                <small>
-                                  {p.checks.filter((c) => c.approved).length}{" "}
-                                  approved
-                                </small>
-                              </span>
-                              <span className="project-audit">
-                                {last ? (
-                                  <Status value={last.status} />
-                                ) : (
-                                  <span className="not-run">
-                                    <CircleDashed size={13} />
-                                    Not run yet
-                                  </span>
-                                )}
-                              </span>
-                              <ChevronRight size={17} className="row-arrow" />
+                                <h2>{intro[introStep].title}</h2>
+                                <p>{intro[introStep].text}</p>
+                              </motion.div>
+                            </AnimatePresence>
+                            <button
+                              className="text-button"
+                              disabled={!project}
+                              onClick={() => project && chooseProject(project)}
+                            >
+                              {allAudits.length || project?.target === "website"
+                                ? "Open test plan"
+                                : "Explore the sample project"}
+                              <ArrowRight size={15} />
                             </button>
-                          );
-                        })}
-                        <button
-                          className="add-project-row"
-                          onClick={() => setCreateOpen(true)}
-                        >
-                          <Plus size={16} />
-                          Start a new project
-                        </button>
-                      </section>
+                          </section>
+                        )}
+                      </div>
                       {view === "overview" && (
-                        <aside className="next-panel">
-                          <div className="next-title">
-                            <span className="next-icon">
-                              <ArrowUpRight size={18} />
-                            </span>
-                            <span>YOUR NEXT STEP</span>
-                          </div>
-                          <h3>
-                            {completed.length
-                              ? "A handoff worth sharing."
-                              : "Make your first proof."}
-                          </h3>
-                          <p>
-                            {completed.length
-                              ? "Open a completed audit to inspect its evidence and export a delivery report."
-                              : "Our sample website is ready. Review its checks, run an audit, and see what a real delivery report looks like."}
-                          </p>
-                          <div className="next-checklist">
-                            <span>
-                              <CheckCircle2 size={16} />
-                              Sample project created
-                            </span>
-                            <span className={approved ? "" : "pending"}>
-                              {approved ? (
-                                <CheckCircle2 size={16} />
-                              ) : (
-                                <Circle size={16} />
-                              )}
-                              Review and approve checks
-                            </span>
-                            <span className={completed.length ? "" : "pending"}>
-                              {completed.length ? (
-                                <CheckCircle2 size={16} />
-                              ) : (
-                                <Circle size={16} />
-                              )}
-                              Run your first audit
-                            </span>
-                          </div>
-                          <button
-                            className="text-button"
-                            onClick={() =>
-                              completed.length
-                                ? navigate("reports")
-                                : project && chooseProject(project)
-                            }
-                          >
-                            {completed.length
-                              ? "See delivery reports"
-                              : "Review sample checks"}
-                            <ArrowRight size={15} />
-                          </button>
+                        <aside className="workspace-rail">
+                          <section className="next-panel">
+                            <div className="next-title">
+                              <span className="next-icon">
+                                <ArrowUpRight size={18} />
+                              </span>
+                              <span>YOUR NEXT STEP</span>
+                            </div>
+                            <h3>
+                              {completed.length
+                                ? "Inspect the evidence."
+                                : "Review your first plan."}
+                            </h3>
+                            <p>
+                              {completed.length
+                                ? "Your recorded results are ready to inspect. Keep any blocked or unverified checks visible in the handoff."
+                                : "Start with the agreed requirements. Checks need your approval before the browser can run."}
+                            </p>
+                            {project && (
+                              <div className="next-project-label">
+                                <span>
+                                  {project.target === "sample" ? (
+                                    <LayersIcon />
+                                  ) : (
+                                    <Globe2 size={17} />
+                                  )}
+                                </span>
+                                <strong>{project.name}</strong>
+                              </div>
+                            )}
+                            <div className="next-checklist delivery-steps">
+                              <span className={project ? "" : "pending"}>
+                                {project ? (
+                                  <CheckCircle2 size={16} />
+                                ) : (
+                                  <Circle size={16} />
+                                )}
+                                Project selected
+                              </span>
+                              <span
+                                className={
+                                  project?.checks.length &&
+                                  project.checks.every(
+                                    (check) =>
+                                      check.approved || check.kind === "manual",
+                                  )
+                                    ? ""
+                                    : "pending"
+                                }
+                              >
+                                {project?.checks.length &&
+                                project.checks.every(
+                                  (check) =>
+                                    check.approved || check.kind === "manual",
+                                ) ? (
+                                  <CheckCircle2 size={16} />
+                                ) : (
+                                  <Circle size={16} />
+                                )}
+                                Review and approve checks
+                              </span>
+                              <span
+                                className={
+                                  completed.some(
+                                    (item) => item.projectId === project?.id,
+                                  )
+                                    ? ""
+                                    : "pending"
+                                }
+                              >
+                                {completed.some(
+                                  (item) => item.projectId === project?.id,
+                                ) ? (
+                                  <CheckCircle2 size={16} />
+                                ) : (
+                                  <Circle size={16} />
+                                )}
+                                Run your first audit
+                              </span>
+                            </div>
+                            <button
+                              className="button primary next-action-primary"
+                              onClick={() =>
+                                completed.length
+                                  ? navigate("reports")
+                                  : project
+                                    ? chooseProject(project)
+                                    : setCreateOpen(true)
+                              }
+                            >
+                              {completed.length
+                                ? "See delivery reports"
+                                : project
+                                  ? "Review sample checks"
+                                  : "Create your first project"}
+                              <ArrowRight size={15} />
+                            </button>
+                          </section>
+                          <section className="panel evidence-panel">
+                            <div className="evidence-panel-header">
+                              <span className="panel-kicker">
+                                BROWSER EVIDENCE
+                              </span>
+                              <Image size={17} aria-hidden="true" />
+                            </div>
+                            {completed[0] ? (
+                              <>
+                                <h3>Latest recorded result</h3>
+                                <p className="evidence-project-name">
+                                  {completed[0].projectName}
+                                </p>
+                                <div className="evidence-metrics">
+                                  {(
+                                    [
+                                      "passed",
+                                      "failed",
+                                      "blocked",
+                                      "unverified",
+                                    ] as const
+                                  ).map((status) => (
+                                    <div
+                                      className={`evidence-metric evidence-metric-${status}`}
+                                      key={status}
+                                    >
+                                      <strong>
+                                        {
+                                          completed[0].results.filter(
+                                            (result) =>
+                                              result.status === status,
+                                          ).length
+                                        }
+                                      </strong>
+                                      <span>{status}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                                <p className="evidence-caption">
+                                  Observed{" "}
+                                  {date(
+                                    completed[0].completedAt ||
+                                      completed[0].createdAt,
+                                  )}
+                                  . Each count belongs to that audit's saved
+                                  plan.
+                                </p>
+                                <button
+                                  className="text-button"
+                                  onClick={() => navigate("reports")}
+                                >
+                                  View evidence and reports{" "}
+                                  <ArrowRight size={14} />
+                                </button>
+                              </>
+                            ) : (
+                              <div className="evidence-empty">
+                                <span className="evidence-icon">
+                                  <FileCheck2 size={24} strokeWidth={1.5} />
+                                </span>
+                                <h3>No browser evidence yet.</h3>
+                                <p>
+                                  After your first audit, find screenshots,
+                                  observed results and a report here.
+                                </p>
+                                <span className="evidence-caption">
+                                  <ShieldCheck size={13} />
+                                  Unexecuted checks are never passes.
+                                </span>
+                              </div>
+                            )}
+                          </section>
                         </aside>
                       )}
                     </div>
                     <div className="workspace-footer">
                       <span>
                         <ShieldCheck size={14} />
-                        Human approved. Browser verified.
+                        Reviewed checks. Observed results.
                       </span>
                       <span>No result is a pass until it is observed.</span>
                     </div>
