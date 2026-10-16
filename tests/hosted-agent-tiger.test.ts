@@ -249,7 +249,7 @@ describe("append-only hosted Tiger agent retrieval", () => {
       scope,
       projectId,
       "sideways panning on smartphones",
-      basis(0),
+      JSON.stringify(basis(0)),
       catalog().model,
       catalog().provenance.modelDigest,
       catalog().catalogSha256,
@@ -258,7 +258,11 @@ describe("append-only hosted Tiger agent retrieval", () => {
       "a.session_hash=$1 AND a.project_id=$2 AND a.expires_at>now()",
     );
     expect(statement).toContain("e.session_hash=$1 AND e.project_id=$2");
-    expect(statement).toContain("unnest(e.embedding,$4::double precision[])");
+    expect(statement).toContain(
+      "e.embedding_vector OPERATOR(public.<=>) $4::public.vector(384)",
+    );
+    expect(statement).not.toContain("unnest(e.embedding");
+    expect(sql.query).toHaveBeenCalledOnce();
     expect(statement).toContain("ts_rank_cd");
     expect(statement).toContain('1.0/(60+"vectorRank")');
     expect(statement).toContain("LIMIT 20");
@@ -300,6 +304,54 @@ describe("append-only hosted Tiger agent retrieval", () => {
         )
       )[0].rrf,
     ).toBe(2 / 61);
+  });
+  it("verifies true float32 cosine for vectors within the catalog normalization tolerance", async () => {
+    const input = rawCatalog();
+    const scale = Math.sqrt(1.000009);
+    input.documents[0].vector = basis(0).map((_value, index) =>
+      index === 0 ? 0.6 * scale : index === 1 ? 0.8 * scale : 0,
+    );
+    const exactCatalog = parseAgentRetrievalCatalog(input);
+    const a = Math.fround(input.documents[0].vector[0]);
+    const b = Math.fround(input.documents[0].vector[1]);
+    const cosine = a / Math.hypot(a, b);
+    const row = {
+      ...hybridRow(),
+      catalogSha256: exactCatalog.catalogSha256,
+      cosine,
+    };
+    const exactStore = createHostedTigerStore({
+      env,
+      now: () => NOW,
+      catalog: async () => exactCatalog,
+    });
+    sql.query.mockResolvedValueOnce({ rows: [row] });
+    expect(
+      (
+        await exactStore.searchFailuresHybrid(
+          scope,
+          projectId,
+          "mobile_paraphrase",
+        )
+      )[0].cosine,
+    ).toBe(cosine);
+    // The old unnormalized float64 dot product is not pgvector cosine.
+    sql.query.mockResolvedValueOnce({
+      rows: [{ ...row, cosine: input.documents[0].vector[0] }],
+    });
+    await expect(
+      exactStore.searchFailuresHybrid(scope, projectId, "mobile_paraphrase"),
+    ).rejects.toThrow();
+  });
+  it("fails closed when the stored pgvector column is unavailable, without falling back to arrays", async () => {
+    sql.query.mockRejectedValueOnce(
+      new Error("column embedding_vector does not exist"),
+    );
+    await expect(
+      store().searchFailuresHybrid(scope, projectId, "mobile_paraphrase"),
+    ).rejects.toThrow();
+    expect(sql.query).toHaveBeenCalledOnce();
+    expect(sql.query.mock.calls[0][0]).toContain("OPERATOR(public.<=>)");
   });
   it("rejects unknown queries, bad scopes and expired funding before query I/O", async () => {
     await expect(

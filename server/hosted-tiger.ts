@@ -45,6 +45,22 @@ export interface JudgeAgentReservation {
 
 const CUTOFF = Date.parse("2026-10-20T00:00:00Z");
 const TTL_MS = 30 * 60_000;
+// pgvector stores float32 components and normalizes by both vector norms.
+// This tolerance bounds accumulation error, not relevance or a matching score.
+const PGVECTOR_COSINE_TOLERANCE = 0.000001;
+function catalogVectorCosine(left: number[], right: number[]) {
+  let product = 0,
+    leftNorm = 0,
+    rightNorm = 0;
+  for (let index = 0; index < left.length; index++) {
+    const a = Math.fround(left[index]),
+      b = Math.fround(right[index]);
+    product += a * b;
+    leftNorm += a * a;
+    rightNorm += b * b;
+  }
+  return product / Math.sqrt(leftNorm * rightNorm);
+}
 const sessionSchema = z.string().regex(/^[a-f0-9]{64}$/);
 const uuid = z.string().uuid();
 const ownSample = (value: string) => {
@@ -756,7 +772,7 @@ export function createHostedTigerStore(
       );
       return { reserved: reserved.rows.length === 1 };
     },
-    /** Exact catalog only. Portable PostgreSQL arrays, not pgvector or a lexical fallback. */
+    /** Exact catalog and pgvector cosine search fused with lexical ranks in one query. */
     async searchFailuresHybrid(
       sessionHash: string,
       projectId: string,
@@ -775,7 +791,7 @@ export function createHostedTigerStore(
             r->>'kind' AS kind,r->>'status' AS status,r->>'requirement' AS requirement,r->'evidence'->>'observed' AS observed,
             e.text_sha256 AS "textSha256",e.model,e.model_digest AS "modelDigest",e.catalog_sha256 AS "catalogSha256",
             ts_rank_cd(to_tsvector('simple',(r->>'requirement') || ' ' || (r->'evidence'->>'observed')),plainto_tsquery('simple',$3))::double precision AS "lexicalScore",
-            (SELECT sum(left_value*right_value) FROM unnest(e.embedding,$4::double precision[]) AS v(left_value,right_value))::double precision AS cosine
+            (1 - (e.embedding_vector OPERATOR(public.<=>) $4::public.vector(384)))::double precision AS cosine
           FROM briefstamp_demo_v1.failure_embeddings e
           JOIN briefstamp_demo_v1.audits a ON a.session_hash=e.session_hash AND a.audit_id=e.audit_id AND a.project_id=e.project_id
           CROSS JOIN LATERAL jsonb_array_elements(a.payload->'results') r
@@ -792,7 +808,7 @@ export function createHostedTigerStore(
           sessionHash,
           projectId,
           fixed.text,
-          fixed.vector,
+          JSON.stringify(fixed.vector),
           catalog.model,
           catalog.provenance.modelDigest,
           catalog.catalogSha256,
@@ -828,10 +844,9 @@ export function createHostedTigerStore(
         const document = catalog.documents.find(
           (entry) => entry.textSha256 === row.textSha256 && entry.text === text,
         );
-        const expectedCosine = document?.vector.reduce(
-          (sum, value, index) => sum + value * fixed.vector[index],
-          0,
-        );
+        const expectedCosine = document
+          ? catalogVectorCosine(document.vector, fixed.vector)
+          : undefined;
         const expectedRrf =
           (row.lexicalRank === null ? 0 : 1 / (60 + row.lexicalRank)) +
           1 / (60 + row.vectorRank);
@@ -839,7 +854,8 @@ export function createHostedTigerStore(
           !document ||
           retrievalTextSha256(text) !== row.textSha256 ||
           expectedCosine === undefined ||
-          Math.abs(row.cosine - expectedCosine) > 0.0000001 ||
+          !Number.isFinite(expectedCosine) ||
+          Math.abs(row.cosine - expectedCosine) > PGVECTOR_COSINE_TOLERANCE ||
           Math.abs(row.rrf - expectedRrf) > 0.0000001 ||
           row.lexicalScore > 0 !== (row.lexicalRank !== null)
         )
