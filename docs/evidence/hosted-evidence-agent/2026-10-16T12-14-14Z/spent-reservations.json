@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-16T12:15:16.062Z",
+  "status": "spent_configuration_verified",
+  "trancheId": "73a35ac4-ca43-4b51-bb46-e4f6116d95e8",
+  "sourceCommit": "f990d9a14ae95dc322e4d81a411e9dd764ff9207",
+  "sourceReceipt": "work/hosted-evidence-agent/2026-10-16T12-14-14-434Z/receipt.json",
+  "searchRepairReservedModelCalls": 2,
+  "searchRepairReservedSearchCalls": 1,
+  "searchRepairObservedModelCalls": 2,
+  "searchRepairObservedSearchRequests": 1,
+  "searchRepairTransport": [
+    {
+      "provider": "serpapi",
+      "operation": "search-visibility",
+      "startedAt": "2026-10-16T12:14:41.931Z",
+      "durationMs": 379,
+      "status": 200,
+      "outcome": "response"
+    }
+  ],
+  "searchRepairHTTPStatuses": [
+    200,
+    200
+  ],
+  "searchRepairReportedUsage": [
+    {
+      "promptTokens": 517,
+      "completionTokens": 38,
+      "totalTokens": 555
+    },
+    {
+      "promptTokens": 1242,
+      "completionTokens": 735,
+      "totalTokens": 1977
+    }
+  ],
+  "searchRepairUsageKnownOnEveryAttempt": true,
+  "earlierAgentReservedModelCalls": 10,
+  "earlierAgentReservedSearchCalls": 3,
+  "earlierAgentObservedModelCalls": 4,
+  "earlierAgentSearchToolTimeouts": 1,
+  "earlierAgentSearchUpstreamCompletion": null,
+  "earlierHTTP500Usage": null,
+  "cumulativeAgentReservedModelCalls": 12,
+  "cumulativeAgentReservedSearchCalls": 4,
+  "cumulativeAgentObservedModelCalls": 6,
+  "cumulativeAgentSearchRequestsWithTransportReceipt": 1,
+  "cumulativeSearchCompletionKnownForEveryTranche": false,
+  "earlierStandaloneSearchSeparatelySpent": 1,
+  "unusedReservationsRefunded": false,
+  "oldPrimaryBytesPreserved": true,
+  "oldRepairBytesPreserved": true,
+  "priorProviderConfigurationPreserved": true,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "renderPlan": "free",
+  "durableTigerTranches": 4,
+  "strictTlsVerified": true,
+  "newProofSha256": "29914853202469f299d8be2e630a519db6a9c4574a51b8fcf6d95c9ef9b2df73",
+  "agentDisabledBySpentConfiguration": true,
+  "completedAt": "2026-10-16T12:15:20.903Z"
+}

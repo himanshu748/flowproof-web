@@ -1,0 +1,61 @@
+{
+  "algorithm": "sha256",
+  "scope": "Exact copied artifacts, spent readback and explanatory README; manifest excludes itself.",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 3450,
+      "sha256": "2f3ebc2cc67a051f03b005db38a8757d663f7d4518801eab88faf1a77bc19ba3"
+    },
+    {
+      "file": "agent-run.json",
+      "bytes": 15556,
+      "sha256": "ef43f348339eeff0715b1b94db7c56e7a3272790d949e4d7389b58b932b1f72f"
+    },
+    {
+      "file": "independent-cosine.json",
+      "bytes": 784,
+      "sha256": "2feca25a22c6b0f835aebf194f21c8cc51ebbf3c653475e449605d37d143e7be"
+    },
+    {
+      "file": "lexical-control.json",
+      "bytes": 47,
+      "sha256": "334662fef04b71f34144ce067e662e24bb7d828d28f2960622450b32519c9ff2"
+    },
+    {
+      "file": "lexical-positive-control.json",
+      "bytes": 527,
+      "sha256": "ff1b34764fec10e25356fe596068eea4aae04e92d2d46c49d7d781efd258c196"
+    },
+    {
+      "file": "observed-mobile-failure.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 24659,
+      "sha256": "c9ed569900fb7006ec95a9b8881f46e7f3f5365750df604371fb5b7da2895456"
+    },
+    {
+      "file": "serpapi-search.json",
+      "bytes": 337,
+      "sha256": "bddbfcfbf0ef99f4d66c4478e32be41971effafb4375798df7d52e3b617467c4"
+    },
+    {
+      "file": "serpapi-transport.json",
+      "bytes": 190,
+      "sha256": "888015b17745f993e4b93a70f1cf562947344edf09911d50895cc36f00cc034f"
+    },
+    {
+      "file": "source-audit.json",
+      "bytes": 7154,
+      "sha256": "d16f71ef000c52596361ea5b44706bb4a15e7c711f0d6425ec917c263f3084ae"
+    },
+    {
+      "file": "spent-reservations.json",
+      "bytes": 2020,
+      "sha256": "9282d29e884adbfb53fe7e7f0039f810bfee92a1a950df58edccbdc33a389697"
+    }
+  ]
+}

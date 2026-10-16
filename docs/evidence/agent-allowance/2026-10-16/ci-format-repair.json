@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-16T11:42:50.974Z",
+  "sourceCommit": "9d3f59f8dfce25e5f9b58a605e0be4fd6bee54e3",
+  "run": {
+    "id": 38895196807,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38895196807",
+    "conclusion": "success"
+  },
+  "applicationTests": 772,
+  "testFiles": 35,
+  "pythonTests": 19,
+  "build": "passed",
+  "realPublicRuntime": "passed",
+  "realHealthyBrokenRestoredAudits": "passed",
+  "ciLogSha256": "6288fe3657dcb47a1940d915a05ce5f34d2576f6491eff5b5b0d7bef87ecf29b",
+  "scope": "Exact green repair source, offline policy regressions plus real Chromium audits; no live provider/model call in CI."
+}

@@ -1,0 +1,93 @@
+{
+  "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/agent-review",
+  "status": 503,
+  "response": {
+    "error": "The evidence-agent proof could not complete. Audit results are unchanged.",
+    "allowanceConsumed": true,
+    "failureType": "EvidenceAgentError",
+    "toolReceipts": [],
+    "code": "provider_rejected",
+    "receipt": {
+      "version": 1,
+      "status": "failed",
+      "transport": "native_google_gemma",
+      "model": "gemma-4-26b-a4b-it",
+      "startedAt": "2026-10-16T11:45:10.974Z",
+      "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+      "sourceAuditId": "37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "modelTurns": [
+        {
+          "phase": "select_tools",
+          "failedAttempts": [
+            {
+              "phase": "select_tools",
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "providerModelVersion": null,
+              "status": 500,
+              "durationMs": 819,
+              "requestBytes": 1866,
+              "requestSha256": "b15b65e4e71ba16fcad3ce4a16d817acdb438b51a98e70e4a477bcb11d508d45",
+              "responseBytes": 109,
+              "responseSha256": "8afb0f460c66c8c994af4793c44df522eb1a5d19c266051b83bc31ff0a64671f",
+              "usage": null,
+              "providerStatus": "INTERNAL",
+              "retryDelayMs": 0
+            }
+          ]
+        }
+      ],
+      "toolCalls": [],
+      "observations": [],
+      "sourceAuditUnchanged": true,
+      "limits": {
+        "maximumModelCalls": 2,
+        "maximumToolCalls": 2,
+        "modelRetries": 0,
+        "toolRetries": 0,
+        "refundPerformed": false,
+        "maximumDurationMs": 50000
+      },
+      "scope": "Model-selected finite read-only tools over a fixed synthetic audit and the owned homepage. Typed model findings are separate from server-rendered facts. Historical/search observations are not new browser checks or acceptance evidence.",
+      "auditObservation": {
+        "id": "audit",
+        "type": "audit_results",
+        "auditId": "37b46306-d751-4cbc-b25c-7583c7bf58d5",
+        "results": [
+          {
+            "checkId": "a8190b20-32f4-406b-ab6a-ad3c7ad0592f",
+            "kind": "heading",
+            "status": "failed"
+          },
+          {
+            "checkId": "6e322d38-d195-46c1-8076-eede8876e7bc",
+            "kind": "link",
+            "status": "passed"
+          },
+          {
+            "checkId": "f6351d54-eb05-47a2-b719-0ba47b3dda2e",
+            "kind": "image_alt",
+            "status": "failed"
+          },
+          {
+            "checkId": "38c865b5-5537-44ec-a426-48ebf0cff9a4",
+            "kind": "no_horizontal_overflow",
+            "status": "failed"
+          },
+          {
+            "checkId": "97e1aa35-0aca-480e-871a-b4f162cadc8d",
+            "kind": "text_visible",
+            "status": "passed"
+          },
+          {
+            "checkId": "97cad241-5b2c-4721-b9f8-7aa37781d2d9",
+            "kind": "manual",
+            "status": "unverified"
+          }
+        ]
+      },
+      "failureCode": "provider_rejected",
+      "completedAt": "2026-10-16T11:45:11.795Z"
+    }
+  }
+}

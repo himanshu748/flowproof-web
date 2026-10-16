@@ -1,0 +1,29 @@
+{
+  "startedAt": "2026-10-16T11:02:05.818Z",
+  "status": "verified_migrated",
+  "plan": "outputs/TIGER_SERP_AGENT_PROOF_PLAN.md",
+  "scope": "Existing dedicated Briefstamp Tiger trial; add two scoped tables and SELECT/INSERT only; no existing data or billing changes",
+  "fieldIssueChanges": 0,
+  "billingChanges": 0,
+  "strictTlsVerified": true,
+  "grants": [
+    {
+      "table_name": "agent_reservations",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "agent_reservations",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "failure_embeddings",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "failure_embeddings",
+      "privilege_type": "SELECT"
+    }
+  ],
+  "roleExpiry": "2026-10-20T00:00:00.000Z",
+  "completedAt": "2026-10-16T11:02:11.600Z"
+}

@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-16T12:12:05.121185+00:00",
+  "sourceCommit": "f990d9a14ae95dc322e4d81a411e9dd764ff9207",
+  "run": {
+    "id": 38898518897,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38898518897",
+    "conclusion": "success"
+  },
+  "applicationTests": 871,
+  "testFiles": 35,
+  "pythonTests": 19,
+  "build": "passed",
+  "realPublicRuntime": "passed",
+  "realHealthyBrokenRestoredAudits": "passed",
+  "ciLogSha256": "110e6cb110df3197f2a97d065e9f129b60426f4911fbe0c393061f25addebcf4",
+  "scope": "Exact green search-deadline source; offline policy regressions plus real Chromium audits; no live model/provider calls in CI."
+}

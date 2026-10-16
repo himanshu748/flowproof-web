@@ -1,8 +1,10 @@
 # Tiger Data and SerpApi evidence agent
 
-**Implementation and offline tests prepared; hosted model/tool proof pending.** The historical storage and standalone search receipts do not establish this new agent flow. Category claims will be updated only after the deployed flow succeeds.
+**Hosted flow verified October 16, 2026.** A real native Gemma turn selected both tools; the second turn consumed their actual observations and cited the returned facts. [Complete verifier receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) · [Actual agent selection, observations and model output](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json).
 
-The bounded evidence agent reviews one unchanged, approved broken synthetic audit and Briefstamp's fixed owner-authorized homepage. A native Google-hosted Gemma text turn proposes zero to two typed tool requests. The server validates the selection, executes only the chosen read-only tools, then sends their actual typed observations to a second Gemma turn. Findings must cite exact returned audit/check or observation IDs. A failed or empty lookup has its own state. Browser results and approvals remain unchanged.
+The run used deployed source `f990d9a14ae95dc322e4d81a411e9dd764ff9207`, which passed [CI](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): **871 application tests, 19 Python tests, build and real browser audits**. CI does not call the live models or search provider; the dated hosted receipt is separate evidence.
+
+The bounded agent reviews one unchanged, approved broken synthetic audit and Briefstamp's fixed owner-authorized homepage. It uses native Google-hosted Gemma **text JSON**, not provider-native function calling, a Mastra Agent or the separate Mastra check-proposal workflow. The server validates selected read-only tools and their arguments, then sends only typed observations into the second turn. Findings must cite exact returned audit/check or observation IDs. Server-rendered factual prose remains separate from actual model JSON.
 
 ```mermaid
 flowchart LR
@@ -14,28 +16,46 @@ flowchart LR
   E --> F[Validated findings beside unchanged audit]
 ```
 
+## What the hosted model actually consumed
+
+| Phase             | Actual native request | Reported input / output tokens | Retained result                                                                                 |
+| ----------------- | --------------------- | -----------------------------: | ----------------------------------------------------------------------------------------------- |
+| Select tools      | One HTTP 200          |                       517 / 38 | `failure_history` with `mobile_paraphrase`, then `search_visibility` with no supplied arguments |
+| Cite observations | One HTTP 200          |                    1,242 / 735 | Three matching saved failure citations and a search snapshot citing `resultCount: 0`            |
+
+Both responses included exact whole JSON fences and empty thought parts. Their removal is recorded as transport normalization; generated fields were not repaired. Request/response hashes, reported model version and per-attempt usage are retained. No retry occurred in this run.
+
+Tiger returned **three saved failures** from the same source audit. The mobile-overflow result ranked first for “sideways panning on smartphones,” with **cosine 0.3781263417931506**, lexical score **0** and no lexical rank. PostgreSQL combined available full-text and cosine ranks with reciprocal rank fusion. A [separate calculation](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json) matched the SQL cosine values. The [paraphrase lexical control](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/lexical-control.json) returned no matches; the [positive `horizontal` keyword control](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/lexical-positive-control.json) returned one. The second model turn cited the actual retrieved audit/check IDs and failed statuses. This demonstrates retrieval serving the agent, not general search quality or independent customer history.
+
+The [SerpApi transport](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-transport.json) returned **HTTP 200 in 379 milliseconds**. Its [actual response](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-search.json) contained **zero matching results**. The second model turn consumed that observation and cited the exact zero count. This establishes a search tool used in the bounded agent loop, not de-indexing, ranking, an uncached-freshness guarantee or a passing browser assertion.
+
+The [source Chromium audit](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/source-audit.json) remained **2 passed, 3 failed, 0 blocked and 1 unverified**, with unchanged approval states. A duplicate tranche was rejected with **409**; tokenless and cross-visitor access with **404**; missing consent with **400**. The approval belongs to an automated synthetic verifier, not a customer.
+
 ## Retrieval scope
 
-The [catalogue](../shared/agent-retrieval-vectors.json) contains genuine normalized 384-dimensional `all-minilm:22m` embeddings for three exact failure texts from a real Chromium audit. The [generation script](../scripts/generate-agent-retrieval-catalog.ts) uses the already-installed loopback model; no model download or paid embedding endpoint is required. Exact text hashes bind every vector to its source observation. Unsupported failure texts are skipped, never given fabricated embeddings.
+The [catalogue](../shared/agent-retrieval-vectors.json) contains genuine normalized **384-dimensional** `all-minilm:22m` embeddings for three exact failure texts from a real Chromium audit. The [generation script](../scripts/generate-agent-retrieval-catalog.ts) uses the already-installed local model; no paid embedding endpoint is required. Exact text hashes bind every vector to its source observation. Unsupported failure texts are skipped, never given fabricated embeddings.
 
-Only three precomputed query vectors are supported. Parameterized SQL combines PostgreSQL full-text ranks and cosine ranks with reciprocal rank fusion. Vectors use PostgreSQL arrays, **not pgvector**. This is a fixed-query integration demonstration, not arbitrary hosted embedding inference or a retrieval-quality benchmark. The [additive migration](hosted-tiger-agent.sql) adds two scoped tables; the runtime gets SELECT/INSERT only, with existing strict TLS and October 20 cutoff.
+Only **three precomputed query vectors** are supported. Vectors use PostgreSQL arrays, **not pgvector**. This is a fixed-query integration demonstration, not arbitrary hosted embedding inference or a retrieval-quality benchmark. The [additive migration](hosted-tiger-agent.sql) adds scoped embedding/reservation tables. The runtime retains restricted SELECT/INSERT access, strict TLS and the **October 20 access cutoff** on the credit-covered Tiger trial; permanent free storage is not claimed.
 
 ## Search and agent boundaries
 
-The model cannot choose a URL, SQL, script, request header, domain or external destination. SerpApi observes only `site:flowproof-demo.onrender.com` through the existing exact allowlist. No result links are followed. Search titles/URLs do not enter the model context; the bounded domain, query, observed timestamp and actual result count do. Zero matching results is not proof of de-indexing or a passing browser check.
+The model cannot choose a URL, SQL, script, request header, project ID, domain or external destination. SerpApi observes only `site:flowproof-demo.onrender.com` through the exact allowlist. No result links are followed. Search titles/URLs, private briefs, DOM, project names and credentials do not enter the model context. A failed lookup remains unavailable, distinct from a successful empty response. Every finding is checked against actual observations before display; tool output cannot authorize another action or change the source audit.
 
-The agent uses native text JSON for selection and findings, not provider-native function calling or the separate Mastra proposal workflow. All typed findings are checked against actual observations; the factual prose summary is server-rendered from validated data and is labelled separately.
+## Consumed allowance and failure history
 
-## One-shot free-resource proof
+The successful tranche reserved **two free Gemma requests and one free SerpApi search**, without retry or refund. Its search deadline was explicitly bounded to **30 seconds** within a **90-second** global deadline; this did not increase model-call or search quotas. The full reservation is consumed. Earlier reservations remain spent. Fresh account observations, allowance timestamps and server restarts do not authorize additional calls. [Funding boundaries](PROVIDER_ALLOWANCES.md).
 
-The owner's October 16 request authorizes a separately prepared tranche: at most two free Gemma requests and one free SerpApi search, without retry/refund. The old one-search allowance remains consumed and its exact bytes/hash are bound into the new proof. A fresh read-only SerpApi account observation confirms the existing Free Plan; the model path independently verifies Google's free-only pricing.
+Before provider I/O, the verifier reserves an exclusive off-host record and the app inserts the tranche into Tiger under a global UNIQUE key. The route requires the operator token, explicit model consent, visitor ownership, exact approved synthetic checks, matching Tiger readback and shared model/browser locks. Cancellation, expiry and source changes fail closed. Billing settings, FieldIssue data and access durations were not changed.
 
-Before any model/search I/O, the verifier reserves an exclusive off-host record and the app inserts the tranche into Tiger under a global UNIQUE key. A deployment cannot reset that row. The route requires the existing operator token, explicit model consent, visitor ownership, exact approved synthetic checks, matching Tiger readback and shared model/browser locks. Expiry and source changes fail closed. No additional credentials, billing settings, services, FieldIssue data, or access durations change.
-
-Dry-run command, which makes no requests:
+Earlier attempts remain visible: [HTTP 200 with invalid model JSON](evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md), [upstream HTTP 500 / INTERNAL](evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md), and [a partial run whose search timed out at 10 seconds](evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md). The last of those genuinely cited Tiger rows but received no search response; upstream search completion remained unknown. The later successful run does not relabel earlier failures or replace their receipts.
 
 ```sh
+# Dry run: no credential reads or requests.
 node --import tsx scripts/verify-hosted-evidence-agent.ts
 ```
 
-Actual `--run` requires the private prepared access file, exact verified deployment SHA and unused off-host tranche reservation. Do not delete spent state to repeat a proof. [Provider boundaries](PROVIDER_ALLOWANCES.md).
+Actual `--run` requires a separately approved allowance, private prepared access file, exact verified deployment SHA and unused off-host tranche. Do not delete spent state to repeat a proof.
+
+## Community references
+
+[Hybrid retrieval in one Postgres query: RRF over tsvector + pgvector, vinay_kumarks_9d8ca4e45](https://dev.to/vinay_kumarks_9d8ca4e45/hybrid-retrieval-in-one-postgres-query-rrf-over-tsvector-pgvector-2hm) informed the ranking approach; Briefstamp uses arrays rather than that post's pgvector path. [Tool output is untrusted input, loopandretry](https://dev.to/loopandretry/tool-output-is-untrusted-input-prompt-injection-is-a-data-flow-bug-1p9j) informed the fixed destinations and separation of observations from action authority.

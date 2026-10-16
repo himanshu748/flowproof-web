@@ -1,0 +1,29 @@
+{
+  "preparedAt": "2026-10-16T11:54:37.997Z",
+  "status": "owner_approved_prepared_not_applied",
+  "approvalSource": "Direct owner reply: do unlimited call if needed, constrained by standing confirmed-free-only rule and bounded implementation.",
+  "trancheId": "61e24605-3562-48c6-9ae3-417fca5fa473",
+  "maxAdditionalModelCalls": 6,
+  "maximumLogicalModelTurns": 2,
+  "maximumAttemptsPerPhase": 3,
+  "maxAdditionalSearchCalls": 1,
+  "cumulativeAgentReservedModelCalls": 10,
+  "cumulativeAgentReservedSearchCalls": 3,
+  "earlierObservedModelCalls": 2,
+  "earlierObservedAgentSearchCalls": 0,
+  "earlierHTTP500Usage": null,
+  "unusedReservationsRefunded": false,
+  "oldPrimaryProofSha256": "a17d77aecf9dd2198bd0c5fbc97c042267ad39752954e675797e58e01d796021",
+  "oldRepairProofSha256": "b4b76307c7fbd7bc1f5cc94c52e07f6754277960d0e074067a708d54f9151016",
+  "failedPrimaryReceiptSha256": "da520b1fde09e57d15e03d4f92bc8b1e4af124e122a87b7c8131a762d2e6a384",
+  "failedRepairReceiptSha256": "06064dc3f52050916b37c63a59ed098b56740d73bb9873115f57a3fd92598536",
+  "oldUsedRuns": [
+    1,
+    1
+  ],
+  "oldBytesPreserved": true,
+  "oldStandaloneSerpCallsPreserved": 1,
+  "expiresAt": "2026-10-17T11:54:36.521Z",
+  "confirmedFreeSearches": 216,
+  "noPurchaseOrCredentialTransfer": true
+}

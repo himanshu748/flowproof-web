@@ -37,16 +37,18 @@ flowchart LR
 | CI fixture: broken | **1 passed / 4 failed / 1 unverified** | [Same approved plan](docs/evidence/ci-regression-2026-10-15.json) |
 | CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
 | Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
-| Verification | **571 application tests, 19 Python tests, build** | [CI receipt](docs/evidence/dashboard/2026-10-16/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38884672613) |
+| Verification | **871 application tests, 19 Python tests, build and real Chromium audits** | [CI receipt](docs/evidence/agent-allowance/2026-10-16/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897) |
 
 On October 16, Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 unverified**; its wrong-heading control recorded **4 / 1 / 1**. Both audits round-tripped through Tiger. [Fresh model-to-browser receipt](docs/evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json).
 
+A separate [hosted evidence-agent run](docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) used two native Gemma requests to select Tiger failure history and SerpApi search, then cite their actual results. Tiger returned three saved failures; search returned zero matching results. The source audit stayed **2 passed / 3 failed / 1 unverified**. [Scope, earlier failures and consumed allowances](docs/HOSTED_OPTIONAL.md).
+
 ## Integrations with receipts
 
-- **Gemma:** a dated hosted run generated six unapproved checks. [Proof](docs/PUBLIC_GEMMA.md).
+- **Gemma:** a dated hosted run generated six unapproved checks; a separate native JSON tool loop selected and cited stored history and search observations. [Proposal proof](docs/PUBLIC_GEMMA.md) · [Agent proof](docs/HOSTED_OPTIONAL.md).
 - **Mastra:** two actual workflow steps generated and validated that proposal. [Proof](docs/PUBLIC_GEMMA.md).
 - **Tinker:** real baseline/LoRA evaluation and one protected hosted proposal. [Proof](docs/HOSTED_TINKER.md).
-- **Tiger Data:** strict-TLS audit persistence, matching reads and scoped lexical retrieval. [Proof](docs/TIGER_VERIFICATION.md).
+- **Tiger Data:** strict-TLS audit persistence, matching reads, lexical retrieval and a hosted fixed-query vector/history tool. The vector path uses precomputed MiniLM embeddings in PostgreSQL arrays. [Storage proof](docs/TIGER_VERIFICATION.md) · [Agent receipt](docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json).
 - **Sentry:** the new live Gemma proposal’s three spans were independently verified in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** one protected hosted write/search recovered all six audit facts. [Proof](docs/BACKBOARD_VERIFICATION.md).
 - **Temporal:** a hosted CI restart retained the same workflow/run and one browser execution. [Proof](docs/TEMPORAL.md).
@@ -68,8 +70,9 @@ Open http://127.0.0.1:5173. The default sample needs no paid account. [Configura
 
 - Public targets are the owned homepage and sample; scripts are disabled. The public sample’s plan yields three failures, versus four in the CI fixture.
 - The video uses labelled templates. Earlier provider and validation failures remain in the [Gemma diagnosis](docs/GEMMA_LIVE_SITE.md); a dated success is no uptime guarantee.
+- The evidence agent is operator-only. Its three fixed queries and exact-text MiniLM catalog do not establish arbitrary-query retrieval, hosted embedding inference or a general benchmark. Empty search results do not prove de-indexing or website acceptance. Mastra's evidenced role remains proposal generation.
 - Tinker used fewer tokens with lower reference agreement; the dataset has no human-validated examples.
-- Credit-funded services expire. Tiger stores image references only; budgets and sessions are bounded. Sentry verification covers proposal generation. Optional search, speech and memory proofs are operator-only and their demonstration allowances are consumed. [Current funding boundaries](docs/PROVIDER_ALLOWANCES.md).
+- Credit-funded services expire. Tiger stores image references rather than image bytes, with an October 20 access cutoff; budgets and sessions are bounded. Sentry verification covers proposal generation. Optional search, speech, memory and all four agent allowances are consumed. [Current funding boundaries](docs/PROVIDER_ALLOWANCES.md).
 - The author reports that freelancer friend Priyanshu tried Briefstamp and said “it's good.” [Workflow details and willingness to pay remain unknown](docs/CUSTOMER_VALIDATION.md); this is not independently observed customer acceptance. All-sponsor completion is not claimed. [Full scope and remaining gates](docs/PRD_STATUS.md).
 
 ## AI disclosure

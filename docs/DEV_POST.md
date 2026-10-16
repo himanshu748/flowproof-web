@@ -20,7 +20,7 @@ Turn a client brief into approved browser checks and a proof-of-delivery report.
 
 Gemma proposes typed checks through Mastra; the developer approves; Chromium observes; Tiger saves the evidence-linked audit. The [October 16 homepage run](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes and one unverified requirement. A wrong-heading expectation failed. Both audits matched Tiger readbacks; Sentry independently displayed three proposal spans.
 
-[Hosted optional checks](HOSTED_OPTIONAL.md) verified Backboard recall, SerpApi search and ElevenLabs MP3 generation. Temporal recovery ran in CI. The [deployed dashboard source](evidence/dashboard/2026-10-16/ci.json) passed 571 application tests, 19 Python tests, build and real browser audits; the [final documentation commit also passed CI](https://github.com/himanshu748/flowproof-web/actions/runs/38886593263).
+A separate [two-turn evidence agent](AGENT_RETRIEVAL.md) now uses native Gemma text JSON to select Tiger hybrid retrieval and a SerpApi search, then cite their actual returned facts. This is separate from the Mastra proposal workflow. The source audit stays unchanged. [Hosted optional checks](HOSTED_OPTIONAL.md) also verified Backboard recall and ElevenLabs MP3 generation; Temporal recovery ran in CI. The [exact deployed agent source](evidence/agent-allowance/2026-10-16/ci.json) passed **871 application tests, 19 Python tests, build and real browser audits**. Model/search calls have their own hosted receipts, not CI-generated results.
 
 ## Why Does Open Innovation Matter?
 
@@ -32,7 +32,7 @@ My freelancer friend Priyanshu tried it and said “it's good.” [Workflow deta
 
 ## Prize Categories
 
-I am putting forward the nine entries below under the [official Week 2 requirements](https://dev.to/challenges/hacktoberfest-week2-2026-10-12), followed by two integrations with incomplete category evidence. Each section explains the technology's job and links the actual proof. Eligibility and awards belong to the judges; several entries do not imply several wins.
+I am putting forward the eleven category entries below under the [official Week 2 requirements](https://dev.to/challenges/hacktoberfest-week2-2026-10-12). Each explains the technology's job and links actual proof within its stated scope. Eligibility and awards belong to the judges; several proposed entries do not imply several wins.
 
 ### Best Use of Gemma — proposing checks for a real website
 
@@ -72,24 +72,26 @@ The Temporal SDK workflow wraps the approved browser-audit portion of the proces
 
 The protected hosted speech route turned actual synthetic-audit counts and fixed limitations into a **92,386-byte MP3**. An independent decoder verified **22.987755 seconds** of audio. The input is a bounded, counts-only report summary. **Voice generated with ElevenLabs; noncommercial synthetic demonstration only.** [Listen to the retained sample](evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-synthetic-report.mp3) · [Request and independent decoder proof](HOSTED_OPTIONAL.md).
 
-### Tiger Data — working storage, partial category evidence
+### Best Use of Tiger Data: hybrid retrieval serving an evidence agent
 
-Tiger provides two distinct evidence paths. In the hosted app, both October 16 homepage audits were saved and read back with matching JSON; lexical search recovered the deliberately failed heading. A separate isolated trial experiment stored **four browser failures** with **384-dimensional MiniLM vectors**. The semantic query “sideways panning on smartphones” had no lexical matches but ranked the mobile-overflow failure first, matching an independent cosine calculation. [Hosted persistence and exact scope](TIGER_VERIFICATION.md) · [Separate vector/recovery/cleanup receipt](evidence/tiger-trial/receipt.json).
+Tiger first saves and returns the evidence-linked browser audit. In the new [hosted agent run](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json), Gemma selected the bounded `failure_history` tool. Tiger combined PostgreSQL full-text and cosine ranks with reciprocal rank fusion, returning three actual saved failures. For “sideways panning on smartphones,” the lexical score was zero, while mobile overflow ranked first with **cosine 0.3781263417931506**. A separate calculation matched that score; the positive `horizontal` keyword control returned one match. The second Gemma turn cited the returned audit/check IDs and failed statuses. Retrieval supplies saved browser evidence to the agent.
 
-The category asks for vector/hybrid retrieval serving an agent, pgvector use or Tiger MCP. The historical probe used PostgreSQL arrays; no receipt shows an agent consuming those hybrid results. I am showing the integration without claiming that hosted persistence alone completes the prize requirement.
+The vectors are **384-dimensional MiniLM embeddings in PostgreSQL arrays, not pgvector**. Only three precomputed queries and exact source texts are supported. These limits keep a real integration reproducible on the existing trial; they do not establish arbitrary hosted embeddings or retrieval-quality gains. [Actual selections, cited findings, controls and scope](AGENT_RETRIEVAL.md) · [Independent cosine calculation](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json).
 
-### SerpApi — verified tool, category entry withheld
+### Best Use of SerpApi: a model-selected search observation
 
-The protected hosted search tool queried the fixed Briefstamp domain and retained the real response: **zero matching results**. It adds a search-visibility observation beside a delivery audit. It is operator-invoked and does not feed an agent, fresh-result RAG or news-tracking workflow, so I am not entering the SerpApi category on this evidence alone. An empty response does not establish de-indexing, and the result never changes a browser check's status. [Actual search response](evidence/hosted-optional/2026-10-16T09-13-12Z/serpapi-search.json) · [Protected route and verification](HOSTED_OPTIONAL.md).
+The same first Gemma turn selected `search_visibility`; the server ran the exact owner-authorized `site:flowproof-demo.onrender.com` query. SerpApi returned **HTTP 200 in 379 milliseconds**, with **zero matching results**. The second model turn consumed that actual observation and cited `resultCount: 0`, alongside the Tiger facts. Both model turns and the provider response are retained in the receipt. [Transport and response](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-transport.json) · [Complete two-turn receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json).
+
+Both native Gemma requests returned HTTP 200: **517 input / 38 output tokens**, then **1,242 / 735**. The loop uses validated text JSON, not provider-native function calling or a Mastra Agent. Search adds a bounded visibility observation. An empty result does not prove de-indexing, ranking, uncached freshness or a passing browser assertion. The existing **2 passed / 3 failed / 1 unverified** audit remained unchanged. Earlier failed and partial attempts remain in [the proof history](AGENT_RETRIEVAL.md).
 
 ## Limitations and Next
 
 - The public demo accepts the owned homepage and synthetic sample; it is not a general client-URL auditor. Live-page scripts are disabled. Verifier approval is not customer acceptance.
-- The video records labelled templates. The real Gemma run is separate, dated evidence, not an uptime guarantee. The provider's internal cause for the earlier HTTP 500 remains unknown.
+- The video records labelled templates. The real Gemma run is separate, dated evidence, not an uptime guarantee. The provider's internal cause for the earlier HTTP 500 remains unknown. The evidence-agent history also retains invalid JSON, an HTTP 500 and a 10-second search timeout before the successful run; earlier unknown search completion is not retroactively treated as zero.
 - Tinker's training examples have no human validation. Lower token use came with lower reference agreement and higher latency. The inference estimate excludes training and retention; including those made total cost higher at this 24-request scale.
-- Hosted Tiger retrieval is lexical and stores screenshot references. The separate vector probe used PostgreSQL arrays and cosine retrieval, not hosted pgvector; its temporary schema was removed. Those experiments do not establish deployed hybrid retrieval or a general retrieval-quality benchmark.
+- Tiger stores audit JSON and screenshot references. Its new operator-protected agent path demonstrates hybrid retrieval over three precomputed MiniLM queries and exact failure texts, using PostgreSQL arrays, not pgvector. It is not arbitrary hosted embedding inference or a retrieval-quality benchmark. The credit-covered trial retains strict TLS and an October 20 access cutoff; earlier isolated probes remain separate.
 - Sentry proof covers proposal generation, not browser-audit tracing or error-event ingestion. Mastra demonstrates bounded workflow orchestration, not an autonomous Agent. Temporal wraps the approved browser-audit activity and its recovery is hosted CI development-server evidence, not an always-on Render worker or Temporal Cloud.
-- Search, speech and memory proofs are operator-protected. Their demonstration reservations are consumed; trial credits and access expire. [Funding boundaries and scheduled read-only rechecks](PROVIDER_ALLOWANCES.md).
+- The evidence agent, search, speech and memory proofs are operator-protected. Their demonstration reservations are consumed without refund; trial credits and access expire. Tokenless/cross-visitor agent calls returned 404, missing consent 400 and a repeated tranche 409. A restart or fresh timestamp cannot replenish a spent grant. [Funding boundaries and scheduled read-only rechecks](PROVIDER_ALLOWANCES.md).
 - Backboard demonstrates assistant memory, not a generated answer grounded in that memory. The audio file decodes, but its audible wording has not been independently listened to.
 - I am not entering Entire or .tech: Entire evidence is local only, and I chose to keep the existing Render domain. Arduino, TabPFN, DigitalOcean and MongoDB Atlas are not used.
 

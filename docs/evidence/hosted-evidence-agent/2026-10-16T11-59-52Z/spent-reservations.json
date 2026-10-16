@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-10-16T12:03:15.643Z",
+  "status": "spent_configuration_verified",
+  "trancheId": "61e24605-3562-48c6-9ae3-417fca5fa473",
+  "sourceCommit": "9be66369f050a9b606d84987d7aed1a8a7e7a47d",
+  "sourceReceipt": "work/hosted-evidence-agent/2026-10-16T11-59-52-257Z/receipt.json",
+  "resilientReservedModelCalls": 6,
+  "resilientReservedSearchCalls": 1,
+  "resilientObservedModelCalls": 2,
+  "resilientObservedSearchCalls": null,
+  "resilientSearchToolInvocations": 1,
+  "resilientCompletedSearchResponses": 0,
+  "resilientSearchUncertainty": "Search tool timed out10002ms; no transport telemetry retained. Count reservation spent; actual upstream completion unknown, not zero.",
+  "resilientHTTPStatuses": [
+    200,
+    200
+  ],
+  "resilientReportedUsage": [
+    {
+      "promptTokens": 518,
+      "completionTokens": 38,
+      "totalTokens": 556
+    },
+    {
+      "promptTokens": 1205,
+      "completionTokens": 763,
+      "totalTokens": 1968
+    }
+  ],
+  "resilientUsageKnownOnEveryAttempt": true,
+  "earlierAgentReservedModelCalls": 4,
+  "earlierAgentReservedSearchCalls": 2,
+  "earlierAgentObservedModelCalls": 2,
+  "earlierAgentObservedSearchCalls": 0,
+  "earlierHTTP500Usage": null,
+  "cumulativeAgentReservedModelCalls": 10,
+  "cumulativeAgentReservedSearchCalls": 3,
+  "cumulativeAgentObservedModelCalls": 4,
+  "cumulativeAgentObservedSearchCalls": null,
+  "earlierStandaloneSearchSeparatelySpent": 1,
+  "unusedReservationsRefunded": false,
+  "oldPrimaryBytesPreserved": true,
+  "oldRepairBytesPreserved": true,
+  "priorProviderConfigurationPreserved": true,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "renderPlan": "free",
+  "durableTigerTranches": 3,
+  "strictTlsVerified": true,
+  "newProofSha256": "6a0bb27b7728c074ab4934939df30be29ed23316294b96de2b07ce2eaf578b9f",
+  "agentDisabledBySpentConfiguration": true,
+  "completedAt": "2026-10-16T12:03:23.106Z"
+}

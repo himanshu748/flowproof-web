@@ -1,0 +1,42 @@
+{
+  "startedAt": "2026-10-16T11:19:27.556Z",
+  "status": "failed",
+  "origin": "https://flowproof-demo.onrender.com",
+  "sourceCommit": "c0d4b2cf3b46513f32ad294157132ac9fc44f09a",
+  "trancheId": "d0f5d611-121d-492a-8433-6ac47ddd80ec",
+  "maxModelCalls": 2,
+  "maxSearchCalls": 1,
+  "retries": 0,
+  "billingChanges": 0,
+  "priorAllowancesReset": false,
+  "approval": {
+    "actor": "automated synthetic verifier",
+    "humanApproval": false
+  },
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/operator/status",
+      "method": "GET",
+      "status": 401
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "unexpected-response.json",
+      "bytes": 191,
+      "sha256": "d8bf1dfb35e24b825942379b9036541ceeeee8d5f6b75c6aac712efca561693e"
+    }
+  ],
+  "limitations": [
+    "Fixed synthetic evidence and fixed owned homepage only.",
+    "Precomputed exact-text MiniLM embeddings and three fixed query vectors; PostgreSQL arrays, not pgvector or arbitrary hosted embedding inference.",
+    "Search results are observations, not proof of de-indexing or browser acceptance."
+  ],
+  "error": "/api/operator/status HTTP 401\n\n401 !== 200\n",
+  "completedAt": "2026-10-16T11:19:29.529Z"
+}

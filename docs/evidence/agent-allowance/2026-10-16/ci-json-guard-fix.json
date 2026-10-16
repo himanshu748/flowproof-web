@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-16T11:29:13.094Z",
+  "sourceCommit": "93f3d5733e6be008df5d4f10b5c96df81e3e700b",
+  "run": {
+    "id": 38893699092,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38893699092",
+    "conclusion": "success"
+  },
+  "applicationTests": 731,
+  "testFiles": 35,
+  "pythonTests": 19,
+  "build": "passed",
+  "realPublicRuntime": "passed",
+  "realHealthyBrokenRestoredAudits": "passed",
+  "ciLogSha256": "75bedf2030bc54383dbf9f8ddb10fce8512d04d5b13dfa1569e4ee3a94923c87",
+  "scope": "Exact green JSON guard fix; offline regressions and separately real Chromium audits. No model/search calls in CI."
+}

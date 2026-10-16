@@ -1,0 +1,25 @@
+{
+  "checkedAt": "2026-10-16T11:35:02.435Z",
+  "status": "spent_configuration_verified",
+  "trancheId": "d0f5d611-121d-492a-8433-6ac47ddd80ec",
+  "failedReceiptSha256": "da520b1fde09e57d15e03d4f92bc8b1e4af124e122a87b7c8131a762d2e6a384",
+  "reservedModelCalls": 2,
+  "reservedSearchCalls": 1,
+  "observedModelCalls": 1,
+  "observedSearchCalls": 0,
+  "observedUsage": {
+    "promptTokens": 516,
+    "completionTokens": 38,
+    "totalTokens": 554
+  },
+  "unusedReservationsRefunded": false,
+  "priorSerpCallsPreserved": 1,
+  "priorSerpUnitsPreserved": 1,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "durableReservations": 1,
+  "strictTlsVerified": true,
+  "savedFailureVectors": 3,
+  "renderPlan": "free",
+  "completedAt": "2026-10-16T11:35:13.734Z"
+}

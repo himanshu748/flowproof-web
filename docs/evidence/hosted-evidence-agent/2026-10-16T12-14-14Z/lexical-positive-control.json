@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "auditId": "5b8afceb-5b99-436d-9fee-141a805fc8cd",
+      "projectId": "c6bb690c-c841-4f84-9457-f60bc1138cab",
+      "createdAt": "2026-10-16T12:14:18.149Z",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "observed": "Document width is 1824px; viewport width is 390px.",
+      "retrieval": "lexical",
+      "projectName": "Forma Studio"
+    }
+  ],
+  "mode": "tiger-lexical"
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "provider": "serpapi",
+    "operation": "search-visibility",
+    "startedAt": "2026-10-16T12:14:41.931Z",
+    "durationMs": 379,
+    "status": 200,
+    "outcome": "response"
+  }
+]

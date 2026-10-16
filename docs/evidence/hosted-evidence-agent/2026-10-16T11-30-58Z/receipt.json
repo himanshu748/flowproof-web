@@ -1,0 +1,277 @@
+{
+  "startedAt": "2026-10-16T11:30:58.208Z",
+  "status": "failed",
+  "origin": "https://flowproof-demo.onrender.com",
+  "sourceCommit": "93f3d5733e6be008df5d4f10b5c96df81e3e700b",
+  "trancheId": "d0f5d611-121d-492a-8433-6ac47ddd80ec",
+  "maxModelCalls": 2,
+  "maxSearchCalls": 1,
+  "retries": 0,
+  "billingChanges": 0,
+  "priorAllowancesReset": false,
+  "recovery": {
+    "reason": "Known JSON optional-field guard rejected before quota reservation or any provider call; independent Tiger read confirms original tranche unspent",
+    "parentStateSha256": "9fcc5eea332acc23522f34914e7827460dd996a656559a70d7a3c162fbf693af",
+    "parentReceipt": "work/hosted-evidence-agent/2026-10-16T11-21-37-752Z/receipt.json",
+    "sameTranche": true,
+    "previousProviderAttempts": 0,
+    "allowanceReset": false,
+    "continuationProof": {
+      "checkedAt": "2026-10-16T11:30:09.370Z",
+      "trancheId": "d0f5d611-121d-492a-8433-6ac47ddd80ec",
+      "durableReservations": 0,
+      "strictTlsVerified": true,
+      "failedReceiptSha256": "d392f958c2fa3c465df4e86c34e26d0c733fb0296a19df3365c358c2a2497cf2",
+      "scope": "Same original allowance; known JSON guard returned before reservation and provider I/O",
+      "priorModelRequests": 0,
+      "priorSearchRequests": 0,
+      "allowanceReset": false
+    }
+  },
+  "approval": {
+    "actor": "automated synthetic verifier",
+    "humanApproval": false
+  },
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/operator/status",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/projects/84fa0e86-348e-4455-b464-50ac65f07f6d/variant",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/84fa0e86-348e-4455-b464-50ac65f07f6d/audits",
+      "method": "POST",
+      "status": 409
+    },
+    {
+      "route": "/api/projects/84fa0e86-348e-4455-b464-50ac65f07f6d/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/84fa0e86-348e-4455-b464-50ac65f07f6d/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/agent-review",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/agent-review",
+      "method": "POST",
+      "status": 400
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/agent-review",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "route": "/api/failures?projectId=84fa0e86-348e-4455-b464-50ac65f07f6d&q=sideways%20panning%20on%20smartphones",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/agent-review",
+      "method": "POST",
+      "status": 503
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "source-audit.json",
+      "bytes": 7154,
+      "sha256": "d394ea54166d6e0a07fe96905195c7d4caf347227b17daeef6729fdee6c8e3db"
+    },
+    {
+      "file": "observed-mobile-failure.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "file": "lexical-control.json",
+      "bytes": 47,
+      "sha256": "334662fef04b71f34144ce067e662e24bb7d828d28f2960622450b32519c9ff2"
+    },
+    {
+      "file": "unexpected-response.json",
+      "bytes": 3422,
+      "sha256": "da520b1fde09e57d15e03d4f92bc8b1e4af124e122a87b7c8131a762d2e6a384"
+    }
+  ],
+  "limitations": [
+    "Fixed synthetic evidence and fixed owned homepage only.",
+    "Precomputed exact-text MiniLM embeddings and three fixed query vectors; PostgreSQL arrays, not pgvector or arbitrary hosted embedding inference.",
+    "Search results are observations, not proof of de-indexing or browser acceptance."
+  ],
+  "browserCounts": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "error": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/agent-review HTTP 503\n\n503 !== 200\n",
+  "completedAt": "2026-10-16T11:31:25.683Z"
+}

@@ -1,0 +1,97 @@
+{
+  "route": "/api/audits/0fc1d82c-4578-47f2-b929-0315a58a07dd/agent-review",
+  "status": 503,
+  "response": {
+    "error": "The evidence-agent proof could not complete. Audit results are unchanged.",
+    "allowanceConsumed": true,
+    "failureType": "EvidenceAgentError",
+    "toolReceipts": [],
+    "code": "invalid_model_json",
+    "receipt": {
+      "version": 1,
+      "status": "failed",
+      "transport": "native_google_gemma",
+      "model": "gemma-4-26b-a4b-it",
+      "startedAt": "2026-10-16T11:31:23.869Z",
+      "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+      "sourceAuditId": "0fc1d82c-4578-47f2-b929-0315a58a07dd",
+      "modelTurns": [
+        {
+          "phase": "select_tools",
+          "failedAttempts": [
+            {
+              "phase": "select_tools",
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "providerModelVersion": "gemma-4-26b-a4b-it",
+              "status": 200,
+              "durationMs": 1807,
+              "requestBytes": 1866,
+              "requestSha256": "7d397dbb6c8d879eb0b42de28436be7c9d76035603d2dd708aff862ab7da72e6",
+              "responseBytes": 783,
+              "responseSha256": "9b5b91ae6eab9717aee8e94278e074cc1bf05e6c25523f4395f2d7e5f133f2e3",
+              "usage": {
+                "promptTokens": 516,
+                "completionTokens": 38,
+                "totalTokens": 554
+              },
+              "providerStatus": null,
+              "retryDelayMs": 0
+            }
+          ]
+        }
+      ],
+      "toolCalls": [],
+      "observations": [],
+      "sourceAuditUnchanged": true,
+      "limits": {
+        "maximumModelCalls": 2,
+        "maximumToolCalls": 2,
+        "modelRetries": 0,
+        "toolRetries": 0,
+        "refundPerformed": false,
+        "maximumDurationMs": 50000
+      },
+      "scope": "Model-selected finite read-only tools over a fixed synthetic audit and the owned homepage. Typed model findings are separate from server-rendered facts. Historical/search observations are not new browser checks or acceptance evidence.",
+      "auditObservation": {
+        "id": "audit",
+        "type": "audit_results",
+        "auditId": "0fc1d82c-4578-47f2-b929-0315a58a07dd",
+        "results": [
+          {
+            "checkId": "5adbdb03-70aa-498e-8ccd-f224b3b65c11",
+            "kind": "heading",
+            "status": "failed"
+          },
+          {
+            "checkId": "da2ded04-38c1-4ed6-bfbb-6f8d53c7b4df",
+            "kind": "link",
+            "status": "passed"
+          },
+          {
+            "checkId": "be832673-6449-45b6-80f4-df49cdc84353",
+            "kind": "image_alt",
+            "status": "failed"
+          },
+          {
+            "checkId": "c7d2656a-0a53-4000-88f2-131549ac0d4e",
+            "kind": "no_horizontal_overflow",
+            "status": "failed"
+          },
+          {
+            "checkId": "e285f8a4-cffc-4ae3-9a4d-35b1adda5dc2",
+            "kind": "text_visible",
+            "status": "passed"
+          },
+          {
+            "checkId": "6de40019-30d7-4d55-a2d9-565612dbc09e",
+            "kind": "manual",
+            "status": "unverified"
+          }
+        ]
+      },
+      "failureCode": "invalid_model_json",
+      "completedAt": "2026-10-16T11:31:25.679Z"
+    }
+  }
+}

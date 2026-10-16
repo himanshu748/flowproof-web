@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-10-16T12:19:43.920Z",
+  "origin": "https://flowproof-demo.onrender.com",
+  "deployment": {
+    "checkedAt": "2026-10-16T12:17:06.244Z",
+    "status": "live",
+    "sourceCommit": "f990d9a14ae95dc322e4d81a411e9dd764ff9207",
+    "plan": "free",
+    "autoDeploy": "no",
+    "ci": {
+      "id": 38898518897,
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38898518897",
+      "conclusion": "success"
+    },
+    "allFourAllowancesSpent": true,
+    "priorEnvironmentBytesPreserved": true,
+    "billingChanges": 0,
+    "credentialTransfers": 0,
+    "newServiceCount": 0,
+    "purpose": "Apply already-spent configuration; durable Tiger UUIDs already prevent duplicate calls.",
+    "deploy": {
+      "id": "dep-db91bgmq1p3s739nhi6g",
+      "status": "live",
+      "commit": {
+        "id": "f990d9a14ae95dc322e4d81a411e9dd764ff9207",
+        "message": "Give the bounded evidence search its full provider deadline",
+        "createdAt": "2026-10-16T12:08:53Z"
+      },
+      "createdAt": "2026-10-16T12:17:06.851156Z",
+      "finishedAt": "2026-10-16T12:18:14.62225Z"
+    },
+    "completedAt": "2026-10-16T12:18:24.150Z",
+    "freePlanReadbackVerified": true,
+    "environmentReadbackVerified": true
+  },
+  "bootstrapHttp": 200,
+  "operatorStatusHttp": 200,
+  "evidenceAgentAvailable": false,
+  "modelRequestsPerformed": 0,
+  "searchRequestsPerformed": 0,
+  "scope": "Read-only runtime availability check after applying all four spent proofs. No spending allowance refreshed or replenished."
+}

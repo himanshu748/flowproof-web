@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-16T10:54:33.002Z",
+  "provider": "SerpApi",
+  "accountStatus": "Active",
+  "planName": "Free Plan",
+  "planMonthlyPrice": 0,
+  "searchesPerMonth": 250,
+  "planSearchesLeft": 216,
+  "totalSearchesLeft": 216,
+  "extraCredits": 0,
+  "renewalDate": "2026-10-28",
+  "accountApiStatus": 200,
+  "searchRequestsPerformed": 0
+}

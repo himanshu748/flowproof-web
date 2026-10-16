@@ -1,0 +1,8 @@
+{
+  "route": "/api/operator/status",
+  "status": 401,
+  "response": {
+    "code": "SESSION_EXPIRED",
+    "error": "Your demo session expired. Reload Briefstamp to start a new session."
+  }
+}

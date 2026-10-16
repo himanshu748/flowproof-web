@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-16T12:03:24.031Z",
+  "provider": "SerpApi",
+  "accountStatus": "Active",
+  "planName": "Free Plan",
+  "planMonthlyPrice": 0,
+  "planSearchesLeft": 215,
+  "totalSearchesLeft": 215,
+  "extraCredits": 0,
+  "searchRequestsPerformed": 0,
+  "limitation": "Account-wide snapshot; differences are not exclusive request attribution or an invoice."
+}

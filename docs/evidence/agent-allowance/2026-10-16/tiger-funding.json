@@ -1,0 +1,12 @@
+{
+  "snapshotSavedAt": "2026-10-16T10:59:33.868Z",
+  "source": "Reloaded signed-in Tiger Cloud billing page in the in-app browser",
+  "trialDaysRemaining": 20,
+  "noPaymentMethod": true,
+  "positivePrepaidTrialCredits": true,
+  "funding": "Credit-covered metered trial, not permanent free storage",
+  "applicationAndRoleCutoff": "2026-10-20T00:00:00.000Z",
+  "billingChanges": 0,
+  "newServices": 0,
+  "accountIdentifiersAndPrivateBalancesOmitted": true
+}

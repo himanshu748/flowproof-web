@@ -1,0 +1,7 @@
+{
+  "route": "/api/audits/f97f4349-0c72-4daf-9def-94bc3da9edc7/agent-review",
+  "status": 409,
+  "response": {
+    "error": "Tiger's audit did not exactly match the browser observation."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-16T11:17:22.162Z",
+  "sourceCommit": "c0d4b2cf3b46513f32ad294157132ac9fc44f09a",
+  "run": {
+    "id": 38892344552,
+    "url": "https://github.com/himanshu748/flowproof-web/actions/runs/38892344552",
+    "conclusion": "success"
+  },
+  "applicationTests": 730,
+  "testFiles": 35,
+  "pythonTests": 19,
+  "build": "passed",
+  "realPublicRuntime": "passed",
+  "realHealthyBrokenRestoredAudits": "passed",
+  "publicRuntimeCounts": {
+    "healthy": {
+      "passed": 5,
+      "failed": 0,
+      "unverified": 1
+    },
+    "broken": {
+      "passed": 2,
+      "failed": 3,
+      "unverified": 1
+    }
+  },
+  "ciLogSha256": "55c823656900189b5b95c4b3fdeea40fbf11b5bbe9bea1f51f25e2c6544c120b",
+  "countsSource": "Exact successful GitHub Actions log; known ANSI formatting removed only for parsing"
+}

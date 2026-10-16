@@ -1,0 +1,27 @@
+{
+  "query": "sideways panning on smartphones",
+  "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e",
+  "rows": [
+    {
+      "checkId": "6ff38b0a-69e1-4164-a38f-23bd76be8753",
+      "kind": "no_horizontal_overflow",
+      "cosine": 0.3781263417931506,
+      "sqlCosine": 0.3781263417931506,
+      "rrf": 0.01639344262295082
+    },
+    {
+      "checkId": "8b003674-fe8b-4cc5-8f61-69f5363a0464",
+      "kind": "heading",
+      "cosine": 0.20973289516274507,
+      "sqlCosine": 0.20973289516274507,
+      "rrf": 0.016129032258064516
+    },
+    {
+      "checkId": "91aac824-ee0a-49dd-948a-cdc5c1d19957",
+      "kind": "image_alt",
+      "cosine": 0.02335452957408811,
+      "sqlCosine": 0.02335452957408811,
+      "rrf": 0.015873015873015872
+    }
+  ]
+}

@@ -1,4 +1,27 @@
-# Hosted search, sample speech and memory
+# Hosted evidence review, search, sample speech and memory
+
+## Native Gemma evidence-agent loop: verified at 12:15 UTC
+
+The [October 16 hosted receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) verifies a complete operator-only loop on the existing **Free Render** service, source `f990d9a14ae95dc322e4d81a411e9dd764ff9207`. Google-hosted `gemma-4-26b-a4b-it` selected the history and search tools, received their actual results, and cited both in its second response. [Actual model and tool output](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json) · [CI: 871 application tests, 19 Python tests, build and real Chromium audits](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897).
+
+| Step | Actual observation |
+| --- | --- |
+| Model selects tools | Native HTTP 200; selected `failure_history` with `mobile_paraphrase`, plus `search_visibility`. Reported usage: **517 input / 38 output tokens**. |
+| Tiger history tool | Three saved failure rows returned. Mobile overflow ranked first, cosine **0.3781263417931506**, lexical score **0** and lexical rank **null**. The separate keyword control `horizontal` returned one match; the paraphrase-only lexical control returned none. |
+| SerpApi search tool | One actual provider request returned **HTTP 200 in 379 ms** with zero matching results for `site:flowproof-demo.onrender.com`. Tool duration was 397 ms. This does not prove de-indexing, rankings, acceptance or an uncached search. |
+| Model cites observations | Native HTTP 200; cited returned historical failures and the zero-result search snapshot. Reported usage: **1,242 input / 735 output tokens**. |
+
+Both model calls succeeded on their first attempt: **1,759 input / 773 output / 2,532 total tokens**, with no retries. Complete outer JSON fences and empty thought parts were normalized before strict validation, as recorded in each transport receipt. This is a native Google JSON tool loop. Mastra's separately evidenced role remains proposal generation and validation; this run does not establish a Mastra Agent integration.
+
+The history path executes real Tiger SQL over **precomputed 384-dimensional MiniLM vectors in PostgreSQL arrays**, combined with lexical ranks by reciprocal rank fusion. It permits three fixed query vectors and exact-text catalog matches. It uses neither pgvector nor arbitrary hosted embedding inference. These three rows demonstrate the fixed query path, not a general retrieval-quality benchmark. They belong to the same saved source audit; no earlier cross-project or historical-timeline breadth is implied.
+
+The source browser audit remained **2 passed / 3 failed / 0 blocked / 1 unverified**, with exact before/after equality. Duplicate execution returned **409**; tokenless and cross-visitor requests returned **404**; missing consent returned **400**. Approval came from the automated synthetic verifier, not a customer. Tool/model findings remain separate from browser outcomes and cannot mark a requirement passed.
+
+Earlier attempts remain visible: [invalid JSON after HTTP 200](evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/receipt.json), [HTTP 500 `INTERNAL`](evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/receipt.json), and [real Tiger citations with a timed-out search](evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/receipt.json). The timeout has no retained transport completion receipt, so its upstream result remains unknown. None of these reservations was refunded.
+
+All four agent tranches are now consumed: **12 model requests and four agent searches reserved**, versus **six observed model requests**, including the HTTP 500 with unreported usage. The final search has a successful transport receipt; the earlier timed-out search remains unresolved. The standalone search below is an additional, separately spent allowance. [Verified spent configuration](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json) · [Funding and expiry details](PROVIDER_ALLOWANCES.md).
+
+## Earlier standalone optional proof: 09:13 UTC
 
 **Verified October 16, 2026 on the existing Free Render service**, source `64a62729018fc2372611c7b21bfffecf3b779556`. [Exact hosted receipt](evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json) · [CI: 571 application tests, 19 Python tests, build and real browser audits](https://github.com/himanshu748/flowproof-web/actions/runs/38878045224).
 
@@ -23,7 +46,7 @@ The reservation was 347 characters; the response's `character-cost` header repor
 
 [Fresh account observations](evidence/provider-refresh/2026-10-16/account-observations.json) preceded the scoped key transfer. [Post-run observations](evidence/provider-refresh/2026-10-16/post-account-observations.json) found SerpApi at 216 remaining searches, Backboard free credit $4.98 → $4.97 with paid credit unchanged, auto-reload off and no payment method, and ElevenLabs still at a $0 next invoice with overage flags disabled. Account-wide differences are not exclusive attribution, final invoices or universal deduction rules. Existing ElevenLabs sponsor-redemption provenance remains unknown.
 
-The new allowance permitted one search, one speech call of at most 1,000 characters, and one Backboard write/search pair capped at $0.03 of explicitly approved existing credit. All four operation reservations are consumed. Their counters were also written back to Render's configuration, so a later deployment cannot recreate the allowance from zero. [Spent-reservation readback](evidence/provider-refresh/2026-10-16/spent-reservations.json). Historical spent tranches remain retained.
+The 09:13 UTC allowance permitted one search, one speech call of at most 1,000 characters, and one Backboard write/search pair capped at $0.03 of explicitly approved existing credit. All four operation reservations are consumed. Their counters were also written back to Render's configuration, so a later deployment cannot recreate the allowance from zero. [Spent-reservation readback](evidence/provider-refresh/2026-10-16/spent-reservations.json). Historical spent tranches remain retained; the later agent allowances above are separate.
 
 Free Render's disk is ephemeral. Neither the local ledger nor a refreshed account timestamp is durable authority to replenish budgets. The preparation helper refuses repeat SerpApi/ElevenLabs setup when any existing hosted proof is present. Further operations require a separately reviewed allowance; scheduled rechecks authorize no new provider calls. [Allowance boundaries and scheduled checks](PROVIDER_ALLOWANCES.md).
 

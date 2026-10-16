@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-16T11:30:09.370Z",
+  "trancheId": "d0f5d611-121d-492a-8433-6ac47ddd80ec",
+  "durableReservations": 0,
+  "strictTlsVerified": true,
+  "failedReceiptSha256": "d392f958c2fa3c465df4e86c34e26d0c733fb0296a19df3365c358c2a2497cf2",
+  "scope": "Same original allowance; known JSON guard returned before reservation and provider I/O",
+  "priorModelRequests": 0,
+  "priorSearchRequests": 0,
+  "allowanceReset": false
+}

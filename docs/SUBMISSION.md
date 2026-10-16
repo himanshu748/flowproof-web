@@ -1,43 +1,35 @@
 # Briefstamp: proof at the website handoff
 
-Concise summary of the [published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1).
-
-Prepared for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
+Summary of the [published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1) for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 
 ## What I Built
 
-Turn a client brief into approved browser checks and a proof-of-delivery report. Freelancers can show what matches the agreement, what fails and what still needs judgment. ₹499 per handoff is a pricing hypothesis.
+Turn a client brief into approved browser checks and a proof-of-delivery report. Freelancers can show what matches the agreement, fails or still needs judgment. ₹499 per handoff is a pricing hypothesis.
 
-## Demo
+## Demo and Code
 
-[Live app](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://youtu.be/xve020VJl0s) · [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Judge guide](JUDGE_GUIDE.md).
+[Live app](https://flowproof-demo.onrender.com/#demo) · [68-second video](https://youtu.be/xve020VJl0s) · [MP4 backup](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/demo/briefstamp-demo.mp4) · [Judge guide](JUDGE_GUIDE.md) · [MIT repository](https://github.com/himanshu748/flowproof-web).
 
-## Code
+## How It Works
 
-[Public MIT repository](https://github.com/himanshu748/flowproof-web).
+Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. The [homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. Sentry displayed three proposal spans.
 
-## How I Built It
+A separate [native Gemma JSON agent](AGENT_RETRIEVAL.md) selected Tiger hybrid retrieval and SerpApi, then cited three returned failures and the actual zero-result search snapshot. It preserved the original audit. This loop is not a Mastra Agent. [CI](evidence/agent-allowance/2026-10-16/ci.json): **871 app tests, 19 Python tests, build and real browser audits**.
 
-Gemma proposes typed checks through Mastra; the developer approves; Chromium observes; Tiger saves the evidence-linked audit. The [October 16 homepage run](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes and one unverified requirement. A wrong-heading expectation failed. Both audits matched Tiger readbacks; Sentry independently displayed three proposal spans.
+## Open Innovation
 
-[Hosted optional checks](HOSTED_OPTIONAL.md) verified Backboard recall, SerpApi search and ElevenLabs MP3 generation. Temporal recovery ran in CI. [Verification](evidence/provider-refresh/2026-10-16/ci.json) passed 571 application tests, 19 Python tests and build.
+Open weights enable local Gemma and Qwen fine-tuning. Tinker LoRA used [69.55% fewer input tokens](MODEL_RESULTS.md), with lower reference agreement: 22/24 versus 23/24.
 
-## Why Does Open Innovation Matter?
+## First User
 
-Open weights let me run Gemma locally and fine-tune Qwen while keeping the browser executor independent of the model host. Tinker LoRA used [69.55% fewer input tokens](MODEL_RESULTS.md), with lower reference agreement: 22/24 versus 23/24. This is a measured tradeoff, not equal-quality savings.
+Freelancer friend Priyanshu tried it and said “it's good.” [Workflow details and payment intent remain unknown](CUSTOMER_VALIDATION.md).
 
-## My First User
+## Proposed Categories
 
-My freelancer friend Priyanshu tried it and said “it's good.” [Workflow details and willingness to pay remain unknown](CUSTOMER_VALIDATION.md).
-
-## Prize Categories
-
-[Evidence and category scope](HACKATHON_ENTRY.md): Gemma, Render, Tinker, Mastra, Sentry, Backboard, GitHub Actions, Temporal and ElevenLabs. [Tiger Data and SerpApi have narrower integration evidence](DEV_POST.md).
+[Scoped evidence](DEV_POST.md): Gemma, Render, Tinker, GitHub Actions, Mastra, Sentry, Backboard, Temporal, ElevenLabs, Tiger Data and SerpApi. Eligibility belongs to the judges.
 
 ## Limitations and Next
 
-Fixed targets, expiring credits, operator-only optional calls, unvalidated training examples. Video uses templates; generated audio decodes but listening is unverified. Next: observed freelancer workflows and pricing validation.
+Fixed targets, expiring consumed grants, operator-only tools and unvalidated training examples. Retrieval uses three precomputed MiniLM queries and PostgreSQL arrays, not pgvector. Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
 
-AI assisted coding and drafting; retained approvals came from verifiers.
-
-Related reading: [Human-in-the-loop QA, metataro](https://dev.to/metataro/human-in-the-loop-qa-let-an-ai-agent-run-your-test-sheet-on-android-iphone-web-and-desktop-and-2dp0) · [Playwright post-mortem, tamizuddin](https://dev.to/tamizuddin/post-mortem-surviving-ai-generated-playwright-tests-in-production-5bak).
+AI assisted coding and drafting; verifier approvals are not customer acceptance.

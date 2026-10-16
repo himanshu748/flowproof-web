@@ -1,0 +1,9 @@
+{
+  "model": "gemma-4-26b-a4b-it",
+  "checkedAt": "2026-10-16T12:04:53.007Z",
+  "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+  "inputPrice": "Free of charge",
+  "outputPrice": "Free of charge",
+  "paidTier": "Not available",
+  "modelRequestsPerformed": 0
+}

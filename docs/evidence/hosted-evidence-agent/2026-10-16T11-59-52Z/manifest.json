@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-16T12:06:38.814679+00:00",
+  "status": "retained_partial_agent_run",
+  "sourceCommit": "9be66369f050a9b606d84987d7aed1a8a7e7a47d",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3885,
+      "sha256": "de03040da974386428b958a26aa2c0e3d34ff33396ef36acc0e8362675cbd290"
+    },
+    {
+      "path": "agent-run.json",
+      "bytes": 14714,
+      "sha256": "8a1909603a3144c8127ed468fea53eeac328e044e226ec9fe32f96dd8e19a0b4"
+    },
+    {
+      "path": "lexical-control.json",
+      "bytes": 47,
+      "sha256": "334662fef04b71f34144ce067e662e24bb7d828d28f2960622450b32519c9ff2"
+    },
+    {
+      "path": "lexical-positive-control.json",
+      "bytes": 527,
+      "sha256": "bceace9a3fbd4a7478c25fdafa791db519f3700f925096ee1b7916eb00f9b64b"
+    },
+    {
+      "path": "observed-mobile-failure.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 7762,
+      "sha256": "905371d948c4449bbce2556d3e8c6fc1f42aa76faf9e05dcf4a1dc3a39b056d1"
+    },
+    {
+      "path": "source-audit.json",
+      "bytes": 7154,
+      "sha256": "fca48c6ab029ab56fc89c17fba35a143c0a3485c49e186fb8aa0e985f12b6d18"
+    },
+    {
+      "path": "spent-reservations.json",
+      "bytes": 1894,
+      "sha256": "47c256edbdd880541a5d2df2865c437d098b1a332a20341441c067397d5eb3f8"
+    }
+  ],
+  "knownSecretByteCheck": {
+    "valuesChecked": 6,
+    "copiedArtifactsChecked": 7,
+    "documentationAlsoChecked": true,
+    "matches": 0,
+    "scope": "Authorized private resilient-access file values only, not a complete secret scan."
+  },
+  "originalArtifactBytesPreserved": true
+}

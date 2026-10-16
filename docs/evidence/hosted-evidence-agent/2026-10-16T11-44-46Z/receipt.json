@@ -1,0 +1,274 @@
+{
+  "startedAt": "2026-10-16T11:44:46.186Z",
+  "status": "failed",
+  "origin": "https://flowproof-demo.onrender.com",
+  "sourceCommit": "9d3f59f8dfce25e5f9b58a605e0be4fd6bee54e3",
+  "verifierSha256": "207e58701a84016d34a6cce8975084c7dfbeeae7b322f64719f10ddbdf510b30",
+  "trancheId": "aa271756-5f19-4c7d-be67-b98d842e372e",
+  "maxModelCalls": 2,
+  "maxSearchCalls": 1,
+  "retries": 0,
+  "billingChanges": 0,
+  "priorAllowancesReset": false,
+  "approval": {
+    "actor": "automated synthetic verifier",
+    "humanApproval": false
+  },
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/operator/status",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/projects/9c7316ed-669a-4b0d-b6fd-01251f830b4f/variant",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/9c7316ed-669a-4b0d-b6fd-01251f830b4f/audits",
+      "method": "POST",
+      "status": 409
+    },
+    {
+      "route": "/api/projects/9c7316ed-669a-4b0d-b6fd-01251f830b4f/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/9c7316ed-669a-4b0d-b6fd-01251f830b4f/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/agent-review",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/agent-review",
+      "method": "POST",
+      "status": 400
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/agent-review",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "route": "/api/failures?projectId=9c7316ed-669a-4b0d-b6fd-01251f830b4f&q=sideways%20panning%20on%20smartphones",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/failures?projectId=9c7316ed-669a-4b0d-b6fd-01251f830b4f&q=horizontal",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/agent-review",
+      "method": "POST",
+      "status": 503
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "source-audit.json",
+      "bytes": 7154,
+      "sha256": "c6547e79abd99cf849894f9aca6dae9a59c8631b45cc084b098a5aa6a889ba41"
+    },
+    {
+      "file": "observed-mobile-failure.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "file": "lexical-control.json",
+      "bytes": 47,
+      "sha256": "334662fef04b71f34144ce067e662e24bb7d828d28f2960622450b32519c9ff2"
+    },
+    {
+      "file": "lexical-positive-control.json",
+      "bytes": 527,
+      "sha256": "8f34e98db5f2fa22b8a64340569888b305eb15c26ea2b333fa5c7aeebedd67f1"
+    },
+    {
+      "file": "unexpected-response.json",
+      "bytes": 3284,
+      "sha256": "06064dc3f52050916b37c63a59ed098b56740d73bb9873115f57a3fd92598536"
+    }
+  ],
+  "limitations": [
+    "Fixed synthetic evidence and fixed owned homepage only.",
+    "Precomputed exact-text MiniLM embeddings and three fixed query vectors; PostgreSQL arrays, not pgvector or arbitrary hosted embedding inference.",
+    "Search results are observations, not proof of de-indexing or browser acceptance."
+  ],
+  "browserCounts": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "error": "/api/audits/37b46306-d751-4cbc-b25c-7583c7bf58d5/agent-review HTTP 503\n\n503 !== 200\n",
+  "completedAt": "2026-10-16T11:45:11.809Z"
+}
