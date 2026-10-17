@@ -1,6 +1,6 @@
 # Briefstamp: proof at the website handoff
 
-Summary of the [published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1) for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
+The [published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1) for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 
 ## What I Built
 
@@ -14,7 +14,7 @@ Turn a client brief into approved browser checks and a proof-of-delivery report 
 
 Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. The [homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. Sentry displayed three proposal spans.
 
-The current [Mastra Agent](evidence/mastra/2026-10-17T03-42-59Z/) registers Tiger and SerpApi tools. Its hosted attempt failed on Google's first HTTP 500; both tools and the second turn are proven only by retained-response SDK replay. The earlier [native loop](AGENT_RETRIEVAL.md) completed. [CI](evidence/mastra/2026-10-17T03-42-59Z/ci.json): **1,119 app tests, 19 Python tests, build and Chromium checks**.
+A [protected hosted Mastra Agent](evidence/mastra/2026-10-17T04-08-48Z/) used Backboard/OpenRouter Gemma, executed Tiger and SerpApi tools, then returned seven validated citations. Two turns reported **1,794 input / 787 output tokens**; the audit stayed unchanged. The public route retains Google. [CI](evidence/mastra/2026-10-17T04-08-48Z/ci.json): **1,241 app tests, 19 Python tests, build and Chromium checks**.
 
 ## Open Innovation
 
@@ -30,6 +30,6 @@ Author-reported: freelancer friend Priyanshu tried Briefstamp and said he “can
 
 ## Limitations and Next
 
-Fixed targets, expiring grants, incomplete hosted Mastra completion and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
+Fixed targets, expiring grants, operator-only Backboard proof using mixed credit and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
 
 AI assisted coding and drafting; verifier approvals are not customer acceptance.

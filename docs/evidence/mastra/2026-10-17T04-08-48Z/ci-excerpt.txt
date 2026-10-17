@@ -1,0 +1,10 @@
+acceptance	Run npm run test	2026-10-17T04:05:04.8928660Z  Test Files  46 passed (46)
+acceptance	Run npm run test	2026-10-17T04:05:04.8933973Z       Tests  1241 passed (1241)
+acceptance	Offline model provenance and budget safeguards	2026-10-17T04:05:05.1640886Z Ran 19 tests in 0.066s
+acceptance	Real isolated Mastra Agent with retained provider fixtures	2026-10-17T04:05:23.6760778Z {"status":"completed","modelFixtureReplays":2,"toolFixtureReplays":2,"childKeysAbsent":true,"output":"/home/runner/work/flowproof-web/flowproof-web/work/mastra-agent-runtime/2026-10-17T04-05-22-699Z-google-retained"}
+acceptance	Real isolated Mastra Agent with retained provider fixtures	2026-10-17T04:05:24.6542258Z {"status":"completed","modelFixtureReplays":2,"toolFixtureReplays":2,"childKeysAbsent":true,"output":"/home/runner/work/flowproof-web/flowproof-web/work/mastra-agent-runtime/2026-10-17T04-05-23-676Z-backboard-synthetic"}
+acceptance	Real public demo within the free runtime memory limit	2026-10-17T04:05:29.9726628Z healthy: {"passed":5,"failed":0,"blocked":0,"unverified":1}, five real screenshots and portable report
+acceptance	Real public demo within the free runtime memory limit	2026-10-17T04:05:33.5131796Z broken: {"passed":2,"failed":3,"blocked":0,"unverified":1}, five real screenshots and portable report
+acceptance	Real healthy, broken and recovered website audits	2026-10-17T04:05:40.8019251Z healthy: passed, passed, passed, passed, passed, unverified
+acceptance	Real healthy, broken and recovered website audits	2026-10-17T04:05:44.1025894Z broken: failed, passed, failed, failed, failed, unverified
+acceptance	Real healthy, broken and recovered website audits	2026-10-17T04:05:47.3712558Z recovered: passed, passed, passed, passed, passed, unverified

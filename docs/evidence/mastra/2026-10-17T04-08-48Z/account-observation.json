@@ -1,0 +1,29 @@
+{
+  "scope": "Difference between retained pre-account observation and immediate post-account readback. Account-wide, not exclusive attribution, final invoice or a general free-first rule.",
+  "before": {
+    "totalUsd": 9.968257,
+    "freeUsd": 4.97,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "checkedAt": "2026-10-17T03:45:22.003Z",
+    "mixedCreditApproved": true,
+    "reservedExistingCreditUsd": 0.2,
+    "notAFreeOnlyInferenceClaim": true
+  },
+  "after": {
+    "checkedAt": "2026-10-17T04:09:47.560Z",
+    "freeUsd": 4.97,
+    "paidUsd": 4.997888,
+    "totalUsd": 9.967888,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "scope": "Immediate account-wide balance, not exclusive attribution, final billing or a general free-first rule"
+  },
+  "observedFreeCreditDecreaseUsd": "0.00",
+  "observedPaidCreditDecreaseUsd": "0.000369",
+  "reservedExistingCreditUsd": "0.20",
+  "explicitMixedCreditApproval": true,
+  "paymentOrTopUpPerformed": false
+}

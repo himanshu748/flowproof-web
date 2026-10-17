@@ -1,6 +1,6 @@
 # Tiger Data and SerpApi evidence agent
 
-**Mastra update, October 17:** the public evidence route now selects a real Mastra Agent. [The new dated proof](evidence/mastra/2026-10-17T03-42-59Z/) separates a passing retained-response SDK replay from the hosted attempt, which failed on Google's first HTTP 500 before any tools or answer. Earlier native-loop receipts below retain their historical implementation; hosted Mastra completion is not claimed. The approval workflow and all old provider proofs are unchanged.
+**Mastra update, October 17:** the public route now selects a real Mastra Agent over Google Gemma. A [separate protected hosted Backboard/OpenRouter proof](evidence/mastra/2026-10-17T04-08-48Z/) completed both registered tools and the second turn, with **1,794 input / 787 output tokens** and seven validated citations; the audit was unchanged. It used approved existing mixed credit. The first Google HTTP 500 remains recorded; public Google success is not inferred from Backboard. Earlier native receipts below retain their historical implementation. Approval and old provider proofs are unchanged.
 
 **Approved search-presence controls, October 16 at 17:24 UTC:** [Real responses and all attempts](evidence/search-presence/2026-10-16T16-51-19Z/) show an exact owned-repository title match (three organic results, one scoped hit) and an earlier zero-result demo search. The initial exact-profile mismatch and subsequent 30-second timeout remain retained. This local protected checker uses separate, fully spent allowances; it does not replace the public agent’s fixed-homepage search or alter browser acceptance. No judge slot was consumed.
 
@@ -14,7 +14,7 @@
 
 The run used deployed source `f990d9a14ae95dc322e4d81a411e9dd764ff9207`, which passed [CI](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): **871 application tests, 19 Python tests, build and real browser audits**. CI does not call the live models or search provider; the dated hosted receipt is separate evidence.
 
-The bounded agent reviews one unchanged, approved broken synthetic audit and Briefstamp's fixed owner-authorized homepage. It uses native Google-hosted Gemma **text JSON**, not provider-native function calling, a Mastra Agent or the separate Mastra check-proposal workflow. The server validates selected read-only tools and their arguments, then sends only typed observations into the second turn. Findings must cite exact returned audit/check or observation IDs. Server-rendered factual prose remains separate from actual model JSON.
+The bounded agent reviews one unchanged, approved broken synthetic audit and Briefstamp's fixed owner-authorized homepage. The dated native-loop proof below uses Google-hosted Gemma **text JSON**, predating the current Mastra Agent. It is not provider-native function calling or the separate Mastra check-proposal workflow. The server validates selected read-only tools and their arguments, then sends only typed observations into the second turn. Findings must cite exact returned audit/check or observation IDs. Server-rendered factual prose remains separate from actual model JSON.
 
 ```mermaid
 flowchart LR

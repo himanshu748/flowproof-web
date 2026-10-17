@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-10-17T04:14:14.589Z",
+  "scope": "Read-only public HTML and health checks after the hosted proof; no model/search/audit requests",
+  "checks": [
+    {
+      "url": "https://flowproof-demo.onrender.com/#demo",
+      "status": 200
+    },
+    {
+      "url": "https://flowproof-demo.onrender.com/health",
+      "status": 200
+    }
+  ]
+}

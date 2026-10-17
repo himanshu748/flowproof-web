@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "049d7b72725f5d11e3f548ba8aa76f8d823b239a",
+  "runUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/39001093360",
+  "conclusion": "success",
+  "appTests": 1241,
+  "testFiles": 46,
+  "pythonTests": 19,
+  "build": "passed",
+  "isolatedMastraGoogleRecordedReplay": "passed",
+  "isolatedMastraBackboardSyntheticReplay": "passed",
+  "freePublicRuntime": "passed",
+  "chromiumAudits": "passed",
+  "modelCalls": 0,
+  "publicJudgeAllowanceConsumed": 0,
+  "scope": "Actual SDK and browser CI; provider responses are fixtures, separate from the real hosted receipt"
+}

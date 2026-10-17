@@ -1,0 +1,76 @@
+{
+  "algorithm": "SHA-256",
+  "excludes": "manifest.json itself",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 7060,
+      "sha256": "0ae8b0008c675a75e5abc859fb50a12dd69a425bd346521dfe7703c91ca9fe88"
+    },
+    {
+      "file": "account-observation.json",
+      "bytes": 1059,
+      "sha256": "de1a94949e5405fbf2c65f2e39e8e0178625251d3923b200bd8cf903598bf296"
+    },
+    {
+      "file": "agent-run.json",
+      "bytes": 19564,
+      "sha256": "bf27abe31ed358592653812b9dcc9735a53cb7e4fc0619eb07066ab3597684ab"
+    },
+    {
+      "file": "ci-excerpt.txt",
+      "bytes": 1764,
+      "sha256": "de0c4565b94530fe6e7f535582cf264c10808b4882e46b090f21e74245f6f0d8"
+    },
+    {
+      "file": "ci.json",
+      "bytes": 593,
+      "sha256": "d41bcf4ca7e37e5c244828875865e7077681d3e8c73717baaf54847d5bad2f54"
+    },
+    {
+      "file": "deployment.json",
+      "bytes": 424,
+      "sha256": "fdd542516a960dc48bb333bdaaf966f1a2503bc6b79eda4feba8a8b1ea3eabfe"
+    },
+    {
+      "file": "funding.json",
+      "bytes": 1685,
+      "sha256": "94f5288741ba08d0466637a8e0315dcd6218ea637c2dde90ab81bfd1d82a448e"
+    },
+    {
+      "file": "internal-link-check.json",
+      "bytes": 117794,
+      "sha256": "236f4232b0e1a3355f6d7f4c9c81ba1645741916aa3e8d7fe280fb1a175a0288"
+    },
+    {
+      "file": "mobile-failure.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9"
+    },
+    {
+      "file": "offline-backboard-replay.json",
+      "bytes": 16224,
+      "sha256": "ed40a3d4a68f8a1282c50cc3ee1ea7353eb714e0c5fe5c65e053994c19dd33db"
+    },
+    {
+      "file": "public-http.json",
+      "bytes": 356,
+      "sha256": "b3fb0d2329d4959f5e5f0e3b75738697de2393c00de76301173958145943d555"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 15099,
+      "sha256": "c6ae038c47fea9e465227cc8c12424570dd479fda684953a1ff6649a99894aef"
+    },
+    {
+      "file": "source-audit.json",
+      "bytes": 7154,
+      "sha256": "a3c1baf2ff17447f183c4b963b7e1270be645a2b64132fb16778835a4fa81c64"
+    },
+    {
+      "file": "spent-configuration.json",
+      "bytes": 431,
+      "sha256": "91b86badafb0bd44ef0b929bc2185994c34cb18e4a4b502d1d4c915f8b443770"
+    }
+  ]
+}

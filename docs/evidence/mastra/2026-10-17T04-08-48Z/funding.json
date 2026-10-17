@@ -1,0 +1,48 @@
+{
+  "preparedAt": "2026-10-17T04:00:36.447Z",
+  "checkedAt": "2026-10-17T03:30:33.891Z",
+  "scope": "Uses retained authenticated account observations, all within24h; no timestamps refreshed to reset any balance or reservation",
+  "backboard": {
+    "totalUsd": 9.968257,
+    "freeUsd": 4.97,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "checkedAt": "2026-10-17T03:45:22.003Z",
+    "mixedCreditApproved": true,
+    "reservedExistingCreditUsd": 0.2,
+    "notAFreeOnlyInferenceClaim": true
+  },
+  "serpapi": {
+    "checkedAt": "2026-10-17T03:30:33.891Z",
+    "plan": "Free Plan",
+    "monthlyPrice": 0,
+    "extraCredits": 0,
+    "remainingSearches": 211
+  },
+  "model": {
+    "name": "google/gemma-4-26b-a4b-it",
+    "provider": "openrouter",
+    "model_type": "llm",
+    "context_limit": 262144,
+    "max_output_tokens": 235929,
+    "supports_tools": true,
+    "supports_json_output": true,
+    "api_mode": "chat_completions",
+    "input_cost_per_1m_tokens": 0.0765,
+    "output_cost_per_1m_tokens": 0.255,
+    "last_updated": "2026-09-28T20:42:44"
+  },
+  "modelCatalogCheckedAt": "2026-10-17T03:47:00.418Z",
+  "maximumDedicatedUnits": 4,
+  "maximumRuns": 1,
+  "oldFiles": 75,
+  "publicJudgeAllowanceConsumed": 0,
+  "modelCalls": 0,
+  "searchCalls": 0,
+  "newServices": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "preflightLimitation": "An earlier preparation stopped at local proof validation before activation; its extra account reads were not retained as new funding evidence. The bound expiry here is computed from the actual earliest retained check timestamp, not a later wall clock."
+}

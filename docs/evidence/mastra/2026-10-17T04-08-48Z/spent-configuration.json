@@ -1,0 +1,14 @@
+{
+  "verifiedAt": "2026-10-17T04:10:12.917Z",
+  "trancheId": "21b0569e-495c-40ad-a285-2a43caa5a412",
+  "usedRuns": 1,
+  "maximumReservedUnits": 4,
+  "reservedExistingCreditUsd": 0.2,
+  "oldEnvironmentPreserved": true,
+  "oldFilesUnchanged": 75,
+  "publicJudgeGrantReset": false,
+  "publicEngine": "mastra_agent",
+  "publicModelProvider": "Google",
+  "protectedProofProvider": "Backboard/OpenRouter",
+  "automaticFallback": false
+}

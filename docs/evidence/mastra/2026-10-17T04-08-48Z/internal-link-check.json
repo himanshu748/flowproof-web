@@ -1,0 +1,4192 @@
+{
+  "checkedAt": "2026-10-17T04:14:52.036Z",
+  "scope": "Internal Markdown file targets in README and docs; remote URLs were not requested",
+  "files": 53,
+  "local": [
+    {
+      "file": "README.md",
+      "target": "docs/demo/briefstamp-preview.gif",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/acceptance-comparison.jpg",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/demo/README.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/mastra/2026-10-17T04-08-48Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/JUDGE_GUIDE.md#optional-public-evidence-agent",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/judge-agent/2026-10-16T14-14-32Z/funding.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/AGENT_RETRIEVAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/search-presence/2026-10-16T16-51-19Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/DASHBOARD_DESIGN.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "README.md",
+      "target": "docs/evidence/submission/2026-10-16/publication.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/search-presence/2026-10-16T16-51-19Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "JUDGE_GUIDE.md#optional-public-evidence-agent",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "hosted-tiger-judge.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "../server/judge-agent-gate.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "../tests/demo-judge-agent.test.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/lexical-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/lexical-positive-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-transport.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "../shared/agent-retrieval-vectors.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "../scripts/generate-agent-retrieval-catalog.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "hosted-tiger-pgvector.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "hosted-tiger-diskann-optional.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "hosted-tiger-agent.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/tiger-funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/AGENT_RETRIEVAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-decoding-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "ENTIRE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "../server/providers/free-resource-policy.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "../server/hosted-backboard.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "ENTIRE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ALL_INTEGRATION_GATES.md",
+      "target": "evidence/submission/2026-10-16/publication.json",
+      "exists": true
+    },
+    {
+      "file": "docs/API.md",
+      "target": "OPTIONAL_PROVIDERS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/API.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ASSETS.md",
+      "target": "../public/assets/fonts/provenance.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ASSETS.md",
+      "target": "LANDING_ASSET.md",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/backboard/2026-10-15T09-28-55-074Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/backboard-write.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/backboard-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../server/hosted-backboard.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../server/providers/backboard.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../server/providers/free-resource-policy.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BACKBOARD_VERIFICATION.md",
+      "target": "../scripts/verify-backboard-credits.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/BRAND.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/CUSTOMER_VALIDATION.md",
+      "target": "PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DASHBOARD_DESIGN.md",
+      "target": "evidence/dashboard/2026-10-16/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DASHBOARD_DESIGN.md",
+      "target": "evidence/dashboard/2026-10-16/local-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DASHBOARD_DESIGN.md",
+      "target": "evidence/dashboard/2026-10-16/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DASHBOARD_DESIGN.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DASHBOARD_DESIGN.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/dashboard/2026-10-16/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "DASHBOARD_DESIGN.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/dashboard/2026-10-16/local-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/dashboard/2026-10-16/hosted-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/dashboard/2026-10-16/hosted-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/provider-refresh/2026-10-16/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/provider-refresh/2026-10-16/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/provider-refresh/2026-10-16/configuration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/contract-ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/contract-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/contract-preflight.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/in-app-receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-trace.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/presentation-release-2026-10-15/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/presentation-release-2026-10-15/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/presentation-release-2026-10-15/hosted-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/judge-qa-2026-10-15/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "demo/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-audit.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/hosted-attempt-503.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "hosted-tiger-live-target.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "ALL_INTEGRATION_GATES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/release-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "../scripts/verify-public-runtime.mjs",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEPLOYMENT.md",
+      "target": "evidence/hosted-release.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/dashboard/2026-10-16/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/dashboard/2026-10-16/hosted-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "../.github/workflows/audit.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/dashboard/2026-10-16/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-synthetic-report.mp3",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "AGENT_RETRIEVAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-transport.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "AGENT_RETRIEVAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/DEV_POST.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ENTIRE.md",
+      "target": "evidence/entire-local-receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ENTIRE.md",
+      "target": "../scripts/verify-entire.sh",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-1/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-1/browser-failure.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-1/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt-fix-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-3/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/gemma_live_preflight.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/gemma_native_rerun.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-15T15-24-02Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/viewport-contract-failure.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/gemma-rerun-preflight-2026-10-15/viewport-contract-fixed.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-trace.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/in-app-receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/tiger-funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_LIVE_SITE.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-48-32-488Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-50-26-106Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-50-26-106Z/proposal-before-approval.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-52-59-736Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/generation-raw-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/proposal-before-approval.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/comparisons.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/healthy-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/broken-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/recovered-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/GEMMA_WORKFLOW.md",
+      "target": "evidence/gemma-workflow/2026-10-15T05-55-49-919Z/explanation-raw-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "../.github/workflows/audit.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "../scripts/audit-sample.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-transport.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/agent-allowance/2026-10-16/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/submission/2026-10-16/publication.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "DEV_POST.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HACKATHON_ENTRY.md",
+      "target": "evidence/submission/2026-10-16/agent-category-update.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/search-presence/2026-10-16T16-51-19Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "JUDGE_GUIDE.md#optional-public-evidence-agent",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "PROVIDER_ALLOWANCES.md#separate-public-judge-grant-verified-public-route",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/serpapi-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-synthetic-report.mp3",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-decoding-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/backboard-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/synthetic-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/synthetic-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-narration.txt",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/provider-refresh/2026-10-16/account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "../scripts/verify-hosted-optional.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/tiger-funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_OPTIONAL.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "evidence/provider-refresh/2026-10-16/tinker-sampler.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "hosted-tiger-schema.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/HOSTED_TINKER.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/sampler-renewal.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/search-presence/2026-10-16T16-51-19Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-1/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/after-restart.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-1/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-3/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/mastra-approval/2026-10-16T17-33-15Z/acceptance-ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/temporal-agent/2026-10-16T16-05-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "ENTIRE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-1/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/elevenlabs-decoding-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/submission/2026-10-16/publication.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/submission/2026-10-16/agent-category-update.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/agent-allowance/2026-10-16/spent-runtime.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/agent-allowance/2026-10-16/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/grant-prepared.json",
+      "exists": true
+    },
+    {
+      "file": "docs/INTEGRATIONS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "demo/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "demo/journey.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/mastra/2026-10-17T03-42-59Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "AGENT_RETRIEVAL.md#public-judge-grant-architecture",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "HACKATHON_ENTRY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/JUDGE_GUIDE.md",
+      "target": "evidence/judge-qa-2026-10-15/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/few-shot.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/fine-tuned.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/experiment-summary.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "evidence/tinker-checkpoints.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/pilot.manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/pilot.jsonl",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/training.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/zero-shot.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/few-shot.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/results/fine-tuned.json",
+      "exists": true
+    },
+    {
+      "file": "docs/MODEL_RESULTS.md",
+      "target": "../eval/experiment-summary.json",
+      "exists": true
+    },
+    {
+      "file": "docs/OPTIONAL_PROVIDERS.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "../server/approval-workflow.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "../tests/approval-workflow.test.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/orchestration/2026-10-15T07-19-41-052Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/orchestration/2026-10-15T07-19-41-052Z/sentry-envelopes.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "evidence/orchestration/2026-10-15T07-19-41-052Z/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/ORCHESTRATION_OBSERVABILITY.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD.md",
+      "target": "PRD_STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PRD.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "JUDGE_GUIDE.md#optional-public-evidence-agent",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "AGENT_RETRIEVAL.md#public-judge-grant-architecture",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PUBLIC_GEMMA.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "RELEASE_READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/generator.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/runner.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/store.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/report.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../.github/workflows/audit.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HACKATHON_ENTRY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/submission/2026-10-16/publication.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/submission/2026-10-16/agent-category-update.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/schema.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/safety.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "../server/database.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/tiger-funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/temporal-agent/2026-10-16T16-05-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/search-presence/2026-10-16T16-51-19Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PRD_STATUS.md",
+      "target": "evidence/mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "HOSTED_OPTIONAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/provider-refresh/2026-10-16/account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/provider-refresh/2026-10-16/post-account-observations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/agent-allowance/2026-10-16/serp-before-search-repair.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/agent-allowance/2026-10-16/gemma-before-search-repair.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/agent-allowance/2026-10-16/serp-after-search-repair.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "AGENT_RETRIEVAL.md#public-judge-grant-architecture",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/provider-refresh/2026-10-16/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/provider-refresh/2026-10-16/gemma-pricing.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/provider-refresh/2026-10-16/tinker-sampler.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T13-07-24Z/attempt-4/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/tiger-funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/judge-agent/2026-10-16T14-14-32Z/ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PROVIDER_ALLOWANCES.md",
+      "target": "evidence/search-presence/2026-10-16T16-51-19Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/hosted-attempt-503.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-website/2026-10-15-gemma-incident/native-http-500.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/generated-project.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/healthy-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/broken-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/restored-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-04-04Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "GEMMA_LIVE_SITE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/providers/gemma-google.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/providers/gemma-free-pricing.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/demo.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "../server/generator.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "BACKBOARD_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/provider-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/unapproved-proposal.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "evidence/public-gemma/2026-10-15T09-42-19Z/earlier-failures.json",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "SENTRY_HOSTED.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "HOSTED_TINKER.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/PUBLIC_GEMMA.md",
+      "target": "TEMPORAL.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "evidence/ci-regression-2026-10-15.json",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "GEMMA_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "TINKER_WORKFLOW.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "INTEGRATIONS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/RELEASE_READINESS.md",
+      "target": "ALL_INTEGRATION_GATES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/sentry-trace.png",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-website/2026-10-15T15-37-09Z/sentry-trace.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "evidence/hosted-open-model/2026-10-15T10-55-27Z/sentry-trace.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "../server/gemma-workflow-child.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "../server/observability.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "ORCHESTRATION_OBSERVABILITY.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SENTRY_HOSTED.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "JUDGE_GUIDE.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "evidence/mastra/2026-10-17T04-08-48Z/ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "MODEL_RESULTS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "CUSTOMER_VALIDATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/SUBMISSION.md",
+      "target": "DEV_POST.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal-agent/2026-10-16T16-05-48Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-33-17-054Z/temporal-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-33-17-054Z/publication-manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-33-17-054Z/receipts/da362af8-8c12-4dbc-861f-02e29a582407/report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T07-22-12-798Z/temporal-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "../.github/workflows/temporal-proof.yml",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T11-28Z/temporal-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TEMPORAL.md",
+      "target": "evidence/temporal/2026-10-15T11-28Z/ci-manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_CA_RESEARCH.md",
+      "target": "TIGER_VERIFICATION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/lexical-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/lexical-positive-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-transport.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/serpapi-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "hosted-tiger-agent.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/agent-allowance/2026-10-16/tiger-migration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "hosted-tiger-pgvector.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-pgvector/2026-10-16T16-16-50Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/agent-allowance/2026-10-16/spent-runtime.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/agent-allowance/2026-10-16/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-optional/2026-10-16T09-13-12Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T14-20-50Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/presentation-release-2026-10-15/deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-open-model/2026-10-15T11-34-19Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "DEPLOYMENT.md",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T12-19-58Z/tiger-lexical.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/hosted-website/2026-10-15T12-15Z/ui-live-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/provision.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "hosted-tiger-schema.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/independent-read.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/fieldissue-isolation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "hosted-tiger-live-target.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/live-target-migration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-hosted/2026-10-15/live-target-constraint-final.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/cloud-read.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-tls-attempt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-trial/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-trial/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/write.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/read.sql",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/preparation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/cloud-read.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TIGER_VERIFICATION.md",
+      "target": "evidence/tiger-console/cloud-verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-16-59-106Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-16-59-106Z/comparisons.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-16-59-106Z/manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-01-16-227Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-04-17-444Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-08-38-000Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "evidence/tinker-workflow/2026-10-15T08-15-50-199Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/TINKER_WORKFLOW.md",
+      "target": "OPTIONAL_PROVIDERS.md",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./briefstamp-demo.mp4",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./briefstamp-demo-poster.png",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./briefstamp-demo.vtt",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./source/",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./journey.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./ffprobe.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./motion-config.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/README.md",
+      "target": "./captions.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/YOUTUBE.md",
+      "target": "youtube-upload.json",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/YOUTUBE.md",
+      "target": "briefstamp-demo.mp4",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/YOUTUBE.md",
+      "target": "youtube-details.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/YOUTUBE.md",
+      "target": "youtube-upload-confirmation.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/demo/YOUTUBE.md",
+      "target": "youtube-captions-published.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "gemma-before-search-repair.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "serp-before-search-repair.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "serp-after-search-repair.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "../../hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "../../../PROVIDER_ALLOWANCES.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/agent-allowance/2026-10-16/README.md",
+      "target": "spent-runtime.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "local-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "hosted-ui.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "hosted-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "hosted-overview.png",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/dashboard/2026-10-16/README.md",
+      "target": "hosted-mobile.png",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "target": "unexpected-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "target": "../../agent-allowance/2026-10-16/failed-tranche-spent.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-30-58Z/README.md",
+      "target": "../../agent-allowance/2026-10-16/hybrid-before-agent.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "unexpected-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "observed-mobile-failure.png",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "../2026-10-16T11-30-58Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-44-46Z/README.md",
+      "target": "../pre-provider/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "lexical-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "lexical-positive-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "observed-mobile-failure.png",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "../2026-10-16T11-44-46Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "../2026-10-16T11-30-58Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T11-59-52Z/README.md",
+      "target": "../pre-provider/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "lexical-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "lexical-positive-control.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "serpapi-search.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "serpapi-transport.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "spent-reservations.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "../../agent-allowance/2026-10-16/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "../2026-10-16T11-30-58Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "../2026-10-16T11-44-46Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/README.md",
+      "target": "../2026-10-16T11-59-52Z/README.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/pre-provider/README.md",
+      "target": "2026-10-16T11-19-27-556Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/hosted-evidence-agent/pre-provider/README.md",
+      "target": "2026-10-16T11-21-37-752Z/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-1/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-1/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-1/browser-failure.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-1/browser-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-2/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-2/execution.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-2/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-2/browser-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-3/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-3/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-3/browser-partial.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-3/browser-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-4/agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-4/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-4/browser-failure.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-4/mobile-failure.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-4/browser-report.html",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "funding-before.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "grant-prepared.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-2/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "after-restart.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "after-restart.jpg",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "attempt-4/verification.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/judge-agent/2026-10-16T13-07-24Z/README.md",
+      "target": "ui-qa.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "unexpected-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "spent-configuration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "public-status.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "spent-configuration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "post-failure-checks.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "recorded-replay.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "../../mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "public-status.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "gemma-free-pricing.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "backboard-preflight.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "backboard-google-catalog.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T03-42-59Z/README.md",
+      "target": "backboard-openrouter-catalog.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "../2026-10-17T03-42-59Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "agent-run.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "public-http.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "mobile-failure.png",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "deployment.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "../../mastra-approval/2026-10-16T17-33-15Z/",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "spent-configuration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "funding.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "account-observation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra/2026-10-17T04-08-48Z/README.md",
+      "target": "offline-backboard-replay.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "../../hosted-open-model/2026-10-15T10-55-27Z/generated-project.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "suspended-state.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "resume-payload.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "resumed-state.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "browser-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "../../../../tests/approval-workflow.test.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "../../../../server/approval-workflow.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/mastra-approval/2026-10-16T17-33-15Z/README.md",
+      "target": "../../../../scripts/verify-mastra-approval.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "initial-two-checks/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "initial-two-checks/check-1-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "initial-two-checks/check-2-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "initial-two-checks/check-2-observation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "indexed-timeout/check-1-transport.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "indexed-timeout/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "indexed-final/check-1-observation.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "indexed-final/check-1-response.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "indexed-final/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "../../../../server/search-presence.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "../../../../scripts/verify-search-presence.ts",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/search-presence/2026-10-16T16-51-19Z/README.md",
+      "target": "ci.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/submission/2026-10-16/README.md",
+      "target": "publication.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/submission/2026-10-16/README.md",
+      "target": "../../../DEV_POST.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/submission/2026-10-16/README.md",
+      "target": "../../../SUBMISSION.md",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/submission/2026-10-16/README.md",
+      "target": "published-page.png",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "publication-manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "recovery-before-worker-kill.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "recovery-completed-history.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "recovery-ledger.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "permanent-failed-history.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "validation-failed-history.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/temporal-agent/2026-10-16T16-05-48Z/README.md",
+      "target": "exhausted-failed-history.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "source-audit.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "hybrid-query.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "hybrid-results.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "tiger-pgvector-migration.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "../../hosted-evidence-agent/2026-10-16T12-14-14Z/independent-cosine.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "publication-manifest.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "attempt-1/receipt.json",
+      "exists": true
+    },
+    {
+      "file": "docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/README.md",
+      "target": "funding.json",
+      "exists": true
+    }
+  ],
+  "developmentLinks": [
+    {
+      "file": "README.md",
+      "target": "http://127.0.0.1:5173",
+      "reason": "Local development example; no network request made"
+    }
+  ],
+  "remoteLinks": "not_checked",
+  "anchors": {
+    "checkedAt": "2026-10-17T04:13:45.248386+00:00",
+    "scope": "Relative Markdown heading anchors",
+    "checked": [
+      {
+        "file": "README.md",
+        "target": "docs/JUDGE_GUIDE.md#optional-public-evidence-agent",
+        "anchorFound": true
+      },
+      {
+        "file": "README.md",
+        "target": "#optional-public-evidence-agent",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/PROVIDER_ALLOWANCES.md",
+        "target": "AGENT_RETRIEVAL.md#public-judge-grant-architecture",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/JUDGE_GUIDE.md",
+        "target": "AGENT_RETRIEVAL.md#public-judge-grant-architecture",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/HOSTED_OPTIONAL.md",
+        "target": "JUDGE_GUIDE.md#optional-public-evidence-agent",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/HOSTED_OPTIONAL.md",
+        "target": "PROVIDER_ALLOWANCES.md#separate-public-judge-grant-verified-public-route",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/PRD_STATUS.md",
+        "target": "JUDGE_GUIDE.md#optional-public-evidence-agent",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/PRD_STATUS.md",
+        "target": "AGENT_RETRIEVAL.md#public-judge-grant-architecture",
+        "anchorFound": true
+      },
+      {
+        "file": "docs/AGENT_RETRIEVAL.md",
+        "target": "JUDGE_GUIDE.md#optional-public-evidence-agent",
+        "anchorFound": true
+      }
+    ],
+    "missing": []
+  }
+}
