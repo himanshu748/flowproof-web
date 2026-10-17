@@ -1,0 +1,70 @@
+{
+  "verifiedAt": "2026-10-17T13:30:55.565Z",
+  "render": {
+    "deploymentId": "dep-db9ngcrrjlhs73ffto1g",
+    "status": "live",
+    "sourceCommit": "72e8a15e324b4702833b34ca4a116da8deba4a75",
+    "requestedAt": "2026-10-17T13:29:24.027Z",
+    "plan": "free",
+    "changedEnvironmentKeys": [
+      "FLOWPROOF_SENTRY_FREE_CONFIRMED_AT"
+    ]
+  },
+  "integrations": [
+    {
+      "name": "Tinker",
+      "status": "not_configured",
+      "detail": "Hosted Tinker generation is disabled or its free-use proof expired. Real baseline and LoRA comparisons remain available in Model lab; those recorded experiments do not imply a live provider connection."
+    },
+    {
+      "name": "Sentry",
+      "status": "available",
+      "detail": "Optional SDK tracing runs inside the isolated Gemma workflow with an allowlisted transport that excludes client text and secrets. A trace ID and SDK flush are separate from dashboard ingestion; configuration requires fresh confirmed-free account evidence."
+    }
+  ],
+  "environment": {
+    "changedKeys": [
+      "FLOWPROOF_SENTRY_FREE_CONFIRMED_AT"
+    ],
+    "allOtherValuesByteForBytePreserved": true,
+    "tinkerExecutionProofUnchanged": true,
+    "spentTask3AgentProofUnchanged": true,
+    "spentTask3ExportGrantUnchanged": true
+  },
+  "preservation": {
+    "privateFilesVerified": 130,
+    "allUnchanged": true,
+    "before": {
+      "judge": 4,
+      "operator": 10,
+      "tlsProtocol": "TLSv1.3",
+      "readOnly": true
+    },
+    "after": {
+      "judge": 4,
+      "operator": 10,
+      "tlsProtocol": "TLSv1.3",
+      "readOnly": true
+    },
+    "noReservationRefund": true,
+    "newExecutionCalls": 0,
+    "newTraceExports": 0
+  },
+  "sentry": {
+    "fundingConfirmationRenewed": true,
+    "expiresAt": "2026-10-18T13:27:24.332Z",
+    "spentAgentStillDisabled": true,
+    "spentRuntimeExportsStillDisabled": true
+  },
+  "tinker": {
+    "fundingObservationRenewed": true,
+    "executionAllowanceRenewed": false,
+    "inferenceEnabled": false,
+    "reason": "The existing execution proof is expired. Its canonical proof identifies an ephemeral allowance file; changing it could re-seed reservations. No current remaining execution budget was independently verified."
+  },
+  "tiger": {
+    "billingVerified": false,
+    "ownerPasskeyPending": true
+  },
+  "devChanged": false
+}

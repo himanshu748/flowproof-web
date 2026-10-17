@@ -1,0 +1,194 @@
+{
+  "triggeredAt": "2026-10-17T10:21:13.984Z",
+  "completedAt": "2026-10-17T10:30:09.253961Z",
+  "scope": "Authorized October 17 read-only provider-proof recheck; actual observation times retained. No spending authority or allowance renewal.",
+  "api": {
+    "startedAt": "2026-10-17T10:26:01.900Z",
+    "automation": "briefstamp-provider-proof-rechecks",
+    "authorizedDate": "2026-10-17",
+    "scope": "Read-only funding/expiry refresh. No initial-only refresh helper, allowance rewrites, deployments, model/TTS/search/memory requests or publications.",
+    "priorPrivateRecordsMatched": 108,
+    "cumulativeFilesPreserved": 130,
+    "render": {
+      "plan": "free",
+      "configurationMatchesLatestSpent": true,
+      "environmentMutations": 0
+    },
+    "providers": {
+      "backboard": {
+        "checkedAt": "2026-10-17T10:26:04.220Z",
+        "httpStatus": 200,
+        "freeCreditUsd": 4.96,
+        "mixedCreditAccount": true,
+        "positiveExistingCredit": true,
+        "autoReloadEnabled": false,
+        "paymentMethodConfigured": false,
+        "scope": "Read-only account observation; no deduction-order guarantee or spending authority"
+      },
+      "serpapi": {
+        "checkedAt": "2026-10-17T10:26:02.610Z",
+        "httpStatus": 200,
+        "plan": "Free Plan",
+        "status": "Active",
+        "monthlyPriceUsd": 0,
+        "remainingSearches": 209,
+        "extraCredits": 0
+      },
+      "elevenlabs": {
+        "checkedAt": "2026-10-17T10:26:04.909Z",
+        "httpStatus": 200,
+        "tier": "creator",
+        "status": "active",
+        "characterCount": 45470,
+        "characterLimit": 129719,
+        "remainingCharacters": 84249,
+        "canExtendCharacterLimit": false,
+        "allowedToExtendCharacterLimit": false,
+        "nextInvoiceAmountDueCents": 0,
+        "hasOpenInvoices": false,
+        "scope": "Existing sponsored/credit-covered entitlement, not a permanent-free claim"
+      },
+      "gemma": {
+        "model": "gemma-4-26b-a4b-it",
+        "checkedAt": "2026-10-17T10:26:02.788Z",
+        "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+        "freeOnlyPricingConfirmed": true,
+        "inferenceHealth": "Not tested; no inference authorized"
+      },
+      "tigerConnection": {
+        "checkedAt": "2026-10-17T10:26:07.099Z",
+        "reachable": true,
+        "tlsVerified": true,
+        "tlsProtocol": "TLSv1.3",
+        "roleExpiresAt": "2026-10-20T00:00:00.000Z",
+        "publicJudgeReservations": 4,
+        "operatorReservationRows": 10,
+        "sqlWrites": 0,
+        "accountFunding": "Requires current authenticated provider billing observation; TLS connectivity does not prove trial funding"
+      },
+      "demo": {
+        "checkedAt": "2026-10-17T10:26:02.555Z",
+        "httpStatus": 200,
+        "integrations": [
+          {
+            "name": "Tiger Data",
+            "status": "available",
+            "detail": "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Visitor history uses lexical retrieval. The separate evidence agent supports fixed-query MiniLM cosine/full-text RRF, with a sealed public judge allowance when enabled. Every operation is verified separately."
+          },
+          {
+            "name": "Tinker",
+            "status": "not_configured",
+            "detail": "Hosted Tinker generation is disabled or its free-use proof expired. Real baseline and LoRA comparisons remain available in Model lab; those recorded experiments do not imply a live provider connection."
+          },
+          {
+            "name": "Gemma",
+            "status": "available",
+            "detail": "Opt-in Gemma 4 generates unapproved checks for a server-selected sample or owner-authorized live homepage brief through Google's free-only API. Current pricing is rechecked before calls. Browser execution still requires approval. No private visitor brief is sent."
+          },
+          {
+            "name": "Sentry",
+            "status": "not_configured",
+            "detail": "Optional SDK tracing runs inside the isolated Gemma workflow with an allowlisted transport that excludes client text and secrets. A trace ID and SDK flush are separate from dashboard ingestion; configuration requires fresh confirmed-free account evidence."
+          }
+        ]
+      }
+    },
+    "gates": {
+      "tinker": false,
+      "sentry": false,
+      "tiger": true,
+      "tinkerConfirmationExpiresAt": "2026-10-17T08:23:47.620Z",
+      "sentryConfirmationExpiresAt": "2026-10-17T08:23:47.620Z",
+      "judgeCutoff": "2026-10-20T00:00:00.000Z",
+      "judgeMaximumRuns": 100,
+      "judgeMaxRunsPerHour": 6,
+      "judgeMaxRunsPerVisitor": 1
+    },
+    "actions": {
+      "purchases": 0,
+      "newCards": 0,
+      "promosClaimed": 0,
+      "upgrades": 0,
+      "retraining": 0,
+      "newServices": 0,
+      "credentialTransfers": 0,
+      "modelCalls": 0,
+      "ttsCalls": 0,
+      "searchCalls": 0,
+      "memoryCalls": 0,
+      "devPublication": 0,
+      "spentReservationsRefunded": 0
+    },
+    "completedAt": "2026-10-17T10:26:07.859Z",
+    "allCumulativeFilesUnchanged": true,
+    "allOldEnvironmentValuesUnchanged": true
+  },
+  "ui": {
+    "checkedAt": "2026-10-17T10:30:09.253961Z",
+    "method": "Read-only authenticated in-app browser account pages; no billing changes, redemption, checkpoint renewal or inference",
+    "tinker": {
+      "authenticated": true,
+      "balanceUsd": 9.18,
+      "grantName": "Tinker x MLH",
+      "grantOriginalAmountUsd": 10,
+      "grantRemainingUsd": 9.18,
+      "grantActivePeriodAsDisplayed": "Oct 7, 2026 - Oct 8, 2027",
+      "autoReloadEnabled": false,
+      "paymentMethodsConfigured": false,
+      "samplerModel": "Qwen/Qwen3.5-4B",
+      "samplerExpiresAt": "2026-10-19T23:59:30.230217Z",
+      "samplerSizeAsDisplayed": "139 MB",
+      "inferenceCalls": 0,
+      "metadataSource": "Visible existing Briefstamp checkpoint detail and time[datetime], matching the prior retained expiry. Full internal path omitted."
+    },
+    "sentry": {
+      "authenticated": true,
+      "plan": "Sponsored Team",
+      "payAsYouGoLimitUsd": 0,
+      "payAsYouGoUsedUsd": 0,
+      "spansUsageAsDisplayed": "2K / 50M",
+      "spansAdditionalSpendAsDisplayed": "$0.00",
+      "settingsChanged": 0
+    },
+    "tigerFunding": {
+      "authenticated": false,
+      "state": "Google Verify it is you \u2014 Complete sign-in using your passkey",
+      "currentBillingVerified": false,
+      "ownerAction": "Complete the passkey check in the Tiger browser tab before current trial funding can be inspected. No alternative account, reset, new service or billing action attempted.",
+      "databaseConnectionIsSeparateEvidence": true
+    }
+  },
+  "requiredOwnerActions": [
+    {
+      "provider": "Tinker",
+      "reason": "Application funding confirmation expired at 2026-10-17T08:23:47.620Z; live bootstrap reports not_configured and local admission check is false despite positive promotional credit.",
+      "action": "Review a separate funding-confirmation carry-forward that preserves the historical spent call/token ledger. Do not rerun the initial-only refresh helper or regenerate a fresh unused allowance."
+    },
+    {
+      "provider": "Sentry",
+      "reason": "Application funding confirmation expired at the same boundary; live bootstrap reports not_configured and SDK admission is false despite current Sponsored Team and $0 overage.",
+      "action": "Review renewal of funding confirmation only; both Task3 exports and its four provider units remain spent."
+    },
+    {
+      "provider": "Tiger Data",
+      "reason": "Current billing inspection stopped at the owner passkey verification. Strict-TLS connectivity and October20 role expiry were independently observed, but do not establish current trial funding.",
+      "action": "Complete the in-app Google passkey verification for the existing authorized Tiger account."
+    }
+  ],
+  "preservation": {
+    "priorPrivateFilesVerified": 108,
+    "cumulativeFilesUnchanged": 130,
+    "renderEnvironmentUnchanged": true,
+    "allSpentReservationsPreserved": true,
+    "publicJudgeReservationsObserved": 4,
+    "judgeGrantMaximumRuns": 100,
+    "judgeGrantExpiryUnchanged": "2026-10-20T00:00:00.000Z",
+    "configurationWrites": 0,
+    "providerExecutionCalls": 0,
+    "initialOnlyRefreshHelperInvoked": false,
+    "techDomain": "Declined; unchanged"
+  },
+  "nextAuthorizedCheck": "2026-10-18 10:00 Asia/Kolkata; no checks after October 18 authorized",
+  "applicationSourceChanged": false,
+  "liveDevChanged": false
+}
