@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-17T04:43:50.465Z",
+  "trancheId": "4b82a030-5f30-4881-a689-edbdae539148",
+  "usedRuns": 1,
+  "maximumRuns": 1,
+  "maximumReservedUnits": 2,
+  "reservedExistingCreditUsd": 0.1,
+  "neverRefund": true,
+  "oldEnvironmentExactlyPreserved": true,
+  "oldFilesUnchanged": 90,
+  "publicJudgeGrantReset": false,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "newServices": 0
+}

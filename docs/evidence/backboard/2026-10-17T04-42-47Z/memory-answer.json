@@ -1,0 +1,180 @@
+{
+  "provider": "Backboard",
+  "modelProvider": "openrouter",
+  "model": "google/gemma-4-26b-a4b-it",
+  "question": "What failed on mobile and was it fixed?",
+  "scope": {
+    "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+    "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+    "expectedFactsSha256": "caec803e39c0e11d63cdd87a0ac674c2800ade134e3f4d72d80fc9c51ab0cb98"
+  },
+  "facts": [
+    {
+      "kind": "heading",
+      "status": "failed",
+      "index": 0,
+      "factId": "app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea",
+      "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+      "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z"
+    },
+    {
+      "kind": "link",
+      "status": "passed",
+      "index": 1,
+      "factId": "app-fact-5c1ff9ca79355d4f10f2c63fea3658bb9abe7f8b6a892ee2a6098ad6b4b6ffd6",
+      "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+      "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z"
+    },
+    {
+      "kind": "image_alt",
+      "status": "failed",
+      "index": 2,
+      "factId": "app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148",
+      "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+      "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z"
+    },
+    {
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "index": 3,
+      "factId": "app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763",
+      "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+      "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z"
+    },
+    {
+      "kind": "text_visible",
+      "status": "passed",
+      "index": 4,
+      "factId": "app-fact-cc9837566328fb706bcf2332b05b1ff60043d443ae157c20811668f53c5aa397",
+      "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+      "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z"
+    },
+    {
+      "kind": "manual",
+      "status": "unverified",
+      "index": 5,
+      "factId": "app-fact-24e1e6234dad2916356a8d5c18a1a3933d688201cec0c3b61f08d47b0a7a7bbb",
+      "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+      "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+      "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+      "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+      "observedAt": "2026-10-16T09:13:28.349Z"
+    }
+  ],
+  "modelAssertions": {
+    "claims": [
+      {
+        "factId": "app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea",
+        "kind": "heading",
+        "status": "failed"
+      },
+      {
+        "factId": "app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148",
+        "kind": "image_alt",
+        "status": "failed"
+      },
+      {
+        "factId": "app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763",
+        "kind": "no_horizontal_overflow",
+        "status": "failed"
+      }
+    ],
+    "resolution": "not_proven_by_retrieved_facts",
+    "supportingFactIds": [
+      "app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea",
+      "app-fact-5c1ff9ca79355d4f10f2c63fea3658bb9abe7f8b6a892ee2a6098ad6b4b6ffd6",
+      "app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148",
+      "app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763",
+      "app-fact-cc9837566328fb706bcf2332b05b1ff60043d443ae157c20811668f53c5aa397",
+      "app-fact-24e1e6234dad2916356a8d5c18a1a3933d688201cec0c3b61f08d47b0a7a7bbb"
+    ]
+  },
+  "answer": "The retrieved record says the horizontal-overflow check failed [app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763]. Other cited outcomes: heading: failed [app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea]; image alternative text: failed [app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148]. Whether the mobile issue was fixed is not proven by these six retrieved facts. This does not establish whether a repair exists in records outside this retrieval, and it is not a new browser audit.",
+  "usage": {
+    "inputTokens": 2127,
+    "outputTokens": 627,
+    "totalTokens": 2754
+  },
+  "attempts": [
+    {
+      "operation": "memory_search",
+      "index": 1,
+      "provider": "Backboard",
+      "transport": "backboard_memory_search",
+      "modelProvider": null,
+      "model": null,
+      "status": 200,
+      "providerStatus": null,
+      "durationMs": 1893,
+      "requestBytes": 215,
+      "requestSha256": "94bb37a135061c778696e39409dd4305ed4f5b405ddedc8d951dea4d565fe768",
+      "responseBytes": 2079,
+      "responseComplete": true,
+      "responseSha256": "7e553fa3b6ccc804d4cae47c4201235949fa9963779c26525258c37900ca6de1",
+      "usage": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "totalTokens": null
+      },
+      "retryDelayMs": 0
+    },
+    {
+      "operation": "answer",
+      "index": 1,
+      "provider": "Backboard",
+      "transport": "backboard_openrouter_gemma",
+      "modelProvider": "openrouter",
+      "model": "google/gemma-4-26b-a4b-it",
+      "status": 200,
+      "providerStatus": "COMPLETED",
+      "durationMs": 3441,
+      "requestBytes": 4221,
+      "requestSha256": "db616caecaffb7accf220bd717ffbfc89bd8886ab06d5e00489de2a13492ee17",
+      "responseBytes": 1825,
+      "responseComplete": true,
+      "responseSha256": "a574f44d73082e7a0f72dcd932ff44f796d2e133a86d1764ac82c3c4f63c31c6",
+      "usage": {
+        "inputTokens": 2127,
+        "outputTokens": 627,
+        "totalTokens": 2754
+      },
+      "retryDelayMs": 0
+    }
+  ],
+  "retrieval": {
+    "returnedRecords": 3,
+    "matchingRecords": 1,
+    "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+    "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1"
+  },
+  "citationIdKind": "application-derived-fact-ids",
+  "limitations": "Only the six scope- and hash-matched retrieved facts support this answer. App fact IDs are derived locally; providerMemoryId is retained only when returned. No memory write, implicit recall, web search, new assistant or new browser acceptance result occurred.",
+  "status": "completed",
+  "reservation": {
+    "trancheId": "4b82a030-5f30-4881-a689-edbdae539148",
+    "consumed": true,
+    "maxUnits": 2,
+    "reservedExistingCreditUsd": 0.1,
+    "neverRefund": true,
+    "publicJudgeSlotsConsumed": 0
+  },
+  "reservationAuditId": "4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+  "reservationAuditUnchanged": true,
+  "reservationAuditRoundTrip": "Tiger",
+  "sourceScope": "Answer describes the separately identified historical Backboard record, not the reservation audit or a new browser observation."
+}

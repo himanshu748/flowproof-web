@@ -60,9 +60,9 @@ The October 16 proposal trace was independently checked in Sentry's dashboard. I
 
 ![Actual Sentry dashboard showing the proposal root and its generation and validation spans](https://raw.githubusercontent.com/himanshu748/flowproof-web/main/docs/evidence/hosted-website/2026-10-16T09-10-55Z/sentry-trace.png)
 
-### Best Use of Backboard — project memory grounded in an audit
+### Best Use of Backboard — Gemma answers from retrieved audit facts
 
-The protected hosted memory integration wrote facts from a completed broken-sample audit to a dedicated Backboard assistant, then searched them. It recovered **all six matching assertion facts**. Keeping the remembered facts tied to actual results lets a later project conversation refer to evidence instead of a model's invented history. This proof used one write and one search, with no inference call. [Hosted memory receipt and retrieved facts](HOSTED_OPTIONAL.md).
+A [protected hosted turn](evidence/backboard/2026-10-17T04-42-47Z/receipt.json) retrieved six existing Backboard audit facts. Gemma returned three exact failure claims and six supporting citations, using **2,127 input / 627 output tokens**. It identified the saved overflow failure; those facts do not prove a repair. A [separate checker](evidence/backboard/2026-10-17T04-42-47Z/independent-citation-check.json) matched every claim. Prose is a deterministic rendering of validated model JSON. One search and one model message used a separately approved existing-credit grant; browser evidence and public judge slots were unchanged.
 
 ### Best Use of Temporal — durable audit execution
 
@@ -93,7 +93,7 @@ Both native Gemma requests returned HTTP 200: **517 input / 38 output tokens**, 
 - Sentry proof covers proposal generation, not browser-audit tracing or error-event ingestion. Temporal wraps the approved browser-audit activity and its recovery is hosted CI development-server evidence, not an always-on Render worker or Temporal Cloud.
 - [Mastra's successful hosted proof](evidence/mastra/2026-10-17T04-08-48Z/) is operator-protected Backboard/OpenRouter inference using approved existing mixed credit; it is not free-only. The public route retains Google consent/funding, and its first new attempt returned HTTP 500. That failure and all reservations remain recorded. The public judge counter stayed at four; no automatic fallback or refund occurs. Approval suspension remains process-local CI evidence, not a durable hosted approval store.
 - The older search, speech, memory and operator-agent proofs are protected; the optional public evidence agent has a separate bounded judge grant. Their demonstration reservations are consumed without refund; trial credits and access expire. Tokenless/cross-visitor agent calls returned 404, missing consent 400 and a repeated tranche 409. A restart or fresh timestamp cannot replenish a spent grant. [Funding boundaries and scheduled read-only rechecks](PROVIDER_ALLOWANCES.md).
-- Backboard demonstrates assistant memory, not a generated answer grounded in that memory. The audio file decodes, but its audible wording has not been independently listened to.
+- Backboard's [hosted answer](BACKBOARD_MEMORY_ANSWER.md) covers six historical synthetic facts and one fixed question, not a general project conversation or a new audit. Application citation IDs are derived from actual returned content; displayed prose renders validated model assertions. Its two-unit existing mixed-credit grant is consumed without refund. The audio file decodes, but its audible wording has not been independently listened to.
 - I am not entering Entire or .tech: Entire evidence is local only, and I chose to keep the existing Render domain. Arduino, TabPFN, DigitalOcean and MongoDB Atlas are not used.
 
 Next: observe complete freelancer handoffs, validate the training examples and test the ₹499 pricing hypothesis. Priyanshu's author-reported statement that he “can pay” is a starting point; no price was named, and completed workflow details remain unrecorded.

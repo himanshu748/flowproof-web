@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-17T04:43:54.821Z",
+  "httpStatus": 200,
+  "freeUsd": 4.96,
+  "paidUsd": 4.997553,
+  "totalUsd": 9.957553,
+  "autoReloadEnabled": false,
+  "paymentMethodConfigured": false,
+  "scope": "Immediate account-wide observation, not exclusive attribution or a final invoice",
+  "noPurchase": true
+}

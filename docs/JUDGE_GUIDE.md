@@ -51,6 +51,8 @@ The shared allowance is capped at **100 total runs, at most six/hour and one per
 
 ## Inspect the protected partner proof
 
+**Backboard answer, October 17:** inspect the [real hosted memory turn](BACKBOARD_MEMORY_ANSWER.md). One search recovered the six stored October 16 facts; one Backboard/OpenRouter Gemma message returned three validated failure claims and six supporting citations (**2,127 input / 627 output tokens**). It cites the saved overflow failure and says those facts do not prove a repair. Prose renders validated model JSON. [Independent citation check](evidence/backboard/2026-10-17T04-42-47Z/independent-citation-check.json). This operator-only grant is spent; it used no public judge slots and changed no browser result. It is separate from the main sample path and the public evidence agent.
+
 These earlier proofs used operator-only integrations. Judges can inspect their receipts without credentials or spending an allowance; the new public walkthrough above has a separate durable grant. The [12:14 UTC hosted agent receipt](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/receipt.json) records a complete evidence-review loop on release `f990d9a14ae95dc322e4d81a411e9dd764ff9207`:
 
 1. Native Google Gemma selected **failure history** and **search visibility**.

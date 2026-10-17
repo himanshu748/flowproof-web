@@ -1,0 +1,233 @@
+{
+  "startedAt": "2026-10-17T04:42:47.791Z",
+  "status": "completed",
+  "sourceCommit": "92112b3f5ee580f1729146070878cf9bbc4f9b19",
+  "scope": "Real protected hosted Backboard search followed by one Gemma answer from returned historical synthetic facts. Not new browser acceptance or a public judge run.",
+  "provider": "Backboard",
+  "modelProvider": "openrouter",
+  "model": "google/gemma-4-26b-a4b-it",
+  "maxReservedUnits": 2,
+  "reservedExistingCreditUsd": 0.1,
+  "funding": "Existing mixed credit; not a free-only debit claim",
+  "automaticRetries": 0,
+  "publicJudgeSlotsConsumed": 0,
+  "approvalActor": "Owner-instructed synthetic verifier",
+  "calls": [
+    {
+      "route": "/health",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/bootstrap",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/projects/a57e4add-5453-4fc3-ae09-491f307a0f0b/variant",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "route": "/api/projects/a57e4add-5453-4fc3-ae09-491f307a0f0b/audits",
+      "status": 409,
+      "method": "POST"
+    },
+    {
+      "route": "/api/projects/a57e4add-5453-4fc3-ae09-491f307a0f0b/checks",
+      "status": 200,
+      "method": "PUT"
+    },
+    {
+      "route": "/api/projects/a57e4add-5453-4fc3-ae09-491f307a0f0b/audits",
+      "status": 202,
+      "method": "POST"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/persistence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/persistence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/persistence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/persistence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/persistence",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/memory-answer",
+      "status": 404,
+      "method": "POST"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/memory-answer",
+      "status": 400,
+      "method": "POST"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/memory-answer",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d/memory-answer",
+      "status": 409,
+      "method": "POST"
+    },
+    {
+      "route": "/api/audits/4b61823f-2cf1-4664-8b02-ba58395f4e9d",
+      "status": 200,
+      "method": "GET"
+    }
+  ],
+  "judgeSpentBefore": 4,
+  "reservationAuditCounts": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "reservationAuditUnchanged": true,
+  "judgeSpentAfter": 4,
+  "durableDedicatedReservationRows": 1,
+  "priorFilesUnchanged": 90,
+  "memoryFacts": 6,
+  "modelClaims": 3,
+  "usage": {
+    "inputTokens": 2127,
+    "outputTokens": 627,
+    "totalTokens": 2754
+  },
+  "answer": "The retrieved record says the horizontal-overflow check failed [app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763]. Other cited outcomes: heading: failed [app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea]; image alternative text: failed [app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148]. Whether the mobile issue was fixed is not proven by these six retrieved facts. This does not establish whether a repair exists in records outside this retrieval, and it is not a new browser audit.",
+  "trancheId": "4b82a030-5f30-4881-a689-edbdae539148",
+  "completedAt": "2026-10-17T04:43:23.292Z"
+}

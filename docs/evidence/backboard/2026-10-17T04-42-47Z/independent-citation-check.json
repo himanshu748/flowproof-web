@@ -1,0 +1,77 @@
+{
+  "checkedAt": "2026-10-17T04:43:55.216055+00:00",
+  "scope": "Independent Python comparison to actual returned facts and retained October16 source; no model or provider request",
+  "sourceReceipt": "../../hosted-optional/2026-10-16T09-13-12Z/backboard-search.json",
+  "factsExactlyMatchHistoricalSource": true,
+  "appIdsIndependentlyRecomputed": 6,
+  "claims": [
+    {
+      "claim": {
+        "factId": "app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea",
+        "kind": "heading",
+        "status": "failed"
+      },
+      "retrievedFact": {
+        "kind": "heading",
+        "status": "failed",
+        "index": 0,
+        "factId": "app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea",
+        "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+        "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+        "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+        "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+        "observedAt": "2026-10-16T09:13:28.349Z"
+      },
+      "exactMatch": true
+    },
+    {
+      "claim": {
+        "factId": "app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148",
+        "kind": "image_alt",
+        "status": "failed"
+      },
+      "retrievedFact": {
+        "kind": "image_alt",
+        "status": "failed",
+        "index": 2,
+        "factId": "app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148",
+        "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+        "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+        "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+        "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+        "observedAt": "2026-10-16T09:13:28.349Z"
+      },
+      "exactMatch": true
+    },
+    {
+      "claim": {
+        "factId": "app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763",
+        "kind": "no_horizontal_overflow",
+        "status": "failed"
+      },
+      "retrievedFact": {
+        "kind": "no_horizontal_overflow",
+        "status": "failed",
+        "index": 3,
+        "factId": "app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763",
+        "providerMemoryId": "865c3027-de7e-44e1-8607-27d3a7387e62",
+        "contentSha256": "493650f0061a4dc99ee2b1a5e8d2dada055e3ccab8abc430d7ff82ffb2ed6aa1",
+        "projectScope": "ef652ef6d76f397dd59fd38547b6afcd10954f3bc3f425b5fff7258f2eb0a518",
+        "auditScope": "54ef189bdb934fcbdf7aba618264ea5eda67f880fdc6399ea31ad5c845e68ca2",
+        "observedAt": "2026-10-16T09:13:28.349Z"
+      },
+      "exactMatch": true
+    }
+  ],
+  "supportingFactIds": [
+    "app-fact-94a62f6f97cc02b4be0871014b525445baad778ae0811fbf9c7af49f5001a2ea",
+    "app-fact-5c1ff9ca79355d4f10f2c63fea3658bb9abe7f8b6a892ee2a6098ad6b4b6ffd6",
+    "app-fact-f09311a244a6fc6247743d689b509e1a1b5d896adf172dcc0e1b4245b6293148",
+    "app-fact-f093ab38207e97f992bb0d90b7b779716879501fe2f3d2f5e601090eb9b78763",
+    "app-fact-cc9837566328fb706bcf2332b05b1ff60043d443ae157c20811668f53c5aa397",
+    "app-fact-24e1e6234dad2916356a8d5c18a1a3933d688201cec0c3b61f08d47b0a7a7bbb"
+  ],
+  "allSixSupportIdsVerified": true,
+  "resolution": "not_proven_by_retrieved_facts",
+  "prose": "Deterministic rendering of validated model assertions; not verbatim model prose"
+}

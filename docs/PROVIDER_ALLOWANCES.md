@@ -1,5 +1,11 @@
 # Provider allowances: October 16, 2026
 
+## October 17 Backboard answer closeout
+
+A separately approved **one-search / one-Gemma-message grant**, reserving **$0.10 of existing mixed credit**, completed the [hosted six-fact memory answer](BACKBOARD_MEMORY_ANSWER.md). Its two units remain consumed without refund. The [spent readback](evidence/backboard/2026-10-17T04-42-47Z/spent-configuration.json) verified all **90** earlier private records and older environment values unchanged. The public judge count stayed **4 → 4**; neither the 100-run grant nor any prior proof was replenished.
+
+The authenticated [before observation](evidence/backboard/2026-10-17T04-42-47Z/funding.json) at **04:26:22.861 UTC** showed free credit **$4.97**, paid **$4.997888**, auto-reload off and no payment method. The [04:43:54.821 UTC after observation](evidence/backboard/2026-10-17T04-42-47Z/account-observation.json) showed **$4.96 free / $4.997553 paid**. These account-wide changes are not exclusive attribution or a final invoice; this is not a free-only debit claim. No purchase, service, assistant or credential transfer occurred. The new funding proof expires **October 18 at 04:26:22.861 UTC**, within the unchanged October 20 cutoff. The API has no confirmed per-request dollar/output cap; local byte/time bounds do not establish one. All older dated observations below remain unchanged.
+
 **Storage update, October 16 at 16:32 UTC:** [pgvector and independent score proof](evidence/tiger-pgvector/2026-10-16T16-16-50Z/) supersedes the array-storage limitation for the current deployment. Earlier dated agent receipts below retain their original array implementation and model usage; the new query proof makes no fresh model/search request. Three fixed MiniLM queries, exact ranking and the existing expiry/budget limits remain.
 
 

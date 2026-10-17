@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "92112b3f5ee580f1729146070878cf9bbc4f9b19",
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39003204540",
+  "conclusion": "success",
+  "appTests": 1346,
+  "pythonTests": 19,
+  "build": true,
+  "realChromiumAudits": true,
+  "browserAcceptance": true,
+  "publicRuntimeMemoryCheck": true,
+  "mastraFixtureReplays": "Retained/synthetic fixtures, not new provider requests",
+  "sourceLogSha256": "bae8e7bc0edeae537731a97b60a6add1dcde9225b0fad7814aae61402198d8e2",
+  "localVerification": "105 new focused tests and build passed; a full local attempt was interrupted after an older real-browser test hit its90-second limit under concurrent load. Full source CI passed."
+}

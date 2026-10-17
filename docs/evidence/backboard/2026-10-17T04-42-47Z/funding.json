@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-10-17T04:26:22.861Z",
+  "httpStatus": 200,
+  "scope": "Read-only existing Briefstamp Backboard account; no memory or inference calls",
+  "backboard": {
+    "freeUsd": 4.97,
+    "paidUsd": 4.997888,
+    "totalUsd": 9.967888,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "freeOnly": false
+  },
+  "modelCatalogCheckedAt": "2026-10-17T03:47:00.418Z",
+  "model": {
+    "name": "google/gemma-4-26b-a4b-it",
+    "provider": "openrouter",
+    "model_type": "llm",
+    "context_limit": 262144,
+    "max_output_tokens": 235929,
+    "supports_tools": true,
+    "supports_json_output": true,
+    "api_mode": "chat_completions",
+    "input_cost_per_1m_tokens": 0.0765,
+    "output_cost_per_1m_tokens": 0.255,
+    "last_updated": "2026-09-28T20:42:44"
+  },
+  "proposedMaximumUnits": 2,
+  "proposedReservationUsd": 0.1,
+  "priorFilesPreserved": 90,
+  "publicJudgeSlotsConsumed": 0,
+  "modelCalls": 0,
+  "memoryCalls": 0,
+  "newServices": 0,
+  "billingChanges": 0,
+  "credentialTransfers": 0
+}

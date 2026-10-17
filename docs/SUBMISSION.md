@@ -1,10 +1,10 @@
 # Briefstamp: proof at the website handoff
 
-The [published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1) for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
+[Published entry](https://dev.to/himanshu_748/briefstamp-proof-at-the-website-handoff-1ac1) for [Week 2: Side Hustle](https://dev.to/challenges/hacktoberfest-week2-2026-10-12).
 
 ## What I Built
 
-Turn a client brief into approved browser checks and a proof-of-delivery report for freelancer handoffs. ₹499 per handoff is a pricing hypothesis.
+Turn a client brief into approved browser checks and a proof-of-delivery report for freelancers. ₹499 per handoff is a pricing hypothesis.
 
 ## Demo and Code
 
@@ -12,13 +12,13 @@ Turn a client brief into approved browser checks and a proof-of-delivery report 
 
 ## How It Works
 
-Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. The [homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. Sentry displayed three proposal spans.
+Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. [Homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. Sentry displayed three proposal spans.
 
-A [protected hosted Mastra Agent](evidence/mastra/2026-10-17T04-08-48Z/) used Backboard/OpenRouter Gemma, executed Tiger and SerpApi tools, then returned seven validated citations. Two turns reported **1,794 input / 787 output tokens**; the audit stayed unchanged. The public route retains Google. [CI](evidence/mastra/2026-10-17T04-08-48Z/ci.json): **1,241 app tests, 19 Python tests, build and Chromium checks**.
+A [hosted Mastra Agent](evidence/mastra/2026-10-17T04-08-48Z/) used Backboard/OpenRouter Gemma with Tiger and SerpApi, returning seven validated citations without changing the audit. Public routing retains Google. Separately, [Backboard memory](BACKBOARD_MEMORY_ANSWER.md) supplied six facts for three validated Gemma claims; repair remained unproven. Prose renders validated JSON. [CI](evidence/backboard/2026-10-17T04-42-47Z/ci.json): **1,346 app tests, 19 Python tests, build and Chromium checks**.
 
 ## Open Innovation
 
-Open weights enable local Gemma and Qwen fine-tuning. Tinker LoRA used [69.55% fewer input tokens](MODEL_RESULTS.md), with lower reference agreement: 22/24 versus 23/24.
+Open weights support Gemma and Qwen fine-tuning. Tinker LoRA used [69.55% fewer input tokens](MODEL_RESULTS.md), with lower reference agreement: 22/24 versus 23/24.
 
 ## First User
 
@@ -26,10 +26,10 @@ Author-reported: freelancer friend Priyanshu tried Briefstamp and said he “can
 
 ## Proposed Categories
 
-[Scoped evidence](DEV_POST.md): Gemma, Render, Tinker, GitHub Actions, Mastra, Sentry, Backboard, Temporal, ElevenLabs, Tiger Data and SerpApi. Eligibility belongs to the judges.
+[Scoped evidence](DEV_POST.md): Gemma, Render, Tinker, GitHub Actions, Mastra, Sentry, Backboard, Temporal, ElevenLabs, Tiger Data and SerpApi. Judges determine eligibility.
 
 ## Limitations and Next
 
-Fixed targets, expiring grants, operator-only Backboard proof using mixed credit and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
+Fixed targets, expiring grants, operator-only fixed-question Backboard proof using mixed credit and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
 
 AI assisted coding and drafting; verifier approvals are not customer acceptance.

@@ -1,0 +1,16 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "account-observation.json": "1e6fb3f32ecde749d87e17313910bc17d6fd1c803ff5681386524a6a2f836372",
+    "ci.json": "194c95fb21b8c9828674c34a1fcd594bacd8f956f72f16358b1e309af3675cc5",
+    "citation-check.json": "2fd12d1c4105d0c0adbb546fe5044ef4c285f3509ee3e4c62afec52c3e62ccc6",
+    "deployment.json": "89c5ceb2e470459891c82453a8e3a56fafc9cb9885be30fa2fdfecfe54cdf954",
+    "funding.json": "785cc14652b8adf3799d55ccd71da0cb74b24789c74074c480868257520c5aa9",
+    "independent-citation-check.json": "ebd6c371f9463398608b209d33bc59ac5715ebb2b157693ddc57924c8d9595cb",
+    "memory-answer.json": "908379908fb48727eae4fe4ee1c1ed35c7a2936b18dbf94b1d661d50c2513fcb",
+    "receipt.json": "7180f68335aff8bee1d1645c34525bfb37f32be2c15ddc33044245e411c92124",
+    "reservation-audit.json": "872410baad6dbe2f2d14dfd1bfdab4bbecb8dc78f46a3637fcac2d3c5e4ca1d0",
+    "retrieved-facts.json": "e05329d64a3d8720644ff803877e1b63f6a79398c392c74ab2326f2532f53ffa",
+    "spent-configuration.json": "b487b237183ea2fe3aebbfa5ab54e21c5529c0c0e7a2b3109e3bc42d9c447be6"
+  }
+}
