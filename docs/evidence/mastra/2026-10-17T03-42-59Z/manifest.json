@@ -1,0 +1,96 @@
+{
+  "algorithm": "SHA-256",
+  "excludes": "manifest.json itself",
+  "files": [
+    {
+      "file": "README.md",
+      "bytes": 5047,
+      "sha256": "e07c493b0b666aa5865c2d8f881943399d1ea05a48b1c8e050cfe7546ee2f0f4"
+    },
+    {
+      "file": "agent-run.json",
+      "bytes": 2695,
+      "sha256": "18d6e7ee55a4f87349cecf30fcbd7a4388641465a7c8aa9749e051823d45520c"
+    },
+    {
+      "file": "backboard-google-catalog.json",
+      "bytes": 279,
+      "sha256": "c70ee941c2cde48ccb3f3a4198e94e01ef15d7a534f8e0e6fb6a0e42753e1ff1"
+    },
+    {
+      "file": "backboard-openrouter-catalog.json",
+      "bytes": 2723,
+      "sha256": "e1c0ba66216721f360add245bd3042d40edea40fb66b57e57e61b4234d32e441"
+    },
+    {
+      "file": "backboard-preflight.json",
+      "bytes": 647,
+      "sha256": "88976c88c24062b6655b66ecdfc53683bc5f54a69b2041adf915e3e34906a01b"
+    },
+    {
+      "file": "ci-excerpt.txt",
+      "bytes": 701,
+      "sha256": "17937e65e67b0a420c628e1f9796a9b71947c98cc7f3fccac24d62e98bd4f243"
+    },
+    {
+      "file": "ci.json",
+      "bytes": 526,
+      "sha256": "ea7f8c7c4e3cb384734db23704e98b4a06b441e43c020c33ec569315a0f857ca"
+    },
+    {
+      "file": "deployment.json",
+      "bytes": 424,
+      "sha256": "ead2c4943837e60c175801efef378fb494550a04584caa21e1579eee88e88ec1"
+    },
+    {
+      "file": "funding.json",
+      "bytes": 360,
+      "sha256": "98851c7cac5ad52f755bf1259c3bd6ea54d20fc1ea999adcb67760bd78f1ceb8"
+    },
+    {
+      "file": "gemma-free-pricing.json",
+      "bytes": 150,
+      "sha256": "4fa53e1149cf07114dedeaf8fec1007298722b4f1ae0ab94d89f8a6f65c3d000"
+    },
+    {
+      "file": "internal-link-check.json",
+      "bytes": 116156,
+      "sha256": "19755e755b1fbce9d9cec216282bc832705d8b4b8c87025ed7ea60f2c759e07d"
+    },
+    {
+      "file": "post-failure-checks.json",
+      "bytes": 1039,
+      "sha256": "b6bf1de7e10ee634bb69e819f13ff8c5071d7b58990b0b090da7f758b499e0c4"
+    },
+    {
+      "file": "public-status.json",
+      "bytes": 639,
+      "sha256": "f9235801768f7ecbe20b50ba1e995ba4fa55ce91a43d495f3d64065f92499f83"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 5665,
+      "sha256": "1cb6166e1a302796528e591bb72241cf28bc8bdf0283b8adbc4ef0ccefdea4a7"
+    },
+    {
+      "file": "recorded-replay.json",
+      "bytes": 16010,
+      "sha256": "6da2f8a246065457681d8c276f25787127985cbfff47435c90b6fa4bcbc11746"
+    },
+    {
+      "file": "source-audit.json",
+      "bytes": 7154,
+      "sha256": "76b9aa74e7d4ff5d6baabc03ae7a467eb73a07a2582af0a05216b191e960f7b7"
+    },
+    {
+      "file": "spent-configuration.json",
+      "bytes": 308,
+      "sha256": "83aba7d3a704e0bcf2553f7f758d52382ae2833bfddad50f930a657639501011"
+    },
+    {
+      "file": "unexpected-response.json",
+      "bytes": 3412,
+      "sha256": "af59e7171f0702f058f131a0ccb582a34c06dfe53d6e23dc0c7c06afdc833053"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "checkedAt": "2026-10-17T03:47:00.418Z",
+  "httpStatus": 200,
+  "scope": "Read-only OpenRouter-provider catalog, not an inference or complete cross-provider catalog search",
+  "total": 361,
+  "returnedModels": 361,
+  "gemmaModels": [
+    {
+      "name": "google/gemma-2-27b-it",
+      "provider": "openrouter",
+      "model_type": "llm",
+      "context_limit": 8192,
+      "max_output_tokens": 2048,
+      "supports_tools": false,
+      "supports_json_output": true,
+      "api_mode": "chat_completions",
+      "input_cost_per_1m_tokens": 0.65,
+      "output_cost_per_1m_tokens": 0.65,
+      "last_updated": "2026-09-17T19:38:06"
+    },
+    {
+      "name": "google/gemma-3-12b-it",
+      "provider": "openrouter",
+      "model_type": "llm",
+      "context_limit": 131072,
+      "max_output_tokens": 16384,
+      "supports_tools": true,
+      "supports_json_output": true,
+      "api_mode": "chat_completions",
+      "input_cost_per_1m_tokens": 0.05,
+      "output_cost_per_1m_tokens": 0.15,
+      "last_updated": "2026-09-17T19:38:06"
+    },
+    {
+      "name": "google/gemma-3-27b-it",
+      "provider": "openrouter",
+      "model_type": "llm",
+      "context_limit": 131072,
+      "max_output_tokens": 117964,
+      "supports_tools": true,
+      "supports_json_output": true,
+      "api_mode": "chat_completions",
+      "input_cost_per_1m_tokens": 0.08,
+      "output_cost_per_1m_tokens": 0.45,
+      "last_updated": "2026-09-17T19:38:06"
+    },
+    {
+      "name": "google/gemma-3-4b-it",
+      "provider": "openrouter",
+      "model_type": "llm",
+      "context_limit": 131072,
+      "max_output_tokens": 16384,
+      "supports_tools": false,
+      "supports_json_output": true,
+      "api_mode": "chat_completions",
+      "input_cost_per_1m_tokens": 0.05,
+      "output_cost_per_1m_tokens": 0.1,
+      "last_updated": "2026-09-17T19:38:06"
+    },
+    {
+      "name": "google/gemma-4-26b-a4b-it",
+      "provider": "openrouter",
+      "model_type": "llm",
+      "context_limit": 262144,
+      "max_output_tokens": 235929,
+      "supports_tools": true,
+      "supports_json_output": true,
+      "api_mode": "chat_completions",
+      "input_cost_per_1m_tokens": 0.0765,
+      "output_cost_per_1m_tokens": 0.255,
+      "last_updated": "2026-09-28T20:42:44"
+    },
+    {
+      "name": "google/gemma-4-31b-it",
+      "provider": "openrouter",
+      "model_type": "llm",
+      "context_limit": 262144,
+      "max_output_tokens": 16384,
+      "supports_tools": true,
+      "supports_json_output": true,
+      "api_mode": "chat_completions",
+      "input_cost_per_1m_tokens": 0.09,
+      "output_cost_per_1m_tokens": 0.34,
+      "last_updated": "2026-09-17T19:38:06"
+    }
+  ],
+  "modelCalls": 0,
+  "publicJudgeUnits": 0
+}

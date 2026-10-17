@@ -1,0 +1,224 @@
+{
+  "startedAt": "2026-10-17T03:42:59.198Z",
+  "sourceCommit": "1e7db19416886e11a8ca488f35190ea3749cc9c3",
+  "status": "failed",
+  "scope": "Real hosted Mastra Agent over native Google Gemma text JSON; parent performs fixed Tiger pgvector RRF and SerpApi tools, not provider-native function calling",
+  "approvalActor": "Owner-instructed synthetic verifier, not customer acceptance",
+  "maximumReservedUnits": 4,
+  "publicJudgeAllowanceConsumed": 0,
+  "automaticRetries": 0,
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/operator/status",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "status": 201
+    },
+    {
+      "route": "/api/projects/b9fae2f1-8dea-47f8-9815-97472180dae9/variant",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/b9fae2f1-8dea-47f8-9815-97472180dae9/audits",
+      "method": "POST",
+      "status": 409
+    },
+    {
+      "route": "/api/projects/b9fae2f1-8dea-47f8-9815-97472180dae9/checks",
+      "method": "PUT",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/b9fae2f1-8dea-47f8-9815-97472180dae9/audits",
+      "method": "POST",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/persistence",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/agent-review",
+      "method": "POST",
+      "status": 404
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/agent-review",
+      "method": "POST",
+      "status": 400
+    },
+    {
+      "route": "/api/audits/13629640-c0b8-48d9-b9b1-854e293b9add/agent-review",
+      "method": "POST",
+      "status": 503
+    }
+  ],
+  "judgeSpentBefore": 4,
+  "browserCounts": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "failure": {
+    "name": "Error",
+    "message": "Hosted route returned 503"
+  },
+  "completedAt": "2026-10-17T03:43:39.186Z"
+}

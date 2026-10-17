@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "status": "failed",
+  "transport": "native_google_gemma",
+  "model": "gemma-4-26b-a4b-it",
+  "startedAt": "2026-10-17T03:43:26.003Z",
+  "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+  "sourceAuditId": "13629640-c0b8-48d9-b9b1-854e293b9add",
+  "modelTurns": [
+    {
+      "phase": "select_tools",
+      "failedAttempts": [
+        {
+          "phase": "select_tools",
+          "index": 1,
+          "model": "gemma-4-26b-a4b-it",
+          "providerModelVersion": null,
+          "status": 500,
+          "durationMs": 1005,
+          "requestBytes": 1866,
+          "requestSha256": "e2680399b7d28a9be8653b6691e60e7ca24685f13a4da256d1f2c504fc393f71",
+          "responseBytes": 109,
+          "responseSha256": "8afb0f460c66c8c994af4793c44df522eb1a5d19c266051b83bc31ff0a64671f",
+          "usage": null,
+          "providerStatus": "INTERNAL",
+          "retryDelayMs": 0,
+          "retryDelayCompleted": false
+        }
+      ]
+    }
+  ],
+  "toolCalls": [],
+  "observations": [],
+  "sourceAuditUnchanged": true,
+  "limits": {
+    "maximumModelCalls": 2,
+    "maximumLogicalModelTurns": 2,
+    "maximumToolCalls": 2,
+    "modelRetries": 0,
+    "toolRetries": 0,
+    "refundPerformed": false,
+    "maximumDurationMs": 90000,
+    "maximumSearchDurationMs": 60000
+  },
+  "scope": "A real isolated Mastra Agent owns the tool loop. Gemma native text JSON is bridged to AI SDK tool calls; this is not provider-native function calling. Actual observations cannot change browser acceptance.",
+  "auditObservation": {
+    "id": "audit",
+    "type": "audit_results",
+    "auditId": "13629640-c0b8-48d9-b9b1-854e293b9add",
+    "results": [
+      {
+        "checkId": "2a434ed6-5294-45ca-a597-601f067ea07e",
+        "kind": "heading",
+        "status": "failed"
+      },
+      {
+        "checkId": "7d132501-e49b-492b-902e-21f42f9d9634",
+        "kind": "link",
+        "status": "passed"
+      },
+      {
+        "checkId": "853b6cd1-e5c1-4614-a3a4-f03d13576acb",
+        "kind": "image_alt",
+        "status": "failed"
+      },
+      {
+        "checkId": "4ea4ede9-d62d-41e7-88ac-5d99a4c73d24",
+        "kind": "no_horizontal_overflow",
+        "status": "failed"
+      },
+      {
+        "checkId": "08e2b5fa-fbc3-46a0-b22f-86d5d22b66b8",
+        "kind": "text_visible",
+        "status": "passed"
+      },
+      {
+        "checkId": "2bd3a0e2-c0a3-47f3-a9c2-c239926f9e2c",
+        "kind": "manual",
+        "status": "unverified"
+      }
+    ]
+  },
+  "failureCode": "mastra_agent_failed",
+  "completedAt": "2026-10-17T03:43:39.076Z"
+}

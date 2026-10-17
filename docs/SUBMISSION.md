@@ -4,7 +4,7 @@ Summary of the [published entry](https://dev.to/himanshu_748/briefstamp-proof-at
 
 ## What I Built
 
-Turn a client brief into approved browser checks and a proof-of-delivery report. Freelancers can show what matches the agreement, fails or still needs judgment. ₹499 per handoff is a pricing hypothesis.
+Turn a client brief into approved browser checks and a proof-of-delivery report for freelancer handoffs. ₹499 per handoff is a pricing hypothesis.
 
 ## Demo and Code
 
@@ -14,7 +14,7 @@ Turn a client brief into approved browser checks and a proof-of-delivery report.
 
 Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. The [homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. Sentry displayed three proposal spans.
 
-A separate [native Gemma JSON agent](AGENT_RETRIEVAL.md) selected Tiger hybrid retrieval and SerpApi, then cited three returned failures and the actual zero-result search snapshot. It preserved the original audit. This loop is not a Mastra Agent. [CI](evidence/agent-allowance/2026-10-16/ci.json): **871 app tests, 19 Python tests, build and real browser audits**.
+The current [Mastra Agent](evidence/mastra/2026-10-17T03-42-59Z/) registers Tiger and SerpApi tools. Its hosted attempt failed on Google's first HTTP 500; both tools and the second turn are proven only by retained-response SDK replay. The earlier [native loop](AGENT_RETRIEVAL.md) completed. [CI](evidence/mastra/2026-10-17T03-42-59Z/ci.json): **1,119 app tests, 19 Python tests, build and Chromium checks**.
 
 ## Open Innovation
 
@@ -30,6 +30,6 @@ Author-reported: freelancer friend Priyanshu tried Briefstamp and said he “can
 
 ## Limitations and Next
 
-Fixed targets, expiring consumed grants, operator-only tools and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
+Fixed targets, expiring grants, incomplete hosted Mastra completion and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
 
 AI assisted coding and drafting; verifier approvals are not customer acceptance.

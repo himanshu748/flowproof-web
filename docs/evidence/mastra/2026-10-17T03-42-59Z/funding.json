@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-10-17T03:30:33.891Z",
+  "plan": "Free Plan",
+  "accountStatus": "Active",
+  "monthlyPrice": 0,
+  "extraCredits": 0,
+  "remainingSearches": 211,
+  "publicJudgeAllowanceConsumed": 0,
+  "maximumDedicatedUnits": 4,
+  "maximumRuns": 1,
+  "newServices": 0,
+  "billingChanges": 0,
+  "modelCalls": 0,
+  "searchCalls": 0,
+  "previousFiles": 52
+}

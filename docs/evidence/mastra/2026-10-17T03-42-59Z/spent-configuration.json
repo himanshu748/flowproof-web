@@ -1,0 +1,11 @@
+{
+  "verifiedAt": "2026-10-17T03:43:56.669Z",
+  "trancheId": "1450b5ad-7053-497e-9465-e99017039439",
+  "usedRuns": 1,
+  "maximumReservedUnits": 4,
+  "oldEnvironmentPreserved": true,
+  "oldFilesUnchanged": 52,
+  "publicJudgeGrantReset": false,
+  "engine": "mastra_agent",
+  "automaticNativeFallback": false
+}

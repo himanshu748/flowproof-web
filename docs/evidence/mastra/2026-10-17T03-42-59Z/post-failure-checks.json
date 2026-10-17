@@ -1,0 +1,26 @@
+{
+  "scope": "Post-failure read-only checks; not a successful model/tool loop",
+  "firstVerifier": {
+    "source": "work/mastra-post-failure.ts before line-27 status assertion",
+    "independentTigerAuditMatched": true,
+    "publicJudgeSpentAfter": 4,
+    "operatorDurableReservations": 1,
+    "oldReservationFilesUnchanged": 52,
+    "subsequentStatusWithoutVisitorCookie": 401
+  },
+  "secondVerifier": {
+    "status": "failed before completing readback",
+    "error": "Connection terminated due to connection timeout",
+    "modelOrSearchRequests": 0
+  },
+  "completedStatusCheck": "public-status.json",
+  "noProviderRetry": true,
+  "reservedUnitsRemainConsumed": 4,
+  "liveProviderRequests": 1,
+  "liveToolCalls": 0,
+  "liveCitedFindings": 0,
+  "liveTokenCounts": null,
+  "tokenCountsReason": "Google HTTP 500 response did not include usage",
+  "oldEvidenceUnmodified": true,
+  "limitation": "The original end-to-end verifier stopped on HTTP 503. No completed hosted Mastra answer or completed hosted Mastra tool selection is claimed."
+}

@@ -1,0 +1,8 @@
+2026-10-17T03:37:12.0486121Z  Test Files  44 passed (44)
+2026-10-17T03:37:12.0491771Z       Tests  1119 passed (1119)
+2026-10-17T03:37:12.2923048Z Ran 19 tests in 0.067s
+2026-10-17T03:37:35.8912396Z healthy: {"passed":5,"failed":0,"blocked":0,"unverified":1}, five real screenshots and portable report
+2026-10-17T03:37:39.4291821Z broken: {"passed":2,"failed":3,"blocked":0,"unverified":1}, five real screenshots and portable report
+2026-10-17T03:37:46.7578216Z healthy: passed, passed, passed, passed, passed, unverified
+2026-10-17T03:37:50.0596316Z broken: failed, passed, failed, failed, failed, unverified
+2026-10-17T03:37:53.3231225Z recovered: passed, passed, passed, passed, passed, unverified

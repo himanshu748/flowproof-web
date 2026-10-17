@@ -1,0 +1,489 @@
+{
+  "scope": "Actual isolated Mastra Agent with retained model/tool replay; no new provider results",
+  "externalCalls": 0,
+  "publicJudgeSlots": 0,
+  "claims": [
+    "select_tools",
+    "failure_history",
+    "search_visibility",
+    "summarize"
+  ],
+  "receipt": {
+    "version": 1,
+    "status": "completed",
+    "transport": "injected_offline",
+    "model": "gemma-4-26b-a4b-it",
+    "startedAt": "2026-10-17T03:28:49.207Z",
+    "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+    "sourceAuditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+    "modelTurns": [
+      {
+        "phase": "select_tools",
+        "result": {
+          "model": "gemma-4-26b-a4b-it",
+          "output": {
+            "tools": [
+              {
+                "name": "failure_history",
+                "arguments": {
+                  "queryId": "mobile_paraphrase"
+                }
+              },
+              {
+                "name": "search_visibility",
+                "arguments": {}
+              }
+            ]
+          },
+          "attempts": [
+            {
+              "phase": "select_tools",
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "providerModelVersion": "gemma-4-26b-a4b-it",
+              "status": 200,
+              "durationMs": 1893,
+              "requestBytes": 1866,
+              "requestSha256": "60f86234ce64b5069d71308ba2949304915d0b5b1ec123b9c685697c7b49c8ae",
+              "responseBytes": 783,
+              "responseSha256": "14512505d63442ca1dd42de56942ef33b5b38afd1e765fe4ca6aba40acaac12d",
+              "usage": {
+                "promptTokens": 518,
+                "completionTokens": 38,
+                "totalTokens": 556
+              },
+              "providerStatus": null,
+              "retryDelayMs": 0,
+              "retryDelayCompleted": false
+            }
+          ],
+          "freePricing": {
+            "model": "gemma-4-26b-a4b-it",
+            "checkedAt": "2026-10-16T13:07:19.619Z",
+            "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+          },
+          "transportNormalization": {
+            "emptyThoughtPartIgnored": true,
+            "wholeJsonFenceRemoved": true
+          }
+        }
+      },
+      {
+        "phase": "summarize",
+        "result": {
+          "model": "gemma-4-26b-a4b-it",
+          "output": {
+            "findings": [
+              {
+                "type": "audit_result",
+                "observationId": "audit",
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+                "status": "failed"
+              },
+              {
+                "type": "audit_result",
+                "observationId": "audit",
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+                "status": "failed"
+              },
+              {
+                "type": "audit_result",
+                "observationId": "audit",
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+                "status": "failed"
+              },
+              {
+                "type": "historical_failure",
+                "observationId": "tool-1",
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+                "status": "failed"
+              },
+              {
+                "type": "historical_failure",
+                "observationId": "tool-1",
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+                "status": "failed"
+              },
+              {
+                "type": "historical_failure",
+                "observationId": "tool-1",
+                "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+                "status": "failed"
+              },
+              {
+                "type": "search_snapshot",
+                "observationId": "tool-2",
+                "resultCount": 0
+              }
+            ],
+            "abstention": "none"
+          },
+          "attempts": [
+            {
+              "phase": "summarize",
+              "index": 1,
+              "model": "gemma-4-26b-a4b-it",
+              "providerModelVersion": "gemma-4-26b-a4b-it",
+              "status": 200,
+              "durationMs": 16658,
+              "requestBytes": 3929,
+              "requestSha256": "c5278e7caea89212d54a2cce9cb2fc86be60c2b5ea1a1140c2f02a0a8bf05a06",
+              "responseBytes": 2283,
+              "responseSha256": "d38d9c282cff663d5ef933c320c0a462b7c0df06af6c160419030930583bb4fe",
+              "usage": {
+                "promptTokens": 1252,
+                "completionTokens": 753,
+                "totalTokens": 2005
+              },
+              "providerStatus": null,
+              "retryDelayMs": 0,
+              "retryDelayCompleted": false
+            }
+          ],
+          "freePricing": {
+            "model": "gemma-4-26b-a4b-it",
+            "checkedAt": "2026-10-16T13:07:19.619Z",
+            "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en"
+          },
+          "transportNormalization": {
+            "emptyThoughtPartIgnored": true,
+            "wholeJsonFenceRemoved": true
+          }
+        }
+      }
+    ],
+    "toolCalls": [
+      {
+        "observationId": "tool-1",
+        "name": "failure_history",
+        "arguments": {
+          "queryId": "mobile_paraphrase"
+        },
+        "status": "observed",
+        "durationMs": 1
+      },
+      {
+        "observationId": "tool-2",
+        "name": "search_visibility",
+        "arguments": {},
+        "status": "observed",
+        "durationMs": 1
+      }
+    ],
+    "observations": [
+      {
+        "id": "tool-1",
+        "type": "failure_history",
+        "status": "observed",
+        "queryId": "mobile_paraphrase",
+        "rows": [
+          {
+            "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+            "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+            "kind": "no_horizontal_overflow",
+            "status": "failed",
+            "retrieval": "hybrid-rrf",
+            "queryId": "mobile_paraphrase",
+            "lexicalScore": 0,
+            "lexicalRank": null,
+            "vectorRank": 1,
+            "cosine": 0.3781263417931506,
+            "rrf": 0.01639344262295082
+          },
+          {
+            "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+            "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+            "kind": "heading",
+            "status": "failed",
+            "retrieval": "hybrid-rrf",
+            "queryId": "mobile_paraphrase",
+            "lexicalScore": 0,
+            "lexicalRank": null,
+            "vectorRank": 2,
+            "cosine": 0.20973289516274507,
+            "rrf": 0.016129032258064516
+          },
+          {
+            "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+            "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+            "kind": "image_alt",
+            "status": "failed",
+            "retrieval": "hybrid-rrf",
+            "queryId": "mobile_paraphrase",
+            "lexicalScore": 0,
+            "lexicalRank": null,
+            "vectorRank": 3,
+            "cosine": 0.02335452957408811,
+            "rrf": 0.015873015873015872
+          }
+        ]
+      },
+      {
+        "id": "tool-2",
+        "type": "search_visibility",
+        "status": "observed",
+        "domain": "flowproof-demo.onrender.com",
+        "query": "site:flowproof-demo.onrender.com",
+        "observedAt": "2026-10-16T13:10:18.500Z",
+        "resultCount": 0
+      }
+    ],
+    "sourceAuditUnchanged": true,
+    "limits": {
+      "maximumModelCalls": 2,
+      "maximumLogicalModelTurns": 2,
+      "maximumToolCalls": 2,
+      "modelRetries": 0,
+      "toolRetries": 0,
+      "refundPerformed": false,
+      "maximumDurationMs": 90000,
+      "maximumSearchDurationMs": 60000
+    },
+    "scope": "A real isolated Mastra Agent owns the tool loop. Gemma native text JSON is bridged to AI SDK tool calls; this is not provider-native function calling. Actual observations cannot change browser acceptance.",
+    "auditObservation": {
+      "id": "audit",
+      "type": "audit_results",
+      "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+      "results": [
+        {
+          "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+          "kind": "heading",
+          "status": "failed"
+        },
+        {
+          "checkId": "809b533a-4783-45b6-a268-30625a88cccb",
+          "kind": "link",
+          "status": "passed"
+        },
+        {
+          "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+          "kind": "image_alt",
+          "status": "failed"
+        },
+        {
+          "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+          "kind": "no_horizontal_overflow",
+          "status": "failed"
+        },
+        {
+          "checkId": "cbd9fef0-b541-4cce-ba5a-e09f27389dba",
+          "kind": "text_visible",
+          "status": "passed"
+        },
+        {
+          "checkId": "714327bb-f47c-4a12-95ec-76880517a1f1",
+          "kind": "manual",
+          "status": "unverified"
+        }
+      ]
+    },
+    "selection": {
+      "tools": [
+        {
+          "name": "failure_history",
+          "arguments": {
+            "queryId": "mobile_paraphrase"
+          }
+        },
+        {
+          "name": "search_visibility",
+          "arguments": {}
+        }
+      ]
+    },
+    "modelOutput": {
+      "findings": [
+        {
+          "type": "audit_result",
+          "observationId": "audit",
+          "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+          "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+          "status": "failed"
+        },
+        {
+          "type": "audit_result",
+          "observationId": "audit",
+          "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+          "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+          "status": "failed"
+        },
+        {
+          "type": "audit_result",
+          "observationId": "audit",
+          "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+          "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+          "status": "failed"
+        },
+        {
+          "type": "historical_failure",
+          "observationId": "tool-1",
+          "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+          "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+          "status": "failed"
+        },
+        {
+          "type": "historical_failure",
+          "observationId": "tool-1",
+          "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+          "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+          "status": "failed"
+        },
+        {
+          "type": "historical_failure",
+          "observationId": "tool-1",
+          "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+          "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+          "status": "failed"
+        },
+        {
+          "type": "search_snapshot",
+          "observationId": "tool-2",
+          "resultCount": 0
+        }
+      ],
+      "abstention": "none"
+    },
+    "toolSelectionAbstained": false,
+    "orchestration": {
+      "provider": "Mastra Agent",
+      "package": "@mastra/core",
+      "version": "1.77.0",
+      "bridge": "native-gemma-json-to-ai-sdk-tool-calls",
+      "finalOutputSource": "validated-model-summary",
+      "maximumSteps": 2,
+      "modelRetries": 0,
+      "modelCalls": 2,
+      "steps": [
+        {
+          "index": 1,
+          "finishReason": "tool-calls",
+          "usage": {
+            "inputTokens": 518,
+            "outputTokens": 38,
+            "totalTokens": 556
+          },
+          "toolCalls": [
+            {
+              "toolCallId": "tool-1",
+              "toolName": "failure_history",
+              "args": {
+                "queryId": "mobile_paraphrase"
+              }
+            },
+            {
+              "toolCallId": "tool-2",
+              "toolName": "search_visibility",
+              "args": {}
+            }
+          ],
+          "toolResults": [
+            {
+              "toolCallId": "tool-1",
+              "toolName": "failure_history",
+              "result": {
+                "id": "tool-1",
+                "type": "failure_history",
+                "status": "observed",
+                "queryId": "mobile_paraphrase",
+                "rows": [
+                  {
+                    "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                    "checkId": "2aca13da-b4e3-483f-9fa6-8d7400c98871",
+                    "kind": "no_horizontal_overflow",
+                    "status": "failed",
+                    "retrieval": "hybrid-rrf",
+                    "queryId": "mobile_paraphrase",
+                    "lexicalScore": 0,
+                    "lexicalRank": null,
+                    "vectorRank": 1,
+                    "cosine": 0.3781263417931506,
+                    "rrf": 0.01639344262295082
+                  },
+                  {
+                    "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                    "checkId": "3339b9b0-b969-46f6-babf-56acd657cf08",
+                    "kind": "heading",
+                    "status": "failed",
+                    "retrieval": "hybrid-rrf",
+                    "queryId": "mobile_paraphrase",
+                    "lexicalScore": 0,
+                    "lexicalRank": null,
+                    "vectorRank": 2,
+                    "cosine": 0.20973289516274507,
+                    "rrf": 0.016129032258064516
+                  },
+                  {
+                    "auditId": "2f9f5ab7-88d7-48ad-a14c-b346b230e804",
+                    "checkId": "c02dafdd-de95-4248-96f0-e8ad72b5a750",
+                    "kind": "image_alt",
+                    "status": "failed",
+                    "retrieval": "hybrid-rrf",
+                    "queryId": "mobile_paraphrase",
+                    "lexicalScore": 0,
+                    "lexicalRank": null,
+                    "vectorRank": 3,
+                    "cosine": 0.02335452957408811,
+                    "rrf": 0.015873015873015872
+                  }
+                ]
+              }
+            },
+            {
+              "toolCallId": "tool-2",
+              "toolName": "search_visibility",
+              "result": {
+                "id": "tool-2",
+                "type": "search_visibility",
+                "status": "observed",
+                "domain": "flowproof-demo.onrender.com",
+                "query": "site:flowproof-demo.onrender.com",
+                "observedAt": "2026-10-16T13:10:18.500Z",
+                "resultCount": 0
+              }
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "finishReason": "stop",
+          "usage": {
+            "inputTokens": 1252,
+            "outputTokens": 753,
+            "totalTokens": 2005
+          },
+          "toolCalls": [],
+          "toolResults": []
+        }
+      ],
+      "toolCalls": [
+        {
+          "toolCallId": "tool-1",
+          "toolName": "failure_history",
+          "args": {
+            "queryId": "mobile_paraphrase"
+          }
+        },
+        {
+          "toolCallId": "tool-2",
+          "toolName": "search_visibility",
+          "args": {}
+        }
+      ],
+      "totalUsage": {
+        "inputTokens": 1770,
+        "outputTokens": 791,
+        "totalTokens": 2561
+      }
+    },
+    "factualSummary": [
+      "Mastra Agent coordinated the recorded tool observations; model findings are separate from unchanged browser acceptance results."
+    ],
+    "completedAt": "2026-10-17T03:28:50.806Z"
+  }
+}

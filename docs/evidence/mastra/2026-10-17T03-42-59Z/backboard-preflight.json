@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-17T03:45:22.003Z",
+  "purpose": "Read-only Backboard alternative for task-one Gemma model; no thread, assistant, memory or inference calls",
+  "calls": [
+    {
+      "operation": "balance",
+      "httpStatus": 200
+    },
+    {
+      "operation": "model",
+      "httpStatus": 404
+    }
+  ],
+  "modelCalls": 0,
+  "publicJudgeUnits": 0,
+  "balance": {
+    "totalUsd": 9.968257,
+    "freeUsd": 4.97,
+    "paidUsd": 4.998257,
+    "subscriptionUsd": 0,
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false
+  },
+  "modelError": {
+    "httpStatus": 404,
+    "detail": "Model 'gemma-4-26b-a4b-it' not found"
+  }
+}

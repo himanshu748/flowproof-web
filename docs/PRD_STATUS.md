@@ -1,5 +1,7 @@
 # Briefstamp PRD status
 
+**Mastra update, October 17:** the public evidence route now selects a real Mastra Agent. [The new dated proof](evidence/mastra/2026-10-17T03-42-59Z/) separates a passing retained-response SDK replay from the hosted attempt, which failed on Google's first HTTP 500 before any tools or answer. Earlier native-loop receipts below retain their historical implementation; hosted Mastra completion is not claimed. The approval workflow and all old provider proofs are unchanged.
+
 **Reviewed October 16, 2026. Verdict: a working, demonstrated MVP; the full PRD and hackathon definition of done are not complete. All planned integrations are not done.**
 
 **Earlier verification under the original 12-run cap:** [four retained public attempts](evidence/judge-agent/2026-10-16T13-07-24Z/receipt.json) leave **eight of twelve shared slots** at 13:42 UTC. One tokenless HTTP run completed both tools and model turns. The latest in-app browser attempt returned Google HTTP 500 `INTERNAL` before tool selection; the earlier browser search timeout remains unknown upstream. No successful complete agent screen was observed in the in-app browser. Provider reliability remains unresolved. [Earlier source and green CI](evidence/judge-agent/2026-10-16T13-07-24Z/search-wait-deployment.json) · [390px recovery QA](evidence/judge-agent/2026-10-16T13-07-24Z/ui-qa.json).

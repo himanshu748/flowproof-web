@@ -1,0 +1,184 @@
+{
+  "id": "13629640-c0b8-48d9-b9b1-854e293b9add",
+  "projectId": "b9fae2f1-8dea-47f8-9815-97472180dae9",
+  "projectName": "Forma Studio",
+  "status": "completed",
+  "createdAt": "2026-10-17T03:43:04.568Z",
+  "checks": [
+    {
+      "id": "2a434ed6-5294-45ca-a597-601f067ea07e",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "7d132501-e49b-492b-902e-21f42f9d9634",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "853b6cd1-e5c1-4614-a3a4-f03d13576acb",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "4ea4ede9-d62d-41e7-88ac-5d99a4c73d24",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    },
+    {
+      "id": "08e2b5fa-fbc3-46a0-b22f-86d5d22b66b8",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "2bd3a0e2-c0a3-47f3-a9c2-c239926f9e2c",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "source": {
+    "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+    "generator": {
+      "provider": "Deterministic parser",
+      "model": null,
+      "reason": "Public demo proposals use local rules. No AI service or fine-tuned model is used."
+    },
+    "target": "sample",
+    "url": "https://sample.flowproof.test/",
+    "sampleVariant": "broken"
+  },
+  "results": [
+    {
+      "checkId": "2a434ed6-5294-45ca-a597-601f067ea07e",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "status": "failed",
+      "expected": "Design that moves business forward.",
+      "durationMs": 2999,
+      "evidence": {
+        "screenshot": "/evidence/13629640-c0b8-48d9-b9b1-854e293b9add/01-2a434ed6-5294-45ca-a597-601f067ea07e.png",
+        "dom": "Something beautiful is coming soon.\nA little studio.\nA wider perspective.",
+        "observed": "No visible heading exactly matches the expected text.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "7d132501-e49b-492b-902e-21f42f9d9634",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "status": "passed",
+      "expected": "Start a project",
+      "durationMs": 2607,
+      "evidence": {
+        "screenshot": "/evidence/13629640-c0b8-48d9-b9b1-854e293b9add/02-7d132501-e49b-492b-902e-21f42f9d9634.png",
+        "dom": "Start a project ↗ → /unavailable",
+        "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "853b6cd1-e5c1-4614-a3a4-f03d13576acb",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "status": "failed",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "durationMs": 2400,
+      "evidence": {
+        "screenshot": "/evidence/13629640-c0b8-48d9-b9b1-854e293b9add/03-853b6cd1-e5c1-4614-a3a4-f03d13576acb.png",
+        "dom": "Image 1: [alt attribute missing]",
+        "observed": "1 of 1 images lack the required alternative text.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "4ea4ede9-d62d-41e7-88ac-5d99a4c73d24",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 2101,
+      "evidence": {
+        "screenshot": "/evidence/13629640-c0b8-48d9-b9b1-854e293b9add/04-4ea4ede9-d62d-41e7-88ac-5d99a4c73d24.png",
+        "dom": "document.scrollWidth=1824; window.innerWidth=390",
+        "observed": "Document width is 1824px; viewport width is 390px.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    },
+    {
+      "checkId": "08e2b5fa-fbc3-46a0-b22f-86d5d22b66b8",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "status": "passed",
+      "expected": "Independent by design.",
+      "durationMs": 3300,
+      "evidence": {
+        "screenshot": "/evidence/13629640-c0b8-48d9-b9b1-854e293b9add/05-08e2b5fa-fbc3-46a0-b22f-86d5d22b66b8.png",
+        "dom": "INDEPENDENT BY DESIGN.",
+        "observed": "The expected text is visible on the page.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "2bd3a0e2-c0a3-47f3-a9c2-c239926f9e2c",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "status": "unverified",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "durationMs": 0,
+      "evidence": {
+        "observed": "This requirement needs a human decision. No automated assertion was executed.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "summary": "2 passed, 3 failed, 0 blocked, 1 unverified. Real Chromium observations of the synthetic sample. Deterministic draft checks reviewed by the visitor. No AI model was used.",
+  "completedAt": "2026-10-17T03:43:20.644Z"
+}

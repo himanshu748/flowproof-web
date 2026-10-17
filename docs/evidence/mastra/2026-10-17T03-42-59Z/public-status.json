@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-17T03:48:22.934Z",
+  "bootstrapHttpStatus": 200,
+  "httpStatus": 200,
+  "response": {
+    "available": true,
+    "engine": "mastra_agent",
+    "budget": {
+      "maximumRuns": 100,
+      "usedRuns": 4,
+      "remainingRuns": 96,
+      "visitorUsed": false
+    },
+    "expiresAt": "2026-10-20T00:00:00.000Z",
+    "funding": {
+      "confirmedFree": true,
+      "checkedAt": "2026-10-17T03:48:22.888Z"
+    },
+    "proofUrl": "https://github.com/himanshu748/flowproof-web/tree/main/docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z"
+  },
+  "modelRequests": 0,
+  "searchRequests": 0,
+  "publicJudgeUnits": 0
+}

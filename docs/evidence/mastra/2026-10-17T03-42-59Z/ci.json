@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "1e7db19416886e11a8ca488f35190ea3749cc9c3",
+  "runUrl": "https://github.com/himanshu748/flowproof-web/actions/runs/38999360120",
+  "conclusion": "success",
+  "appTests": 1119,
+  "testFiles": 44,
+  "pythonTests": 19,
+  "build": "passed",
+  "isolatedMastraRecordedReplay": "passed",
+  "freePublicRuntime": "passed",
+  "chromiumAudits": "passed",
+  "publicJudgeAllowanceConsumed": 0,
+  "modelCalls": 0,
+  "scope": "CI exercises the actual Mastra SDK with retained provider/tool fixtures; not new inference"
+}
