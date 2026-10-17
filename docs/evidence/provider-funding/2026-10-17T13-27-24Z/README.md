@@ -1,0 +1,15 @@
+# October 17 funding-only confirmations
+
+The owner authorized fresh Tinker and Sentry funding confirmations without resetting any spent reservation. Authenticated in-app browser account observations completed at **13:27:24 UTC**. [Account observations](account-observations.json) record funding separately from application execution authority. No model, search, memory, speech or new trace-export request was made.
+
+| Provider | Fresh funding confirmation | Execution boundary |
+| --- | --- | --- |
+| Tinker | Existing **Tinker x MLH** grant: **$9.18** remaining of $10; displayed active period Oct 7, 2026–Oct 8, 2027. Auto-reload off; no payment method. This funding observation is valid until **October 18 at 13:26:44.875 UTC**. | **Inference remains disabled.** The original expired execution proof and its canonical ledger identity remain unchanged. Its one-call / 41,088-token remainder is an environment seed, not a current independently verified remaining budget on an ephemeral host. Renewing that proof would create a new allowance identity. No replacement budget was created. The retained sampler expiry remains October 19 at 23:59:30.230217 UTC, as observed in the [earlier metadata check](../../provider-rechecks/2026-10-17T10-26-01Z/ui-observations.json); it was not extended. |
+| Sentry | Existing **Sponsored Team** coverage; pay-as-you-go **$0 used / $0 limit**; spans displayed **2K / 50M**, additional spend $0.00. | Only `FLOWPROOF_SENTRY_FREE_CONFIRMED_AT` is renewed, until **October 18 at 13:27:24.332 UTC**. This admits existing bounded proposal tracing; it does not replenish Task 3's spent four provider units or two runtime exports. No new dashboard-ingestion claim is made. |
+| Tiger Data | **Billing remains unverified.** The Google sign-in session was reopened at the owner's passkey prompt and retained in the in-app browser. | Complete the passkey step to permit the scoped billing check. Connectivity and reservation-count reads do not establish trial funding. The existing October 20 cutoff remains unchanged. |
+
+The existing **Free Render** service is retained. Its already-green application source is [`72e8a15e`](https://github.com/himanshu748/flowproof-web/commit/72e8a15e324b4702833b34ca4a116da8deba4a75), with [successful browser-acceptance CI](https://github.com/himanshu748/flowproof-web/actions/runs/39005146242). No application source, credential, security boundary, service plan or DEV article is changed by this refresh.
+
+The [deployment readback](verification.json) records the live configuration, public bootstrap and read-only reservation counts. Every historical allowance/proof environment value is preserved byte for byte, as are **130** cumulative private reservation files. All Task 1, Task 2 and Task 3 grants remain spent. The initial-only refresh helper was not invoked. No purchase, card, promo redemption, upgrade, retraining, new service, credential transfer, public judge slot or refund occurred.
+
+Only the previously authorized October 18 provider recheck remains scheduled. A fresh funding timestamp never authorizes another execution or resets a reservation.

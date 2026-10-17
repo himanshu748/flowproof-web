@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-17T10:30:09.253961Z",
+  "method": "Read-only authenticated in-app browser account pages; no billing changes, redemption, checkpoint renewal or inference",
+  "tinker": {
+    "authenticated": true,
+    "balanceUsd": 9.18,
+    "grantName": "Tinker x MLH",
+    "grantOriginalAmountUsd": 10,
+    "grantRemainingUsd": 9.18,
+    "grantActivePeriodAsDisplayed": "Oct 7, 2026 - Oct 8, 2027",
+    "autoReloadEnabled": false,
+    "paymentMethodsConfigured": false,
+    "samplerModel": "Qwen/Qwen3.5-4B",
+    "samplerExpiresAt": "2026-10-19T23:59:30.230217Z",
+    "samplerSizeAsDisplayed": "139 MB",
+    "inferenceCalls": 0,
+    "metadataSource": "Visible existing Briefstamp checkpoint detail and time[datetime], matching the prior retained expiry. Full internal path omitted."
+  },
+  "sentry": {
+    "authenticated": true,
+    "plan": "Sponsored Team",
+    "payAsYouGoLimitUsd": 0,
+    "payAsYouGoUsedUsd": 0,
+    "spansUsageAsDisplayed": "2K / 50M",
+    "spansAdditionalSpendAsDisplayed": "$0.00",
+    "settingsChanged": 0
+  },
+  "tigerFunding": {
+    "authenticated": false,
+    "state": "Google Verify it is you \u2014 Complete sign-in using your passkey",
+    "currentBillingVerified": false,
+    "ownerAction": "Complete the passkey check in the Tiger browser tab before current trial funding can be inspected. No alternative account, reset, new service or billing action attempted.",
+    "databaseConnectionIsSeparateEvidence": true
+  }
+}

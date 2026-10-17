@@ -1,5 +1,7 @@
 # Sentry: verified hosted browser, agent and proposal traces
 
+**October 17 funding renewal:** the [authenticated account check and deployment readback](evidence/provider-funding/2026-10-17T13-27-24Z/) retain Sponsored Team coverage and a $0 pay-as-you-go limit. Only the application funding timestamp is renewed, until **October 18 at 13:27:24.332 UTC**. Both Task 3 runtime exports and its four provider units remain spent; no new ingestion or dashboard trace was requested. All historical proofs, reservation files and the October 20 cutoff remain unchanged.
+
 ## October 17: Chromium and agent traces
 
 The [new protected hosted proof](evidence/sentry/2026-10-17T05-14-26Z/) ran on the existing Free Render service from source `72e8a15e324b4702833b34ca4a116da8deba4a75`. The authenticated in-app dashboard independently verified both exact trace IDs:

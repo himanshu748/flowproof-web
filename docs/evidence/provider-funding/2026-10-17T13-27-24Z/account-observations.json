@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-10-17T13:27:24.332Z",
+  "method": "Authenticated in-app browser billing pages; account reads only",
+  "tinker": {
+    "balanceCheckedAt": "2026-10-17T13:26:44.875Z",
+    "paymentMethodsCheckedAt": "2026-10-17T13:27:24.090Z",
+    "balanceUsd": 9.18,
+    "grant": "Tinker x MLH",
+    "grantOriginalUsd": 10,
+    "grantRemainingUsd": 9.18,
+    "grantActivePeriodAsDisplayed": "Oct 7, 2026 - Oct 8, 2027",
+    "autoReloadEnabled": false,
+    "paymentMethodConfigured": false,
+    "fundingConfirmationExpiresAt": "2026-10-18T13:26:44.875Z",
+    "executionAllowanceRenewed": false,
+    "existingProofSha256": "da1bd4c04437c7e45f16235b43217ffbd637f76672690edc41c72996c7414c69",
+    "executionProofExpiresAt": "2026-10-17T08:23:47.620Z",
+    "existingRemainderSeed": {
+      "maxCalls": 1,
+      "maxReservedTokens": 41088
+    },
+    "remainingExecutionBudget": "Unverified on ephemeral host; do not infer unused allowance from an environment seed",
+    "inferenceEnabled": false
+  },
+  "sentry": {
+    "checkedAt": "2026-10-17T13:27:24.332Z",
+    "plan": "Sponsored Team",
+    "payAsYouGoUsedUsd": 0,
+    "payAsYouGoLimitUsd": 0,
+    "spansUsageAsDisplayed": "2K / 50M",
+    "spansAdditionalSpendUsd": 0,
+    "applicationConfirmationExpiresAt": "2026-10-18T13:27:24.332Z",
+    "spentTask3Runs": 1,
+    "spentTask3Exports": 2
+  },
+  "tiger": {
+    "billingVerified": false,
+    "ownerAction": "Complete Google passkey verification in the retained Tiger in-app browser tab",
+    "lastConnectionProof": "docs/evidence/provider-rechecks/2026-10-17T10-26-01Z/api-observations.json",
+    "fundingNotImpliedByConnectivity": true
+  }
+}

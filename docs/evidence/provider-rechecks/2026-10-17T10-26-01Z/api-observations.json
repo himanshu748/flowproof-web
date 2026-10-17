@@ -1,0 +1,118 @@
+{
+  "startedAt": "2026-10-17T10:26:01.900Z",
+  "automation": "briefstamp-provider-proof-rechecks",
+  "authorizedDate": "2026-10-17",
+  "scope": "Read-only funding/expiry refresh. No initial-only refresh helper, allowance rewrites, deployments, model/TTS/search/memory requests or publications.",
+  "priorPrivateRecordsMatched": 108,
+  "cumulativeFilesPreserved": 130,
+  "render": {
+    "plan": "free",
+    "configurationMatchesLatestSpent": true,
+    "environmentMutations": 0
+  },
+  "providers": {
+    "backboard": {
+      "checkedAt": "2026-10-17T10:26:04.220Z",
+      "httpStatus": 200,
+      "freeCreditUsd": 4.96,
+      "mixedCreditAccount": true,
+      "positiveExistingCredit": true,
+      "autoReloadEnabled": false,
+      "paymentMethodConfigured": false,
+      "scope": "Read-only account observation; no deduction-order guarantee or spending authority"
+    },
+    "serpapi": {
+      "checkedAt": "2026-10-17T10:26:02.610Z",
+      "httpStatus": 200,
+      "plan": "Free Plan",
+      "status": "Active",
+      "monthlyPriceUsd": 0,
+      "remainingSearches": 209,
+      "extraCredits": 0
+    },
+    "elevenlabs": {
+      "checkedAt": "2026-10-17T10:26:04.909Z",
+      "httpStatus": 200,
+      "tier": "creator",
+      "status": "active",
+      "characterCount": 45470,
+      "characterLimit": 129719,
+      "remainingCharacters": 84249,
+      "canExtendCharacterLimit": false,
+      "allowedToExtendCharacterLimit": false,
+      "nextInvoiceAmountDueCents": 0,
+      "hasOpenInvoices": false,
+      "scope": "Existing sponsored/credit-covered entitlement, not a permanent-free claim"
+    },
+    "gemma": {
+      "model": "gemma-4-26b-a4b-it",
+      "checkedAt": "2026-10-17T10:26:02.788Z",
+      "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=en",
+      "freeOnlyPricingConfirmed": true,
+      "inferenceHealth": "Not tested; no inference authorized"
+    },
+    "tigerConnection": {
+      "checkedAt": "2026-10-17T10:26:07.099Z",
+      "reachable": true,
+      "tlsVerified": true,
+      "tlsProtocol": "TLSv1.3",
+      "roleExpiresAt": "2026-10-20T00:00:00.000Z",
+      "publicJudgeReservations": 4,
+      "operatorReservationRows": 10,
+      "sqlWrites": 0,
+      "accountFunding": "Requires current authenticated provider billing observation; TLS connectivity does not prove trial funding"
+    },
+    "demo": {
+      "checkedAt": "2026-10-17T10:26:02.555Z",
+      "httpStatus": 200,
+      "integrations": [
+        {
+          "name": "Tiger Data",
+          "status": "available",
+          "detail": "Configured for session-scoped approved preset briefs, plans and audit results with a 30-minute logical lifetime. Screenshot references only; image bytes remain temporary. Visitor history uses lexical retrieval. The separate evidence agent supports fixed-query MiniLM cosine/full-text RRF, with a sealed public judge allowance when enabled. Every operation is verified separately."
+        },
+        {
+          "name": "Tinker",
+          "status": "not_configured",
+          "detail": "Hosted Tinker generation is disabled or its free-use proof expired. Real baseline and LoRA comparisons remain available in Model lab; those recorded experiments do not imply a live provider connection."
+        },
+        {
+          "name": "Gemma",
+          "status": "available",
+          "detail": "Opt-in Gemma 4 generates unapproved checks for a server-selected sample or owner-authorized live homepage brief through Google's free-only API. Current pricing is rechecked before calls. Browser execution still requires approval. No private visitor brief is sent."
+        },
+        {
+          "name": "Sentry",
+          "status": "not_configured",
+          "detail": "Optional SDK tracing runs inside the isolated Gemma workflow with an allowlisted transport that excludes client text and secrets. A trace ID and SDK flush are separate from dashboard ingestion; configuration requires fresh confirmed-free account evidence."
+        }
+      ]
+    }
+  },
+  "gates": {
+    "tinker": false,
+    "sentry": false,
+    "tiger": true,
+    "tinkerConfirmationExpiresAt": "2026-10-17T08:23:47.620Z",
+    "sentryConfirmationExpiresAt": "2026-10-17T08:23:47.620Z",
+    "judgeCutoff": "2026-10-20T00:00:00.000Z"
+  },
+  "actions": {
+    "purchases": 0,
+    "newCards": 0,
+    "promosClaimed": 0,
+    "upgrades": 0,
+    "retraining": 0,
+    "newServices": 0,
+    "credentialTransfers": 0,
+    "modelCalls": 0,
+    "ttsCalls": 0,
+    "searchCalls": 0,
+    "memoryCalls": 0,
+    "devPublication": 0,
+    "spentReservationsRefunded": 0
+  },
+  "completedAt": "2026-10-17T10:26:07.859Z",
+  "allCumulativeFilesUnchanged": true,
+  "allOldEnvironmentValuesUnchanged": true
+}

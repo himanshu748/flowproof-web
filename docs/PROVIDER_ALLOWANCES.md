@@ -1,4 +1,10 @@
-# Provider allowances: October 16, 2026
+# Provider allowances: dated confirmations and spent reservations
+
+## October 17 funding-only renewal
+
+[Fresh authenticated funding observations and deployment readback](evidence/provider-funding/2026-10-17T13-27-24Z/) supersede the expired confirmation status in the [earlier October 17 recheck](evidence/provider-rechecks/2026-10-17T10-26-01Z/). Tinker still has **$9.18 in existing promotional credit**, no payment method and auto-reload off. Its funding observation is fresh until **October 18 at 13:26:44.875 UTC**, but **hosted inference remains disabled**: its expired execution proof identifies an ephemeral allowance ledger, whose current remaining budget was not independently verified. Neither that proof nor the original spent call/token reservations were changed or reseeded.
+
+Sentry retains **Sponsored Team** coverage with **$0 pay-as-you-go used / $0 limit**. Only its application funding timestamp is renewed, until **October 18 at 13:27:24.332 UTC**. Task 3's four provider units and two runtime exports remain spent. All **130** cumulative private files and every historical allowance/proof environment value are preserved. There were no new provider executions or trace exports. Tiger billing remains at the owner's passkey step; connectivity does not renew its funding proof. The Free Render plan, public judge grant and October 20 cutoffs remain unchanged. Older dated observations below are history, not new allowance grants.
 
 ## October 17 Backboard answer closeout
 
