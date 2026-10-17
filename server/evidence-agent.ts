@@ -112,6 +112,8 @@ export interface EvidenceAgentDependencies {
 }
 export interface EvidenceAgentReceipt {
   version: 1;
+  /** Present only when the isolated Mastra Agent actually ran; native receipts remain unchanged. */
+  orchestration?: Record<string, unknown>;
   status:
     | "running"
     | "completed"

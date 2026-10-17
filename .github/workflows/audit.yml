@@ -25,6 +25,8 @@ jobs:
       - name: Offline model provenance and budget safeguards
         run: python3 -m unittest discover -s eval -p 'test_*.py'
       - run: npm run build
+      - name: Real isolated Mastra Agent with retained provider fixtures
+        run: node --import tsx scripts/verify-mastra-agent-runtime.ts --run-offline
       - name: Real public demo within the free runtime memory limit
         run: node scripts/verify-public-runtime.mjs
       - name: Real healthy, broken and recovered website audits

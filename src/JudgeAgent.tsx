@@ -899,7 +899,9 @@ function AgentResult({
           <div className="judge-agent-provenance">
             <span>
               {receipt.transport === "native_google_gemma"
-                ? "Native Google Gemma"
+                ? receipt.orchestration?.provider === "Mastra Agent"
+                  ? "Mastra Agent · Google Gemma JSON bridge"
+                  : "Native Google Gemma"
                 : "Injected offline fixture"}
             </span>
             <span>{receipt.model}</span>

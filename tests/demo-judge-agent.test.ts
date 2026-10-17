@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDemoRouter } from "../server/demo";
+import { priorMastraProofHashes } from "../server/mastra-agent-gate";
 import {
   EVIDENCE_AGENT_TASK,
   type EvidenceAgentReceipt,
@@ -403,6 +404,7 @@ async function harness(
     expect(boundary.search).not.toHaveBeenCalled();
   };
   return {
+    base,
     request,
     visitor,
     approve,
@@ -1237,5 +1239,99 @@ describe("public judge evidence-agent HTTP boundary", () => {
     expect(response.status).toBe(409);
     expect(await response.json()).toMatchObject({ allowanceConsumed: false });
     h.noAgentWork();
+  });
+  it("reserves the separate Mastra operator tranche before ports and never uses a judge slot", async () => {
+    const e: NodeJS.ProcessEnv = {
+      BRIEFSTAMP_MASTRA_AGENT_ENABLED: "true",
+      SERPAPI_API_KEY: ["synthetic", "not", "key"].join("-"),
+      GOOGLE_GEMMA_API_KEY: ["synthetic", "gemma", "not", "key"].join("-"),
+      FLOWPROOF_TOKEN: [
+        "synthetic",
+        "operator",
+        "token",
+        "not",
+        "credential",
+      ].join("-"),
+    };
+    const hash = (v: string) => createHash("sha256").update(v).digest("hex");
+    for (const [k, v] of Object.entries(e)) vi.stubEnv(k, v!);
+    const proof = {
+      trancheId: randomUUID(),
+      checkedAt: new Date(NOW).toISOString(),
+      expiresAt: new Date(NOW + 3600000).toISOString(),
+      credentialSha256: hash(e.SERPAPI_API_KEY!),
+      modelCredentialSha256: hash(e.GOOGLE_GEMMA_API_KEY!),
+      confirmedFreeSearches: 200,
+      freeOnly: true,
+      paidOverageDisabled: true,
+      maxModelCalls: 2,
+      maxSearchCalls: 1,
+      maxTigerCalls: 1,
+      maxUnits: 4,
+      maximumRuns: 1,
+      usedRuns: 0,
+      priorProofHashes: priorMastraProofHashes(process.env),
+      evidence: "Synthetic HTTP fixture, not a provider account receipt",
+    };
+    vi.stubEnv("BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON", JSON.stringify(proof));
+    let h: Awaited<ReturnType<typeof harness>>;
+    const calls: string[] = [];
+    h = await harness({
+      evidenceAgent: async ({ audit }, deps) => {
+        expect(h.store.reserveAgentRun).toHaveBeenCalledOnce();
+        expect(h.store.reserveJudgeAgentRun).not.toHaveBeenCalled();
+        const claim = (
+          deps as typeof deps & {
+            reserveExternal: (
+              op:
+                | "select_tools"
+                | "failure_history"
+                | "search_visibility"
+                | "summarize",
+            ) => Promise<void>;
+          }
+        ).reserveExternal;
+        for (const op of [
+          "select_tools",
+          "failure_history",
+          "search_visibility",
+          "summarize",
+        ] as const) {
+          await claim(op);
+          calls.push(op);
+        }
+        return receipt(audit);
+      },
+    });
+    const v = await h.ready();
+    const request = (token: string) =>
+      fetch(h.base + `/api/audits/${v.audit.id}/agent-review`, {
+        method: "POST",
+        headers: {
+          cookie: v.cookie,
+          "content-type": "application/json",
+          "x-flowproof-token": token,
+        },
+        body: JSON.stringify({
+          websiteProjectId: v.website.id,
+          modelConsent: true,
+        }),
+      });
+    expect((await request("wrong")).status).toBe(404);
+    h.noAgentWork();
+    h.store.reserveAgentRun.mockResolvedValueOnce({ reserved: true });
+    expect((await request(e.FLOWPROOF_TOKEN!)).status).toBe(200);
+    expect(calls).toEqual([
+      "select_tools",
+      "failure_history",
+      "search_visibility",
+      "summarize",
+    ]);
+    expect((await request(e.FLOWPROOF_TOKEN!)).status).toBe(409);
+    expect(h.agent).toHaveBeenCalledOnce();
+    expect(h.store.reserveJudgeAgentRun).not.toHaveBeenCalled();
+    expect(
+      JSON.parse(process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON!).usedRuns,
+    ).toBe(0);
   });
 });

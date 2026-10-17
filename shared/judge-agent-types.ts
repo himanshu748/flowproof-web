@@ -55,6 +55,7 @@ export interface JudgeAgentAttempt {
   retryDelayMs?: number;
 }
 export interface JudgeAgentResult {
+  orchestration?: Record<string, unknown>;
   status:
     | "running"
     | "completed"

@@ -1,6 +1,7 @@
 node_modules/
 dist/
 dist-worker/
+dist-agent-worker/
 dist-prerender/
 *.tsbuildinfo
 .env

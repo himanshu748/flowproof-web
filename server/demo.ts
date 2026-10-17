@@ -63,6 +63,13 @@ import {
   EvidenceAgentError,
 } from "./evidence-agent";
 import { checkSearchVisibility } from "./providers/serpapi";
+import { executeMastraEvidenceAgent } from "./mastra-evidence-agent";
+import {
+  authorizeMastraOperator,
+  mastraOperatorConfiguration,
+  mastraSearchOptions,
+  reserveMastraOperatorCall,
+} from "./mastra-agent-gate";
 import {
   judgeAgentConfiguration,
   judgeAgentEnabled,
@@ -377,7 +384,8 @@ export function createDemoRouter(options: DemoOptions) {
     if (
       req.method === "POST" &&
       /^\/api\/audits\/[^/]+\/agent-review\/?$/i.test(req.path) &&
-      !authorizeEvidenceAgent(req.headers, process.env, now())
+      !authorizeEvidenceAgent(req.headers, process.env, now()) &&
+      !authorizeMastraOperator(req.headers, process.env, now())
     )
       return res.status(404).json({ error: "Not found in this demo session." });
     // A tokenless caller cannot use session or project existence as an oracle.
@@ -997,7 +1005,8 @@ export function createDemoRouter(options: DemoOptions) {
       !authorizeHostedTinker(req.headers, process.env, now()) &&
       !authorizeHostedOptional("serpapi", req.headers, process.env, now()) &&
       !authorizeHostedOptional("elevenlabs", req.headers, process.env, now()) &&
-      !authorizeEvidenceAgent(req.headers, process.env, now())
+      !authorizeEvidenceAgent(req.headers, process.env, now()) &&
+      !authorizeMastraOperator(req.headers, process.env, now())
     )
       return notFound(res);
     return res.json({
@@ -1005,7 +1014,9 @@ export function createDemoRouter(options: DemoOptions) {
       tinker: tinkerAvailable(),
       serpapi: hostOptionalEnabled("serpapi", process.env, now()),
       elevenlabs: hostOptionalEnabled("elevenlabs", process.env, now()),
-      evidenceAgent: evidenceAgentEnabled(process.env, now()),
+      evidenceAgent:
+        evidenceAgentEnabled(process.env, now()) ||
+        !!mastraOperatorConfiguration(process.env, now()),
       scope:
         "Bounded hosted operator integrations. Visitor access remains isolated.",
     });
@@ -1020,6 +1031,22 @@ export function createDemoRouter(options: DemoOptions) {
             searchTimeoutMs: 60_000 as const,
             judge: config,
             operator: undefined,
+          }
+        : null;
+    }
+    if (process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined) {
+      if (!authorizeMastraOperator(req.headers, process.env, now()))
+        return null;
+      const config = mastraOperatorConfiguration(process.env, now());
+      return config
+        ? {
+            identity: createHash("sha256")
+              .update(JSON.stringify(config.proof))
+              .digest("hex"),
+            modelRequests: 2 as const,
+            searchTimeoutMs: config.searchTimeoutMs,
+            operator: config,
+            judge: undefined,
           }
         : null;
     }
@@ -1085,6 +1112,10 @@ export function createDemoRouter(options: DemoOptions) {
           "The live allowance changed. Refresh status before starting a run.",
         );
       const extra = {
+        engine:
+          process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
+            ? "mastra_agent"
+            : "native_google_gemma",
         budget: publicBudget(status),
         result: status.ownResult,
         expiresAt: config.grant.expiresAt,
@@ -1134,7 +1165,11 @@ export function createDemoRouter(options: DemoOptions) {
   const reviewEvidence =
     (judge: boolean): express.RequestHandler<{ id: string }> =>
     async (req, res) => {
-      if (!judge && !authorizeEvidenceAgent(req.headers, process.env, now()))
+      if (
+        !judge &&
+        !authorizeEvidenceAgent(req.headers, process.env, now()) &&
+        !authorizeMastraOperator(req.headers, process.env, now())
+      )
         return notFound(res);
       if (judge && req.headers.origin !== new URL(HOSTED_WEBSITE_URL).origin)
         return res.status(403).json({
@@ -1356,12 +1391,36 @@ export function createDemoRouter(options: DemoOptions) {
         for (let i = 0; i < modelReservations; i++) gemmaStarts.push(now());
         const indexing = await tiger().indexAuditFailures(s.hash, audit.id);
         assertCurrent();
-        const result = await (options.evidenceAgent ?? executeEvidenceAgent)(
+        const selectedEngine =
+          process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
+            ? executeMastraEvidenceAgent
+            : executeEvidenceAgent;
+        const result = await (options.evidenceAgent ?? selectedEngine)(
           { audit: snapshot, task: EVIDENCE_AGENT_TASK },
           {
             maxModelRequests: modelReservations,
             searchTimeoutMs,
             beforeModel: assertCurrent,
+            ...(config.operator &&
+            process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
+              ? {
+                  reserveExternal: async (
+                    operation:
+                      | "select_tools"
+                      | "summarize"
+                      | "failure_history"
+                      | "search_visibility",
+                  ) => {
+                    assertCurrent();
+                    await reserveMastraOperatorCall(
+                      operation,
+                      process.env,
+                      now(),
+                    );
+                    assertCurrent();
+                  },
+                }
+              : {}),
             failureHistory: async (queryId, signal) => {
               signal.throwIfAborted();
               assertCurrent();
@@ -1380,7 +1439,9 @@ export function createDemoRouter(options: DemoOptions) {
               assertCurrent();
               const options = config.judge
                 ? await judgeSearchOptions(config.judge, judgeRunId!)
-                : await agentSearchOptions(req.headers);
+                : process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
+                  ? await mastraSearchOptions(req.headers)
+                  : await agentSearchOptions(req.headers);
               signal.throwIfAborted();
               assertCurrent();
               const result = await checkSearchVisibility(websiteSnapshot, {
@@ -1392,11 +1453,13 @@ export function createDemoRouter(options: DemoOptions) {
                   // still inside the agent's unchanged 90s total deadline.
                   // Replacing the generic 30s signal adds waiting, never a retry
                   // or another reserved search. Operator defaults stay intact.
-                  const transportSignal = config.judge
-                    ? signal
-                    : init?.signal
-                      ? AbortSignal.any([signal, init.signal])
-                      : signal;
+                  const transportSignal =
+                    config.judge ||
+                    selectedEngine === executeMastraEvidenceAgent
+                      ? signal
+                      : init?.signal
+                        ? AbortSignal.any([signal, init.signal])
+                        : signal;
                   const attempt: (typeof providerAttempts)[number] = {
                     provider: "serpapi",
                     operation: "search-visibility",
@@ -1473,9 +1536,12 @@ export function createDemoRouter(options: DemoOptions) {
           sourceAuditSha256: createHash("sha256")
             .update(JSON.stringify(snapshot))
             .digest("hex"),
-          scope: config.judge
-            ? "Public judge flow over approved fixed synthetic evidence and the owned homepage. Two model requests and one search maximum per reserved session; precomputed MiniLM PostgreSQL arrays, no arbitrary query embedding inference. Findings do not change browser acceptance results."
-            : "Operator-only fixed synthetic evidence agent; PostgreSQL arrays with precomputed exact-text MiniLM vectors, no pgvector or arbitrary query embedding inference.",
+          scope:
+            selectedEngine === executeMastraEvidenceAgent
+              ? "Mastra Agent owns the native Gemma JSON-to-tools loop with pgvector/full-text RRF and bounded SerpApi search. Browser acceptance is unchanged; the native engine remains a configuration fallback, never an automatic retry."
+              : config.judge
+                ? "Public judge flow over approved fixed synthetic evidence and the owned homepage. Two model requests and one search maximum per reserved session; precomputed MiniLM PostgreSQL arrays, no arbitrary query embedding inference. Findings do not change browser acceptance results."
+                : "Operator-only fixed synthetic evidence agent; PostgreSQL arrays with precomputed exact-text MiniLM vectors, no pgvector or arbitrary query embedding inference.",
         };
         if (config.judge) {
           let receiptPersistence = "saved";
