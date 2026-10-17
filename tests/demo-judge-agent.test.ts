@@ -8,8 +8,11 @@ import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createDemoRouter } from "../server/demo";
 import { priorMastraProofHashes } from "../server/mastra-agent-gate";
+import { priorMastraBackboardProofHashes } from "../server/mastra-backboard-gate";
+import type { executeMastraEvidenceAgent } from "../server/mastra-evidence-agent";
 import {
   EVIDENCE_AGENT_TASK,
+  validatedAudit,
   type EvidenceAgentReceipt,
   type executeEvidenceAgent,
 } from "../server/evidence-agent";
@@ -1333,5 +1336,232 @@ describe("public judge evidence-agent HTTP boundary", () => {
     expect(
       JSON.parse(process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON!).usedRuns,
     ).toBe(0);
+  });
+  it("keeps Backboard behind its own operator grant and Tiger reservation without changing public routing", async () => {
+    const directory = await mkdtemp(
+      path.join(tmpdir(), "briefstamp-backboard-http-"),
+    );
+    const hash = (value: string) =>
+      createHash("sha256").update(value).digest("hex");
+    const oldProof = JSON.stringify({ trancheId: randomUUID(), usedRuns: 1 });
+    const env = {
+      BRIEFSTAMP_MASTRA_BACKBOARD_ENABLED: "true",
+      BRIEFSTAMP_MASTRA_AGENT_ENABLED: "true",
+      BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON: oldProof,
+      BACKBOARD_API_KEY: [
+        "synthetic",
+        "backboard",
+        "http",
+        "key",
+        "not",
+        "real",
+      ].join("-"),
+      BACKBOARD_ASSISTANT_ID: randomUUID(),
+      SERPAPI_API_KEY: [
+        "synthetic",
+        "serpapi",
+        "http",
+        "key",
+        "not",
+        "real",
+      ].join("-"),
+      FLOWPROOF_TOKEN: [
+        "synthetic",
+        "operator",
+        "http",
+        "token",
+        "not",
+        "a",
+        "live",
+        "credential",
+      ].join("-"),
+      FLOWPROOF_DATA_DIR: directory,
+    };
+    for (const [name, value] of Object.entries(env)) vi.stubEnv(name, value);
+    const proof = {
+      trancheId: randomUUID(),
+      checkedAt: new Date(NOW).toISOString(),
+      expiresAt: new Date(NOW + 3_600_000).toISOString(),
+      credentialSha256: hash(env.SERPAPI_API_KEY),
+      modelCredentialSha256: hash(env.BACKBOARD_API_KEY),
+      assistantIdSha256: hash(env.BACKBOARD_ASSISTANT_ID),
+      confirmedFreeSearches: 97,
+      serpFreeOnly: true,
+      serpPaidOverageDisabled: true,
+      reservedExistingCreditUsd: 0.2,
+      mixedCreditApproved: true,
+      confirmedFreeCreditsUsd: 0.2,
+      confirmedTotalCreditsUsd: 1,
+      autoReloadEnabled: false,
+      paymentMethodConfigured: false,
+      modelProvider: "openrouter",
+      model: "google/gemma-4-26b-a4b-it",
+      inputUsdPerMillion: 0.0765,
+      outputUsdPerMillion: 0.255,
+      contextWindowTokens: 262144,
+      maximumOutputTokens: 235929,
+      maxModelCalls: 2,
+      maxSearchCalls: 1,
+      maxTigerCalls: 1,
+      maxUnits: 4,
+      maximumRuns: 1,
+      usedRuns: 0,
+      evidence:
+        "Synthetic HTTP funding fixture; no provider account observation",
+      priorProofHashes: priorMastraBackboardProofHashes(process.env),
+    };
+    const proofBytes = JSON.stringify(proof);
+    vi.stubEnv("BRIEFSTAMP_MASTRA_BACKBOARD_PROOF_JSON", proofBytes);
+    const order: string[] = [];
+    const backboardResults: unknown[] = [];
+    const transport = vi.fn<typeof fetch>(async (_input, init) => {
+      expect(order).toEqual(["tiger", "engine"]);
+      expect(h.store.reserveAgentRun).toHaveBeenCalledOnce();
+      expect(h.store.reserveJudgeAgentRun).not.toHaveBeenCalled();
+      order.push("backboard");
+      expect(init?.redirect).toBe("error");
+      expect(new Headers(init?.headers).get("X-API-Key")).toBe(
+        env.BACKBOARD_API_KEY,
+      );
+      const body = JSON.parse(String(init?.body));
+      expect(body).toMatchObject({
+        assistant_id: env.BACKBOARD_ASSISTANT_ID,
+        llm_provider: "openrouter",
+        model_name: "google/gemma-4-26b-a4b-it",
+        tools: [],
+        stream: false,
+        memory: "off",
+        web_search: "off",
+        image_generation: "off",
+        video_generation: "off",
+        json_output: true,
+      });
+      expect(body).not.toHaveProperty("thread_id");
+      expect(body).not.toHaveProperty("max_tokens");
+      return Response.json({
+        status: "COMPLETED",
+        model_provider: "openrouter",
+        model_name: "google/gemma-4-26b-a4b-it",
+        content: JSON.stringify({ tools: [] }),
+        input_tokens: null,
+        output_tokens: null,
+        total_tokens: null,
+        fixture: "Synthetic intercepted HTTP response, not provider evidence",
+      });
+    });
+    let h: Awaited<ReturnType<typeof harness>>;
+    h = await harness({
+      evidenceAgent: async ({ audit }, dependencies) => {
+        const deps = dependencies as Parameters<
+          typeof executeMastraEvidenceAgent
+        >[1];
+        if (deps.backboardGenerate) {
+          order.push("engine");
+          deps.beforeModel?.();
+          const result = await deps.backboardGenerate(
+            {
+              phase: "select_tools",
+              task: EVIDENCE_AGENT_TASK,
+              audit: validatedAudit(audit),
+            },
+            new AbortController().signal,
+          );
+          expect(result.output).toEqual({ tools: [] });
+          expect(result).toMatchObject({
+            provider: "Backboard",
+            transport: "backboard_openrouter_gemma",
+            usage: { inputTokens: null, outputTokens: null, totalTokens: null },
+            attempts: [{ status: 200, providerStatus: "COMPLETED" }],
+          });
+          backboardResults.push(result);
+          return {
+            ...receipt(audit),
+            transport: "backboard_openrouter_gemma",
+            selection: { tools: [] },
+            toolSelectionAbstained: true,
+            backboardModelTurns: [{ phase: "select_tools", result }],
+          };
+        }
+        // The public path must keep its native model port when the private
+        // Backboard grant exists. No Backboard fallback is silently injected.
+        expect(deps).not.toHaveProperty("backboardGenerate");
+        expect(deps).not.toHaveProperty("reserveExternal");
+        order.push("public-native-port");
+        return receipt(audit);
+      },
+    });
+    cleanups.push(() => rm(directory, { recursive: true, force: true }));
+    const realFetch = globalThis.fetch;
+    vi.spyOn(globalThis, "fetch").mockImplementation((input, init) => {
+      const url = new URL(input instanceof Request ? input.url : String(input));
+      if (url.href === "https://app.backboard.io/api/threads/messages")
+        return transport(input, init);
+      if (url.origin !== h.base)
+        throw new Error("External transport is forbidden in this HTTP fixture");
+      return realFetch(input, init);
+    });
+    const v = await h.ready();
+    const before = structuredClone(v.audit);
+    const request = (token: string) =>
+      fetch(h.base + `/api/audits/${v.audit.id}/agent-review`, {
+        method: "POST",
+        headers: {
+          cookie: v.cookie,
+          "content-type": "application/json",
+          "x-flowproof-token": token,
+        },
+        body: JSON.stringify({
+          websiteProjectId: v.website.id,
+          modelConsent: true,
+        }),
+      });
+    expect((await request("wrong-operator-token")).status).toBe(404);
+    h.noAgentWork();
+    expect(transport).not.toHaveBeenCalled();
+    h.store.reserveAgentRun.mockImplementationOnce(async () => {
+      order.push("tiger");
+      return { reserved: true };
+    });
+    const response = await request(env.FLOWPROOF_TOKEN);
+    expect(response.status).toBe(200);
+    expect(await response.json()).toMatchObject({
+      transport: "backboard_openrouter_gemma",
+      trancheId: proof.trancheId,
+      sourceAuditId: v.audit.id,
+      auditUnchanged: true,
+      modelTurns: [],
+      reservation: { durable: "Tiger UNIQUE tranche", consumed: true },
+      pricing: {
+        provider: "Backboard",
+        mixedCreditApproved: true,
+        reservedExistingCreditUsd: 0.2,
+      },
+    });
+    expect(order).toEqual(["tiger", "engine", "backboard"]);
+    expect(backboardResults).toHaveLength(1);
+    expect(transport).toHaveBeenCalledOnce();
+    expect(h.store.reserveJudgeAgentRun).not.toHaveBeenCalled();
+    expect(h.pricing).not.toHaveBeenCalled();
+    expect((await request(env.FLOWPROOF_TOKEN)).status).toBe(409);
+    expect(h.agent).toHaveBeenCalledOnce();
+    expect(h.store.reserveAgentRun).toHaveBeenCalledOnce();
+    expect(transport).toHaveBeenCalledOnce();
+    expect(
+      await (await h.request(`/api/audits/${v.audit.id}`, v.cookie)).json(),
+    ).toEqual(before);
+    expect(process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON).toBe(oldProof);
+    expect(process.env.BRIEFSTAMP_MASTRA_BACKBOARD_PROOF_JSON).toBe(proofBytes);
+
+    const publicVisitor = await h.ready();
+    const publicResponse = await h.review(publicVisitor);
+    expect(publicResponse.status).toBe(200);
+    expect(await publicResponse.json()).toMatchObject({
+      transport: "injected_offline",
+      grantId: GRANT_ID,
+    });
+    expect(order.at(-1)).toBe("public-native-port");
+    expect(h.store.reserveJudgeAgentRun).toHaveBeenCalledOnce();
+    expect(h.store.reserveAgentRun).toHaveBeenCalledOnce();
+    expect(transport).toHaveBeenCalledOnce();
   });
 });

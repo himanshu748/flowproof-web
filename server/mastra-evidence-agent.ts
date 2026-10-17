@@ -22,6 +22,12 @@ import {
   generateGemmaEvidenceTurn,
 } from "./providers/gemma-evidence-agent.js";
 import { GOOGLE_GEMMA_MODEL } from "./providers/gemma-google.js";
+import {
+  BackboardGemmaEvidenceError,
+  type BackboardGemmaEvidenceTurn,
+} from "./providers/backboard-gemma-evidence.js";
+import type { EvidenceAgentPhaseRequest } from "./providers/gemma-evidence-agent.js";
+import type { MastraModelTurn } from "./mastra-evidence-runtime.js";
 const requestSchema = z
   .object({
     type: z.literal("request"),
@@ -59,11 +65,20 @@ export function mastraChildEnvironment(
 }
 export type MastraEvidenceReceipt = EvidenceAgentReceipt & {
   orchestration?: Record<string, unknown>;
+  backboardModelTurns?: Array<{
+    phase: "select_tools" | "summarize";
+    result?: BackboardGemmaEvidenceTurn;
+    failedAttempts?: BackboardGemmaEvidenceError["attempts"];
+  }>;
 };
 /** The caller must durably reserve this run before invoking either engine. No automatic native fallback or retry. */
 export async function executeMastraEvidenceAgent(
   input: { audit: Audit; task: string },
   deps: EvidenceAgentDependencies & {
+    backboardGenerate?: (
+      request: EvidenceAgentPhaseRequest,
+      signal: AbortSignal,
+    ) => Promise<BackboardGemmaEvidenceTurn>;
     reserveExternal?: (
       operation:
         | "select_tools"
@@ -78,7 +93,11 @@ export async function executeMastraEvidenceAgent(
   const receipt: MastraEvidenceReceipt = {
     version: 1,
     status: "running",
-    transport: deps.generate ? "injected_offline" : "native_google_gemma",
+    transport: deps.backboardGenerate
+      ? "backboard_openrouter_gemma"
+      : deps.generate
+        ? "injected_offline"
+        : "native_google_gemma",
     model: GOOGLE_GEMMA_MODEL,
     startedAt: new Date(now()).toISOString(),
     task: EVIDENCE_AGENT_TASK,
@@ -100,6 +119,11 @@ export async function executeMastraEvidenceAgent(
     scope:
       "A real isolated Mastra Agent owns the tool loop. Gemma native text JSON is bridged to AI SDK tool calls; this is not provider-native function calling. Actual observations cannot change browser acceptance.",
   };
+  if (deps.backboardGenerate) {
+    receipt.backboardModelTurns = [];
+    receipt.scope =
+      "A real isolated Mastra Agent owns the tool loop over Backboard/OpenRouter Gemma. Actual Backboard model turns and tokens are in backboardModelTurns, not native-Google modelTurns. Memory is off. This is a validated text-JSON bridge, not provider-native function calling. Browser acceptance is unchanged.";
+  }
   const controller = new AbortController();
   const within = async <T>(
     fn: (signal: AbortSignal) => Promise<T>,
@@ -124,6 +148,7 @@ export async function executeMastraEvidenceAgent(
   try {
     if (
       input.task !== EVIDENCE_AGENT_TASK ||
+      (deps.backboardGenerate && deps.generate) ||
       (deps.maxModelRequests !== undefined && deps.maxModelRequests !== 2)
     )
       throw new Error("invalid_mastra_scope");
@@ -133,9 +158,11 @@ export async function executeMastraEvidenceAgent(
     const model = async (payload: unknown) => {
       const req = EvidenceAgentPhaseRequestSchema.parse(payload);
       const expectedPhase =
-        receipt.modelTurns.length === 0 ? "select_tools" : "summarize";
+        (receipt.backboardModelTurns ?? receipt.modelTurns).length === 0
+          ? "select_tools"
+          : "summarize";
       if (
-        receipt.modelTurns.length >= 2 ||
+        (receipt.backboardModelTurns ?? receipt.modelTurns).length >= 2 ||
         req.phase !== expectedPhase ||
         !isDeepStrictEqual(req.audit, audit)
       )
@@ -149,29 +176,44 @@ export async function executeMastraEvidenceAgent(
       const record: EvidenceAgentReceipt["modelTurns"][number] = {
         phase: req.phase,
       };
-      receipt.modelTurns.push(record);
+      const backboardRecord: NonNullable<
+        MastraEvidenceReceipt["backboardModelTurns"]
+      >[number] = { phase: req.phase };
+      if (deps.backboardGenerate)
+        receipt.backboardModelTurns!.push(backboardRecord);
+      else receipt.modelTurns.push(record);
       try {
         await deps.reserveExternal?.(req.phase);
-        const result = await within((signal) => {
-          deps.beforeModel?.();
-          return deps.generate
-            ? deps.generate(req)
-            : generateGemmaEvidenceTurn(req, {
-                env: deps.env,
-                now: deps.now,
-                signal,
-                beforeRequest: deps.beforeModel,
-                maxAttempts: 1,
-              });
-        }, 20_000);
+        const result = await within<MastraModelTurn>(
+          async (signal) => {
+            deps.beforeModel?.();
+            return deps.backboardGenerate
+              ? deps.backboardGenerate(req, signal)
+              : deps.generate
+                ? deps.generate(req)
+                : generateGemmaEvidenceTurn(req, {
+                    env: deps.env,
+                    now: deps.now,
+                    signal,
+                    beforeRequest: deps.beforeModel,
+                    maxAttempts: 1,
+                  });
+          },
+          deps.backboardGenerate ? 30_000 : 20_000,
+        );
         if (
-          result.model !== GOOGLE_GEMMA_MODEL ||
+          result.model !==
+            (deps.backboardGenerate
+              ? "google/gemma-4-26b-a4b-it"
+              : GOOGLE_GEMMA_MODEL) ||
           result.attempts.length > 1 ||
           (!deps.generate &&
             (result.attempts.length !== 1 || result.attempts[0].status !== 200))
         )
           throw new Error("invalid_model_transport_receipt");
-        record.result = structuredClone(result);
+        if ("transport" in result)
+          backboardRecord.result = structuredClone(result);
+        else record.result = structuredClone(result);
         if (req.phase === "select_tools")
           receipt.selection = EvidenceToolSelectionSchema.parse(result.output);
         else {
@@ -186,6 +228,8 @@ export async function executeMastraEvidenceAgent(
           if (error.diagnostic)
             record.failureDiagnostic = structuredClone(error.diagnostic);
         }
+        if (error instanceof BackboardGemmaEvidenceError)
+          backboardRecord.failedAttempts = structuredClone(error.attempts);
         throw error;
       }
     };
@@ -202,7 +246,7 @@ export async function executeMastraEvidenceAgent(
         selected < 0 ||
         parsed.id !== `tool-${selected + 1}` ||
         calls.has(parsed.id) ||
-        receipt.modelTurns.length !== 1
+        (receipt.backboardModelTurns ?? receipt.modelTurns).length !== 1
       )
         throw new Error("tool_call_limit");
       calls.add(parsed.id);
@@ -333,7 +377,13 @@ export async function executeMastraEvidenceAgent(
       });
       child.send({
         type: "start",
-        input: { audit, task: EVIDENCE_AGENT_TASK },
+        input: {
+          audit,
+          task: EVIDENCE_AGENT_TASK,
+          ...(deps.backboardGenerate
+            ? { modelTransport: "backboard_openrouter_gemma" }
+            : {}),
+        },
       });
     });
     if (
@@ -368,7 +418,8 @@ export async function executeMastraEvidenceAgent(
     receipt.status = "failed";
     receipt.sourceAuditUnchanged = JSON.stringify(input.audit) === source;
     receipt.failureCode =
-      error instanceof GemmaEvidenceProviderError
+      error instanceof GemmaEvidenceProviderError ||
+      error instanceof BackboardGemmaEvidenceError
         ? error.code
         : error instanceof z.ZodError
           ? "invalid_model_or_input_schema"

@@ -119,7 +119,10 @@ export interface EvidenceAgentReceipt {
     | "completed"
     | "completed_with_unavailable_tools"
     | "failed";
-  transport: "native_google_gemma" | "injected_offline";
+  transport:
+    | "native_google_gemma"
+    | "injected_offline"
+    | "backboard_openrouter_gemma";
   model: typeof GOOGLE_GEMMA_MODEL;
   startedAt: string;
   completedAt?: string;

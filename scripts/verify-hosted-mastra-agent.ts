@@ -7,21 +7,29 @@ import { setTimeout as pause } from "node:timers/promises";
 import pg from "pg";
 import { databaseConfig } from "../server/database.js";
 import { mastraOperatorConfiguration } from "../server/mastra-agent-gate.js";
+import { mastraBackboardConfiguration } from "../server/mastra-backboard-gate.js";
 import { validateCitations, validatedAudit } from "../server/evidence-agent.js";
 import type { Audit, Project, Bootstrap } from "../shared/types.js";
-if (process.argv.slice(2).join(" ") !== "--run")
+if (!["--run", "--run-backboard"].includes(process.argv.slice(2).join(" ")))
   console.log(
     "Not run. --run needs one prepared operator tranche and an exact green live deployment; no default credential reads, model requests or search.",
   );
 else await verify();
 async function verify() {
-  const root = path.resolve("work/mastra-hosted-20261017");
+  const backboard = process.argv.slice(2).join(" ") === "--run-backboard";
+  const root = path.resolve(
+    backboard
+      ? "work/mastra-backboard-hosted-20261017"
+      : "work/mastra-hosted-20261017",
+  );
   const expected = process.env.BRIEFSTAMP_EXPECTED_COMMIT;
   assert(/^[a-f0-9]{40}$/.test(expected ?? ""));
   const env = JSON.parse(
     await readFile(path.join(root, "active-render.private.json"), "utf8"),
   );
-  const config = mastraOperatorConfiguration(env);
+  const config = backboard
+    ? mastraBackboardConfiguration(env)
+    : mastraOperatorConfiguration(env);
   assert(
     config && config.proof.usedRuns === 0,
     "Fresh new operator allowance required",
@@ -45,6 +53,9 @@ async function verify() {
     maximumModelCalls: 2,
     maximumSearchCalls: 1,
     maximumTigerToolCalls: 1,
+    ...(backboard
+      ? { reservedExistingCreditUsd: 0.2, mixedCreditApproved: true }
+      : {}),
     neverRefund: true,
     routeAttempted: false,
   };
@@ -84,13 +95,21 @@ async function verify() {
     startedAt: stamp,
     sourceCommit: expected,
     status: "running",
-    scope:
-      "Real hosted Mastra Agent over native Google Gemma text JSON; parent performs fixed Tiger pgvector RRF and SerpApi tools, not provider-native function calling",
+    scope: backboard
+      ? "Real hosted Mastra Agent over Backboard/OpenRouter Gemma text JSON; Backboard turns are in backboardModelTurns, native modelTurns stays empty; fixed Tiger pgvector RRF and SerpApi, not provider-native function calling"
+      : "Real hosted Mastra Agent over native Google Gemma text JSON; parent performs fixed Tiger pgvector RRF and SerpApi tools, not provider-native function calling",
     approvalActor:
       "Owner-instructed synthetic verifier, not customer acceptance",
     maximumReservedUnits: 4,
     publicJudgeAllowanceConsumed: 0,
     automaticRetries: 0,
+    ...(backboard
+      ? {
+          reservedExistingCreditUsd: 0.2,
+          mixedCreditApproved: true,
+          funding: "Existing credit, not an assertion of free-only debit",
+        }
+      : {}),
     calls: [],
   };
   const pool = new pg.Pool({
@@ -239,11 +258,28 @@ async function verify() {
     assert.equal(agent.orchestration?.provider, "Mastra Agent");
     assert.equal(agent.orchestration.modelCalls, 2);
     assert.equal(agent.orchestration.steps.length, 2);
-    assert.equal(agent.modelTurns.length, 2);
+    const turns = backboard ? agent.backboardModelTurns : agent.modelTurns;
+    assert.equal(turns.length, 2);
+    if (backboard) {
+      assert.equal(agent.transport, "backboard_openrouter_gemma");
+      assert.equal(agent.modelTurns.length, 0);
+      assert.equal(
+        agent.orchestration.bridge,
+        "backboard-gemma-json-to-ai-sdk-tool-calls",
+      );
+      assert(
+        turns.every(
+          (t: any) =>
+            t.result?.provider === "Backboard" &&
+            t.result?.modelProvider === "openrouter" &&
+            t.result?.model === "google/gemma-4-26b-a4b-it",
+        ),
+      );
+    }
     assert.equal(agent.toolCalls.length, 2);
     assert(agent.toolCalls.every((t: any) => t.status === "observed"));
     assert(
-      agent.modelTurns.every(
+      turns.every(
         (t: any) =>
           t.result?.attempts?.length === 1 &&
           t.result.attempts[0].status === 200,
@@ -321,8 +357,16 @@ async function verify() {
       flag: "wx",
       mode: 0o600,
     });
-    receipt.modelRequests = agent.modelTurns.map((t: any) => ({
+    receipt.modelRequests = turns.map((t: any) => ({
       phase: t.phase,
+      ...(backboard
+        ? {
+            provider: t.result.provider,
+            modelProvider: t.result.modelProvider,
+            model: t.result.model,
+            usage: t.result.usage,
+          }
+        : {}),
       attempts: t.result.attempts,
     }));
     receipt.toolsChosen = agent.selection.tools;
@@ -354,6 +398,30 @@ async function verify() {
       extraCredits: account.extra_credits,
       remainingSearches: account.total_searches_left,
     };
+    if (backboard) {
+      const balanceResponse = await fetch(
+        "https://app.backboard.io/api/billing/balance",
+        {
+          headers: { "X-API-Key": env.BACKBOARD_API_KEY },
+          redirect: "error",
+          signal: AbortSignal.timeout(20000),
+        },
+      );
+      assert.equal(balanceResponse.status, 200);
+      const balance = await balanceResponse.json();
+      assert.equal(balance.auto_reload_enabled, false);
+      assert.equal(balance.stripe_payment_method_id, null);
+      receipt.backboardPostAccount = {
+        checkedAt: new Date().toISOString(),
+        freeUsd: balance.free_credit_usd,
+        paidUsd: balance.paid_credit_usd,
+        totalUsd: balance.balance_usd,
+        autoReloadEnabled: false,
+        paymentMethodConfigured: false,
+        scope:
+          "Immediate account-wide balance, not exclusive attribution, final billing or a general free-first rule",
+      };
+    }
     receipt.status = "verified";
   } catch (error) {
     receipt.status = "failed";

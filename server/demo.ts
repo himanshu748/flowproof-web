@@ -71,6 +71,14 @@ import {
   reserveMastraOperatorCall,
 } from "./mastra-agent-gate";
 import {
+  authorizeMastraBackboardOperator,
+  mastraBackboardConfiguration,
+  reserveMastraBackboardCall,
+  reserveMastraBackboardRun,
+  mastraBackboardSearchOptions,
+} from "./mastra-backboard-gate";
+import { generateBackboardGemmaEvidenceTurn } from "./providers/backboard-gemma-evidence";
+import {
   judgeAgentConfiguration,
   judgeAgentEnabled,
   judgeSearchOptions,
@@ -385,7 +393,8 @@ export function createDemoRouter(options: DemoOptions) {
       req.method === "POST" &&
       /^\/api\/audits\/[^/]+\/agent-review\/?$/i.test(req.path) &&
       !authorizeEvidenceAgent(req.headers, process.env, now()) &&
-      !authorizeMastraOperator(req.headers, process.env, now())
+      !authorizeMastraOperator(req.headers, process.env, now()) &&
+      !authorizeMastraBackboardOperator(req.headers, process.env, now())
     )
       return res.status(404).json({ error: "Not found in this demo session." });
     // A tokenless caller cannot use session or project existence as an oracle.
@@ -1006,7 +1015,8 @@ export function createDemoRouter(options: DemoOptions) {
       !authorizeHostedOptional("serpapi", req.headers, process.env, now()) &&
       !authorizeHostedOptional("elevenlabs", req.headers, process.env, now()) &&
       !authorizeEvidenceAgent(req.headers, process.env, now()) &&
-      !authorizeMastraOperator(req.headers, process.env, now())
+      !authorizeMastraOperator(req.headers, process.env, now()) &&
+      !authorizeMastraBackboardOperator(req.headers, process.env, now())
     )
       return notFound(res);
     return res.json({
@@ -1016,7 +1026,8 @@ export function createDemoRouter(options: DemoOptions) {
       elevenlabs: hostOptionalEnabled("elevenlabs", process.env, now()),
       evidenceAgent:
         evidenceAgentEnabled(process.env, now()) ||
-        !!mastraOperatorConfiguration(process.env, now()),
+        !!mastraOperatorConfiguration(process.env, now()) ||
+        !!mastraBackboardConfiguration(process.env, now()),
       scope:
         "Bounded hosted operator integrations. Visitor access remains isolated.",
     });
@@ -1031,6 +1042,24 @@ export function createDemoRouter(options: DemoOptions) {
             searchTimeoutMs: 60_000 as const,
             judge: config,
             operator: undefined,
+            backboard: undefined,
+          }
+        : null;
+    }
+    if (process.env.BRIEFSTAMP_MASTRA_BACKBOARD_PROOF_JSON !== undefined) {
+      if (!authorizeMastraBackboardOperator(req.headers, process.env, now()))
+        return null;
+      const config = mastraBackboardConfiguration(process.env, now());
+      return config
+        ? {
+            identity: createHash("sha256")
+              .update(JSON.stringify(config.proof))
+              .digest("hex"),
+            modelRequests: 2 as const,
+            searchTimeoutMs: config.searchTimeoutMs,
+            operator: config,
+            backboard: config,
+            judge: undefined,
           }
         : null;
     }
@@ -1047,6 +1076,7 @@ export function createDemoRouter(options: DemoOptions) {
             searchTimeoutMs: config.searchTimeoutMs,
             operator: config,
             judge: undefined,
+            backboard: undefined,
           }
         : null;
     }
@@ -1061,6 +1091,7 @@ export function createDemoRouter(options: DemoOptions) {
           searchTimeoutMs: config.searchTimeoutMs ?? 10_000,
           operator: config,
           judge: undefined,
+          backboard: undefined,
         }
       : null;
   };
@@ -1168,7 +1199,8 @@ export function createDemoRouter(options: DemoOptions) {
       if (
         !judge &&
         !authorizeEvidenceAgent(req.headers, process.env, now()) &&
-        !authorizeMastraOperator(req.headers, process.env, now())
+        !authorizeMastraOperator(req.headers, process.env, now()) &&
+        !authorizeMastraBackboardOperator(req.headers, process.env, now())
       )
         return notFound(res);
       if (judge && req.headers.origin !== new URL(HOSTED_WEBSITE_URL).origin)
@@ -1295,7 +1327,18 @@ export function createDemoRouter(options: DemoOptions) {
         outcome: "pending" | "response" | "aborted" | "request_failed";
       }> = [];
       try {
-        const pricing = await verifyGemmaFree();
+        const pricing = initialConfig.backboard
+          ? {
+              provider: "Backboard",
+              modelProvider: "openrouter",
+              model: initialConfig.backboard.proof.model,
+              checkedAt: initialConfig.backboard.proof.checkedAt,
+              mixedCreditApproved: true,
+              reservedExistingCreditUsd: 0.2,
+              scope:
+                "Existing-credit proof, not free-only inference; no provider-enforced per-request spending cap",
+            }
+          : await verifyGemmaFree();
         if (!current() && judge) throw new Error("EvidenceAgentSourceChanged");
         if (!current())
           return res.status(409).json({
@@ -1374,12 +1417,16 @@ export function createDemoRouter(options: DemoOptions) {
           if (!judgeRunId) throw new Error("JudgeReservationUnconfirmed");
         } else {
           reservationAttempted = true;
-          const reservation = await tiger().reserveAgentRun(
-            s.hash,
-            audit.projectId,
-            audit.id,
-            config.operator!.proof.trancheId,
-          );
+          const reserveTiger = (trancheId: string) =>
+            tiger().reserveAgentRun(
+              s.hash,
+              audit.projectId,
+              audit.id,
+              trancheId,
+            );
+          const reservation = config.backboard
+            ? await reserveMastraBackboardRun(reserveTiger, process.env, now())
+            : await reserveTiger(config.operator!.proof.trancheId);
           reserved = reservation.reserved;
           assertCurrent();
           if (!reservation.reserved)
@@ -1392,6 +1439,7 @@ export function createDemoRouter(options: DemoOptions) {
         const indexing = await tiger().indexAuditFailures(s.hash, audit.id);
         assertCurrent();
         const selectedEngine =
+          config.backboard ||
           process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
             ? executeMastraEvidenceAgent
             : executeEvidenceAgent;
@@ -1401,9 +1449,30 @@ export function createDemoRouter(options: DemoOptions) {
             maxModelRequests: modelReservations,
             searchTimeoutMs,
             beforeModel: assertCurrent,
-            ...(config.operator &&
-            process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
+            ...(config.backboard
               ? {
+                  backboardGenerate: async (
+                    request: Parameters<
+                      typeof generateBackboardGemmaEvidenceTurn
+                    >[0],
+                    signal: AbortSignal,
+                  ) =>
+                    generateBackboardGemmaEvidenceTurn(request, {
+                      apiKey: config.backboard!.key,
+                      assistantId: config.backboard!.assistantId,
+                      fetcher: fetch,
+                      signal,
+                      reserve: async (metadata) => {
+                        assertCurrent();
+                        await reserveMastraBackboardCall(
+                          request.phase,
+                          process.env,
+                          metadata,
+                          now(),
+                        );
+                        assertCurrent();
+                      },
+                    }),
                   reserveExternal: async (
                     operation:
                       | "select_tools"
@@ -1412,15 +1481,39 @@ export function createDemoRouter(options: DemoOptions) {
                       | "search_visibility",
                   ) => {
                     assertCurrent();
-                    await reserveMastraOperatorCall(
-                      operation,
-                      process.env,
-                      now(),
-                    );
+                    if (
+                      operation === "failure_history" ||
+                      operation === "search_visibility"
+                    )
+                      await reserveMastraBackboardCall(
+                        operation,
+                        process.env,
+                        undefined,
+                        now(),
+                      );
                     assertCurrent();
                   },
                 }
-              : {}),
+              : config.operator &&
+                  process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
+                ? {
+                    reserveExternal: async (
+                      operation:
+                        | "select_tools"
+                        | "summarize"
+                        | "failure_history"
+                        | "search_visibility",
+                    ) => {
+                      assertCurrent();
+                      await reserveMastraOperatorCall(
+                        operation,
+                        process.env,
+                        now(),
+                      );
+                      assertCurrent();
+                    },
+                  }
+                : {}),
             failureHistory: async (queryId, signal) => {
               signal.throwIfAborted();
               assertCurrent();
@@ -1439,9 +1532,11 @@ export function createDemoRouter(options: DemoOptions) {
               assertCurrent();
               const options = config.judge
                 ? await judgeSearchOptions(config.judge, judgeRunId!)
-                : process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
-                  ? await mastraSearchOptions(req.headers)
-                  : await agentSearchOptions(req.headers);
+                : config.backboard
+                  ? await mastraBackboardSearchOptions(req.headers)
+                  : process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
+                    ? await mastraSearchOptions(req.headers)
+                    : await agentSearchOptions(req.headers);
               signal.throwIfAborted();
               assertCurrent();
               const result = await checkSearchVisibility(websiteSnapshot, {
@@ -1536,8 +1631,9 @@ export function createDemoRouter(options: DemoOptions) {
           sourceAuditSha256: createHash("sha256")
             .update(JSON.stringify(snapshot))
             .digest("hex"),
-          scope:
-            selectedEngine === executeMastraEvidenceAgent
+          scope: config.backboard
+            ? "Protected Mastra Agent over Backboard/OpenRouter Gemma; native-Google modelTurns is empty and actual provider turns/tokens are in backboardModelTurns. Tiger uses pgvector/full-text RRF; SerpApi uses one bounded fixed-domain search. No public judge allowance, automatic fallback or new acceptance verdict."
+            : selectedEngine === executeMastraEvidenceAgent
               ? "Mastra Agent owns the native Gemma JSON-to-tools loop with pgvector/full-text RRF and bounded SerpApi search. Browser acceptance is unchanged; the native engine remains a configuration fallback, never an automatic retry."
               : config.judge
                 ? "Public judge flow over approved fixed synthetic evidence and the owned homepage. Two model requests and one search maximum per reserved session; precomputed MiniLM PostgreSQL arrays, no arbitrary query embedding inference. Findings do not change browser acceptance results."

@@ -9,6 +9,7 @@ const inputSchema = z
   .object({
     audit: EvidenceAuditObservationSchema,
     task: z.literal(EVIDENCE_AGENT_TASK),
+    modelTransport: z.literal("backboard_openrouter_gemma").optional(),
   })
   .strict();
 let sequence = 0;

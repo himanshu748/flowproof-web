@@ -23,14 +23,17 @@ import {
 } from "./providers/gemma-evidence-agent.js";
 import { GOOGLE_GEMMA_MODEL } from "./providers/gemma-google.js";
 import { validateCitations } from "./evidence-agent.js";
+import type { BackboardGemmaEvidenceTurn } from "./providers/backboard-gemma-evidence.js";
+export type MastraModelTurn = EvidenceAgentTurn | BackboardGemmaEvidenceTurn;
 
 export interface MastraEvidenceRuntimeInput {
   audit: z.infer<typeof EvidenceAuditObservationSchema>;
   task: typeof EVIDENCE_AGENT_TASK;
+  modelTransport?: "backboard_openrouter_gemma";
 }
 export interface MastraEvidenceRuntimePorts {
   /** Trusted IPC port: at most one physical native request, without retries. */
-  model: (request: EvidenceAgentPhaseRequest) => Promise<EvidenceAgentTurn>;
+  model: (request: EvidenceAgentPhaseRequest) => Promise<MastraModelTurn>;
   /** Trusted IPC port. Mastra, rather than this adapter, invokes registered tools. */
   tool: (
     entry: EvidenceToolSelection["tools"][number],
@@ -62,7 +65,9 @@ export interface MastraEvidenceRuntimeResult {
     provider: "Mastra Agent";
     package: "@mastra/core";
     version: string;
-    bridge: "native-gemma-json-to-ai-sdk-tool-calls";
+    bridge:
+      | "native-gemma-json-to-ai-sdk-tool-calls"
+      | "backboard-gemma-json-to-ai-sdk-tool-calls";
     finalOutputSource:
       | "validated-model-summary"
       | "selection-abstention-policy";
@@ -90,6 +95,7 @@ const InputSchema = z
   .object({
     audit: EvidenceAuditObservationSchema,
     task: z.literal(EVIDENCE_AGENT_TASK),
+    modelTransport: z.literal("backboard_openrouter_gemma").optional(),
   })
   .strict();
 function freeze<T>(value: T): T {
@@ -190,7 +196,11 @@ export async function executeMastraEvidenceRuntime(
     if (first) {
       if (options.prompt.some((message) => message.role === "tool"))
         reject("unexpected_initial_tool_result");
-      request = { phase: "select_tools", ...copy(fixed) };
+      request = {
+        phase: "select_tools",
+        audit: copy(fixed.audit),
+        task: fixed.task,
+      };
     } else {
       if (!selection?.tools.length) reject("unexpected_continuation");
       const actual = options.prompt.flatMap((message) =>
@@ -212,7 +222,8 @@ export async function executeMastraEvidenceRuntime(
       }
       request = {
         phase: "summarize",
-        ...copy(fixed),
+        audit: copy(fixed.audit),
+        task: fixed.task,
         selection: copy(selection!),
         observations: copy(expected),
       };
@@ -224,7 +235,10 @@ export async function executeMastraEvidenceRuntime(
       const turn = await ports.model(freeze(request));
       guard();
       if (
-        turn.model !== GOOGLE_GEMMA_MODEL ||
+        turn.model !==
+          (input.modelTransport
+            ? "google/gemma-4-26b-a4b-it"
+            : GOOGLE_GEMMA_MODEL) ||
         !Array.isArray(turn.attempts) ||
         turn.attempts.length > 1 ||
         turn.attempts.some(
@@ -236,12 +250,41 @@ export async function executeMastraEvidenceRuntime(
         )
       )
         reject("invalid_native_attempts");
-      const usage = turn.attempts[0]?.usage;
+      const backboard =
+        "transport" in turn && turn.transport === "backboard_openrouter_gemma";
+      if (Boolean(input.modelTransport) !== backboard)
+        reject("model_provider_mismatch");
+      const usage = "transport" in turn ? undefined : turn.attempts[0]?.usage;
       if (usage != null) EvidenceAgentUsageSchema.parse(usage);
+      const creditUsage = backboard
+        ? z
+            .object({
+              inputTokens: z
+                .number()
+                .int()
+                .nonnegative()
+                .max(262144)
+                .nullable(),
+              outputTokens: z
+                .number()
+                .int()
+                .nonnegative()
+                .max(235929)
+                .nullable(),
+              totalTokens: z
+                .number()
+                .int()
+                .nonnegative()
+                .max(498073)
+                .nullable(),
+            })
+            .strict()
+            .parse(turn.usage)
+        : undefined;
       const mappedUsage: LanguageModelV2Usage = {
-        inputTokens: usage?.promptTokens,
-        outputTokens: usage?.completionTokens,
-        totalTokens: usage?.totalTokens,
+        inputTokens: creditUsage?.inputTokens ?? usage?.promptTokens,
+        outputTokens: creditUsage?.outputTokens ?? usage?.completionTokens,
+        totalTokens: creditUsage?.totalTokens ?? usage?.totalTokens,
       };
       reportedUsage.push(mappedUsage);
       if (first) {
@@ -288,7 +331,9 @@ export async function executeMastraEvidenceRuntime(
 
   const model: LanguageModelV2 = {
     specificationVersion: "v2",
-    provider: "briefstamp.native-gemma-json-bridge",
+    provider: input.modelTransport
+      ? "briefstamp.backboard-gemma-json-bridge"
+      : "briefstamp.native-gemma-json-bridge",
     modelId: GOOGLE_GEMMA_MODEL,
     supportedUrls: {},
     doGenerate: invokeModel,
@@ -467,7 +512,9 @@ export async function executeMastraEvidenceRuntime(
       provider: "Mastra Agent",
       package: "@mastra/core",
       version,
-      bridge: "native-gemma-json-to-ai-sdk-tool-calls",
+      bridge: input.modelTransport
+        ? "backboard-gemma-json-to-ai-sdk-tool-calls"
+        : "native-gemma-json-to-ai-sdk-tool-calls",
       finalOutputSource: selection!.tools.length
         ? "validated-model-summary"
         : "selection-abstention-policy",
