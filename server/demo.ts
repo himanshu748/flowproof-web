@@ -1778,6 +1778,10 @@ export function createDemoRouter(options: DemoOptions) {
       return res
         .status(429)
         .json({ error: "A model or browser operation is already running." });
+    while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
+      gemmaStarts.shift();
+    if (gemmaStarts.length >= 12)
+      return res.status(429).json({ error: "The shared hourly model budget is exhausted." });
     const config = backboardAnswerConfiguration(process.env, now());
     if (!config) return notFound(res);
     const snapshot = structuredClone(audit);
@@ -1819,6 +1823,8 @@ export function createDemoRouter(options: DemoOptions) {
             error:
               "This dedicated memory-answer grant is already reserved or spent.",
           });
+      // Reserve the model slot even if retrieval or inference later fails.
+      gemmaStarts.push(now());
       const result = await (
         options.backboardMemoryAnswer ?? executeBackboardMemoryAnswer
       )(
