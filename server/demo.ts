@@ -79,6 +79,23 @@ import {
 } from "./mastra-backboard-gate";
 import { generateBackboardGemmaEvidenceTurn } from "./providers/backboard-gemma-evidence";
 import {
+  authorizeSentryAgentOperator,
+  sentryAgentConfiguration,
+  reserveSentryAgentRun,
+  reserveSentryAgentCall,
+  sentryAgentSearchOptions,
+} from "./sentry-agent-gate";
+import {
+  authorizeRuntimeTrace,
+  runtimeTraceConfiguration,
+  reserveRuntimeTraceExport,
+} from "./runtime-trace-gate";
+import {
+  createRuntimeTrace,
+  exportRuntimeTrace,
+  type RuntimeTraceMeasurement,
+} from "./runtime-trace";
+import {
   authorizeBackboardAnswer,
   backboardAnswerConfiguration,
   reserveBackboardAnswerCall,
@@ -194,6 +211,8 @@ interface Session {
   expires: number;
   projects: Map<string, Project>;
   audits: Map<string, Audit>;
+  auditTraceMeasurements: Map<string, RuntimeTraceMeasurement>;
+  runtimeTraceResults: Map<string, unknown>;
   windowStart: number;
   requests: number;
   gemmaAttempts: number;
@@ -237,6 +256,8 @@ interface DemoOptions {
   evidenceAgent?: typeof executeEvidenceAgent;
   /** Operator-only historical memory answer; trusted injection, never an HTTP payload. */
   backboardMemoryAnswer?: typeof executeBackboardMemoryAnswer;
+  /** Trusted test export port; never selected by an HTTP body. */
+  runtimeTraceExport?: typeof exportRuntimeTrace;
 }
 
 function integrations(
@@ -426,7 +447,11 @@ export function createDemoRouter(options: DemoOptions) {
       /^\/api\/audits\/[^/]+\/agent-review\/?$/i.test(req.path) &&
       !authorizeEvidenceAgent(req.headers, process.env, now()) &&
       !authorizeMastraOperator(req.headers, process.env, now()) &&
-      !authorizeMastraBackboardOperator(req.headers, process.env, now())
+      !authorizeMastraBackboardOperator(req.headers, process.env, now()) &&
+      !(
+        authorizeSentryAgentOperator(req.headers, process.env, now()) &&
+        authorizeRuntimeTrace(req.headers, process.env, now())
+      )
     )
       return res.status(404).json({ error: "Not found in this demo session." });
     // A tokenless caller cannot use session or project existence as an oracle.
@@ -516,6 +541,8 @@ export function createDemoRouter(options: DemoOptions) {
         expires: now() + TTL,
         projects: new Map([[sample.id, sample]]),
         audits: new Map(),
+        auditTraceMeasurements: new Map(),
+        runtimeTraceResults: new Map(),
         windowStart: now(),
         requests: 0,
         gemmaAttempts: 0,
@@ -542,6 +569,80 @@ export function createDemoRouter(options: DemoOptions) {
     next();
   });
   const session = (res: express.Response): Session => res.locals.demoSession;
+  async function exportProtectedRuntimeTrace(
+    kind: "audit" | "agent",
+    measurement: RuntimeTraceMeasurement,
+    s: Session,
+    audit: Audit,
+  ) {
+    const cached = s.runtimeTraceResults.get(`${kind}:${audit.id}`);
+    if (cached) return cached;
+    const config = runtimeTraceConfiguration(process.env, now());
+    const snapshot = JSON.parse(JSON.stringify(audit));
+    const unchanged = () => {
+      const current = s.audits.get(audit.id);
+      return (
+        !!current &&
+        s.expires > now() &&
+        isDeepStrictEqual(JSON.parse(JSON.stringify(current)), snapshot) &&
+        runtimeTraceConfiguration(process.env, now())?.proofSha256 ===
+          config?.proofSha256
+      );
+    };
+    try {
+      if (
+        !config ||
+        measurement.operation !== `briefstamp.${kind}` ||
+        !unchanged()
+      )
+        throw new Error("Trace source unavailable");
+      const stored = await tiger().getAudit(s.hash, audit.id);
+      if (!unchanged() || !isDeepStrictEqual(stored, snapshot))
+        throw new Error("Trace source mismatch");
+      const result = await (options.runtimeTraceExport ?? exportRuntimeTrace)(
+        measurement,
+        {
+          reserve: async (metadata) => {
+            if (!unchanged()) throw new Error("Trace source changed");
+            await reserveRuntimeTraceExport(
+              kind,
+              metadata,
+              (id) =>
+                tiger().reserveAgentRun(s.hash, audit.projectId, audit.id, id),
+              process.env,
+              now(),
+            );
+            if (!unchanged()) throw new Error("Trace source changed");
+          },
+        },
+      );
+      const after = await tiger().getAudit(s.hash, audit.id);
+      if (!unchanged() || !isDeepStrictEqual(after, snapshot))
+        throw new Error("Trace source changed");
+      const envelope = {
+        ...result,
+        measurement: structuredClone(measurement),
+        sourceAuditUnchanged: true,
+        exportTiming:
+          "After observed operation completed; SDK receives actual measured timestamps.",
+        ingestionVerified: false,
+        observedSpanCount: measurement.spans.length + 1,
+      };
+      s.runtimeTraceResults.set(`${kind}:${audit.id}`, envelope);
+      return envelope;
+    } catch {
+      const failure = {
+        provider: "Sentry",
+        status: "unavailable",
+        ingestionVerified: false,
+        sourceAuditUnchanged: unchanged(),
+        error:
+          "Runtime trace export unavailable; no retry or refund. No ingestion claim.",
+      };
+      s.runtimeTraceResults.set(`${kind}:${audit.id}`, failure);
+      return failure;
+    }
+  }
   const notFound = (res: express.Response) =>
     res.status(404).json({ error: "Not found in this demo session." });
 
@@ -911,20 +1012,27 @@ export function createDemoRouter(options: DemoOptions) {
     const snapshot = structuredClone(p);
     s.audits.set(a.id, a);
     auditStarts.push(now());
+    const trace = createRuntimeTrace(
+      "briefstamp.audit",
+      { checkCount: checks.length, target: snapshot.target },
+      now,
+    );
     const task = Promise.resolve().then(async () => {
       try {
-        const results = await execute(
-          snapshot,
-          a,
-          (result) => {
-            const checked = validateResult(result, checks, snapshot);
-            if (a.results.some((item) => item.checkId === checked.checkId))
-              throw new Error(
-                "The runner returned duplicate assertion evidence.",
-              );
-            a.results.push(checked);
-          },
-          { evidenceRoot: options.evidenceRoot },
+        const results = await trace.span("briefstamp.audit.browser", () =>
+          execute(
+            snapshot,
+            a,
+            (result) => {
+              const checked = validateResult(result, checks, snapshot);
+              if (a.results.some((item) => item.checkId === checked.checkId))
+                throw new Error(
+                  "The runner returned duplicate assertion evidence.",
+                );
+              a.results.push(checked);
+            },
+            { evidenceRoot: options.evidenceRoot },
+          ),
         );
         const validated = z
           .array(resultSchema)
@@ -957,6 +1065,19 @@ export function createDemoRouter(options: DemoOptions) {
           "The demo could not complete this audit. Unexecuted checks are not counted as passed.";
       } finally {
         a.completedAt = new Date(now()).toISOString();
+        s.auditTraceMeasurements.set(
+          a.id,
+          trace.finish({
+            checkCount: checks.length,
+            target: snapshot.target,
+            passed: a.results.filter((r) => r.status === "passed").length,
+            failed: a.results.filter((r) => r.status === "failed").length,
+            blocked: a.results.filter((r) => r.status === "blocked").length,
+            unverified: a.results.filter((r) => r.status === "unverified")
+              .length,
+            outcome: a.status === "completed" ? "completed" : "failed",
+          }),
+        );
         active = undefined;
         persistCompletedAudit(s, a);
         await cleanup().catch(() => {});
@@ -1048,7 +1169,11 @@ export function createDemoRouter(options: DemoOptions) {
       !authorizeHostedOptional("elevenlabs", req.headers, process.env, now()) &&
       !authorizeEvidenceAgent(req.headers, process.env, now()) &&
       !authorizeMastraOperator(req.headers, process.env, now()) &&
-      !authorizeMastraBackboardOperator(req.headers, process.env, now())
+      !authorizeMastraBackboardOperator(req.headers, process.env, now()) &&
+      !(
+        authorizeSentryAgentOperator(req.headers, process.env, now()) &&
+        authorizeRuntimeTrace(req.headers, process.env, now())
+      )
     )
       return notFound(res);
     return res.json({
@@ -1059,7 +1184,8 @@ export function createDemoRouter(options: DemoOptions) {
       evidenceAgent:
         evidenceAgentEnabled(process.env, now()) ||
         !!mastraOperatorConfiguration(process.env, now()) ||
-        !!mastraBackboardConfiguration(process.env, now()),
+        !!mastraBackboardConfiguration(process.env, now()) ||
+        !!sentryAgentConfiguration(process.env, now()),
       scope:
         "Bounded hosted operator integrations. Visitor access remains isolated.",
     });
@@ -1072,9 +1198,31 @@ export function createDemoRouter(options: DemoOptions) {
             identity: JSON.stringify(config.grant),
             modelRequests: 2 as const,
             searchTimeoutMs: 60_000 as const,
+            sentry: false,
             judge: config,
             operator: undefined,
             backboard: undefined,
+          }
+        : null;
+    }
+    if (process.env.BRIEFSTAMP_SENTRY_AGENT_PROOF_JSON !== undefined) {
+      if (
+        !authorizeSentryAgentOperator(req.headers, process.env, now()) ||
+        !authorizeRuntimeTrace(req.headers, process.env, now())
+      )
+        return null;
+      const config = sentryAgentConfiguration(process.env, now());
+      return config
+        ? {
+            identity: createHash("sha256")
+              .update(JSON.stringify(config.proof))
+              .digest("hex"),
+            modelRequests: 2 as const,
+            searchTimeoutMs: config.searchTimeoutMs,
+            operator: config,
+            backboard: config,
+            judge: undefined,
+            sentry: true,
           }
         : null;
     }
@@ -1091,6 +1239,7 @@ export function createDemoRouter(options: DemoOptions) {
             searchTimeoutMs: config.searchTimeoutMs,
             operator: config,
             backboard: config,
+            sentry: false,
             judge: undefined,
           }
         : null;
@@ -1107,6 +1256,7 @@ export function createDemoRouter(options: DemoOptions) {
             modelRequests: 2 as const,
             searchTimeoutMs: config.searchTimeoutMs,
             operator: config,
+            sentry: false,
             judge: undefined,
             backboard: undefined,
           }
@@ -1122,6 +1272,7 @@ export function createDemoRouter(options: DemoOptions) {
           modelRequests: config.proof.maxModelCalls,
           searchTimeoutMs: config.searchTimeoutMs ?? 10_000,
           operator: config,
+          sentry: false,
           judge: undefined,
           backboard: undefined,
         }
@@ -1232,7 +1383,11 @@ export function createDemoRouter(options: DemoOptions) {
         !judge &&
         !authorizeEvidenceAgent(req.headers, process.env, now()) &&
         !authorizeMastraOperator(req.headers, process.env, now()) &&
-        !authorizeMastraBackboardOperator(req.headers, process.env, now())
+        !authorizeMastraBackboardOperator(req.headers, process.env, now()) &&
+        !(
+          authorizeSentryAgentOperator(req.headers, process.env, now()) &&
+          authorizeRuntimeTrace(req.headers, process.env, now())
+        )
       )
         return notFound(res);
       if (judge && req.headers.origin !== new URL(HOSTED_WEBSITE_URL).origin)
@@ -1349,6 +1504,7 @@ export function createDemoRouter(options: DemoOptions) {
           }
         | undefined;
       let freeFundingCheckedAt: string | undefined;
+      let agentTrace: ReturnType<typeof createRuntimeTrace> | undefined;
       const toolReceipts: Array<{ tool: string; result: unknown }> = [];
       const providerAttempts: Array<{
         provider: "serpapi";
@@ -1457,7 +1613,11 @@ export function createDemoRouter(options: DemoOptions) {
               trancheId,
             );
           const reservation = config.backboard
-            ? await reserveMastraBackboardRun(reserveTiger, process.env, now())
+            ? await (
+                config.sentry
+                  ? reserveSentryAgentRun
+                  : reserveMastraBackboardRun
+              )(reserveTiger, process.env, now())
             : await reserveTiger(config.operator!.proof.trancheId);
           reserved = reservation.reserved;
           assertCurrent();
@@ -1475,9 +1635,17 @@ export function createDemoRouter(options: DemoOptions) {
           process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
             ? executeMastraEvidenceAgent
             : executeEvidenceAgent;
+        agentTrace = config.sentry
+          ? createRuntimeTrace(
+              "briefstamp.agent",
+              { checkCount: snapshot.checks.length, target: "sample" },
+              now,
+            )
+          : undefined;
         const result = await (options.evidenceAgent ?? selectedEngine)(
           { audit: snapshot, task: EVIDENCE_AGENT_TASK },
           {
+            trace: agentTrace,
             maxModelRequests: modelReservations,
             searchTimeoutMs,
             beforeModel: assertCurrent,
@@ -1496,12 +1664,11 @@ export function createDemoRouter(options: DemoOptions) {
                       signal,
                       reserve: async (metadata) => {
                         assertCurrent();
-                        await reserveMastraBackboardCall(
-                          request.phase,
-                          process.env,
-                          metadata,
-                          now(),
-                        );
+                        await (
+                          config.sentry
+                            ? reserveSentryAgentCall
+                            : reserveMastraBackboardCall
+                        )(request.phase, process.env, metadata, now());
                         assertCurrent();
                       },
                     }),
@@ -1517,12 +1684,11 @@ export function createDemoRouter(options: DemoOptions) {
                       operation === "failure_history" ||
                       operation === "search_visibility"
                     )
-                      await reserveMastraBackboardCall(
-                        operation,
-                        process.env,
-                        undefined,
-                        now(),
-                      );
+                      await (
+                        config.sentry
+                          ? reserveSentryAgentCall
+                          : reserveMastraBackboardCall
+                      )(operation, process.env, undefined, now());
                     assertCurrent();
                   },
                 }
@@ -1565,7 +1731,11 @@ export function createDemoRouter(options: DemoOptions) {
               const options = config.judge
                 ? await judgeSearchOptions(config.judge, judgeRunId!)
                 : config.backboard
-                  ? await mastraBackboardSearchOptions(req.headers)
+                  ? await (
+                      config.sentry
+                        ? sentryAgentSearchOptions
+                        : mastraBackboardSearchOptions
+                    )(req.headers)
                   : process.env.BRIEFSTAMP_MASTRA_AGENT_PROOF_JSON !== undefined
                     ? await mastraSearchOptions(req.headers)
                     : await agentSearchOptions(req.headers);
@@ -1631,8 +1801,17 @@ export function createDemoRouter(options: DemoOptions) {
             error:
               "The session or source changed during agent review. The allowance stays consumed; audit results are unchanged.",
           });
+        const runtimeTrace = agentTrace
+          ? await exportProtectedRuntimeTrace(
+              "agent",
+              agentTrace.finish({ outcome: "completed" }),
+              s,
+              snapshot,
+            )
+          : undefined;
         const envelope = {
           ...result,
+          ...(runtimeTrace ? { runtimeTrace } : {}),
           trancheId: config.judge
             ? judgeRunId!
             : config.operator!.proof.trancheId,
@@ -1695,7 +1874,16 @@ export function createDemoRouter(options: DemoOptions) {
           error.message === "EvidenceAgentSourceChanged"
             ? 409
             : 503;
+        const runtimeTrace = agentTrace
+          ? await exportProtectedRuntimeTrace(
+              "agent",
+              agentTrace.finish({ outcome: "failed" }),
+              s,
+              snapshot,
+            )
+          : undefined;
         const failure = {
+          ...(runtimeTrace ? { runtimeTrace } : {}),
           error:
             "The evidence-agent proof could not complete. Audit results are unchanged.",
           allowanceConsumed: reserved
@@ -1749,6 +1937,41 @@ export function createDemoRouter(options: DemoOptions) {
     };
   router.post("/api/audits/:id/agent-review", reviewEvidence(false));
   router.post("/api/audits/:id/judge-review", reviewEvidence(true));
+  router.post("/api/audits/:id/runtime-trace", async (req, res) => {
+    if (!authorizeRuntimeTrace(req.headers, process.env, now()))
+      return notFound(res);
+    z.object({}).strict().parse(req.body);
+    const s = session(res),
+      audit = s.audits.get(req.params.id);
+    if (!audit) return notFound(res);
+    if (audit.status !== "completed")
+      return res
+        .status(409)
+        .json({
+          error: "Only a completed audit has an exportable browser trace.",
+        });
+    const measurement = s.auditTraceMeasurements.get(audit.id);
+    if (!measurement || !tigerAvailable())
+      return res
+        .status(503)
+        .json({
+          error: "Observed timings or durable reservation storage unavailable.",
+        });
+    if (modelBusy || active)
+      return res
+        .status(409)
+        .json({
+          error: "Wait for the current browser or model operation to finish.",
+        });
+    modelBusy = true;
+    try {
+      return res.json(
+        await exportProtectedRuntimeTrace("audit", measurement, s, audit),
+      );
+    } finally {
+      modelBusy = false;
+    }
+  });
   router.post("/api/audits/:id/memory-answer", async (req, res) => {
     if (!authorizeBackboardAnswer(req.headers, process.env, now()))
       return notFound(res);
@@ -1764,12 +1987,10 @@ export function createDemoRouter(options: DemoOptions) {
       audit = s.audits.get(req.params.id);
     if (!audit) return notFound(res);
     if (audit.status !== "completed")
-      return res
-        .status(409)
-        .json({
-          error:
-            "A completed, saved audit is required to reserve the operator proof.",
-        });
+      return res.status(409).json({
+        error:
+          "A completed, saved audit is required to reserve the operator proof.",
+      });
     if (!tigerAvailable())
       return res
         .status(503)
@@ -1781,7 +2002,9 @@ export function createDemoRouter(options: DemoOptions) {
     while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
       gemmaStarts.shift();
     if (gemmaStarts.length >= 12)
-      return res.status(429).json({ error: "The shared hourly model budget is exhausted." });
+      return res
+        .status(429)
+        .json({ error: "The shared hourly model budget is exhausted." });
     const config = backboardAnswerConfiguration(process.env, now());
     if (!config) return notFound(res);
     const snapshot = structuredClone(audit);
@@ -1817,12 +2040,10 @@ export function createDemoRouter(options: DemoOptions) {
       reserved = reservation.reserved;
       assertCurrent();
       if (!reserved)
-        return res
-          .status(409)
-          .json({
-            error:
-              "This dedicated memory-answer grant is already reserved or spent.",
-          });
+        return res.status(409).json({
+          error:
+            "This dedicated memory-answer grant is already reserved or spent.",
+        });
       // Reserve the model slot even if retrieval or inference later fails.
       gemmaStarts.push(now());
       const result = await (
@@ -1873,32 +2094,30 @@ export function createDemoRouter(options: DemoOptions) {
           "Answer describes the separately identified historical Backboard record, not the reservation audit or a new browser observation.",
       });
     } catch (error) {
-      return res
-        .status(503)
-        .json({
-          status: "failed",
-          error:
-            "The memory answer did not complete. No generated answer is available.",
-          code:
-            error instanceof BackboardMemoryAnswerError
-              ? error.code
-              : "memory_answer_unavailable",
-          ...(error instanceof BackboardMemoryAnswerError
-            ? {
-                attempts: error.attempts,
-                facts: error.facts,
-                reservations: error.reservations,
-              }
-            : {}),
-          allowanceConsumed: reserved
-            ? true
-            : reservationAttempted
-              ? "unconfirmed"
-              : false,
-          neverRefund: true,
-          reservationAuditUnchanged: current(),
-          publicJudgeSlotsConsumed: 0,
-        });
+      return res.status(503).json({
+        status: "failed",
+        error:
+          "The memory answer did not complete. No generated answer is available.",
+        code:
+          error instanceof BackboardMemoryAnswerError
+            ? error.code
+            : "memory_answer_unavailable",
+        ...(error instanceof BackboardMemoryAnswerError
+          ? {
+              attempts: error.attempts,
+              facts: error.facts,
+              reservations: error.reservations,
+            }
+          : {}),
+        allowanceConsumed: reserved
+          ? true
+          : reservationAttempted
+            ? "unconfirmed"
+            : false,
+        neverRefund: true,
+        reservationAuditUnchanged: current(),
+        publicJudgeSlotsConsumed: 0,
+      });
     } finally {
       modelBusy = false;
     }

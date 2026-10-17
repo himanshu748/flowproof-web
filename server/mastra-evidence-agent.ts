@@ -9,6 +9,7 @@ import {
   validateCitations,
   normalizeFailureHistory,
   normalizeSearchVisibility,
+  evidenceModelTraceAttributes,
   type EvidenceAgentDependencies,
   type EvidenceAgentReceipt,
 } from "./evidence-agent.js";
@@ -184,23 +185,51 @@ export async function executeMastraEvidenceAgent(
       else receipt.modelTurns.push(record);
       try {
         await deps.reserveExternal?.(req.phase);
-        const result = await within<MastraModelTurn>(
-          async (signal) => {
-            deps.beforeModel?.();
-            return deps.backboardGenerate
-              ? deps.backboardGenerate(req, signal)
-              : deps.generate
-                ? deps.generate(req)
-                : generateGemmaEvidenceTurn(req, {
-                    env: deps.env,
-                    now: deps.now,
-                    signal,
-                    beforeRequest: deps.beforeModel,
-                    maxAttempts: 1,
-                  });
-          },
-          deps.backboardGenerate ? 30_000 : 20_000,
-        );
+        const provider = deps.backboardGenerate ? "Backboard" : "Google";
+        const attributes = evidenceModelTraceAttributes(provider, []);
+        const invoke = async () => {
+          try {
+            const result = await within<MastraModelTurn>(
+              async (signal) => {
+                deps.beforeModel?.();
+                return deps.backboardGenerate
+                  ? deps.backboardGenerate(req, signal)
+                  : deps.generate
+                    ? deps.generate(req)
+                    : generateGemmaEvidenceTurn(req, {
+                        env: deps.env,
+                        now: deps.now,
+                        signal,
+                        beforeRequest: deps.beforeModel,
+                        maxAttempts: 1,
+                      });
+              },
+              deps.backboardGenerate ? 30_000 : 20_000,
+            );
+            Object.assign(
+              attributes,
+              evidenceModelTraceAttributes(provider, result.attempts),
+            );
+            return result;
+          } catch (error) {
+            if (
+              error instanceof GemmaEvidenceProviderError ||
+              error instanceof BackboardGemmaEvidenceError
+            )
+              Object.assign(
+                attributes,
+                evidenceModelTraceAttributes(provider, error.attempts),
+              );
+            throw error;
+          }
+        };
+        const result = deps.trace
+          ? await deps.trace.span(
+              `briefstamp.agent.model.${req.phase}`,
+              invoke,
+              attributes,
+            )
+          : await invoke();
         if (
           result.model !==
             (deps.backboardGenerate
@@ -255,9 +284,9 @@ export async function executeMastraEvidenceAgent(
       const start = now();
       let observation;
       try {
-        deps.beforeModel?.();
-        observation =
-          entry.name === "failure_history"
+        const invoke = async () => {
+          deps.beforeModel?.();
+          return entry.name === "failure_history"
             ? normalizeFailureHistory(
                 await within(
                   (signal) =>
@@ -275,6 +304,14 @@ export async function executeMastraEvidenceAgent(
                 ),
                 parsed.id,
               );
+        };
+        observation = deps.trace
+          ? await deps.trace.span(
+              `briefstamp.agent.tool.${entry.name}`,
+              invoke,
+              { tool: entry.name },
+            )
+          : await invoke();
       } catch (error) {
         observation = EvidenceToolObservationSchema.parse({
           id: parsed.id,

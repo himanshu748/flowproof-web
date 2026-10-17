@@ -18,6 +18,10 @@ import {
   type EvidenceToolObservation,
 } from "./providers/gemma-evidence-agent.js";
 import { GOOGLE_GEMMA_MODEL } from "./providers/gemma-google.js";
+import type {
+  RuntimeTraceRecorder,
+  SafeRuntimeAttributes,
+} from "./runtime-trace.js";
 
 export {
   EVIDENCE_AGENT_TASK,
@@ -95,6 +99,8 @@ const HistoryRowsSchema = z
   )
   .max(20);
 export interface EvidenceAgentDependencies {
+  /** Trusted recorder only; this does not replace the actual provider transport. */
+  trace?: RuntimeTraceRecorder;
   /** Trusted durable grant only; two logical turns remain fixed. */
   maxModelRequests?: 2 | 6;
   /** Trusted search-only transport budget; never read from a model or HTTP body. */
@@ -109,6 +115,47 @@ export interface EvidenceAgentDependencies {
   searchVisibility: (signal: AbortSignal) => Promise<SearchVisibilityResult>;
   env?: NodeJS.ProcessEnv;
   now?: () => number;
+}
+/** Safe scalar observations only. Native retry spans cover one logical turn. */
+export function evidenceModelTraceAttributes(
+  provider: "Google" | "Backboard",
+  attempts: readonly {
+    durationMs: number;
+    usage: {
+      promptTokens?: number | null;
+      completionTokens?: number | null;
+      inputTokens?: number | null;
+      outputTokens?: number | null;
+      totalTokens?: number | null;
+    } | null;
+  }[],
+): SafeRuntimeAttributes {
+  const attributes: SafeRuntimeAttributes = {
+    provider,
+    model:
+      provider === "Google" ? GOOGLE_GEMMA_MODEL : "google/gemma-4-26b-a4b-it",
+  };
+  const known = (value: unknown): value is number =>
+    typeof value === "number" && Number.isFinite(value) && value >= 0;
+  // A turn with any unreported attempt usage must not pretend its successful
+  // response's tokens were the complete turn cost. Unknowns stay omitted.
+  for (const [key, source] of [
+    ["inputTokens", provider === "Google" ? "promptTokens" : "inputTokens"],
+    [
+      "outputTokens",
+      provider === "Google" ? "completionTokens" : "outputTokens",
+    ],
+    ["totalTokens", "totalTokens"],
+  ] as const) {
+    const values = attempts.map((attempt) => attempt.usage?.[source]);
+    if (values.length && values.every(known))
+      attributes[key] = values.reduce((total, value) => total + value, 0);
+  }
+  // Mastra has one physical attempt. Do not confuse native retry/backoff wall
+  // time with one provider's reported latency; the recorder measures the span.
+  if (attempts.length === 1 && known(attempts[0].durationMs))
+    attributes.modelLatencyMs = attempts[0].durationMs;
+  return attributes;
 }
 export interface EvidenceAgentReceipt {
   version: 1;
@@ -424,21 +471,45 @@ export async function executeEvidenceAgent(
     };
     receipt.modelTurns.push(record);
     try {
-      const result = await bounded(
-        (signal) => {
-          deps.beforeModel?.();
-          return deps.generate
-            ? deps.generate(request)
-            : generateGemmaEvidenceTurn(request, {
-                env: deps.env,
-                now: deps.now,
-                signal,
-                beforeRequest: deps.beforeModel,
-                maxAttempts: expandedBudget ? 3 : 1,
-              });
-        },
-        expandedBudget ? 32_000 : 20_000,
-      );
+      const attributes = evidenceModelTraceAttributes("Google", []);
+      const invoke = async () => {
+        try {
+          const result = await bounded(
+            (signal) => {
+              deps.beforeModel?.();
+              return deps.generate
+                ? deps.generate(request)
+                : generateGemmaEvidenceTurn(request, {
+                    env: deps.env,
+                    now: deps.now,
+                    signal,
+                    beforeRequest: deps.beforeModel,
+                    maxAttempts: expandedBudget ? 3 : 1,
+                  });
+            },
+            expandedBudget ? 32_000 : 20_000,
+          );
+          Object.assign(
+            attributes,
+            evidenceModelTraceAttributes("Google", result.attempts),
+          );
+          return result;
+        } catch (error) {
+          if (error instanceof GemmaEvidenceProviderError)
+            Object.assign(
+              attributes,
+              evidenceModelTraceAttributes("Google", error.attempts),
+            );
+          throw error;
+        }
+      };
+      const result = deps.trace
+        ? await deps.trace.span(
+            `briefstamp.agent.model.${request.phase}`,
+            invoke,
+            attributes,
+          )
+        : await invoke();
       const phaseAttempts = expandedBudget ? 3 : 1;
       if (
         result.model !== GOOGLE_GEMMA_MODEL ||
@@ -494,26 +565,35 @@ export async function executeEvidenceAgent(
       const started = now();
       let observation: EvidenceToolObservation;
       try {
-        if (tool.name === "failure_history") {
-          const result = await bounded(
-            (signal) => deps.failureHistory(tool.arguments.queryId, signal),
-            10_000,
-          );
-          observation = normalizeFailureHistory(
-            result,
-            input.audit.projectId,
-            tool.arguments.queryId,
-            id,
-          );
-        } else {
-          observation = normalizeSearchVisibility(
-            await bounded(
-              (signal) => deps.searchVisibility(signal),
-              maximumSearchDurationMs,
-            ),
-            id,
-          );
-        }
+        const invoke = async () => {
+          if (tool.name === "failure_history") {
+            const result = await bounded(
+              (signal) => deps.failureHistory(tool.arguments.queryId, signal),
+              10_000,
+            );
+            return normalizeFailureHistory(
+              result,
+              input.audit.projectId,
+              tool.arguments.queryId,
+              id,
+            );
+          } else {
+            return normalizeSearchVisibility(
+              await bounded(
+                (signal) => deps.searchVisibility(signal),
+                maximumSearchDurationMs,
+              ),
+              id,
+            );
+          }
+        };
+        observation = deps.trace
+          ? await deps.trace.span(
+              `briefstamp.agent.tool.${tool.name}`,
+              invoke,
+              { tool: tool.name },
+            )
+          : await invoke();
       } catch (error) {
         observation = {
           id,

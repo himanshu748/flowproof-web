@@ -90,6 +90,82 @@ describe("optional Sentry privacy boundary", () => {
     expect(JSON.stringify(envelope)).toContain('"briefstamp.checkCount":6');
   });
 
+  it("retains allowlisted root and child model metadata while dropping private or invalid fields", () => {
+    const secret = ["private", "prompt", "or", "provider", "response"].join(
+      "-",
+    );
+    const envelope = sanitizeTelemetryEnvelope([
+      {},
+      [
+        [
+          { type: "transaction" },
+          {
+            transaction: "briefstamp.agent",
+            start_timestamp: 1,
+            timestamp: 2,
+            contexts: {
+              trace: {
+                trace_id: "a".repeat(32),
+                span_id: "b".repeat(16),
+                op: "briefstamp.agent",
+                status: "ok",
+                data: {
+                  "briefstamp.checkCount": 6,
+                  "briefstamp.outcome": "completed",
+                  "briefstamp.inputTokens": 71,
+                  prompt: secret,
+                  url: secret,
+                  sessionId: secret,
+                },
+              },
+            },
+            spans: [
+              {
+                trace_id: "a".repeat(32),
+                span_id: "c".repeat(16),
+                parent_span_id: "b".repeat(16),
+                op: "briefstamp.agent.model.summarize",
+                description: "briefstamp.agent.model.summarize",
+                status: "ok",
+                start_timestamp: 1.5,
+                timestamp: 2,
+                data: {
+                  "briefstamp.provider": "Backboard",
+                  "briefstamp.model": "google/gemma-4-26b-a4b-it",
+                  "briefstamp.inputTokens": null,
+                  "briefstamp.outputTokens": 13,
+                  "briefstamp.totalTokens": 84,
+                  "briefstamp.modelLatencyMs": 53,
+                  "briefstamp.target": secret,
+                  "briefstamp.failed": 25,
+                  error: secret,
+                  response: secret,
+                },
+              },
+            ],
+          },
+        ],
+      ],
+    ]);
+    const event = envelope[1][0][1] as any;
+    expect(event.contexts.trace.data).toEqual({
+      "briefstamp.checkCount": 6,
+      "briefstamp.inputTokens": 71,
+      "briefstamp.outcome": "completed",
+    });
+    expect(event.spans[0].data).toEqual({
+      "briefstamp.provider": "Backboard",
+      "briefstamp.model": "google/gemma-4-26b-a4b-it",
+      "briefstamp.outputTokens": 13,
+      "briefstamp.totalTokens": 84,
+      "briefstamp.modelLatencyMs": 53,
+    });
+    expect(JSON.stringify(envelope)).not.toContain(secret);
+    expect(JSON.stringify(envelope)).not.toMatch(
+      /sessionId|prompt|response|url/,
+    );
+  });
+
   it("uses the real SDK local transport for safe spans and errors, with a hard envelope cap", async () => {
     const captured: unknown[] = [];
     const secret =

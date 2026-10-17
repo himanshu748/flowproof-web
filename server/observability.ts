@@ -1,4 +1,10 @@
 import * as Sentry from "@sentry/node";
+import {
+  RuntimeTraceMeasurementSchema,
+  runtimeSdkAttributes,
+  type RuntimeTraceMeasurement,
+  type SafeRuntimeAttributes,
+} from "./runtime-trace.js";
 
 export const operations = [
   "briefstamp.proposal",
@@ -10,16 +16,14 @@ export const operations = [
   "briefstamp.audit.summary",
   "briefstamp.report",
   "briefstamp.storage",
+  "briefstamp.agent",
+  "briefstamp.agent.model.select_tools",
+  "briefstamp.agent.model.summarize",
+  "briefstamp.agent.tool.failure_history",
+  "briefstamp.agent.tool.search_visibility",
 ] as const;
 export type Operation = (typeof operations)[number];
-export interface SafeTelemetryAttributes {
-  checkCount?: number;
-  passed?: number;
-  failed?: number;
-  blocked?: number;
-  unverified?: number;
-  target?: "sample" | "website";
-}
+export interface SafeTelemetryAttributes extends SafeRuntimeAttributes {}
 
 type JsonRecord = Record<string, unknown>;
 type SafeEnvelope = [JsonRecord, [JsonRecord, JsonRecord][]];
@@ -49,22 +53,7 @@ const number = (value: unknown) =>
     : undefined;
 
 function attributes(input: SafeTelemetryAttributes | JsonRecord): JsonRecord {
-  const source = input as JsonRecord;
-  const output: JsonRecord = {};
-  for (const key of [
-    "checkCount",
-    "passed",
-    "failed",
-    "blocked",
-    "unverified",
-  ] as const) {
-    const value = number(source[key] ?? source[`briefstamp.${key}`]);
-    if (value !== undefined && value <= 24) output[`briefstamp.${key}`] = value;
-  }
-  const target = source.target ?? source["briefstamp.target"];
-  if (target === "sample" || target === "website")
-    output["briefstamp.target"] = target;
-  return output;
+  return runtimeSdkAttributes(input);
 }
 
 function trace(input: unknown): JsonRecord | undefined {
@@ -80,6 +69,7 @@ function trace(input: unknown): JsonRecord | undefined {
       : {}),
     op: operation(input.op),
     status: input.status === "ok" ? "ok" : "unknown_error",
+    data: attributes(isRecord(input.data) ? input.data : {}),
   };
 }
 
@@ -246,9 +236,10 @@ export function initObservability(
     beforeSendTransaction: (event) =>
       sanitizeTelemetryEvent(event, true) as unknown as typeof event,
     transport: (transportOptions) => {
+      // No pooled socket means the SDK cannot retry a reused-socket reset.
       const destination = local
         ? null
-        : Sentry.makeNodeTransport(transportOptions);
+        : Sentry.makeNodeTransport({ ...transportOptions, keepAlive: false });
       return {
         send: async (envelope) => {
           const sanitized = sanitizeTelemetryEnvelope(envelope);
@@ -320,4 +311,47 @@ export async function flushObservability(): Promise<boolean> {
 export async function closeObservability(): Promise<void> {
   if (current.mode !== "disabled") await Sentry.close(2000);
   current = { mode: "disabled", hostedVerified: false, maxEnvelopes: 0 };
+}
+
+/** Reconstruct SDK spans from measured times only after the real work has ended. */
+export async function exportObservedRuntimeTrace(
+  value: RuntimeTraceMeasurement,
+): Promise<{ traceId: string; flushed: boolean }> {
+  const measurement = RuntimeTraceMeasurementSchema.parse(value);
+  if (current.mode === "disabled" || !measurement.complete)
+    throw new Error("Runtime trace export unavailable.");
+  const root = Sentry.startInactiveSpan({
+    name: measurement.operation,
+    op: measurement.operation,
+    parentSpan: null,
+    forceTransaction: true,
+    startTime: new Date(measurement.startedAtMs),
+    attributes: runtimeSdkAttributes(measurement.attributes),
+  });
+  const traceId = id(root.spanContext().traceId, 32);
+  if (!traceId || /^0+$/.test(traceId))
+    throw new Error("SDK did not create a trace.");
+  const spans = new Map<number, ReturnType<typeof Sentry.startInactiveSpan>>([
+    [0, root],
+  ]);
+  for (const observed of measurement.spans) {
+    spans.set(
+      observed.index,
+      Sentry.startInactiveSpan({
+        name: observed.operation,
+        op: observed.operation,
+        parentSpan: spans.get(observed.parentIndex)!,
+        startTime: new Date(observed.startedAtMs),
+        attributes: runtimeSdkAttributes(observed.attributes),
+      }),
+    );
+  }
+  for (const observed of [...measurement.spans].reverse()) {
+    const span = spans.get(observed.index)!;
+    span.setStatus({ code: observed.status === "ok" ? 1 : 2 });
+    span.end(new Date(observed.endedAtMs));
+  }
+  root.setStatus({ code: measurement.status === "ok" ? 1 : 2 });
+  root.end(new Date(measurement.endedAtMs));
+  return { traceId, flushed: await flushObservability() };
 }
