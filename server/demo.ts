@@ -79,6 +79,16 @@ import {
 } from "./mastra-backboard-gate";
 import { generateBackboardGemmaEvidenceTurn } from "./providers/backboard-gemma-evidence";
 import {
+  authorizeBackboardAnswer,
+  backboardAnswerConfiguration,
+  reserveBackboardAnswerCall,
+  reserveBackboardAnswerRun,
+} from "./backboard-answer-gate";
+import {
+  executeBackboardMemoryAnswer,
+  BackboardMemoryAnswerError,
+} from "./providers/backboard-memory-answer";
+import {
   judgeAgentConfiguration,
   judgeAgentEnabled,
   judgeSearchOptions,
@@ -86,6 +96,20 @@ import {
 } from "./judge-agent-gate";
 
 const COOKIE = "flowproof_demo";
+/** Mount before JSON parsing so an unauthenticated body cannot probe this operator route. */
+export function backboardAnswerHttpBoundary(
+  now: () => number = Date.now,
+): express.RequestHandler {
+  return (req, res, next) => {
+    if (
+      req.method === "POST" &&
+      /^\/api\/audits\/[^/]+\/memory-answer\/?$/i.test(req.path) &&
+      !authorizeBackboardAnswer(req.headers, process.env, now())
+    )
+      return res.status(404).json({ error: "Not found in this demo session." });
+    next();
+  };
+}
 const TTL = 30 * 60_000;
 const DEMO_BRIEF =
   'The homepage heading must say "Design that moves business forward."\nA contact link must say "Start a project".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show "Independent by design."\nThe site should feel welcoming and trustworthy.';
@@ -211,6 +235,8 @@ interface DemoOptions {
   tigerStore?: DemoTigerStore;
   /** Trusted test injection; this dependency is never accepted over HTTP. */
   evidenceAgent?: typeof executeEvidenceAgent;
+  /** Operator-only historical memory answer; trusted injection, never an HTTP payload. */
+  backboardMemoryAnswer?: typeof executeBackboardMemoryAnswer;
 }
 
 function integrations(
@@ -389,6 +415,12 @@ export function createDemoRouter(options: DemoOptions) {
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "no-referrer");
     res.setHeader("X-Frame-Options", "DENY");
+    if (
+      req.method === "POST" &&
+      /^\/api\/audits\/[^/]+\/memory-answer\/?$/i.test(req.path) &&
+      !authorizeBackboardAnswer(req.headers, process.env, now())
+    )
+      return res.status(404).json({ error: "Not found in this demo session." });
     if (
       req.method === "POST" &&
       /^\/api\/audits\/[^/]+\/agent-review\/?$/i.test(req.path) &&
@@ -1717,6 +1749,154 @@ export function createDemoRouter(options: DemoOptions) {
     };
   router.post("/api/audits/:id/agent-review", reviewEvidence(false));
   router.post("/api/audits/:id/judge-review", reviewEvidence(true));
+  router.post("/api/audits/:id/memory-answer", async (req, res) => {
+    if (!authorizeBackboardAnswer(req.headers, process.env, now()))
+      return notFound(res);
+    const body = z
+      .object({ modelConsent: z.boolean() })
+      .strict()
+      .parse(req.body);
+    if (!body.modelConsent)
+      return res
+        .status(400)
+        .json({ error: "Explicit model consent is required." });
+    const s = session(res),
+      audit = s.audits.get(req.params.id);
+    if (!audit) return notFound(res);
+    if (audit.status !== "completed")
+      return res
+        .status(409)
+        .json({
+          error:
+            "A completed, saved audit is required to reserve the operator proof.",
+        });
+    if (!tigerAvailable())
+      return res
+        .status(503)
+        .json({ error: "Durable reservation storage is unavailable." });
+    if (modelBusy || active)
+      return res
+        .status(429)
+        .json({ error: "A model or browser operation is already running." });
+    const config = backboardAnswerConfiguration(process.env, now());
+    if (!config) return notFound(res);
+    const snapshot = structuredClone(audit);
+    const current = () =>
+      s.expires > now() &&
+      isDeepStrictEqual(s.audits.get(audit.id), snapshot) &&
+      backboardAnswerConfiguration(process.env, now())?.proofSha256 ===
+        config.proofSha256;
+    const assertCurrent = () => {
+      if (!current()) throw new Error("MemoryAnswerSourceChanged");
+    };
+    let reserved = false,
+      reservationAttempted = false;
+    modelBusy = true;
+    try {
+      const stored = await tiger().getAudit(s.hash, audit.id);
+      assertCurrent();
+      if (
+        !isDeepStrictEqual(
+          JSON.parse(JSON.stringify(stored)),
+          JSON.parse(JSON.stringify(snapshot)),
+        )
+      )
+        return res
+          .status(409)
+          .json({ error: "Tiger's audit must match the browser observation." });
+      reservationAttempted = true;
+      const reservation = await reserveBackboardAnswerRun(
+        (id) => tiger().reserveAgentRun(s.hash, audit.projectId, audit.id, id),
+        process.env,
+        now(),
+      );
+      reserved = reservation.reserved;
+      assertCurrent();
+      if (!reserved)
+        return res
+          .status(409)
+          .json({
+            error:
+              "This dedicated memory-answer grant is already reserved or spent.",
+          });
+      const result = await (
+        options.backboardMemoryAnswer ?? executeBackboardMemoryAnswer
+      )(
+        {
+          projectScope: config.proof.projectScope,
+          auditScope: config.proof.auditScope,
+          expectedFactsSha256: config.proof.expectedFactsSha256,
+        },
+        {
+          apiKey: config.key,
+          assistantId: config.assistantId,
+          fetcher: fetch,
+          signal: AbortSignal.timeout(60000),
+          reserve: async (metadata) => {
+            assertCurrent();
+            await reserveBackboardAnswerCall(metadata, process.env, now());
+            assertCurrent();
+          },
+        },
+      );
+      assertCurrent();
+      const after = await tiger().getAudit(s.hash, audit.id);
+      assertCurrent();
+      if (
+        !isDeepStrictEqual(
+          JSON.parse(JSON.stringify(after)),
+          JSON.parse(JSON.stringify(snapshot)),
+        )
+      )
+        throw new Error("MemoryAnswerStoredAuditChanged");
+      return res.json({
+        ...result,
+        status: "completed",
+        reservation: {
+          trancheId: config.proof.trancheId,
+          consumed: true,
+          maxUnits: 2,
+          reservedExistingCreditUsd: 0.1,
+          neverRefund: true,
+          publicJudgeSlotsConsumed: 0,
+        },
+        reservationAuditId: audit.id,
+        reservationAuditUnchanged: true,
+        reservationAuditRoundTrip: "Tiger",
+        sourceScope:
+          "Answer describes the separately identified historical Backboard record, not the reservation audit or a new browser observation.",
+      });
+    } catch (error) {
+      return res
+        .status(503)
+        .json({
+          status: "failed",
+          error:
+            "The memory answer did not complete. No generated answer is available.",
+          code:
+            error instanceof BackboardMemoryAnswerError
+              ? error.code
+              : "memory_answer_unavailable",
+          ...(error instanceof BackboardMemoryAnswerError
+            ? {
+                attempts: error.attempts,
+                facts: error.facts,
+                reservations: error.reservations,
+              }
+            : {}),
+          allowanceConsumed: reserved
+            ? true
+            : reservationAttempted
+              ? "unconfirmed"
+              : false,
+          neverRefund: true,
+          reservationAuditUnchanged: current(),
+          publicJudgeSlotsConsumed: 0,
+        });
+    } finally {
+      modelBusy = false;
+    }
+  });
   router.post("/api/audits/:id/memory", async (req, res) => {
     if (!authorizeHostedBackboard(req.headers)) return notFound(res);
     z.object({}).strict().parse(req.body);

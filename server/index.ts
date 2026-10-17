@@ -26,7 +26,7 @@ import {
   readEvidence,
 } from "./store";
 import { renderReport } from "./report";
-import { createDemoRouter } from "./demo";
+import { createDemoRouter, backboardAnswerHttpBoundary } from "./demo";
 import { snapshotSource } from "../shared/compare-audits";
 import { optionalIntegrations } from "./optional-integrations";
 import {
@@ -88,6 +88,7 @@ app.use((req, res, next) => {
   }
   next();
 });
+if (demoMode) app.use(backboardAnswerHttpBoundary());
 app.use(express.json({ limit: "64kb" }));
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
