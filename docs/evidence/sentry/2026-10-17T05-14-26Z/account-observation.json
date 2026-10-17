@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-17T05:15:59.524Z",
+  "httpStatus": 200,
+  "freeUsd": 4.96,
+  "autoReloadEnabled": false,
+  "paymentMethodConfigured": false,
+  "scope": "Immediate account-wide observation, not exclusive attribution or final invoice",
+  "noPurchase": true,
+  "debitBucketGuaranteed": false
+}

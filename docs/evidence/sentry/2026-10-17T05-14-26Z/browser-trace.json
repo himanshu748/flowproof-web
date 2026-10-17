@@ -1,0 +1,41 @@
+{
+  "provider": "Sentry",
+  "mode": "hosted_configured",
+  "traceId": "18a90fd941524460ac662abb0b84dd9e",
+  "flushed": true,
+  "ingestionVerified": false,
+  "measurementSha256": "c5c3e9c770c0891c48a64a6db3f921e1dc4fd69e5c383ef2599b483303020caf",
+  "maxEnvelopes": 2,
+  "maxRssMiB": 95.38,
+  "measurement": {
+    "version": 1,
+    "operation": "briefstamp.audit",
+    "startedAtMs": 1792214072484,
+    "endedAtMs": 1792214088841,
+    "status": "ok",
+    "attributes": {
+      "checkCount": 6,
+      "target": "sample",
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1,
+      "outcome": "completed"
+    },
+    "spans": [
+      {
+        "index": 1,
+        "parentIndex": 0,
+        "operation": "briefstamp.audit.browser",
+        "startedAtMs": 1792214072487,
+        "endedAtMs": 1792214088839,
+        "status": "ok",
+        "attributes": {}
+      }
+    ],
+    "complete": true
+  },
+  "sourceAuditUnchanged": true,
+  "exportTiming": "After observed operation completed; SDK receives actual measured timestamps.",
+  "observedSpanCount": 2
+}

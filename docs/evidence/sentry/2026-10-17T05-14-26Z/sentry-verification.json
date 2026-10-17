@@ -1,0 +1,66 @@
+{
+  "checkedAt": "2026-10-17T05:20:51.818933Z",
+  "method": "Authenticated in-app browser; exact trace URLs, waterfall and root/model drawers. No new model/search calls.",
+  "ingestionVerified": true,
+  "originalApplicationReceiptsUnchanged": true,
+  "browser": {
+    "traceId": "18a90fd941524460ac662abb0b84dd9e",
+    "url": "https://himanshu-lj.sentry.io/explore/traces/trace/18a90fd941524460ac662abb0b84dd9e/?project=4512259776380928&statsPeriod=24h&timestamp=1792214072",
+    "spanCount": 2,
+    "rootStatus": "ok",
+    "rootDurationAsDisplayed": "16.36s",
+    "childDurationAsDisplayed": "16.35s",
+    "operations": [
+      "briefstamp.audit",
+      "briefstamp.audit.browser"
+    ],
+    "rootAttributesObserved": {
+      "checkCount": 6,
+      "passed": 2,
+      "failed": 3,
+      "blocked": 0,
+      "unverified": 1,
+      "outcome": "completed"
+    },
+    "screenshot": "sentry-browser.jpg",
+    "screenshotDescription": "Actual narrow in-app Sentry dashboard: exact 18a90fd94152 trace heading, Spans 2, Root Duration 16.36s, browser child 16.35s. Labels are truncated by the existing panel width; the matching full operation names were read in accessibility state."
+  },
+  "agent": {
+    "traceId": "656bdc691e484bc0a955acb778df323e",
+    "url": "https://himanshu-lj.sentry.io/explore/traces/trace/656bdc691e484bc0a955acb778df323e/?project=4512259776380928&statsPeriod=24h&timestamp=1792214101",
+    "spanCount": 5,
+    "rootStatus": "ok",
+    "rootDurationAsDisplayed": "22.35s",
+    "childrenAsDisplayed": [
+      {
+        "operation": "briefstamp.agent.model.select_tools",
+        "duration": "2.07s"
+      },
+      {
+        "operation": "briefstamp.agent.tool.search_visibility",
+        "duration": "800.00ms"
+      },
+      {
+        "operation": "briefstamp.agent.tool.failure_history",
+        "duration": "1.54s"
+      },
+      {
+        "operation": "briefstamp.agent.model.summarize",
+        "duration": "5.38s"
+      }
+    ],
+    "summarizeAttributesObserved": {
+      "model": "google/gemma-4-26b-a4b-it",
+      "provider": "Backboard",
+      "modelLatencyMs": 5273,
+      "status": "ok"
+    },
+    "tokenNamedAttributesPresent": false,
+    "tokenAttributeCause": "Unconfirmed. Present in measured application spans; absent from the dashboard-rendered ingested model attributes. No security settings changed.",
+    "screenshot": "sentry-agent.jpg",
+    "screenshotDescription": "Actual Sentry agent waterfall: exact 656bdc691e48 trace heading, Spans 5, Root Duration 22.35s, four model/tool children. Full names and root status were verified through accessibility state and the drawer.",
+    "modelScreenshot": "sentry-model.jpg",
+    "modelScreenshotDescription": "Actual narrow in-app model drawer, filtered to Briefstamp attributes and scrolled to Backboard/modelLatencyMs 5273. The existing panel wraps labels vertically; the full values were independently read in accessibility state and the sanitized dashboard projection."
+  },
+  "scope": "Custom spans measured during the actual hosted operations and exported after completion. This is not continuous cross-process propagation, automatic tracing of every public visit, an error-event proof, a benchmark or a claim that browser assertions passed."
+}

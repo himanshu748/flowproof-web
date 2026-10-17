@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-17T05:16:00.030Z",
+  "httpStatus": 200,
+  "plan": "Free Plan",
+  "status": "Active",
+  "monthlyPriceUsd": 0,
+  "extraCredits": 0,
+  "remainingSearches": 209,
+  "searchCalls": 0,
+  "scope": "Read-only account-wide observation, not exclusive search attribution"
+}

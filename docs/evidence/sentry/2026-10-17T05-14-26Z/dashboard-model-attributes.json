@@ -1,0 +1,90 @@
+{
+  "checkedAt": "2026-10-17T05:20:20.422Z",
+  "source": "Authenticated in-app browser, UI-rendered trace-item JSON",
+  "sourceUrl": "https://himanshu-lj.sentry.io/api/0/projects/himanshu-lj/briefstamp/trace-items/9f1f3aef9e3223de/?item_type=spans&trace_id=656bdc691e484bc0a955acb778df323e",
+  "traceId": "656bdc691e484bc0a955acb778df323e",
+  "itemId": "9f1f3aef9e3223de",
+  "attributeNames": [
+    "is_transaction",
+    "tags[is_remote,boolean]",
+    "precise.finish_ts",
+    "precise.start_ts",
+    "received",
+    "span.duration",
+    "span.self_time",
+    "tags[exclusive_time,number]",
+    "project_id",
+    "tags[briefstamp.modelLatencyMs,number]",
+    "briefstamp.model",
+    "briefstamp.provider",
+    "environment",
+    "hash",
+    "parent_span",
+    "platform",
+    "sdk.name",
+    "sdk.version",
+    "span.description",
+    "span.name",
+    "span.op",
+    "span.status",
+    "tags[user.geo.city,string]",
+    "tags[user.geo.country_code,string]",
+    "tags[user.geo.region,string]",
+    "tags[user.geo.subdivision,string]",
+    "trace",
+    "trace.status",
+    "transaction",
+    "transaction.event_id",
+    "transaction.op",
+    "transaction.span_id",
+    "user.geo.city",
+    "user.geo.country_code",
+    "user.geo.region",
+    "user.geo.subdivision",
+    "user.geo.subregion"
+  ],
+  "attributes": [
+    {
+      "name": "span.duration",
+      "type": "float",
+      "value": 5375.999928
+    },
+    {
+      "name": "tags[briefstamp.modelLatencyMs,number]",
+      "type": "int",
+      "value": "5273"
+    },
+    {
+      "name": "briefstamp.model",
+      "type": "str",
+      "value": "google/gemma-4-26b-a4b-it"
+    },
+    {
+      "name": "briefstamp.provider",
+      "type": "str",
+      "value": "Backboard"
+    },
+    {
+      "name": "span.description",
+      "type": "str",
+      "value": "briefstamp.agent.model.summarize"
+    },
+    {
+      "name": "span.name",
+      "type": "str",
+      "value": "briefstamp.agent.model.summarize"
+    },
+    {
+      "name": "span.op",
+      "type": "str",
+      "value": "briefstamp.agent.model.summarize"
+    },
+    {
+      "name": "span.status",
+      "type": "str",
+      "value": "ok"
+    }
+  ],
+  "tokenNamedAttributesPresent": false,
+  "scope": "Sanitized projection; hosting geography and unrelated metadata omitted. Missing usage fields are not independently dashboard-verified."
+}

@@ -1,0 +1,82 @@
+{
+  "provider": "Sentry",
+  "mode": "hosted_configured",
+  "traceId": "656bdc691e484bc0a955acb778df323e",
+  "flushed": true,
+  "ingestionVerified": false,
+  "measurementSha256": "8aa5c29aa5814250b33a256badd6ab5e7cd0958b9f1438cf9b30cba0d9394465",
+  "maxEnvelopes": 2,
+  "maxRssMiB": 94.9,
+  "measurement": {
+    "version": 1,
+    "operation": "briefstamp.agent",
+    "startedAtMs": 1792214101891,
+    "endedAtMs": 1792214124237,
+    "status": "ok",
+    "attributes": {
+      "checkCount": 6,
+      "target": "sample",
+      "outcome": "completed"
+    },
+    "spans": [
+      {
+        "index": 1,
+        "parentIndex": 0,
+        "operation": "briefstamp.agent.model.select_tools",
+        "startedAtMs": 1792214114441,
+        "endedAtMs": 1792214116508,
+        "status": "ok",
+        "attributes": {
+          "provider": "Backboard",
+          "model": "google/gemma-4-26b-a4b-it",
+          "inputTokens": 535,
+          "outputTokens": 34,
+          "totalTokens": 569,
+          "modelLatencyMs": 1969
+        }
+      },
+      {
+        "index": 2,
+        "parentIndex": 0,
+        "operation": "briefstamp.agent.tool.search_visibility",
+        "startedAtMs": 1792214116838,
+        "endedAtMs": 1792214117638,
+        "status": "ok",
+        "attributes": {
+          "tool": "search_visibility"
+        }
+      },
+      {
+        "index": 3,
+        "parentIndex": 0,
+        "operation": "briefstamp.agent.tool.failure_history",
+        "startedAtMs": 1792214116938,
+        "endedAtMs": 1792214118481,
+        "status": "ok",
+        "attributes": {
+          "tool": "failure_history"
+        }
+      },
+      {
+        "index": 4,
+        "parentIndex": 0,
+        "operation": "briefstamp.agent.model.summarize",
+        "startedAtMs": 1792214118642,
+        "endedAtMs": 1792214124018,
+        "status": "ok",
+        "attributes": {
+          "provider": "Backboard",
+          "model": "google/gemma-4-26b-a4b-it",
+          "inputTokens": 1266,
+          "outputTokens": 562,
+          "totalTokens": 1828,
+          "modelLatencyMs": 5273
+        }
+      }
+    ],
+    "complete": true
+  },
+  "sourceAuditUnchanged": true,
+  "exportTiming": "After observed operation completed; SDK receives actual measured timestamps.",
+  "observedSpanCount": 5
+}

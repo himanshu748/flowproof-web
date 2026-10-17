@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-17T05:15:56.096Z",
+  "trancheId": "a8daa8dc-59c8-4ba0-a639-d2e80bcef6f6",
+  "traceGrantId": "cbe9ae66-71cc-4be8-9f7a-d0c331c1cd14",
+  "usedRuns": 1,
+  "maximumRuns": 1,
+  "maximumReservedUnits": 4,
+  "reservedExistingCreditUsd": 0.2,
+  "usedExports": 2,
+  "maximumExports": 2,
+  "neverRefund": true,
+  "oldEnvironmentExactlyPreserved": true,
+  "oldFilesUnchanged": 108,
+  "publicJudgeGrantReset": false,
+  "billingChanges": 0,
+  "credentialTransfers": 0,
+  "newServices": 0
+}

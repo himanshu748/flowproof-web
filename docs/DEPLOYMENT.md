@@ -2,6 +2,12 @@
 
 Repository: https://github.com/himanshu748/flowproof-web (public).
 
+## Sentry runtime proof release, October 17
+
+Source `72e8a15e324b4702833b34ca4a116da8deba4a75` passed [1,451 app tests, 19 Python tests, build and real Chromium checks](evidence/sentry/2026-10-17T05-14-26Z/ci.json). The existing Free Render service deployed it as `dep-db9g6prrjlhs73enevo0`; [readback](evidence/sentry/2026-10-17T05-14-26Z/deployment.json) confirmed live at 05:14:10.914 UTC. This is the Task 3 draft-PR source; later verifier/docs commits do not change the deployed application.
+
+The [protected hosted run](evidence/sentry/2026-10-17T05-14-26Z/) observed the unchanged 2/3/0/1 synthetic audit, two Backboard/OpenRouter Gemma messages and both Tiger/SerpApi tools. Its two browser spans and five agent spans were independently verified in the authenticated Sentry dashboard. Actual provider usage was 1,801 input / 596 output tokens; ingested token attributes were absent. The dedicated four-unit grant and two-export grant are consumed without refund. All 108 earlier records and old environment values were preserved, judge slots stayed 4 → 4, and hosting, billing, credentials and the live DEV article were unchanged. [Boundaries](SENTRY_HOSTED.md).
+
 ## Delivery workspace release, October 16, 10:08 UTC
 
 Source **`4d8f7fd2440d68f795cdc3da42d0fa362bf8552d`** passed [CI 38884672613](https://github.com/himanshu748/flowproof-web/actions/runs/38884672613): **571 application tests, 19 Python tests**, build and real sample/browser audits. The existing **Free Render** service deployed `dep-db8ve6eq1p3s739hka50`, live at **10:08:06.044605 UTC**. The environment matched the previously verified spent-allowance configuration before and after deployment. No credential, provider budget, hosting plan or billing setting changed. [Deployment readback](evidence/dashboard/2026-10-16/deployment.json).

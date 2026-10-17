@@ -65,6 +65,12 @@ The earlier [09:13 UTC optional proof](HOSTED_OPTIONAL.md) separately ran one se
 
 The earlier optional-operation and all four operator-agent allowances are consumed, with [spent agent configuration verified](evidence/hosted-evidence-agent/2026-10-16T12-14-14Z/spent-reservations.json). Earlier failures and the partial search-timeout run remain retained. A restart or refreshed account timestamp does not replenish them. [Allowance boundaries](PROVIDER_ALLOWANCES.md) · [Release CI](https://github.com/himanshu748/flowproof-web/actions/runs/38898518897): **871 app tests, 19 Python tests, build and real Chromium audits**.
 
+## Hosted Sentry runtime proof
+
+The [October 17 hosted run](evidence/sentry/2026-10-17T05-14-26Z/) has independent dashboard proof of **two Chromium spans** and **five agent spans**, both roots `ok`. The latter covers both Gemma calls, Tiger retrieval and SerpApi search. Provider receipts recorded **1,801 input / 596 output tokens**; the dashboard retained model latency but omitted token-named attributes. [Actual screenshots and verification](evidence/sentry/2026-10-17T05-14-26Z/sentry-verification.json). Timings were exported after completion by an isolated SDK worker.
+
+The synthetic audit stayed **2 passed / 3 failed / 0 blocked / 1 unverified**, with exact Tiger readback. Four dedicated provider units and two exports are spent; the public judge counter stayed **4 → 4**, and all **108** earlier records matched. This is a protected existing mixed-credit proof, not automatic tracing of every public visit or error-event ingestion. [Exact source CI: 1,451 app tests, 19 Python tests, build and Chromium audits](evidence/sentry/2026-10-17T05-14-26Z/ci.json). The main sample path remains first.
+
 ## Limitations
 
 - Free Render may wake slowly before serving HTML. The app provides startup/retry states afterward. Sessions last up to 30 minutes, may reset on restart and allow four audits; download reports before leaving. Expiry recovery opens fresh, unapproved checks without replaying an action.

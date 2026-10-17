@@ -1,0 +1,677 @@
+{
+  "version": 1,
+  "status": "completed",
+  "transport": "backboard_openrouter_gemma",
+  "model": "gemma-4-26b-a4b-it",
+  "startedAt": "2026-10-17T05:15:01.892Z",
+  "task": "Review the recorded synthetic mobile-layout failures using the available failure history and the current search visibility of Briefstamp's owned homepage. Cite observed facts only.",
+  "sourceAuditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+  "modelTurns": [],
+  "toolCalls": [
+    {
+      "observationId": "tool-1",
+      "name": "failure_history",
+      "arguments": {
+        "queryId": "mobile_paraphrase"
+      },
+      "status": "observed",
+      "durationMs": 1544
+    },
+    {
+      "observationId": "tool-2",
+      "name": "search_visibility",
+      "arguments": {},
+      "status": "observed",
+      "durationMs": 800
+    }
+  ],
+  "observations": [
+    {
+      "id": "tool-1",
+      "type": "failure_history",
+      "status": "observed",
+      "queryId": "mobile_paraphrase",
+      "rows": [
+        {
+          "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+          "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+          "kind": "no_horizontal_overflow",
+          "status": "failed",
+          "retrieval": "hybrid-rrf",
+          "queryId": "mobile_paraphrase",
+          "lexicalScore": 0,
+          "lexicalRank": null,
+          "vectorRank": 1,
+          "cosine": 0.378126416634895,
+          "rrf": 0.01639344262295082
+        },
+        {
+          "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+          "checkId": "98971479-0535-4376-92a0-61440d53c177",
+          "kind": "heading",
+          "status": "failed",
+          "retrieval": "hybrid-rrf",
+          "queryId": "mobile_paraphrase",
+          "lexicalScore": 0,
+          "lexicalRank": null,
+          "vectorRank": 2,
+          "cosine": 0.20973292618194006,
+          "rrf": 0.016129032258064516
+        },
+        {
+          "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+          "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+          "kind": "image_alt",
+          "status": "failed",
+          "retrieval": "hybrid-rrf",
+          "queryId": "mobile_paraphrase",
+          "lexicalScore": 0,
+          "lexicalRank": null,
+          "vectorRank": 3,
+          "cosine": 0.023354533589156512,
+          "rrf": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "tool-2",
+      "type": "search_visibility",
+      "status": "observed",
+      "domain": "flowproof-demo.onrender.com",
+      "query": "site:flowproof-demo.onrender.com",
+      "observedAt": "2026-10-17T05:15:17.636Z",
+      "resultCount": 0
+    }
+  ],
+  "sourceAuditUnchanged": true,
+  "limits": {
+    "maximumModelCalls": 2,
+    "maximumLogicalModelTurns": 2,
+    "maximumToolCalls": 2,
+    "modelRetries": 0,
+    "toolRetries": 0,
+    "refundPerformed": false,
+    "maximumDurationMs": 90000,
+    "maximumSearchDurationMs": 60000
+  },
+  "scope": "Protected Mastra Agent over Backboard/OpenRouter Gemma; native-Google modelTurns is empty and actual provider turns/tokens are in backboardModelTurns. Tiger uses pgvector/full-text RRF; SerpApi uses one bounded fixed-domain search. No public judge allowance, automatic fallback or new acceptance verdict.",
+  "backboardModelTurns": [
+    {
+      "phase": "select_tools",
+      "result": {
+        "provider": "Backboard",
+        "transport": "backboard_openrouter_gemma",
+        "modelProvider": "openrouter",
+        "model": "google/gemma-4-26b-a4b-it",
+        "output": {
+          "tools": [
+            {
+              "name": "failure_history",
+              "arguments": {
+                "queryId": "mobile_paraphrase"
+              }
+            },
+            {
+              "name": "search_visibility",
+              "arguments": {}
+            }
+          ]
+        },
+        "usage": {
+          "inputTokens": 535,
+          "outputTokens": 34,
+          "totalTokens": 569
+        },
+        "attempts": [
+          {
+            "phase": "select_tools",
+            "index": 1,
+            "provider": "Backboard",
+            "transport": "backboard_openrouter_gemma",
+            "modelProvider": "openrouter",
+            "model": "google/gemma-4-26b-a4b-it",
+            "status": 200,
+            "providerStatus": "COMPLETED",
+            "durationMs": 1969,
+            "requestBytes": 1799,
+            "requestSha256": "790da928b9e86cf8f154d18629997431ba648b9060ef76f26f7e73ec3e3713fd",
+            "responseBytes": 991,
+            "responseComplete": true,
+            "responseSha256": "66064e999e5361c970e8eaca44eee8965dc7f888d8a487f1c1bb9d9f221efa5f",
+            "usage": {
+              "inputTokens": 535,
+              "outputTokens": 34,
+              "totalTokens": 569
+            },
+            "retryDelayMs": 0
+          }
+        ]
+      }
+    },
+    {
+      "phase": "summarize",
+      "result": {
+        "provider": "Backboard",
+        "transport": "backboard_openrouter_gemma",
+        "modelProvider": "openrouter",
+        "model": "google/gemma-4-26b-a4b-it",
+        "output": {
+          "findings": [
+            {
+              "type": "audit_result",
+              "observationId": "audit",
+              "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+              "checkId": "98971479-0535-4376-92a0-61440d53c177",
+              "status": "failed"
+            },
+            {
+              "type": "audit_result",
+              "observationId": "audit",
+              "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+              "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+              "status": "failed"
+            },
+            {
+              "type": "audit_result",
+              "observationId": "audit",
+              "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+              "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+              "status": "failed"
+            },
+            {
+              "type": "historical_failure",
+              "observationId": "tool-1",
+              "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+              "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+              "status": "failed"
+            },
+            {
+              "type": "historical_failure",
+              "observationId": "tool-1",
+              "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+              "checkId": "98971479-0535-4376-92a0-61440d53c177",
+              "status": "failed"
+            },
+            {
+              "type": "historical_failure",
+              "observationId": "tool-1",
+              "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+              "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+              "status": "failed"
+            },
+            {
+              "type": "search_snapshot",
+              "observationId": "tool-2",
+              "resultCount": 0
+            }
+          ],
+          "abstention": "none"
+        },
+        "usage": {
+          "inputTokens": 1266,
+          "outputTokens": 562,
+          "totalTokens": 1828
+        },
+        "attempts": [
+          {
+            "phase": "summarize",
+            "index": 1,
+            "provider": "Backboard",
+            "transport": "backboard_openrouter_gemma",
+            "modelProvider": "openrouter",
+            "model": "google/gemma-4-26b-a4b-it",
+            "status": 200,
+            "providerStatus": "COMPLETED",
+            "durationMs": 5273,
+            "requestBytes": 3849,
+            "requestSha256": "185ad3a56954a23dbd6aaf609a41b7a87d20d860f381ff227f858a1f5f0cf0c6",
+            "responseBytes": 2094,
+            "responseComplete": true,
+            "responseSha256": "4a385b55b19357967e464f550ad3d63b955ae111facab1fed7e854f268e6e107",
+            "usage": {
+              "inputTokens": 1266,
+              "outputTokens": 562,
+              "totalTokens": 1828
+            },
+            "retryDelayMs": 0
+          }
+        ]
+      }
+    }
+  ],
+  "auditObservation": {
+    "id": "audit",
+    "type": "audit_results",
+    "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+    "results": [
+      {
+        "checkId": "98971479-0535-4376-92a0-61440d53c177",
+        "kind": "heading",
+        "status": "failed"
+      },
+      {
+        "checkId": "7d8c9663-5c84-42f0-8c1d-7d9c2ebe784f",
+        "kind": "link",
+        "status": "passed"
+      },
+      {
+        "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+        "kind": "image_alt",
+        "status": "failed"
+      },
+      {
+        "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+        "kind": "no_horizontal_overflow",
+        "status": "failed"
+      },
+      {
+        "checkId": "56e8d16a-46c8-4366-9546-2e8533d798f5",
+        "kind": "text_visible",
+        "status": "passed"
+      },
+      {
+        "checkId": "49bd7594-2654-4d1d-97c1-fea92d911fd0",
+        "kind": "manual",
+        "status": "unverified"
+      }
+    ]
+  },
+  "selection": {
+    "tools": [
+      {
+        "name": "failure_history",
+        "arguments": {
+          "queryId": "mobile_paraphrase"
+        }
+      },
+      {
+        "name": "search_visibility",
+        "arguments": {}
+      }
+    ]
+  },
+  "modelOutput": {
+    "findings": [
+      {
+        "type": "audit_result",
+        "observationId": "audit",
+        "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+        "checkId": "98971479-0535-4376-92a0-61440d53c177",
+        "status": "failed"
+      },
+      {
+        "type": "audit_result",
+        "observationId": "audit",
+        "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+        "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+        "status": "failed"
+      },
+      {
+        "type": "audit_result",
+        "observationId": "audit",
+        "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+        "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+        "status": "failed"
+      },
+      {
+        "type": "historical_failure",
+        "observationId": "tool-1",
+        "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+        "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+        "status": "failed"
+      },
+      {
+        "type": "historical_failure",
+        "observationId": "tool-1",
+        "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+        "checkId": "98971479-0535-4376-92a0-61440d53c177",
+        "status": "failed"
+      },
+      {
+        "type": "historical_failure",
+        "observationId": "tool-1",
+        "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+        "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+        "status": "failed"
+      },
+      {
+        "type": "search_snapshot",
+        "observationId": "tool-2",
+        "resultCount": 0
+      }
+    ],
+    "abstention": "none"
+  },
+  "toolSelectionAbstained": false,
+  "orchestration": {
+    "provider": "Mastra Agent",
+    "package": "@mastra/core",
+    "version": "1.77.0",
+    "bridge": "backboard-gemma-json-to-ai-sdk-tool-calls",
+    "finalOutputSource": "validated-model-summary",
+    "maximumSteps": 2,
+    "modelRetries": 0,
+    "modelCalls": 2,
+    "steps": [
+      {
+        "index": 1,
+        "finishReason": "tool-calls",
+        "usage": {
+          "inputTokens": 535,
+          "outputTokens": 34,
+          "totalTokens": 569
+        },
+        "toolCalls": [
+          {
+            "toolCallId": "tool-1",
+            "toolName": "failure_history",
+            "args": {
+              "queryId": "mobile_paraphrase"
+            }
+          },
+          {
+            "toolCallId": "tool-2",
+            "toolName": "search_visibility",
+            "args": {}
+          }
+        ],
+        "toolResults": [
+          {
+            "toolCallId": "tool-1",
+            "toolName": "failure_history",
+            "result": {
+              "id": "tool-1",
+              "type": "failure_history",
+              "status": "observed",
+              "queryId": "mobile_paraphrase",
+              "rows": [
+                {
+                  "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+                  "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+                  "kind": "no_horizontal_overflow",
+                  "status": "failed",
+                  "retrieval": "hybrid-rrf",
+                  "queryId": "mobile_paraphrase",
+                  "lexicalScore": 0,
+                  "lexicalRank": null,
+                  "vectorRank": 1,
+                  "cosine": 0.378126416634895,
+                  "rrf": 0.01639344262295082
+                },
+                {
+                  "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+                  "checkId": "98971479-0535-4376-92a0-61440d53c177",
+                  "kind": "heading",
+                  "status": "failed",
+                  "retrieval": "hybrid-rrf",
+                  "queryId": "mobile_paraphrase",
+                  "lexicalScore": 0,
+                  "lexicalRank": null,
+                  "vectorRank": 2,
+                  "cosine": 0.20973292618194006,
+                  "rrf": 0.016129032258064516
+                },
+                {
+                  "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+                  "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+                  "kind": "image_alt",
+                  "status": "failed",
+                  "retrieval": "hybrid-rrf",
+                  "queryId": "mobile_paraphrase",
+                  "lexicalScore": 0,
+                  "lexicalRank": null,
+                  "vectorRank": 3,
+                  "cosine": 0.023354533589156512,
+                  "rrf": 0.015873015873015872
+                }
+              ]
+            }
+          },
+          {
+            "toolCallId": "tool-2",
+            "toolName": "search_visibility",
+            "result": {
+              "id": "tool-2",
+              "type": "search_visibility",
+              "status": "observed",
+              "domain": "flowproof-demo.onrender.com",
+              "query": "site:flowproof-demo.onrender.com",
+              "observedAt": "2026-10-17T05:15:17.636Z",
+              "resultCount": 0
+            }
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "finishReason": "stop",
+        "usage": {
+          "inputTokens": 1266,
+          "outputTokens": 562,
+          "totalTokens": 1828
+        },
+        "toolCalls": [],
+        "toolResults": []
+      }
+    ],
+    "toolCalls": [
+      {
+        "toolCallId": "tool-1",
+        "toolName": "failure_history",
+        "args": {
+          "queryId": "mobile_paraphrase"
+        }
+      },
+      {
+        "toolCallId": "tool-2",
+        "toolName": "search_visibility",
+        "args": {}
+      }
+    ],
+    "totalUsage": {
+      "inputTokens": 1801,
+      "outputTokens": 596,
+      "totalTokens": 2397
+    }
+  },
+  "factualSummary": [
+    "Mastra Agent coordinated the recorded tool observations; model findings are separate from unchanged browser acceptance results."
+  ],
+  "completedAt": "2026-10-17T05:15:24.237Z",
+  "runtimeTrace": {
+    "provider": "Sentry",
+    "mode": "hosted_configured",
+    "traceId": "656bdc691e484bc0a955acb778df323e",
+    "flushed": true,
+    "ingestionVerified": false,
+    "measurementSha256": "8aa5c29aa5814250b33a256badd6ab5e7cd0958b9f1438cf9b30cba0d9394465",
+    "maxEnvelopes": 2,
+    "maxRssMiB": 94.9,
+    "measurement": {
+      "version": 1,
+      "operation": "briefstamp.agent",
+      "startedAtMs": 1792214101891,
+      "endedAtMs": 1792214124237,
+      "status": "ok",
+      "attributes": {
+        "checkCount": 6,
+        "target": "sample",
+        "outcome": "completed"
+      },
+      "spans": [
+        {
+          "index": 1,
+          "parentIndex": 0,
+          "operation": "briefstamp.agent.model.select_tools",
+          "startedAtMs": 1792214114441,
+          "endedAtMs": 1792214116508,
+          "status": "ok",
+          "attributes": {
+            "provider": "Backboard",
+            "model": "google/gemma-4-26b-a4b-it",
+            "inputTokens": 535,
+            "outputTokens": 34,
+            "totalTokens": 569,
+            "modelLatencyMs": 1969
+          }
+        },
+        {
+          "index": 2,
+          "parentIndex": 0,
+          "operation": "briefstamp.agent.tool.search_visibility",
+          "startedAtMs": 1792214116838,
+          "endedAtMs": 1792214117638,
+          "status": "ok",
+          "attributes": {
+            "tool": "search_visibility"
+          }
+        },
+        {
+          "index": 3,
+          "parentIndex": 0,
+          "operation": "briefstamp.agent.tool.failure_history",
+          "startedAtMs": 1792214116938,
+          "endedAtMs": 1792214118481,
+          "status": "ok",
+          "attributes": {
+            "tool": "failure_history"
+          }
+        },
+        {
+          "index": 4,
+          "parentIndex": 0,
+          "operation": "briefstamp.agent.model.summarize",
+          "startedAtMs": 1792214118642,
+          "endedAtMs": 1792214124018,
+          "status": "ok",
+          "attributes": {
+            "provider": "Backboard",
+            "model": "google/gemma-4-26b-a4b-it",
+            "inputTokens": 1266,
+            "outputTokens": 562,
+            "totalTokens": 1828,
+            "modelLatencyMs": 5273
+          }
+        }
+      ],
+      "complete": true
+    },
+    "sourceAuditUnchanged": true,
+    "exportTiming": "After observed operation completed; SDK receives actual measured timestamps.",
+    "observedSpanCount": 5
+  },
+  "trancheId": "a8daa8dc-59c8-4ba0-a639-d2e80bcef6f6",
+  "reservation": {
+    "durable": "Tiger UNIQUE tranche",
+    "consumed": true,
+    "maxModelCalls": 2,
+    "maxSearchCalls": 1
+  },
+  "indexing": {
+    "indexed": 3,
+    "matched": 3,
+    "skipped": 0,
+    "model": "all-minilm:22m",
+    "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e"
+  },
+  "toolReceipts": [
+    {
+      "tool": "search_visibility",
+      "result": {
+        "provider": "SerpApi",
+        "domain": "flowproof-demo.onrender.com",
+        "query": "site:flowproof-demo.onrender.com",
+        "observedAt": "2026-10-17T05:15:17.636Z",
+        "results": [],
+        "status": "observed",
+        "limitation": "A bounded search snapshot, not proof that every page is indexed or a ranking guarantee. No result URL was visited."
+      }
+    },
+    {
+      "tool": "failure_history",
+      "result": [
+        {
+          "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+          "projectId": "b893855b-4b45-4026-bd91-476d3ffedc5f",
+          "checkId": "f44c139d-cafe-4634-82f5-4161278cdda8",
+          "kind": "no_horizontal_overflow",
+          "status": "failed",
+          "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+          "observed": "Document width is 1824px; viewport width is 390px.",
+          "textSha256": "3a9e09c5e2849ed97afcd2f629ee22dd0deba3418fd574aa3fb1ce4ab23a2223",
+          "model": "all-minilm:22m",
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e",
+          "lexicalScore": 0,
+          "lexicalRank": null,
+          "vectorRank": 1,
+          "cosine": 0.378126416634895,
+          "rrf": 0.01639344262295082,
+          "retrieval": "hybrid-rrf",
+          "queryId": "mobile_paraphrase"
+        },
+        {
+          "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+          "projectId": "b893855b-4b45-4026-bd91-476d3ffedc5f",
+          "checkId": "98971479-0535-4376-92a0-61440d53c177",
+          "kind": "heading",
+          "status": "failed",
+          "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+          "observed": "No visible heading exactly matches the expected text.",
+          "textSha256": "67f578f8c65a32a308d3e1a82859fd80d04337a26ed900d4d0fda39f10bad130",
+          "model": "all-minilm:22m",
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e",
+          "lexicalScore": 0,
+          "lexicalRank": null,
+          "vectorRank": 2,
+          "cosine": 0.20973292618194006,
+          "rrf": 0.016129032258064516,
+          "retrieval": "hybrid-rrf",
+          "queryId": "mobile_paraphrase"
+        },
+        {
+          "auditId": "b6b89ca1-f528-4f50-a49b-e40ee6d0fed1",
+          "projectId": "b893855b-4b45-4026-bd91-476d3ffedc5f",
+          "checkId": "ba29bad7-3369-42c1-8bb4-134b898d181e",
+          "kind": "image_alt",
+          "status": "failed",
+          "requirement": "Every content image must have nonempty alternative text.",
+          "observed": "1 of 1 images lack the required alternative text.",
+          "textSha256": "9020c270e0f55340b3cc32c8b95c8e04f6886e0c188474b60032c0a917276b1f",
+          "model": "all-minilm:22m",
+          "modelDigest": "1b226e2802dbb772b5fc32a58f103ca1804ef7501331012de126ab22f67475ef",
+          "catalogSha256": "7b4f6ebf422016524b8e0c3eabe5b85703700c9e209de4d9d3276b830568e75e",
+          "lexicalScore": 0,
+          "lexicalRank": null,
+          "vectorRank": 3,
+          "cosine": 0.023354533589156512,
+          "rrf": 0.015873015873015872,
+          "retrieval": "hybrid-rrf",
+          "queryId": "mobile_paraphrase"
+        }
+      ]
+    }
+  ],
+  "providerAttempts": [
+    {
+      "provider": "serpapi",
+      "operation": "search-visibility",
+      "startedAt": "2026-10-17T05:15:17.044Z",
+      "durationMs": 580,
+      "status": 200,
+      "outcome": "response"
+    }
+  ],
+  "pricing": {
+    "provider": "Backboard",
+    "modelProvider": "openrouter",
+    "model": "google/gemma-4-26b-a4b-it",
+    "checkedAt": "2026-10-17T04:58:44.859Z",
+    "mixedCreditApproved": true,
+    "reservedExistingCreditUsd": 0.2,
+    "scope": "Existing-credit proof, not free-only inference; no provider-enforced per-request spending cap"
+  },
+  "auditUnchanged": true,
+  "sourceAuditSha256": "9ba196ddc26d3a5bf08ee99378b5ea6ac99cf57efa5f6fc48d2ebf04e246e4df"
+}

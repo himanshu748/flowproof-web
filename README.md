@@ -38,7 +38,7 @@ flowchart LR
 | CI fixture: restored | **5 passed / 0 failed / 1 unverified** | [Four recoveries](docs/evidence/ci-regression-2026-10-15.json) |
 | Tinker LoRA vs few-shot | **69.55% fewer input tokens**; reference agreement **22/24 vs 23/24** | [Cost/quality comparison](docs/MODEL_RESULTS.md) |
 | Public evidence agent (tokenless HTTP) | **3 stored failures + 0 search matches**, cited by two actual Gemma responses; source audit **2/3/1** | [Public-route receipt](docs/evidence/judge-agent/2026-10-16T13-07-24Z/attempt-2/agent-run.json) |
-| Verification | **1,346 application tests, 19 Python tests, build and real Chromium audits** | [CI receipt](docs/evidence/backboard/2026-10-17T04-42-47Z/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/39003204540) |
+| Verification | **1,451 application tests, 19 Python tests, build and real Chromium audits** | [CI receipt](docs/evidence/sentry/2026-10-17T05-14-26Z/ci.json) · [Run](https://github.com/himanshu748/flowproof-web/actions/runs/39005146242) |
 
 On October 16, Google-hosted Gemma proposed the live-homepage plan: **5 passed / 0 failed / 1 unverified**; its wrong-heading control recorded **4 / 1 / 1**. Both audits round-tripped through Tiger. [Fresh model-to-browser receipt](docs/evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json).
 
@@ -56,7 +56,7 @@ Providers can fail: of four retained public attempts, one completed, two returne
 - **Mastra:** a real Agent owns tool execution and the second turn. A [protected hosted Backboard/OpenRouter Gemma run](docs/evidence/mastra/2026-10-17T04-08-48Z/) observed both Tiger/SerpApi tools and seven citations; the browser audit was unchanged. The public route uses Google Gemma. [Existing approval suspend/resume proof](docs/evidence/mastra-approval/2026-10-16T17-33-15Z/).
 - **Tinker:** real baseline/LoRA evaluation and one protected hosted proposal. [Proof](docs/HOSTED_TINKER.md).
 - **Tiger Data:** strict-TLS persistence and one SQL full-text/pgvector cosine query fused with RRF. A stored `vector(384)` column and valid DiskANN index are verified; the bounded query uses exact rankings. [Migration, real query and independent scores](docs/evidence/tiger-pgvector/2026-10-16T16-16-50Z/) · [Scope](docs/AGENT_RETRIEVAL.md).
-- **Sentry:** the new live Gemma proposal’s three spans were independently verified in its dashboard. [Proof](docs/SENTRY_HOSTED.md).
+- **Sentry:** authenticated dashboard verification covers two Chromium spans and five agent model/tool spans. Actual provider token usage is retained in the receipt; ingested token attributes remain absent. [Proof](docs/SENTRY_HOSTED.md).
 - **Backboard:** a protected hosted Gemma turn answers from six retrieved audit facts, with three validated failure claims and six supporting citations. [Proof](docs/BACKBOARD_MEMORY_ANSWER.md).
 - **Temporal:** the full evidence-agent workflow recovered from injected failures and worker death in real CI; permanent errors failed honestly. Provider responses were retained fixtures; no public judge allowance was used. [Histories and receipt](docs/evidence/temporal-agent/2026-10-16T16-05-48Z/) · [Scope](docs/TEMPORAL.md).
 - **SerpApi:** agent-selected public search plus approved title-presence controls: one exact-page hit and an honest empty demo search; mismatches and timeout retained. [Real responses and scope](docs/evidence/search-presence/2026-10-16T16-51-19Z/).

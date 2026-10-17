@@ -4,7 +4,7 @@
 
 ## What I Built
 
-Turn a client brief into approved browser checks and a proof-of-delivery report for freelancers. ₹499 per handoff is a pricing hypothesis.
+Turn briefs into approved browser checks and proof-of-delivery reports for freelancers. ₹499 per handoff is a pricing hypothesis.
 
 ## Demo and Code
 
@@ -12,9 +12,9 @@ Turn a client brief into approved browser checks and a proof-of-delivery report 
 
 ## How It Works
 
-Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. [Homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. Sentry displayed three proposal spans.
+Gemma proposes checks through Mastra; developers approve; Chromium observes; Tiger saves the audit. [Homepage proof](evidence/hosted-website/2026-10-16T09-10-55Z/receipt.json) recorded five passes, one unverified requirement and a deliberate wrong-heading failure. [Sentry](evidence/sentry/2026-10-17T05-14-26Z/) also verified two browser and five agent spans.
 
-A [hosted Mastra Agent](evidence/mastra/2026-10-17T04-08-48Z/) used Backboard/OpenRouter Gemma with Tiger and SerpApi, returning seven validated citations without changing the audit. Public routing retains Google. Separately, [Backboard memory](BACKBOARD_MEMORY_ANSWER.md) supplied six facts for three validated Gemma claims; repair remained unproven. Prose renders validated JSON. [CI](evidence/backboard/2026-10-17T04-42-47Z/ci.json): **1,346 app tests, 19 Python tests, build and Chromium checks**.
+A [hosted Mastra Agent](evidence/mastra/2026-10-17T04-08-48Z/) used Backboard/OpenRouter Gemma with Tiger and SerpApi, returning seven validated citations without changing the audit. Public routing retains Google. Separately, [Backboard memory](BACKBOARD_MEMORY_ANSWER.md) supplied six facts for three validated Gemma claims; repair remained unproven. Prose renders validated JSON. [CI](evidence/sentry/2026-10-17T05-14-26Z/ci.json): **1,451 app tests, 19 Python tests, build and Chromium checks**.
 
 ## Open Innovation
 
@@ -30,6 +30,6 @@ Author-reported: freelancer friend Priyanshu tried Briefstamp and said he “can
 
 ## Limitations and Next
 
-Fixed targets, expiring grants, operator-only fixed-question Backboard proof using mixed credit and unvalidated training examples. Retrieval uses three precomputed MiniLM queries over a pgvector column fused with full-text ranks (exact ranking, no index-use claim). Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: observed handoffs and pricing validation.
+Fixed targets, expiring grants, mixed-credit Backboard proof and unvalidated training examples. Sentry exports afterward; token attributes were absent in its dashboard. Retrieval uses three precomputed queries with pgvector/full-text ranks; no index-use claim. Empty search does not establish de-indexing. Video uses templates; audio listening remains unverified. Next: handoffs and pricing validation.
 
 AI assisted coding and drafting; verifier approvals are not customer acceptance.
