@@ -1,0 +1,110 @@
+{
+  "conclusion": "success",
+  "headSha": "fd8322d67176c4d8dfe7b4e722b5379418343f1c",
+  "jobs": [
+    {
+      "completedAt": "2026-10-18T09:20:03Z",
+      "conclusion": "success",
+      "databaseId": 117638362869,
+      "name": "bounded-workflows",
+      "startedAt": "2026-10-18T09:18:39Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run npm ci --legacy-peer-deps",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run npx playwright install --with-deps chromium",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run npm run build",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install official checksum-pinned Temporal development CLI",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Compile native proof entrypoints",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Real HTTP approval, native snapshots and synthetic Chromium",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Real Temporal retry and worker-only recovery with retained provider fixtures",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Bind receipts to the exact source SHA",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 23,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 24,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822135/job/117638362869"
+    }
+  ],
+  "name": "Briefstamp Week 2 bounded workflow proof",
+  "status": "completed",
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822135"
+}

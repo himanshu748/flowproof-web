@@ -1,0 +1,86 @@
+{
+  "conclusion": "success",
+  "headSha": "fd8322d67176c4d8dfe7b4e722b5379418343f1c",
+  "jobs": [
+    {
+      "completedAt": "2026-10-18T09:19:26Z",
+      "conclusion": "success",
+      "databaseId": 117638362988,
+      "name": "suspend-resume",
+      "startedAt": "2026-10-18T09:18:38Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run npm ci --legacy-peer-deps",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run npx playwright install --with-deps chromium",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Real Mastra suspension, approval payload and Chromium handoff",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Require a real suspended state and one browser execution",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822218/job/117638362988"
+    }
+  ],
+  "name": "Briefstamp Mastra approval proof",
+  "status": "completed",
+  "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822218"
+}

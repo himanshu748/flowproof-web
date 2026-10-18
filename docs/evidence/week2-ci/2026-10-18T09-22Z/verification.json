@@ -1,0 +1,36 @@
+{
+  "recordedAt": "2026-10-18T09:22:31.317160+00:00",
+  "sourceCommit": "fd8322d67176c4d8dfe7b4e722b5379418343f1c",
+  "runs": [
+    {
+      "runId": 39114822234,
+      "name": "Briefstamp browser acceptance",
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822234",
+      "conclusion": "success"
+    },
+    {
+      "runId": 39114822218,
+      "name": "Briefstamp Mastra approval proof",
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822218",
+      "conclusion": "success"
+    },
+    {
+      "runId": 39114822135,
+      "name": "Briefstamp Week 2 bounded workflow proof",
+      "url": "https://github.com/himanshu748/flowproof-web/actions/runs/39114822135",
+      "conclusion": "success"
+    }
+  ],
+  "evidence": "GitHub authenticated run/job/step status metadata; all three exact-SHA jobs concluded success",
+  "artifactDownload": {
+    "runId": 39114822135,
+    "artifact": "week2-bounded-workflow-evidence",
+    "outcome": "denied",
+    "reason": "Artifact storage proxy403 on productionresultssa0.blob.core.windows.net",
+    "signedUrlRetained": false,
+    "retriedOrBypassed": false,
+    "rawArtifactRecovered": false
+  },
+  "hostedEvidence": false,
+  "freshProviderCallsInProofs": 0
+}
