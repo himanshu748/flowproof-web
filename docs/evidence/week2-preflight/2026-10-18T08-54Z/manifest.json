@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "file": "browser-download-denied.txt",
+      "sha256": "974b15bb5f96001f5f1735bb3daf064aba45687e909a319600490df1a6b0041e",
+      "bytes": 3792
+    },
+    {
+      "file": "initial-public-runtime-unbuilt-landing.txt",
+      "sha256": "7e6b3bc8498af30463e9268ffa997f5f0968366e0bf2a078a46ca30e03d10211",
+      "bytes": 160
+    },
+    {
+      "file": "initial-tests-missing-browser.txt",
+      "sha256": "2126efc88abd640e5e24ff5fca12cbac263e984b06980f5a35075c92f7d2c044",
+      "bytes": 8054
+    },
+    {
+      "file": "preflight.json",
+      "sha256": "ae415694610290d87da9d9d11eb30b47c506acb7b6877a0a0eedeb918783963e",
+      "bytes": 1948
+    }
+  ]
+}

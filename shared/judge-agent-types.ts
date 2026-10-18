@@ -54,8 +54,31 @@ export interface JudgeAgentAttempt {
   } | null;
   retryDelayMs?: number;
 }
+/** Counts are derived from the actual Temporal history for this session's run. */
+export interface TemporalAgentReceipt {
+  workflowId: string;
+  runId: string;
+  status: "running" | "completed" | "failed";
+  progress?: { phase: string; auditId: string };
+  activities?: Record<
+    string,
+    {
+      scheduled: number;
+      completed: number;
+      failed: number;
+      attempts: number;
+      retries: number;
+      completedEventIds: string[];
+    }
+  >;
+}
+export interface TemporalAgentStatus {
+  available: boolean;
+  temporal?: TemporalAgentReceipt;
+}
 export interface JudgeAgentResult {
   orchestration?: Record<string, unknown>;
+  temporal?: TemporalAgentReceipt;
   status:
     | "running"
     | "completed"

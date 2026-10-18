@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-10-18T08:59:54.154Z",
+  "status": "failed",
+  "sourceCommit": "939904cb084e3f941fc02a58b0a8e8a1fe1744b8",
+  "scope": "Real isolated local/CI Mastra worker suspension and resumption; retained actual Gemma proposal replay, fresh synthetic Chromium only",
+  "fixture": {
+    "file": "docs/evidence/hosted-open-model/2026-10-15T10-55-27Z/generated-project.json",
+    "sha256": "02a6aa41d4787bb3f310e05fae2799719f9cb44d1639c7f7a54248619af55ea0",
+    "freshModelInference": false
+  },
+  "approvalActor": "Owner-instructed automated verifier; not human or customer acceptance",
+  "remoteProviderCalls": 0,
+  "publicJudgeReservationsConsumed": 0,
+  "durableMastraStorage": false,
+  "hostedApprovalFlow": false,
+  "runId": "db3c5de0-8792-4e0d-826d-be309880fe48",
+  "workflowId": "briefstamp-explicit-approval",
+  "suspended": {
+    "status": "suspended",
+    "browserCalls": 0,
+    "proposalCalls": 1,
+    "planDigest": "30b3f6871b0ae9db8b833def59318493110dba78e92b995d4d0af177748baf46"
+  },
+  "results": {
+    "passed": 0,
+    "failed": 0,
+    "blocked": 5,
+    "unverified": 1
+  },
+  "failure": {
+    "name": "AssertionError",
+    "message": "The healthy retained plan must execute in Chromium, not return blocked placeholders\n+ actual - expected\n\n  {\n+   blocked: 5,\n-   blocked: 0,\n    failed: 0,\n+   passed: 0,\n-   passed: 5,\n    unverified: 1\n  }\n"
+  },
+  "proposalReplayCalls": 1,
+  "browserCalls": 1
+}

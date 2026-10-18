@@ -16,6 +16,39 @@ export interface Check {
   viewport: "desktop" | "mobile";
   approved: boolean;
 }
+/** Receipt emitted by the real Mastra approval workflow, scoped to this process. */
+export interface ApprovalWorkflowReceipt {
+  provider: "Mastra";
+  package: "@mastra/core";
+  version: "1.77.0";
+  workflowId: string;
+  runId: string;
+  status: "suspended" | "success" | "failed";
+  scope: "process-local";
+  durable: false;
+  maxRssMiB: number;
+  steps: Array<{ id: string; status: string }>;
+  lifecycle?: Array<{
+    phase: "approval" | "browser" | "complete";
+    status: string;
+    runId: string;
+    snapshotSha256: string | null;
+    workerMaxRssMiB: number;
+    workerExited: true;
+  }>;
+  suspension?: {
+    reason: string;
+    scope: "process-local";
+    checks: Check[];
+    checkIds: string[];
+    planDigest: string;
+  };
+  result?: {
+    results: CheckResult[];
+    approvedCheckIds: string[];
+    planDigest: string;
+  };
+}
 export interface Project {
   id: string;
   name: string;
@@ -27,6 +60,7 @@ export interface Project {
   checks: Check[];
   createdAt: string;
   updatedAt: string;
+  approvalWorkflow?: ApprovalWorkflowReceipt;
   generator: {
     provider: string;
     model: string | null;
@@ -98,6 +132,7 @@ export interface Audit {
   error?: string;
   summary?: string;
   workflow?: { provider: "Temporal"; workflowId: string; runId: string };
+  approvalWorkflow?: ApprovalWorkflowReceipt;
 }
 export interface IntegrationStatus {
   name: string;

@@ -35,7 +35,7 @@ const receipt = {
   startedAt,
   status: "running",
   scope:
-    "Real public demo HTTP API and Chromium, synthetic samples, 256 MB V8 heap",
+    "Real public demo HTTP API and Chromium, synthetic samples, 96 MB V8 heap",
   approvalActor:
     "Automated synthetic verification harness; not human or customer approval",
   externalProvidersEnabled: false,
@@ -310,12 +310,10 @@ export async function resolve(specifier, context, nextResolve) {
     BRIEFSTAMP_ELEVENLABS_ENABLED: "false",
   });
   const args = [
-    "--max-old-space-size=256",
+    "--max-old-space-size=96",
     "--import",
     preloadFile,
-    "--import",
-    "tsx",
-    "server/index.ts",
+    "dist-server/index.js",
   ];
   child = spawn(process.execPath, args, {
     cwd: root,
@@ -335,7 +333,7 @@ export async function resolve(specifier, context, nextResolve) {
     exited = { code, signal };
   });
   receipt.nodeVersion = process.version;
-  receipt.heapLimitMiB = 256;
+  receipt.heapLimitMiB = 96;
   const startupDeadline = Date.now() + 40_000;
   while (
     !stdout.includes(`:${port} (isolated public demo)`) &&
@@ -469,7 +467,7 @@ export async function resolve(specifier, context, nextResolve) {
     JSON.stringify(receipt, null, 2),
   );
   await rm(temporary, { recursive: true, force: true });
-  const summary = `Public runtime (256 MiB heap): **${receipt.status}**. ${receipt.audits.map((audit) => `${audit.variant}: ${audit.counts.passed} passed, ${audit.counts.failed} failed, ${audit.counts.unverified} unverified`).join("; ")}. Synthetic test-harness approval only.\n`;
+  const summary = `Public runtime (96 MiB heap): **${receipt.status}**. ${receipt.audits.map((audit) => `${audit.variant}: ${audit.counts.passed} passed, ${audit.counts.failed} failed, ${audit.counts.unverified} unverified`).join("; ")}. Synthetic test-harness approval only.\n`;
   if (process.env.GITHUB_STEP_SUMMARY)
     await appendFile(process.env.GITHUB_STEP_SUMMARY, summary);
   console.log(

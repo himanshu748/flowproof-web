@@ -344,3 +344,75 @@ describe("actual Mastra explicit approval workflow", () => {
     expect(failed.execute).not.toHaveBeenCalled();
   });
 });
+
+describe("native Mastra checkpoint round trip for the external browser", () => {
+  it("restores two genuine SDK snapshots without repeating model selection and validates actual returned evidence", async () => {
+    const propose = vi.fn(async () => proposal());
+    const forbidden = vi.fn(async (): Promise<CheckResult[]> => {
+      throw new Error("Browser must execute after SDK process exit");
+    });
+    const first = await createApprovalWorkflow({
+      externalBrowser: true,
+      propose,
+      execute: forbidden,
+    });
+    const run = await first.workflow.createRun();
+    const paused = await run.start({
+      inputData: { brief: "A fixed controlled checkpoint brief." },
+    });
+    const plan = suspendedPlan(paused);
+    const beforeApproval = await first.exportSnapshot(run.runId);
+    const second = await createApprovalWorkflow({
+      externalBrowser: true,
+      propose,
+      execute: forbidden,
+    });
+    await second.restoreSnapshot(beforeApproval);
+    const restored = await second.workflow.createRun({ runId: run.runId });
+    const dispatch = await restored.resume({
+      step: APPROVAL_STEP_ID,
+      resumeData: {
+        planDigest: plan.planDigest,
+        approvedCheckIds: ["heading", "manual"],
+      },
+    });
+    expect(dispatch.status).toBe("suspended");
+    expect(dispatch.steps["browser-handoff"].status).toBe("suspended");
+    const afterApproval = await second.exportSnapshot(run.runId);
+    const third = await createApprovalWorkflow({
+      externalBrowser: true,
+      propose,
+      execute: forbidden,
+    });
+    await third.restoreSnapshot(afterApproval);
+    const final = await third.workflow.createRun({ runId: run.runId });
+    const result = await final.resume({
+      step: "browser-handoff",
+      resumeData: {
+        planDigest: plan.planDigest,
+        results: observed(proposal().filter((c) => c.id !== "mobile")),
+      },
+    });
+    expect(result.status).toBe("success");
+    expect(propose).toHaveBeenCalledOnce();
+    expect(forbidden).not.toHaveBeenCalled();
+  });
+  it("refuses a changed native snapshot before restoring the SDK run", async () => {
+    const h = await setup();
+    await h.start();
+    const snapshot = await h.exportSnapshot(h.run.runId);
+    const value = snapshot.context["validate-proposal"];
+    if (value.status !== "success")
+      throw new Error("Expected native validated step output");
+    value.output.checks[0].expected = "Altered assertion";
+    const receiver = await createApprovalWorkflow({
+      externalBrowser: true,
+      propose: h.propose,
+      execute: h.execute,
+    });
+    await expect(receiver.restoreSnapshot(snapshot)).rejects.toThrow(
+      "immutable approval boundary",
+    );
+    expect(h.execute).not.toHaveBeenCalled();
+  });
+});

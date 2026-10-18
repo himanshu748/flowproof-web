@@ -1,0 +1,550 @@
+{
+  "runId": "71b5b166-d606-4f51-b6ba-ee990b7f6eb8",
+  "status": "suspended",
+  "value": {},
+  "context": {
+    "input": {
+      "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy."
+    },
+    "propose-checks": {
+      "payload": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy."
+      },
+      "startedAt": 1792314557957,
+      "status": "success",
+      "output": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+        "proposal": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": false
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": false
+          }
+        ]
+      },
+      "endedAt": 1792314557964
+    },
+    "validate-proposal": {
+      "payload": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+        "proposal": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": false
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": false
+          }
+        ]
+      },
+      "startedAt": 1792314557964,
+      "status": "success",
+      "output": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+        "checks": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": false
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": false
+          }
+        ],
+        "checkIds": [
+          "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+          "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+          "9965d410-c996-43ba-978f-c637276dd9a1",
+          "4e381824-3fd0-4560-bcf8-eb966209f69f",
+          "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+          "cac4ddb1-6105-4717-b699-4808bebfaa76"
+        ],
+        "planDigest": "07ed83fda23ab69ea89370bd44a49b37b4d9540d7f95f3f373aa7212053a9605"
+      },
+      "endedAt": 1792314557966
+    },
+    "await-developer-approval": {
+      "payload": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+        "checks": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": false
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": false
+          }
+        ],
+        "checkIds": [
+          "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+          "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+          "9965d410-c996-43ba-978f-c637276dd9a1",
+          "4e381824-3fd0-4560-bcf8-eb966209f69f",
+          "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+          "cac4ddb1-6105-4717-b699-4808bebfaa76"
+        ],
+        "planDigest": "07ed83fda23ab69ea89370bd44a49b37b4d9540d7f95f3f373aa7212053a9605"
+      },
+      "startedAt": 1792314557967,
+      "status": "success",
+      "resumePayload": {
+        "planDigest": "07ed83fda23ab69ea89370bd44a49b37b4d9540d7f95f3f373aa7212053a9605",
+        "approvedCheckIds": [
+          "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+          "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+          "9965d410-c996-43ba-978f-c637276dd9a1",
+          "4e381824-3fd0-4560-bcf8-eb966209f69f",
+          "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+          "cac4ddb1-6105-4717-b699-4808bebfaa76"
+        ]
+      },
+      "resumedAt": 1792314558914,
+      "output": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+        "approvedChecks": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": true
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": true
+          }
+        ],
+        "approvedCheckIds": [
+          "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+          "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+          "9965d410-c996-43ba-978f-c637276dd9a1",
+          "4e381824-3fd0-4560-bcf8-eb966209f69f",
+          "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+          "cac4ddb1-6105-4717-b699-4808bebfaa76"
+        ],
+        "planDigest": "07ed83fda23ab69ea89370bd44a49b37b4d9540d7f95f3f373aa7212053a9605"
+      },
+      "endedAt": 1792314558915
+    },
+    "browser-handoff": {
+      "payload": {
+        "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+        "approvedChecks": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": true
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": true
+          }
+        ],
+        "approvedCheckIds": [
+          "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+          "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+          "9965d410-c996-43ba-978f-c637276dd9a1",
+          "4e381824-3fd0-4560-bcf8-eb966209f69f",
+          "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+          "cac4ddb1-6105-4717-b699-4808bebfaa76"
+        ],
+        "planDigest": "07ed83fda23ab69ea89370bd44a49b37b4d9540d7f95f3f373aa7212053a9605"
+      },
+      "startedAt": 1792314558916,
+      "status": "suspended",
+      "suspendPayload": {
+        "reason": "Awaiting the actual external Chromium result.",
+        "scope": "process-local",
+        "checks": [
+          {
+            "id": "4f08f233-6caa-4d51-9eb1-3425fe3591bb",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "a4fdd86f-f9da-40ac-8350-a736506dd1e0",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "9965d410-c996-43ba-978f-c637276dd9a1",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "4e381824-3fd0-4560-bcf8-eb966209f69f",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": true
+          },
+          {
+            "id": "5e2e5ec3-601c-40c3-baae-f0abf51f485d",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": true
+          },
+          {
+            "id": "cac4ddb1-6105-4717-b699-4808bebfaa76",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": true
+          }
+        ],
+        "context": {
+          "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+          "planDigest": "07ed83fda23ab69ea89370bd44a49b37b4d9540d7f95f3f373aa7212053a9605",
+          "runId": "71b5b166-d606-4f51-b6ba-ee990b7f6eb8"
+        }
+      },
+      "suspendedAt": 1792314558916
+    }
+  },
+  "activePaths": [
+    3
+  ],
+  "stepExecutionPath": [
+    "propose-checks",
+    "validate-proposal",
+    "await-developer-approval",
+    "browser-handoff"
+  ],
+  "activeStepsPath": {},
+  "serializedStepGraph": [
+    {
+      "type": "step",
+      "step": {
+        "id": "propose-checks",
+        "canSuspend": false
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "id": "validate-proposal",
+        "canSuspend": false
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "id": "await-developer-approval",
+        "canSuspend": true
+      }
+    },
+    {
+      "type": "step",
+      "step": {
+        "id": "browser-handoff",
+        "canSuspend": true
+      }
+    }
+  ],
+  "suspendedPaths": {
+    "browser-handoff": [
+      3
+    ]
+  },
+  "waitingPaths": {},
+  "resumeLabels": {},
+  "requestContext": {},
+  "timestamp": 1792314558917,
+  "tracingContext": {}
+}

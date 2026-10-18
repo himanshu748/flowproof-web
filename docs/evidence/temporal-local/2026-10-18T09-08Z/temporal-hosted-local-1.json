@@ -1,0 +1,15 @@
+{
+  "scope": "LOCAL real Temporal CLI/SDK lifecycle; retained provider fixtures only, zero network model/search calls and zero grant reservations. Not hosted evidence.",
+  "status": "failed",
+  "failure": {
+    "name": "TypeError",
+    "message": "Failed to convert WorkerOptions to CoreWorkerConfig: `max_cached_workflows` > 0 requires `workflow_task_poller_behavior` to be at least 2"
+  },
+  "counts": {
+    "model": 0,
+    "tiger": 0,
+    "search": 0
+  },
+  "maximumCombinedRssKiB": 389960,
+  "memoryLimitations": "Local parent plus direct child RSS sampling, not a Render cgroup or full web/browser memory measurement. Shared pages may be counted twice."
+}

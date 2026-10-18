@@ -1,0 +1,138 @@
+{
+  "provider": "Mastra",
+  "package": "@mastra/core",
+  "version": "1.77.0",
+  "workflowId": "briefstamp-explicit-approval",
+  "runId": "db3c5de0-8792-4e0d-826d-be309880fe48",
+  "status": "success",
+  "scope": "process-local",
+  "durable": false,
+  "maxRssMiB": 219.09,
+  "steps": [
+    {
+      "id": "propose-checks",
+      "status": "success"
+    },
+    {
+      "id": "validate-proposal",
+      "status": "success"
+    },
+    {
+      "id": "await-developer-approval",
+      "status": "success"
+    },
+    {
+      "id": "browser-handoff",
+      "status": "success"
+    }
+  ],
+  "result": {
+    "results": [
+      {
+        "checkId": "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+        "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+        "kind": "heading",
+        "status": "blocked",
+        "expected": "Design that moves business forward.",
+        "durationMs": 0,
+        "evidence": {
+          "observed": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+        "requirement": "A contact link must say \"Start a project\".",
+        "kind": "link",
+        "status": "blocked",
+        "expected": "Start a project",
+        "durationMs": 0,
+        "evidence": {
+          "observed": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+        "requirement": "Every content image must have nonempty alternative text.",
+        "kind": "image_alt",
+        "status": "blocked",
+        "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+        "durationMs": 0,
+        "evidence": {
+          "observed": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+        "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "status": "blocked",
+        "expected": "No horizontal scrolling",
+        "durationMs": 0,
+        "evidence": {
+          "observed": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      {
+        "checkId": "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+        "requirement": "The homepage must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "status": "blocked",
+        "expected": "Independent by design.",
+        "durationMs": 0,
+        "evidence": {
+          "observed": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      {
+        "checkId": "3b514fc1-574a-475b-8a70-036c6b54396b",
+        "requirement": "The site should feel welcoming and trustworthy.",
+        "kind": "manual",
+        "status": "unverified",
+        "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+        "durationMs": 0,
+        "evidence": {
+          "observed": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell\n╔════════════════════════════════════════════════════════════╗\n║ Looks like Playwright was just installed or updated.       ║\n║ Please run the following command to download new browsers: ║\n║                                                            ║\n║     npx playwright install                                 ║\n║                                                            ║\n║ <3 Playwright Team                                         ║\n╚════════════════════════════════════════════════════════════╝",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      }
+    ],
+    "approvedCheckIds": [
+      "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+      "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+      "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+      "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+      "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+      "3b514fc1-574a-475b-8a70-036c6b54396b"
+    ],
+    "planDigest": "30b3f6871b0ae9db8b833def59318493110dba78e92b995d4d0af177748baf46"
+  }
+}

@@ -15,3 +15,10 @@ outputs/
 .DS_Store
 *.log
 __pycache__/
+
+dist-approval-worker/
+dist-temporal-worker/
+dist-temporal-runtime/
+dist-server/
+dist-approval-http/
+dist-temporal-verifier/

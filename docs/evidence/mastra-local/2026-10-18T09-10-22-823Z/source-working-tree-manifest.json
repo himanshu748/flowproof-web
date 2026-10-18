@@ -1,0 +1,66 @@
+{
+  "capturedAt": "2026-10-18T09:12:29.467192+00:00",
+  "scope": "Hashes of relevant current working-tree files after the proof; the proof sourceCommit is the base commit, not a claim these changes were committed or checked out at that SHA. Concurrent integration may have changed other files between proof and this capture.",
+  "files": [
+    {
+      "path": "server/approval-workflow.ts",
+      "sha256": "1c4f3615bc21c296e1d9de6e30de859c21eda0c714c65f65e04d87badf4a410f",
+      "bytes": 15259
+    },
+    {
+      "path": "server/hosted-approval.ts",
+      "sha256": "dbf1c7e32a850d279345d697c77bbc2dedfb7632ef71991fb0187b7eb4003c2f",
+      "bytes": 12950
+    },
+    {
+      "path": "server/hosted-approval-child.ts",
+      "sha256": "998230aa7b3e02b7f72e71ccab7e133ff4927288fad1f1f434831d681969e791",
+      "bytes": 4290
+    },
+    {
+      "path": "server/demo.ts",
+      "sha256": "d82a4d809d1f378060e9af879b8695ef80897e942c6a7795c6bd1e5b8a4402d5",
+      "bytes": 99481
+    },
+    {
+      "path": "scripts/verify-approval-worker.ts",
+      "sha256": "cf77a8d2c1e33aed6084b429e9bc8a060816104c1d46feb9dbb485d420579191",
+      "bytes": 11576
+    },
+    {
+      "path": "scripts/verify-approval-http.ts",
+      "sha256": "ad9c39fd52a1a3a8f1eb181348279e9a7cc057ea5c87ff2ad0b8dc593d804464",
+      "bytes": 8893
+    },
+    {
+      "path": "scripts/process-tree-memory.ts",
+      "sha256": "e6e0b49992d02413cf102e86955688ee1899372c05bf9f3a057d7a04ef53fb86",
+      "bytes": 2820
+    },
+    {
+      "path": "scripts/model-browser-evaluate.ts",
+      "sha256": "498d8e9dc9f9b1ef0f4a3d2780c3d2b4ba2cf43acbf0b1755a6c017d4f8bdefb",
+      "bytes": 17426
+    },
+    {
+      "path": "tests/approval-workflow.test.ts",
+      "sha256": "5c23956c89b4a979a052f0bd19ec978e2849723578ef8dd972cdd34d9e8969c2",
+      "bytes": 14398
+    },
+    {
+      "path": "tests/hosted-approval.test.ts",
+      "sha256": "8015bb1c4d3c469239f0838ba002c2e2893c25d5b4d0a317dbb2d059107200fc",
+      "bytes": 5570
+    },
+    {
+      "path": "tests/demo-approval.test.ts",
+      "sha256": "fbfa89a5f097c51d2fb1cc8a34d9183422fa0179dec262f59543bb3cbd2fcd91",
+      "bytes": 9028
+    },
+    {
+      "path": "shared/types.ts",
+      "sha256": "98bc36684eb6b9e7ebac8b870ed6efef2afdfae38e1a68fce176c15951aac006",
+      "bytes": 4865
+    }
+  ]
+}

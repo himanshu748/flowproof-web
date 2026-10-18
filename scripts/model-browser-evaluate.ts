@@ -458,6 +458,9 @@ async function main() {
 
 if (
   process.argv[1] &&
+  /^model-browser-evaluate\.(?:ts|js)$/.test(
+    path.basename(fileURLToPath(import.meta.url)),
+  ) &&
   import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href
 ) {
   main().catch((error) => {

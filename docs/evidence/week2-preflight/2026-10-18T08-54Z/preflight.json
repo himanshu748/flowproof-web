@@ -1,0 +1,47 @@
+{
+  "recordedAt": "2026-10-18T09:15:40.310127+00:00",
+  "scope": "Delegated environment read-only account/network preflight; not funding, deployment or hosted feature evidence",
+  "github": {
+    "authenticatedLogin": "himanshu748",
+    "repository": "himanshu748/flowproof-web",
+    "pushPermissionObserved": true,
+    "originalMainSha": "939904cb084e3f941fc02a58b0a8e8a1fe1744b8"
+  },
+  "render": {
+    "operation": "GET or HEAD https://flowproof-demo.onrender.com/health",
+    "outcome": "denied",
+    "error": "CONNECT tunnel failed, response 403 Forbidden (envoy network proxy)",
+    "subsequentRetryOrBypassPerformed": false,
+    "deploymentAttempted": false
+  },
+  "secureBrowser": {
+    "operation": "cloud-agent-browser-runtime show",
+    "outcome": "unavailable",
+    "error": "The Orbit OS browser launcher requires ORBIT_OS=true and BROWSER_HEADLESS=false",
+    "configurationChanged": false,
+    "credentialsCreatedOrRequestedInChat": false
+  },
+  "tinker": {
+    "currentGrantVerified": false,
+    "newTrainingCalls": 0,
+    "freshEvaluationCalls": 0,
+    "freshHostedProposalCalls": 0,
+    "pending": "Parent secure account preflight and existing authorized credentials/ledger; positive promotional balance/no card/auto-reload off required"
+  },
+  "deniedDownloads": [
+    {
+      "target": "huggingface.co Qwen/Qwen3.5-4B tokenizer assets",
+      "outcome": "proxy 403 Forbidden",
+      "subsequentBypassOrRetryPerformed": false
+    },
+    {
+      "target": "https://cdn.playwright.dev/builds/cft/156.0.8078.4/linux64/chrome-linux64.zip",
+      "outcome": "403 Domain forbidden",
+      "detail": "Standard installer made its own built-in download attempts before returning failure; no further download or alternate network route attempted after observed denial. Local verification used already-installed Chromium154."
+    }
+  ],
+  "spendingOrBillingChanges": 0,
+  "newCredentials": 0,
+  "oauthGrants": 0,
+  "devPostEdited": false
+}

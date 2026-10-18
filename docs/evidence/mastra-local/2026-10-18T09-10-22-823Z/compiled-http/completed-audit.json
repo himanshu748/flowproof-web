@@ -1,0 +1,359 @@
+{
+  "id": "17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+  "projectId": "8f615738-a8ba-43f9-a835-a773aaba2db9",
+  "projectName": "Forma Studio",
+  "status": "completed",
+  "createdAt": "2026-10-18T09:10:24.051Z",
+  "checks": [
+    {
+      "id": "43c49d13-120b-4c31-8fa5-8114763dc34c",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Design that moves business forward.",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "0cc28040-3f28-4c31-b9ef-866a4f948bc9",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "path": "/",
+      "expected": "Start a project",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "e8d45664-a38d-4baf-979e-5ae8deceec52",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "path": "/",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "38c7cfa5-1241-40b9-b852-864f924d396f",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    },
+    {
+      "id": "2072c3e9-f7b1-4793-8307-ff30a2ec22cc",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "path": "/",
+      "expected": "Independent by design.",
+      "viewport": "desktop",
+      "approved": true
+    },
+    {
+      "id": "36d210bf-d092-40b3-ac6b-64c5cea011d0",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "path": "/",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "viewport": "desktop",
+      "approved": false
+    }
+  ],
+  "source": {
+    "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+    "generator": {
+      "provider": "Google Gemma (live API)",
+      "model": "gemma-4-26b-a4b-it",
+      "usage": null,
+      "reason": "Fresh Gemma proposal for the fixed synthetic brief, validated by the server. 0 ms. Provider token usage was not reported. Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check."
+    },
+    "target": "sample",
+    "url": "https://sample.flowproof.test/",
+    "sampleVariant": "healthy"
+  },
+  "results": [
+    {
+      "checkId": "43c49d13-120b-4c31-8fa5-8114763dc34c",
+      "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+      "kind": "heading",
+      "status": "passed",
+      "expected": "Design that moves business forward.",
+      "durationMs": 965,
+      "evidence": {
+        "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/01-43c49d13-120b-4c31-8fa5-8114763dc34c.png",
+        "dom": "Design that moves business forward.\nA little studio.\nA wider perspective.",
+        "observed": "The expected heading is visible.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "0cc28040-3f28-4c31-b9ef-866a4f948bc9",
+      "requirement": "A contact link must say \"Start a project\".",
+      "kind": "link",
+      "status": "passed",
+      "expected": "Start a project",
+      "durationMs": 887,
+      "evidence": {
+        "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/02-0cc28040-3f28-4c31-b9ef-866a4f948bc9.png",
+        "dom": "Start a project ↗ → /contact",
+        "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "e8d45664-a38d-4baf-979e-5ae8deceec52",
+      "requirement": "Every content image must have nonempty alternative text.",
+      "kind": "image_alt",
+      "status": "passed",
+      "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+      "durationMs": 873,
+      "evidence": {
+        "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/03-e8d45664-a38d-4baf-979e-5ae8deceec52.png",
+        "dom": "Image 1: Common Ground brand identity with a mountain symbol and warm paper typography",
+        "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "38c7cfa5-1241-40b9-b852-864f924d396f",
+      "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+      "kind": "no_horizontal_overflow",
+      "status": "passed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 869,
+      "evidence": {
+        "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/04-38c7cfa5-1241-40b9-b852-864f924d396f.png",
+        "dom": "document.scrollWidth=390; window.innerWidth=390",
+        "observed": "Document width is 390px; viewport width is 390px.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    },
+    {
+      "checkId": "2072c3e9-f7b1-4793-8307-ff30a2ec22cc",
+      "requirement": "The homepage must show \"Independent by design.\"",
+      "kind": "text_visible",
+      "status": "passed",
+      "expected": "Independent by design.",
+      "durationMs": 924,
+      "evidence": {
+        "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/05-2072c3e9-f7b1-4793-8307-ff30a2ec22cc.png",
+        "dom": "INDEPENDENT BY DESIGN.",
+        "observed": "The expected text is visible on the page.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    },
+    {
+      "checkId": "36d210bf-d092-40b3-ac6b-64c5cea011d0",
+      "requirement": "The site should feel welcoming and trustworthy.",
+      "kind": "manual",
+      "status": "unverified",
+      "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+      "durationMs": 0,
+      "evidence": {
+        "observed": "This requirement needs a human decision. No automated assertion was executed.",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "approvalWorkflow": {
+    "provider": "Mastra",
+    "package": "@mastra/core",
+    "version": "1.77.0",
+    "workflowId": "briefstamp-explicit-approval",
+    "runId": "684f9791-3e79-4ae8-9fd7-dfeecf069d2e",
+    "status": "success",
+    "scope": "process-local",
+    "durable": false,
+    "maxRssMiB": 176.7,
+    "steps": [
+      {
+        "id": "propose-checks",
+        "status": "success"
+      },
+      {
+        "id": "validate-proposal",
+        "status": "success"
+      },
+      {
+        "id": "await-developer-approval",
+        "status": "success"
+      },
+      {
+        "id": "browser-handoff",
+        "status": "success"
+      }
+    ],
+    "result": {
+      "results": [
+        {
+          "checkId": "43c49d13-120b-4c31-8fa5-8114763dc34c",
+          "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+          "kind": "heading",
+          "status": "passed",
+          "expected": "Design that moves business forward.",
+          "durationMs": 965,
+          "evidence": {
+            "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/01-43c49d13-120b-4c31-8fa5-8114763dc34c.png",
+            "dom": "Design that moves business forward.\nA little studio.\nA wider perspective.",
+            "observed": "The expected heading is visible.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "0cc28040-3f28-4c31-b9ef-866a4f948bc9",
+          "requirement": "A contact link must say \"Start a project\".",
+          "kind": "link",
+          "status": "passed",
+          "expected": "Start a project",
+          "durationMs": 887,
+          "evidence": {
+            "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/02-0cc28040-3f28-4c31-b9ef-866a4f948bc9.png",
+            "dom": "Start a project ↗ → /contact",
+            "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "e8d45664-a38d-4baf-979e-5ae8deceec52",
+          "requirement": "Every content image must have nonempty alternative text.",
+          "kind": "image_alt",
+          "status": "passed",
+          "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+          "durationMs": 873,
+          "evidence": {
+            "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/03-e8d45664-a38d-4baf-979e-5ae8deceec52.png",
+            "dom": "Image 1: Common Ground brand identity with a mountain symbol and warm paper typography",
+            "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "38c7cfa5-1241-40b9-b852-864f924d396f",
+          "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+          "kind": "no_horizontal_overflow",
+          "status": "passed",
+          "expected": "No horizontal scrolling",
+          "durationMs": 869,
+          "evidence": {
+            "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/04-38c7cfa5-1241-40b9-b852-864f924d396f.png",
+            "dom": "document.scrollWidth=390; window.innerWidth=390",
+            "observed": "Document width is 390px; viewport width is 390px.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            }
+          }
+        },
+        {
+          "checkId": "2072c3e9-f7b1-4793-8307-ff30a2ec22cc",
+          "requirement": "The homepage must show \"Independent by design.\"",
+          "kind": "text_visible",
+          "status": "passed",
+          "expected": "Independent by design.",
+          "durationMs": 924,
+          "evidence": {
+            "screenshot": "/evidence/17b0e55e-b5fc-4c9d-bc7e-377913daf39b/05-2072c3e9-f7b1-4793-8307-ff30a2ec22cc.png",
+            "dom": "INDEPENDENT BY DESIGN.",
+            "observed": "The expected text is visible on the page.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        },
+        {
+          "checkId": "36d210bf-d092-40b3-ac6b-64c5cea011d0",
+          "requirement": "The site should feel welcoming and trustworthy.",
+          "kind": "manual",
+          "status": "unverified",
+          "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+          "durationMs": 0,
+          "evidence": {
+            "observed": "This requirement needs a human decision. No automated assertion was executed.",
+            "url": "https://sample.flowproof.test/",
+            "viewport": {
+              "width": 1365,
+              "height": 900
+            }
+          }
+        }
+      ],
+      "approvedCheckIds": [
+        "43c49d13-120b-4c31-8fa5-8114763dc34c",
+        "0cc28040-3f28-4c31-b9ef-866a4f948bc9",
+        "e8d45664-a38d-4baf-979e-5ae8deceec52",
+        "38c7cfa5-1241-40b9-b852-864f924d396f",
+        "2072c3e9-f7b1-4793-8307-ff30a2ec22cc",
+        "36d210bf-d092-40b3-ac6b-64c5cea011d0"
+      ],
+      "planDigest": "10d3842d65c67134a0f515353321f601fdd019039f9d26cae0a485d2d0d4b711"
+    },
+    "lifecycle": [
+      {
+        "phase": "approval",
+        "status": "suspended",
+        "runId": "684f9791-3e79-4ae8-9fd7-dfeecf069d2e",
+        "snapshotSha256": "f7ab7413b17217776c74296a8c039ae210f736263ce27db8b679eb68ffe41bd3",
+        "workerMaxRssMiB": 190.04,
+        "workerExited": true
+      },
+      {
+        "phase": "browser",
+        "status": "suspended",
+        "runId": "684f9791-3e79-4ae8-9fd7-dfeecf069d2e",
+        "snapshotSha256": "6fcb4d4b4cbf31cae3858676c6024299910269dc1f7b5268986f7be1dcbf1d2f",
+        "workerMaxRssMiB": 184.23,
+        "workerExited": true
+      },
+      {
+        "phase": "complete",
+        "status": "success",
+        "runId": "684f9791-3e79-4ae8-9fd7-dfeecf069d2e",
+        "snapshotSha256": null,
+        "workerMaxRssMiB": 176.7,
+        "workerExited": true
+      }
+    ]
+  },
+  "summary": "5 passed, 0 failed, 0 blocked, 1 unverified. Real Chromium observations of the synthetic sample. Checks proposed by Google Gemma (live API) (gemma-4-26b-a4b-it) and reviewed by the visitor. Models do not assign test outcomes.",
+  "completedAt": "2026-10-18T09:10:30.765Z"
+}

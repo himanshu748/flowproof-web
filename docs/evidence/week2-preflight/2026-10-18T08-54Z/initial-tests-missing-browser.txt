@@ -1,0 +1,205 @@
+
+> briefstamp@0.1.0 test
+> vitest run --no-file-parallelism
+
+
+ RUN  v4.1.11 /workspace/briefstamp-upgrade
+
+ ❯ tests/demo.test.ts (11 tests | 1 failed) 1051ms
+     × runs real healthy and broken samples with isolated screenshots and portable reports 253ms
+ ❯ tests/evaluation.test.ts (5 tests | 1 failed) 92ms
+     × loads real paired browser evidence and rejects edited fixtures or source receipts 30ms
+ ❯ tests/model-browser-evaluate.test.ts (4 tests | 1 failed) 66ms
+     × measures real healthy/broken execution while separating malformed, abstained, blocked and false-passing outputs 53ms
+ ❯ tests/runner.test.ts (7 tests | 4 failed) 45ms
+     × executes a healthy page with real screenshots and an honest manual result 20ms
+     × cannot turn non-heading or non-link text into a semantic assertion pass 3ms
+     × reliably fails the broken headline, destination, alt text and mobile layout 2ms
+     × matches the real accessible link name without an aria-hidden arrow 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/demo.test.ts > isolated tokenless public demo > runs real healthy and broken samples with isolated screenshots and portable reports
+AssertionError: expected [] to have a length of 5 but got +0
+
+- Expected
++ Received
+
+- 5
++ 0
+
+ ❯ tests/demo.test.ts:298:66
+    296|     const healthy = await h.completed((await start.json()).id, a.cooki…
+    297|     expect(healthy.status).toBe("completed");
+    298|     expect(healthy.results.filter((r) => r.status === "passed")).toHav…
+       |                                                                  ^
+    299|       5,
+    300|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  tests/evaluation.test.ts > bundled model evidence ingestion > loads real paired browser evidence and rejects edited fixtures or source receipts
+AssertionError: expected { …(10) } to match object { executableCorrectness: 1, …(2) }
+(11 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "browserCounts": {
+-     "brokenExecuted": 1,
++     "brokenExecuted": 0,
+      "brokenFalsePasses": 0,
+    },
+-   "executableCorrectness": 1,
+-   "falsePassRate": 0,
++   "executableCorrectness": 0,
++   "falsePassRate": null,
+  }
+
+ ❯ tests/evaluation.test.ts:336:40
+    334|     const filename = path.join(folder, "browser-evaluation.json");
+    335|     await json(filename, receipt);
+    336|     expect(h.read().configurations[0]).toMatchObject({
+       |                                        ^
+    337|       executableCorrectness: 1,
+    338|       falsePassRate: 0,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  tests/model-browser-evaluate.test.ts > model browser evaluation contract > measures real healthy/broken execution while separating malformed, abstained, blocked and false-passing outputs
+AssertionError: browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     npx playwright install                                 ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝: expected 'blocked' to be 'passed' // Object.is equality
+
+Expected: "passed"
+Received: "blocked"
+
+ ❯ tests/model-browser-evaluate.test.ts:163:69
+    161|     const observations = await evaluateMeasurements(rows, measurements…
+    162|     for (const item of observations.slice(0, 5)) {
+    163|       expect(item.healthy?.status, item.healthy?.evidence.observed).to…
+       |                                                                     ^
+    164|         "passed",
+    165|       );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  tests/runner.test.ts > real Chromium acceptance execution > executes a healthy page with real screenshots and an honest manual result
+AssertionError: expected [ 'blocked', 'blocked', …(4) ] to deeply equal [ 'passed', 'passed', 'passed', …(3) ]
+
+- Expected
++ Received
+
+  [
+-   "passed",
+-   "passed",
+-   "passed",
+-   "passed",
+-   "passed",
++   "blocked",
++   "blocked",
++   "blocked",
++   "blocked",
++   "blocked",
+    "unverified",
+  ]
+
+ ❯ tests/runner.test.ts:80:52
+     78|       { evidenceRoot },
+     79|     );
+     80|     expect(results.map((result) => result.status)).toEqual([
+       |                                                    ^
+     81|       "passed",
+     82|       "passed",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  tests/runner.test.ts > real Chromium acceptance execution > cannot turn non-heading or non-link text into a semantic assertion pass
+AssertionError: expected [ 'blocked', 'blocked', 'blocked' ] to deeply equal [ 'failed', 'failed', 'unverified' ]
+
+- Expected
++ Received
+
+  [
+-   "failed",
+-   "failed",
+-   "unverified",
++   "blocked",
++   "blocked",
++   "blocked",
+  ]
+
+ ❯ tests/runner.test.ts:117:52
+    115|     audit.checks = structuredClone(project.checks);
+    116|     const results = await runAudit(project, audit, () => {}, { evidenc…
+    117|     expect(results.map((result) => result.status)).toEqual([
+       |                                                    ^
+    118|       "failed",
+    119|       "failed",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  tests/runner.test.ts > real Chromium acceptance execution > reliably fails the broken headline, destination, alt text and mobile layout
+AssertionError: expected [ 'blocked', 'blocked', …(4) ] to deeply equal [ 'failed', 'passed', 'failed', …(3) ]
+
+- Expected
++ Received
+
+  [
+-   "failed",
+-   "passed",
+-   "failed",
+-   "failed",
+-   "failed",
++   "blocked",
++   "blocked",
++   "blocked",
++   "blocked",
++   "blocked",
+    "unverified",
+  ]
+
+ ❯ tests/runner.test.ts:126:52
+    124|     const { project, audit } = fixture("broken");
+    125|     const results = await runAudit(project, audit, () => {}, { evidenc…
+    126|     expect(results.map((result) => result.status)).toEqual([
+       |                                                    ^
+    127|       "failed",
+    128|       "passed",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  tests/runner.test.ts > real Chromium acceptance execution > matches the real accessible link name without an aria-hidden arrow
+AssertionError: expected 'blocked' to be 'passed' // Object.is equality
+
+Expected: "passed"
+Received: "blocked"
+
+ ❯ tests/runner.test.ts:144:31
+    142|     audit.checks = structuredClone(project.checks);
+    143|     const results = await runAudit(project, audit, () => {}, { evidenc…
+    144|     expect(results[0].status).toBe("passed");
+       |                               ^
+    145|     expect(results[0].evidence.dom).toContain("/contact");
+    146|   }, 60_000);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  4 failed | 50 passed (54)
+      Tests  7 failed | 1444 passed (1451)
+   Start at  08:56:17
+   Duration  43.09s (transform 1.78s, setup 0ms, import 9.82s, tests 27.39s, environment 5ms)
+
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

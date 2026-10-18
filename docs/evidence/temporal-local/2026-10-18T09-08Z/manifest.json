@@ -1,0 +1,144 @@
+{
+  "scope": "Local development verification only. Retained model/tool fixtures; no hosted calls or live grant evidence.",
+  "baseCommit": "939904cb084e3f941fc02a58b0a8e8a1fe1744b8",
+  "worktreeChangesPresent": true,
+  "files": [
+    {
+      "file": "temporal-hosted-local-1.json",
+      "sha256": "ed913022cc91a2f2b278c414dfeb4e57656a817a03c125512bda2b9a614cff58"
+    },
+    {
+      "file": "temporal-hosted-local-2.json",
+      "sha256": "52e3f965f41e4b0a441595338958882f28a1d9a0e0141fe3271dc3afb76a8440"
+    },
+    {
+      "file": "temporal-hosted-fullapp-1.json",
+      "sha256": "14e91f5a5d34b1eaaedd6337ce7a491f210fa5666df873862fa256dd14dffcb8"
+    },
+    {
+      "file": "temporal-hosted-fullapp-2.json",
+      "sha256": "502da1719fbc80622cfdcd7485c3fe594f4acb4eb17231ee3d284820b42c27fd"
+    },
+    {
+      "file": "temporal-hosted-fullapp-isolated-1.json",
+      "sha256": "068a82c64d62bf3e24a102dd9ff147220f24f2e995ce25684350c95b9db06811"
+    },
+    {
+      "file": "temporal-hosted-fullapp-isolated-2.json",
+      "sha256": "bb8a27cb3b7488915d5831e7c78e1452af30fc3b5667e6514a6aac09053b56f0"
+    },
+    {
+      "file": "temporal-hosted-fullapp-isolated-3.json",
+      "sha256": "c42db15e5f784e806139a1507f5dd4fd55a4b36c42db228bea8ae39a5ad57420"
+    },
+    {
+      "file": "temporal-hosted-node22-1.json",
+      "sha256": "ba794421bf006ecd45fb44b9aba48fcbcf3bcae7b141332d6ac7ab84a0b75bcc"
+    },
+    {
+      "file": "temporal-hosted-node22-2.json",
+      "sha256": "90f728d197d42c94edd10fd18a952eac80ba0ec1931b83b0083f2a51cda422aa"
+    },
+    {
+      "file": "temporal-hosted-node22-3.json",
+      "sha256": "332ecabc13981a2275dfaa0d577bac5cea3a0999990f4ee6603e58b77d1d22dd"
+    },
+    {
+      "file": "before-worker-restart.history.json",
+      "originalSha256": "3c46c7fc2fb4840d06e28ad00094dfda37d1b361f3b43a536ed73577d0e6569b",
+      "sha256": "76913e58ea181c91eb4649b8a524faeb89255308a05738c1812d89e781f0d216",
+      "redactions": [
+        "absolute repository paths"
+      ]
+    },
+    {
+      "file": "completed.history.json",
+      "originalSha256": "207791335c7d526ab84d27479d1e4a082f3cd8b7c1e6480a250d36c66c184f33",
+      "sha256": "3abad15fa2664ce982e004f26a50c0b6c9a94a7f9e8d7fcd92b07630a30fc66c",
+      "redactions": [
+        "absolute repository paths"
+      ]
+    },
+    {
+      "file": "receipt.json",
+      "originalSha256": "94faa2405c89181f282293d52709c78c403856c10eb81b7e235c8e297ba3b7b0",
+      "sha256": "70770a0d0d273d6a99f5705c81ba42ec255b15671a08fc5756d9cbe73535033c",
+      "redactions": [
+        "absolute repository paths"
+      ]
+    },
+    {
+      "file": "screenshots/01-3339b9b0-b969-46f6-babf-56acd657cf08.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "screenshots/05-cbd9fef0-b541-4cce-ba5a-e09f27389dba.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "screenshots/04-2aca13da-b4e3-483f-9fa6-8d7400c98871.png",
+      "sha256": "4c7c7663d99c6fb7019249ec7ff764ad1509c96aa7019794a89149d14705f8fd"
+    },
+    {
+      "file": "screenshots/03-c02dafdd-de95-4248-96f0-e8ad72b5a750.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "screenshots/02-809b533a-4783-45b6-a268-30625a88cccb.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "temporal-hosted-node22-compiled-1.json",
+      "sha256": "20809a699187d0128811a1632317fdda4102073ab30a5b677c91d83c2fb9e325"
+    },
+    {
+      "file": "temporal-hosted-node22-compiled-2.json",
+      "sha256": "905a29a365f1d10bac59ed46cb0b918742f9054b25afaa5ea5bbd3484ca6ab9a"
+    },
+    {
+      "file": "compiled-before-worker-restart.history.json",
+      "originalSha256": "4b46d0e29768015bc98c07184f53785230f52115dc4f757aa837555baddbac3a",
+      "sha256": "608afa3c5bac9102e0ee6791633182fc6ac5e6f87018db02629982f00f500624",
+      "redactions": [
+        "absolute repository paths"
+      ]
+    },
+    {
+      "file": "compiled-completed.history.json",
+      "originalSha256": "c14e8a4bafb4275236e16824c888bb1c4518575b457b10877c54b04f10f6e622",
+      "sha256": "e14291047b833833fd3923b062516bbcdcbe2e702b074d3873973b7ac2941880",
+      "redactions": [
+        "absolute repository paths"
+      ]
+    },
+    {
+      "file": "compiled-receipt.json",
+      "originalSha256": "af05a462a6606b4211e9f668271f584ce4b8f7711c903f7f079e2b3ad01ba1c2",
+      "sha256": "76e4f5ad9669f7aa1d88f57a37a7d1f393a86997fb1b2e691cc1502f8f9ec44e",
+      "redactions": [
+        "absolute repository paths"
+      ]
+    },
+    {
+      "file": "compiled-screenshots/01-3339b9b0-b969-46f6-babf-56acd657cf08.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "compiled-screenshots/05-cbd9fef0-b541-4cce-ba5a-e09f27389dba.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "compiled-screenshots/04-2aca13da-b4e3-483f-9fa6-8d7400c98871.png",
+      "sha256": "4c7c7663d99c6fb7019249ec7ff764ad1509c96aa7019794a89149d14705f8fd"
+    },
+    {
+      "file": "compiled-screenshots/03-c02dafdd-de95-4248-96f0-e8ad72b5a750.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    },
+    {
+      "file": "compiled-screenshots/02-809b533a-4783-45b6-a268-30625a88cccb.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b"
+    }
+  ],
+  "updatedAt": "2026-10-18T09:11:51.575193+00:00"
+}

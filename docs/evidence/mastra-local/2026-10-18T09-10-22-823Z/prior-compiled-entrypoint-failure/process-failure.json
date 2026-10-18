@@ -1,0 +1,8 @@
+{
+  "outcome": "process_failed",
+  "exitCode": 1,
+  "diagnostic": "Unknown option: --run-local",
+  "capturedFrom": "Observed terminal execution on 2026-10-18T09:09Z; the original receipt status is preserved unchanged.",
+  "cause": "Bundling made the imported model-browser-evaluate CLI main guard match the HTTP proof entry point.",
+  "resolution": "The original script now additionally requires its own intended basename; the later compiled-http run exited 0."
+}

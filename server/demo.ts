@@ -34,6 +34,11 @@ import {
 import { verifyGemmaFreePricing } from "./providers/gemma-free-pricing";
 import { runPublicGemmaWorkflow } from "./public-gemma-orchestration";
 import {
+  createHostedApprovalRun,
+  hostedApprovalBusy,
+  type HostedApprovalRun,
+} from "./hosted-approval";
+import {
   authorizeHostedBackboard,
   rememberHostedAudit,
   recallHostedMemory,
@@ -211,6 +216,16 @@ interface Session {
   expires: number;
   projects: Map<string, Project>;
   audits: Map<string, Audit>;
+  temporalWorkflowId?: string;
+  approvalRuns: Map<
+    string,
+    {
+      handle: HostedApprovalRun;
+      /** Only this server-owned snapshot may be resumed; the browser never supplies it. */
+      snapshot: Project;
+      execute?: (checks: Project["checks"]) => Promise<CheckResult[]>;
+    }
+  >;
   auditTraceMeasurements: Map<string, RuntimeTraceMeasurement>;
   runtimeTraceResults: Map<string, unknown>;
   windowStart: number;
@@ -247,6 +262,9 @@ interface DemoOptions {
   >;
   gemmaAvailable?: () => boolean;
   verifyGemmaFree?: () => Promise<unknown>;
+  /** Hosted approval is opt-in; trusted tests may inject the bounded controller. */
+  approvalEnabled?: boolean;
+  createApprovalRun?: typeof createHostedApprovalRun;
   generateTinker?: typeof generateHostedTinkerProposal;
   tinkerAvailable?: () => boolean;
   tigerAvailable?: () => boolean;
@@ -350,7 +368,14 @@ export function createDemoRouter(options: DemoOptions) {
   const execute = options.execute ?? runAudit;
   const gemmaAvailable =
     options.gemmaAvailable ?? (() => googleGemmaConfiguration().enabled);
-  const generateGemma = options.generateGemma ?? runPublicGemmaWorkflow;
+  const approvalEnabled =
+    options.approvalEnabled ??
+    process.env.BRIEFSTAMP_MASTRA_APPROVAL_ENABLED === "true";
+  const createApprovalRun =
+    options.createApprovalRun ?? createHostedApprovalRun;
+  const generateGemma: NonNullable<DemoOptions["generateGemma"]> =
+    options.generateGemma ??
+    (approvalEnabled ? generateGoogleGemmaProposal : runPublicGemmaWorkflow);
   const verifyGemmaFree = options.verifyGemmaFree ?? verifyGemmaFreePricing;
   const tinkerAvailable =
     options.tinkerAvailable ?? (() => hostTinkerEnabled(process.env, now()));
@@ -414,6 +439,9 @@ export function createDemoRouter(options: DemoOptions) {
     for (const [key, session] of sessions) {
       if (session.expires > now() || active?.session === session) continue;
       sessions.delete(key);
+      await Promise.allSettled(
+        [...session.approvalRuns.values()].map((run) => run.handle.dispose()),
+      );
       await Promise.all(
         [...session.audits.keys()].map((id) =>
           fs.rm(path.join(options.evidenceRoot, id), {
@@ -541,6 +569,7 @@ export function createDemoRouter(options: DemoOptions) {
         expires: now() + TTL,
         projects: new Map([[sample.id, sample]]),
         audits: new Map(),
+        approvalRuns: new Map(),
         auditTraceMeasurements: new Map(),
         runtimeTraceResults: new Map(),
         windowStart: now(),
@@ -748,11 +777,23 @@ export function createDemoRouter(options: DemoOptions) {
         error:
           "The live preset allows checks of its fixed public homepage only.",
       });
+    const pending = session(res).approvalRuns.get(p.id);
+    if (pending) {
+      const samePlan = isDeepStrictEqual(
+        checks.map((check) => ({ ...check, approved: false })),
+        pending.snapshot.checks.map((check) => ({ ...check, approved: false })),
+      );
+      if (!samePlan)
+        return res.status(409).json({
+          error:
+            "These checks belong to a suspended approval workflow. Regenerate a plan before changing its assertions.",
+        });
+    }
     p.checks = checks;
     p.updatedAt = new Date(now()).toISOString();
     res.json(p);
   });
-  router.post("/api/projects/:id/generate", (req, res) => {
+  router.post("/api/projects/:id/generate", async (req, res) => {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
     const { brief } = z.object({ brief: briefSchema }).strict().parse(req.body);
@@ -763,6 +804,12 @@ export function createDemoRouter(options: DemoOptions) {
       return res.status(400).json({
         error: "The live preset uses only its owner-approved fixed brief.",
       });
+    const pending = session(res).approvalRuns.get(p.id);
+    if (pending) {
+      await pending.handle.dispose();
+      session(res).approvalRuns.delete(p.id);
+    }
+    delete p.approvalWorkflow;
     Object.assign(p, {
       brief,
       checks: validateChecks(generateLocalChecks(brief)),
@@ -795,13 +842,25 @@ export function createDemoRouter(options: DemoOptions) {
         error:
           "Live Gemma accepts only a server-selected sample or live homepage brief. Visitor or client text is not sent.",
       });
+    const previousApproval = s.approvalRuns.get(p.id);
+    if (previousApproval) {
+      if (previousApproval.handle.expiresAt > Date.now())
+        return res.status(409).json({
+          error:
+            "Review and run the suspended plan first, or choose the rules draft to discard it before generating again.",
+        });
+      await previousApproval.handle.dispose();
+      s.approvalRuns.delete(p.id);
+      delete p.approvalWorkflow;
+    }
     while (gemmaStarts.length && gemmaStarts[0] <= now() - 60 * 60_000)
       gemmaStarts.shift();
     if (
       s.gemmaAttempts >= 2 ||
       gemmaStarts.length + GOOGLE_GEMMA_MAX_ATTEMPTS > 12 ||
       modelBusy ||
-      active
+      active ||
+      (approvalEnabled && hostedApprovalBusy() && !s.approvalRuns.has(p.id))
     )
       return res.status(429).json({
         error:
@@ -815,22 +874,64 @@ export function createDemoRouter(options: DemoOptions) {
     const snapshot = structuredClone(p);
     try {
       await verifyGemmaFree();
-      const proposed = await generateGemma(selectedBrief.split("\n"));
-      if (s.expires <= now())
+      let proposed: Awaited<ReturnType<typeof generateGemma>> | undefined;
+      let approval: HostedApprovalRun | undefined;
+      let suspended:
+        | Awaited<ReturnType<HostedApprovalRun["start"]>>
+        | undefined;
+      if (approvalEnabled) {
+        approval = createApprovalRun({
+          brief: selectedBrief,
+          expiresAt: s.expires,
+          propose: async () => {
+            proposed = await generateGemma(selectedBrief.split("\n"));
+            return validateModelProposal(selectedBrief, {
+              checks: proposed.checks,
+            });
+          },
+          execute: async (approvedChecks) => {
+            const pending = s.approvalRuns.get(p.id);
+            if (!pending?.execute || s.expires <= now())
+              throw new Error("Approval execution has no server-owned audit.");
+            return pending.execute(approvedChecks);
+          },
+        });
+        try {
+          suspended = await approval.start();
+          if (
+            suspended.status !== "suspended" ||
+            !suspended.suspension ||
+            !proposed
+          )
+            throw new Error("The approval workflow did not suspend.");
+        } catch (error) {
+          await approval.dispose();
+          throw error;
+        }
+      } else proposed = await generateGemma(selectedBrief.split("\n"));
+      if (!proposed) throw new Error("The model returned no proposal.");
+      if (s.expires <= now()) {
+        await approval?.dispose();
         return res.status(401).json({
           code: "SESSION_EXPIRED",
           error: "The demo session expired. No generated plan was saved.",
         });
-      if (!isDeepStrictEqual(p, snapshot))
+      }
+      if (!isDeepStrictEqual(p, snapshot)) {
+        await approval?.dispose();
         return res.status(409).json({
           error:
             "This project changed during generation. The newer plan was kept; review it before trying again.",
         });
-      const checks = validateModelProposal(selectedBrief, {
-        checks: proposed.checks,
-      });
+      }
+      const checks =
+        suspended?.suspension?.checks ??
+        validateModelProposal(selectedBrief, {
+          checks: proposed.checks,
+        });
       Object.assign(p, {
         checks,
+        approvalWorkflow: suspended,
         generator: {
           provider: "Google Gemma (live API)",
           model: proposed.model,
@@ -843,6 +944,11 @@ export function createDemoRouter(options: DemoOptions) {
         },
         updatedAt: new Date(now()).toISOString(),
       });
+      if (approval)
+        s.approvalRuns.set(p.id, {
+          handle: approval,
+          snapshot: structuredClone(p),
+        });
       return res.json(p);
     } catch (error) {
       const failure = serializeGoogleGemmaFailure(error);
@@ -925,6 +1031,12 @@ export function createDemoRouter(options: DemoOptions) {
           }),
         ),
       });
+      const oldApproval = s.approvalRuns.get(p.id);
+      if (oldApproval) {
+        await oldApproval.handle.dispose();
+        s.approvalRuns.delete(p.id);
+      }
+      delete p.approvalWorkflow;
       Object.assign(p, {
         checks,
         generator: {
@@ -949,7 +1061,7 @@ export function createDemoRouter(options: DemoOptions) {
       modelBusy = false;
     }
   });
-  router.post("/api/projects/:id/variant", (req, res) => {
+  router.post("/api/projects/:id/variant", async (req, res) => {
     const p = session(res).projects.get(req.params.id);
     if (!p) return notFound(res);
     if (p.target !== "sample")
@@ -960,6 +1072,12 @@ export function createDemoRouter(options: DemoOptions) {
       .object({ sampleVariant: z.enum(["healthy", "broken"]) })
       .strict()
       .parse(req.body);
+    const pending = session(res).approvalRuns.get(p.id);
+    if (pending) {
+      await pending.handle.dispose();
+      session(res).approvalRuns.delete(p.id);
+    }
+    delete p.approvalWorkflow;
     p.sampleVariant = sampleVariant;
     p.checks = p.checks.map((check) => ({ ...check, approved: false }));
     p.updatedAt = new Date(now()).toISOString();
@@ -969,7 +1087,36 @@ export function createDemoRouter(options: DemoOptions) {
     const s = session(res);
     const p = s.projects.get(req.params.id);
     if (!p) return notFound(res);
+    const pendingApproval = s.approvalRuns.get(p.id);
     const checks = validateChecks(p.checks);
+    if (p.approvalWorkflow && !pendingApproval)
+      return res.status(409).json({
+        error:
+          "This approval workflow is no longer available. Generate a fresh plan and review it.",
+      });
+    if (
+      pendingApproval &&
+      (pendingApproval.handle.expiresAt <= Date.now() ||
+        !isDeepStrictEqual(
+          {
+            ...p,
+            checks: p.checks.map((check) => ({ ...check, approved: false })),
+            updatedAt: "",
+          },
+          {
+            ...pendingApproval.snapshot,
+            checks: pendingApproval.snapshot.checks.map((check) => ({
+              ...check,
+              approved: false,
+            })),
+            updatedAt: "",
+          },
+        ))
+    )
+      return res.status(409).json({
+        error:
+          "The suspended plan expired or changed. Generate a fresh plan before approval.",
+      });
     if (
       (p.target === "website" &&
         (!ownedWebsite(p) || checks.some((check) => check.path !== "/"))) ||
@@ -1019,21 +1166,44 @@ export function createDemoRouter(options: DemoOptions) {
     );
     const task = Promise.resolve().then(async () => {
       try {
-        const results = await trace.span("briefstamp.audit.browser", () =>
-          execute(
-            snapshot,
-            a,
-            (result) => {
-              const checked = validateResult(result, checks, snapshot);
-              if (a.results.some((item) => item.checkId === checked.checkId))
-                throw new Error(
-                  "The runner returned duplicate assertion evidence.",
-                );
-              a.results.push(checked);
-            },
-            { evidenceRoot: options.evidenceRoot },
-          ),
-        );
+        const browser = async (executionChecks = checks) =>
+          trace.span("briefstamp.audit.browser", () =>
+            execute(
+              { ...snapshot, checks: structuredClone(executionChecks) },
+              { ...a, checks: structuredClone(executionChecks) },
+              (result) => {
+                const checked = validateResult(result, checks, snapshot);
+                if (a.results.some((item) => item.checkId === checked.checkId))
+                  throw new Error(
+                    "The runner returned duplicate assertion evidence.",
+                  );
+                a.results.push(checked);
+              },
+              { evidenceRoot: options.evidenceRoot },
+            ),
+          );
+        let results: CheckResult[];
+        if (pendingApproval) {
+          pendingApproval.execute = async (approvedChecks) => {
+            if (
+              !isDeepStrictEqual(
+                approvedChecks.map((check) => ({ ...check, approved: false })),
+                checks.map((check) => ({ ...check, approved: false })),
+              )
+            )
+              throw new Error("Approval assertions changed.");
+            return browser(approvedChecks);
+          };
+          const receipt = await pendingApproval.handle.resume({
+            planDigest: snapshot.approvalWorkflow!.suspension!.planDigest,
+            approvedCheckIds: checks.map((check) => check.id),
+          });
+          a.approvalWorkflow = receipt;
+          p.approvalWorkflow = receipt;
+          if (receipt.status !== "success" || !receipt.result)
+            throw new Error("The SDK approval workflow failed.");
+          results = receipt.result.results;
+        } else results = await browser();
         const validated = z
           .array(resultSchema)
           .max(24)
@@ -1078,6 +1248,10 @@ export function createDemoRouter(options: DemoOptions) {
             outcome: a.status === "completed" ? "completed" : "failed",
           }),
         );
+        if (pendingApproval) {
+          await pendingApproval.handle.dispose();
+          s.approvalRuns.delete(p.id);
+        }
         active = undefined;
         persistCompletedAudit(s, a);
         await cleanup().catch(() => {});
@@ -1291,6 +1465,18 @@ export function createDemoRouter(options: DemoOptions) {
   });
   const recordedAgentProof =
     "https://github.com/himanshu748/flowproof-web/tree/main/docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z";
+  router.get("/api/temporal-agent/current", async (_req, res) => {
+    if (process.env.FLOWPROOF_TEMPORAL_HOSTED_ENABLED !== "true")
+      return res.json({ available: false });
+    const own = session(res).temporalWorkflowId;
+    if (!own) return res.json({ available: true });
+    const { hostedTemporalProgress } = await import("./hosted-temporal");
+    const observed = hostedTemporalProgress(own);
+    return res.json({
+      available: true,
+      ...(observed ? { temporal: observed } : {}),
+    });
+  });
   router.get("/api/judge-agent/status", async (_req, res) => {
     const config = judgeAgentConfiguration(process.env, now());
     const unavailable = (reason: string, extra = {}) =>
@@ -1327,9 +1513,11 @@ export function createDemoRouter(options: DemoOptions) {
         );
       const extra = {
         engine:
-          process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
-            ? "mastra_agent"
-            : "native_google_gemma",
+          process.env.FLOWPROOF_TEMPORAL_HOSTED_ENABLED === "true"
+            ? "temporal"
+            : process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
+              ? "mastra_agent"
+              : "native_google_gemma",
         budget: publicBudget(status),
         result: status.ownResult,
         expiresAt: config.grant.expiresAt,
@@ -1630,9 +1818,34 @@ export function createDemoRouter(options: DemoOptions) {
         for (let i = 0; i < modelReservations; i++) gemmaStarts.push(now());
         const indexing = await tiger().indexAuditFailures(s.hash, audit.id);
         assertCurrent();
-        const selectedEngine =
-          config.backboard ||
-          process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
+        const temporalSelected =
+          !!config.judge &&
+          process.env.FLOWPROOF_TEMPORAL_HOSTED_ENABLED === "true";
+        const selectedEngine: typeof executeEvidenceAgent = temporalSelected
+          ? async (input, dependencies) => {
+              s.temporalWorkflowId = `briefstamp-hosted-agent-${judgeRunId!}`;
+              const { executeHostedTemporalEvidenceAgent } = await import(
+                "./hosted-temporal"
+              );
+              return executeHostedTemporalEvidenceAgent(input, dependencies, {
+                reservationId: judgeRunId!,
+                // Recovery injection is available only to the existing authenticated
+                // operator's controlled test. Anonymous visitors never inject failure.
+                controlledRecovery:
+                  process.env.FLOWPROOF_TEMPORAL_CONTROLLED_RECOVERY ===
+                    "true" &&
+                  typeof req.headers["x-flowproof-token"] === "string" &&
+                  (process.env.FLOWPROOF_TOKEN?.length ?? 0) >= 32 &&
+                  createHash("sha256")
+                    .update(req.headers["x-flowproof-token"])
+                    .digest("hex") ===
+                    createHash("sha256")
+                      .update(process.env.FLOWPROOF_TOKEN!)
+                      .digest("hex"),
+              });
+            }
+          : config.backboard ||
+              process.env.BRIEFSTAMP_MASTRA_AGENT_ENABLED === "true"
             ? executeMastraEvidenceAgent
             : executeEvidenceAgent;
         agentTrace = config.sentry
@@ -1842,13 +2055,15 @@ export function createDemoRouter(options: DemoOptions) {
           sourceAuditSha256: createHash("sha256")
             .update(JSON.stringify(snapshot))
             .digest("hex"),
-          scope: config.backboard
-            ? "Protected Mastra Agent over Backboard/OpenRouter Gemma; native-Google modelTurns is empty and actual provider turns/tokens are in backboardModelTurns. Tiger uses pgvector/full-text RRF; SerpApi uses one bounded fixed-domain search. No public judge allowance, automatic fallback or new acceptance verdict."
-            : selectedEngine === executeMastraEvidenceAgent
-              ? "Mastra Agent owns the native Gemma JSON-to-tools loop with pgvector/full-text RRF and bounded SerpApi search. Browser acceptance is unchanged; the native engine remains a configuration fallback, never an automatic retry."
-              : config.judge
-                ? "Public judge flow over approved fixed synthetic evidence and the owned homepage. Two model requests and one search maximum per reserved session; precomputed MiniLM PostgreSQL arrays, no arbitrary query embedding inference. Findings do not change browser acceptance results."
-                : "Operator-only fixed synthetic evidence agent; PostgreSQL arrays with precomputed exact-text MiniLM vectors, no pgvector or arbitrary query embedding inference.",
+          scope: temporalSelected
+            ? "Gemma selection, Tiger retrieval, SerpApi search and Gemma summary run as real Temporal activities on the loopback development server. Worker restart evidence does not establish recovery after Render ephemeral-disk loss. Existing two-model/one-search reservation remains unchanged."
+            : config.backboard
+              ? "Protected Mastra Agent over Backboard/OpenRouter Gemma; native-Google modelTurns is empty and actual provider turns/tokens are in backboardModelTurns. Tiger uses pgvector/full-text RRF; SerpApi uses one bounded fixed-domain search. No public judge allowance, automatic fallback or new acceptance verdict."
+              : selectedEngine === executeMastraEvidenceAgent
+                ? "Mastra Agent owns the native Gemma JSON-to-tools loop with pgvector/full-text RRF and bounded SerpApi search. Browser acceptance is unchanged; the native engine remains a configuration fallback, never an automatic retry."
+                : config.judge
+                  ? "Public judge flow over approved fixed synthetic evidence and the owned homepage. Two model requests and one search maximum per reserved session; precomputed MiniLM PostgreSQL arrays, no arbitrary query embedding inference. Findings do not change browser acceptance results."
+                  : "Operator-only fixed synthetic evidence agent; PostgreSQL arrays with precomputed exact-text MiniLM vectors, no pgvector or arbitrary query embedding inference.",
         };
         if (config.judge) {
           let receiptPersistence = "saved";
@@ -1945,24 +2160,18 @@ export function createDemoRouter(options: DemoOptions) {
       audit = s.audits.get(req.params.id);
     if (!audit) return notFound(res);
     if (audit.status !== "completed")
-      return res
-        .status(409)
-        .json({
-          error: "Only a completed audit has an exportable browser trace.",
-        });
+      return res.status(409).json({
+        error: "Only a completed audit has an exportable browser trace.",
+      });
     const measurement = s.auditTraceMeasurements.get(audit.id);
     if (!measurement || !tigerAvailable())
-      return res
-        .status(503)
-        .json({
-          error: "Observed timings or durable reservation storage unavailable.",
-        });
+      return res.status(503).json({
+        error: "Observed timings or durable reservation storage unavailable.",
+      });
     if (modelBusy || active)
-      return res
-        .status(409)
-        .json({
-          error: "Wait for the current browser or model operation to finish.",
-        });
+      return res.status(409).json({
+        error: "Wait for the current browser or model operation to finish.",
+      });
     modelBusy = true;
     try {
       return res.json(
@@ -2366,6 +2575,11 @@ export function createDemoRouter(options: DemoOptions) {
     async dispose() {
       clearInterval(timer);
       await active?.task;
+      await Promise.allSettled(
+        [...sessions.values()].flatMap((s) =>
+          [...s.approvalRuns.values()].map((run) => run.handle.dispose()),
+        ),
+      );
       await Promise.allSettled([...pendingPersistence]);
       if (ownsTigerStore) {
         ownsTigerStore = false;

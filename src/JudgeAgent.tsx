@@ -24,6 +24,8 @@ import type {
   JudgeAgentRequest,
   JudgeAgentResult,
   JudgeAgentStatus,
+  TemporalAgentReceipt,
+  TemporalAgentStatus,
 } from "../shared/judge-agent-types";
 import {
   HOSTED_WEBSITE_PRESET,
@@ -84,6 +86,56 @@ function timestamp(value?: string) {
     timeStyle: "short",
   });
 }
+function temporalReceipt(result: JudgeAgentResult | null) {
+  if (result?.temporal) return result.temporal;
+  const receipt = result?.orchestration;
+  if (
+    receipt?.provider === "Temporal" &&
+    typeof receipt.workflowId === "string" &&
+    typeof receipt.runId === "string" &&
+    ["running", "completed", "failed"].includes(String(receipt.status))
+  )
+    return receipt as unknown as TemporalAgentReceipt;
+  return null;
+}
+function TemporalWorkflow({ receipt }: { receipt: TemporalAgentReceipt }) {
+  return (
+    <section
+      className="judge-agent-step"
+      aria-label="Temporal workflow receipt"
+    >
+      <h2>Temporal workflow</h2>
+      <p role="status">
+        Status: <strong>{receipt.status}</strong>
+        {receipt.progress && <> · Phase: {receipt.progress.phase}</>}
+      </p>
+      <p>
+        Workflow: <code>{receipt.workflowId}</code>
+      </p>
+      <p>
+        Run: <code>{receipt.runId}</code>
+      </p>
+      {Object.keys(receipt.activities || {}).length ? (
+        <ul>
+          {Object.entries(receipt.activities || {}).map(([name, activity]) => (
+            <li key={name}>
+              <code>{name}</code>: {activity.attempts} attempts ·{" "}
+              {activity.retries} retries · {activity.completed} completed ·{" "}
+              {activity.failed} failed
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Waiting for recorded activity history.</p>
+      )}
+      <p>
+        Activity counts come from this run's Temporal history. The loopback
+        development server uses Render's temporary disk; host storage loss is
+        not covered by worker recovery.
+      </p>
+    </section>
+  );
+}
 
 export function JudgeAgentInvite({ onOpen }: { onOpen: () => void }) {
   return (
@@ -143,6 +195,8 @@ export function JudgeAgent({
   const [uncertainWrite, setUncertainWrite] = useState(false);
   const [result, setResult] = useState<JudgeAgentResult | null>(null);
   const [failure, setFailure] = useState<JudgeAgentFailure | null>(null);
+  const [temporal, setTemporal] = useState<TemporalAgentReceipt | null>(null);
+  const [temporalError, setTemporalError] = useState("");
 
   useEffect(
     () => () => {
@@ -185,6 +239,39 @@ export function JudgeAgent({
       );
     });
   }, [active]);
+  useEffect(() => {
+    if (!active || busy !== "agent") return;
+    const version = revision.current;
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const poll = async () => {
+      try {
+        const current = await request<TemporalAgentStatus>(
+          "/temporal-agent/current",
+        );
+        if (stopped || version !== revision.current) return;
+        if (current.temporal) setTemporal(current.temporal);
+        setTemporalError("");
+      } catch (caught) {
+        if (
+          stopped ||
+          version !== revision.current ||
+          caught instanceof SessionChangedError
+        )
+          return;
+        setTemporalError(
+          "Workflow progress could not be refreshed. The original agent request is still pending; it will not be repeated.",
+        );
+      }
+      if (!stopped && version === revision.current)
+        timer = setTimeout(() => void poll(), 2000);
+    };
+    void poll();
+    return () => {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [active, busy, request]);
 
   const operate = async (
     label: Busy,
@@ -371,7 +458,7 @@ export function JudgeAgent({
       setSubmitted(true);
       confirmedNoReservation.current = false;
       setPendingMessage(
-        "The server is checking free funding, reserving this session's allowance, and running Gemma with its selected tools. Waiting for the complete receipt; individual phases are not streamed.",
+        "The server is checking free funding, reserving this session's allowance, and running Gemma with its selected tools. Returned Temporal progress appears below when this run uses the workflow.",
       );
       try {
         const receipt = await request<JudgeAgentResult>(
@@ -393,6 +480,14 @@ export function JudgeAgent({
         throw caught;
       } finally {
         assertCurrent(version);
+        await request<TemporalAgentStatus>("/temporal-agent/current")
+          .then((current) => {
+            assertCurrent(version);
+            if (current.temporal) setTemporal(current.temporal);
+          })
+          .catch((caught) => {
+            if (caught instanceof SessionChangedError) throw caught;
+          });
         await loadStatus(version).catch((caught) => {
           if (caught instanceof SessionChangedError) throw caught;
           setStatusError(
@@ -417,6 +512,7 @@ export function JudgeAgent({
     result?.sourceAuditId ||
     failure?.sourceAuditId ||
     (audit?.status === "completed" ? audit.id : undefined);
+  const workflowReceipt = temporalReceipt(result) || temporal;
   return (
     <motion.section
       className="judge-agent"
@@ -522,6 +618,12 @@ export function JudgeAgent({
                     : "Checking the live allowance before requesting the agent run.")}
           </p>
         </div>
+      )}
+      {workflowReceipt && <TemporalWorkflow receipt={workflowReceipt} />}
+      {busy === "agent" && temporalError && (
+        <p className="judge-agent-approval-note" role="status">
+          {temporalError}
+        </p>
       )}
 
       {!result && !failure && !status?.budget?.visitorUsed && (

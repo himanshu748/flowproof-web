@@ -1,0 +1,99 @@
+{
+  "files": [
+    {
+      "file": "audit-sample.txt",
+      "sha256": "73dc29ac780cf4cdfcc36ccfe672ace0c1726e547831bf38058d48b4c36ee388",
+      "bytes": 525
+    },
+    {
+      "file": "production-build.txt",
+      "sha256": "6ebcf11ecebe4ed1eaf975f2eff1291a8c8f45c0f570c23ead27e1741d50b5ac",
+      "bytes": 4445
+    },
+    {
+      "file": "public-runtime/broken-1.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b",
+      "bytes": 89250
+    },
+    {
+      "file": "public-runtime/broken-2.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b",
+      "bytes": 89250
+    },
+    {
+      "file": "public-runtime/broken-3.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b",
+      "bytes": 89250
+    },
+    {
+      "file": "public-runtime/broken-4.png",
+      "sha256": "4c7c7663d99c6fb7019249ec7ff764ad1509c96aa7019794a89149d14705f8fd",
+      "bytes": 42945
+    },
+    {
+      "file": "public-runtime/broken-5.png",
+      "sha256": "6d3b833df573f91d44b862c5e6ff1d429513aa60e63b2fe8bee94827c1328b8b",
+      "bytes": 89250
+    },
+    {
+      "file": "public-runtime/broken-audit.json",
+      "sha256": "88e8d643cd62a4447eeb7ffd63017a3bdceb1f3c75e5c0a4e69fe62b145a6e8b",
+      "bytes": 7148
+    },
+    {
+      "file": "public-runtime/broken-report.html",
+      "sha256": "c76f8aee652da6436608a4db6c50d2e63ab3838c991e01f992859c24fab7225d",
+      "bytes": 543023
+    },
+    {
+      "file": "public-runtime/healthy-1.png",
+      "sha256": "c16ced715b2e7907e63287e2c3e2b417363f13f1db8154b82094ee03d7df08b8",
+      "bytes": 90529
+    },
+    {
+      "file": "public-runtime/healthy-2.png",
+      "sha256": "c16ced715b2e7907e63287e2c3e2b417363f13f1db8154b82094ee03d7df08b8",
+      "bytes": 90529
+    },
+    {
+      "file": "public-runtime/healthy-3.png",
+      "sha256": "c16ced715b2e7907e63287e2c3e2b417363f13f1db8154b82094ee03d7df08b8",
+      "bytes": 90529
+    },
+    {
+      "file": "public-runtime/healthy-4.png",
+      "sha256": "d697fb481677f3e2b69f5251c48e391a9babfc44d652a4c4208b3e600ed6f88d",
+      "bytes": 43144
+    },
+    {
+      "file": "public-runtime/healthy-5.png",
+      "sha256": "c16ced715b2e7907e63287e2c3e2b417363f13f1db8154b82094ee03d7df08b8",
+      "bytes": 90529
+    },
+    {
+      "file": "public-runtime/healthy-audit.json",
+      "sha256": "2670f96a87892060ae474e751abffe64d7fc72ec4a0a5ffa680ce50677e20430",
+      "bytes": 7198
+    },
+    {
+      "file": "public-runtime/healthy-report.html",
+      "sha256": "d0a87a1c9353966ca89d8ac0a30d56ed469afeb4dce9a64f82a44d59c3e235e6",
+      "bytes": 550167
+    },
+    {
+      "file": "public-runtime/receipt.json",
+      "sha256": "a51c66368d6cb1d6c013b592a6bc6b47d37fe4b6baee77b7c269c778ad2d55c1",
+      "bytes": 2887
+    },
+    {
+      "file": "regression-tests.txt",
+      "sha256": "d63474ab53d5dc76881f06047f25e3185a2608a6859221c991e91cf20a3a9e60",
+      "bytes": 494
+    },
+    {
+      "file": "verification.json",
+      "sha256": "18ae6275f9b97e38a442890d9b92907c5c55e70230a1fc81d486514342cc9eae",
+      "bytes": 13223
+    }
+  ]
+}

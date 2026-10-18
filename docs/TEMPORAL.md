@@ -1,9 +1,45 @@
 # Temporal recovery: full evidence agent and browser audit
 
-Temporal is an optional operator service. It is disabled by default and unavailable in the public synthetic demo. The integration accepts only a loopback Temporal address and creates no cloud resources or billable services.
+Temporal is optional and disabled by default. The existing operator audit service remains separate from the new, disabled hosted evidence-agent path. The integration accepts only a loopback Temporal address and creates no cloud resources or billable services.
 
 The workflow schedules the existing approved Playwright audit as an activity. Activity retries are bounded to three attempts and eight minutes total. Invalid plans and safety violations become nonretryable application failures. Actual failed or blocked browser observations remain failed or blocked; workflow completion never means every requirement passed.
 
+
+## October 18 hosted upgrade: implemented, blocked from enabling
+
+The new hosted path is **not verified live on Render** and must remain disabled. `FLOWPROOF_TEMPORAL_HOSTED_ENABLED` defaults off. Local testing used the actual CLI/SDK with explicitly retained provider fixtures, not fresh model/search calls or a public grant reservation. The [local verification and histories](evidence/temporal-local/2026-10-18T09-08Z/README.md) preserve the successful controlled retry/worker restart, memory measurement and initial failed configuration attempt.
+
+The implementation accepts only an already committed Tiger judge reservation, keeping its maximum **2 model calls and 1 search call**. The web process retains credentials and session/source guards. A bundled child hosts the SDK and starts official CLI **1.9.1 / server 1.32.0**, with matching SDK **1.24.0**, binding gRPC to **127.0.0.1:7233**, disabling the Temporal UI and storing SQLite at `<FLOWPROOF_DATA_DIR>/temporal-hosted/history.sqlite`. Gemma selection, Tiger lookup, SerpApi search and Gemma summary are separate real Temporal activities. Empty tool selection abstains without a second model call. Every request has a shared **90-second** deadline, provider attempts remain one per logical operation, and ambiguous provider completion fails closed instead of repeating a dispatch. A completed phase cache can reuse a response after a lost activity completion.
+
+Each run has a dedicated task queue and worker. The trusted controlled test injects one transient failure **before** model dispatch, then gracefully shuts down and recreates only that run's SDK worker after Tiger completes. The same workflow/run resumes from actual history without repeating completed activities; this is a controlled worker restart, not a process crash or host disk recovery test. Status/attempt counts are derived from actual Temporal history; the phase comes from a workflow query. The child, its worker and CLI exit after the run, releasing memory before another browser audit. No paid plan or Temporal Cloud resource is created.
+
+The final native compiled verifier and compiled app used Node **22.23.3**, a **96 MiB** parent heap, **64 MiB** isolated-child heap, and CLI `GOMEMLIMIT=64MiB` / `GOGC=20`. After Temporal stopped, real Chromium returned **2 passed, 3 failed, 0 blocked and 1 unverified** checks. The [compiled receipt](evidence/temporal-local/2026-10-18T09-08Z/temporal-hosted-node22-compiled-2.json) records these sampled process-tree PSS peaks:
+
+| Phase | PSS KiB |
+|---|---:|
+| Temporal workflow | 482,457 |
+| After child exit | 182,093 |
+| Later Chromium / overall maximum | 491,322 |
+
+The overall peak is about **479.8 MiB**, roughly **32.2 MiB** below a 512 MiB instance. This is local fixture evidence; Render cgroup, kernel and file-cache charges and its Chromium version remain unverified. **Do not enable the hosted flag until actual capacity is observed on the existing free service.**
+
+Earlier source-loaded designs exceeded the budget: the Node 24 full-app run reached **561,632 KiB PSS**, Node 22 source-loaded variants reached **534,697**, **553,316** and **525,176 KiB PSS**, and a compiled app with the verifier still using `tsx` reached **540,956 KiB PSS**. Their original receipts and phase measurements remain in the [local evidence index](evidence/temporal-local/2026-10-18T09-08Z/README.md). Initial SDK configuration failure and early browser row-count measurements that did not prove Chromium execution are also retained. They are not hosted successes or free-plan capacity passes.
+
+[Render's free-service documentation](https://render.com/docs/free) says that its local filesystem, including SQLite, is lost on redeploy, service restart or spin-down, and free services cannot attach persistent disks. Thus SQLite can preserve Temporal history across the controlled SDK-worker restart on one unchanged host, but **cannot** recover that history after Render host loss. Request-scoped provider callbacks remain in the parent web process and also do not survive a web-process loss. No durable infrastructure, continuous worker availability or hosted success is claimed.
+
+Official APIs checked for this implementation: [CLI server flags and SQLite development persistence](https://docs.temporal.io/cli/command-reference/server), [SDK Worker lifecycle](https://typescript.temporal.io/api/classes/worker.Worker), [SDK workflow bundling](https://typescript.temporal.io/api/namespaces/worker#bundleworkflowcode), and [Render free storage lifecycle](https://render.com/docs/free). The Docker CLI archive is checksum-pinned to the same v1.9.1 release used by the existing CI proof. Workflow code is precompiled using TypeScript and the official SDK bundler; runtime does not run webpack.
+
+Reproduce the local lifecycle/resource test (fixture callbacks, no inference charges):
+
+```sh
+npm run build
+npx vite build --ssr scripts/verify-hosted-temporal-local.ts --target node22 --outDir dist-temporal-verifier
+node --max-old-space-size=96 dist-temporal-verifier/verify-hosted-temporal-local.js \
+  --cli /path/to/verified/temporal --output work/temporal-hosted-new \
+  --full-app --chromium
+```
+
+Install Chromium through the repository's normal Playwright setup first. Browser absence produces a failure rather than a successful browser claim. The output directory must be fresh. The verifier starts its own synthetic local app on port 14310 when `--full-app` is specified, stops the CLI/child it created, and exits that test app at completion.
 
 ## Full evidence-agent recovery (October 16)
 

@@ -50,6 +50,7 @@ import {
   XCircle,
 } from "lucide-react";
 import type {
+  ApprovalWorkflowReceipt,
   Audit,
   Bootstrap,
   Check as TestCheck,
@@ -104,6 +105,45 @@ const titles: Record<View, string> = {
   agent: "Optional evidence agent",
 };
 const tokenKey = "flowproof.operator-token";
+function ApprovalWorkflow({ receipt }: { receipt?: ApprovalWorkflowReceipt }) {
+  if (!receipt) return null;
+  return (
+    <section className="report-note" aria-label="Mastra approval workflow">
+      <ShieldCheck size={18} aria-hidden="true" />
+      <div>
+        <p>
+          <strong>Mastra approval workflow · {receipt.status}</strong>
+          <br />
+          Workflow: <code>{receipt.workflowId}</code>
+          <br />
+          Run: <code>{receipt.runId}</code>
+        </p>
+        {receipt.status === "suspended" && (
+          <p>
+            Review the proposed checks, approve them, then choose Resume &amp;
+            run audit. Your approval resumes this workflow and permits Chromium
+            to run the approved checks. Changing a check requires a fresh
+            proposal.
+          </p>
+        )}
+        <details>
+          <summary>Workflow steps and scope</summary>
+          <ul>
+            {receipt.steps.map((step) => (
+              <li key={step.id}>
+                <code>{step.id}</code>: {step.status}
+              </li>
+            ))}
+          </ul>
+          <p>
+            This run is held in the current process for up to five minutes. It
+            expires if that process stops; approval state is not durable.
+          </p>
+        </details>
+      </div>
+    </section>
+  );
+}
 let recoverDemoSession: (() => Promise<void>) | null = null;
 let pendingBootstrapController: AbortController | null = null;
 const sessionRequests = createSessionRecovery(async () => {
@@ -1721,7 +1761,9 @@ function App({
                           onClick={runAudit}
                         >
                           <Play size={15} />
-                          Run audit
+                          {project.approvalWorkflow?.status === "suspended"
+                            ? "Resume & run audit"
+                            : "Run audit"}
                         </button>
                       </div>
                     </div>
@@ -1750,6 +1792,7 @@ function App({
                         <span className="step-circle">4</span>Share proof
                       </span>
                     </div>
+                    <ApprovalWorkflow receipt={project.approvalWorkflow} />
                     <div className="review-grid">
                       <div>
                         <section className="panel brief-panel">
@@ -2217,7 +2260,9 @@ function App({
                             ) : (
                               <Play size={15} />
                             )}
-                            Save & run audit
+                            {project.approvalWorkflow?.status === "suspended"
+                              ? "Resume & run audit"
+                              : "Save & run audit"}
                           </button>
                           {dirty && (
                             <p className="unsaved">You have unsaved changes.</p>
@@ -2392,6 +2437,9 @@ function App({
                         </div>
                         {audit && (
                           <>
+                            <ApprovalWorkflow
+                              receipt={audit.approvalWorkflow}
+                            />
                             <section className="audit-summary">
                               <div className="audit-title">
                                 <span className="audit-symbol">

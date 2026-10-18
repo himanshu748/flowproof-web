@@ -1,0 +1,217 @@
+{
+  "startedAt": "2026-10-18T09:10:22.824Z",
+  "status": "verified",
+  "sourceCommit": "5bc2cf088ce75f46b2593bbe5a63c6d2a54b49ec",
+  "workingTreeDirty": true,
+  "scope": "Local full demo router over HTTP, actual Mastra snapshots and Chromium; fixture Gemma response and free-pricing check. Not hosted, no fresh inference, no Temporal process.",
+  "remoteProviderCalls": 0,
+  "fixture": {
+    "file": "docs/evidence/hosted-open-model/2026-10-15T10-55-27Z/generated-project.json",
+    "sha256": "02a6aa41d4787bb3f310e05fae2799719f9cb44d1639c7f7a54248619af55ea0"
+  },
+  "approvalActor": "Owner-authorized controlled local HTTP test; not human acceptance",
+  "runtime": {
+    "node": "v22.23.3",
+    "heapArguments": [
+      "--max-old-space-size=96"
+    ],
+    "chromium": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)"
+  },
+  "calls": [
+    {
+      "route": "/api/bootstrap",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/8f615738-a8ba-43f9-a835-a773aaba2db9/generate-gemma",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/8f615738-a8ba-43f9-a835-a773aaba2db9/checks",
+      "status": 200
+    },
+    {
+      "route": "/api/projects/8f615738-a8ba-43f9-a835-a773aaba2db9/audits",
+      "status": 202
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    },
+    {
+      "route": "/api/audits/17b0e55e-b5fc-4c9d-bc7e-377913daf39b",
+      "status": 200
+    }
+  ],
+  "browserCounts": {
+    "passed": 5,
+    "failed": 0,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "completedAt": "2026-10-18T09:10:30.971Z",
+  "memory": {
+    "samplingMs": 50,
+    "phases": {
+      "startup": {
+        "rssMiB": 172.77734375,
+        "pssMiB": 159.8095703125,
+        "processes": 1
+      },
+      "proposal-sdk": {
+        "rssMiB": 369.98828125,
+        "pssMiB": 321.00390625,
+        "processes": 2
+      },
+      "review": {
+        "rssMiB": 182.38671875,
+        "pssMiB": 181.7861328125,
+        "processes": 1
+      },
+      "approval-resume-sdk": {
+        "rssMiB": 361.66015625,
+        "pssMiB": 312.576171875,
+        "processes": 2
+      },
+      "chromium": {
+        "rssMiB": 764.5,
+        "pssMiB": 495.7880859375,
+        "processes": 10
+      },
+      "sdk-completion": {
+        "rssMiB": 373.16015625,
+        "pssMiB": 323.6865234375,
+        "processes": 2
+      }
+    },
+    "peakRssMiB": 764.5,
+    "peakPssMiB": 495.7880859375,
+    "explanation": "Linux process-tree smaps_rollup; RSS double-counts shared pages, PSS apportions them. Temporal excluded unless explicitly started by the verifier."
+  },
+  "proposalCalls": 1,
+  "browserCalls": 1
+}

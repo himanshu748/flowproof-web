@@ -171,7 +171,13 @@ app.use("/api", (req, res, next) => {
   next();
 });
 app.get("/health", (_req, res) =>
-  res.json({ status: "ok", service: "flowproof" }),
+  res.json({
+    status: "ok",
+    service: "flowproof",
+    ...(/^[a-f0-9]{40}$/.test(process.env.RENDER_GIT_COMMIT || "")
+      ? { sourceCommit: process.env.RENDER_GIT_COMMIT }
+      : {}),
+  }),
 );
 const integrations = (): IntegrationStatus[] => [
   {

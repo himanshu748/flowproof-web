@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { z } from "zod";
+import type { WorkflowRunState } from "@mastra/core/workflows";
 import type { Check, CheckResult } from "../shared/types.js";
 import { redact } from "../shared/redact.js";
 import { CheckSchema, validateChecks } from "./schema.js";
@@ -85,7 +86,29 @@ const outputSchema = z
     planDigest: digestSchema,
   })
   .strict();
+export const BrowserDispatchSchema = z
+  .object({
+    reason: z.literal("Awaiting the actual external Chromium result."),
+    scope: z.literal("process-local"),
+    checks: checksSchema,
+    context: z
+      .object({
+        brief: z.string().min(1).max(12000),
+        planDigest: digestSchema,
+        runId: z.string().uuid(),
+      })
+      .strict(),
+  })
+  .strict();
+export const BrowserResumeSchema = z
+  .object({
+    planDigest: digestSchema,
+    results: z.array(resultSchema).min(1).max(24),
+  })
+  .strict();
 export interface ApprovalWorkflowOptions {
+  /** Trusted host mode: second SDK suspension releases the heap before Chromium. */
+  externalBrowser?: boolean;
   /** Trusted server injection; this callback must return unapproved proposals. */
   propose: (input: Readonly<ApprovalWorkflowInput>) => Promise<unknown>;
   /** Trusted safe browser adapter. No provider or runner is initialized by this module. */
@@ -119,7 +142,7 @@ function refused(): never {
 /** Real SDK suspension with process-local one-shot guards; this is not a durable hosted approval service. */
 export async function createApprovalWorkflow(options: ApprovalWorkflowOptions) {
   // Analytics are opted out before dynamic imports. This module is not imported
-  // by the public server or frontend and does not configure external storage.
+  // by the frontend and does not configure external storage.
   process.env.MASTRA_TELEMETRY_DISABLED = "1";
   const [{ Mastra }, { createWorkflow, createStep }] = await Promise.all([
     import("@mastra/core/mastra"),
@@ -236,35 +259,55 @@ export async function createApprovalWorkflow(options: ApprovalWorkflowOptions) {
     retries: 0,
     inputSchema: approvedSchema,
     outputSchema,
-    execute: async ({ inputData, runId }) => {
+    resumeSchema: BrowserResumeSchema,
+    suspendSchema: BrowserDispatchSchema,
+    execute: async ({ inputData, runId, resumeData, suspend }) => {
       const gate = gates.get(runId);
-      if (
-        !gate?.approved ||
-        !isDeepStrictEqual(gate.approved, inputData) ||
-        gate.browserStarted
-      )
+      if (!gate?.approved || !isDeepStrictEqual(gate.approved, inputData))
         return refused();
-      // Never clear this flag on error or invalid output. Retrying an ambiguous
-      // browser handoff is outside this local workflow's authorization.
-      gate.browserStarted = true;
+      const context = {
+        brief: gate.brief,
+        planDigest: gate.approved.planDigest,
+        runId,
+      };
       let results: CheckResult[];
-      try {
-        results = z
-          .array(resultSchema)
-          .min(1)
-          .max(24)
-          .parse(
-            await options.execute(
-              structuredClone(gate.approved.approvedChecks),
-              Object.freeze({
-                brief: gate.brief,
-                planDigest: gate.approved.planDigest,
-                runId,
-              }),
-            ),
-          );
-      } catch {
-        return refused();
+      if (options.externalBrowser) {
+        if (resumeData === undefined) {
+          if (gate.browserStarted) return refused();
+          gate.browserStarted = true;
+          return suspend({
+            reason: "Awaiting the actual external Chromium result.",
+            scope: "process-local",
+            checks: structuredClone(gate.approved.approvedChecks),
+            context,
+          });
+        }
+        const parsed = BrowserResumeSchema.safeParse(resumeData);
+        if (
+          !gate.browserStarted ||
+          !parsed.success ||
+          parsed.data.planDigest !== gate.approved.planDigest
+        )
+          return refused();
+        results = parsed.data.results;
+      } else {
+        if (gate.browserStarted || resumeData !== undefined) return refused();
+        // Ambiguous execution remains consumed, including errors and bad output.
+        gate.browserStarted = true;
+        try {
+          results = z
+            .array(resultSchema)
+            .min(1)
+            .max(24)
+            .parse(
+              await options.execute(
+                structuredClone(gate.approved.approvedChecks),
+                Object.freeze(context),
+              ),
+            );
+        } catch {
+          return refused();
+        }
       }
       if (
         results.length !== gate.approved.approvedChecks.length ||
@@ -304,7 +347,8 @@ export async function createApprovalWorkflow(options: ApprovalWorkflowOptions) {
     .then(approval)
     .then(browser)
     .commit();
-  // Disable SDK logging: private proposal/brief content must not enter error logs.
+  // The Mastra registration supplies the SDK in-memory snapshot store needed
+  // for real resume. This store is intentionally lost with the worker process.
   const mastra = new Mastra({
     logger: false,
     workflows: { approval: workflow },
@@ -313,5 +357,95 @@ export async function createApprovalWorkflow(options: ApprovalWorkflowOptions) {
     workflow: mastra.getWorkflow("approval"),
     approvalStepId: APPROVAL_STEP_ID,
     scope: "process-local" as const,
+    async exportSnapshot(runId: string): Promise<WorkflowRunState> {
+      const store = await mastra.getStorage()?.getStore("workflows");
+      const snapshot = await store?.loadWorkflowSnapshot({
+        workflowName: APPROVAL_WORKFLOW_ID,
+        runId,
+      });
+      if (!snapshot || snapshot.status !== "suspended" || !gates.has(runId))
+        return refused();
+      return JSON.parse(JSON.stringify(snapshot)) as WorkflowRunState;
+    },
+    /** Trusted server checkpoint only. Never expose this import as an HTTP API. */
+    async restoreSnapshot(snapshot: WorkflowRunState) {
+      if (
+        !options.externalBrowser ||
+        snapshot.status !== "suspended" ||
+        gates.has(snapshot.runId)
+      )
+        return refused();
+      const validatedStep = snapshot.context["validate-proposal"];
+      if (validatedStep?.status !== "success") return refused();
+      const plan = planSchema.parse(validatedStep.output);
+      const brief = ApprovalWorkflowInputSchema.parse(
+        snapshot.context.input,
+      ).brief;
+      const checks = validateChecks(plan.checks);
+      if (
+        brief !== plan.brief ||
+        checks.some((c) => c.approved) ||
+        plan.planDigest !== digest(snapshot.runId, brief, checks) ||
+        !isDeepStrictEqual(
+          plan.checkIds,
+          checks.map((c) => c.id),
+        )
+      )
+        return refused();
+      let approved: z.infer<typeof approvedSchema> | undefined;
+      let browserStarted = false;
+      if (snapshot.context[APPROVAL_STEP_ID]?.status === "success") {
+        approved = approvedSchema.parse(
+          snapshot.context[APPROVAL_STEP_ID]?.output,
+        );
+        const expected = checks
+          .filter((c) => approved!.approvedCheckIds.includes(c.id))
+          .map((c) => ({ ...c, approved: true }));
+        if (
+          approved.brief !== brief ||
+          approved.planDigest !== plan.planDigest ||
+          !isDeepStrictEqual(approved.approvedChecks, expected) ||
+          !isDeepStrictEqual(
+            approved.approvedCheckIds,
+            expected.map((c) => c.id),
+          ) ||
+          snapshot.context["browser-handoff"]?.status !== "suspended"
+        )
+          return refused();
+        const dispatch = BrowserDispatchSchema.parse(
+          snapshot.context["browser-handoff"].suspendPayload,
+        );
+        if (
+          !isDeepStrictEqual(dispatch.checks, expected) ||
+          !isDeepStrictEqual(dispatch.context, {
+            brief,
+            planDigest: plan.planDigest,
+            runId: snapshot.runId,
+          })
+        )
+          return refused();
+        browserStarted = true;
+      } else if (snapshot.context[APPROVAL_STEP_ID]?.status !== "suspended")
+        return refused();
+      gates.set(snapshot.runId, {
+        brief,
+        plan: freeze(structuredClone(plan)),
+        suspended: true,
+        ...(approved ? { approved: freeze(structuredClone(approved)) } : {}),
+        browserStarted,
+      });
+      const store = await mastra.getStorage()?.getStore("workflows");
+      if (!store) return refused();
+      await store.persistWorkflowSnapshot({
+        workflowName: APPROVAL_WORKFLOW_ID,
+        runId: snapshot.runId,
+        snapshot: structuredClone(snapshot),
+      });
+    },
   };
 }
+
+export {
+  suspendSchema as ApprovalSuspensionSchema,
+  outputSchema as ApprovalOutputSchema,
+};

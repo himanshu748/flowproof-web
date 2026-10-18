@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -k \"node --env-file-if-exists=.env --import tsx --watch server/index.ts\" \"vite --host 127.0.0.1\"",
-    "build": "tsc --noEmit && vite build && vite build --ssr scripts/prerender-landing.tsx --target node22 --outDir dist-prerender && node dist-prerender/prerender-landing.js && vite build --ssr server/gemma-workflow-child.ts --outDir dist-worker && vite build --ssr server/mastra-evidence-child.ts --outDir dist-agent-worker && vite build --ssr server/runtime-trace-child.ts --outDir dist-trace-worker",
-    "start": "node --env-file-if-exists=.env --import tsx server/index.ts",
+    "build": "tsc --noEmit && vite build && vite build --ssr scripts/prerender-landing.tsx --target node22 --outDir dist-prerender && node dist-prerender/prerender-landing.js && vite build --ssr server/gemma-workflow-child.ts --outDir dist-worker && vite build --ssr server/mastra-evidence-child.ts --outDir dist-agent-worker && vite build --ssr server/runtime-trace-child.ts --outDir dist-trace-worker && vite build --ssr server/hosted-approval-child.ts --outDir dist-approval-worker && node --import tsx scripts/build-temporal-worker.ts && vite build --ssr server/hosted-temporal-child.ts --target node22 --outDir dist-temporal-runtime && vite build --ssr server/index.ts --target node22 --outDir dist-server",
+    "start": "node --max-old-space-size=96 --env-file-if-exists=.env dist-server/index.js",
     "test": "vitest run --no-file-parallelism",
     "audit:sample": "tsx scripts/audit-sample.ts",
     "audit:plan": "tsx scripts/audit-plan.ts",

@@ -1,0 +1,16 @@
+{
+  "step": "await-developer-approval",
+  "resumeData": {
+    "planDigest": "252df39dad029f8749f9158f7a7266cf7ed1b8c777130dc434b874836bb30d62",
+    "approvedCheckIds": [
+      "7f14d43c-2c01-454c-bf93-d7754406a7a2",
+      "f1d392d1-cc85-4224-86b5-19642f9e4b89",
+      "ae7083b7-1050-4aed-a88c-3bffb0e9cfe6",
+      "6db52faa-3509-4ff1-9cff-ce6f3dfc73b8",
+      "a2a6ac8f-5e7c-404d-92f3-633cf3d752c5",
+      "3b514fc1-574a-475b-8a70-036c6b54396b"
+    ]
+  },
+  "approvalActor": "Owner-instructed automated verifier; not human or customer acceptance",
+  "approvedAt": "2026-10-18T09:01:15.391Z"
+}
