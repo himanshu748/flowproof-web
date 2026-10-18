@@ -2247,3 +2247,132 @@
     transform: none;
   }
 }
+
+/* Lead with the delivery decision; keep implementation receipts on demand. */
+.app-shell .nav-tools-label {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #344053;
+}
+.app-shell .alternate-target {
+  margin-bottom: 20px;
+}
+.app-shell
+  :where(.alternate-target, .workflow-details, .report-technical-note)
+  > summary {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  cursor: pointer;
+  color: #536780;
+  font-size: 12px;
+  list-style: none;
+}
+.app-shell
+  :where(.alternate-target, .workflow-details, .report-technical-note)
+  > summary::-webkit-details-marker {
+  display: none;
+}
+.app-shell
+  :where(.alternate-target, .workflow-details, .report-technical-note)
+  > summary
+  > svg:last-child {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.app-shell
+  :where(.alternate-target, .workflow-details, .report-technical-note)[open]
+  > summary
+  > svg:last-child {
+  transform: rotate(180deg);
+}
+.app-shell .alternate-target > summary {
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+}
+.app-shell .alternate-target .live-site-preset {
+  margin: 10px 0 0;
+}
+.app-shell .workflow-details {
+  margin-bottom: 12px;
+}
+.app-shell .delivery-verdict {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 25px;
+  margin: 18px 0;
+  border: 1px solid #d8e1f0;
+  border-radius: 12px;
+  background: #fff;
+}
+.app-shell .delivery-verdict-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 48px;
+  height: 48px;
+  border-radius: 12px;
+  color: #4761b7;
+  background: #eff3ff;
+}
+.app-shell .delivery-verdict > div {
+  flex: 1;
+  min-width: 0;
+}
+.app-shell .delivery-verdict h2 {
+  margin: 5px 0 7px;
+  font-size: 23px;
+  letter-spacing: -0.65px;
+}
+.app-shell .delivery-verdict p {
+  margin: 0;
+  color: #596b82;
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 65ch;
+}
+.app-shell .delivery-verdict.all-verified .delivery-verdict-icon {
+  color: #247654;
+  background: #edf8f1;
+}
+.app-shell .report-technical-note {
+  border-bottom: 1px solid var(--border);
+}
+.app-shell .report-technical-note .report-note {
+  margin: 8px 0 18px;
+}
+.app-shell .comparison-disclosure {
+  margin-top: 20px;
+}
+.app-shell #delivery-results {
+  scroll-margin-top: 85px;
+}
+@media (max-width: 900px) {
+  .app-shell .delivery-verdict {
+    flex-wrap: wrap;
+  }
+  .app-shell .delivery-verdict > .button {
+    margin-left: 66px;
+  }
+}
+@media (max-width: 480px) {
+  .app-shell .delivery-verdict {
+    padding: 19px;
+    gap: 12px;
+  }
+  .app-shell .delivery-verdict-icon {
+    flex-basis: 36px;
+    height: 40px;
+  }
+  .app-shell .delivery-verdict h2 {
+    font-size: 20px;
+  }
+  .app-shell .delivery-verdict > .button {
+    margin-left: 0;
+    width: 100%;
+  }
+}

@@ -97,7 +97,7 @@ const titles: Record<View, string> = {
   overview: "Overview",
   projects: "Projects",
   review: "Review test plan",
-  audit: "Audit monitor",
+  audit: "Delivery review",
   reports: "Delivery reports",
   model: "Model lab",
   settings: "Connections",
@@ -108,40 +108,49 @@ const tokenKey = "flowproof.operator-token";
 function ApprovalWorkflow({ receipt }: { receipt?: ApprovalWorkflowReceipt }) {
   if (!receipt) return null;
   return (
-    <section className="report-note" aria-label="Mastra approval workflow">
-      <ShieldCheck size={18} aria-hidden="true" />
-      <div>
-        <p>
-          <strong>Mastra approval workflow · {receipt.status}</strong>
-          <br />
-          Workflow: <code>{receipt.workflowId}</code>
-          <br />
-          Run: <code>{receipt.runId}</code>
-        </p>
-        {receipt.status === "suspended" && (
+    <details className="workflow-details" aria-label="Mastra approval workflow">
+      <summary>
+        Approval workflow ·{" "}
+        {receipt.status === "suspended"
+          ? "waiting for your review"
+          : receipt.status}
+        <ChevronDown size={14} />
+      </summary>
+      <section className="report-note">
+        <ShieldCheck size={18} aria-hidden="true" />
+        <div>
           <p>
-            Review the proposed checks, approve them, then choose Resume &amp;
-            run audit. Your approval resumes this workflow and permits Chromium
-            to run the approved checks. Changing a check requires a fresh
-            proposal.
+            <strong>Mastra approval workflow · {receipt.status}</strong>
+            <br />
+            Workflow: <code>{receipt.workflowId}</code>
+            <br />
+            Run: <code>{receipt.runId}</code>
           </p>
-        )}
-        <details>
-          <summary>Workflow steps and scope</summary>
-          <ul>
-            {receipt.steps.map((step) => (
-              <li key={step.id}>
-                <code>{step.id}</code>: {step.status}
-              </li>
-            ))}
-          </ul>
-          <p>
-            This run is held in the current process for up to five minutes. It
-            expires if that process stops; approval state is not durable.
-          </p>
-        </details>
-      </div>
-    </section>
+          {receipt.status === "suspended" && (
+            <p>
+              Review the proposed checks, approve them, then choose Resume &amp;
+              run audit. Your approval resumes this workflow and permits
+              Chromium to run the approved checks. Changing a check requires a
+              fresh proposal.
+            </p>
+          )}
+          <details>
+            <summary>Workflow steps and scope</summary>
+            <ul>
+              {receipt.steps.map((step) => (
+                <li key={step.id}>
+                  <code>{step.id}</code>: {step.status}
+                </li>
+              ))}
+            </ul>
+            <p>
+              This run is held in the current process for up to five minutes. It
+              expires if that process stops; approval state is not durable.
+            </p>
+          </details>
+        </div>
+      </section>
+    </details>
   );
 }
 let recoverDemoSession: (() => Promise<void>) | null = null;
@@ -953,21 +962,35 @@ function App({
           </button>
           <div className="nav-section-label">Workspace</div>
           <nav>
-            {navItems.map((item) => (
-              <button
-                key={item.view}
-                className={`nav-item ${view === item.view || (item.view === "projects" && ["review", "audit"].includes(view)) ? "active" : ""}`}
-                onClick={() => navigate(item.view)}
-              >
-                <item.icon size={18} strokeWidth={1.8} />
-                <span>{item.label}</span>
-                {item.view === "projects" && !!data?.projects.length && (
-                  <span className="nav-count">{data.projects.length}</span>
+            {navItems.map((item, index) => (
+              <React.Fragment key={item.view}>
+                {index === 3 && (
+                  <div className="nav-section-label nav-tools-label">
+                    Tools & research
+                  </div>
                 )}
-                {item.view === "model" && (
-                  <span className="beta-label">LAB</span>
-                )}
-              </button>
+                <button
+                  key={item.view}
+                  className={`nav-item ${view === item.view || (item.view === "projects" && ["review", "audit"].includes(view)) ? "active" : ""}`}
+                  aria-current={
+                    view === item.view ||
+                    (item.view === "projects" &&
+                      ["review", "audit"].includes(view))
+                      ? "page"
+                      : undefined
+                  }
+                  onClick={() => navigate(item.view)}
+                >
+                  <item.icon size={18} strokeWidth={1.8} />
+                  <span>{item.label}</span>
+                  {item.view === "projects" && !!data?.projects.length && (
+                    <span className="nav-count">{data.projects.length}</span>
+                  )}
+                  {item.view === "model" && (
+                    <span className="beta-label">LAB</span>
+                  )}
+                </button>
+              </React.Fragment>
             ))}
           </nav>
           <div className="sidebar-bottom">
@@ -1768,11 +1791,17 @@ function App({
                       </div>
                     </div>
                     {demo?.enabled && project.target === "sample" && (
-                      <LiveSitePreset
-                        busy={busy}
-                        onCreate={createLiveWebsiteProject}
-                        compact
-                      />
+                      <details className="alternate-target">
+                        <summary>
+                          <Globe2 size={15} /> Prefer a real website? Try our
+                          public homepage <ChevronDown size={14} />
+                        </summary>
+                        <LiveSitePreset
+                          busy={busy}
+                          onCreate={createLiveWebsiteProject}
+                          compact
+                        />
+                      </details>
                     )}
                     <div className="flow-strip">
                       <span className="done">
@@ -2364,18 +2393,16 @@ function App({
                       <div>
                         <div className="eyebrow">
                           <span className="orange-dot" />
-                          {view === "audit"
-                            ? "LIVE BROWSER EVIDENCE"
-                            : "READY FOR HANDOFF"}
+                          DELIVERY WORKSPACE
                         </div>
                         <h1>
                           {view === "audit"
-                            ? "Every check tells a story."
+                            ? "Your delivery review"
                             : "Delivery reports"}
                         </h1>
                         <p>
                           {view === "audit"
-                            ? "Follow each requirement from approved assertion to observed result."
+                            ? "See what is verified, resolve open items, then export the client report."
                             : "A clear record of what works, what needs attention, and what comes next."}
                         </p>
                       </div>
@@ -2417,7 +2444,7 @@ function App({
                       <>
                         <div className="audit-picker-row">
                           <label>
-                            Audit
+                            Website review
                             <select
                               value={audit?.id || ""}
                               onChange={(e) => {
@@ -2440,6 +2467,90 @@ function App({
                             <ApprovalWorkflow
                               receipt={audit.approvalWorkflow}
                             />
+                            {audit.status === "completed" &&
+                              (() => {
+                                const passed = audit.results.filter(
+                                  (r) => r.status === "passed",
+                                ).length;
+                                const failed = audit.results.filter(
+                                  (r) => r.status === "failed",
+                                ).length;
+                                const blocked = audit.results.filter(
+                                  (r) => r.status === "blocked",
+                                ).length;
+                                const unverified =
+                                  audit.checks.length -
+                                  passed -
+                                  failed -
+                                  blocked;
+                                const open = audit.checks.length - passed;
+                                return (
+                                  <section
+                                    className={`delivery-verdict ${open ? "has-open-items" : "all-verified"}`}
+                                    aria-label="Delivery readiness"
+                                  >
+                                    <span className="delivery-verdict-icon">
+                                      {open ? (
+                                        <FileText size={24} />
+                                      ) : (
+                                        <CheckCircle2 size={24} />
+                                      )}
+                                    </span>
+                                    <div>
+                                      <span className="panel-kicker">
+                                        {open
+                                          ? "REVIEW BEFORE HANDOFF"
+                                          : "BROWSER CHECKS COMPLETE"}
+                                      </span>
+                                      <h2>
+                                        {open
+                                          ? `${open} ${open === 1 ? "item needs" : "items need"} your attention.`
+                                          : "Every planned check is verified."}
+                                      </h2>
+                                      <p>
+                                        {passed} of {audit.checks.length} checks
+                                        passed.
+                                        {failed > 0
+                                          ? ` Fix ${failed} failed ${failed === 1 ? "requirement" : "requirements"}.`
+                                          : ""}
+                                        {blocked > 0
+                                          ? ` ${blocked} blocked.`
+                                          : ""}
+                                        {unverified > 0
+                                          ? ` ${unverified} still ${unverified === 1 ? "needs" : "need"} a person’s review.`
+                                          : ""}{" "}
+                                        The report keeps these outcomes visible.
+                                      </p>
+                                    </div>
+                                    {open > 0 && (
+                                      <button
+                                        className="button secondary"
+                                        onClick={() => {
+                                          setFilter(
+                                            failed
+                                              ? "failed"
+                                              : blocked
+                                                ? "blocked"
+                                                : "unverified",
+                                          );
+                                          setSelectedCheck("");
+                                          document
+                                            .getElementById("delivery-results")
+                                            ?.scrollIntoView({
+                                              behavior: reducedMotion
+                                                ? "instant"
+                                                : "smooth",
+                                              block: "start",
+                                            });
+                                        }}
+                                      >
+                                        Review open items{" "}
+                                        <ArrowRight size={15} />
+                                      </button>
+                                    )}
+                                  </section>
+                                );
+                              })()}
                             <section className="audit-summary">
                               <div className="audit-title">
                                 <span className="audit-symbol">
@@ -2515,30 +2626,44 @@ function App({
                               </div>
                             )}
                             {audit.summary && (
-                              <div className="audit-written-summary">
-                                <Info size={17} />
-                                <p>{audit.summary}</p>
-                              </div>
+                              <details className="report-technical-note">
+                                <summary>
+                                  How this review was produced{" "}
+                                  <ChevronDown size={14} />
+                                </summary>
+                                <div className="audit-written-summary">
+                                  <Info size={17} />
+                                  <p>{audit.summary}</p>
+                                </div>
+                              </details>
                             )}
-                            <AuditComparison audit={audit} audits={allAudits} />
                             {cloudSave?.auditId === audit.id &&
                               cloudSave.status !== "not_configured" && (
-                                <div className="report-note" role="status">
-                                  {cloudSave.status === "saved" ? (
-                                    <CheckCircle2 size={17} />
-                                  ) : cloudSave.status === "saving" ? (
-                                    <LoaderCircle size={17} className="spin" />
-                                  ) : (
-                                    <Info size={17} />
-                                  )}
-                                  <p>
-                                    {cloudSave.status === "saved"
-                                      ? "Tiger Data confirmed this audit was saved. Search its failed observations in the Failure library. Results are session scoped for up to 30 minutes; screenshot files remain temporary."
-                                      : cloudSave.status === "saving"
-                                        ? "Saving the completed audit to Tiger Data."
-                                        : "Tiger persistence is unverified. Your observed browser results are unchanged."}
-                                  </p>
-                                </div>
+                                <details className="report-technical-note">
+                                  <summary>
+                                    Saved review & retention details{" "}
+                                    <ChevronDown size={14} />
+                                  </summary>
+                                  <div className="report-note" role="status">
+                                    {cloudSave.status === "saved" ? (
+                                      <CheckCircle2 size={17} />
+                                    ) : cloudSave.status === "saving" ? (
+                                      <LoaderCircle
+                                        size={17}
+                                        className="spin"
+                                      />
+                                    ) : (
+                                      <Info size={17} />
+                                    )}
+                                    <p>
+                                      {cloudSave.status === "saved"
+                                        ? "Tiger Data confirmed this audit was saved. Search its failed observations in the Failure library. Results are session scoped for up to 30 minutes; screenshot files remain temporary."
+                                        : cloudSave.status === "saving"
+                                          ? "Saving the completed audit to Tiger Data."
+                                          : "Tiger persistence is unverified. Your observed browser results are unchanged."}
+                                    </p>
+                                  </div>
+                                </details>
                               )}
                             {audit.status === "completed" &&
                               data.integrations.some(
@@ -2649,7 +2774,10 @@ function App({
                                   )}
                                 </section>
                               )}
-                            <div className="result-toolbar">
+                            <div
+                              className="result-toolbar"
+                              id="delivery-results"
+                            >
                               <div
                                 className="filter-tabs"
                                 aria-label="Filter results"
@@ -2769,6 +2897,16 @@ function App({
                                 pending={activeAudit}
                               />
                             </div>
+                            <details className="report-technical-note comparison-disclosure">
+                              <summary>
+                                Compare with an earlier review{" "}
+                                <ChevronDown size={14} />
+                              </summary>
+                              <AuditComparison
+                                audit={audit}
+                                audits={allAudits}
+                              />
+                            </details>
                             <div className="report-note">
                               <ShieldCheck size={16} />
                               <p>
