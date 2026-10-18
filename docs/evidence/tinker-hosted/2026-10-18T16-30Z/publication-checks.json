@@ -1,0 +1,18 @@
+{
+  "scope": "Changed documentation and new hosted evidence only",
+  "offlineReceiptValidation": "passed",
+  "sixKindsSourceBoundUnapproved": "passed",
+  "configuredCredentialByteScan": {
+    "filesScanned": 22,
+    "matches": 0
+  },
+  "stagedPatternScan": {
+    "findings": 0,
+    "omitted": 0,
+    "historyScanned": false
+  },
+  "runtimeCodeChanged": false,
+  "datasetsChanged": false,
+  "devPostChanged": false,
+  "additionalProviderRequests": 0
+}

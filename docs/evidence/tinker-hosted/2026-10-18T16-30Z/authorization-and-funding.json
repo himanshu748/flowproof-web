@@ -1,0 +1,55 @@
+{
+  "id": "hosted-lora-20261018-1630-one-request",
+  "authorizedAt": "2026-10-18T16:32:59.654Z",
+  "source": "User reply: Approve one request, $0.01 maximum",
+  "maxRequests": 1,
+  "maxReservedTokens": 8912,
+  "maximumUsd": "0.01",
+  "conservativeAllTokensAtHighestRateUsd": "0.00895656",
+  "inputBound": 6864,
+  "outputBound": 2048,
+  "rateBoundUsd": "0.00432336",
+  "existingExperimentAllocationUsd": "0.30",
+  "newTinkerAllocationsIncludingThisUsd": "0.31",
+  "taskTotalIncrementalCeilingUsd": "4.00",
+  "funding": {
+    "observedAt": "2026-10-18T16:31Z",
+    "source": "Authenticated Tinker billing UI: balance, credit grants, payment methods",
+    "grant": "Tinker Code Redemption Tinker x MLH",
+    "remainingUsd": "9.15",
+    "autoReload": false,
+    "paymentMethods": 0,
+    "billingSettingsChanged": false
+  },
+  "priorAllowance": {
+    "proofSha256": "da1bd4c04437c7e45f16235b43217ffbd637f76672690edc41c72996c7414c69",
+    "cumulativeRemainder": "unknown",
+    "restored": false,
+    "oldLedgerFilesRewritten": false
+  },
+  "newProof": {
+    "checkedAt": "2026-10-18T16:32:59.654Z",
+    "expiresAt": "2026-10-18T17:32:59.654Z",
+    "evidence": "Separate user-approved one-request USD0.01 maximum hosted LoRA proof, 2026-10-18; authenticated MLH grant USD9.15, auto-reload off, no card. Old allowance remainder unknown and not reused. docs/evidence/tinker-hosted/2026-10-18T16-30Z/authorization-and-funding.json",
+    "freeOnly": true,
+    "paidOverageDisabled": true,
+    "unit": "tokens",
+    "operations": [
+      "generate-checks"
+    ],
+    "confirmedFreeUnits": 8912,
+    "maxUnits": 8912,
+    "usedUnits": 0,
+    "maxCalls": 1,
+    "usedCalls": 0
+  },
+  "state": "completed_no_refund",
+  "requestsDispatched": 1,
+  "automaticRetry": false,
+  "observedProviderTokens": {
+    "input": 260,
+    "output": 249
+  },
+  "observedTokenChargeEstimateUsd": "0.000336045",
+  "actualProviderBilledUsd": null
+}

@@ -1,0 +1,40 @@
+{
+  "observedAt": "2026-10-18T16:31:28.566Z",
+  "service": "srv-db6r2egm7kps73b19hag",
+  "environmentVariableCount": 59,
+  "credentialsPresent": {
+    "TINKER_API_KEY": true,
+    "FLOWPROOF_TOKEN": true
+  },
+  "enabled": "false",
+  "samplerMatchesEvaluatedCheckpoint": true,
+  "samplerExpiresAt": "2026-10-19T14:44:52.636445Z",
+  "previousProof": {
+    "checkedAt": "2026-10-16T08:23:47.620Z",
+    "expiresAt": "2026-10-17T08:23:47.620Z",
+    "evidence": "Operator-confirmed account evidence 2f972691a3bad969d9de7f4041580aed63f85441071414415066bc561dfd2f8f; prior-use receipt d9d5b8092a82747b81d3ae88883fb0581f1846c349193e3311dc91144178c51c; tinker remainder only; prepared only, not live verification.",
+    "freeOnly": true,
+    "paidOverageDisabled": true,
+    "unit": "tokens",
+    "operations": [
+      "generate-checks"
+    ],
+    "confirmedFreeUnits": 41088,
+    "maxUnits": 41088,
+    "usedUnits": 0,
+    "maxCalls": 1,
+    "usedCalls": 0
+  },
+  "previousProofSha256": "da1bd4c04437c7e45f16235b43217ffbd637f76672690edc41c72996c7414c69",
+  "oldCumulativeRemainder": "unknown; not restored or claimed available",
+  "latestDeploy": {
+    "id": "dep-dbaeu9vbtjjs73etd3c0",
+    "status": "live",
+    "commit": {
+      "id": "544616a374f5ad45a266ed58b1916c150751c277",
+      "message": "Record final anonymous verification and judge review",
+      "createdAt": "2026-10-18T16:02:42Z"
+    },
+    "finishedAt": "2026-10-18T16:11:02.235455Z"
+  }
+}

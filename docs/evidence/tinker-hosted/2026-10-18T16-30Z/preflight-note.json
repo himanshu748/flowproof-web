@@ -1,0 +1,5 @@
+{
+  "earlierStop": "An unrelated judge-agent status read returned non-200 before dispatch.json or any Tinker generation request; no provider request or retry occurred.",
+  "judgeReadNotRepeated": true,
+  "scope": "Only the approved Tinker generation route is needed; no agent route will be used."
+}

@@ -1,0 +1,25 @@
+{
+  "completedAt": "2026-10-18T16:33:01.548Z",
+  "status": "confirmed_by_readback",
+  "changedKeys": [
+    "BRIEFSTAMP_HOSTED_TINKER_ENABLED",
+    "BRIEFSTAMP_HOSTED_TINKER_PROOF_JSON"
+  ],
+  "unrelatedConfigurationAndCredentialBytesPreserved": true,
+  "newProof": {
+    "checkedAt": "2026-10-18T16:32:59.654Z",
+    "expiresAt": "2026-10-18T17:32:59.654Z",
+    "evidence": "Separate user-approved one-request USD0.01 maximum hosted LoRA proof, 2026-10-18; authenticated MLH grant USD9.15, auto-reload off, no card. Old allowance remainder unknown and not reused. docs/evidence/tinker-hosted/2026-10-18T16-30Z/authorization-and-funding.json",
+    "freeOnly": true,
+    "paidOverageDisabled": true,
+    "unit": "tokens",
+    "operations": [
+      "generate-checks"
+    ],
+    "confirmedFreeUnits": 8912,
+    "maxUnits": 8912,
+    "usedUnits": 0,
+    "maxCalls": 1,
+    "usedCalls": 0
+  }
+}

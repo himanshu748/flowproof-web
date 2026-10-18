@@ -1,0 +1,17 @@
+{
+  "reservedAt": "2026-10-18T16:35:23.614Z",
+  "status": "submitted_outcome_pending",
+  "applicationGenerationRequests": 1,
+  "automaticRetry": false,
+  "maxProviderRequests": 1,
+  "maxReservedTokens": 8912,
+  "maximumUsd": "0.01",
+  "origin": "https://flowproof-demo.onrender.com",
+  "route": "/api/projects/26d03c94-d444-451d-a8ff-476a366c79cf/generate-tinker",
+  "method": "POST",
+  "body": {
+    "modelConsent": true
+  },
+  "deploymentId": "dep-dbaf9fjrjlhs73a22ilg",
+  "deploymentSha": "544616a374f5ad45a266ed58b1916c150751c277"
+}

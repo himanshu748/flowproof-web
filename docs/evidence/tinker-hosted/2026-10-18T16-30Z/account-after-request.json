@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-10-18T16:38:47.773Z",
+  "source": "Authenticated Tinker billing balance UI after navigating from payment methods",
+  "remainingCreditUsd": "9.15",
+  "grant": "Existing Tinker x MLH credit",
+  "autoReload": false,
+  "billingSettingsChanged": false,
+  "actualAttributableProviderChargeUsd": null,
+  "limitation": "Rounded account balance does not isolate the charge for the 509-token hosted request."
+}

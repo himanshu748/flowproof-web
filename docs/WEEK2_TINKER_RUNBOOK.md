@@ -1,4 +1,10 @@
-# Tinker Week 2 follow-up: prepared, not executed
+# Tinker Week 2 follow-up
+
+## October 18 execution update
+
+The connected Mac completed the frozen training and unchanged 24-case evaluation: **24/24 reference agreement**, 0 inappropriate abstentions, 20/20 healthy-pass/broken-fail pairs. A later explicit authorization for **one separate hosted request, $0.01 maximum** produced a real Render HTTP 200 proposal: 260 input + 249 output tokens, 7,598.84 ms, $0.000336045 token-rate estimate. Further hosted generation was disabled after the one request. The old hosted allowance remainder stays unknown. See the [actual hosted receipt and limits](evidence/tinker-hosted/2026-10-18T16-30Z/README.md) and [complete measured outcome](WEEK2_UPGRADE.md).
+
+## Historical cloud preparation — not execution evidence
 
 Prepared October 18, 2026. **No new training, provider evaluation or hosted Tinker request has been executed by this preparation.** The October 13 comparison in [MODEL_RESULTS.md](MODEL_RESULTS.md) and all its receipts remain unchanged. The central operator reported a fresh authenticated October 18 observation of $9.18 remaining in the existing Tinker x MLH grant, auto-reload off and no payment methods. That is funding evidence, not an execution credential or proof of unused historical application reservations. The older October 17 observation is not reused.
 

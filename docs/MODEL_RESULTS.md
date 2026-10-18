@@ -1,6 +1,6 @@
 # Measured Tinker synthetic pilot
 
-The strongest measured quality baseline was **few-shot**. Fine-tuning changed reference agreement by **-4.17 percentage points** on the same 24 heldout examples: 1 correction and 2 regressions. The exact paired McNemar p-value is 1. This small synthetic pilot does not establish a general quality improvement over the strongest baseline. Its measured token reduction and inference-price tradeoff are reported separately below.
+The October 13 historical pilot below had **few-shot** as its strongest measured quality baseline. Fine-tuning changed reference agreement by **-4.17 percentage points** on the same 24 heldout examples: 1 correction and 2 regressions. The exact paired McNemar p-value is 1. This small synthetic pilot does not establish a general quality improvement over the strongest baseline. Its measured token reduction and inference-price tradeoff are reported separately below.
 
 **Provenance:** 96 agent-reviewed synthetic examples (60 train, 12 reserved validation, 24 heldout); **zero human-validated examples**. The four heldout website groups and related wording are not independent real-client sites.
 
@@ -19,6 +19,8 @@ The strongest measured quality baseline was **few-shot**. Fine-tuning changed re
 | Blocked / unverified browser pairs | 0 / 0 | 0 / 0 | 0 / 0 |
 
 Zero-shot schema failures are retained as failures: responses are not wrapped, repaired or extracted from Markdown after generation. An absence of executable outputs does not establish a zero false-pass rate. Browser correctness uses every reference-executable example as its denominator; false-pass rate only uses broken assertions actually returning passed or failed.
+
+The October 18 [follow-up](#week-2-train-only-follow-up) reached **24/24** on the reused development holdout; [one separate actual hosted proposal](evidence/tinker-hosted/2026-10-18T16-30Z/README.md) later returned HTTP 200 with **509 tokens in 7,598.84 ms**, at a **$0.000336045 token-rate estimate**. The one-request hosted allowance was then closed; this is not ongoing public inference or an additional benchmark case.
 
 ## Per-kind reference agreement
 

@@ -1,0 +1,33 @@
+{
+  "reservedAt": "2026-10-18T16:35:23.614Z",
+  "status": "passed",
+  "applicationGenerationRequests": 1,
+  "automaticRetry": false,
+  "maxProviderRequests": 1,
+  "maxReservedTokens": 8912,
+  "maximumUsd": "0.01",
+  "origin": "https://flowproof-demo.onrender.com",
+  "route": "/api/projects/26d03c94-d444-451d-a8ff-476a366c79cf/generate-tinker",
+  "method": "POST",
+  "body": {
+    "modelConsent": true
+  },
+  "deploymentId": "dep-dbaf9fjrjlhs73a22ilg",
+  "deploymentSha": "544616a374f5ad45a266ed58b1916c150751c277",
+  "completedAt": "2026-10-18T16:35:31.214Z",
+  "httpStatus": 200,
+  "hostedRoundTripMs": 7598.84,
+  "observedProviderTokens": {
+    "input": 260,
+    "output": 249
+  },
+  "observedTokenChargeEstimateUsd": 0.000336045,
+  "actualProviderBilledUsd": null,
+  "billingLimitation": "Token-rate estimate, not an attributable finalized bill.",
+  "proposalUnapproved": true,
+  "browserAuditsRun": 0,
+  "databaseWritesRequested": 0,
+  "agentRequests": 0,
+  "noClaimOfUnlimitedVisitorInference": true,
+  "oldAllowanceRestored": false
+}
