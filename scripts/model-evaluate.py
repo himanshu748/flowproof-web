@@ -64,6 +64,7 @@ def main():
         'tokenizer': tokenizer_metadata(tokenizer), 'packages': package_versions(),
         'budgetReservationId': reservation['id'], 'reservedCostUsd': reservation['reservedCostUsd'],
         'tokenUpperBounds': token_bounds, 'tokenUsageBasis': 'SDK input and generated token IDs; not provider billing usage.',
+        'samplingOperationReplays': False,
         'measurements': [], 'limitations': ['Reference-field agreement is an automated proxy for interpretation accuracy.', 'Browser metrics require the separately linked paired-fixture execution receipt.'] + (['Agent-reviewed synthetic pilot; zero human validation and no real-client generalization claim.'] if manifest['benchmarkMode'] == 'agent-reviewed-pilot' else []),
     }
     write_json(args.output, receipt)
@@ -71,11 +72,15 @@ def main():
     started = time.perf_counter()
     try:
         import tinker
+        from tinker.lib.retry_handler import RetryConfig
         service = tinker.ServiceClient()
         supported = [item.model_name for item in service.get_server_capabilities().supported_models]
         if MODEL not in supported:
             raise ValueError('Requested model unavailable; no substitute will be used')
-        sampler = service.create_sampling_client(model_path=args.checkpoint) if args.configuration == 'fine-tuned' else service.create_sampling_client(base_model=MODEL)
+        # The SDK's outer retry restarts sampling with a fresh sequence ID.
+        # That could consume another billable sample outside this reservation.
+        retry_config = RetryConfig(enable_retry_logic=False)
+        sampler = service.create_sampling_client(model_path=args.checkpoint, retry_config=retry_config) if args.configuration == 'fine-tuned' else service.create_sampling_client(base_model=MODEL, retry_config=retry_config)
         if sampler.get_base_model() != MODEL:
             raise ValueError('Sampler base model differs from frozen comparison')
         if tokenizer_metadata(sampler.get_tokenizer()) != receipt['tokenizer']:
