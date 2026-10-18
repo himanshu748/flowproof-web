@@ -88,6 +88,80 @@ beforeEach(() => {
 });
 afterEach(() => vi.unstubAllEnvs());
 
+describe("completed native approval persistence", () => {
+  const approvedFixture = (): Audit => {
+    const audit = fixture();
+    audit.approvalWorkflow = {
+      provider: "Mastra",
+      package: "@mastra/core",
+      version: "1.77.0",
+      workflowId: "briefstamp-explicit-approval",
+      runId: projectId,
+      status: "success",
+      scope: "process-local",
+      durable: false,
+      maxRssMiB: 150,
+      steps: [
+        "propose-checks",
+        "validate-proposal",
+        "await-developer-approval",
+        "browser-handoff",
+      ].map((id) => ({ id, status: "success" })),
+      lifecycle: ["approval", "browser", "complete"].map((phase, i) => ({
+        phase: phase as "approval" | "browser" | "complete",
+        status: i === 2 ? "success" : "suspended",
+        runId: projectId,
+        snapshotSha256: i === 2 ? null : "a".repeat(64),
+        workerMaxRssMiB: 150,
+        workerExited: true,
+      })),
+      result: {
+        results: structuredClone(audit.results),
+        approvedCheckIds: audit.checks.map((c) => c.id),
+        planDigest: "b".repeat(64),
+      },
+    };
+    return audit;
+  };
+  it("round-trips the real receipt shape without dropping approval or result evidence", async () => {
+    const audit = approvedFixture();
+    const store = createHostedTigerStore({ env, now: () => NOW });
+    pgMock.query.mockResolvedValueOnce({ rows: [{ audit_id: auditId }] });
+    await store.persistAudit(session, audit);
+    expect(JSON.parse(pgMock.query.mock.calls[0][1][3])).toEqual(audit);
+    pgMock.query.mockResolvedValueOnce({ rows: [{ payload: audit }] });
+    expect(await store.getAudit(session, auditId)).toEqual(audit);
+  });
+  it("rejects mismatched results, approvals, lifecycle identities and private snapshots before I/O", async () => {
+    const store = createHostedTigerStore({ env, now: () => NOW });
+    for (const mutate of [
+      (a: Audit) => {
+        a.approvalWorkflow!.result!.results[0].status = "passed";
+      },
+      (a: Audit) => {
+        a.approvalWorkflow!.result!.approvedCheckIds = ["foreign"];
+      },
+      (a: Audit) => {
+        a.approvalWorkflow!.lifecycle![0].runId = auditId;
+      },
+      (a: Audit) => {
+        Object.assign(a.approvalWorkflow!, { nativeSnapshot: {} });
+      },
+      (a: Audit) => {
+        a.approvalWorkflow!.status = "suspended";
+      },
+      (a: Audit) => {
+        a.approvalWorkflow!.lifecycle![2].snapshotSha256 = "a".repeat(64);
+      },
+    ]) {
+      const audit = approvedFixture();
+      mutate(audit);
+      await expect(store.persistAudit(session, audit)).rejects.toThrow();
+      expect(pgMock.query).not.toHaveBeenCalled();
+    }
+  });
+});
+
 describe("disabled-by-default scoped hosted Tiger adapter", () => {
   it("round-trips bounded Gemma usage and retry receipts without accepting raw diagnostics", async () => {
     const value = fixture();

@@ -110,7 +110,7 @@ const generatorSchema = z
       .optional(),
   })
   .strict();
-const auditSchema = z
+const baseAuditSchema = z
   .object({
     id: uuid,
     projectId: uuid,
@@ -158,6 +158,58 @@ const auditSchema = z
       )
       .min(1)
       .max(24),
+  })
+  .strict();
+
+// Persist only the completed, bounded public receipt. Native SDK snapshots stay
+// process-local and are never accepted as database payload fields.
+const approvalReceiptSchema = z
+  .object({
+    provider: z.literal("Mastra"),
+    package: z.literal("@mastra/core"),
+    version: z.literal("1.77.0"),
+    workflowId: z.literal("briefstamp-explicit-approval"),
+    runId: uuid,
+    status: z.literal("success"),
+    scope: z.literal("process-local"),
+    durable: z.literal(false),
+    maxRssMiB: z.number().finite().positive(),
+    steps: z
+      .array(
+        z
+          .object({ id: z.string().max(100), status: z.literal("success") })
+          .strict(),
+      )
+      .length(4),
+    lifecycle: z
+      .array(
+        z
+          .object({
+            phase: z.enum(["approval", "browser", "complete"]),
+            status: z.enum(["suspended", "success"]),
+            runId: uuid,
+            snapshotSha256: z
+              .string()
+              .regex(/^[a-f0-9]{64}$/)
+              .nullable(),
+            workerMaxRssMiB: z.number().finite().positive(),
+            workerExited: z.literal(true),
+          })
+          .strict(),
+      )
+      .length(3),
+    result: z
+      .object({
+        results: baseAuditSchema.shape.results,
+        approvedCheckIds: z.array(z.string().max(80)).min(1).max(24),
+        planDigest: z.string().regex(/^[a-f0-9]{64}$/),
+      })
+      .strict(),
+  })
+  .strict();
+const auditSchema = baseAuditSchema
+  .extend({
+    approvalWorkflow: approvalReceiptSchema.optional(),
   })
   .strict();
 
@@ -300,6 +352,39 @@ function normalizedAudit(value: unknown, now: number): Audit {
     )
       throw new Error(
         "Only a reference to this public audit's screenshot is permitted.",
+      );
+  }
+  if (audit.approvalWorkflow) {
+    const receipt = audit.approvalWorkflow;
+    if (
+      !isDeepStrictEqual(receipt.result.results, audit.results) ||
+      !isDeepStrictEqual(
+        receipt.result.approvedCheckIds,
+        audit.checks.map((c) => c.id),
+      ) ||
+      !isDeepStrictEqual(
+        receipt.steps.map((s) => s.id),
+        [
+          "propose-checks",
+          "validate-proposal",
+          "await-developer-approval",
+          "browser-handoff",
+        ],
+      ) ||
+      !isDeepStrictEqual(
+        receipt.lifecycle.map((s) => [s.phase, s.status]),
+        [
+          ["approval", "suspended"],
+          ["browser", "suspended"],
+          ["complete", "success"],
+        ],
+      ) ||
+      receipt.lifecycle.some((s) => s.runId !== receipt.runId) ||
+      receipt.lifecycle.slice(0, 2).some((s) => !s.snapshotSha256) ||
+      receipt.lifecycle[2].snapshotSha256 !== null
+    )
+      throw new Error(
+        "The completed approval receipt does not match this audit.",
       );
   }
   return audit;

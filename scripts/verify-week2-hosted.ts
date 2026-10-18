@@ -13,6 +13,11 @@ import {
 } from "../server/evidence-agent.js";
 import { generateLocalChecks } from "../server/generator.js";
 import {
+  freshFunding,
+  readOnlyClockFailure,
+  storageFailureBeforeAgent,
+} from "./hosted-preflight.js";
+import {
   HOSTED_WEBSITE_PRESET,
   HOSTED_WEBSITE_URL,
 } from "../shared/hosted-target.js";
@@ -33,7 +38,13 @@ if (!args.includes("--run")) {
     for (let i = 0; i < args.length; i++) {
       if (args[i] === "--run") continue;
       assert(
-        ["--mode", "--output", "--expected-sha"].includes(args[i]),
+        [
+          "--mode",
+          "--output",
+          "--expected-sha",
+          "--continue-read-only-preflight",
+          "--continue-before-agent",
+        ].includes(args[i]),
         "Unknown argument",
       );
       assert(
@@ -54,7 +65,13 @@ if (!args.includes("--run")) {
       !expectedSha || /^[a-f0-9]{40}$/.test(expectedSha),
       "Invalid expected SHA",
     );
-    await verify(mode, output, expectedSha);
+    await verify(
+      mode,
+      output,
+      expectedSha,
+      values.get("--continue-read-only-preflight"),
+      values.get("--continue-before-agent"),
+    );
   } catch (error) {
     console.error(
       error instanceof Error ? error.message : "Verifier preflight failed",
@@ -85,7 +102,12 @@ async function verify(
   mode: "mastra" | "temporal",
   output: string,
   expectedSha?: string,
+  previousPreflight?: string,
+  beforeAgentFailure?: string,
 ) {
+  assert(!(previousPreflight && beforeAgentFailure));
+  assert(!beforeAgentFailure || mode === "temporal");
+  const rulesSource = !!beforeAgentFailure;
   const token = process.env.BRIEFSTAMP_HOSTED_OPERATOR_TOKEN;
   if (mode === "temporal")
     assert(
@@ -111,22 +133,127 @@ async function verify(
   const startedAt = new Date().toISOString();
   // A separate immutable file prevents accidentally rerunning a mode with a new
   // output path. A failed or uncertain run is not permission to remove this file.
-  await writeFile(
-    path.join(work, `week2-hosted-${mode}.reservation.json`),
-    JSON.stringify(
-      {
-        startedAt,
-        mode,
-        directory: path.relative(process.cwd(), directory),
-        status: "reserved_no_retry",
-        maximumProposalRouteCalls: 1,
-        maximumJudgeRouteCalls: 1,
-      },
-      null,
-      2,
-    ) + "\n",
-    { flag: "wx", mode: 0o600 },
+  const reservationPath = path.join(
+    work,
+    `week2-hosted-${mode}.reservation.json`,
   );
+  let continuation: Record<string, unknown> | undefined;
+  if (previousPreflight) {
+    const previousDirectory = await realpath(path.resolve(previousPreflight));
+    assert(previousDirectory.startsWith(work + path.sep));
+    const previousBytes = await readFile(
+      path.join(previousDirectory, "receipt.json"),
+    );
+    const previous = JSON.parse(previousBytes.toString());
+    const reserved = JSON.parse(await readFile(reservationPath, "utf8"));
+    assert(
+      readOnlyClockFailure(previous, mode),
+      "Only the fully observed read-only clock failure can continue",
+    );
+    assert.equal(
+      reserved.directory,
+      path.relative(process.cwd(), previousDirectory),
+    );
+    assert.equal(reserved.startedAt, previous.startedAt);
+    assert.equal(previous.expectedSha, expectedSha);
+    continuation = {
+      originalReceipt:
+        path.relative(process.cwd(), previousDirectory) + "/receipt.json",
+      originalReceiptSha256: sha(previousBytes),
+      originalReservationUnchanged: true,
+      priorModelCalls: 0,
+      priorJudgeCalls: 0,
+      priorWrites: 0,
+    };
+    await writeFile(
+      reservationPath + ".read-only-continuation.json",
+      JSON.stringify(
+        {
+          ...continuation,
+          startedAt,
+          directory: path.relative(process.cwd(), directory),
+        },
+        null,
+        2,
+      ) + "\n",
+      { flag: "wx", mode: 0o600 },
+    ); // One continuation; never erase the original.
+  } else if (beforeAgentFailure) {
+    const previousDirectory = await realpath(path.resolve(beforeAgentFailure));
+    assert(previousDirectory.startsWith(work + path.sep));
+    const bytes = await readFile(path.join(previousDirectory, "receipt.json"));
+    const previous = JSON.parse(bytes.toString());
+    assert(
+      storageFailureBeforeAgent(previous),
+      "A dispatched or uncertain agent cannot continue",
+    );
+    const priorContinuation = JSON.parse(
+      await readFile(reservationPath + ".read-only-continuation.json", "utf8"),
+    );
+    assert.equal(
+      priorContinuation.directory,
+      path.relative(process.cwd(), previousDirectory),
+    );
+    const audit = JSON.parse(
+      await readFile(
+        path.join(previousDirectory, "browser-audit.json"),
+        "utf8",
+      ),
+    );
+    const proposal = JSON.parse(
+      await readFile(
+        path.join(previousDirectory, "gemma-proposal.json"),
+        "utf8",
+      ),
+    );
+    assert.equal(audit.status, "completed");
+    assert.equal(audit.approvalWorkflow?.status, "success");
+    assert.equal(
+      proposal.approvalWorkflow?.runId,
+      audit.approvalWorkflow.runId,
+    );
+    assert(proposal.generator.usage?.promptTokens > 0);
+    continuation = {
+      originalReceipt:
+        path.relative(process.cwd(), previousDirectory) + "/receipt.json",
+      originalReceiptSha256: sha(bytes),
+      originalReservationUnchanged: true,
+      priorModelCalls: 1,
+      priorJudgeCalls: 0,
+      noProposalReplay: true,
+      source:
+        "New real Chromium source from deterministic fixed checks; prior successful Gemma/approval evidence retained separately",
+    };
+    await writeFile(
+      reservationPath + ".before-agent-continuation.json",
+      JSON.stringify(
+        {
+          ...continuation,
+          startedAt,
+          directory: path.relative(process.cwd(), directory),
+        },
+        null,
+        2,
+      ) + "\n",
+      { flag: "wx", mode: 0o600 },
+    );
+  } else
+    await writeFile(
+      reservationPath,
+      JSON.stringify(
+        {
+          startedAt,
+          mode,
+          directory: path.relative(process.cwd(), directory),
+          status: "reserved_no_retry",
+          maximumProposalRouteCalls: 1,
+          maximumJudgeRouteCalls: 1,
+        },
+        null,
+        2,
+      ) + "\n",
+      { flag: "wx", mode: 0o600 },
+    );
   await mkdir(path.join(directory, "calls"), { mode: 0o700 });
   const receipt: Record<string, any> = {
     startedAt,
@@ -146,10 +273,14 @@ async function verify(
       simulatedNativeEvidence: false,
     },
     maximumProposalRouteCalls: 1,
+    proposalSource: rulesSource
+      ? "deterministic fixed sample; no model proposal dispatched"
+      : "live Gemma",
     maximumJudgeRouteCalls: 1,
     proposedModelRequests: 0,
     judgeRequests: 0,
     billingChanges: 0,
+    ...(continuation ? { readOnlyPreflightContinuation: continuation } : {}),
     calls: [],
     artifacts: [],
     limitations: [
@@ -374,8 +505,7 @@ async function verify(
       "A fresh unspent confirmed-free public allowance is required",
     );
     assert(
-      Date.now() - Date.parse(status.funding.checkedAt) >= 0 &&
-        Date.now() - Date.parse(status.funding.checkedAt) < 5 * 60_000,
+      freshFunding(status.funding.checkedAt),
       "Funding check is not fresh",
     );
     assert(
@@ -393,55 +523,66 @@ async function verify(
         project.brief === EVIDENCE_AGENT_SAMPLE_BRIEF,
     );
     assert(sample && sample.authorized, "Fixed authorized sample is missing");
-    await request<Project>(`/api/projects/${sample.id}/variant`, {
-      method: "POST",
-      body: { sampleVariant: "broken" },
-      label: "broken-variant",
-    });
-    const proposed = (
-      await request<Project>(`/api/projects/${sample.id}/generate-gemma`, {
+    const broken = (
+      await request<Project>(`/api/projects/${sample.id}/variant`, {
         method: "POST",
-        body: { modelConsent: true },
-        label: "one-gemma-proposal",
+        body: { sampleVariant: "broken" },
+        label: "broken-variant",
       })
     ).value;
-    await save("gemma-proposal.json", proposed);
-    assert.equal(proposed.generator.provider, "Google Gemma (live API)");
-    assert.equal(proposed.generator.model, "gemma-4-26b-a4b-it");
-    assert(
-      proposed.generator.usage &&
-        proposed.generator.usage.promptTokens > 0 &&
-        proposed.generator.usage.completionTokens > 0,
-      "Genuine proposal token usage missing",
+    const proposed = rulesSource
+      ? broken
+      : (
+          await request<Project>(`/api/projects/${sample.id}/generate-gemma`, {
+            method: "POST",
+            body: { modelConsent: true },
+            label: "one-gemma-proposal",
+          })
+        ).value;
+    await save(
+      rulesSource ? "rules-plan.json" : "gemma-proposal.json",
+      proposed,
     );
-    assert(proposed.checks.every((check) => !check.approved));
-    assert(
-      isDeepStrictEqual(
-        semantics(proposed.checks),
-        semantics(generateLocalChecks(EVIDENCE_AGENT_SAMPLE_BRIEF)),
-      ),
-      "Model proposal does not match the exact approved source semantics required by the bounded agent; no replacement or second proposal is allowed",
-    );
+    if (!rulesSource) {
+      assert.equal(proposed.generator.provider, "Google Gemma (live API)");
+      assert.equal(proposed.generator.model, "gemma-4-26b-a4b-it");
+      assert(
+        proposed.generator.usage &&
+          proposed.generator.usage.promptTokens > 0 &&
+          proposed.generator.usage.completionTokens > 0,
+        "Genuine proposal token usage missing",
+      );
+      assert(proposed.checks.every((check) => !check.approved));
+      assert(
+        isDeepStrictEqual(
+          semantics(proposed.checks),
+          semantics(generateLocalChecks(EVIDENCE_AGENT_SAMPLE_BRIEF)),
+        ),
+        "Model proposal does not match the exact approved source semantics required by the bounded agent; no replacement or second proposal is allowed",
+      );
+    }
     const suspended = proposed.approvalWorkflow;
-    assert(
-      suspended &&
-        suspended.provider === "Mastra" &&
-        suspended.status === "suspended" &&
-        suspended.scope === "process-local" &&
-        suspended.durable === false &&
-        suspended.suspension,
-      "Actual SDK approval suspension receipt missing",
-    );
-    assert.equal(suspended.package, "@mastra/core");
-    assert.equal(suspended.version, "1.77.0");
-    assert(isDeepStrictEqual(suspended.suspension.checks, proposed.checks));
-    assert(
-      isDeepStrictEqual(
-        suspended.suspension.checkIds,
-        proposed.checks.map((check) => check.id),
-      ),
-    );
-    assert(/^[a-f0-9]{64}$/.test(suspended.suspension.planDigest));
+    if (!rulesSource) {
+      assert(
+        suspended &&
+          suspended.provider === "Mastra" &&
+          suspended.status === "suspended" &&
+          suspended.scope === "process-local" &&
+          suspended.durable === false &&
+          suspended.suspension,
+        "Actual SDK approval suspension receipt missing",
+      );
+      assert.equal(suspended.package, "@mastra/core");
+      assert.equal(suspended.version, "1.77.0");
+      assert(isDeepStrictEqual(suspended.suspension.checks, proposed.checks));
+      assert(
+        isDeepStrictEqual(
+          suspended.suspension.checkIds,
+          proposed.checks.map((check) => check.id),
+        ),
+      );
+      assert(/^[a-f0-9]{64}$/.test(suspended.suspension.planDigest));
+    }
     const approved = (
       await request<Project>(`/api/projects/${sample.id}/checks`, {
         method: "PUT",
@@ -501,18 +642,74 @@ async function verify(
       blocked: 0,
       unverified: 1,
     });
-    assert.equal(audit.approvalWorkflow?.status, "success");
-    assert.equal(audit.approvalWorkflow.runId, suspended.runId);
-    assert.equal(
-      audit.approvalWorkflow.result?.planDigest,
-      suspended.suspension.planDigest,
-    );
-    assert(
-      isDeepStrictEqual(audit.approvalWorkflow.result?.results, audit.results),
-    );
+    if (!rulesSource) {
+      assert.equal(audit.approvalWorkflow?.status, "success");
+      assert.equal(audit.approvalWorkflow!.runId, suspended!.runId);
+      assert.equal(
+        audit.approvalWorkflow!.result?.planDigest,
+        suspended!.suspension!.planDigest,
+      );
+      assert(
+        isDeepStrictEqual(
+          audit.approvalWorkflow!.result?.results,
+          audit.results,
+        ),
+      );
+    }
     assert(isDeepStrictEqual(audit.checks, approved.checks));
     assert.equal(audit.source?.brief, EVIDENCE_AGENT_SAMPLE_BRIEF);
     assert.equal(audit.source.sampleVariant, "broken");
+    // Capture real artifact bytes before later database/agent gates can fail.
+    const images = [
+      ...new Set(
+        audit.results.flatMap((row) =>
+          row.evidence.screenshot ? [row.evidence.screenshot] : [],
+        ),
+      ),
+    ];
+    assert.equal(images.length, 5);
+    for (const [index, route] of images.entries()) {
+      assert(
+        new RegExp(`^/evidence/${audit.id}/[A-Za-z0-9_-]+\\.png$`).test(route),
+      );
+      const response = await fetch(origin + route, {
+        redirect: "error",
+        headers: { cookie },
+        signal: AbortSignal.timeout(20_000),
+      });
+      assert.equal(
+        response.status,
+        200,
+        "Actual browser screenshot unavailable",
+      );
+      const bytes = Buffer.from(await response.arrayBuffer());
+      assert(bytes.length > 100 && bytes.length < 5 * 1024 * 1024);
+      assert.equal(bytes.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+      const filename = `browser-${index + 1}.png`;
+      await writeFile(path.join(directory, filename), bytes, {
+        flag: "wx",
+        mode: 0o600,
+      });
+      receipt.artifacts.push({
+        file: filename,
+        bytes: bytes.length,
+        sha256: sha(bytes),
+        route,
+        observedHostedScreenshot: true,
+      });
+    }
+    const reportResponse = await fetch(
+      origin + `/api/audits/${audit.id}/report`,
+      {
+        redirect: "error",
+        headers: { cookie },
+        signal: AbortSignal.timeout(20_000),
+      },
+    );
+    assert.equal(reportResponse.status, 200);
+    const report = await reportResponse.text();
+    assert(report.length > 100 && Buffer.byteLength(report) < 10 * 1024 * 1024);
+    await save("browser-report.html", report, true);
     let persisted = false;
     for (let i = 0; i < 30; i++) {
       const persistence = (

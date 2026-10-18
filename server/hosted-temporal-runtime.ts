@@ -19,6 +19,31 @@ import {
   type EvidenceAgentReceipt,
 } from "./evidence-agent.js";
 import { GOOGLE_GEMMA_MODEL } from "./providers/gemma-google.js";
+
+async function observedCgroupMemory() {
+  const readBytes = async (name: string) => {
+    try {
+      const raw = (await readFile(`/sys/fs/cgroup/${name}`, "utf8")).trim();
+      const value = /^\d+$/.test(raw) ? Number(raw) : NaN;
+      return Number.isSafeInteger(value) && value > 0 ? value : null;
+    } catch {
+      return null;
+    }
+  };
+  const [currentBytes, peakBytes, limitBytes] = await Promise.all([
+    readBytes("memory.current"),
+    readBytes("memory.peak"),
+    readBytes("memory.max"),
+  ]);
+  return {
+    observedAt: new Date().toISOString(),
+    currentBytes,
+    peakBytes,
+    limitBytes,
+    scope:
+      "Current Linux cgroup; peak is its lifetime high-water mark, not a per-workflow measurement. Null means unavailable/unlimited, never zero.",
+  };
+}
 import {
   createHostedEvidenceActivities,
   hostedHash,
@@ -418,6 +443,7 @@ export async function executeHostedTemporalEvidenceAgent(
       serverProcessUnchanged: true,
       storageEpoch: epoch,
       sqliteBytes: db.size,
+      memory: await observedCgroupMemory(),
       hostDiskRecoveryTested: false,
       callbackRecoveryLimit:
         "Request callbacks remain in the web process. This proof restarts an SDK Worker only; it does not recover callbacks or ephemeral SQLite after host loss.",
@@ -444,6 +470,7 @@ export async function executeHostedTemporalEvidenceAgent(
         runId: live.get(workflowId)?.runId,
         status: actual.status,
         activities: actual.activities,
+        memory: await observedCgroupMemory(),
         workerRestarted: recovered,
         hostDiskRecoveryTested: false,
       };
