@@ -96,3 +96,7 @@ The original full offline recomputation remains available with `--manifest eval/
 Raw artifacts: [manifest](../eval/pilot.manifest.json), [dataset](../eval/pilot.jsonl), [training receipt](../eval/results/training.json), [zero-shot](../eval/results/zero-shot.json), [few-shot](../eval/results/few-shot.json), [fine-tuned](../eval/results/fine-tuned.json), [machine-readable summary](../eval/experiment-summary.json). Paired browser receipts and evidence are under `eval/browser/`.
 
 Manifest SHA-256: `62ca7d765967ecfc3aa075aed13a0d7342f8fc91031df4d2aac4b4aee1e6f3da`. The summary verifies exact cohort order, dataset/prompt hashes, tokenizer identity, checkpoint training linkage and browser-to-model response hashes before publishing metrics.
+
+## October 18 follow-up preparation: not measured
+
+A separate [train-only follow-up](WEEK2_TINKER_RUNBOOK.md) is frozen with 48 independent synthetic training additions (108 training examples total) and the same byte-identical 24-example holdout. The historical results above remain intact. No new training, evaluation or hosted Tinker request has run during this preparation. Current promotional-grant verification is pending, and fetching the public tokenizer was stopped after a proxy `403 Forbidden`. No improvement or actual cost is claimed. The runbook records the bounded commands, one-LoRA restriction, current blockers, conditional per-handoff cost method and existing hosted reservation carry-forward requirements.

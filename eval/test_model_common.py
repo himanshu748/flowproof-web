@@ -117,6 +117,13 @@ class BudgetControls(unittest.TestCase):
             reserve_budget(self.path, 'zero-shot', 'pilot', {'input': 1})
         self.assertEqual(json.loads(self.path.read_text())['reservations'], [])
 
+    def test_exactly_one_training_reservation_even_after_failure(self):
+        first = reserve_budget(self.path, 'training', 'one-lora', {'training': 1})
+        record_budget(self.path, first['id'], 'failed', {'training': 0})
+        with self.assertRaisesRegex(ValueError, 'one training run'):
+            reserve_budget(self.path, 'training', 'one-lora', {'training': 1})
+        self.assertEqual(len(json.loads(self.path.read_text())['reservations']), 1)
+
     def test_no_paid_overage_or_expired_confirmation(self):
         for field, invalid in [('overageDisabled', False), ('expiresAt', '2000-01-01T00:00:00+00:00'), ('checkedAt', '2000-01-01T00:00:00+00:00'), ('source', '')]:
             bad = copy.deepcopy(self.ledger)

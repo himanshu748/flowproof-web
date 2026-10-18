@@ -244,6 +244,8 @@ def reserve_budget(path, operation, experiment_id, token_counts):
         if not max_cost.is_finite() or not available.is_finite() or max_cost <= 0 or max_cost > available:
             raise ValueError('Budget must fit confirmed remaining free credits')
         reservations = ledger.setdefault('reservations', [])
+        if operation == 'training' and any(item['operation'] == 'training' and item['experimentId'] == experiment_id for item in reservations):
+            raise ValueError('This experiment already reserved its one training run; failed or uncertain runs must not be retried')
         used_tokens = sum(item['reservedTokens'] for item in reservations)
         used_cost = sum(Decimal(str(item['reservedCostUsd'])) for item in reservations)
         if used_tokens + token_upper_bound > ledger['maxTokens'] or used_cost + cost > max_cost:
