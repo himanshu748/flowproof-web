@@ -1,0 +1,1233 @@
+{
+  "schemaVersion": 1,
+  "status": "completed",
+  "recordedAt": "2026-10-18T14:49:15.665Z",
+  "source": "Real local Playwright Chromium execution on paired synthetic reference fixtures",
+  "provider": "tinker",
+  "model": "Qwen/Qwen3.5-4B",
+  "configuration": "fine-tuned",
+  "benchmarkMode": "agent-reviewed-pilot",
+  "reviewProvenance": {
+    "humanValidated": 0,
+    "agentReviewed": 144,
+    "note": "Agent review is not human validation. Synthetic pilot results do not establish accuracy on client websites."
+  },
+  "experimentId": "flowproof-week2-alt-v2",
+  "manifestSha256": "ea16d16f253f933f6e1cab24b892f7a73b286d1be5caa0245a9fba069430673b",
+  "sourceReceipt": "eval/results/week2-alt-v2/fine-tuned.json",
+  "sourceReceiptSha256": "0d46e354b19991cae6dd93f14b10fe388aee6d559570f7566af318e3fc4bd881",
+  "datasetSha256": "69def66bb11f7c6a75f4e89355ebf1ed85244ec2ad66e998d78bfda974303f99",
+  "approval": {
+    "actorType": "agent",
+    "scope": "Validated finite checks on isolated synthetic fixtures only",
+    "mechanism": "--approve-synthetic-checks"
+  },
+  "limitations": [
+    "Synthetic mutation sensitivity is not evidence of correctness on real client websites.",
+    "Fixtures are generated from reference labels; no fixture is adapted to make model output pass.",
+    "Manual requirements have no healthy/broken browser oracle and are evaluated only for abstention.",
+    "Image-alt assertions measure attribute presence, not description quality.",
+    "Passing and failing outputs, malformed responses, abstentions and execution blocks retain separate counts."
+  ],
+  "observations": [
+    {
+      "id": "pilot-test-01-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "006ffa1a70062d7bb6218d76695918e1a64c6fb72a3950aaf8a47d3783627fff",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "heading",
+      "healthy": {
+        "checkId": "model-1",
+        "requirement": "Visitors arriving on the homepage must encounter a heading reading \"Test Studio 01 builds better websites\".",
+        "kind": "heading",
+        "status": "passed",
+        "expected": "Test Studio 01 builds better websites",
+        "durationMs": 924,
+        "evidence": {
+          "observed": "The expected heading is visible.",
+          "dom": "Test Studio 01 builds better websites",
+          "screenshot": "/evidence/model-001-healthy/01-model-1.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-1",
+        "requirement": "Visitors arriving on the homepage must encounter a heading reading \"Test Studio 01 builds better websites\".",
+        "kind": "heading",
+        "status": "failed",
+        "expected": "Test Studio 01 builds better websites",
+        "durationMs": 702,
+        "evidence": {
+          "observed": "No visible heading exactly matches the expected text.",
+          "dom": "No visible headings found.",
+          "screenshot": "/evidence/model-001-broken/01-model-1.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-001-healthy.json",
+          "fixture": "fixtures/model-001-healthy.html",
+          "fixtureSha256": "2ae061f2141b3b91677b90f910b7a1a54649f59aa9d1ffe863a1e214bbdcc5cb"
+        },
+        "broken": {
+          "audit": "model-001-broken.json",
+          "fixture": "fixtures/model-001-broken.html",
+          "fixtureSha256": "c431b895d0a7adb8f5ab7cb5499a5f7d24c0af1eaf9d0e040ea73f5b54ac11f5"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-01-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "21b76cea247c202d100e07dd5216d89f779f6e8a48f52572503e783a9965255d",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "link",
+      "healthy": {
+        "checkId": "model-2",
+        "requirement": "Visitors arriving on the homepage must find a link captioned \"Talk to Test Studio 01\".",
+        "kind": "link",
+        "status": "passed",
+        "expected": "Talk to Test Studio 01",
+        "durationMs": 654,
+        "evidence": {
+          "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+          "dom": "Talk to Test Studio 01 → /contact",
+          "screenshot": "/evidence/model-002-healthy/01-model-2.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-2",
+        "requirement": "Visitors arriving on the homepage must find a link captioned \"Talk to Test Studio 01\".",
+        "kind": "link",
+        "status": "failed",
+        "expected": "Talk to Test Studio 01",
+        "durationMs": 626,
+        "evidence": {
+          "observed": "No visible link matches the expected destination or text.",
+          "screenshot": "/evidence/model-002-broken/01-model-2.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-002-healthy.json",
+          "fixture": "fixtures/model-002-healthy.html",
+          "fixtureSha256": "b5bf2f47401ab20da0935c041bd3334132741410a0fc352952469cf095b2e09f"
+        },
+        "broken": {
+          "audit": "model-002-broken.json",
+          "fixture": "fixtures/model-002-broken.html",
+          "fixtureSha256": "1a1e4749b701e635b12cb372aa8607da9e73b8c827ad66edea2613d166bfa26d"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-01-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "209b673482a6a84199e2a469684e57938c4858a06427e656327f256101d1b25b",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "text_visible",
+      "healthy": {
+        "checkId": "model-3",
+        "requirement": "Visitors arriving on the homepage must be able to read the phrase \"Test Studio 01 works with independent businesses\".",
+        "kind": "text_visible",
+        "status": "passed",
+        "expected": "Test Studio 01 works with independent businesses",
+        "durationMs": 644,
+        "evidence": {
+          "observed": "The expected text is visible on the page.",
+          "dom": "Test Studio 01 works with independent businesses",
+          "screenshot": "/evidence/model-003-healthy/01-model-3.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-3",
+        "requirement": "Visitors arriving on the homepage must be able to read the phrase \"Test Studio 01 works with independent businesses\".",
+        "kind": "text_visible",
+        "status": "failed",
+        "expected": "Test Studio 01 works with independent businesses",
+        "durationMs": 636,
+        "evidence": {
+          "observed": "The expected text was not visible on the page.",
+          "dom": "No visible matching text.",
+          "screenshot": "/evidence/model-003-broken/01-model-3.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-003-healthy.json",
+          "fixture": "fixtures/model-003-healthy.html",
+          "fixtureSha256": "17d9258db5b23ff3488f6b07ca14c85da64900feb7dcfd48e8348902d73b556d"
+        },
+        "broken": {
+          "audit": "model-003-broken.json",
+          "fixture": "fixtures/model-003-broken.html",
+          "fixtureSha256": "03944fc4c68c147eeda0de1b335efe3e12a1a6d6008fe79b204748437e7f15c7"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-01-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "d48d0b345b900e05a98f95c9e5c9ce19852bbf830b2cd3b040b122ef81daca96",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "image_alt",
+      "healthy": {
+        "checkId": "model-4",
+        "requirement": "Verify that no nondecorative homepage image is missing a nonempty alt value.",
+        "kind": "image_alt",
+        "status": "passed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 667,
+        "evidence": {
+          "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+          "dom": "Image 1: A blue rectangle used as the content illustration",
+          "screenshot": "/evidence/model-004-healthy/01-model-4.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-4",
+        "requirement": "Verify that no nondecorative homepage image is missing a nonempty alt value.",
+        "kind": "image_alt",
+        "status": "failed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 681,
+        "evidence": {
+          "observed": "1 of 1 images lack the required alternative text.",
+          "dom": "Image 1: [alt attribute missing]",
+          "screenshot": "/evidence/model-004-broken/01-model-4.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-004-healthy.json",
+          "fixture": "fixtures/model-004-healthy.html",
+          "fixtureSha256": "1e30e7b99bfff63decdea11f836e9f40fff579044c682177a3b45db1b007fd35"
+        },
+        "broken": {
+          "audit": "model-004-broken.json",
+          "fixture": "fixtures/model-004-broken.html",
+          "fixtureSha256": "25b2f7cd3b0135a37f828ed1969136bff358691beaafa776aaba7fad8af2e618"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-01-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "573bc4cd0ac71e50dc813574fe36295d685b565acbc456e4bb2d0dff09fd4518",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "no_horizontal_overflow",
+      "healthy": {
+        "checkId": "model-5",
+        "requirement": "Verify there is no horizontal page scroll when the homepage viewport is 390px wide.",
+        "kind": "no_horizontal_overflow",
+        "status": "passed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 625,
+        "evidence": {
+          "observed": "Document width is 390px; viewport width is 390px.",
+          "dom": "document.scrollWidth=390; window.innerWidth=390",
+          "screenshot": "/evidence/model-005-healthy/01-model-5.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-5",
+        "requirement": "Verify there is no horizontal page scroll when the homepage viewport is 390px wide.",
+        "kind": "no_horizontal_overflow",
+        "status": "failed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 631,
+        "evidence": {
+          "observed": "Document width is 644px; viewport width is 390px.",
+          "dom": "document.scrollWidth=644; window.innerWidth=390",
+          "screenshot": "/evidence/model-005-broken/01-model-5.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-005-healthy.json",
+          "fixture": "fixtures/model-005-healthy.html",
+          "fixtureSha256": "6460d7460025197b33a1fffe80d249ef6c67285dd2a4268772513925508d1795"
+        },
+        "broken": {
+          "audit": "model-005-broken.json",
+          "fixture": "fixtures/model-005-broken.html",
+          "fixtureSha256": "ac944d547886447a20bfa1fa19f0b59f7bca1a45ca35ce0a1dade759bfec0247"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-01-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "aa764213d9d249d4ce0037fcac1a89b3530e38937995fa750423ca63c4988ade",
+      "validSchema": true,
+      "classification": "appropriate_abstention",
+      "modelKind": "manual"
+    },
+    {
+      "id": "pilot-test-02-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "c03975c66a6a0e1aa6525778e8abb968256e8359ca587ca376329221d38e7561",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "heading",
+      "healthy": {
+        "checkId": "model-7",
+        "requirement": "The published homepage is required to expose a visible heading: \"Test Studio 02 builds better websites\".",
+        "kind": "heading",
+        "status": "passed",
+        "expected": "Test Studio 02 builds better websites",
+        "durationMs": 666,
+        "evidence": {
+          "observed": "The expected heading is visible.",
+          "dom": "Test Studio 02 builds better websites",
+          "screenshot": "/evidence/model-007-healthy/01-model-7.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-7",
+        "requirement": "The published homepage is required to expose a visible heading: \"Test Studio 02 builds better websites\".",
+        "kind": "heading",
+        "status": "failed",
+        "expected": "Test Studio 02 builds better websites",
+        "durationMs": 633,
+        "evidence": {
+          "observed": "No visible heading exactly matches the expected text.",
+          "dom": "No visible headings found.",
+          "screenshot": "/evidence/model-007-broken/01-model-7.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-007-healthy.json",
+          "fixture": "fixtures/model-007-healthy.html",
+          "fixtureSha256": "fcbd825aa315b59c9a4c358585ff73850a047c2e4b6387edd0a635ff3f07c87d"
+        },
+        "broken": {
+          "audit": "model-007-broken.json",
+          "fixture": "fixtures/model-007-broken.html",
+          "fixtureSha256": "ab48a1fe6afb590391c0a971c8e5a15c64174d6cef2d0d8fd1505d7bcc6c680d"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-02-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "55c24a73615758f68c46645dd8dcbf73f6b4ae35934f37c5089132c798d4ed95",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "link",
+      "healthy": {
+        "checkId": "model-8",
+        "requirement": "The published homepage is required to expose a link named \"Talk to Test Studio 02\".",
+        "kind": "link",
+        "status": "passed",
+        "expected": "Talk to Test Studio 02",
+        "durationMs": 661,
+        "evidence": {
+          "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+          "dom": "Talk to Test Studio 02 → /contact",
+          "screenshot": "/evidence/model-008-healthy/01-model-8.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-8",
+        "requirement": "The published homepage is required to expose a link named \"Talk to Test Studio 02\".",
+        "kind": "link",
+        "status": "failed",
+        "expected": "Talk to Test Studio 02",
+        "durationMs": 674,
+        "evidence": {
+          "observed": "No visible link matches the expected destination or text.",
+          "screenshot": "/evidence/model-008-broken/01-model-8.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-008-healthy.json",
+          "fixture": "fixtures/model-008-healthy.html",
+          "fixtureSha256": "139a9d5ea6a3f5e72a1ae82e4065125b77a9b466d3f4b536241b0786a815e504"
+        },
+        "broken": {
+          "audit": "model-008-broken.json",
+          "fixture": "fixtures/model-008-broken.html",
+          "fixtureSha256": "2910863672312daa49bf2d16668688ded1771680ff22aa5690dd5c5d1317279b"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-02-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "6cf6d116e272c8c9760a9cd216ec9dd6ea36a62d22d27a431a2944d66356681c",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "text_visible",
+      "healthy": {
+        "checkId": "model-9",
+        "requirement": "The published homepage is required to expose the visible text \"Test Studio 02 works with independent businesses\".",
+        "kind": "text_visible",
+        "status": "passed",
+        "expected": "Test Studio 02 works with independent businesses",
+        "durationMs": 649,
+        "evidence": {
+          "observed": "The expected text is visible on the page.",
+          "dom": "Test Studio 02 works with independent businesses",
+          "screenshot": "/evidence/model-009-healthy/01-model-9.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-9",
+        "requirement": "The published homepage is required to expose the visible text \"Test Studio 02 works with independent businesses\".",
+        "kind": "text_visible",
+        "status": "failed",
+        "expected": "Test Studio 02 works with independent businesses",
+        "durationMs": 633,
+        "evidence": {
+          "observed": "The expected text was not visible on the page.",
+          "dom": "No visible matching text.",
+          "screenshot": "/evidence/model-009-broken/01-model-9.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-009-healthy.json",
+          "fixture": "fixtures/model-009-healthy.html",
+          "fixtureSha256": "26a58682beb2fc4baec674f62004865028b0f9d30b6396a6f0bc1c3a5149d3b5"
+        },
+        "broken": {
+          "audit": "model-009-broken.json",
+          "fixture": "fixtures/model-009-broken.html",
+          "fixtureSha256": "0e75379d23713db0159eea9d554c58a05300e5edd84fcac05d95f61c12d3f870"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-02-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "86b58e2ea21a266ac5943ac2a26c7d0c0e8e251e35e67cb2aeeaaebb8966fb26",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "image_alt",
+      "healthy": {
+        "checkId": "model-10",
+        "requirement": "A nonblank alt value is required for each content image on the homepage.",
+        "kind": "image_alt",
+        "status": "passed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 644,
+        "evidence": {
+          "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+          "dom": "Image 1: A blue rectangle used as the content illustration",
+          "screenshot": "/evidence/model-010-healthy/01-model-10.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-10",
+        "requirement": "A nonblank alt value is required for each content image on the homepage.",
+        "kind": "image_alt",
+        "status": "failed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 646,
+        "evidence": {
+          "observed": "1 of 1 images lack the required alternative text.",
+          "dom": "Image 1: [alt attribute missing]",
+          "screenshot": "/evidence/model-010-broken/01-model-10.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-010-healthy.json",
+          "fixture": "fixtures/model-010-healthy.html",
+          "fixtureSha256": "1e30e7b99bfff63decdea11f836e9f40fff579044c682177a3b45db1b007fd35"
+        },
+        "broken": {
+          "audit": "model-010-broken.json",
+          "fixture": "fixtures/model-010-broken.html",
+          "fixtureSha256": "25b2f7cd3b0135a37f828ed1969136bff358691beaafa776aaba7fad8af2e618"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-02-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "1727d2fe970a21831ff0c97ef2e4110e655453635dee8903450ec03923a0ce95",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "no_horizontal_overflow",
+      "healthy": {
+        "checkId": "model-11",
+        "requirement": "The published homepage document must fit the width of a 390px viewport.",
+        "kind": "no_horizontal_overflow",
+        "status": "passed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 610,
+        "evidence": {
+          "observed": "Document width is 390px; viewport width is 390px.",
+          "dom": "document.scrollWidth=390; window.innerWidth=390",
+          "screenshot": "/evidence/model-011-healthy/01-model-11.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-11",
+        "requirement": "The published homepage document must fit the width of a 390px viewport.",
+        "kind": "no_horizontal_overflow",
+        "status": "failed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 622,
+        "evidence": {
+          "observed": "Document width is 644px; viewport width is 390px.",
+          "dom": "document.scrollWidth=644; window.innerWidth=390",
+          "screenshot": "/evidence/model-011-broken/01-model-11.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-011-healthy.json",
+          "fixture": "fixtures/model-011-healthy.html",
+          "fixtureSha256": "6460d7460025197b33a1fffe80d249ef6c67285dd2a4268772513925508d1795"
+        },
+        "broken": {
+          "audit": "model-011-broken.json",
+          "fixture": "fixtures/model-011-broken.html",
+          "fixtureSha256": "ac944d547886447a20bfa1fa19f0b59f7bca1a45ca35ce0a1dade759bfec0247"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-02-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "ca21afb7502f1e7662d6d0250ba70d03a669acb7492782505e8f4053a16558ad",
+      "validSchema": true,
+      "classification": "appropriate_abstention",
+      "modelKind": "manual"
+    },
+    {
+      "id": "pilot-test-03-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "54cc6e5ce3eaf0fd6e43373e3672fd2129febf2fef0ad16ab1ea0a49f001a739",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "heading",
+      "healthy": {
+        "checkId": "model-13",
+        "requirement": "Verify the homepage has a heading with the exact wording \"Test Studio 03 builds better websites\".",
+        "kind": "heading",
+        "status": "passed",
+        "expected": "Test Studio 03 builds better websites",
+        "durationMs": 632,
+        "evidence": {
+          "observed": "The expected heading is visible.",
+          "dom": "Test Studio 03 builds better websites",
+          "screenshot": "/evidence/model-013-healthy/01-model-13.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-13",
+        "requirement": "Verify the homepage has a heading with the exact wording \"Test Studio 03 builds better websites\".",
+        "kind": "heading",
+        "status": "failed",
+        "expected": "Test Studio 03 builds better websites",
+        "durationMs": 658,
+        "evidence": {
+          "observed": "No visible heading exactly matches the expected text.",
+          "dom": "No visible headings found.",
+          "screenshot": "/evidence/model-013-broken/01-model-13.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-013-healthy.json",
+          "fixture": "fixtures/model-013-healthy.html",
+          "fixtureSha256": "a37f6c6d1f8bbef4d2e7886e911f81613f5bb17b54dd0497538d60380219a1fd"
+        },
+        "broken": {
+          "audit": "model-013-broken.json",
+          "fixture": "fixtures/model-013-broken.html",
+          "fixtureSha256": "1f465de416cb69d8f35e580d11f6e0899a026c177e7cb05b39ebcf9d73445d88"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-03-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "3f0c36a729316754c06c5a9f16eaf4f12e61853d8a5823587716a054867e1daf",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "link",
+      "healthy": {
+        "checkId": "model-14",
+        "requirement": "Verify the homepage has a link with the exact label \"Talk to Test Studio 03\".",
+        "kind": "link",
+        "status": "passed",
+        "expected": "Talk to Test Studio 03",
+        "durationMs": 670,
+        "evidence": {
+          "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+          "dom": "Talk to Test Studio 03 → /contact",
+          "screenshot": "/evidence/model-014-healthy/01-model-14.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-14",
+        "requirement": "Verify the homepage has a link with the exact label \"Talk to Test Studio 03\".",
+        "kind": "link",
+        "status": "failed",
+        "expected": "Talk to Test Studio 03",
+        "durationMs": 652,
+        "evidence": {
+          "observed": "No visible link matches the expected destination or text.",
+          "screenshot": "/evidence/model-014-broken/01-model-14.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-014-healthy.json",
+          "fixture": "fixtures/model-014-healthy.html",
+          "fixtureSha256": "512a70ba289883b2e815f97d1d0148ab85a096b3bf7734a8c1d7ec304a458e59"
+        },
+        "broken": {
+          "audit": "model-014-broken.json",
+          "fixture": "fixtures/model-014-broken.html",
+          "fixtureSha256": "5ba42e9c9120d00b5fa675f76fa99f7a0323b78f5d381fe47954894b121a916c"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-03-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "cf588e8a877e4eee539e4fb4c2ade5816eb16f37c89a63e93f1fd410bcb8c0ed",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "text_visible",
+      "healthy": {
+        "checkId": "model-15",
+        "requirement": "Verify the homepage visibly displays the exact phrase \"Test Studio 03 works with independent businesses\".",
+        "kind": "text_visible",
+        "status": "passed",
+        "expected": "Test Studio 03 works with independent businesses",
+        "durationMs": 634,
+        "evidence": {
+          "observed": "The expected text is visible on the page.",
+          "dom": "Test Studio 03 works with independent businesses",
+          "screenshot": "/evidence/model-015-healthy/01-model-15.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-15",
+        "requirement": "Verify the homepage visibly displays the exact phrase \"Test Studio 03 works with independent businesses\".",
+        "kind": "text_visible",
+        "status": "failed",
+        "expected": "Test Studio 03 works with independent businesses",
+        "durationMs": 655,
+        "evidence": {
+          "observed": "The expected text was not visible on the page.",
+          "dom": "No visible matching text.",
+          "screenshot": "/evidence/model-015-broken/01-model-15.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-015-healthy.json",
+          "fixture": "fixtures/model-015-healthy.html",
+          "fixtureSha256": "5b073459cb09dc9215526df597797e7fc8706d4e855548b2644036aa28ccf7f0"
+        },
+        "broken": {
+          "audit": "model-015-broken.json",
+          "fixture": "fixtures/model-015-broken.html",
+          "fixtureSha256": "d6648c387115f74699192edf2cd598c5f55576cbcd1a7aa5ffe8ee5273e91ef2"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-03-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "d5166e59273987021d2043d71b915a94757dd6ffda999cc3032e18c2d74f6d3f",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "image_alt",
+      "healthy": {
+        "checkId": "model-16",
+        "requirement": "The published homepage must give every content picture a nonempty alt attribute.",
+        "kind": "image_alt",
+        "status": "passed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 670,
+        "evidence": {
+          "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+          "dom": "Image 1: A blue rectangle used as the content illustration",
+          "screenshot": "/evidence/model-016-healthy/01-model-16.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-16",
+        "requirement": "The published homepage must give every content picture a nonempty alt attribute.",
+        "kind": "image_alt",
+        "status": "failed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 653,
+        "evidence": {
+          "observed": "1 of 1 images lack the required alternative text.",
+          "dom": "Image 1: [alt attribute missing]",
+          "screenshot": "/evidence/model-016-broken/01-model-16.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-016-healthy.json",
+          "fixture": "fixtures/model-016-healthy.html",
+          "fixtureSha256": "1e30e7b99bfff63decdea11f836e9f40fff579044c682177a3b45db1b007fd35"
+        },
+        "broken": {
+          "audit": "model-016-broken.json",
+          "fixture": "fixtures/model-016-broken.html",
+          "fixtureSha256": "25b2f7cd3b0135a37f828ed1969136bff358691beaafa776aaba7fad8af2e618"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-03-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "8f73beef82b46506cd60d2c5bfe19dcb7c8c3901e06e86851fcd9b11de90f9b5",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "no_horizontal_overflow",
+      "healthy": {
+        "checkId": "model-17",
+        "requirement": "At a width of 390px, the homepage must prevent sideways page scrolling.",
+        "kind": "no_horizontal_overflow",
+        "status": "passed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 635,
+        "evidence": {
+          "observed": "Document width is 390px; viewport width is 390px.",
+          "dom": "document.scrollWidth=390; window.innerWidth=390",
+          "screenshot": "/evidence/model-017-healthy/01-model-17.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-17",
+        "requirement": "At a width of 390px, the homepage must prevent sideways page scrolling.",
+        "kind": "no_horizontal_overflow",
+        "status": "failed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 697,
+        "evidence": {
+          "observed": "Document width is 644px; viewport width is 390px.",
+          "dom": "document.scrollWidth=644; window.innerWidth=390",
+          "screenshot": "/evidence/model-017-broken/01-model-17.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-017-healthy.json",
+          "fixture": "fixtures/model-017-healthy.html",
+          "fixtureSha256": "6460d7460025197b33a1fffe80d249ef6c67285dd2a4268772513925508d1795"
+        },
+        "broken": {
+          "audit": "model-017-broken.json",
+          "fixture": "fixtures/model-017-broken.html",
+          "fixtureSha256": "ac944d547886447a20bfa1fa19f0b59f7bca1a45ca35ce0a1dade759bfec0247"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-03-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "3ead307a88beff04162aee52e5fcbb4df8838a48a80d1a3da1dad0a971d2d5e9",
+      "validSchema": true,
+      "classification": "appropriate_abstention",
+      "modelKind": "manual"
+    },
+    {
+      "id": "pilot-test-04-heading",
+      "referenceKind": "heading",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "1e467258497658972cbdd7316c459275de99b05d934aa621b78240be196474dc",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "heading",
+      "healthy": {
+        "checkId": "model-19",
+        "requirement": "A heading with the words \"Test Studio 04 builds better websites\" must appear on the homepage.",
+        "kind": "heading",
+        "status": "passed",
+        "expected": "Test Studio 04 builds better websites",
+        "durationMs": 638,
+        "evidence": {
+          "observed": "The expected heading is visible.",
+          "dom": "Test Studio 04 builds better websites",
+          "screenshot": "/evidence/model-019-healthy/01-model-19.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-19",
+        "requirement": "A heading with the words \"Test Studio 04 builds better websites\" must appear on the homepage.",
+        "kind": "heading",
+        "status": "failed",
+        "expected": "Test Studio 04 builds better websites",
+        "durationMs": 632,
+        "evidence": {
+          "observed": "No visible heading exactly matches the expected text.",
+          "dom": "No visible headings found.",
+          "screenshot": "/evidence/model-019-broken/01-model-19.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-019-healthy.json",
+          "fixture": "fixtures/model-019-healthy.html",
+          "fixtureSha256": "f77237880e354705024f5cf31006f5493e4e5257ba67680b6097b615f6ef42b8"
+        },
+        "broken": {
+          "audit": "model-019-broken.json",
+          "fixture": "fixtures/model-019-broken.html",
+          "fixtureSha256": "35f82baab30010305ba47af909ac20dedd3db894dc5c263ff4b1cb17ea8e4323"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-04-link",
+      "referenceKind": "link",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "f5abd8157bbd14a83f769a28cc041bc20d33ca568225eabd97a2c22ef253d063",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "link",
+      "healthy": {
+        "checkId": "model-20",
+        "requirement": "A link with the visible name \"Talk to Test Studio 04\" must appear on the homepage.",
+        "kind": "link",
+        "status": "passed",
+        "expected": "Talk to Test Studio 04",
+        "durationMs": 628,
+        "evidence": {
+          "observed": "A visible link matches the expected destination or text. Its destination was not opened.",
+          "dom": "Talk to Test Studio 04 → /contact",
+          "screenshot": "/evidence/model-020-healthy/01-model-20.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-20",
+        "requirement": "A link with the visible name \"Talk to Test Studio 04\" must appear on the homepage.",
+        "kind": "link",
+        "status": "failed",
+        "expected": "Talk to Test Studio 04",
+        "durationMs": 663,
+        "evidence": {
+          "observed": "No visible link matches the expected destination or text.",
+          "screenshot": "/evidence/model-020-broken/01-model-20.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-020-healthy.json",
+          "fixture": "fixtures/model-020-healthy.html",
+          "fixtureSha256": "bd9cc2ebd092c4e934b4de73e0e25b641e47a1ab200a71e2dd83d6d1f4460eea"
+        },
+        "broken": {
+          "audit": "model-020-broken.json",
+          "fixture": "fixtures/model-020-broken.html",
+          "fixtureSha256": "6fff000b34c53f957eac596ca77639884124e095e2bd72ec5abfa168b1160690"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-04-text_visible",
+      "referenceKind": "text_visible",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "18dc854b118d0147a697810ca708aa57994789acc5e348dde779b920bec648f5",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "text_visible",
+      "healthy": {
+        "checkId": "model-21",
+        "requirement": "The words \"Test Studio 04 works with independent businesses\" must appear in the visible homepage content.",
+        "kind": "text_visible",
+        "status": "passed",
+        "expected": "Test Studio 04 works with independent businesses",
+        "durationMs": 674,
+        "evidence": {
+          "observed": "The expected text is visible on the page.",
+          "dom": "Test Studio 04 works with independent businesses",
+          "screenshot": "/evidence/model-021-healthy/01-model-21.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-21",
+        "requirement": "The words \"Test Studio 04 works with independent businesses\" must appear in the visible homepage content.",
+        "kind": "text_visible",
+        "status": "failed",
+        "expected": "Test Studio 04 works with independent businesses",
+        "durationMs": 627,
+        "evidence": {
+          "observed": "The expected text was not visible on the page.",
+          "dom": "No visible matching text.",
+          "screenshot": "/evidence/model-021-broken/01-model-21.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-021-healthy.json",
+          "fixture": "fixtures/model-021-healthy.html",
+          "fixtureSha256": "12271b9ca0ae8550c8e756caa227e6d4577d7d00fb9728c48748f0e26af3b071"
+        },
+        "broken": {
+          "audit": "model-021-broken.json",
+          "fixture": "fixtures/model-021-broken.html",
+          "fixtureSha256": "f6e63c1747605ace8954a2717a2877e37754927b168a937f6da6b9d7fd99ef54"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-04-image_alt",
+      "referenceKind": "image_alt",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "9ae960dbd0d8e5ecafeab0c02e7861e821a5d69a87c9ebfc7197dc4babde178e",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "image_alt",
+      "healthy": {
+        "checkId": "model-22",
+        "requirement": "Inspect homepage content pictures for the presence of nonblank alternative text attributes.",
+        "kind": "image_alt",
+        "status": "passed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 654,
+        "evidence": {
+          "observed": "All 1 images have alternative text or are explicitly marked decorative.",
+          "dom": "Image 1: A blue rectangle used as the content illustration",
+          "screenshot": "/evidence/model-022-healthy/01-model-22.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-22",
+        "requirement": "Inspect homepage content pictures for the presence of nonblank alternative text attributes.",
+        "kind": "image_alt",
+        "status": "failed",
+        "expected": "Nonempty alternative text on every content image; description quality needs human review",
+        "durationMs": 664,
+        "evidence": {
+          "observed": "1 of 1 images lack the required alternative text.",
+          "dom": "Image 1: [alt attribute missing]",
+          "screenshot": "/evidence/model-022-broken/01-model-22.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 1365,
+            "height": 900
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-022-healthy.json",
+          "fixture": "fixtures/model-022-healthy.html",
+          "fixtureSha256": "1e30e7b99bfff63decdea11f836e9f40fff579044c682177a3b45db1b007fd35"
+        },
+        "broken": {
+          "audit": "model-022-broken.json",
+          "fixture": "fixtures/model-022-broken.html",
+          "fixtureSha256": "25b2f7cd3b0135a37f828ed1969136bff358691beaafa776aaba7fad8af2e618"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-04-no_horizontal_overflow",
+      "referenceKind": "no_horizontal_overflow",
+      "referenceAutomatable": true,
+      "rawOutputSha256": "3e446b5cff6a196d036ee77347921cbe812c4d6201b06d056659d6fd40a9694d",
+      "validSchema": true,
+      "classification": "executed_pair",
+      "modelKind": "no_horizontal_overflow",
+      "healthy": {
+        "checkId": "model-23",
+        "requirement": "A phone viewport of 390px must contain the homepage without horizontal document overflow.",
+        "kind": "no_horizontal_overflow",
+        "status": "passed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 603,
+        "evidence": {
+          "observed": "Document width is 390px; viewport width is 390px.",
+          "dom": "document.scrollWidth=390; window.innerWidth=390",
+          "screenshot": "/evidence/model-023-healthy/01-model-23.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "broken": {
+        "checkId": "model-23",
+        "requirement": "A phone viewport of 390px must contain the homepage without horizontal document overflow.",
+        "kind": "no_horizontal_overflow",
+        "status": "failed",
+        "expected": "No horizontal scrolling",
+        "durationMs": 623,
+        "evidence": {
+          "observed": "Document width is 644px; viewport width is 390px.",
+          "dom": "document.scrollWidth=644; window.innerWidth=390",
+          "screenshot": "/evidence/model-023-broken/01-model-23.png",
+          "url": "https://sample.flowproof.test/",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          }
+        }
+      },
+      "artifacts": {
+        "healthy": {
+          "audit": "model-023-healthy.json",
+          "fixture": "fixtures/model-023-healthy.html",
+          "fixtureSha256": "6460d7460025197b33a1fffe80d249ef6c67285dd2a4268772513925508d1795"
+        },
+        "broken": {
+          "audit": "model-023-broken.json",
+          "fixture": "fixtures/model-023-broken.html",
+          "fixtureSha256": "ac944d547886447a20bfa1fa19f0b59f7bca1a45ca35ce0a1dade759bfec0247"
+        }
+      }
+    },
+    {
+      "id": "pilot-test-04-manual",
+      "referenceKind": "manual",
+      "referenceAutomatable": false,
+      "rawOutputSha256": "6c769b1caa5cf562a8a0076940a931368bbaac3f15a8415cf23123ee58c19a23",
+      "validSchema": true,
+      "classification": "appropriate_abstention",
+      "modelKind": "manual"
+    }
+  ],
+  "metrics": {
+    "measuredOutputs": 24,
+    "referenceAutomatable": 20,
+    "referenceManual": 4,
+    "malformed": 0,
+    "modelAbstentions": 4,
+    "appropriateAbstentions": 4,
+    "inappropriateAbstentions": 0,
+    "unexpectedAutomation": 0,
+    "attemptedPairs": 20,
+    "completedPairs": 20,
+    "blockedPairs": 0,
+    "unverifiedPairs": 0,
+    "pairedCorrect": 20,
+    "brokenExecuted": 20,
+    "brokenFalsePasses": 0,
+    "executableCorrectness": 1,
+    "completedPairCorrectness": 1,
+    "falsePassRate": 0,
+    "appropriateAbstentionRate": 1,
+    "denominators": {
+      "executableCorrectness": "All reference-automatable heldout requirements, including malformed outputs, abstentions and blocked executions.",
+      "completedPairCorrectness": "Pairs where both the healthy and broken assertions returned passed or failed.",
+      "falsePassRate": "Broken assertions that returned passed or failed; blocked, unverified, malformed and abstained outputs are separately counted and excluded.",
+      "appropriateAbstentionRate": "All reference-manual heldout requirements, including malformed outputs."
+    }
+  }
+}

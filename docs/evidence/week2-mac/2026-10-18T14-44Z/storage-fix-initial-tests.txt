@@ -1,0 +1,30 @@
+
+> briefstamp@0.1.0 test
+> vitest run --no-file-parallelism
+
+
+ RUN  v4.1.11 <REPO>
+
+ ❯ tests/runtime-trace.test.ts (12 tests | 2 skipped) 30040ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/runtime-trace.test.ts > isolated real Sentry SDK capture
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ tests/runtime-trace.test.ts:319:3
+    317|
+    318| describe("isolated real Sentry SDK capture", { timeout: 30_000 }, () =…
+    319|   beforeAll(async () => {
+       |   ^
+    320|     await exec(
+    321|       process.execPath,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 57 passed (58)
+      Tests  1464 passed | 2 skipped (1466)
+   Start at  20:29:59
+   Duration  138.92s (transform 1.86s, setup 0ms, import 12.65s, tests 119.18s, environment 5ms)
+

@@ -1,0 +1,6 @@
+{
+  "route": "/api/temporal-agent/current",
+  "method": "GET",
+  "body": null,
+  "operatorAuthentication": false
+}

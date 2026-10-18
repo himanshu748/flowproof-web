@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { Audit } from "../shared/types";
 import {
@@ -89,6 +90,23 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("completed native approval persistence", () => {
+  it("persists the actual retained hosted approval receipt with no provider or database network calls", async () => {
+    const audit = JSON.parse(
+      await readFile(
+        new URL(
+          "../docs/evidence/mastra-hosted/2026-10-18T15-34Z/browser-audit.json",
+          import.meta.url,
+        ),
+        "utf8",
+      ),
+    ) as Audit;
+    const now = Date.parse(audit.completedAt!) + 1000;
+    const store = createHostedTigerStore({ env, now: () => now });
+    pgMock.query.mockResolvedValueOnce({ rows: [{ audit_id: audit.id }] });
+    await store.persistAudit(session, audit);
+    expect(JSON.parse(pgMock.query.mock.calls[0][1][3])).toEqual(audit);
+  });
+
   const approvedFixture = (): Audit => {
     const audit = fixture();
     audit.approvalWorkflow = {

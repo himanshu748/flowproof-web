@@ -1,0 +1,6 @@
+{
+  "route": "/health",
+  "method": "GET",
+  "body": null,
+  "operatorAuthentication": false
+}

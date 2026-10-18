@@ -1,0 +1,136 @@
+{
+  "startedAt": "2026-10-18T14:50:28.928Z",
+  "status": "failed",
+  "origin": "https://flowproof-demo.onrender.com",
+  "mode": "temporal",
+  "expectedSha": "97409034bfc8d4286123f1e956edcd16a11dd0f1",
+  "observedDeploymentSha": "97409034bfc8d4286123f1e956edcd16a11dd0f1",
+  "expectedShaVerified": true,
+  "source": {
+    "verifierSha256": "431c5a1ef5cd3f633eb3dce766da9ea2512fc1ba09178f8d1c0c848046b9fcda",
+    "sourceFiles": {
+      "server/demo.ts": "d82a4d809d1f378060e9af879b8695ef80897e942c6a7795c6bd1e5b8a4402d5",
+      "server/approval-workflow.ts": "1c4f3615bc21c296e1d9de6e30de859c21eda0c714c65f65e04d87badf4a410f",
+      "server/hosted-approval.ts": "dbf1c7e32a850d279345d697c77bbc2dedfb7632ef71991fb0187b7eb4003c2f",
+      "server/mastra-evidence-agent.ts": "bf928e86b1edf7f864437f85f72656dba9a1f4d8a3281574b1205ea2a013e2cf",
+      "server/hosted-temporal.ts": "b46f948c540f32ac55e7e3056de8f77cbdb67088a111acb091e5d99e17cb0e7f",
+      "shared/hosted-target.ts": "233bd18ae6d1435ef4aa1e1329bd2f70cbac4bf4762c9dc72a415e8923e91a6c"
+    }
+  },
+  "approval": {
+    "actor": "automated controlled owner test",
+    "humanApproval": false,
+    "simulatedNativeEvidence": false
+  },
+  "maximumProposalRouteCalls": 1,
+  "maximumJudgeRouteCalls": 1,
+  "proposedModelRequests": 0,
+  "judgeRequests": 0,
+  "billingChanges": 0,
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "startedAt": "2026-10-18T14:50:28.933Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T14:50:29.401Z",
+      "durationMs": 466
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "startedAt": "2026-10-18T14:50:29.401Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T14:50:29.820Z",
+      "durationMs": 419
+    },
+    {
+      "route": "/api/judge-agent/status",
+      "method": "GET",
+      "startedAt": "2026-10-18T14:50:29.820Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T14:50:32.326Z",
+      "durationMs": 2505
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "calls/001-health.request.json",
+      "bytes": 95,
+      "sha256": "8561a4defd340c3905a27a0bc09f3494cc7bac2cd194df5cd98be3e91105ed99",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/001-health.response.json",
+      "bytes": 95,
+      "sha256": "d747ab7abcd5ea884d6ab10a2af1dfaea78e716291d374f17dbe9761b84b82e9",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/001-health.metadata.json",
+      "bytes": 245,
+      "sha256": "bcae5e2f58515e86d76208f1adc3474e70b725dc506f28e91d28237847d6843c",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.request.json",
+      "bytes": 102,
+      "sha256": "13fe9cf56174d8a33d9bba5b76ea402f46bd485fb74c7868100443c63a96c2cc",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.response.json",
+      "bytes": 10980,
+      "sha256": "176963231912332779a5f885ac2c8b1903f62019b654cd8363c7b9a370c28d97",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.metadata.json",
+      "bytes": 252,
+      "sha256": "3b0e87a1acdc1f00f4d6b4e8af2d71243a371e54b91fb5e4c087d5b9bda2ed9f",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.request.json",
+      "bytes": 111,
+      "sha256": "047e5382efb312d5d3ce3433deff0dd52b59150d9e379bf382f68bcc9ee47fc2",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.response.json",
+      "bytes": 355,
+      "sha256": "3a93141b06ea620685605797c2b5314686f8e2aa13dca6c4decf793635691d4f",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.metadata.json",
+      "bytes": 262,
+      "sha256": "48392b74e130ef10f028b3da6cde79b66aed8cdab417ab2eb3d10975420dcd79",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "funding-preflight.json",
+      "bytes": 423,
+      "sha256": "131b141e203eb64ed41f88a892b524d7a6b0ed67ee9025865abbd2a5a29f9ecd",
+      "operatorTokenRedacted": false
+    }
+  ],
+  "limitations": [
+    "Controlled automated owner approval is not a visitor or customer approval.",
+    "One proposal route may use the server's existing bounded provider attempts; the verifier never retries it.",
+    "Worker recovery does not prove recovery after Render ephemeral-disk loss.",
+    "No credential, account, billing, grant, quota or deployment configuration is changed by this verifier."
+  ],
+  "error": "Funding check is not fresh",
+  "retry": "Forbidden: retain the reservation and inspect existing server receipts; no automatic write/provider retry",
+  "completedAt": "2026-10-18T14:50:32.329Z"
+}

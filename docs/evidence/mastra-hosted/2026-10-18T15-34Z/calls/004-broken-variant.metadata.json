@@ -1,0 +1,11 @@
+{
+  "route": "/api/projects/b580b22b-b8ce-4807-92be-f07f6cef1ccd/variant",
+  "method": "POST",
+  "startedAt": "2026-10-18T15:34:12.568Z",
+  "status": 200,
+  "outcome": "response",
+  "writeOutcome": "response_received",
+  "storage": null,
+  "completedAt": "2026-10-18T15:34:12.949Z",
+  "durationMs": 381
+}

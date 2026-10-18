@@ -1,0 +1,108 @@
+{
+  "provider": "tinker",
+  "observedAt": "2026-10-18T14:48:40.828235+00:00",
+  "windowStart": "2026-10-15T00:00:00Z",
+  "windowEnd": "2026-10-18T15:00:00Z",
+  "costDataThrough": "2026-10-18T00:00:00Z",
+  "events": [
+    {
+      "bucket_start": "2026-10-15T07:00:00Z",
+      "bucket_end": "2026-10-15T08:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": "9e31df8b-8529-5493-a974-f256eeb053d4",
+      "estimated_cost_usd": 0.01172567,
+      "effective_rate_usd_per_million_tokens": 0.737,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "training",
+        "token_count": 15910
+      }
+    },
+    {
+      "bucket_start": "2026-10-15T07:00:00Z",
+      "bucket_end": "2026-10-15T08:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": null,
+      "estimated_cost_usd": null,
+      "effective_rate_usd_per_million_tokens": null,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "checkpoint",
+        "count": 2
+      }
+    },
+    {
+      "bucket_start": "2026-10-15T08:00:00Z",
+      "bucket_end": "2026-10-15T09:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": "oai-9e8502b2-f7f7-54b0-a4cc-0b2fa3d16c61",
+      "estimated_cost_usd": 0.00404211,
+      "effective_rate_usd_per_million_tokens": 1.005,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "sampling_sample",
+        "token_count": 4022
+      }
+    },
+    {
+      "bucket_start": "2026-10-15T08:00:00Z",
+      "bucket_end": "2026-10-15T09:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": "oai-9e8502b2-f7f7-54b0-a4cc-0b2fa3d16c61",
+      "estimated_cost_usd": 1.6896e-05,
+      "effective_rate_usd_per_million_tokens": 0.066,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "sampling_prefill",
+        "cached": true,
+        "token_count": 256
+      }
+    },
+    {
+      "bucket_start": "2026-10-15T08:00:00Z",
+      "bucket_end": "2026-10-15T09:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": "oai-9e8502b2-f7f7-54b0-a4cc-0b2fa3d16c61",
+      "estimated_cost_usd": 0.00011715,
+      "effective_rate_usd_per_million_tokens": 0.33,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "sampling_prefill",
+        "cached": false,
+        "token_count": 355
+      }
+    },
+    {
+      "bucket_start": "2026-10-15T11:00:00Z",
+      "bucket_end": "2026-10-15T12:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": "oai-9e8502b2-f7f7-54b0-a4cc-0b2fa3d16c61",
+      "estimated_cost_usd": 8.58e-05,
+      "effective_rate_usd_per_million_tokens": 0.33,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "sampling_prefill",
+        "cached": false,
+        "token_count": 260
+      }
+    },
+    {
+      "bucket_start": "2026-10-15T11:00:00Z",
+      "bucket_end": "2026-10-15T12:00:00Z",
+      "base_model": "Qwen/Qwen3.5-4B",
+      "session_id": "oai-9e8502b2-f7f7-54b0-a4cc-0b2fa3d16c61",
+      "estimated_cost_usd": 0.000250245,
+      "effective_rate_usd_per_million_tokens": 1.005,
+      "effective_rate_usd_per_gigabyte_month": null,
+      "event_info": {
+        "type": "sampling_sample",
+        "token_count": 249
+      }
+    }
+  ],
+  "limitations": [
+    "Hourly buckets can lag by hours; missing events do not prove no reservation or request.",
+    "estimated_cost_usd is the provider usage estimate, not an attributable final invoice amount.",
+    "Unrelated account identifiers and metadata omitted."
+  ]
+}

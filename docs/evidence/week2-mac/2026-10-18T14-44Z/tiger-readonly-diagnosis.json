@@ -1,0 +1,79 @@
+{
+  "recordedAt": "2026-10-18T15:41:50.094Z",
+  "scope": "Explicitly approved read-only Mac diagnosis; selected synthetic proof rows and audit table constraints only.",
+  "transactionReadOnly": true,
+  "constraints": [
+    {
+      "conname": "audits_audit_id_not_null",
+      "definition": "NOT NULL audit_id"
+    },
+    {
+      "conname": "audits_check",
+      "definition": "CHECK (((expires_at > created_at) AND (expires_at <= (created_at + '00:30:00'::interval))))"
+    },
+    {
+      "conname": "audits_check1",
+      "definition": "CHECK ((NOT ((payload ->> 'id'::text) IS DISTINCT FROM (audit_id)::text)))"
+    },
+    {
+      "conname": "audits_check2",
+      "definition": "CHECK ((NOT ((payload ->> 'projectId'::text) IS DISTINCT FROM (project_id)::text)))"
+    },
+    {
+      "conname": "audits_created_at_not_null",
+      "definition": "NOT NULL created_at"
+    },
+    {
+      "conname": "audits_expires_at_not_null",
+      "definition": "NOT NULL expires_at"
+    },
+    {
+      "conname": "audits_failure_text_check",
+      "definition": "CHECK ((octet_length(failure_text) <= 262144))"
+    },
+    {
+      "conname": "audits_failure_text_not_null",
+      "definition": "NOT NULL failure_text"
+    },
+    {
+      "conname": "audits_payload_check",
+      "definition": "CHECK ((octet_length((payload)::text) <= 2097152))"
+    },
+    {
+      "conname": "audits_payload_check1",
+      "definition": "CHECK ((NOT ((payload ->> 'status'::text) IS DISTINCT FROM 'completed'::text)))"
+    },
+    {
+      "conname": "audits_payload_check3",
+      "definition": "CHECK (((jsonb_array_length((payload -> 'results'::text)) >= 1) AND (jsonb_array_length((payload -> 'results'::text)) <= 24)))"
+    },
+    {
+      "conname": "audits_payload_not_null",
+      "definition": "NOT NULL payload"
+    },
+    {
+      "conname": "audits_pkey",
+      "definition": "PRIMARY KEY (session_hash, audit_id)"
+    },
+    {
+      "conname": "audits_project_id_not_null",
+      "definition": "NOT NULL project_id"
+    },
+    {
+      "conname": "audits_session_hash_check",
+      "definition": "CHECK ((session_hash ~ '^[a-f0-9]{64}$'::text))"
+    },
+    {
+      "conname": "audits_session_hash_not_null",
+      "definition": "NOT NULL session_hash"
+    },
+    {
+      "conname": "briefstamp_demo_authorized_target",
+      "definition": "CHECK ((((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'sample'::text)) AND ((((payload -> 'source'::text) ->> 'url'::text) ~~ 'https://sample.flowproof.test/%'::text) IS TRUE)) OR ((NOT (((payload -> 'source'::text) ->> 'target'::text) IS DISTINCT FROM 'website'::text)) AND (NOT (((payload -> 'source'::text) ->> 'url'::text) IS DISTINCT FROM 'https://flowproof-demo.onrender.com/'::text)))))"
+    }
+  ],
+  "rows": [],
+  "databaseNow": "2026-10-18T15:41:58.959Z",
+  "status": "read_only_verified",
+  "completedAt": "2026-10-18T15:41:59.217Z"
+}

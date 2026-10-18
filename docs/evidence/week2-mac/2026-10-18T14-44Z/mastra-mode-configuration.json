@@ -1,0 +1,9 @@
+{
+  "configuredAt": "2026-10-18T15:25:06.055172+00:00",
+  "service": "srv-db6r2egm7kps73b19hag",
+  "changed": {
+    "FLOWPROOF_TEMPORAL_HOSTED_ENABLED": false
+  },
+  "allOtherEnvironmentValuesPreserved": true,
+  "reason": "One bounded native Mastra agent proof after the successful Temporal proof. No quota reset or hosted Tinker enablement."
+}

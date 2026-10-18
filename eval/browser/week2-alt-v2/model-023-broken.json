@@ -1,0 +1,39 @@
+{
+  "id": "model-023-broken",
+  "projectId": "evaluation-23",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-18T14:49:46.983Z",
+  "checks": [
+    {
+      "id": "model-23",
+      "requirement": "A phone viewport of 390px must contain the homepage without horizontal document overflow.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-23",
+      "requirement": "A phone viewport of 390px must contain the homepage without horizontal document overflow.",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 623,
+      "evidence": {
+        "observed": "Document width is 644px; viewport width is 390px.",
+        "dom": "document.scrollWidth=644; window.innerWidth=390",
+        "screenshot": "/evidence/model-023-broken/01-model-23.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-18T14:49:47.726Z"
+}

@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "currency": "USD",
+  "model": "Qwen/Qwen3.5-4B",
+  "maxTokens": 250000,
+  "maxCostUsd": "0.30",
+  "usdPerMillionTokens": {
+    "training": "0.737",
+    "input": "0.33",
+    "output": "1.005"
+  },
+  "operationOverheadUsd": "0.03",
+  "reservations": [
+    {
+      "id": "66258681-02ac-44f1-bc8b-5df6a713ea8b",
+      "operation": "training",
+      "experimentId": "flowproof-week2-alt-v2",
+      "reservedAt": "2026-10-18T14:43:07.647340+00:00",
+      "reservedTokens": 28620,
+      "tokenUpperBounds": {
+        "training": 28620
+      },
+      "reservedCostUsd": "0.0638661750",
+      "status": "completed",
+      "observedTokens": {
+        "training": 28620
+      },
+      "updatedAt": "2026-10-18T14:44:57.433404+00:00"
+    },
+    {
+      "id": "7dbac17a-d1e4-425f-97ef-60f8307309d8",
+      "operation": "fine-tuned",
+      "experimentId": "flowproof-week2-alt-v2",
+      "reservedAt": "2026-10-18T14:46:14.183714+00:00",
+      "reservedTokens": 17385,
+      "tokenUpperBounds": {
+        "input": 5097,
+        "output": 12288
+      },
+      "reservedCostUsd": "0.0550393125",
+      "status": "completed",
+      "observedTokens": {
+        "input": 5097,
+        "output": 1402
+      },
+      "updatedAt": "2026-10-18T14:48:32.214226+00:00"
+    }
+  ]
+}

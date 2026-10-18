@@ -2355,6 +2355,9 @@
   .app-shell .delivery-verdict {
     flex-wrap: wrap;
   }
+  .app-shell .delivery-verdict > div {
+    flex-basis: calc(100% - 66px);
+  }
   .app-shell .delivery-verdict > .button {
     margin-left: 66px;
   }

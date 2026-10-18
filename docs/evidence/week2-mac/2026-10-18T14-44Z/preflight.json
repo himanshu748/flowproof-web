@@ -1,0 +1,67 @@
+{
+  "observedAt": "2026-10-18T14:34:00Z",
+  "method": "Authenticated in-app browser; billing balance, payment methods and credit grants read without changes",
+  "urls": [
+    "https://tinker.thinkingmachines.ai/billing/balance",
+    "https://tinker.thinkingmachines.ai/billing/payment-methods",
+    "https://tinker.thinkingmachines.ai/billing/credit-grants"
+  ],
+  "tinker": {
+    "balanceUsd": "9.18",
+    "grant": "Tinker x MLH",
+    "grantRemainingUsd": "9.18",
+    "grantPeriodDisplayed": "Oct 7, 2026 - Oct 8, 2027",
+    "autoReloadEnabled": false,
+    "paymentMethodsConfigured": false,
+    "paidOverageBasis": "Prepaid promotional funds; no payment method and auto-reload off. No billing changes."
+  },
+  "authorization": {
+    "totalIncrementalCapUsd": "4.00",
+    "newExperimentLedgerCapUsd": "0.30",
+    "existingTinkerKeyAndOperatorTokenTransientMacUse": "User explicitly approved in this task after action-time security review; no key saved or printed"
+  },
+  "trainingPreflight": {
+    "trainingExamples": 108,
+    "exactTrainingInputTokens": 28620,
+    "heldoutUnchanged": 24,
+    "heldoutSha256": "649e3e59734ca4b83d24ad4aec9ef6a596b1ae48991c9849816285c9e112a423",
+    "initialIncompleteCacheTokens": 756,
+    "initialIncompleteCacheVocabSize": 33,
+    "initialIncompleteCacheProviderCalls": 0,
+    "correctedTokenizerMatchesHistoricalFingerprint": true,
+    "operationOverheadUsd": "0.03",
+    "maxCostUsd": "0.30",
+    "samplingOperationReplays": false,
+    "transportHttpRetries": false
+  },
+  "reservationContinuity": {
+    "judgeStatusObservedAt": "2026-10-18T14:39:35.070Z",
+    "maximumRuns": 100,
+    "usedRuns": 4,
+    "remainingRuns": 96,
+    "currentFundingConfirmedFree": true,
+    "tinker": {
+      "existingProofExpiredAt": "2026-10-17T08:23:47.620Z",
+      "existingSeedMaxCalls": 1,
+      "existingSeedMaxReservedTokens": 41088,
+      "remainingAllowanceVerified": false,
+      "proofUnchanged": true,
+      "noHostedTinkerCallPermittedUntilReconciled": true
+    },
+    "otherExpiredOperatorProofs": "Preserved unchanged; expiry prevents renewed capacity after deploy"
+  },
+  "verification": {
+    "typescriptTestsPassed": 1461,
+    "typescriptFilesPassed": 57,
+    "pythonTestsWithPinnedSdkPassed": 27,
+    "productionBuild": "passed",
+    "publicRuntimeReceipt": "public-runtime/receipt.json",
+    "ciBeforeDeploy": "https://github.com/himanshu748/flowproof-web/actions/runs/39118398679",
+    "initialSandboxTests": {
+      "passed": 1254,
+      "failed": 201,
+      "skipped": 6,
+      "cause": "loopback listen EPERM and browser sandbox restrictions; rerun with permitted network passed all tests"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+[
+  {
+    "labels": [
+      {
+        "field": "instance",
+        "value": "srv-db6r2egm7kps73b19hag-hgdbf"
+      },
+      {
+        "field": "service",
+        "value": "srv-db6r2egm7kps73b19hag"
+      },
+      {
+        "field": "resource",
+        "value": "srv-db6r2egm7kps73b19hag"
+      }
+    ],
+    "unit": "bytes",
+    "values": [
+      {
+        "timestamp": "2026-10-18T14:48:00Z",
+        "value": 154087420
+      }
+    ]
+  },
+  {
+    "labels": [
+      {
+        "field": "instance",
+        "value": "srv-db6r2egm7kps73b19hag-lzh55"
+      },
+      {
+        "field": "service",
+        "value": "srv-db6r2egm7kps73b19hag"
+      },
+      {
+        "field": "resource",
+        "value": "srv-db6r2egm7kps73b19hag"
+      }
+    ],
+    "unit": "bytes",
+    "values": [
+      {
+        "timestamp": "2026-10-18T14:49:00Z",
+        "value": 120451070
+      },
+      {
+        "timestamp": "2026-10-18T14:50:00Z",
+        "value": 110174210
+      },
+      {
+        "timestamp": "2026-10-18T14:51:00Z",
+        "value": 107245570
+      },
+      {
+        "timestamp": "2026-10-18T14:52:00Z",
+        "value": 107606020
+      },
+      {
+        "timestamp": "2026-10-18T14:53:00Z",
+        "value": 167182340
+      }
+    ]
+  }
+]

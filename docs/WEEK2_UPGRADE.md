@@ -1,5 +1,84 @@
 # Briefstamp Week 2 upgrade
 
+## Connected-Mac outcome — October 18, 2026
+
+One new LoRA and the unchanged 24-case evaluation completed. Actual hosted Temporal retry/worker resumption completed on the existing free Render service. Actual hosted Mastra approval/Chromium completed on the first attempt, but its persistence validation failed; the strict receipt-schema fix is deployed, but a second native source save still failed. Its actual receipt passes offline validation and a read-only database inspection confirmed the row is absent. A separately bounded Mastra agent reached both real tools but its summary provider call returned HTTP 500; no retry followed. **The requested fresh hosted Tinker proposal remains blocked by an unverified cumulative two-request ledger.** It has not been replaced with local evidence. `docs/DEV_POST.md` and the DEV post remain untouched.
+
+### Tinker measured result
+
+| Measurement | New LoRA | Comparison / scope |
+|---|---:|---|
+| Reference agreement | **24/24** | Old LoRA 22/24; few-shot 23/24 |
+| Inappropriate abstentions | **0** | Same independent heldout bytes/order; reused development benchmark, no new independent test claim |
+| Executable browser pairs | **20/20** | Real local healthy-pass/broken-fail pairs, 0 false passes; 4 appropriate manual cases |
+| Training | **108 examples; 28,620 tokens; 109,224.2315 ms** | Frozen 48-example augmentation reused without duplicate additions; exactly one run |
+| Evaluation usage | **5,097 input + 1,402 output tokens** | Exactly one evaluation over the original 24 cases |
+| Evaluation latency | **5,296.92117 ms mean; 7,250.96075 ms median** | Per-case observed latency |
+| Conditional successful handoffs | **20** | Synthetic reference-executable browser-pair proxy, not customer acceptance |
+| Inference estimate / handoff | **$0.000154551** | Includes all evaluation requests divided by 20 successes |
+| Train + inference estimate / handoff | **$0.001209198** | Entire one-run training cost amortized over those 20 synthetic successes |
+| Including conservative storage / handoff | **$0.0013133946560714** | Actual checkpoint bytes/24-hour expiry; conservative 28-day-month prorating |
+| Actual billed cost / handoff | **Unavailable** | No attributable finalized provider invoice; estimates are not actual billing |
+
+Receipts: [training](../eval/results/week2-alt-v2/training.json), [all 24 model outputs](../eval/results/week2-alt-v2/fine-tuned.json), [actual paired browser evaluation](../eval/browser/week2-alt-v2/browser-evaluation.json), [comparison/statistics/cost summary](../eval/week2-alt-v2-summary.json), [checkpoint sizes and provider expiry](../eval/results/week2-alt-v2/checkpoints.json), [provider billing observation, not a finalized invoice](../eval/results/week2-alt-v2/provider-usage-observation.json), [preserved original results plus follow-up](MODEL_RESULTS.md).
+
+The heldout raw-line SHA-256 remains `649e3e59734ca4b83d24ad4aec9ef6a596b1ae48991c9849816285c9e112a423`. The new sampler expires October 19 about 14:44:52 UTC (24-hour TTL); the conservative training receipt expiry is 14:44:49 UTC. The new model path was configured through the existing Render environment while hosted Tinker was explicitly disabled. Credentials, existing allowance proof and all other budget settings were preserved. [Configuration receipt](evidence/week2-mac/2026-10-18T14-44Z/sampler-configuration.json).
+
+### Spending and reservations
+
+Before training the authenticated account showed **$9.18** Tinker x MLH grant credit, no payment methods and auto-reload off. Immediately before evaluation it showed **$9.15**; a fresh authenticated balance-page reload after all runs still showed **$9.15**, with auto-reload off. [Final account observation](evidence/week2-mac/2026-10-18T14-44Z/account-after-evaluation.json). This **$0.03 rounded account delta** is an account-level observation, not an attributable finalized invoice. Actual token estimates are **$0.02109294 training + $0.00309102 evaluation = $0.02418396**; conservative checkpoint storage adds **$0.00208393312143**. Actual billed per-handoff cost stays null. The private nonrefundable training/evaluation reservations remain inside their fixed **$0.30** suballocation, within the unchanged **$4 total incremental spending cap**. No additional training or evaluation is authorized or performed. [Funding/budget preflight](evidence/week2-mac/2026-10-18T14-44Z/preflight.json), [post-training observation](evidence/week2-mac/2026-10-18T14-44Z/account-after-training.json), [sanitized retained reservations](evidence/week2-mac/2026-10-18T14-44Z/budget-reservations.json).
+
+The sampler is configured but inactive. The deployed old proof expired October 17 and its reset-looking `used=0` seed does not establish the remainder after the original known request and possible failed/uncertain requests. No proof expiry refresh, reservation reset, guessed unused request, or fresh hosted Tinker inference was performed. [Exact blocker](evidence/week2-mac/2026-10-18T14-44Z/tinker-hosted-blocker.json). There is deliberately no fabricated successful `tinker-hosted/` receipt.
+
+### Actual hosted Temporal
+
+[Full receipt and downloaded PNG/report artifacts](evidence/temporal-hosted/2026-10-18T15-23Z/README.md), [workflow progress](evidence/temporal-hosted/2026-10-18T15-23Z/temporal-progress.json), [actual agent/provider receipt](evidence/temporal-hosted/2026-10-18T15-23Z/agent-run.json), [tokens, selected tools and validated citations](evidence/temporal-hosted/2026-10-18T15-23Z/usage-and-citations.json).
+
+- Exact deployed source `1f1d0eb685152d7c0848f2f8587bbe8798791658`, Render deployment `dep-dbae7b6q1p3s73bb7na0`, live October 18 15:22:08 UTC.
+- Workflow `briefstamp-hosted-agent-a2c763ff-9dbc-4fd2-accd-b707c2f6b1ff`, run `01a14f9c-6f07-7e33-beb5-6625b4c212ad`, **completed**.
+- Selection 2 attempts / 1 retry: the failed attempt deliberately throws before provider dispatch. Tiger retrieval, search and summary each 1 attempt. Each activity has exactly one completed event; IDs survive the worker restart.
+- Native SDK worker restarts after Tiger retrieval. Web and official loopback Temporal dev-server processes stay unchanged. SQLite 708,608 bytes in the existing data directory. No Temporal Cloud or persistent disk was created.
+- 1,784 input + 799 output = **2,583 Gemma tokens**, exactly two model calls. Actual Tiger hybrid retrieval returns 3 records; one real SerpApi search returns 0 results. Seven citations validate against recorded observations. The source browser audit stays unchanged: 2 passed, 3 failed, 0 blocked, 1 unverified.
+- Container cgroup current **375,672,832 bytes**, lifetime peak **377,331,712 bytes (359.8516 MiB)**, limit **536,870,912 bytes (512 MiB)**. This is an actual cgroup measurement, not a local-process estimate or a per-workflow isolated peak.
+- Existing durable judge allowance went from 4/100 to **5/100 consumed**, **95 remaining**. No ledger reset. This was the first agent dispatch following the fully recorded pre-agent storage failure; it did not replay the earlier Gemma proposal.
+
+The proof establishes worker-only recovery on the same host. Render spin-down, redeploy or host loss may erase SQLite and web callbacks. It does **not** establish host/disk-loss durability.
+
+### Actual hosted Mastra and remaining failures
+
+[Native Gemma/approval/Chromium receipt and downloaded artifacts](evidence/mastra-hosted/2026-10-18T15-34Z/README.md), [separate first-agent continuation and actual provider failure](evidence/mastra-hosted/2026-10-18T15-46Z/README.md), [full failed agent receipt](evidence/mastra-hosted/2026-10-18T15-46Z/agent-failure.json), [approved read-only database diagnosis](evidence/week2-mac/2026-10-18T14-44Z/tiger-readonly-diagnosis.json).
+
+- Runtime source `2a610ef8221d22c3b817af0ee343c47008788b15`, [full green CI 39140500501](https://github.com/himanshu748/flowproof-web/actions/runs/39140500501), Render deployment `dep-dbaec9eq1p3s73bbp630` live at 15:32:35 UTC.
+- Exactly one fresh proposal for that mode: **386 input + 292 output = 678 tokens**, one HTTP 200 attempt. Native Mastra workflow `briefstamp-explicit-approval`, run `ee3b01ae-f5fc-47fb-80dc-67b3811268e8`: approval suspended, explicit controlled automated owner approval (not a human sign-off), browser suspended, success. Four steps succeeded; all three SDK child processes exited; maximum child RSS **150.58 MiB**.
+- Real Chromium: **2 passed, 3 failed, 0 blocked, 1 manual unverified**. All five screenshot PNGs and report HTML were downloaded. Tiger returned unverified; the strict retained receipt passes the mocked offline validator. Read-only approved Mac diagnosis found no row for the failed audit and normal existing constraints. Root cause of that hosted insert failure remains unestablished; no database write or migration was performed.
+- The still-undispatched agent continued once on a **separate** fresh rules-based Chromium source, preserving the previous proposal and original reservation. That source saved successfully. The real Mastra Agent selected both tools; Tiger returned three records and SerpApi returned zero results.
+- Agent selection: **524 input + 38 output = 562 tokens**, HTTP 200. Agent summary: **HTTP 500 INTERNAL**, usage unavailable. The application returned **503**, the original two-model/one-search reservation was consumed, and the run stopped. No retry/refund or successful summary/citation claim. Known successful Mastra-mode model usage is **1,240 tokens** including its proposal; the failed request's usage is unknown.
+- Durable judge allowance now **6/100 consumed, 94 remaining** across deployments. Task-local physical request reservations remain conservatively carried forward: two proposal reservations at 3 calls each plus two agent reservations at 2 each = **10 maximum reserved model calls**, with no new allowance created on deploy. Actual fresh Gemma attempts in these receipts: two proposals, two Temporal turns, two Mastra agent turns (including the failed 500).
+
+Both successful native approval/Chromium runs are real. A complete saved native Mastra proposal-to-agent success remains **incomplete**. The provider failure is retained without a third model call; it is not hidden by a fixture or the separate successful Temporal run.
+
+### Judge / SaaS presentation
+
+[Judge review and remaining product gaps](SAAS_REVIEW.md), [current-run before/after screenshots](evidence/saas-review/2026-10-18). The landing page remains product oriented. The workspace now leads with delivery readiness and an action to review open items. Research tools, workflow IDs, generation/storage details and comparisons have secondary hierarchy. Real anonymous pre-change browser execution returned 5 passed and 1 manual unverified; the revised local 390px layout fit without horizontal scrolling and the action selected the manual item correctly. The deployed anonymous healthy audit also returned 5 passed and 1 manual unverified. A narrow-tablet wrapping defect found in the hosted review was fixed and locally rechecked before the final deploy. Public customer workspaces, permanent evidence storage, arbitrary client-site onboarding and recorded client sign-off are still missing; they are not invented in the UI.
+
+Final environment configuration restores the verified Temporal evidence-agent engine and disables the controlled recovery trigger outside the proof. Native Mastra approval stays enabled; Tinker stays disabled. All credentials and reservation/funding proofs are unchanged. [Final configuration receipt](evidence/week2-mac/2026-10-18T14-44Z/final-configuration.json).
+
+### Changes, tests and failures
+
+- `cded275d99ea2fe05d676d62f1e835a458cd20e3`: fail closed on incomplete Qwen tokenizers; bound pinned Tinker transport/holder/sampling retries to one dispatch. [CI 39137548958](https://github.com/himanshu748/flowproof-web/actions/runs/39137548958), 1,461 TypeScript tests and 27 Python tests, production build/public-runtime checks.
+- `1f1d0eb685152d7c0848f2f8587bbe8798791658`: strict persistence support for native approval receipts; reject tampered/unknown receipt fields before database I/O; bounded one-use continuation only for fully observed pre-dispatch failures; actual hosted screenshot/report downloads; cgroup measurement. [Acceptance CI 39139691802](https://github.com/himanshu748/flowproof-web/actions/runs/39139691802), [native proof CI 39139691821](https://github.com/himanshu748/flowproof-web/actions/runs/39139691821), both passed. The CI fixture proof remains distinct from the hosted proof above.
+- Initial tokenizer download raced and produced a 33-token fallback tokenizer. The dry-run fingerprint rejected it before any provider dispatch; the complete official tokenizer was downloaded and matched the original benchmark fingerprint.
+- First hosted preflight rejected a 52 ms clock difference before any write. A 5-second bounded skew tolerance and read-only-only one-use continuation fixed it; the failure is retained under [clock failure evidence](evidence/week2-mac/2026-10-18T14-44Z/temporal-read-only-clock-failure).
+- First native hosted Mastra approval/Chromium succeeded, then Tiger rejected the newly added receipt shape before I/O. [Preserved partial receipt](evidence/mastra-hosted/2026-10-18T14-52-31.450Z/README.md). No judge/model operation after that failure was replayed. The fixed source is the deployed commit above.
+- A full local regression pass had one 30-second runtime-trace setup timeout while a build overlapped it. The subsequent isolated rerun passed all 43 targeted tests, including all 12 runtime-trace cases; the later full exact-SHA CI passed. [Initial output](evidence/week2-mac/2026-10-18T14-44Z/storage-fix-initial-tests.txt), [isolated rerun](evidence/week2-mac/2026-10-18T14-44Z/storage-fix-targeted-recheck.txt).
+- Git/formatter reads in the Documents checkout stalled on iCloud-evicted files. Task-owned read/status processes were reconciled and ended; an isolated `/tmp/briefstamp-publish-20261018` checkout publishes only selected reviewed task files. Existing source/results remain in the original workspace. No unrelated work was overwritten.
+
+Earlier cloud preparation and its historical blockers follow unchanged for provenance. Statements below about zero new runs or unavailable Mac credentials describe that earlier environment, not the connected-Mac outcome above.
+
+---
+
+# Historical cloud preparation (before the connected-Mac execution)
+
 October 18, 2026. **Implementation and local evidence are ready; fresh Tinker training, Render deployment and the requested hosted receipts remain incomplete.** GitHub is authenticated. The parent session completed ordinary secure Render/Tinker sign-in; the existing key is not available to the training environment. No new provider operation, credential, OAuth grant, paid plan, card or auto-reload change was made. `docs/DEV_POST.md` and the DEV article were not edited.
 
 ## Receipts and measured numbers

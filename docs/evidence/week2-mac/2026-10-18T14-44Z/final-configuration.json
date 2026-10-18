@@ -1,0 +1,16 @@
+{
+  "configuredAt": "2026-10-18T15:48:17.473873+00:00",
+  "service": "srv-db6r2egm7kps73b19hag",
+  "changed": {
+    "FLOWPROOF_TEMPORAL_HOSTED_ENABLED": "true",
+    "FLOWPROOF_TEMPORAL_CONTROLLED_RECOVERY": "false"
+  },
+  "allOtherEnvironmentValuesPreserved": true,
+  "finalFlags": {
+    "BRIEFSTAMP_HOSTED_TINKER_ENABLED": "false",
+    "BRIEFSTAMP_MASTRA_APPROVAL_ENABLED": "true",
+    "FLOWPROOF_TEMPORAL_HOSTED_ENABLED": "true",
+    "FLOWPROOF_TEMPORAL_CONTROLLED_RECOVERY": "false"
+  },
+  "reason": "Restore the verified Temporal evidence-agent engine, retain native Mastra approval, disable controlled recovery outside the completed proof. No ledger or funding changes."
+}

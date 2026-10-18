@@ -1,0 +1,63 @@
+{
+  "route": "/api/projects/e38edce5-bd9c-4dee-b2c9-5fbea697e53b/checks",
+  "method": "PUT",
+  "body": {
+    "checks": [
+      {
+        "id": "4e1fb350-ec45-47d8-b384-21a44f7115e7",
+        "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "6253d082-96ed-4bf4-82d2-18efbdc4980f",
+        "requirement": "A contact link must say \"Start a project\".",
+        "kind": "link",
+        "path": "/",
+        "expected": "Start a project",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "72c0d792-355a-4609-9c8f-27d19aa49bc6",
+        "requirement": "Every content image must have nonempty alternative text.",
+        "kind": "image_alt",
+        "path": "/",
+        "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "db978b7f-52b7-420b-9f7a-2ea6c360b71d",
+        "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "path": "/",
+        "expected": "No horizontal scrolling",
+        "viewport": "mobile",
+        "approved": true
+      },
+      {
+        "id": "00c9900c-fb4d-4993-a541-d45dc8107168",
+        "requirement": "The homepage must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Independent by design.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "ad99da69-be45-4b08-be45-a2811acad56d",
+        "requirement": "The site should feel welcoming and trustworthy.",
+        "kind": "manual",
+        "path": "/",
+        "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+        "viewport": "desktop",
+        "approved": true
+      }
+    ]
+  },
+  "operatorAuthentication": false
+}

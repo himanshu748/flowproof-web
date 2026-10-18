@@ -1,0 +1,8 @@
+{
+  "route": "/api/projects/e38edce5-bd9c-4dee-b2c9-5fbea697e53b/generate-gemma",
+  "method": "POST",
+  "body": {
+    "modelConsent": true
+  },
+  "operatorAuthentication": false
+}

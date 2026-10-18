@@ -1,0 +1,8 @@
+
+> briefstamp@0.1.0 audit:sample
+> tsx scripts/audit-sample.ts
+
+healthy: passed, passed, passed, passed, passed, unverified
+broken: failed, passed, failed, failed, failed, unverified
+recovered: passed, passed, passed, passed, passed, unverified
+Audit evidence saved to <REPO>/work/sample-audit

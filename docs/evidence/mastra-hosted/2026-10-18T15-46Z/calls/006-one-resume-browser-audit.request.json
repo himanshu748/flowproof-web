@@ -1,0 +1,6 @@
+{
+  "route": "/api/projects/aebae091-8b75-40fd-980b-92d5fbf356d0/audits",
+  "method": "POST",
+  "body": {},
+  "operatorAuthentication": false
+}

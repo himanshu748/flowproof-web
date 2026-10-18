@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-18T14:47:37.145225+00:00",
+  "serviceId": "srv-db6r2egm7kps73b19hag",
+  "changedKeys": [
+    "BRIEFSTAMP_MASTRA_APPROVAL_ENABLED",
+    "FLOWPROOF_TEMPORAL_HOSTED_ENABLED",
+    "FLOWPROOF_TEMPORAL_CONTROLLED_RECOVERY"
+  ],
+  "values": {
+    "BRIEFSTAMP_MASTRA_APPROVAL_ENABLED": "true",
+    "FLOWPROOF_TEMPORAL_HOSTED_ENABLED": "true",
+    "FLOWPROOF_TEMPORAL_CONTROLLED_RECOVERY": "true"
+  },
+  "otherEnvironmentValuesUnchanged": true,
+  "allProviderProofsUnchanged": true,
+  "noQuotaOrFundingProofReset": true,
+  "baselineMemoryBytes": 163016700,
+  "baselineMemoryTimestamp": "2026-10-18T14:45:00Z",
+  "limitation": "Baseline is a sampled idle Render metric. Controlled native worker execution and peak capacity remain to be verified."
+}

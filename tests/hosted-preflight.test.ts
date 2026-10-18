@@ -28,6 +28,16 @@ describe("hosted read-only funding preflight", () => {
       ].map((route) => ({ route, status: 200, outcome: "response" })),
     };
     expect(storageFailureBeforeAgent(source)).toBe(true);
+    expect(storageFailureBeforeAgent(source, "mastra")).toBe(false);
+    expect(
+      storageFailureBeforeAgent({ ...source, mode: "mastra" }, "mastra"),
+    ).toBe(true);
+    expect(
+      storageFailureBeforeAgent(
+        { ...source, mode: "mastra", judgeRequests: 1 },
+        "mastra",
+      ),
+    ).toBe(false);
     for (const changes of [
       { judgeRequests: 1 },
       { proposedModelRequests: 2 },

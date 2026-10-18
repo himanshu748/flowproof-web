@@ -1,0 +1,16 @@
+{
+  "available": true,
+  "engine": "temporal",
+  "budget": {
+    "maximumRuns": 100,
+    "usedRuns": 4,
+    "remainingRuns": 96,
+    "visitorUsed": false
+  },
+  "expiresAt": "2026-10-20T00:00:00.000Z",
+  "funding": {
+    "confirmedFree": true,
+    "checkedAt": "2026-10-18T14:52:35.253Z"
+  },
+  "proofUrl": "https://github.com/himanshu748/flowproof-web/tree/main/docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z"
+}

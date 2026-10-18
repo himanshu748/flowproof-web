@@ -1,0 +1,11 @@
+{
+  "route": "/api/judge-agent/status",
+  "method": "GET",
+  "startedAt": "2026-10-18T15:22:48.560Z",
+  "status": 200,
+  "outcome": "response",
+  "writeOutcome": "read_only",
+  "storage": null,
+  "completedAt": "2026-10-18T15:22:51.146Z",
+  "durationMs": 2585
+}

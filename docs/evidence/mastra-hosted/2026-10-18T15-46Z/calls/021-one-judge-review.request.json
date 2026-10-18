@@ -1,0 +1,9 @@
+{
+  "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/judge-review",
+  "method": "POST",
+  "body": {
+    "websiteProjectId": "65b4a437-eb88-408c-8029-fa97389eaad4",
+    "modelConsent": true
+  },
+  "operatorAuthentication": false
+}

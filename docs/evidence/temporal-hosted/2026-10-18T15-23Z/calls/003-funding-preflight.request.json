@@ -1,0 +1,6 @@
+{
+  "route": "/api/judge-agent/status",
+  "method": "GET",
+  "body": null,
+  "operatorAuthentication": false
+}

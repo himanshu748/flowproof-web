@@ -14,6 +14,8 @@ The landing page communicates a useful freelancer/agency handoff product. The wo
 4. **Revised delivery view — locally verified.** `04-results-local-after.png`: leads with 1 item needing attention, an action that selects the actual unverified requirement, and report export. Production method, retention and comparison remain accessible through disclosures. Navigation distinguishes core work from Tools & research.
 5. **Mobile — locally verified at 390×844.** `05-mobile-local-after.png`: readiness and export reflow without horizontal scrolling (document width 390, viewport 390). The open-item action correctly reveals the human-review requirement rather than showing it as a pass.
 
+6. **Hosted recheck — real anonymous flow.** `06-review-hosted-after.png` shows the compact target option on the deployed source; `07-results-hosted-after.png` is an actual healthy run (5 passed, 1 unverified) and exposed an intermediate-width wrapping defect. `08-tablet-local-after.png` verifies its subsequent CSS fix at the same narrow width. The earlier 07 screenshot is retained as failure evidence, not the final layout.
+
 ## Changes made
 
 - Delivery review replaces Audit monitor in the primary result experience.

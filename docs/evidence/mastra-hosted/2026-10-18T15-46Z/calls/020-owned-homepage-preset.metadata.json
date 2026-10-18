@@ -1,0 +1,11 @@
+{
+  "route": "/api/projects/preset",
+  "method": "POST",
+  "startedAt": "2026-10-18T15:45:03.510Z",
+  "status": 201,
+  "outcome": "response",
+  "writeOutcome": "response_received",
+  "storage": null,
+  "completedAt": "2026-10-18T15:45:04.046Z",
+  "durationMs": 535
+}

@@ -1,0 +1,39 @@
+{
+  "id": "model-011-broken",
+  "projectId": "evaluation-11",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-18T14:49:31.267Z",
+  "checks": [
+    {
+      "id": "model-11",
+      "requirement": "The published homepage document must fit the width of a 390px viewport.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-11",
+      "requirement": "The published homepage document must fit the width of a 390px viewport.",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 622,
+      "evidence": {
+        "observed": "Document width is 644px; viewport width is 390px.",
+        "dom": "document.scrollWidth=644; window.innerWidth=390",
+        "screenshot": "/evidence/model-011-broken/01-model-11.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-18T14:49:32.021Z"
+}

@@ -1,0 +1,12 @@
+{
+  "observedAt": "2026-10-18T15:49:23.420504+00:00",
+  "source": "Authenticated existing Tinker billing balance page, refreshed and visibly loaded",
+  "url": "https://tinker.thinkingmachines.ai/billing/balance",
+  "balanceUsd": "9.15",
+  "beforeTrainingBalanceUsd": "9.18",
+  "roundedAccountDeltaUsd": "0.03",
+  "autoReloadEnabled": false,
+  "finalizedAttributableInvoiceAvailable": false,
+  "actualCostPerHandoff": null,
+  "noBillingSettingsChanged": true
+}

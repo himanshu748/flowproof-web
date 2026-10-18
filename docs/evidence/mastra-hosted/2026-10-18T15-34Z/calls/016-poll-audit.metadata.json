@@ -1,0 +1,11 @@
+{
+  "route": "/api/audits/fdc29a2c-428b-4841-b82b-6b988b5ff8f4",
+  "method": "GET",
+  "startedAt": "2026-10-18T15:34:56.249Z",
+  "status": 200,
+  "outcome": "response",
+  "writeOutcome": "read_only",
+  "storage": "memory",
+  "completedAt": "2026-10-18T15:35:01.519Z",
+  "durationMs": 5269
+}

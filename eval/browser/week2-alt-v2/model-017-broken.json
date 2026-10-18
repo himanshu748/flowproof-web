@@ -1,0 +1,39 @@
+{
+  "id": "model-017-broken",
+  "projectId": "evaluation-17",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-18T14:49:39.154Z",
+  "checks": [
+    {
+      "id": "model-17",
+      "requirement": "At a width of 390px, the homepage must prevent sideways page scrolling.",
+      "kind": "no_horizontal_overflow",
+      "path": "/",
+      "expected": "No horizontal scrolling",
+      "viewport": "mobile",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-17",
+      "requirement": "At a width of 390px, the homepage must prevent sideways page scrolling.",
+      "kind": "no_horizontal_overflow",
+      "status": "failed",
+      "expected": "No horizontal scrolling",
+      "durationMs": 697,
+      "evidence": {
+        "observed": "Document width is 644px; viewport width is 390px.",
+        "dom": "document.scrollWidth=644; window.innerWidth=390",
+        "screenshot": "/evidence/model-017-broken/01-model-17.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-18T14:49:40.006Z"
+}

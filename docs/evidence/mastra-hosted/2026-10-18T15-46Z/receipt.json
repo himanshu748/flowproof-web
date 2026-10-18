@@ -1,0 +1,740 @@
+{
+  "startedAt": "2026-10-18T15:44:36.961Z",
+  "status": "failed",
+  "origin": "https://flowproof-demo.onrender.com",
+  "mode": "mastra",
+  "expectedSha": "2a610ef8221d22c3b817af0ee343c47008788b15",
+  "observedDeploymentSha": "2a610ef8221d22c3b817af0ee343c47008788b15",
+  "expectedShaVerified": true,
+  "source": {
+    "verifierSha256": "50b94ad7566e5deca7a29f30c3f186f13b53937aaaeaf5dabbaec607d608eb81",
+    "sourceFiles": {
+      "server/demo.ts": "d82a4d809d1f378060e9af879b8695ef80897e942c6a7795c6bd1e5b8a4402d5",
+      "server/approval-workflow.ts": "1c4f3615bc21c296e1d9de6e30de859c21eda0c714c65f65e04d87badf4a410f",
+      "server/hosted-approval.ts": "dbf1c7e32a850d279345d697c77bbc2dedfb7632ef71991fb0187b7eb4003c2f",
+      "server/mastra-evidence-agent.ts": "bf928e86b1edf7f864437f85f72656dba9a1f4d8a3281574b1205ea2a013e2cf",
+      "server/hosted-temporal.ts": "b46f948c540f32ac55e7e3056de8f77cbdb67088a111acb091e5d99e17cb0e7f",
+      "shared/hosted-target.ts": "233bd18ae6d1435ef4aa1e1329bd2f70cbac4bf4762c9dc72a415e8923e91a6c"
+    }
+  },
+  "approval": {
+    "actor": "automated controlled owner test",
+    "humanApproval": false,
+    "simulatedNativeEvidence": false
+  },
+  "maximumProposalRouteCalls": 1,
+  "proposalSource": "deterministic fixed sample; no model proposal dispatched",
+  "maximumJudgeRouteCalls": 1,
+  "proposedModelRequests": 0,
+  "judgeRequests": 1,
+  "billingChanges": 0,
+  "readOnlyPreflightContinuation": {
+    "originalReceipt": "work/mastra-hosted/2026-10-18T15-34Z/receipt.json",
+    "originalReceiptSha256": "f7d64d7aff5bfc22e7dd7e4eeed8b05edfbf81f6d58e1c1637899b498cf75eea",
+    "originalReservationUnchanged": true,
+    "priorModelCalls": 1,
+    "priorJudgeCalls": 0,
+    "noProposalReplay": true,
+    "source": "New real Chromium source from deterministic fixed checks; prior successful Gemma/approval evidence retained separately"
+  },
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:36.978Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:44:37.608Z",
+      "durationMs": 627
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:37.609Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:44:37.774Z",
+      "durationMs": 165
+    },
+    {
+      "route": "/api/judge-agent/status",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:37.775Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:44:40.163Z",
+      "durationMs": 2388
+    },
+    {
+      "route": "/api/projects/aebae091-8b75-40fd-980b-92d5fbf356d0/variant",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:44:40.164Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:44:40.577Z",
+      "durationMs": 413
+    },
+    {
+      "route": "/api/projects/aebae091-8b75-40fd-980b-92d5fbf356d0/checks",
+      "method": "PUT",
+      "startedAt": "2026-10-18T15:44:40.578Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:44:40.870Z",
+      "durationMs": 292
+    },
+    {
+      "route": "/api/projects/aebae091-8b75-40fd-980b-92d5fbf356d0/audits",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:44:40.872Z",
+      "status": 202,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:44:41.152Z",
+      "durationMs": 280
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:42.154Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:42.343Z",
+      "durationMs": 188
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:43.343Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:43.509Z",
+      "durationMs": 165
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:44.510Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:44.668Z",
+      "durationMs": 157
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:45.670Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:46.035Z",
+      "durationMs": 365
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:47.037Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:47.226Z",
+      "durationMs": 188
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:48.228Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:48.427Z",
+      "durationMs": 199
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:49.429Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:49.759Z",
+      "durationMs": 329
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:50.759Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:51.456Z",
+      "durationMs": 696
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:52.458Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:53.132Z",
+      "durationMs": 674
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:54.133Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:54.466Z",
+      "durationMs": 332
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:44:55.467Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:44:55.629Z",
+      "durationMs": 161
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/persistence",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:45:01.516Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:45:01.950Z",
+      "durationMs": 433
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:45:01.950Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "tiger",
+      "completedAt": "2026-10-18T15:45:03.509Z",
+      "durationMs": 1559
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:45:03.510Z",
+      "status": 201,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:45:04.046Z",
+      "durationMs": 535
+    },
+    {
+      "route": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/judge-review",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:45:04.046Z",
+      "status": 503,
+      "outcome": "response_failed",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "error": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/judge-review HTTP 503; denied or failed operation is not retried\n\n503 !== 200\n",
+      "completedAt": "2026-10-18T15:45:27.446Z",
+      "durationMs": 23399
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "calls/001-health.request.json",
+      "bytes": 95,
+      "sha256": "8561a4defd340c3905a27a0bc09f3494cc7bac2cd194df5cd98be3e91105ed99",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/001-health.response.json",
+      "bytes": 95,
+      "sha256": "eaa08ba31ad2b084b1d4494b765a6aeccbaf28faa4afafb16c8eedb0df361196",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/001-health.metadata.json",
+      "bytes": 245,
+      "sha256": "a04d25f98be3838b93dca6d2a5c30c1293b96dcdb83a13175e320c1f9a74e296",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.request.json",
+      "bytes": 102,
+      "sha256": "13fe9cf56174d8a33d9bba5b76ea402f46bd485fb74c7868100443c63a96c2cc",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.response.json",
+      "bytes": 10980,
+      "sha256": "d901f6874fa9b9c5bde5f76cc614765c4d7f877adc83886e8e9eff9db88bfc18",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.metadata.json",
+      "bytes": 252,
+      "sha256": "727b2b7a28bf7e7e31a99021a939fcdd5139caa198088c13eca923d8c005054b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.request.json",
+      "bytes": 111,
+      "sha256": "047e5382efb312d5d3ce3433deff0dd52b59150d9e379bf382f68bcc9ee47fc2",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.response.json",
+      "bytes": 359,
+      "sha256": "a9c44cdbe6b60cf9184d221eea62c1ee4c5ca4de63d572d3b1e863c5675aa1b9",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.metadata.json",
+      "bytes": 262,
+      "sha256": "da7ceb68496ecbef13205b19a1a1de9bc50616f8ee1cf21b40ab1cfb5634d76a",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "funding-preflight.json",
+      "bytes": 427,
+      "sha256": "bc3e32569c9de71e5deef84114f130ebf2ef05d7759cc5c73e9340bf050545cb",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/004-broken-variant.request.json",
+      "bytes": 178,
+      "sha256": "4801a918c2cf5226d78df3ddf462a63374b39253783117c5e464cc1fdb371f29",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/004-broken-variant.response.json",
+      "bytes": 2254,
+      "sha256": "7276e7d1e433354dc4cd3b3d8c0e6996be437f3605b434d7a4c1f63ec809d45f",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/004-broken-variant.metadata.json",
+      "bytes": 305,
+      "sha256": "79f41121c29e5d2428fd122e8061b37e4b66371798b880373fb48a826ec7dbe9",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "rules-plan.json",
+      "bytes": 2720,
+      "sha256": "3b63d310b56433b0f97f043801560968e8217708b61e50215034951451adfb07",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/005-controlled-owner-approval.request.json",
+      "bytes": 2150,
+      "sha256": "46a9306339ed66a84abb2529e952d5e2f6c9e0241c5882da0c7e387263669d2c",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/005-controlled-owner-approval.response.json",
+      "bytes": 2248,
+      "sha256": "ca527684bc0a2b24655f6b2c0ca6a01b371abd80fe4fda02c6f00fd231a55072",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/005-controlled-owner-approval.metadata.json",
+      "bytes": 303,
+      "sha256": "1dcf100795893b7cba0d7c67d0829d66f48fba4bc0692bc82a260da42aad13a8",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "controlled-approval.json",
+      "bytes": 3004,
+      "sha256": "7f696a344f21abe4da9f3a9bed93d9cb52925b44eafae2a25621e49ee8170cb8",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/006-one-resume-browser-audit.request.json",
+      "bytes": 144,
+      "sha256": "72f03e65bc6fd1f9a773da841ce148ee3895f5936ad02c195aac7cbfdd9f5fda",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/006-one-resume-browser-audit.response.json",
+      "bytes": 2292,
+      "sha256": "6e1c32070a2aac4a85a3cd701eda9cf00387292bc589ea1a7b6068a4e5929789",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/006-one-resume-browser-audit.metadata.json",
+      "bytes": 304,
+      "sha256": "ff1d73cd912a5817525b69fd358d854c06cb91cb3c143c3e28b67847f0241b13",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/007-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/007-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "6e1c32070a2aac4a85a3cd701eda9cf00387292bc589ea1a7b6068a4e5929789",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/007-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "77b3a0d523d79e7c2476b21ea159f3fa854e466e2c3c0497b4212a6954c2d5b4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/008-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/008-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "6e1c32070a2aac4a85a3cd701eda9cf00387292bc589ea1a7b6068a4e5929789",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/008-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "b677b984d94e07a0b68117aeb5e81084fa6ca3a9960911ea220c51ba2780094b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/009-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/009-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "6e1c32070a2aac4a85a3cd701eda9cf00387292bc589ea1a7b6068a4e5929789",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/009-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "372236b42495d08d06cf9f0fc25b417b1549102cb1e01ae580544ad048f0659d",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/010-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/010-poll-audit.response.json",
+      "bytes": 2878,
+      "sha256": "a239632cbcc74fc73cf7b033924b00c60f708bb8d29718ac178aa0c0ad1357df",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/010-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "15b8b61612faa3b0734c9b7ccae528c93f6c79d019e0c94c1b8ccae6cab2dbf4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/011-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/011-poll-audit.response.json",
+      "bytes": 2878,
+      "sha256": "a239632cbcc74fc73cf7b033924b00c60f708bb8d29718ac178aa0c0ad1357df",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/011-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "4021a7c7c54f701d91c78a8a46be215adfc51378404135cc91d037e22a5f4c60",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/012-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/012-poll-audit.response.json",
+      "bytes": 3413,
+      "sha256": "f3bab417b05e92fd1893d7183ad26893b4532e12d93314866287159af395513a",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/012-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "82cf5831bbced85347502768f14135c7ed722e4708e3f3440a25bf41cdacbc2b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/013-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/013-poll-audit.response.json",
+      "bytes": 3413,
+      "sha256": "f3bab417b05e92fd1893d7183ad26893b4532e12d93314866287159af395513a",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/013-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "e53ab7cb313f92a0f3ad9a7c7b89de59d35420f9ca57658af7ef1ac83e476c93",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/014-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/014-poll-audit.response.json",
+      "bytes": 3998,
+      "sha256": "eb482d03578233ea8b4a7db337f3cda350a87298fd1f971d53bb4482856eb9c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/014-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "fa0984bf8713c3d7042416003121159bdb611bffe3ea06553f780134a2b73761",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/015-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/015-poll-audit.response.json",
+      "bytes": 4561,
+      "sha256": "174e3cdd07d362a2511f111849b20a4381d449bffa4cebf1af07a0e146fb4b2b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/015-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "89d70ca7c84dd42616cbdb578363ccfaedaf1be527b86960aa1bcfa2188429f6",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/016-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/016-poll-audit.response.json",
+      "bytes": 4561,
+      "sha256": "174e3cdd07d362a2511f111849b20a4381d449bffa4cebf1af07a0e146fb4b2b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/016-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "d4abed844191359ee0fc65d84ad7dc1bc62c7bbb011f074026e4c8e3cd5cc718",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/017-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/017-poll-audit.response.json",
+      "bytes": 5731,
+      "sha256": "6a737509327dc4c2388585a80399699d2e679c54632781c1cd8941aebf25a2a7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/017-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "61b7ec070ce10bc0d651b819067cc7e3dc9c032c62fb9acb8d0fdf25597b35dc",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "browser-audit.json",
+      "bytes": 7153,
+      "sha256": "f820cd307104f63a8499a671196654f33fd1008df7064661d90b3646d917a338",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "browser-1.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/01-b3260d08-3042-4584-8119-6aec75b1f380.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-2.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/02-2780d9ef-c64c-4861-9982-e2c2ff853064.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-3.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/03-7c320762-816a-471e-b613-2b6dd12c657e.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-4.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9",
+      "route": "/evidence/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/04-90fb4c23-b3c1-4171-a780-f3a655ddf726.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-5.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/05-c47fbfb0-d599-43f0-9956-38fde9acff9f.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-report.html",
+      "bytes": 540361,
+      "sha256": "105aad2e79381e5b147e82b63adde31114e9c43dd49ff5bad1d7e0a8f206bcde",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/018-poll-tiger.request.json",
+      "bytes": 148,
+      "sha256": "167f6bbbc1814911717e9bf903f3e7ff7e7902ae41c564a7b6d5f700eba0f088",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/018-poll-tiger.response.json",
+      "bytes": 57,
+      "sha256": "3e98512b3eef44e099977a974aa98076de0f6ef3da30d344bae62de6d296b7e2",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/018-poll-tiger.metadata.json",
+      "bytes": 298,
+      "sha256": "86f8d0d2a3a3fba21c433f28de2d25a1eef8c65f1cf174d2ce081e50efd98edb",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/019-tiger-source-readback.request.json",
+      "bytes": 136,
+      "sha256": "34c4356361be484536781f5530054025f45d0e30d7afe3cc81850f02e8c9a1a0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/019-tiger-source-readback.response.json",
+      "bytes": 5731,
+      "sha256": "fee53e38c942b7a465ad65d88d4d34d70778bda77b9a7ab8c0f2a246699662fe",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/019-tiger-source-readback.metadata.json",
+      "bytes": 290,
+      "sha256": "600827d90bf29f37e261b9a7bddf7c720f887bfb4621f5486f37158d59b9de67",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "source-audit.json",
+      "bytes": 7636,
+      "sha256": "2367f58dcd55ff6b7f3fc120397d395f517d4208ea50853cf76a20ed4e8710e1",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/020-owned-homepage-preset.request.json",
+      "bytes": 142,
+      "sha256": "e5d95a240c1dc4e91eb40a4a0f8221c9a326560463eb508e7fed2cc3923a106a",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/020-owned-homepage-preset.response.json",
+      "bytes": 2265,
+      "sha256": "5090535420ad3742a3a82e8037ac1f41851e87fa04ee69acc3f79ca02894a117",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/020-owned-homepage-preset.metadata.json",
+      "bytes": 267,
+      "sha256": "5349739ede1ec3e2632ca899032a9160ed0f263771804cecfdb4284ac4db8e68",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/021-one-judge-review.request.json",
+      "bytes": 240,
+      "sha256": "19c7250516de997dd7c4834b35f502774238317738744d513a0ab546f0a212d2",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/021-one-judge-review.response.json",
+      "bytes": 8031,
+      "sha256": "5f737cf2a46e9c563b30a3bfaeb79ae9fcd864313d57682ebfffc13bf4ecd0e4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/021-one-judge-review.metadata.json",
+      "bytes": 462,
+      "sha256": "fbb94c7612411c1ca7d6aa67196085af9f360f9f0f2b1ace3f72ed060357150f",
+      "operatorTokenRedacted": false
+    }
+  ],
+  "limitations": [
+    "Controlled automated owner approval is not a visitor or customer approval.",
+    "One proposal route may use the server's existing bounded provider attempts; the verifier never retries it.",
+    "Worker recovery does not prove recovery after Render ephemeral-disk loss.",
+    "No credential, account, billing, grant, quota or deployment configuration is changed by this verifier."
+  ],
+  "browserCounts": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "error": "/api/audits/2a7d6f60-517e-4cbb-aed1-0fed2f2a4951/judge-review HTTP 503; denied or failed operation is not retried\n\n503 !== 200\n",
+  "retry": "Forbidden: retain the reservation and inspect existing server receipts; no automatic write/provider retry",
+  "completedAt": "2026-10-18T15:45:27.446Z"
+}

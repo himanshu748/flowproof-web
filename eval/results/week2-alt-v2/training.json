@@ -1,0 +1,216 @@
+{
+  "experimentId": "flowproof-week2-alt-v2",
+  "benchmarkMode": "agent-reviewed-pilot",
+  "model": "Qwen/Qwen3.5-4B",
+  "renderer": "qwen3.5-hf-chat-template-disable-thinking",
+  "datasetPath": "eval/week2-alt-v2.jsonl",
+  "datasetSha256": "69def66bb11f7c6a75f4e89355ebf1ed85244ec2ad66e998d78bfda974303f99",
+  "promptSha256": "4686f9f9d03000034f15eef895f3049f35ded23ee8c1b418ee53036d981f68d5",
+  "reviewProvenance": {
+    "humanValidated": 0,
+    "agentReviewed": 144,
+    "note": "Agent review is not human validation. Synthetic pilot results do not establish accuracy on client websites."
+  },
+  "schemaVersion": 2,
+  "provider": "tinker",
+  "manifestPath": "eval/week2-alt-v2.manifest.json",
+  "manifestSha256": "ea16d16f253f933f6e1cab24b892f7a73b286d1be5caa0245a9fba069430673b",
+  "status": "completed",
+  "recordedAt": "2026-10-18T14:43:07.648415+00:00",
+  "operation": "training",
+  "budgetReservationId": "66258681-02ac-44f1-bc8b-5df6a713ea8b",
+  "reservedCostUsd": "0.0638661750",
+  "settings": {
+    "epochs": 1,
+    "batchSize": 8,
+    "loraRank": 16,
+    "seed": 42,
+    "learningRate": 0.0002
+  },
+  "trainingExamples": 108,
+  "trainingTokensUpperBound": 28620,
+  "trainingTokens": 28620,
+  "tokenUsageBasis": "SDK input token IDs submitted per completed forward/backward operation; not provider billing usage.",
+  "tokenizer": {
+    "model": "Qwen/Qwen3.5-4B",
+    "class": "Qwen3_5Tokenizer",
+    "chatTemplateSha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+    "vocabularySha256": "365c2d8a0c0e72d4bcc5dbc6c2e9330a87dae7ffc77e9fcd9d65739f4d16bfff",
+    "enableThinking": false,
+    "eosTokenId": 248046
+  },
+  "packages": {
+    "tinker": "0.32.0",
+    "transformers": "5.18.0",
+    "tokenizers": "0.23.2"
+  },
+  "checkpointTtlSeconds": 86400,
+  "steps": [
+    {
+      "epoch": 0,
+      "batch": 0,
+      "status": "completed",
+      "inputTokens": 2123,
+      "metrics": {
+        "loss:sum": 97.86532592773438,
+        "clock_cycle:unique": 8033663.0
+      },
+      "durationMs": 7540.449040999874
+    },
+    {
+      "epoch": 0,
+      "batch": 1,
+      "status": "completed",
+      "inputTokens": 2127,
+      "metrics": {
+        "loss:sum": 3.056141659617424,
+        "clock_cycle:unique": 8033666.0
+      },
+      "durationMs": 4405.496041000106
+    },
+    {
+      "epoch": 0,
+      "batch": 2,
+      "status": "completed",
+      "inputTokens": 2107,
+      "metrics": {
+        "clock_cycle:unique": 8033670.0,
+        "loss:sum": 1.0375598222017288
+      },
+      "durationMs": 6068.3077499998035
+    },
+    {
+      "epoch": 0,
+      "batch": 3,
+      "status": "completed",
+      "inputTokens": 2127,
+      "metrics": {
+        "clock_cycle:unique": 8033674.0,
+        "loss:sum": 0.3443470969796181
+      },
+      "durationMs": 6068.778874999907
+    },
+    {
+      "epoch": 0,
+      "batch": 4,
+      "status": "completed",
+      "inputTokens": 2125,
+      "metrics": {
+        "loss:sum": 0.15889023803174496,
+        "clock_cycle:unique": 8033678.0
+      },
+      "durationMs": 6069.143250000025
+    },
+    {
+      "epoch": 0,
+      "batch": 5,
+      "status": "completed",
+      "inputTokens": 2120,
+      "metrics": {
+        "loss:sum": 0.09931234829127789,
+        "clock_cycle:unique": 8033682.0
+      },
+      "durationMs": 6000.50654100005
+    },
+    {
+      "epoch": 0,
+      "batch": 6,
+      "status": "completed",
+      "inputTokens": 2126,
+      "metrics": {
+        "clock_cycle:unique": 8033686.0,
+        "loss:sum": 7.575195808429271
+      },
+      "durationMs": 6235.982499999864
+    },
+    {
+      "epoch": 0,
+      "batch": 7,
+      "status": "completed",
+      "inputTokens": 2131,
+      "metrics": {
+        "clock_cycle:unique": 8033690.0,
+        "loss:sum": 2.064340674667619
+      },
+      "durationMs": 6000.992750000023
+    },
+    {
+      "epoch": 0,
+      "batch": 8,
+      "status": "completed",
+      "inputTokens": 2146,
+      "metrics": {
+        "clock_cycle:unique": 8033694.0,
+        "loss:sum": 0.5596551182679832
+      },
+      "durationMs": 5785.531958999854
+    },
+    {
+      "epoch": 0,
+      "batch": 9,
+      "status": "completed",
+      "inputTokens": 2136,
+      "metrics": {
+        "loss:sum": 0.042069201124832034,
+        "clock_cycle:unique": 8033698.0
+      },
+      "durationMs": 5982.097332999956
+    },
+    {
+      "epoch": 0,
+      "batch": 10,
+      "status": "completed",
+      "inputTokens": 2130,
+      "metrics": {
+        "clock_cycle:unique": 8033702.0,
+        "loss:sum": 5.199774468783289
+      },
+      "durationMs": 5830.188291000013
+    },
+    {
+      "epoch": 0,
+      "batch": 11,
+      "status": "completed",
+      "inputTokens": 2103,
+      "metrics": {
+        "clock_cycle:unique": 8033706.0,
+        "loss:sum": 12.899465788388625
+      },
+      "durationMs": 6137.251707999894
+    },
+    {
+      "epoch": 0,
+      "batch": 12,
+      "status": "completed",
+      "inputTokens": 2045,
+      "metrics": {
+        "clock_cycle:unique": 8033710.0,
+        "loss:sum": 0.15577212534844875
+      },
+      "durationMs": 6037.738457999922
+    },
+    {
+      "epoch": 0,
+      "batch": 13,
+      "status": "completed",
+      "inputTokens": 1074,
+      "metrics": {
+        "clock_cycle:unique": 8033714.0,
+        "loss:sum": 0.3434250205755234
+      },
+      "durationMs": 6093.202582999993
+    }
+  ],
+  "limitations": [
+    "Agent review is not human validation."
+  ],
+  "dispatchPolicy": "pinned-0.32.0-single-dispatch",
+  "transportHttpRetries": false,
+  "samplerSaveRequestedAt": "2026-10-18T14:44:49.636992+00:00",
+  "samplerPath": "tinker://453dd287-1981-5d7f-a464-50fceadb6a32:train:0/sampler_weights/flowproof-week2-alt-v2",
+  "samplerSavedAt": "2026-10-18T14:44:53.504445+00:00",
+  "checkpointExpiresAt": "2026-10-19T14:44:49.636992+00:00",
+  "statePath": "tinker://453dd287-1981-5d7f-a464-50fceadb6a32:train:0/weights/flowproof-week2-alt-v2",
+  "completedAt": "2026-10-18T14:44:57.429184+00:00",
+  "durationMs": 109224.23149999986
+}

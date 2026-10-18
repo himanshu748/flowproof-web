@@ -1,0 +1,96 @@
+{
+  "startedAt": "2026-10-18T14:35:48.270Z",
+  "status": "passed",
+  "scope": "Real public demo HTTP API and Chromium, synthetic samples, 96 MB V8 heap",
+  "approvalActor": "Automated synthetic verification harness; not human or customer approval",
+  "externalProvidersEnabled": false,
+  "privateSdkImportsRejected": [
+    "@mastra/",
+    "@sentry/",
+    "@temporalio/"
+  ],
+  "audits": [
+    {
+      "variant": "healthy",
+      "approvalGateHttp": 409,
+      "counts": {
+        "passed": 5,
+        "failed": 0,
+        "blocked": 0,
+        "unverified": 1
+      },
+      "evidence": [
+        {
+          "file": "healthy-1.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        },
+        {
+          "file": "healthy-2.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        },
+        {
+          "file": "healthy-3.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        },
+        {
+          "file": "healthy-4.png",
+          "bytes": 50185,
+          "sha256": "fd0a30224532003317ad25cdad0d0910254ba79132781afd4634c431f3567a49"
+        },
+        {
+          "file": "healthy-5.png",
+          "bytes": 106216,
+          "sha256": "66f1c2f7857480de2993c9328c98b7562480a978440a6190e63a50c11f366111"
+        }
+      ],
+      "reportSha256": "5d427008cabc58aac1704e83fa18681f8ecfffe5338fcd70af4bf018a661e1f3"
+    },
+    {
+      "variant": "broken",
+      "approvalGateHttp": 409,
+      "counts": {
+        "passed": 2,
+        "failed": 3,
+        "blocked": 0,
+        "unverified": 1
+      },
+      "evidence": [
+        {
+          "file": "broken-1.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        },
+        {
+          "file": "broken-2.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        },
+        {
+          "file": "broken-3.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        },
+        {
+          "file": "broken-4.png",
+          "bytes": 49582,
+          "sha256": "e69b1d26198d6c829097328894098cc0e803468b61bffde1286cf7829a332719"
+        },
+        {
+          "file": "broken-5.png",
+          "bytes": 94861,
+          "sha256": "2d9855a665cd82a37f5b29cbfbc2f7f400f8b4719e4c5ac806df67d225756247"
+        }
+      ],
+      "reportSha256": "6485bdff9664d939ea672c7612775d22aeb207c2653ac82e5866a07dc8ce51b2"
+    }
+  ],
+  "nodeVersion": "v22.14.0",
+  "heapLimitMiB": 96,
+  "scriptFreeLandingVerified": true,
+  "privateSdkImportAttempts": 0,
+  "completedAt": "2026-10-18T14:35:57.515Z",
+  "childExitedBeforeCleanup": null
+}

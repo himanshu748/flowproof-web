@@ -1,0 +1,26 @@
+{
+  "status": "blocked_not_dispatched",
+  "operation": "one fresh hosted Tinker proposal with new sampler",
+  "target": "https://flowproof-demo.onrender.com/api/projects/:id/generate-tinker",
+  "reason": "Current cumulative original two-request reservation cannot be established from the expired one-call environment seed or hourly provider token usage. Prior cloud review also explicitly recorded remaining execution allowance as unverified.",
+  "existingProofExpiresAt": "2026-10-17T08:23:47.620Z",
+  "originalAllowance": {
+    "maxCalls": 2,
+    "maxReservedTokens": 50000
+  },
+  "historicallyConsumed": {
+    "calls": 1,
+    "reservedTokens": 8912
+  },
+  "lastConfiguredSeed": {
+    "maxCalls": 1,
+    "maxReservedTokens": 41088,
+    "actualRemainderVerified": false
+  },
+  "newHostedTinkerCalls": 0,
+  "proofChanged": false,
+  "localLedgerReset": false,
+  "trainingEvaluationAreSeparateNewAuthorizedWork": true,
+  "fundingIsNotReservationContinuity": true,
+  "requiredEvidence": "Complete owner receipts or actual cumulative ledger covering completed, failed, reserved and uncertain calls since the original allowance. No timestamp rewrite or allowance replenishment is permitted."
+}

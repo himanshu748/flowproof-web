@@ -1,0 +1,11 @@
+{
+  "route": "/api/projects/e38edce5-bd9c-4dee-b2c9-5fbea697e53b/audits",
+  "method": "POST",
+  "startedAt": "2026-10-18T14:52:55.171Z",
+  "status": 202,
+  "outcome": "response",
+  "writeOutcome": "response_received",
+  "storage": null,
+  "completedAt": "2026-10-18T14:52:55.971Z",
+  "durationMs": 799
+}

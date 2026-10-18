@@ -1,0 +1,22 @@
+{
+  "provider": "tinker",
+  "observedAt": "2026-10-18T14:48:36.253138+00:00",
+  "checkpoints": [
+    {
+      "checkpoint_id": "sampler_weights/flowproof-week2-alt-v2",
+      "checkpoint_type": "sampler",
+      "time": "2026-10-18T14:44:52.636542Z",
+      "tinker_path": "tinker://453dd287-1981-5d7f-a464-50fceadb6a32:train:0/sampler_weights/flowproof-week2-alt-v2",
+      "size_bytes": 145936229,
+      "expires_at": "2026-10-19T14:44:52.636445Z"
+    },
+    {
+      "checkpoint_id": "weights/flowproof-week2-alt-v2",
+      "checkpoint_type": "training",
+      "time": "2026-10-18T14:44:56.764362Z",
+      "tinker_path": "tinker://453dd287-1981-5d7f-a464-50fceadb6a32:train:0/weights/flowproof-week2-alt-v2",
+      "size_bytes": 437565045,
+      "expires_at": "2026-10-19T14:44:56.764272Z"
+    }
+  ]
+}

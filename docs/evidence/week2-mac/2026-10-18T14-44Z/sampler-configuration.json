@@ -1,0 +1,17 @@
+{
+  "appliedAt": "2026-10-18T15:03:03.198720+00:00",
+  "serviceId": "srv-db6r2egm7kps73b19hag",
+  "changedKeys": [
+    "TINKER_MODEL_PATH",
+    "BRIEFSTAMP_HOSTED_TINKER_ENABLED"
+  ],
+  "samplerMatchesTrainingReceipt": true,
+  "trainingReceipt": "eval/results/week2-alt-v2/training.json",
+  "samplerExpiresAt": "2026-10-19T14:44:49.636992+00:00",
+  "hostedTinkerEnabled": false,
+  "existingCredentialUnchanged": true,
+  "existingProofByteForByteUnchanged": true,
+  "allOtherEnvironmentValuesUnchanged": true,
+  "hostedRequestsMade": 0,
+  "reason": "Cannot establish original cumulative two-request remainder; configuring a new sampler does not replenish it."
+}

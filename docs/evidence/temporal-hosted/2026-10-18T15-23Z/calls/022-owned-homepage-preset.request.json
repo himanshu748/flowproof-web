@@ -1,0 +1,8 @@
+{
+  "route": "/api/projects/preset",
+  "method": "POST",
+  "body": {
+    "preset": "briefstamp-live"
+  },
+  "operatorAuthentication": false
+}

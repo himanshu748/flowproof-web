@@ -100,3 +100,42 @@ Manifest SHA-256: `62ca7d765967ecfc3aa075aed13a0d7342f8fc91031df4d2aac4b4aee1e6f
 ## October 18 follow-up preparation: not measured
 
 A separate [train-only follow-up](WEEK2_TINKER_RUNBOOK.md) is frozen with 48 independent synthetic training additions (108 training examples total) and the same byte-identical 24-example holdout. The historical results above remain intact. No new training, evaluation or hosted Tinker request has run during this preparation. Current promotional-grant verification is pending, and fetching the public tokenizer was stopped after a proxy `403 Forbidden`. No improvement or actual cost is claimed. The runbook records the bounded commands, one-LoRA restriction, current blockers, conditional per-handoff cost method and existing hosted reservation carry-forward requirements.
+
+## Week 2 train-only follow-up
+
+The original comparison above is retained unchanged. This separate follow-up reuses the same 24 frozen examples after observing aggregate category failures; it is development feedback, not an independent confirmatory test.
+
+| Measured property | Historical few-shot | Original LoRA | Follow-up LoRA |
+|---|---:|---:|---:|
+| Reference agreement | 23/24 (95.8%) | 22/24 (91.7%) | 24/24 (100.0%) |
+| image_alt agreement | 4/4 | 2/4 | 4/4 |
+| Inappropriate abstentions | 1 | 2 | 0 |
+| Input / output tokens | 16737 / 1410 | 5097 / 1398 | 5097 / 1402 |
+| Mean / median latency, seconds | 2.294 / 2.268 | 5.631 / 5.338 | 5.297 / 7.251 |
+| Correct browser pairs | 19/20 (95.0%) | 18/20 (90.0%) | 20/20 (100.0%) |
+| False passes / executed broken assertions | 0/19 (0.0%) | 0/18 (0.0%) | 0/20 (0.0%) |
+
+Conditional cost uses all inference requests in the numerator, including failures and abstentions. The denominator counts only reference-executable cases with both reference agreement and a correct healthy-pass/broken-fail browser pair.
+
+| Cost per successful synthetic handoff | Few-shot | Follow-up LoRA |
+|---|---:|---:|
+| Successful handoffs | 19 | 20 |
+| Inference token-price estimate, USD | 0.0003652768421052631578947368421 | 0.000154551 |
+| Including follow-up training estimate, USD | 0.0003652768421052631578947368421 | 0.001209198 |
+| Including training + measured storage estimate, USD | 0.0003652768421052631578947368421 | 0.001313394656071428571428571428 |
+| Actual attributable provider-billed inference, USD | Unavailable | Unavailable |
+
+Training: 108 examples, 28620 tokens, 109.224s; token-price estimate $0.02109294. Checkpoint expiry: `2026-10-19T14:44:49.636992+00:00`.
+
+Actual cost is conditional on provider billing becoming attributable to these requests. Public token prices × observed token IDs are estimates; grant use is not a zero-dollar provider cost. Training/storage are excluded from inference-only rows and included only where explicitly shown.
+
+Receipts:
+
+- few-shot: [model receipt](../eval/results/few-shot.json), [browser receipt](../eval/browser/few-shot/browser-evaluation.json); model SHA-256 `370dbeabbaf4ef09e8135e814deb972f6c5aa8bbd1b602654b0eb391c67b2454`.
+- original-lora: [model receipt](../eval/results/fine-tuned.json), [browser receipt](../eval/browser/fine-tuned/browser-evaluation.json); model SHA-256 `3243390b85f2590dc7e326c1d51a9546453e2b87f6a638fc7410103a21f4daf2`.
+- followup-lora: [model receipt](../eval/results/week2-alt-v2/fine-tuned.json), [browser receipt](../eval/browser/week2-alt-v2/browser-evaluation.json); model SHA-256 `0d46e354b19991cae6dd93f14b10fe388aee6d559570f7566af318e3fc4bd881`.
+
+- Zero human validation; synthetic paired fixtures are not real customer acceptance.
+- Follow-up selected after observing aggregate benchmark failures. Reusing this holdout is development feedback, not an independent confirmatory test.
+- Historical baselines were not rerun concurrently; latency can reflect provider load.
+- Actual provider-billed per-handoff cost remains unavailable without attributable billing evidence.

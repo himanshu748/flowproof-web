@@ -29,10 +29,13 @@ export function readOnlyClockFailure(receipt: any, mode: string) {
   );
 }
 
-export function storageFailureBeforeAgent(receipt: any) {
+export function storageFailureBeforeAgent(
+  receipt: any,
+  mode: "temporal" | "mastra" = "temporal",
+) {
   return (
     receipt?.status === "failed" &&
-    receipt.mode === "temporal" &&
+    receipt.mode === mode &&
     typeof receipt.error === "string" &&
     receipt.error.startsWith("Tiger did not confirm saved source evidence") &&
     receipt.proposedModelRequests === 1 &&

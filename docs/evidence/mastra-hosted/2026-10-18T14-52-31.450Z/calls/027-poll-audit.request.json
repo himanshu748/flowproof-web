@@ -1,0 +1,6 @@
+{
+  "route": "/api/audits/5c377c4a-4fba-4cb3-a03e-82aa202fab2e",
+  "method": "GET",
+  "body": null,
+  "operatorAuthentication": false
+}

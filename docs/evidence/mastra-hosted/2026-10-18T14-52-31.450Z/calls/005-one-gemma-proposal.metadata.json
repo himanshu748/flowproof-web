@@ -1,0 +1,11 @@
+{
+  "route": "/api/projects/e38edce5-bd9c-4dee-b2c9-5fbea697e53b/generate-gemma",
+  "method": "POST",
+  "startedAt": "2026-10-18T14:52:35.473Z",
+  "status": 200,
+  "outcome": "response",
+  "writeOutcome": "response_received",
+  "storage": null,
+  "completedAt": "2026-10-18T14:52:54.773Z",
+  "durationMs": 19300
+}

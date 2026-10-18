@@ -106,7 +106,6 @@ async function verify(
   beforeAgentFailure?: string,
 ) {
   assert(!(previousPreflight && beforeAgentFailure));
-  assert(!beforeAgentFailure || mode === "temporal");
   const rulesSource = !!beforeAgentFailure;
   const token = process.env.BRIEFSTAMP_HOSTED_OPERATOR_TOKEN;
   if (mode === "temporal")
@@ -184,16 +183,23 @@ async function verify(
     const bytes = await readFile(path.join(previousDirectory, "receipt.json"));
     const previous = JSON.parse(bytes.toString());
     assert(
-      storageFailureBeforeAgent(previous),
+      storageFailureBeforeAgent(previous, mode),
       "A dispatched or uncertain agent cannot continue",
     );
     const priorContinuation = JSON.parse(
-      await readFile(reservationPath + ".read-only-continuation.json", "utf8"),
+      await readFile(
+        mode === "temporal"
+          ? reservationPath + ".read-only-continuation.json"
+          : reservationPath,
+        "utf8",
+      ),
     );
     assert.equal(
       priorContinuation.directory,
       path.relative(process.cwd(), previousDirectory),
     );
+    if (mode === "mastra")
+      assert.equal(priorContinuation.startedAt, previous.startedAt);
     const audit = JSON.parse(
       await readFile(
         path.join(previousDirectory, "browser-audit.json"),

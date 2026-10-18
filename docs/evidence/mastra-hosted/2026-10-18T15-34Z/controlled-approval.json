@@ -1,0 +1,203 @@
+{
+  "actor": {
+    "actor": "automated controlled owner test",
+    "humanApproval": false,
+    "simulatedNativeEvidence": false
+  },
+  "project": {
+    "id": "b580b22b-b8ce-4807-92be-f07f6cef1ccd",
+    "name": "Forma Studio",
+    "brief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+    "target": "sample",
+    "url": "https://sample.flowproof.test/",
+    "sampleVariant": "broken",
+    "authorized": true,
+    "checks": [
+      {
+        "id": "b8993a3d-8db3-4755-a6fa-d1d5d274472e",
+        "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+        "kind": "heading",
+        "path": "/",
+        "expected": "Design that moves business forward.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "d95ec7af-32e4-4274-89a1-f77238814f48",
+        "requirement": "A contact link must say \"Start a project\".",
+        "kind": "link",
+        "path": "/",
+        "expected": "Start a project",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "a4d5c05b-7d67-4f20-b24c-3e47bbaec64f",
+        "requirement": "Every content image must have nonempty alternative text.",
+        "kind": "image_alt",
+        "path": "/",
+        "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "68729d77-890c-4270-9b89-30f13ccb1148",
+        "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+        "kind": "no_horizontal_overflow",
+        "path": "/",
+        "expected": "No horizontal scrolling",
+        "viewport": "mobile",
+        "approved": true
+      },
+      {
+        "id": "92c61aee-5cd3-4684-837a-4a4ae3d81d25",
+        "requirement": "The homepage must show \"Independent by design.\"",
+        "kind": "text_visible",
+        "path": "/",
+        "expected": "Independent by design.",
+        "viewport": "desktop",
+        "approved": true
+      },
+      {
+        "id": "2ec97405-1911-4988-9f04-33c66868ad3f",
+        "requirement": "The site should feel welcoming and trustworthy.",
+        "kind": "manual",
+        "path": "/",
+        "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+        "viewport": "desktop",
+        "approved": true
+      }
+    ],
+    "generator": {
+      "provider": "Google Gemma (live API)",
+      "model": "gemma-4-26b-a4b-it",
+      "usage": {
+        "promptTokens": 386,
+        "completionTokens": 292,
+        "totalTokens": 678
+      },
+      "attempts": [
+        {
+          "index": 1,
+          "status": 200,
+          "durationMs": 7148,
+          "requestBytes": 2158,
+          "retryDelayMs": 0,
+          "usage": {
+            "promptTokens": 386,
+            "completionTokens": 292,
+            "totalTokens": 678
+          },
+          "providerStatus": null
+        }
+      ],
+      "reason": "Fresh Gemma proposal for the fixed synthetic brief, validated by the server. 7149 ms. 386 input / 292 output tokens. Fixed templates describe the image and viewport predicates; quoted text stays exact. Review and approve every executable check."
+    },
+    "createdAt": "2026-10-18T15:34:10.023Z",
+    "updatedAt": "2026-10-18T15:34:34.589Z",
+    "approvalWorkflow": {
+      "provider": "Mastra",
+      "package": "@mastra/core",
+      "version": "1.77.0",
+      "workflowId": "briefstamp-explicit-approval",
+      "runId": "ee3b01ae-f5fc-47fb-80dc-67b3811268e8",
+      "status": "suspended",
+      "scope": "process-local",
+      "durable": false,
+      "maxRssMiB": 146.4,
+      "steps": [
+        {
+          "id": "propose-checks",
+          "status": "success"
+        },
+        {
+          "id": "validate-proposal",
+          "status": "success"
+        },
+        {
+          "id": "await-developer-approval",
+          "status": "suspended"
+        }
+      ],
+      "suspension": {
+        "reason": "Explicit developer approval is required before browser execution.",
+        "scope": "process-local",
+        "checks": [
+          {
+            "id": "b8993a3d-8db3-4755-a6fa-d1d5d274472e",
+            "requirement": "The homepage heading must say \"Design that moves business forward.\"",
+            "kind": "heading",
+            "path": "/",
+            "expected": "Design that moves business forward.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "d95ec7af-32e4-4274-89a1-f77238814f48",
+            "requirement": "A contact link must say \"Start a project\".",
+            "kind": "link",
+            "path": "/",
+            "expected": "Start a project",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "a4d5c05b-7d67-4f20-b24c-3e47bbaec64f",
+            "requirement": "Every content image must have nonempty alternative text.",
+            "kind": "image_alt",
+            "path": "/",
+            "expected": "Nonempty alternative text on every content image; description quality is outside this check",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "68729d77-890c-4270-9b89-30f13ccb1148",
+            "requirement": "The homepage must fit a 390px mobile screen without horizontal scrolling.",
+            "kind": "no_horizontal_overflow",
+            "path": "/",
+            "expected": "No horizontal scrolling",
+            "viewport": "mobile",
+            "approved": false
+          },
+          {
+            "id": "92c61aee-5cd3-4684-837a-4a4ae3d81d25",
+            "requirement": "The homepage must show \"Independent by design.\"",
+            "kind": "text_visible",
+            "path": "/",
+            "expected": "Independent by design.",
+            "viewport": "desktop",
+            "approved": false
+          },
+          {
+            "id": "2ec97405-1911-4988-9f04-33c66868ad3f",
+            "requirement": "The site should feel welcoming and trustworthy.",
+            "kind": "manual",
+            "path": "/",
+            "expected": "A person must review this requirement; no supported deterministic assertion covers it.",
+            "viewport": "desktop",
+            "approved": false
+          }
+        ],
+        "checkIds": [
+          "b8993a3d-8db3-4755-a6fa-d1d5d274472e",
+          "d95ec7af-32e4-4274-89a1-f77238814f48",
+          "a4d5c05b-7d67-4f20-b24c-3e47bbaec64f",
+          "68729d77-890c-4270-9b89-30f13ccb1148",
+          "92c61aee-5cd3-4684-837a-4a4ae3d81d25",
+          "2ec97405-1911-4988-9f04-33c66868ad3f"
+        ],
+        "planDigest": "b1e41ac04d977c708b03063a9adddc1c3248226e713993b690d27f90772f6a7b"
+      },
+      "lifecycle": [
+        {
+          "phase": "approval",
+          "status": "suspended",
+          "runId": "ee3b01ae-f5fc-47fb-80dc-67b3811268e8",
+          "snapshotSha256": "51e8619a568b7f87c91f0112b03d78e5447f5c90700bd15e549d0979b88804b8",
+          "workerMaxRssMiB": 146.4,
+          "workerExited": true
+        }
+      ]
+    }
+  }
+}

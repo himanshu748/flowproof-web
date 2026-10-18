@@ -1,0 +1,39 @@
+{
+  "id": "model-001-broken",
+  "projectId": "evaluation-1",
+  "projectName": "Offline model evaluation",
+  "status": "completed",
+  "createdAt": "2026-10-18T14:49:17.222Z",
+  "checks": [
+    {
+      "id": "model-1",
+      "requirement": "Visitors arriving on the homepage must encounter a heading reading \"Test Studio 01 builds better websites\".",
+      "kind": "heading",
+      "path": "/",
+      "expected": "Test Studio 01 builds better websites",
+      "viewport": "desktop",
+      "approved": true
+    }
+  ],
+  "results": [
+    {
+      "checkId": "model-1",
+      "requirement": "Visitors arriving on the homepage must encounter a heading reading \"Test Studio 01 builds better websites\".",
+      "kind": "heading",
+      "status": "failed",
+      "expected": "Test Studio 01 builds better websites",
+      "durationMs": 702,
+      "evidence": {
+        "observed": "No visible heading exactly matches the expected text.",
+        "dom": "No visible headings found.",
+        "screenshot": "/evidence/model-001-broken/01-model-1.png",
+        "url": "https://sample.flowproof.test/",
+        "viewport": {
+          "width": 1365,
+          "height": 900
+        }
+      }
+    }
+  ],
+  "completedAt": "2026-10-18T14:49:18.074Z"
+}

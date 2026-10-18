@@ -1,0 +1,13 @@
+
+> briefstamp@0.1.0 test
+> vitest run --no-file-parallelism
+
+
+ RUN  v4.1.11 <REPO>
+
+
+ Test Files  57 passed (57)
+      Tests  1461 passed (1461)
+   Start at  20:03:01
+   Duration  102.00s (transform 1.72s, setup 0ms, import 16.42s, tests 78.63s, environment 5ms)
+

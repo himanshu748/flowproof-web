@@ -1,0 +1,11 @@
+{
+  "route": "/api/projects/aebae091-8b75-40fd-980b-92d5fbf356d0/checks",
+  "method": "PUT",
+  "startedAt": "2026-10-18T15:44:40.578Z",
+  "status": 200,
+  "outcome": "response",
+  "writeOutcome": "response_received",
+  "storage": null,
+  "completedAt": "2026-10-18T15:44:40.870Z",
+  "durationMs": 292
+}

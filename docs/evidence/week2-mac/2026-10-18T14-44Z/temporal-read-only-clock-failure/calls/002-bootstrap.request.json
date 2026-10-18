@@ -1,0 +1,6 @@
+{
+  "route": "/api/bootstrap",
+  "method": "GET",
+  "body": null,
+  "operatorAuthentication": false
+}

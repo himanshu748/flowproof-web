@@ -1,0 +1,873 @@
+{
+  "startedAt": "2026-10-18T15:22:47.649Z",
+  "status": "verified",
+  "origin": "https://flowproof-demo.onrender.com",
+  "mode": "temporal",
+  "expectedSha": "1f1d0eb685152d7c0848f2f8587bbe8798791658",
+  "observedDeploymentSha": "1f1d0eb685152d7c0848f2f8587bbe8798791658",
+  "expectedShaVerified": true,
+  "source": {
+    "verifierSha256": "cf85138c399ade147892da5eb39575dadecbcf82395172dfa79ca4e0f690f596",
+    "sourceFiles": {
+      "server/demo.ts": "d82a4d809d1f378060e9af879b8695ef80897e942c6a7795c6bd1e5b8a4402d5",
+      "server/approval-workflow.ts": "1c4f3615bc21c296e1d9de6e30de859c21eda0c714c65f65e04d87badf4a410f",
+      "server/hosted-approval.ts": "dbf1c7e32a850d279345d697c77bbc2dedfb7632ef71991fb0187b7eb4003c2f",
+      "server/mastra-evidence-agent.ts": "bf928e86b1edf7f864437f85f72656dba9a1f4d8a3281574b1205ea2a013e2cf",
+      "server/hosted-temporal.ts": "b46f948c540f32ac55e7e3056de8f77cbdb67088a111acb091e5d99e17cb0e7f",
+      "shared/hosted-target.ts": "233bd18ae6d1435ef4aa1e1329bd2f70cbac4bf4762c9dc72a415e8923e91a6c"
+    }
+  },
+  "approval": {
+    "actor": "automated controlled owner test",
+    "humanApproval": false,
+    "simulatedNativeEvidence": false
+  },
+  "maximumProposalRouteCalls": 1,
+  "proposalSource": "deterministic fixed sample; no model proposal dispatched",
+  "maximumJudgeRouteCalls": 1,
+  "proposedModelRequests": 0,
+  "judgeRequests": 1,
+  "billingChanges": 0,
+  "readOnlyPreflightContinuation": {
+    "originalReceipt": "work/temporal-hosted/2026-10-18T14-54Z/receipt.json",
+    "originalReceiptSha256": "f885bff5af346d3a3fdb92e3966120c4c80107961f65dfec5a9a986144b075a8",
+    "originalReservationUnchanged": true,
+    "priorModelCalls": 1,
+    "priorJudgeCalls": 0,
+    "noProposalReplay": true,
+    "source": "New real Chromium source from deterministic fixed checks; prior successful Gemma/approval evidence retained separately"
+  },
+  "calls": [
+    {
+      "route": "/health",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:47.659Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:22:48.282Z",
+      "durationMs": 622
+    },
+    {
+      "route": "/api/bootstrap",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:48.283Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:22:48.560Z",
+      "durationMs": 277
+    },
+    {
+      "route": "/api/judge-agent/status",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:48.560Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:22:51.146Z",
+      "durationMs": 2585
+    },
+    {
+      "route": "/api/projects/5c062871-9bdb-47ab-b5ec-de8927f02805/variant",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:22:51.148Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:22:51.447Z",
+      "durationMs": 299
+    },
+    {
+      "route": "/api/projects/5c062871-9bdb-47ab-b5ec-de8927f02805/checks",
+      "method": "PUT",
+      "startedAt": "2026-10-18T15:22:51.448Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:22:51.637Z",
+      "durationMs": 189
+    },
+    {
+      "route": "/api/projects/5c062871-9bdb-47ab-b5ec-de8927f02805/audits",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:22:51.639Z",
+      "status": 202,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:22:51.784Z",
+      "durationMs": 144
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:52.786Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:22:53.049Z",
+      "durationMs": 261
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:54.051Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:22:54.228Z",
+      "durationMs": 176
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:55.230Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:22:55.545Z",
+      "durationMs": 314
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:56.548Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:22:56.747Z",
+      "durationMs": 197
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:57.749Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:22:57.933Z",
+      "durationMs": 183
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:22:58.937Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:22:59.146Z",
+      "durationMs": 208
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:00.147Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:00.347Z",
+      "durationMs": 199
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:01.348Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:01.557Z",
+      "durationMs": 209
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:02.560Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:02.688Z",
+      "durationMs": 127
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:03.691Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:03.944Z",
+      "durationMs": 252
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:04.946Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:05.249Z",
+      "durationMs": 303
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:06.252Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:06.550Z",
+      "durationMs": 297
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:07.552Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "memory",
+      "completedAt": "2026-10-18T15:23:07.691Z",
+      "durationMs": 138
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80/persistence",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:09.821Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:23:09.951Z",
+      "durationMs": 129
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:23:09.952Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "tiger",
+      "completedAt": "2026-10-18T15:23:10.328Z",
+      "durationMs": 376
+    },
+    {
+      "route": "/api/projects/preset",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:23:10.332Z",
+      "status": 201,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:23:10.573Z",
+      "durationMs": 240
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80/judge-review",
+      "method": "POST",
+      "startedAt": "2026-10-18T15:23:10.573Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "response_received",
+      "storage": null,
+      "completedAt": "2026-10-18T15:24:20.737Z",
+      "durationMs": 70164
+    },
+    {
+      "route": "/api/temporal-agent/current",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:24:20.743Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": null,
+      "completedAt": "2026-10-18T15:24:21.049Z",
+      "durationMs": 305
+    },
+    {
+      "route": "/api/audits/7bc436c0-42c3-4705-8a4b-3576b0747c80",
+      "method": "GET",
+      "startedAt": "2026-10-18T15:24:21.052Z",
+      "status": 200,
+      "outcome": "response",
+      "writeOutcome": "read_only",
+      "storage": "tiger",
+      "completedAt": "2026-10-18T15:24:21.424Z",
+      "durationMs": 370
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "calls/001-health.request.json",
+      "bytes": 95,
+      "sha256": "8561a4defd340c3905a27a0bc09f3494cc7bac2cd194df5cd98be3e91105ed99",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/001-health.response.json",
+      "bytes": 95,
+      "sha256": "42641630071e5e6f6637849052c6c5936b90ff1047d51c659a2080f3f9b3edf7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/001-health.metadata.json",
+      "bytes": 245,
+      "sha256": "c4ba9e1d53ed6d7433a43f809e69cd0685b2ef28c0b27aed8608e718d7e6134e",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.request.json",
+      "bytes": 102,
+      "sha256": "13fe9cf56174d8a33d9bba5b76ea402f46bd485fb74c7868100443c63a96c2cc",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.response.json",
+      "bytes": 10980,
+      "sha256": "fb6052e9613a6e4e90f3d699a112da1db79272864eb3e9b87c4a31249ffa2dbf",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/002-bootstrap.metadata.json",
+      "bytes": 252,
+      "sha256": "bc0010439374519c67305a4ff32f8e24c3d24bb27a1bf8f777de0a866f782537",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.request.json",
+      "bytes": 111,
+      "sha256": "047e5382efb312d5d3ce3433deff0dd52b59150d9e379bf382f68bcc9ee47fc2",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.response.json",
+      "bytes": 355,
+      "sha256": "e3895ebbf58078276baa732a3118e372a09e25786ae3720563225449a5a88627",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/003-funding-preflight.metadata.json",
+      "bytes": 262,
+      "sha256": "d92dfd5cf9d794068ac44005dc68526559fc725e22bd4025e6784f663c000033",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "funding-preflight.json",
+      "bytes": 423,
+      "sha256": "2d91a04af92de7a760ee5c28336ef5e82481272e861ff2e8459c0f442dcbfce9",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/004-broken-variant.request.json",
+      "bytes": 178,
+      "sha256": "fc96f543f85fe66f969052d6f581c5ddad262673b857a797e8291c0755c64dd0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/004-broken-variant.response.json",
+      "bytes": 2254,
+      "sha256": "e038b72cac94c7332b49c0f371bdb0ebc221443a177a4c01353c3e7743e680bf",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/004-broken-variant.metadata.json",
+      "bytes": 305,
+      "sha256": "ba0641707343e963c4a7ea2d36359de90bf761f19b77de2d7569fdaf07e8ec90",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "rules-plan.json",
+      "bytes": 2720,
+      "sha256": "1b9396431db56a74d4ffe7f359184a9002a903e14ae5e9a1899e1aca34071d1f",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/005-controlled-owner-approval.request.json",
+      "bytes": 2150,
+      "sha256": "6c8ae9b4efdf9ac736351865985b36b11ee1226704f0555dd8553f1fbc26d18e",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/005-controlled-owner-approval.response.json",
+      "bytes": 2248,
+      "sha256": "7f3dfa09c1ec5d8f87f11c662dd4d51fcd0dd002522647c391c824cb967d4585",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/005-controlled-owner-approval.metadata.json",
+      "bytes": 303,
+      "sha256": "eac7035d4fa7f1e5cd4f40bf9921cb4f1f2f6ff46f0faa42798c351e623462fb",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "controlled-approval.json",
+      "bytes": 3004,
+      "sha256": "b26e1884aa0041d01322f48c0cd8498d9aa2fe761d97df79e0d41c43dd4f6181",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/006-one-resume-browser-audit.request.json",
+      "bytes": 144,
+      "sha256": "cff06d1b2fa54de26d00ad2b302a3d300b7322db33366a6856f2031bbb08bc19",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/006-one-resume-browser-audit.response.json",
+      "bytes": 2292,
+      "sha256": "d5d5916733a38386b5057a91d4b6f5b12cb457319ae5ac9f6764d6b0353c3ce4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/006-one-resume-browser-audit.metadata.json",
+      "bytes": 304,
+      "sha256": "49ba0f0b42032f23dff3fa020732633e2d2f7a15cbd4bfdbe97cd6edce280e5b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/007-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/007-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "d5d5916733a38386b5057a91d4b6f5b12cb457319ae5ac9f6764d6b0353c3ce4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/007-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "c375de3218d060afa819628e85690bd97b14b6ebdb671cd5d27056a99c904428",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/008-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/008-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "d5d5916733a38386b5057a91d4b6f5b12cb457319ae5ac9f6764d6b0353c3ce4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/008-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "bcebeaf66198e5ff585e5ad1923f7fdeefa59b3cf78dc643f5b6c0e6d190af7e",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/009-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/009-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "d5d5916733a38386b5057a91d4b6f5b12cb457319ae5ac9f6764d6b0353c3ce4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/009-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "ae1d42308187afd7c2aade1f1e6a5a8b5d5eaabdfef0b1d6623259c5972e7b60",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/010-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/010-poll-audit.response.json",
+      "bytes": 2292,
+      "sha256": "d5d5916733a38386b5057a91d4b6f5b12cb457319ae5ac9f6764d6b0353c3ce4",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/010-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "dccd586adebedd92bfeedbecc295c1929e99e68a315560d368c63b9ad22d38c5",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/011-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/011-poll-audit.response.json",
+      "bytes": 2878,
+      "sha256": "e953df7be19112a86926d4ae0a9541f6ad02faf95b935cf9e22af550cf68c168",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/011-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "4e89849e6bae06df6f29f72fac5545668775db5708bb8c32621b85cc929a9758",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/012-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/012-poll-audit.response.json",
+      "bytes": 2878,
+      "sha256": "e953df7be19112a86926d4ae0a9541f6ad02faf95b935cf9e22af550cf68c168",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/012-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "1ead0d092af0ed507017781adae22ff0220e2b0654db7a7052606afad0025621",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/013-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/013-poll-audit.response.json",
+      "bytes": 3413,
+      "sha256": "f023103ef5945bae4dcac2c0eb0d927688501c7d33ffaf27e74f0a469e16e110",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/013-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "ad1d6469ab615179b4355c25301b15b3762042937ec4f15e657a1f05162bc006",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/014-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/014-poll-audit.response.json",
+      "bytes": 3413,
+      "sha256": "f023103ef5945bae4dcac2c0eb0d927688501c7d33ffaf27e74f0a469e16e110",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/014-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "d1164aaeb7f0f7cde1f803bfb89190f76c57e46873fad525ddb0a59a71e7f001",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/015-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/015-poll-audit.response.json",
+      "bytes": 3998,
+      "sha256": "a3a30a5e15e77e454f6b4a483e65c483ba3c36856b9012308c8e9b9363bf5411",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/015-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "007a9d59bfa565628ecf5362592c8d39fba2ba92c8bccc4032d4e2ba7101049f",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/016-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/016-poll-audit.response.json",
+      "bytes": 3998,
+      "sha256": "a3a30a5e15e77e454f6b4a483e65c483ba3c36856b9012308c8e9b9363bf5411",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/016-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "0134faf68a4d0083360fa680d78e6946f3f2e7be8602a7243e6cca03ae896b11",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/017-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/017-poll-audit.response.json",
+      "bytes": 4561,
+      "sha256": "5b02ff2c6ab852049787c2ef1f96a796c44dc284793b663ccdbb07e36d327ea6",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/017-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "7615a6d4625eaa2022468d88ce5bf57932121a0c547e37c212dd40537894a401",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/018-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/018-poll-audit.response.json",
+      "bytes": 4561,
+      "sha256": "5b02ff2c6ab852049787c2ef1f96a796c44dc284793b663ccdbb07e36d327ea6",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/018-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "0a5de93d2f293cb2bcca759536720ecfaf1dac11b2106a98c5c11e19dc9031b5",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/019-poll-audit.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/019-poll-audit.response.json",
+      "bytes": 5731,
+      "sha256": "bb797bd9b362843883d65fc708fab75cceb37b96b03139a9fe2556d080862be3",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/019-poll-audit.metadata.json",
+      "bytes": 290,
+      "sha256": "02a0cff4f8c56c4b3dfd0229f1768801ea79fbf34b861e6d386f591e4fc1df15",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "browser-audit.json",
+      "bytes": 7153,
+      "sha256": "c054c50c398b7b70348aa089f80b76cd187e37768c5adc6198c2772abca2d857",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "browser-1.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/7bc436c0-42c3-4705-8a4b-3576b0747c80/01-e5ec1a6c-6b52-40af-9b3d-9ebbd0242a67.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-2.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/7bc436c0-42c3-4705-8a4b-3576b0747c80/02-3c6a1e9a-84e4-4ddd-b458-ad4546a3a848.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-3.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/7bc436c0-42c3-4705-8a4b-3576b0747c80/03-9aabfe57-ae95-4327-b15e-fe637e54d940.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-4.png",
+      "bytes": 42917,
+      "sha256": "9155b191265b5300f0510b8a360b89ad3c2abcd95074873e53586b735b1d08a9",
+      "route": "/evidence/7bc436c0-42c3-4705-8a4b-3576b0747c80/04-ca50fa2c-d3c1-49ef-b6c5-aa5f31750cbf.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-5.png",
+      "bytes": 88756,
+      "sha256": "0bb54ce0ea7c70ad23de0a51687161e07f83deaac4c109c1b706749d5fd5f0a9",
+      "route": "/evidence/7bc436c0-42c3-4705-8a4b-3576b0747c80/05-3f8f46f5-4517-40cc-bec7-7e2308742004.png",
+      "observedHostedScreenshot": true
+    },
+    {
+      "file": "browser-report.html",
+      "bytes": 540353,
+      "sha256": "a8a8343946b188c1e20bde68c3c930e27bd6b1e0560d231df49b6f28d3d0281a",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/020-poll-tiger.request.json",
+      "bytes": 148,
+      "sha256": "d33b9461c6ca35cf607e8b593c8115147ebe1ee66fe5d647bae48c72eaec97f0",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/020-poll-tiger.response.json",
+      "bytes": 57,
+      "sha256": "3ec3f97c7f7388ed836f94bab60549d5733c10a9f8f70848a5a2fd99c9deefed",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/020-poll-tiger.metadata.json",
+      "bytes": 298,
+      "sha256": "102eca5d99442ce98c7acd4f4f1f8bcf616755455c63a0bd79a8592ad8d2d45b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/021-tiger-source-readback.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/021-tiger-source-readback.response.json",
+      "bytes": 5731,
+      "sha256": "4c3ae4eb2e7caafe2e8a5175f64a3fbfecb8c5f524bf80178106cdc40644dc11",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/021-tiger-source-readback.metadata.json",
+      "bytes": 289,
+      "sha256": "988e5f3a567c5b68bae6ec2130ea63e71c416942e34be8f3a1945f580736be80",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "source-audit.json",
+      "bytes": 7636,
+      "sha256": "312e420189e6ebe866606c9ef64dd4e817e37039475d863d64e35bc302db5938",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/022-owned-homepage-preset.request.json",
+      "bytes": 142,
+      "sha256": "e5d95a240c1dc4e91eb40a4a0f8221c9a326560463eb508e7fed2cc3923a106a",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/022-owned-homepage-preset.response.json",
+      "bytes": 2265,
+      "sha256": "d8d9b30f95b0bf2dd82ae8b01f9070c82d24aa67fdf7c5048f786f9183421a60",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/022-owned-homepage-preset.metadata.json",
+      "bytes": 267,
+      "sha256": "e0cb6bc93f7a13bf63cdee0ece20459bd0e327fe6bfa69eb16ebfc82e462b8f8",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/023-one-judge-review.request.json",
+      "bytes": 239,
+      "sha256": "e431e776e7b00dc2f3e9d9b982190f425129c7bf87705af4e2f9bce508adc5d9",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/023-one-judge-review.response.json",
+      "bytes": 13252,
+      "sha256": "9ac03673ef063589b348c581839c276b44143b3eb5e4dd695517df4818e176a8",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/023-one-judge-review.metadata.json",
+      "bytes": 310,
+      "sha256": "b78a5578d612ec0e4fa2231c7017d67a509a53f7179a4cfdd4751dc1619c3a9e",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "agent-run.json",
+      "bytes": 18654,
+      "sha256": "b81a797ad8748214d29c00c69baefdbdfb26a5027eaead2cd56d02cbf2e59810",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/024-final-temporal-readback.request.json",
+      "bytes": 115,
+      "sha256": "7c2fbc6ab5b0333894f32cfe03c0a3afb61b9788f471f03ff317f58ffc513080",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/024-final-temporal-readback.response.json",
+      "bytes": 2139,
+      "sha256": "46967c3592c74d0fdc8c4d1b683bae52a4d6a5ec58f2d46dc50a6711c58f8efd",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/024-final-temporal-readback.metadata.json",
+      "bytes": 265,
+      "sha256": "36ed98ef81bf33e1fee5b8608f27365a23dd83fad67fa4258e37656151afdb6b",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "temporal-progress.json",
+      "bytes": 2954,
+      "sha256": "591d9b4e0120f26bb472b6f5e0108d34bce464125ac7a5a9a2adb19af7ca1048",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "usage-and-citations.json",
+      "bytes": 5022,
+      "sha256": "8c0da58ff6037d42e6ad605b90a39358308bd7d1236680f705bac57f204f82c6",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/025-source-unchanged-readback.request.json",
+      "bytes": 136,
+      "sha256": "b2202ba2b3306a71c493f2349ca1871f9b6be903a9c12e99ec3e252f8d9703c7",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/025-source-unchanged-readback.response.json",
+      "bytes": 5731,
+      "sha256": "4c3ae4eb2e7caafe2e8a5175f64a3fbfecb8c5f524bf80178106cdc40644dc11",
+      "operatorTokenRedacted": false
+    },
+    {
+      "file": "calls/025-source-unchanged-readback.metadata.json",
+      "bytes": 289,
+      "sha256": "e9a2b42c25f2dc1a70f3e41e46d5248b411eaa285159f719409ec6126b104914",
+      "operatorTokenRedacted": false
+    }
+  ],
+  "limitations": [
+    "Controlled automated owner approval is not a visitor or customer approval.",
+    "One proposal route may use the server's existing bounded provider attempts; the verifier never retries it.",
+    "Worker recovery does not prove recovery after Render ephemeral-disk loss.",
+    "No credential, account, billing, grant, quota or deployment configuration is changed by this verifier."
+  ],
+  "browserCounts": {
+    "passed": 2,
+    "failed": 3,
+    "blocked": 0,
+    "unverified": 1
+  },
+  "sourceAuditUnchanged": true,
+  "sourceAuditSha256": "bb797bd9b362843883d65fc708fab75cceb37b96b03139a9fe2556d080862be3",
+  "completedAt": "2026-10-18T15:24:21.425Z"
+}

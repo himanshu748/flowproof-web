@@ -1,0 +1,10 @@
+{
+  "observedAt": "2026-10-18T14:45:55Z",
+  "source": "Authenticated Tinker billing balance UI",
+  "balanceUsd": "9.15",
+  "autoReloadEnabled": false,
+  "previousBalanceUsd": "9.18",
+  "displayedAccountDeltaUsd": "0.03",
+  "attribution": "Rounded account movement includes concurrent existing checkpoint storage; not an attributable finalized training invoice.",
+  "evaluationFundingRechecked": true
+}
