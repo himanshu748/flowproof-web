@@ -4,6 +4,16 @@
 
 One new LoRA and the unchanged 24-case evaluation completed. Actual hosted Temporal retry/worker resumption completed on the existing free Render service. Actual hosted Mastra approval/Chromium completed on the first attempt, but its persistence validation failed; the strict receipt-schema fix is deployed, but a second native source save still failed. Its actual receipt passes offline validation and a read-only database inspection confirmed the row is absent. A separately bounded Mastra agent reached both real tools but its summary provider call returned HTTP 500; no retry followed. **The requested fresh hosted Tinker proposal remains blocked by an unverified cumulative two-request ledger.** It has not been replaced with local evidence. `docs/DEV_POST.md` and the DEV post remain untouched.
 
+[Complete actual-artifact inventory and hashes](evidence/week2-mac/2026-10-18T14-44Z/artifact-manifest.json).
+
+### Final runtime and anonymous verification
+
+Runtime commit **`62c3804e2af253655d558a41db55768bec869182`** passed [CI 39142358961](https://github.com/himanshu748/flowproof-web/actions/runs/39142358961): **1,467 TypeScript tests / 58 files**, **27 Python tests**, full production build, compiled public runtime and sample audits. Render deployment **`dep-dbaeo7uq1p3s73bd25kg`** became live at **15:58:01 UTC** on the unchanged free 512 MiB plan. [CI/deployment record](evidence/week2-mac/2026-10-18T14-44Z/final-ci-deployment.json), [anonymous health/bootstrap/funding readback](evidence/week2-mac/2026-10-18T14-44Z/final-runtime-verification.json).
+
+The actual anonymous final browser flow on that source approved the fixed sample and produced **5 passed, 0 failed, 0 blocked, 1 manual unverified**. The new Review open items action selected the manual requirement correctly. [Final hosted screenshot](evidence/saas-review/2026-10-18/09-final-hosted-results.png), [DOM-backed source ID, readiness and viewport record](evidence/saas-review/2026-10-18/final-hosted-visible.json). The final narrow viewport was 546 px; the 390 px local check and earlier wide screenshots remain separately identified. A requested desktop override did not change the actual final browser width; no desktop recheck at an invented width is claimed.
+
+The final readback retained **6/100** judge reservations consumed and **94 remaining**, normal Temporal engine selected, controlled recovery disabled, native Mastra approval enabled and Tinker disabled. No further provider inference was performed for final verification. The subsequent publication commit adds only these receipt/documentation updates; runtime code is unchanged.
+
 ### Tinker measured result
 
 | Measurement | New LoRA | Comparison / scope |

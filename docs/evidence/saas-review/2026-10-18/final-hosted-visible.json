@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "62c3804e2af253655d558a41db55768bec869182",
+  "anonymous": true,
+  "providerInferenceRequests": 0,
+  "auditId": "661fce3f-1f75-4b24-922b-3f0cbec418e6",
+  "readiness": "REVIEW BEFORE HANDOFF\n1 item needs your attention.\n\n5 of 6 checks passed. 1 still needs a person’s review. The report keeps these outcomes visible.\n\nReview open items",
+  "text": "Skip to content\nDelivery review\nPublic demo\nME\nPublic demo\n30-minute workspace. No private client data.\nDELIVERY WORKSPACE\nYour delivery review\n\nSee what is verified, resolve open items, then export the client report.\n\nExport delivery report\nWebsite review\nForma Studio · 18 Oct · completed · c418e6\nCompleted\nREVIEW BEFORE HANDOFF\n1 item needs your attention.\n\n5 of 6 checks passed. 1 still needs a person’s review. The report keeps these outcomes visible.\n\nReview open items\nForma Studio\n\n18 Oct\n·\n6 planned checks\n·\nbec418e6\n\n5\nPassed\n0\nFailed\n0\nBlocked\n1\nUnverified\nHow this review was produced\nSaved review & retention details\nAll Checks\nPassed\nFailed\nBlocked\nUnverified\n6 recorded results\nREQ-01\nDesktop\nThe homepage heading must say \"Design that moves business forward.\"\nPassed\nREQ-02\nDesktop\nA contact link must say \"Start a project\".\nPassed\nREQ-03\nDesktop\nEvery content image must have nonempty alternative text.\nPassed\nREQ-04\nMobile\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nPassed\nREQ-05\nDesktop\nThe homepage must show \"Independent by design.\"\nPassed\nREQ-06\nDesktop\nThe site should feel welcoming and trustworthy.\nUnverified\nCaptured evidence\nPassed\nhttps://sample.flowproof.test/\n1365 × 900\nEXPECTED RESULT\n\nDesign that moves business forward.\n\nOBSERVED IN THE BROWSER\n\nThe expected heading is visible.\n\n3503 ms\nheading\nView captured DOM evidence\nCompare with an earlier review\n\nOnly observed outcomes are counted. Unavailable, blocked, and manual checks are never marked as passed.",
+  "viewport": {
+    "documentWidth": 546,
+    "height": 827,
+    "width": 546
+  }
+}

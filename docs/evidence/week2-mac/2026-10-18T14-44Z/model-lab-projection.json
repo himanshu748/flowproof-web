@@ -1,0 +1,15 @@
+{
+  "verifiedAt": "2026-10-18T15:56:15.506919+00:00",
+  "sourceCommit": "62c3804e2af253655d558a41db55768bec869182",
+  "scope": "Offline projection from clean committed eval directory, zero new inference",
+  "lora": {
+    "heldout": 24,
+    "referenceAgreement": 24,
+    "browserPairsCompleted": 20,
+    "falsePasses": 0,
+    "inappropriateAbstentions": 0,
+    "tokens": 6499,
+    "meanLatencyMs": 5296.921170083351
+  },
+  "otherRows": "Missing same-manifest zero/few-shot runs remain unevaluated; old comparisons are preserved separately in MODEL_RESULTS."
+}

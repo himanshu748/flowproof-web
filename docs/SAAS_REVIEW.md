@@ -16,6 +16,8 @@ The landing page communicates a useful freelancer/agency handoff product. The wo
 
 6. **Hosted recheck — real anonymous flow.** `06-review-hosted-after.png` shows the compact target option on the deployed source; `07-results-hosted-after.png` is an actual healthy run (5 passed, 1 unverified) and exposed an intermediate-width wrapping defect. `08-tablet-local-after.png` verifies its subsequent CSS fix at the same narrow width. The earlier 07 screenshot is retained as failure evidence, not the final layout.
 
+7. **Final hosted recheck — passed within demo scope.** `09-final-hosted-results.png` and `final-hosted-visible.json`: exact runtime `62c3804`, 5 passed / 1 manual unverified; open-item action selected the real manual requirement. The final actual viewport was 546 px and no horizontal overflow occurred. The requested desktop override did not apply; earlier wide screenshots are retained separately.
+
 ## Changes made
 
 - Delivery review replaces Audit monitor in the primary result experience.

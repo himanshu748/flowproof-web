@@ -1,0 +1,109 @@
+{
+  "recordedAt": "2026-10-18T16:00:06.358570+00:00",
+  "anonymous": true,
+  "providerInferenceRequests": 0,
+  "calls": [
+    {
+      "route": "/health",
+      "status": 200,
+      "sha256": "157ba7a03262c82e5a9bc9fb912a169a3a3f57f2ecaf16226ddf966b6ae702ee"
+    },
+    {
+      "route": "/api/bootstrap",
+      "status": 200,
+      "sha256": "82a0895abb0b1d64784d9151c25b649f7102cc11aaf698fa39bb9ddbfab46fd9"
+    },
+    {
+      "route": "/api/judge-agent/status",
+      "status": 200,
+      "sha256": "b57d97d4baf57a439a21491a00808aa05638e54383e1a3b5c1dc153e56416dca"
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "service": "flowproof",
+    "sourceCommit": "62c3804e2af253655d558a41db55768bec869182"
+  },
+  "modelLab": [
+    {
+      "name": "Qwen3.5-4B \u00b7 zero-shot",
+      "status": "Not evaluated",
+      "structuredOutputRate": null,
+      "interpretationAccuracy": null,
+      "executableCorrectness": null,
+      "falsePassRate": null,
+      "abstentionRate": null,
+      "latencyMs": null,
+      "tokens": null
+    },
+    {
+      "name": "Qwen3.5-4B \u00b7 few-shot",
+      "status": "Not evaluated",
+      "structuredOutputRate": null,
+      "interpretationAccuracy": null,
+      "executableCorrectness": null,
+      "falsePassRate": null,
+      "abstentionRate": null,
+      "latencyMs": null,
+      "tokens": null
+    },
+    {
+      "name": "Tinker LoRA \u00b7 Qwen3.5-4B",
+      "status": "24 heldout requirements \u00b7 20/20 browser pairs completed",
+      "structuredOutputRate": 1,
+      "interpretationAccuracy": 1,
+      "executableCorrectness": 1,
+      "falsePassRate": 0,
+      "abstentionRate": 1,
+      "latencyMs": 5296.921170083351,
+      "tokens": 6499,
+      "browserCounts": {
+        "malformed": 0,
+        "blockedPairs": 0,
+        "unverifiedPairs": 0,
+        "inappropriateAbstentions": 0,
+        "brokenExecuted": 20,
+        "brokenFalsePasses": 0
+      }
+    }
+  ],
+  "demo": {
+    "enabled": true,
+    "expiresMinutes": 30,
+    "judgeAgent": {
+      "available": true,
+      "maximumRuns": 12,
+      "sampleBrief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+      "description": "Review the fixed sample checks, run Chromium, then let Gemma choose Tiger history and the owned homepage's SerpApi search. Live calls require consent and a separately capped, durable free allowance."
+    },
+    "notice": "Choose the synthetic sample or the owner's fixed live homepage. Your isolated session expires after 30 minutes and may reset when the free service restarts. Download reports before leaving. Do not enter private client information.",
+    "gemma": {
+      "available": true,
+      "model": "gemma-4-26b-a4b-it",
+      "sampleBrief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+      "description": "Generate checks for the server-selected sample or live homepage brief with Google-hosted Gemma. Free-tier inputs may be used to improve Google's products. No client information is sent."
+    },
+    "tinker": {
+      "available": false,
+      "model": "Qwen/Qwen3.5-4B",
+      "sampleBrief": "The homepage heading must say \"Design that moves business forward.\"\nA contact link must say \"Start a project\".\nEvery content image must have nonempty alternative text.\nThe homepage must fit a 390px mobile screen without horizontal scrolling.\nThe homepage must show \"Independent by design.\"\nThe site should feel welcoming and trustworthy.",
+      "description": "Protected trained sampler generation for the fixed synthetic sample. An operator token and fresh free-only allowance are required. Proposals remain unapproved; recorded benchmark metrics are separate."
+    }
+  },
+  "judgeStatus": {
+    "available": true,
+    "engine": "temporal",
+    "budget": {
+      "maximumRuns": 100,
+      "usedRuns": 6,
+      "remainingRuns": 94,
+      "visitorUsed": false
+    },
+    "expiresAt": "2026-10-20T00:00:00.000Z",
+    "funding": {
+      "confirmedFree": true,
+      "checkedAt": "2026-10-18T16:00:08.371Z"
+    },
+    "proofUrl": "https://github.com/himanshu748/flowproof-web/tree/main/docs/evidence/hosted-evidence-agent/2026-10-16T12-14-14Z"
+  }
+}
