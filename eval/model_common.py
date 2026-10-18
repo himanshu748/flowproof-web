@@ -13,6 +13,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MODEL = 'Qwen/Qwen3.5-4B'
+# Frozen from the original completed comparison, not a newly downloaded default.
+# Transformers can construct a 33-special-token fallback from an incomplete
+# cache. That silently undercounts the reservation and invalidates comparison.
+TOKENIZER_FINGERPRINT = {
+    'model': MODEL, 'class': 'Qwen3_5Tokenizer',
+    'chatTemplateSha256': 'a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715',
+    'vocabularySha256': '365c2d8a0c0e72d4bcc5dbc6c2e9330a87dae7ffc77e9fcd9d65739f4d16bfff',
+    'enableThinking': False, 'eosTokenId': 248046,
+}
 PROMPT = ('Convert one client website requirement to JSON with exactly a checks array. Each check has exactly requirement (copy the whole input), kind, path, expected, viewport. '
           'Kinds: text_visible, heading, link, image_alt, no_horizontal_overflow, manual. Use path /, viewport desktop or mobile (390px). '
           'For text_visible, heading, link, expected is literal client text. For image_alt expected is "Nonempty alternative text on every content image; description quality needs human review". '
@@ -279,6 +288,8 @@ def load_tokenizer():
     tokenizer = AutoTokenizer.from_pretrained(MODEL, local_files_only=True, trust_remote_code=False)
     if not tokenizer.chat_template or tokenizer.eos_token_id is None:
         raise ValueError('Exact model tokenizer must provide a chat template and EOS')
+    if tokenizer_metadata(tokenizer) != TOKENIZER_FINGERPRINT:
+        raise ValueError('Cached tokenizer differs from the frozen comparison; complete and verify tokenizer assets before reserving provider work')
     return tokenizer
 
 

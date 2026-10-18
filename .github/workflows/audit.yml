@@ -23,7 +23,10 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test
       - name: Offline model provenance and budget safeguards
-        run: python3 -m unittest discover -s eval -p 'test_*.py'
+        run: |
+          python3 -m venv /tmp/briefstamp-model-tests
+          /tmp/briefstamp-model-tests/bin/pip install -r eval/requirements.txt
+          /tmp/briefstamp-model-tests/bin/python -m unittest discover -s eval -p 'test_*.py'
       - run: npm run build
       - name: Real isolated Mastra Agent with retained provider fixtures
         run: node --import tsx scripts/verify-mastra-agent-runtime.ts --run-offline

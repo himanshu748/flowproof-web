@@ -10,6 +10,7 @@ from model_common import (ROOT, MODEL, PROMPT, read_manifest, permit_tinker,
     parse_plan, semantic_match, load_tokenizer, tokenizer_metadata, prompt_tokens,
     base_receipt, package_versions, verify_training_receipt, reserve_budget,
     record_budget, write_json, now, relative_path)
+from tinker_dispatch import install_single_dispatch_policy
 
 
 def main():
@@ -65,6 +66,7 @@ def main():
         'budgetReservationId': reservation['id'], 'reservedCostUsd': reservation['reservedCostUsd'],
         'tokenUpperBounds': token_bounds, 'tokenUsageBasis': 'SDK input and generated token IDs; not provider billing usage.',
         'samplingOperationReplays': False,
+        'dispatchPolicy': 'pinned-0.32.0-single-dispatch', 'transportHttpRetries': False,
         'measurements': [], 'limitations': ['Reference-field agreement is an automated proxy for interpretation accuracy.', 'Browser metrics require the separately linked paired-fixture execution receipt.'] + (['Agent-reviewed synthetic pilot; zero human validation and no real-client generalization claim.'] if manifest['benchmarkMode'] == 'agent-reviewed-pilot' else []),
     }
     write_json(args.output, receipt)
@@ -72,6 +74,7 @@ def main():
     started = time.perf_counter()
     try:
         import tinker
+        install_single_dispatch_policy()
         from tinker.lib.retry_handler import RetryConfig
         service = tinker.ServiceClient()
         supported = [item.model_name for item in service.get_server_capabilities().supported_models]

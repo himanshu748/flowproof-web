@@ -6,11 +6,30 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import Mock, patch
+from types import SimpleNamespace
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from model_common import (ROOT, MODEL, parse_plan, read_dataset, create_manifest,
     read_manifest, reserve_budget, record_budget, verify_training_receipt,
-    write_json, now, sha256_file)
+    write_json, now, sha256_file, load_tokenizer, TOKENIZER_FINGERPRINT)
+
+
+class TokenizerControls(unittest.TestCase):
+    def test_incomplete_cache_cannot_reserve_from_special_tokens_only(self):
+        fallback = SimpleNamespace(chat_template='valid-looking template',
+            eos_token_id=2, get_vocab=lambda: {'<eos>': 2})
+        loader = Mock(return_value=fallback)
+        with patch.dict(sys.modules, {'transformers': SimpleNamespace(
+                AutoTokenizer=SimpleNamespace(from_pretrained=loader))}):
+            with self.assertRaisesRegex(ValueError, 'frozen comparison'):
+                load_tokenizer()
+        self.assertTrue(loader.call_args.kwargs['local_files_only'])
+        self.assertFalse(loader.call_args.kwargs['trust_remote_code'])
+
+    def test_fingerprint_preserves_original_completed_comparison(self):
+        historical = json.loads((ROOT / 'eval/results/training.json').read_text())
+        self.assertEqual(TOKENIZER_FINGERPRINT, historical['tokenizer'])
 
 
 def dataset_module():

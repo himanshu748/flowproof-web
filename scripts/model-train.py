@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'eval'))
 from model_common import (ROOT, MODEL, read_manifest, permit_tinker, load_tokenizer,
     training_tokens, tokenizer_metadata, base_receipt, package_versions,
     reserve_budget, record_budget, write_json, now)
+from tinker_dispatch import install_single_dispatch_policy
 
 
 def main():
@@ -44,11 +45,13 @@ def main():
         'trainingTokens': 0, 'tokenUsageBasis': 'SDK input token IDs submitted per completed forward/backward operation; not provider billing usage.',
         'tokenizer': tokenizer_metadata(tokenizer), 'packages': package_versions(),
         'checkpointTtlSeconds': 86400, 'steps': [], 'limitations': ['Agent review is not human validation.'] if manifest['benchmarkMode'] == 'agent-reviewed-pilot' else [],
+        'dispatchPolicy': 'pinned-0.32.0-single-dispatch', 'transportHttpRetries': False,
     }
     write_json(args.output, receipt)
     started = time.perf_counter()
     try:
         import tinker
+        install_single_dispatch_policy()
         data = [tinker.Datum(model_input=tinker.ModelInput.from_ints(inputs), loss_fn_inputs={'target_tokens': targets, 'weights': weights}) for inputs, targets, weights in encoded]
         service = tinker.ServiceClient()
         supported = [item.model_name for item in service.get_server_capabilities().supported_models]
